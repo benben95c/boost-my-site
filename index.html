@@ -223,13 +223,13 @@
     <!-- HERO -->
     <section class="hero container">
       <h1 id="heroTitle">
-        <div class="reveal-text-line"><span>L'Architecture du</span></div>
-        <div class="reveal-text-line"><span class="text-gradient-animated">Succès Digital</span></div>
+        <div class="reveal-text-line"><span>Le Site Web qui</span></div>
+        <div class="reveal-text-line"><span class="text-gradient-animated">Propulse votre Commerce</span></div>
       </h1>
-      <p id="heroSub">Au-delà de la création de sites internet, je conçois des systèmes d'acquisition massifs : Plateformes SaaS, Interfaces Premium, et intégrations Web3/IA avancées.</p>
+      <p id="heroSub">Fini les sites invisibles. Je conçois des systèmes d'acquisition de clients pour les artisans et entrepreneurs : Performance d'élite, SEO local surpuissant et design premium.</p>
       
       <div class="hero-actions" id="heroActions">
-        <a href="#contact" class="btn btn-gradient magnetic" style="padding: 16px 32px; font-size: 16px;">Créer votre Ecosystème</a>
+        <a href="#contact" class="btn btn-gradient magnetic" style="padding: 16px 32px; font-size: 16px;">Propulser mon business 🚀</a>
         <a href="portfolio.html" class="btn btn-outline magnetic page-link" style="padding: 16px 32px; font-size: 16px;">Voir les Études de Cas</a>
       </div>
 
@@ -288,13 +288,13 @@
     <!-- BENTO GRID -->
     <section id="expertises" class="section container">
       <div class="section-header" id="bentoHeader">
-        <h2>Expertise Technique</h2>
-        <p>Des fondations Next.js à l'intégration d'algorithmes et de contrats intelligents.</p>
+        <h2>Des Technologies d'Élite pour votre Croissance</h2>
+        <p>Pourquoi choisir un expert ? Parce qu'un site qui charge en 1 seconde transforme 3x plus de visiteurs en clients.</p>
       </div>
       <div class="bento-grid">
         <div class="bento-item glass-panel tilt-card bento-large bento-reveal">
-          <h3 style="font-size: 24px; margin-bottom: 12px;">SaaS, Full-Stack, IA & Web3</h3>
-          <p style="color: var(--text-secondary);">Fondateur de <strong>devis-ai.fr</strong> et <strong>cgascrypto.com</strong>. L'ingénierie web ne se résume pas à du texte sur une page. Je conçois des générateurs IA, des interactions Smart Contracts et des Dashboards complets.</p>
+          <h3 style="font-size: 24px; margin-bottom: 12px;">Ingénierie & Performance</h3>
+          <p style="color: var(--text-secondary);">Fondateur de <strong>devis-ai.fr</strong> et <strong>cgascrypto.com</strong>. J'utilise les mêmes outils que les plus grandes startups pour donner à votre commerce un avantage déloyal sur vos concurrents locaux.</p>
         </div>
         <div class="bento-item glass-panel tilt-card bento-reveal">
           <h3 style="font-size: 24px; margin-bottom: 12px;">Next.js & React</h3>
@@ -308,6 +308,31 @@
         <div class="bento-item glass-panel tilt-card bento-large bento-reveal">
           <h3 style="font-size: 24px; margin-bottom: 12px;">Référencement (SEO) Poids Lourd</h3>
           <p style="color: var(--text-secondary);">De l'architecture Silo au rendu côté serveur (SSR), votre code est structuré pour que Google vous adore dès le premier jour.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section id="methode" class="section container">
+      <div class="section-header center">
+        <span style="color: var(--accent-cyan); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 14px;">Ma Méthode</span>
+        <h2>Un projet lancé en <span class="text-gradient">3 étapes simples</span></h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px;">
+        <div class="glass-panel bento-reveal" style="padding: 40px; position: relative;">
+          <div style="font-size: 40px; margin-bottom: 20px; opacity: 0.5;">01</div>
+          <h3 style="font-size: 22px; margin-bottom: 12px;">Échange & Stratégie</h3>
+          <p style="color: var(--text-secondary);">On définit ensemble vos objectifs : plus d'appels, plus de réservations ou simplement une image de marque forte.</p>
+        </div>
+        <div class="glass-panel bento-reveal" style="padding: 40px; border-color: var(--accent-purple);">
+          <div style="font-size: 40px; margin-bottom: 20px; opacity: 0.5;">02</div>
+          <h3 style="font-size: 22px; margin-bottom: 12px;">Conception Flash</h3>
+          <p style="color: var(--text-secondary);">Je construis votre site sur-mesure avec les technologies les plus rapides du marché. Livraison entre 48h et 1 semaine.</p>
+        </div>
+        <div class="glass-panel bento-reveal" style="padding: 40px;">
+          <div style="font-size: 40px; margin-bottom: 20px; opacity: 0.5;">03</div>
+          <h3 style="font-size: 22px; margin-bottom: 12px;">Mise en orbite</h3>
+          <p style="color: var(--text-secondary);">Votre site est en ligne. Je m'occupe de l'optimisation Google pour que vos futurs clients vous trouvent immédiatement.</p>
         </div>
       </div>
     </section>
@@ -515,6 +540,21 @@
   <div class="sticky-cta" id="stickyCta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
     <div class="pulse-dot"></div>
     <span>Lancer mon projet 🚀</span>
+  </div>
+
+  <!-- WELCOME POPUP -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="welcome-popup">
+      <div class="popup-close" onclick="closePopup()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </div>
+      <div class="popup-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+      </div>
+      <h2>Propulsez votre marque aujourd'hui</h2>
+      <p>Transformez votre vision en un site web d'élite. Prêt à dominer votre marché ?</p>
+      <button class="btn btn-gradient magnetic" style="width: 100%;" onclick="closePopup(); document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Démarrer mon projet 🚀</button>
+    </div>
   </div>
 
   <script>
@@ -1005,6 +1045,16 @@
         stickyCta.classList.remove('visible');
       }
     });
+
+    // ===== 16. WELCOME POPUP LOGIC =====
+    const popupOverlay = document.getElementById('popupOverlay');
+    window.closePopup = () => {
+      popupOverlay.classList.remove('active');
+    };
+
+    setTimeout(() => {
+      popupOverlay.classList.add('active');
+    }, 2500);
 
     document.getElementById("year").textContent = new Date().getFullYear();
   })();
