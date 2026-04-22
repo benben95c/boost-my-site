@@ -468,7 +468,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             Livraison estimée : <span id="config-days">3</span> jours
           </div>
-          <button class="btn btn-gradient magnetic" style="width: 100%; justify-content: center;" id="btn-reserve-custom">Réserver ce pack</button>
+          <button class="btn btn-gradient magnetic" style="width: 100%; justify-content: center;" id="btn-reserve-custom">Lancer mon projet 🚀</button>
           <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 16px;">Paiement 50% à la commande, 50% à la livraison.</p>
         </div>
       </div>
@@ -514,7 +514,7 @@
   <!-- STICKY CTA -->
   <div class="sticky-cta" id="stickyCta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
     <div class="pulse-dot"></div>
-    <span>Commander un site</span>
+    <span>Lancer mon projet 🚀</span>
   </div>
 
   <script>
@@ -943,30 +943,41 @@
       smartBtn.style.opacity = '0.7';
 
       setTimeout(() => {
-        // Simple keyword logic for simulation
-        if (text.includes('blog') || text.includes('article') || text.includes('actualité')) {
-          if (!document.getElementById('feat-blog').classList.contains('active')) document.getElementById('feat-blog').click();
+        // Advanced keyword logic
+        const needs = {
+          blog: ['blog', 'article', 'actualité', 'rédaction', 'contenu', 'écrire'],
+          booking: ['réserv', 'rendez-vous', 'rdv', 'calendly', 'booking', 'coach', 'séance', 'planning'],
+          lang: ['anglais', 'langue', 'traduction', 'multilingue', 'international', 'english'],
+          seo: ['seo', 'google', 'référencement', 'visibilité', 'client', 'trouver', 'premier', 'rang', 'notoriété']
+        };
+
+        let found = false;
+        if (needs.blog.some(k => text.includes(k))) {
+          if (!document.getElementById('feat-blog').classList.contains('active')) { document.getElementById('feat-blog').click(); found = true; }
         }
-        if (text.includes('réserv') || text.includes('rendez-vous') || text.includes('rdv') || text.includes('calendly') || text.includes('booking')) {
-          if (!document.getElementById('feat-booking').classList.contains('active')) document.getElementById('feat-booking').click();
+        if (needs.booking.some(k => text.includes(k))) {
+          if (!document.getElementById('feat-booking').classList.contains('active')) { document.getElementById('feat-booking').click(); found = true; }
         }
-        if (text.includes('anglais') || text.includes('langue') || text.includes('traduction') || text.includes('multilingue')) {
-          if (!document.getElementById('feat-lang').classList.contains('active')) document.getElementById('feat-lang').click();
+        if (needs.lang.some(k => text.includes(k))) {
+          if (!document.getElementById('feat-lang').classList.contains('active')) { document.getElementById('feat-lang').click(); found = true; }
         }
-        if (text.includes('seo') || text.includes('google') || text.includes('référencement') || text.includes('visibilité')) {
-          if (!document.getElementById('feat-seo').classList.contains('active')) document.getElementById('feat-seo').click();
+        if (needs.seo.some(k => text.includes(k))) {
+          if (!document.getElementById('feat-seo').classList.contains('active')) { document.getElementById('feat-seo').click(); found = true; }
         }
         
         // Count pages if mentioned
         const pageMatch = text.match(/(\d+)\s*page/);
         if (pageMatch) {
           const count = parseInt(pageMatch[1]);
-          const currentCount = parseInt(document.getElementById('page-count').innerText);
           const plusBtn = document.querySelector('#feat-pages .plus');
-          for(let i=0; i<count; i++) plusBtn.click();
+          for(let i=0; i<count; i++) { plusBtn.click(); found = true; }
         }
 
-        smartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Analysé !';
+        if (found) {
+          smartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Analyse réussie !';
+        } else {
+          smartBtn.innerHTML = 'Besoin d\'un peu plus de détails...';
+        }
         setTimeout(() => {
           smartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg> Analyser mon besoin';
           smartBtn.style.opacity = '1';
