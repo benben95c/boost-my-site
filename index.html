@@ -382,6 +382,17 @@
 
       <div class="config-container">
         <div class="config-items-side">
+          <!-- SMART ANALYSIS BOX -->
+          <div class="smart-config-box bento-reveal">
+            <div class="smart-config-input-wrap">
+              <textarea class="smart-config-input" id="smartInput" placeholder="Ex: Je suis coach sportif et je veux un site avec un blog et un système de réservation..."></textarea>
+              <button class="smart-magic-btn" id="smartMagicBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                Analyser mon besoin
+              </button>
+            </div>
+            <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 10px; text-align: center;">L'intelligence de BoostMySite sélectionne pour vous les options idéales.</p>
+          </div>
           <div class="config-grid">
             <!-- Starter Base -->
             <div class="config-card active" data-price="490" data-delay="3" id="feat-base" style="pointer-events: none; opacity: 0.8;">
@@ -499,6 +510,12 @@
       © <span id="year"></span> BoostMySite – Architecture & Design avec 🤍
     </div>
   </footer>
+
+  <!-- STICKY CTA -->
+  <div class="sticky-cta" id="stickyCta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    <div class="pulse-dot"></div>
+    <span>Commander un site</span>
+  </div>
 
   <script>
   (() => {
@@ -911,6 +928,60 @@
         ease: "power3.inOut"
       });
       messageField.focus();
+    });
+
+    // ===== 14. SMART CONFIGURATOR ANALYSIS =====
+    const smartInput = document.getElementById('smartInput');
+    const smartBtn = document.getElementById('smartMagicBtn');
+
+    smartBtn.addEventListener('click', () => {
+      const text = smartInput.value.toLowerCase();
+      if (!text) return;
+
+      // Visual feedback
+      smartBtn.innerHTML = 'Analyse en cours...';
+      smartBtn.style.opacity = '0.7';
+
+      setTimeout(() => {
+        // Simple keyword logic for simulation
+        if (text.includes('blog') || text.includes('article') || text.includes('actualité')) {
+          if (!document.getElementById('feat-blog').classList.contains('active')) document.getElementById('feat-blog').click();
+        }
+        if (text.includes('réserv') || text.includes('rendez-vous') || text.includes('rdv') || text.includes('calendly') || text.includes('booking')) {
+          if (!document.getElementById('feat-booking').classList.contains('active')) document.getElementById('feat-booking').click();
+        }
+        if (text.includes('anglais') || text.includes('langue') || text.includes('traduction') || text.includes('multilingue')) {
+          if (!document.getElementById('feat-lang').classList.contains('active')) document.getElementById('feat-lang').click();
+        }
+        if (text.includes('seo') || text.includes('google') || text.includes('référencement') || text.includes('visibilité')) {
+          if (!document.getElementById('feat-seo').classList.contains('active')) document.getElementById('feat-seo').click();
+        }
+        
+        // Count pages if mentioned
+        const pageMatch = text.match(/(\d+)\s*page/);
+        if (pageMatch) {
+          const count = parseInt(pageMatch[1]);
+          const currentCount = parseInt(document.getElementById('page-count').innerText);
+          const plusBtn = document.querySelector('#feat-pages .plus');
+          for(let i=0; i<count; i++) plusBtn.click();
+        }
+
+        smartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Analysé !';
+        setTimeout(() => {
+          smartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg> Analyser mon besoin';
+          smartBtn.style.opacity = '1';
+        }, 2000);
+      }, 800);
+    });
+
+    // ===== 15. STICKY CTA VISIBILITY =====
+    const stickyCta = document.getElementById('stickyCta');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
     });
 
     document.getElementById("year").textContent = new Date().getFullYear();
