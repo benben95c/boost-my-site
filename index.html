@@ -214,10 +214,28 @@
         <a href="faq.html" class="nav-link magnetic page-link">FAQ</a>
         <a href="blog.html" class="nav-link magnetic page-link">Blog</a>
       </nav>
+
+      <!-- BURGER MENU -->
+      <button class="burger-menu" id="burgerMenu">
+        <span></span>
+        <span></span>
+      </button>
       
-      <a href="#contact" class="btn btn-primary magnetic">Nous Contacter</a>
+      <a href="#contact" class="btn btn-primary magnetic nav-cta">Nous Contacter</a>
     </div>
   </header>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-links">
+      <a href="#expertises" onclick="toggleMenu()">Expertise</a>
+      <a href="#roi" onclick="toggleMenu()">ROI</a>
+      <a href="portfolio.html" class="page-link">Portfolio</a>
+      <a href="faq.html" class="page-link">FAQ</a>
+      <a href="blog.html" class="page-link">Blog</a>
+      <a href="#contact" class="btn btn-gradient" onclick="toggleMenu()">Nous Contacter</a>
+    </div>
+  </div>
 
   <main id="mainContent">
     <!-- HERO -->
@@ -1055,6 +1073,18 @@
     setTimeout(() => {
       popupOverlay.classList.add('active');
     }, 2500);
+
+    // ===== 17. MOBILE MENU LOGIC =====
+    const burger = document.getElementById('burgerMenu');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    window.toggleMenu = () => {
+      burger.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    };
+    
+    burger.addEventListener('click', toggleMenu);
 
     document.getElementById("year").textContent = new Date().getFullYear();
   })();
