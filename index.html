@@ -10,8 +10,9 @@
   <link rel="manifest" href="favicon_io/site.webmanifest">
 
   <!-- ===== SEO PRIMARY ===== -->
-  <title>BoostMySite – Développeur Full-Stack, Sites Web Premium & Web3 | Paris</title>
-  <meta name="description" content="Brahim Ben Said, développeur Full-Stack & Web3. Création de sites web à ultra-conversion, plateformes SaaS, apps IA et intégrations Blockchain. Résultats en 48h.">
+  <title>BoostMySite – Création de Sites Web & Expert SEO</title>
+  <meta name="google-site-verification" content="-qv0pwPyFWboVcbo-5XUCJR_fuNZbnwRECb7p6D97Q8" />
+  <meta name="description" content="BoostMySite propulse votre commerce avec des sites web d'élite. Expert en SEO local, design premium et acquisition de clients pour artisans et entrepreneurs.">
   <meta name="keywords" content="création site internet professionnel, agence web sur mesure, développeur full-stack freelance, expert SEO Paris, site vitrine artisan, refonte site web moderne, Next.js, React, Web3 developer, SaaS builder, application IA sur mesure, boostmysite, visibilité en ligne entreprise">
   <meta name="author" content="Brahim Ben Said – BoostMySite">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -371,7 +372,7 @@
             <li>Design UI/UX épuré et pro</li>
             <li>Formulaire de contact / Réservation</li>
           </ul>
-          <a href="#contact" class="btn btn-outline magnetic">Lancer mon site</a>
+          <a href="#contact" class="btn btn-outline magnetic" onclick="selectOffer('Pack Starter (490€)')">Lancer mon site</a>
         </div>
         <div class="price-card glass-panel tilt-card bento-reveal" style="border-color: var(--accent-blue); position: relative; padding-top: 50px;">
           <div style="position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: var(--accent-gradient); color: white; padding: 6px 16px; border-radius: 99px; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);">BEST SELLER</div>
@@ -383,7 +384,7 @@
             <li>Intégrations (Calendly, CRM, APIs)</li>
             <li>Hébergement Cloud Vercel</li>
           </ul>
-          <a href="#contact" class="btn btn-gradient magnetic">Démarrer Pro</a>
+          <a href="#contact" class="btn btn-gradient magnetic" onclick="selectOffer('Pack Pro (990€)')">Démarrer Pro</a>
         </div>
         <div class="price-card glass-panel tilt-card bento-reveal">
           <div class="price-name" style="color: var(--text-secondary);">SaaS / Web App / IA</div>
@@ -394,7 +395,7 @@
             <li>Espace Utilisateurs complet</li>
             <li>Intégrations Web3, Crypto</li>
           </ul>
-          <a href="#contact" class="btn btn-outline magnetic">Étudier mon projet</a>
+          <a href="#contact" class="btn btn-outline magnetic" onclick="selectOffer('Offre SaaS / Sur-mesure (Dès 2500€)')">Étudier mon projet</a>
         </div>
       </div>
       
@@ -571,7 +572,7 @@
       </div>
       <h2>Propulsez votre marque aujourd'hui</h2>
       <p>Transformez votre vision en un site web d'élite. Prêt à dominer votre marché ?</p>
-      <button class="btn btn-gradient magnetic" style="width: 100%;" onclick="closePopup(); document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Démarrer mon projet 🚀</button>
+      <button class="btn btn-gradient magnetic" style="width: 100%;" onclick="closePopup(true)">Démarrer mon projet 🚀</button>
     </div>
   </div>
 
@@ -1066,13 +1067,36 @@
 
     // ===== 16. WELCOME POPUP LOGIC =====
     const popupOverlay = document.getElementById('popupOverlay');
-    window.closePopup = () => {
+    window.closePopup = (scroll = false) => {
       popupOverlay.classList.remove('active');
+      if (scroll) {
+        document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+        selectOffer('Offre depuis la Popup Bienvenue');
+      }
     };
 
     setTimeout(() => {
       popupOverlay.classList.add('active');
     }, 2500);
+
+    // ===== 17. OFFER SELECTION LOGIC =====
+    window.selectOffer = (offerName) => {
+      const messageField = document.getElementById('fcMessage');
+      if (messageField) {
+        messageField.value = `Bonjour Brahim, je souhaiterais obtenir plus d'informations sur l'offre : ${offerName}. \n\nMon besoin : `;
+        messageField.focus();
+      }
+    };
+
+    // Special logic for custom configurator
+    const btnReserveCustom = document.getElementById('btn-reserve-custom');
+    if (btnReserveCustom) {
+      btnReserveCustom.addEventListener('click', () => {
+        const total = document.getElementById('config-total').innerText;
+        selectOffer(`Configurateur Sur-mesure (Estimation: ${total})`);
+        document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+      });
+    }
 
     // ===== 17. MOBILE MENU LOGIC =====
     const burger = document.getElementById('burgerMenu');
