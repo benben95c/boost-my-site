@@ -648,13 +648,14 @@ footer { padding: 60px 0; border-top: 1px solid var(--border-light); margin-top:
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 24px;
-  padding-bottom: 60px;
   color: white;
   font-family: inherit;
   font-size: 16px;
-  resize: none;
+  resize: vertical;
+  min-height: 120px;
   transition: all 0.3s ease;
   outline: none;
+  margin-bottom: 16px;
 }
 
 .smart-config-input:focus {
@@ -664,21 +665,21 @@ footer { padding: 60px 0; border-top: 1px solid var(--border-light); margin-top:
 }
 
 .smart-magic-btn {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  padding: 8px 20px;
+  align-self: flex-end;
+  padding: 12px 24px;
   background: var(--accent-gradient);
   border: none;
   border-radius: 99px;
   color: white;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
 }
 
 .smart-magic-btn:hover {

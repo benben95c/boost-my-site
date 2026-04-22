@@ -384,8 +384,8 @@
         <div class="config-items-side">
           <!-- SMART ANALYSIS BOX -->
           <div class="smart-config-box bento-reveal">
-            <div class="smart-config-input-wrap">
-              <textarea class="smart-config-input" id="smartInput" placeholder="Ex: Je suis coach sportif et je veux un site avec un blog et un système de réservation..."></textarea>
+            <div class="smart-config-input-wrap" style="display: flex; flex-direction: column;">
+              <textarea class="smart-config-input" id="smartInput" placeholder="Ex: Je suis coach sportif et je veux un site complet avec 5 pages et un blog..."></textarea>
               <button class="smart-magic-btn" id="smartMagicBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                 Analyser mon besoin
@@ -966,11 +966,22 @@
         }
         
         // Count pages if mentioned
+        const pageWords = ['complet', 'plusieurs', 'beaucoup', 'multi', 'nombreuses', 'pages'];
         const pageMatch = text.match(/(\d+)\s*page/);
+        
         if (pageMatch) {
           const count = parseInt(pageMatch[1]);
           const plusBtn = document.querySelector('#feat-pages .plus');
+          // Reset count first by clicking minus enough times (simpler for logic)
+          for(let i=0; i<10; i++) document.querySelector('#feat-pages .minus').click();
           for(let i=0; i<count; i++) { plusBtn.click(); found = true; }
+        } else if (pageWords.some(k => text.includes(k))) {
+          // If "complet" or "multi" is mentioned without a number, add 3 pages by default
+          for(let i=0; i<10; i++) document.querySelector('#feat-pages .minus').click();
+          for(let i=0; i<3; i++) { 
+            document.querySelector('#feat-pages .plus').click(); 
+          }
+          found = true;
         }
 
         if (found) {
