@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- ===== SEO PRIMARY ===== -->
+  <title>BoostMySite – Développeur Full-Stack, Sites Web Premium & Web3 | Paris</title>
+  <meta name="description" content="Brahim Ben Said, développeur Full-Stack & Web3. Création de sites web à ultra-conversion, plateformes SaaS, apps IA et intégrations Blockchain. Résultats en 48h.">
+  <meta name="keywords" content="création site web, développeur full-stack freelance, agence web premium, Next.js, React, site vitrine entreprise, web3 développeur, SaaS sur mesure, site internet artisan, refonte site web, développeur web Paris">
+  <meta name="author" content="Brahim Ben Said – BoostMySite">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://boost-my-site.fr/">
+  <meta name="theme-color" content="#030305">
+
+  <!-- ===== OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BoostMySite">
+  <meta property="og:url" content="https://boost-my-site.fr/">
+  <meta property="og:title" content="BoostMySite – Sites Web Premium, SaaS & Web3 | Résultats en 48h">
+  <meta property="og:description" content="Des sites vitrines à ultra-conversion, des plateformes SaaS complètes et des intégrations IA/Web3. Votre présence digitale de classe mondiale commence ici.">
+  <meta property="og:image" content="https://boost-my-site.fr/hero-bg.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BoostMySite – Sites Web Premium & Web3">
+  <meta name="twitter:description" content="Développeur Full-Stack. SaaS, IA, Web3. Site vitrine livré en 48h. Contactez-moi maintenant.">
+  <meta name="twitter:image" content="https://boost-my-site.fr/hero-bg.jpg">
+
+  <!-- ===== SCHEMA.ORG – LocalBusiness + Person + WebSite ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://boost-my-site.fr/#business",
+        "name": "BoostMySite",
+        "url": "https://boost-my-site.fr",
+        "logo": "https://boost-my-site.fr/hero-bg.jpg",
+        "description": "Création de sites web premium, plateformes SaaS, applications IA et développement Web3 pour agences et indépendants.",
+        "priceRange": "€€€",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "addressCountry": "FR"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "brahim.bensaid.pro75@gmail.com",
+          "availableLanguage": ["French", "English"]
+        },
+        "sameAs": [
+          "https://devis-ai.fr",
+          "https://cgascrypto.com"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Services BoostMySite",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Landing Page Premium",
+              "price": "490",
+              "priceCurrency": "EUR",
+              "description": "Page vitrine à ultra-conversion, responsive, livrée en 48h"
+            },
+            {
+              "@type": "Offer",
+              "name": "Site Web Pro Multi-Pages",
+              "price": "990",
+              "priceCurrency": "EUR",
+              "description": "Architecture Next.js / React, multi-pages, intégrations CRM et APIs"
+            },
+            {
+              "@type": "Offer",
+              "name": "Plateforme SaaS / Web App / IA",
+              "price": "2500",
+              "priceCurrency": "EUR",
+              "description": "Application Full-Stack sur-mesure avec backend, base de données, espace utilisateurs et IA"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://boost-my-site.fr/#person",
+        "name": "Brahim Ben Said",
+        "jobTitle": "Développeur Full-Stack & Web3",
+        "url": "https://boost-my-site.fr",
+        "email": "brahim.bensaid.pro75@gmail.com",
+        "knowsAbout": ["Next.js", "React", "Web3", "Blockchain", "SaaS", "Intelligence Artificielle", "SEO", "UX/UI Design"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://boost-my-site.fr/#website",
+        "name": "BoostMySite",
+        "url": "https://boost-my-site.fr",
+        "publisher": { "@id": "https://boost-my-site.fr/#business" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Combien coûte la création d'un site web professionnel ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Chez BoostMySite, une Landing Page Premium démarre à 490€, un site multi-pages à 990€, et une plateforme SaaS complète à partir de 2500€."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quel est le délai de livraison d'un site vitrine ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Une Landing Page premium est livrée en 48 à 72 heures. Un projet SaaS complet nécessite 1 à 3 semaines selon la complexité."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pourquoi ne pas utiliser WordPress ou Wix ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ces plateformes génèrent du code lent, mal optimisé pour Google (mauvais SEO) et peu sécurisé. Mon code React/Next.js se charge en moins d'une seconde et est invisible pour les robots malveillants."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ===== PERFORMANCE: Preload critical images ===== -->
+  <link rel="preload" as="image" href="hero-bg.jpg" type="image/jpeg">
+
+  <!-- ===== FONTS ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ===== PRELOADER ===== -->
+  <div id="preloader">
+    <div class="preloader-logo">
+      <svg viewBox="0 0 40 40">
+        <defs><linearGradient id="bms-pre" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+        <rect x="4" y="4" width="32" height="32" rx="11" fill="url(#bms-pre)"/>
+        <rect x="10" y="12" width="20" height="16" rx="4" fill="#030305"/>
+      </svg>
+      BoostMySite
+    </div>
+    <div class="preloader-bar-wrap">
+      <div class="preloader-bar" id="preloaderBar"></div>
+    </div>
+    <div class="preloader-counter" id="preloaderCount">0%</div>
+  </div>
+
+  <!-- Page Transition Overlay -->
+  <div id="page-transition"></div>
+
+  <!-- Spotlight -->
+  <div class="spotlight" id="spotlight"></div>
+
+  <!-- Glowing Orbs -->
+  <div class="orb orb-1" id="orb1"></div>
+  <div class="orb orb-2" id="orb2"></div>
+  <div class="orb orb-3" id="orb3"></div>
+
+  <!-- Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="custom-cursor-follower" id="cursor-follower"></div>
+
+  <!-- Backgrounds -->
+  <div class="bg-epic" id="bgEpic"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- HEADER -->
+  <header id="mainHeader">
+    <div class="nav-container">
+      <a href="index.html" class="logo magnetic">
+        <svg viewBox="0 0 40 40">
+          <defs><linearGradient id="bms" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+          <rect x="4" y="4" width="32" height="32" rx="11" fill="url(#bms)"/>
+          <rect x="10" y="12" width="20" height="16" rx="4" fill="#030305"/>
+        </svg>
+        BoostMySite
+      </a>
+      
+      <nav class="nav-links">
+        <a href="#expertises" class="nav-link magnetic">Expertise</a>
+        <a href="#roi" class="nav-link magnetic">ROI</a>
+        <a href="portfolio.html" class="nav-link magnetic page-link">Portfolio</a>
+        <a href="faq.html" class="nav-link magnetic page-link">FAQ</a>
+        <a href="blog.html" class="nav-link magnetic page-link">Blog</a>
+      </nav>
+      
+      <a href="#contact" class="btn btn-primary magnetic">Nous Contacter</a>
+    </div>
+  </header>
+
+  <main id="mainContent">
+    <!-- HERO -->
+    <section class="hero container">
+      <h1 id="heroTitle">
+        <div class="reveal-text-line"><span>L'Architecture du</span></div>
+        <div class="reveal-text-line"><span class="text-gradient-animated">Succès Digital</span></div>
+      </h1>
+      <p id="heroSub">Au-delà de la création de sites internet, je conçois des systèmes d'acquisition massifs : Plateformes SaaS, Interfaces Premium, et intégrations Web3/IA avancées.</p>
+      
+      <div class="hero-actions" id="heroActions">
+        <a href="#contact" class="btn btn-gradient magnetic" style="padding: 16px 32px; font-size: 16px;">Créer votre Ecosystème</a>
+        <a href="portfolio.html" class="btn btn-outline magnetic page-link" style="padding: 16px 32px; font-size: 16px;">Voir les Études de Cas</a>
+      </div>
+
+      <div class="stats-belt" id="statsBelt">
+        <div class="stat-item">
+          <div class="stat-num text-gradient" data-count="4">0</div>
+          <div class="stat-label">Projets livrés</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num text-gradient" data-count="100">0</div>
+          <div class="stat-label">% Satisfaction client</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num text-gradient" data-count="48">0</div>
+          <div class="stat-label">Heures livraison Landing Page</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROI CALCULATOR -->
+    <section id="roi" class="section roi-bg-section">
+      <div class="container">
+        <div class="section-header center" id="roiHeader">
+          <h2>Le Coût de l'Amateurisme</h2>
+          <p>Découvrez combien vous perdez d'argent chaque mois avec un site obsolète, et comment BoostMySite va exploser votre rentabilité.</p>
+        </div>
+
+        <div class="roi-calculator glass-panel tilt-card" id="roiCalc">
+          <div class="roi-inputs">
+            <label>Trafic mensuel (Visiteurs) <span class="val-display" id="val-trafic">2000</span></label>
+            <input type="range" id="calc-trafic" min="100" max="100000" step="100" value="2000">
+            <label>Votre Taux de Conversion actuel (%) <span class="val-display" id="val-conv">0.5%</span></label>
+            <input type="range" id="calc-conv" min="0.1" max="5" step="0.1" value="0.5">
+            <label>Panier moyen / Valeur d'un client (€) <span class="val-display" id="val-panier">500€</span></label>
+            <input type="range" id="calc-panier" min="10" max="5000" step="10" value="500">
+          </div>
+          <div class="roi-results">
+            <h3>Nouveau Chiffre d'Affaires estimé</h3>
+            <div class="big-num text-gradient" id="res-ca">0 €</div>
+            <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Avec un taux de conversion standard BoostMySite (estimé à +2.5%).</p>
+            <div style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
+              <div style="text-align: left;">
+                <span style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase;">CA Actuel</span><br/>
+                <strong id="res-ca-actuel" style="color: white; font-size: 18px;">5 000 €</strong>
+              </div>
+              <div style="text-align: right;">
+                <span style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase;">Argent Laissé Sur La Table</span><br/>
+                <strong id="res-perte" style="color: #ef4444; font-size: 18px;">- 10 000 €</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENTO GRID -->
+    <section id="expertises" class="section container">
+      <div class="section-header" id="bentoHeader">
+        <h2>Expertise Technique</h2>
+        <p>Des fondations Next.js à l'intégration d'algorithmes et de contrats intelligents.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bento-item glass-panel tilt-card bento-large bento-reveal">
+          <h3 style="font-size: 24px; margin-bottom: 12px;">SaaS, Full-Stack, IA & Web3</h3>
+          <p style="color: var(--text-secondary);">Fondateur de <strong>devis-ai.fr</strong> et <strong>cgascrypto.com</strong>. L'ingénierie web ne se résume pas à du texte sur une page. Je conçois des générateurs IA, des interactions Smart Contracts et des Dashboards complets.</p>
+        </div>
+        <div class="bento-item glass-panel tilt-card bento-reveal">
+          <h3 style="font-size: 24px; margin-bottom: 12px;">Next.js & React</h3>
+          <p style="color: var(--text-secondary);">Les mêmes briques logicielles qu'Airbnb et Netflix. Vitesse d'affichage sous la seconde.</p>
+        </div>
+        <div class="bento-item glass-panel tilt-card bento-reveal" style="background: var(--accent-gradient); position: relative; overflow: hidden;">
+          <div style="position: absolute; inset: 0; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.2; pointer-events: none;"></div>
+          <h3 style="font-size: 32px; color: white; margin-bottom: 16px;" class="float-anim">UX / UI Design d'Élite</h3>
+          <p style="color: rgba(255,255,255,0.9); font-size: 16px; line-height: 1.6;">L'esthétisme est le premier vecteur de confiance. De la psychologie des couleurs aux micro-interactions (comme ce que vous vivez sur ce site), l'expérience utilisateur forge la décision d'achat.</p>
+        </div>
+        <div class="bento-item glass-panel tilt-card bento-large bento-reveal">
+          <h3 style="font-size: 24px; margin-bottom: 12px;">Référencement (SEO) Poids Lourd</h3>
+          <p style="color: var(--text-secondary);">De l'architecture Silo au rendu côté serveur (SSR), votre code est structuré pour que Google vous adore dès le premier jour.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="tarifs" class="section container">
+      <div class="section-header center" id="pricingHeader">
+        <h2>Une solution pour chaque ambition</h2>
+        <p>Du commerce local au projet SaaS complexe. Une technologie d'élite au service de votre rentabilité.</p>
+      </div>
+      <div class="pricing-wrapper">
+        <div class="price-card glass-panel tilt-card bento-reveal">
+          <div class="price-name" style="color: var(--text-secondary);">Starter (Artisans & Commerces)</div>
+          <div class="price-val">490€</div>
+          <ul class="price-features" style="flex-grow:1; margin-bottom: 30px;">
+            <li>Idéal Restaurants, Boulangeries...</li>
+            <li>Optimisé pour Google Maps</li>
+            <li>Design UI/UX épuré et pro</li>
+            <li>Formulaire de contact / Réservation</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline magnetic">Lancer mon site</a>
+        </div>
+        <div class="price-card glass-panel tilt-card bento-reveal" style="border-color: var(--accent-blue); position: relative; padding-top: 50px;">
+          <div style="position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: var(--accent-gradient); color: white; padding: 6px 16px; border-radius: 99px; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);">BEST SELLER</div>
+          <div class="price-name" style="color: var(--text-secondary);">Pro (Site Complet)</div>
+          <div class="price-val text-gradient">990€</div>
+          <ul class="price-features" style="flex-grow:1; margin-bottom: 30px;">
+            <li>Architecture Multi-Pages</li>
+            <li>Développement Next.js / React</li>
+            <li>Intégrations (Calendly, CRM, APIs)</li>
+            <li>Hébergement Cloud Vercel</li>
+          </ul>
+          <a href="#contact" class="btn btn-gradient magnetic">Démarrer Pro</a>
+        </div>
+        <div class="price-card glass-panel tilt-card bento-reveal">
+          <div class="price-name" style="color: var(--text-secondary);">SaaS / Web App / IA</div>
+          <div class="price-val text-gradient" style="font-size: 38px;">Dès 2 500€</div>
+          <ul class="price-features" style="flex-grow:1; margin-bottom: 30px;">
+            <li>Logiciel métier sur-mesure</li>
+            <li>Générateurs IA & Base de données</li>
+            <li>Espace Utilisateurs complet</li>
+            <li>Intégrations Web3, Crypto</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline magnetic">Étudier mon projet</a>
+        </div>
+      </div>
+      
+      <!-- Maintenance & Reassurance info -->
+      <div class="bento-reveal" style="margin-top: 40px; text-align: center; max-width: 900px; margin-left: auto; margin-right: auto;">
+        <div class="glass-panel" style="padding: 24px; display: inline-block; width: 100%;">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px; align-items: center;">
+            <div style="text-align: left;">
+              <span style="color: var(--accent-cyan); font-weight: bold;">🛠️ Maintenance & Modifs</span><br/>
+              <span style="color: var(--text-secondary); font-size: 14px;">Évolutions et mises à jour facturées à l'heure (50€/h) ou forfait mensuel.</span>
+            </div>
+            <div style="text-align: left; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+              <span style="color: var(--accent-purple); font-weight: bold;">⚡ Pourquoi choisir un expert ?</span><br/>
+              <span style="color: var(--text-secondary); font-size: 14px;">Même pour un "site simple", ma technologie permet à un petit restaurant de passer <strong>devant</strong> ses concurrents sur Google Maps.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOM QUOTE CONFIGURATOR -->
+    <section id="configurateur" class="section container">
+      <div class="section-header" style="text-align: left; margin-bottom: 60px;">
+        <span style="color: var(--accent-purple); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 14px;">Sur-mesure</span>
+        <h2 style="font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-top: 10px;">Payer pour <span class="text-gradient">exactement</span><br/>ce dont vous avez besoin.</h2>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 20px; max-width: 600px;">Pas de packs rigides. Sélectionnez vos fonctionnalités et voyez votre investissement s'ajuster en temps réel.</p>
+      </div>
+
+      <div class="config-container">
+        <div class="config-items-side">
+          <div class="config-grid">
+            <!-- Starter Base -->
+            <div class="config-card active" data-price="490" data-delay="3" id="feat-base" style="pointer-events: none; opacity: 0.8;">
+              <div class="config-info">
+                <h4>Pack Starter Incontournable</h4>
+                <p>Design Premium, Responsive, SEO & Maps</p>
+                <div class="config-price">Inclus (490€)</div>
+              </div>
+              <div class="custom-checkbox"></div>
+            </div>
+
+            <!-- Page supplémentaire -->
+            <div class="config-card" data-price="100" data-delay="1" id="feat-pages">
+              <div class="config-info">
+                <h4>Pages Supplémentaires</h4>
+                <p>Menu, Galerie, Services détaillés...</p>
+                <div class="config-price">+100€ / page</div>
+                <div class="config-counter">
+                  <button class="counter-btn minus" type="button">−</button>
+                  <span class="counter-val" id="page-count">0</span>
+                  <button class="counter-btn plus" type="button">+</button>
+                </div>
+              </div>
+              <div class="custom-checkbox" style="display:none"></div>
+            </div>
+
+            <!-- Réservation -->
+            <div class="config-card" data-price="150" data-delay="2" id="feat-booking">
+              <div class="config-info">
+                <h4>Prise de RDV / Réservation</h4>
+                <p>Calendly ou système natif intégré</p>
+                <div class="config-price">+150€</div>
+              </div>
+              <div class="custom-checkbox"></div>
+            </div>
+
+            <!-- Blog -->
+            <div class="config-card" data-price="250" data-delay="3" id="feat-blog">
+              <div class="config-info">
+                <h4>Espace Blog / Actualités</h4>
+                <p>CMS simple pour vos articles</p>
+                <div class="config-price">+250€</div>
+              </div>
+              <div class="custom-checkbox"></div>
+            </div>
+
+            <!-- SEO Pro -->
+            <div class="config-card" data-price="150" data-delay="2" id="feat-seo">
+              <div class="config-info">
+                <h4>Pack SEO Poids Lourd</h4>
+                <p>Audit mot-clés + Stratégie contenu</p>
+                <div class="config-price">+150€</div>
+              </div>
+              <div class="custom-checkbox"></div>
+            </div>
+
+            <!-- Multilingue -->
+            <div class="config-card" data-price="200" data-delay="2" id="feat-lang">
+              <div class="config-info">
+                <h4>Version Multilingue</h4>
+                <p>Français + Anglais inclus</p>
+                <div class="config-price">+200€</div>
+              </div>
+              <div class="custom-checkbox"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="config-summary glass-panel">
+          <div class="config-total-label">Votre investissement</div>
+          <div class="config-total-val text-gradient" id="config-total">490€</div>
+          <div class="config-delay">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Livraison estimée : <span id="config-days">3</span> jours
+          </div>
+          <button class="btn btn-gradient magnetic" style="width: 100%; justify-content: center;" id="btn-reserve-custom">Réserver ce pack</button>
+          <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 16px;">Paiement 50% à la commande, 50% à la livraison.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section container">
+      <div class="contact-fusion">
+        <div id="contactLeft">
+          <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">L'innovation commence par <span class="text-gradient-animated">un message.</span></h2>
+          <p style="color: var(--text-secondary); font-size: 1.2rem;">Ne perdez plus de clients faute d'une présence web décente. Que vous soyez un restaurant local ou une start-up IA, mon approche garantit votre visibilité immédiate.</p>
+        </div>
+        <div class="glass-panel tilt-card" style="padding: 40px;" id="contactForm">
+          <form id="nativeContactForm">
+            <div class="form-group">
+              <label>Votre Nom</label>
+              <input type="text" id="fcName" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label>Votre E-mail</label>
+              <input type="email" id="fcEmail" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+              <label>Détail du projet</label>
+              <textarea id="fcMessage" rows="5" required placeholder="Je veux refaire mon site vitrine pour obtenir plus de clients..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-gradient magnetic" style="width: 100%; border: none; padding: 18px;" id="fcBtn">
+              <span id="fcBtnText">Envoyer le message</span>
+            </button>
+            <p id="fcStatus" style="display:none; text-align:center; margin-top:16px; font-weight:bold;"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> BoostMySite – Architecture & Design avec 🤍
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    // ===== 1. PRELOADER =====
+    const preloaderBar = document.getElementById('preloaderBar');
+    const preloaderCount = document.getElementById('preloaderCount');
+    const preloader = document.getElementById('preloader');
+    const preloaderLogo = document.querySelector('.preloader-logo');
+
+    let progress = 0;
+    gsap.to(preloaderLogo, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+    
+    const interval = setInterval(() => {
+      progress += Math.random() * 12;
+      if (progress >= 100) { progress = 100; clearInterval(interval); launchSite(); }
+      preloaderBar.style.width = progress + '%';
+      preloaderCount.textContent = Math.floor(progress) + '%';
+    }, 80);
+
+    function launchSite() {
+      // Reveal orbs
+      gsap.to([document.getElementById('orb1'), document.getElementById('orb2'), document.getElementById('orb3')], {
+        opacity: 1, duration: 2, stagger: 0.3, ease: "power2.out"
+      });
+
+      gsap.to(preloader, {
+        yPercent: -100,
+        duration: 1.2,
+        ease: "power4.inOut",
+        delay: 0.2,
+        onComplete: () => { preloader.style.display = 'none'; }
+      });
+      
+      // Hero animations after preloader
+      setTimeout(() => {
+        gsap.to(".reveal-text-line span", { y: 0, duration: 1.4, stagger: 0.08, ease: "power4.out" });
+        gsap.to("#heroSub", { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power3.out" });
+        gsap.to("#heroActions", { opacity: 1, y: 0, duration: 0.8, delay: 0.8, ease: "power3.out" });
+        gsap.to("#statsBelt", { opacity: 1, duration: 0.8, delay: 1.0, ease: "power3.out" });
+        // Counter
+        document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+          gsap.to(el, { 
+            innerText: el.dataset.count, 
+            duration: 2, 
+            delay: 1.2, 
+            snap: { innerText: 1 },
+            ease: "power2.out",
+            onUpdate: function() { el.innerText = Math.round(parseFloat(el.innerText)); }
+           });
+        });
+      }, 400);
+    }
+
+    // ===== 2. SMOOTH SCROLL =====
+    const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.lagSmoothing(0);
+
+    // ===== 3. HEADER SCROLL =====
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== 4. CUSTOM CURSOR =====
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursor-follower');
+    let cursorX = 0, cursorY = 0;
+    document.addEventListener('mousemove', (e) => {
+      cursorX = e.clientX; cursorY = e.clientY;
+      gsap.to(cursor, { x: cursorX, y: cursorY, duration: 0.08 });
+      gsap.to(follower, { x: cursorX, y: cursorY, duration: 0.35 });
+      // Spotlight
+      spotlight.style.left = cursorX + 'px';
+      spotlight.style.top = cursorY + 'px';
+    });
+
+    // ===== 5. SPOTLIGHT =====
+    const spotlight = document.getElementById('spotlight');
+
+    // ===== 6. GLASS PANEL INNER SPOTLIGHT =====
+    document.querySelectorAll('.glass-panel').forEach(panel => {
+      panel.addEventListener('mousemove', (e) => {
+        const rect = panel.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        panel.style.setProperty('--mouse-x', x + '%');
+        panel.style.setProperty('--mouse-y', y + '%');
+      });
+    });
+
+    // ===== 7. MAGNETIC BUTTONS =====
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); follower.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover'); follower.classList.remove('hover');
+        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.5)" });
+      });
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const mx = (e.clientX - (r.left + r.width / 2)) * 0.35;
+        const my = (e.clientY - (r.top + r.height / 2)) * 0.35;
+        gsap.to(el, { x: mx, y: my, duration: 0.25, ease: "power2.out" });
+      });
+    });
+
+    // ===== 8. TILT 3D CARDS =====
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(card, {
+          rotateX: -y * 10,
+          rotateY: x * 10,
+          transformPerspective: 800,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.7, ease: "elastic.out(1, 0.5)" });
+      });
+    });
+
+    // Skew effet supprimé (inconfort visuel reporté)
+
+    // ===== 10. SCROLL TRIGGERED ANIMATIONS =====
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Bento / section reveals
+    document.querySelectorAll('.bento-reveal').forEach((el, i) => {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" },
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        delay: (i % 3) * 0.12,
+        ease: "power3.out"
+      });
+    });
+
+    // ROI Calculator
+    gsap.from('#roiCalc', {
+      scrollTrigger: { trigger: '#roiCalc', start: "top 85%" },
+      scale: 0.93, opacity: 0, duration: 1, ease: "power3.out"
+    });
+
+    // Headers
+    ['#roiHeader', '#bentoHeader', '#pricingHeader'].forEach(id => {
+      gsap.from(id, {
+        scrollTrigger: { trigger: id, start: "top 90%" },
+        y: 40, opacity: 0, duration: 0.8, ease: "power3.out"
+      });
+    });
+
+    // Contact section
+    gsap.from('#contactLeft', {
+      scrollTrigger: { trigger: '#contactLeft', start: "top 85%" },
+      x: -60, opacity: 0, duration: 0.9, ease: "power3.out"
+    });
+    gsap.from('#contactForm', {
+      scrollTrigger: { trigger: '#contactForm', start: "top 85%" },
+      x: 60, opacity: 0, duration: 0.9, ease: "power3.out"
+    });
+
+    // ===== 11. PARALLAX BACKGROUND =====
+    gsap.to('#bgEpic', {
+      scrollTrigger: {
+        trigger: document.body,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true
+      },
+      yPercent: 15,
+      ease: "none"
+    });
+
+    // Floating orbs parallax
+    lenis.on('scroll', ({ scroll }) => {
+      document.getElementById('orb1').style.transform = `translateY(${scroll * 0.08}px)`;
+      document.getElementById('orb2').style.transform = `translateY(${-scroll * 0.06}px)`;
+    });
+
+    // ===== 12. PARTICLE CANVAS =====
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 70;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.4 + 0.1,
+        color: Math.random() > 0.5 ? '6, 182, 212' : '139, 92, 246'
+      });
+    }
+
+    let mouseParticleX = -9999, mouseParticleY = -9999;
+    document.addEventListener('mousemove', e => { mouseParticleX = e.clientX; mouseParticleY = e.clientY; });
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        // Mouse repulsion
+        const dx = p.x - mouseParticleX;
+        const dy = p.y - mouseParticleY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          p.vx += dx / dist * 0.08;
+          p.vy += dy / dist * 0.08;
+        }
+        // Clamp velocity
+        p.vx = Math.max(-1, Math.min(1, p.vx));
+        p.vy = Math.max(-1, Math.min(1, p.vy));
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        // Draw
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+        ctx.fill();
+
+        // Connect nearby particles
+        particles.forEach(p2 => {
+          const dx2 = p.x - p2.x;
+          const dy2 = p.y - p2.y;
+          const d = Math.sqrt(dx2*dx2 + dy2*dy2);
+          if (d < 120) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(${p.color}, ${0.06 * (1 - d/120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        });
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // ===== 13. PAGE TRANSITION =====
+    const pageTransition = document.getElementById('page-transition');
+
+    document.querySelectorAll('.page-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        gsap.to(pageTransition, {
+          scaleY: 1,
+          transformOrigin: 'bottom',
+          duration: 0.5,
+          ease: "power4.in",
+          onComplete: () => { window.location.href = href; }
+        });
+      });
+    });
+
+    // Reveal on page load (from transition)
+    window.addEventListener('pageshow', () => {
+      gsap.set(pageTransition, { scaleY: 1, transformOrigin: 'top' });
+      gsap.to(pageTransition, { scaleY: 0, duration: 0.7, ease: "power4.out", delay: 0.1 });
+    });
+
+    // ===== 14. ROI CALCULATOR =====
+    function updateROI() {
+      const t = parseFloat(document.getElementById('calc-trafic').value);
+      const c = parseFloat(document.getElementById('calc-conv').value) / 100;
+      const p = parseFloat(document.getElementById('calc-panier').value);
+      document.getElementById('val-trafic').innerText = t;
+      document.getElementById('val-conv').innerText = document.getElementById('calc-conv').value + ' %';
+      document.getElementById('val-panier').innerText = p + ' €';
+      const actuel = t * c * p;
+      const newConv = (parseFloat(document.getElementById('calc-conv').value) + 2.5) / 100;
+      const futur = t * newConv * p;
+      document.getElementById('res-ca-actuel').innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(actuel);
+      document.getElementById('res-perte').innerText = "- " + new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(futur - actuel);
+      document.getElementById('res-ca').innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(futur);
+    }
+    ['calc-trafic', 'calc-conv', 'calc-panier'].forEach(id => document.getElementById(id).addEventListener('input', updateROI));
+    updateROI();
+
+    // ===== 15. NATIVE CONTACT FORM =====
+    document.getElementById('nativeContactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btnText = document.getElementById('fcBtnText');
+      const status = document.getElementById('fcStatus');
+      btnText.innerText = "Envoi en cours...";
+      status.style.display = "block";
+      status.style.color = "var(--text-secondary)";
+      status.innerText = "Traitement...";
+      const formData = new FormData();
+      formData.append("access_key", "04b21b20-e74c-4086-981e-e7c6585a54d6");
+      formData.append("name", document.getElementById('fcName').value);
+      formData.append("email", document.getElementById('fcEmail').value);
+      formData.append("message", document.getElementById('fcMessage').value);
+      formData.append("subject", "Nouveau lead Premium BMS");
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+        const json = await res.json();
+        if (res.status === 200) {
+          status.style.color = "var(--accent-emerald)";
+          status.innerText = "Message envoyé avec succès! Je vous réponds très vite.";
+          btnText.innerText = "Message Envoyé ✅";
+          e.target.reset();
+        } else {
+          status.style.color = "var(--accent-purple)";
+          status.innerText = "Une erreur est survenue. Réessayez.";
+          btnText.innerText = "Envoyer le message";
+        }
+      } catch {
+        status.innerText = "Erreur réseau.";
+        btnText.innerText = "Envoyer le message";
+      }
+    });
+
+    // ===== 14. CONFIGURATEUR DE DEVIS =====
+    const configCards = document.querySelectorAll('.config-card:not(#feat-base)');
+    const totalDisplay = document.getElementById('config-total');
+    const delayDisplay = document.getElementById('config-days');
+    const pageCountDisplay = document.getElementById('page-count');
+    const btnReserve = document.getElementById('btn-reserve-custom');
+    
+    let pages = 0;
+
+    function updateConfig() {
+      let total = 490;
+      let delay = 3;
+      let details = ["Pack Starter (Base)"];
+
+      configCards.forEach(card => {
+        if (card.classList.contains('active')) {
+          total += parseInt(card.dataset.price);
+          delay += parseInt(card.dataset.delay);
+          details.push(card.querySelector('h4').innerText);
+        }
+      });
+
+      if (pages > 0) {
+        total += pages * 100;
+        delay += pages * 1; // +1 jour par page
+        details.push(`${pages} Page(s) supplémentaire(s)`);
+      }
+
+      gsap.to(totalDisplay, {
+        innerText: total,
+        duration: 0.5,
+        snap: { innerText: 1 },
+        onUpdate: function() { totalDisplay.innerText = Math.round(this.targets()[0].innerText) + '€'; }
+      });
+      
+      delayDisplay.innerText = delay;
+      return details.join(', ');
+    }
+
+    configCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.config-counter')) return;
+        card.classList.toggle('active');
+        updateConfig();
+      });
+    });
+
+    document.querySelectorAll('.counter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (btn.classList.contains('plus')) pages++;
+        else if (pages > 0) pages--;
+        
+        pageCountDisplay.innerText = pages;
+        const parent = btn.closest('.config-card');
+        if (pages > 0) parent.classList.add('active');
+        else parent.classList.remove('active');
+        
+        updateConfig();
+      });
+    });
+
+    btnReserve.addEventListener('click', () => {
+      const details = updateConfig();
+      const messageField = document.getElementById('fcMessage');
+      messageField.value = `Bonjour Brahim, je souhaite réserver le pack sur-mesure suivant configuré sur le site :\n\nOptions choisies : ${details}.\nEstimation : ${totalDisplay.innerText}.\n\nMerci de me recontacter pour lancer le projet !`;
+      
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: "#contact",
+        ease: "power3.inOut"
+      });
+      messageField.focus();
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  })();
+  </script>
+</body>
+</html>

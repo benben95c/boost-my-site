@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://boost-my-site.fr/sitemap.xml
+
+# Disallow admin or private paths (future use)
+Disallow: /api/

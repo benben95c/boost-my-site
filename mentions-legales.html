@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Mentions légales – BoostMySite</title>
+  <link rel="canonical" href="https://boost-my-site.fr/mentions-legales.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Mentions légales de BoostMySite, activité de création de sites vitrine modernes pour indépendants, artisans et petites entreprises." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="brand" aria-label="BoostMySite">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 40 40" class="logo-svg" role="img" aria-label="Logo BoostMySite">
+            <defs>
+              <linearGradient id="bms" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#06b6d4"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="32" height="32" rx="11" fill="url(#bms)"/>
+            <rect x="10" y="12" width="20" height="16" rx="4" fill="#030305"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">BoostMySite</div>
+          <div class="brand-tagline">Sites web modernes & efficaces</div>
+        </div>
+      </div>
+      <nav aria-label="Navigation principale">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="mentions-legales.html" class="nav-link active">Mentions légales</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="reveal">
+        <h1 class="section-title">Mentions légales</h1>
+        <p class="section-subtitle">
+          Ces informations sont fournies à titre indicatif et seront complétées/ajustées
+          une fois le statut professionnel officiellement créé (micro-entreprise, etc.).
+        </p>
+      </section>
+
+      <!-- ÉDITEUR -->
+      <section class="reveal" aria-labelledby="editeur">
+        <h2 id="editeur" class="section-title">Éditeur du site</h2>
+        <ul class="legal-list">
+          <li><strong>Nom :</strong> Brahim Bensaid</li>
+          <li><strong>Nom commercial :</strong> BoostMySite</li>
+          <li><strong>Pays :</strong> France</li>
+          <li>
+            <strong>Email :</strong>
+            <a href="mailto:brahim.bensaid.pro75@gmail.com">
+              brahim.bensaid.pro75@gmail.com
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- HÉBERGEUR -->
+      <section class="reveal" aria-labelledby="hebergeur">
+        <h2 id="hebergeur" class="section-title">Hébergeur</h2>
+        <p style="font-size:14px;">
+          Le site <strong>boost-my-site.fr</strong> est hébergé par :
+        </p>
+        <ul class="legal-list">
+          <li><strong>Raison sociale :</strong> o2switch</li>
+          <li><strong>Forme :</strong> SAS au capital de 100 000 €</li>
+          <li><strong>Adresse :</strong> Chemin des Pardiaux, 63000 Clermont-Ferrand, France</li>
+          <li><strong>Site web :</strong> <a href="https://www.o2switch.fr" target="_blank"
+              rel="noopener noreferrer">www.o2switch.fr</a></li>
+          <li><strong>Téléphone :</strong> 04 44 44 60 40</li>
+        </ul>
+      </section>
+
+      <!-- DONNÉES PERSO -->
+      <section class="reveal" aria-labelledby="donnees">
+        <h2 id="donnees" class="section-title">Données personnelles</h2>
+        <p style="font-size:14px;">
+          Les informations envoyées via le formulaire de contact ou par email sont utilisées
+          uniquement pour répondre aux demandes et ne sont pas revendues à des tiers.
+        </p>
+        <p style="font-size:14px;margin-top:6px;">
+          Conformément à la réglementation en vigueur, vous pouvez demander l’accès,
+          la modification ou la suppression de vos données en écrivant à
+          <a href="mailto:brahim.bensaid.pro75@gmail.com">brahim.bensaid.pro75@gmail.com</a>.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © <span id="year"></span> BoostMySite — Mentions légales.
+  </footer>
+
+  <script>
+    // Année dynamique
+    (function () {
+      var span = document.getElementById("year");
+      if (span) span.textContent = new Date().getFullYear();
+    })();
+
+    // Animation de révélation au scroll
+    (function () {
+      var els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach(function (el) {
+          el.classList.add("visible");
+        });
+        return;
+      }
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      els.forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+  </script>
+</body>
+
+</html>

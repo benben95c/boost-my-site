@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <title>Blog – Développement Web, SEO & Motion Design | BoostMySite</title>
+  <meta name="description" content="Articles stratégiques sur Next.js vs WordPress, référencement local pour artisans, et l'impact des animations GSAP sur votre taux de conversion. Dominez votre marché.">
+  <meta name="keywords" content="blog développement web, Next.js vs WordPress, SEO artisan 2026, headless CMS, motion design conversion, développeur web freelance, référencement local PME">
+  <meta name="author" content="Brahim Ben Said – BoostMySite">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://boost-my-site.fr/blog.html">
+  <meta name="theme-color" content="#030305">
+
+  <meta property="og:type" content="blog">
+  <meta property="og:site_name" content="BoostMySite">
+  <meta property="og:url" content="https://boost-my-site.fr/blog.html">
+  <meta property="og:title" content="Blog BoostMySite – Stratégie, Code & SEO pour dominer le Web">
+  <meta property="og:description" content="Des articles concrets sur Next.js, le SEO local et le Motion Design. Comprenez pourquoi votre site actuel vous freine et comment le transformer en machine de guerre.">
+  <meta property="og:image" content="https://boost-my-site.fr/hero-bg.jpg">
+  <meta property="og:locale" content="fr_FR">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog BoostMySite – Web, SEO & Motion Design">
+  <meta name="twitter:description" content="Artisans, agences, indépendants : nos articles vous donnent les clés pour dominer Google en 2026.">
+  <meta name="twitter:image" content="https://boost-my-site.fr/hero-bg.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog BoostMySite",
+    "url": "https://boost-my-site.fr/blog.html",
+    "description": "Articles stratégiques sur le développement web, le SEO et l'UX/Motion Design",
+    "publisher": {
+      "@type": "Organization",
+      "name": "BoostMySite",
+      "url": "https://boost-my-site.fr"
+    },
+    "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "La chute de WordPress et l'ère du Headless",
+        "description": "Pourquoi les plateformes comme devis-ai.fr requièrent une infrastructure moderne (Next.js) plutôt que de vieux templates lents et piratables.",
+        "author": { "@type": "Person", "name": "Brahim Ben Said" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Artisans : Être premier sur Google en 2026",
+        "description": "Avoir un site esthétique ne sert à rien s'il n'est pas optimisé pour les robots Google. Rich Snippets, JSON-LD, et vitesse de chargement.",
+        "author": { "@type": "Person", "name": "Brahim Ben Said" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "L'Impact du Motion Design sur le Cerveau",
+        "description": "Les animations fluides comme celles implémentées via GSAP augmentent la rétention utilisateur de plus de +40%.",
+        "author": { "@type": "Person", "name": "Brahim Ben Said" }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+</head>
+
+<body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Backgrounds -->
+  <div class="bg-epic"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- HEADER -->
+  <header class="glass-panel magnetic-target">
+    <div class="nav-container">
+      <a href="index.html" class="logo magnetic">
+        <svg viewBox="0 0 40 40" class="logo-svg">
+          <defs><linearGradient id="bms" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+          <rect x="4" y="4" width="32" height="32" rx="11" fill="url(#bms)"/>
+          <rect x="10" y="12" width="20" height="16" rx="4" fill="#030305"/>
+        </svg>
+        BoostMySite
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html#expertises" class="nav-link magnetic">Expertise</a>
+        <a href="index.html#roi" class="nav-link magnetic">ROI</a>
+        <a href="portfolio.html" class="nav-link magnetic">Portfolio</a>
+        <a href="faq.html" class="nav-link magnetic">FAQ</a>
+        <a href="blog.html" class="nav-link magnetic active">Blog</a>
+      </nav>
+      
+      <a href="index.html#contact" class="btn btn-primary magnetic">Nous Contacter</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" style="padding-bottom: 80px;">
+      <h1 class="gsap-reveal" style="font-size: clamp(3rem, 6vw, 5rem);">
+        <div class="reveal-text-line"><span>Stratégie,</span></div>
+        <div class="reveal-text-line"><span class="text-gradient">Code & SEO.</span></div>
+      </h1>
+      <p class="gsap-fade">Des publications concrètes pour comprendre la matrice du web et dominer vos concurrents.</p>
+    </section>
+
+    <section class="section container" style="padding-top: 0;">
+      <div class="bento-grid" style="grid-template-columns: 1fr 1fr;">
+        
+        <article class="glass-panel gsap-scale" style="padding: 40px; display: flex; flex-direction: column;">
+          <span style="font-size: 13px; color: var(--accent-cyan); font-weight: bold; margin-bottom: 12px;">DÉVELOPPEMENT WEB</span>
+          <h3 style="font-size: 28px; margin-bottom: 16px; font-weight: 800;">La chute de WordPress et l'ère du Headless</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 24px; flex-grow: 1;">Pourquoi les plateformes comme devis-ai.fr requièrent une infrastructure moderne (Next.js) plutôt que de vieux templates lents et piratables.</p>
+          <a href="#" class="btn btn-outline magnetic" style="align-self: flex-start;">Bientôt disponible</a>
+        </article>
+
+        <article class="glass-panel gsap-scale" style="padding: 40px; display: flex; flex-direction: column;">
+          <span style="font-size: 13px; color: var(--accent-emerald); font-weight: bold; margin-bottom: 12px;">STRATÉGIE LOCALE</span>
+          <h3 style="font-size: 28px; margin-bottom: 16px; font-weight: 800;">Artisans : Être premier sur Google en 2026</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 24px; flex-grow: 1;">Avoir un site esthétique ne sert à rien s'il n'est pas optimisé pour les robots Google. Explications sur les Rich Snippets, JSON-LD, et la vitesse de chargement.</p>
+          <a href="#" class="btn btn-outline magnetic" style="align-self: flex-start;">Bientôt disponible</a>
+        </article>
+
+        <article class="glass-panel gsap-scale" style="padding: 40px; display: flex; flex-direction: column; grid-column: span 2; background: linear-gradient(to right, rgba(139, 92, 246, 0.1), transparent);">
+          <span style="font-size: 13px; color: var(--text-primary); font-weight: bold; margin-bottom: 12px; background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 99px; align-self: flex-start;">UX / UI DESIGN</span>
+          <h3 style="font-size: 32px; margin-bottom: 16px; font-weight: 800;">L'Impact du Motion Design sur le Cerveau</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 24px;">Une étude détaillée sur la manière dont les animations fluides, comme celles implémentées sur BoostMySite via GSAP, augmentent la rétention utilisateur de plus de +40%.</p>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> BoostMySite – Architecture & Design.</div>
+  </footer>
+
+  <script>
+    const lenis = new Lenis({duration: 1.2});
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    const cursor = document.querySelector('.custom-cursor');
+    const follower = document.querySelector('.custom-cursor-follower');
+    document.addEventListener('mousemove', (e) => {
+      gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+      gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.3 });
+    });
+    
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('mouseenter', () => follower.classList.add('hover'));
+      el.addEventListener('mouseleave', () => { follower.classList.remove('hover'); gsap.to(el, {x:0, y:0, duration:0.4}); });
+      el.addEventListener('mousemove', (e) => {
+        const r=el.getBoundingClientRect(); gsap.to(el, {x:(e.clientX - (r.left+r.width/2))*0.3, y:(e.clientY - (r.top+r.height/2))*0.3, duration:0.2});
+      });
+    });
+
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(".reveal-text-line span", { y: 0, duration: 1.2, stagger: 0.1, ease: "power4.out", delay: 0.2 });
+    gsap.from(".gsap-fade", { opacity: 0, y: 30, duration: 1, delay: 0.6});
+    gsap.utils.toArray('.gsap-scale').forEach((section, i) => {
+      gsap.from(section, { scrollTrigger: { trigger: section, start: "top 90%" }, opacity: 0, y: 30, duration: 0.8, delay: i * 0.1 });
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

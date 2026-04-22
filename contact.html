@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact – BoostMySite</title>
+  <link rel="canonical" href="https://boost-my-site.fr/contact.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Contactez BoostMySite pour discuter de votre projet de site vitrine ou poser une question." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="brand" aria-label="BoostMySite">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 40 40" class="logo-svg" role="img" aria-label="Logo BoostMySite">
+            <defs>
+              <linearGradient id="bms" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#06b6d4"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="32" height="32" rx="11" fill="url(#bms)"/>
+            <rect x="10" y="12" width="20" height="16" rx="4" fill="#030305"/>
+          </svg>
+            <circle cx="12" cy="12.5" r="1" fill="#f97373" />
+            <circle cx="15" cy="12.5" r="1" fill="#facc6b" />
+            <circle cx="18" cy="12.5" r="1" fill="#4ade80" />
+            <path d="M12 24l4-4 3 2 5-6" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M24 14l3 1.5-1.5 3" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">BoostMySite</div>
+          <div class="brand-tagline">Sites web modernes & efficaces</div>
+        </div>
+      </div>
+      <nav aria-label="Navigation principale">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="contact.html" class="nav-link active nav-cta">Contact</a>
+        <a href="mentions-legales.html" class="nav-link">Mentions légales</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="reveal">
+        <h1 class="section-title">Contact</h1>
+        <p class="section-subtitle">
+          Expliquez simplement votre situation en quelques phrases. Même si ce n’est pas très structuré,
+          on pourra clarifier ensemble ce qui est le plus adapté.
+        </p>
+      </section>
+
+      <section class="contact-grid reveal" aria-label="Moyens de contact">
+        <div class="contact-card">
+          <div class="contact-item">
+            <p class="contact-label">Email</p>
+            <p class="contact-value">
+              <a href="mailto:brahim.bensaid.pro75@gmail.com">
+                brahim.bensaid.pro75@gmail.com
+              </a>
+            </p>
+          </div>
+
+          <div class="contact-item">
+            <p class="contact-label">Téléphone</p>
+            <p class="contact-value">
+              <a href="tel:+33698727247">06 98 72 72 47</a>
+            </p>
+          </div>
+
+          <div class="contact-item">
+            <p class="contact-label">Zone</p>
+            <p class="contact-value">France (échanges à distance possibles)</p>
+          </div>
+
+          <p class="contact-inline">
+            Vous pouvez écrire par SMS, WhatsApp, email ou appeler directement.
+            L’idée est de garder les échanges simples, sans jargon.
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <form id="contact-form">
+            <div>
+              <label for="name">Nom / structure</label>
+              <input id="name" type="text" placeholder="Ex : Martin Services" />
+            </div>
+            <div>
+              <label for="email">Votre email</label>
+              <input id="email" type="email" placeholder="vous@example.com" />
+            </div>
+            <div>
+              <label for="message">Votre besoin en quelques mots</label>
+              <textarea id="message"
+                placeholder="Ex : activité, type de site souhaité, délai approximatif..."></textarea>
+            </div>
+            <button type="button" class="btn-primary" id="send-btn">
+              Préparer un email
+            </button>
+            <p class="form-note">
+              Ce bouton ouvre votre messagerie avec un email pré-rempli à destination de
+              <strong>brahim.bensaid.pro75@gmail.com</strong>.
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © <span id="year"></span> BoostMySite — Contact.
+  </footer>
+
+  <script>
+    (function () {
+      var span = document.getElementById("year");
+      if (span) span.textContent = new Date().getFullYear();
+    })();
+
+    (function () {
+      var els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach(function (el) {
+          el.classList.add("visible");
+        });
+        return;
+      }
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      els.forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+
+    (function () {
+      var btn = document.getElementById("send-btn");
+      if (!btn) return;
+
+      btn.addEventListener("click", function () {
+        var name = document.getElementById("name").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var message = document.getElementById("message").value.trim();
+
+        var subject = encodeURIComponent("[Nouveau projet BoostMySite]");
+        var bodyLines = [];
+
+        if (name) bodyLines.push("Nom / structure : " + name);
+        if (email) bodyLines.push("Email de contact : " + email);
+        if (message) bodyLines.push("\nDescription du besoin :\n" + message);
+
+        if (bodyLines.length === 0) {
+          bodyLines.push("Je souhaite échanger à propos d’un site web.");
+        }
+
+        var body = encodeURIComponent(bodyLines.join("\n"));
+        var mailto =
+          "mailto:brahim.bensaid.pro75@gmail.com?subject=" +
+          subject +
+          "&body=" +
+          body;
+
+        window.location.href = mailto;
+      });
+    })();
+  </script>
+  <!-- 1-CLICK CONTACT FLOATING BUTTON -->
+  <a href="tel:+33698727247" class="fab-contact" aria-label="Lancer un appel direct">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+    </svg>
+  </a>
+
+</body>
+
+</html>
