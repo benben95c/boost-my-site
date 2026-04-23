@@ -561,21 +561,6 @@
     <span>Lancer mon projet 🚀</span>
   </div>
 
-  <!-- WELCOME POPUP -->
-  <div class="popup-overlay" id="popupOverlay">
-    <div class="welcome-popup">
-      <div class="popup-close" onclick="closePopup()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-      </div>
-      <div class="popup-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
-      </div>
-      <h2>Propulsez votre marque aujourd'hui</h2>
-      <p>Transformez votre vision en un site web d'élite. Prêt à dominer votre marché ?</p>
-      <button class="btn btn-gradient magnetic" style="width: 100%;" onclick="closePopup(true)">Démarrer mon projet 🚀</button>
-    </div>
-  </div>
-
   <script>
   (() => {
     // ===== 1. PRELOADER =====
@@ -1065,19 +1050,6 @@
       }
     });
 
-    // ===== 16. WELCOME POPUP LOGIC =====
-    const popupOverlay = document.getElementById('popupOverlay');
-    window.closePopup = (scroll = false) => {
-      popupOverlay.classList.remove('active');
-      if (scroll) {
-        document.getElementById('contact').scrollIntoView({behavior:'smooth'});
-        selectOffer('Offre depuis la Popup Bienvenue');
-      }
-    };
-
-    setTimeout(() => {
-      popupOverlay.classList.add('active');
-    }, 2500);
 
     // ===== 17. OFFER SELECTION LOGIC =====
     window.selectOffer = (offerName) => {
