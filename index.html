@@ -276,27 +276,53 @@
           <p>Découvrez combien vous perdez d'argent chaque mois avec un site obsolète, et comment BoostMySite va exploser votre rentabilité.</p>
         </div>
 
-        <div class="roi-calculator glass-panel tilt-card" id="roiCalc">
+        <div class="roi-calculator glass-panel tilt-card" id="roiCalc" style="display: grid; grid-template-columns: 1fr 400px; gap: 40px; padding: 40px;">
           <div class="roi-inputs">
-            <label>Trafic mensuel (Visiteurs) <span class="val-display" id="val-trafic">2000</span></label>
-            <input type="range" id="calc-trafic" min="100" max="100000" step="100" value="2000">
-            <label>Votre Taux de Conversion actuel (%) <span class="val-display" id="val-conv">0.5%</span></label>
-            <input type="range" id="calc-conv" min="0.1" max="5" step="0.1" value="0.5">
-            <label>Panier moyen / Valeur d'un client (€) <span class="val-display" id="val-panier">500€</span></label>
-            <input type="range" id="calc-panier" min="10" max="5000" step="10" value="500">
+            <!-- QUICK PRESETS -->
+            <div style="margin-bottom: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;" onclick="setROIPreset(1000, 1.0, 50)">Commerce 🥖</button>
+              <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;" onclick="setROIPreset(2500, 1.5, 800)">Artisan 🛠️</button>
+              <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;" onclick="setROIPreset(5000, 0.5, 1500)">Service / B2B 💼</button>
+            </div>
+
+            <div class="roi-field" style="margin-bottom: 25px;">
+              <label style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>Nombre de visiteurs / mois</span>
+                <span class="val-display" id="val-trafic" style="color: var(--accent-cyan); font-weight: 700;">2000</span>
+              </label>
+              <input type="range" id="calc-trafic" min="100" max="50000" step="100" value="2000" style="width: 100%;">
+            </div>
+
+            <div class="roi-field" style="margin-bottom: 25px;">
+              <label style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>Taux de conversion actuel</span>
+                <span class="val-display" id="val-conv" style="color: var(--accent-cyan); font-weight: 700;">0.5%</span>
+              </label>
+              <input type="range" id="calc-conv" min="0.1" max="10" step="0.1" value="0.5" style="width: 100%;">
+            </div>
+
+            <div class="roi-field" style="margin-bottom: 25px;">
+              <label style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>Valeur d'un client (€)</span>
+                <span class="val-display" id="val-panier" style="color: var(--accent-cyan); font-weight: 700;">500€</span>
+              </label>
+              <input type="range" id="calc-panier" min="10" max="5000" step="10" value="500" style="width: 100%;">
+            </div>
           </div>
-          <div class="roi-results">
-            <h3>Nouveau Chiffre d'Affaires estimé</h3>
-            <div class="big-num text-gradient" id="res-ca">0 €</div>
-            <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Avec un taux de conversion standard BoostMySite (estimé à +2.5%).</p>
-            <div style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-              <div style="text-align: left;">
-                <span style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase;">CA Actuel</span><br/>
-                <strong id="res-ca-actuel" style="color: white; font-size: 18px;">5 000 €</strong>
+
+          <div class="roi-results" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 40px; border-radius: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-bottom: 15px;">Nouveau CA estimé</h3>
+            <div class="big-num text-gradient" id="res-ca" style="font-size: 56px; font-weight: 800; margin-bottom: 10px;">0 €</div>
+            <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 14px;">Optimisation BoostMySite (+2.5% conv.)</p>
+            
+            <div style="padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); text-align: left; display: flex; flex-direction: column; gap: 15px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="font-size: 13px; opacity: 0.6;">CA Actuel</span>
+                <strong id="res-ca-actuel" style="font-size: 16px;">0 €</strong>
               </div>
-              <div style="text-align: right;">
-                <span style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase;">Argent Laissé Sur La Table</span><br/>
-                <strong id="res-perte" style="color: #ef4444; font-size: 18px;">- 10 000 €</strong>
+              <div style="display: flex; justify-content: space-between; color: #ef4444;">
+                <span style="font-size: 13px; font-weight: 600;">Manque à gagner mensuel</span>
+                <strong id="res-perte" style="font-size: 20px; font-weight: 800;">0 €</strong>
               </div>
             </div>
           </div>
@@ -848,18 +874,25 @@
     });
 
     // ===== 14. ROI CALCULATOR =====
+    window.setROIPreset = (trafic, conv, panier) => {
+      document.getElementById('calc-trafic').value = trafic;
+      document.getElementById('calc-conv').value = conv;
+      document.getElementById('calc-panier').value = panier;
+      updateROI();
+    };
+
     function updateROI() {
       const t = parseFloat(document.getElementById('calc-trafic').value);
       const c = parseFloat(document.getElementById('calc-conv').value) / 100;
       const p = parseFloat(document.getElementById('calc-panier').value);
-      document.getElementById('val-trafic').innerText = t;
+      document.getElementById('val-trafic').innerText = t.toLocaleString('fr-FR');
       document.getElementById('val-conv').innerText = document.getElementById('calc-conv').value + ' %';
-      document.getElementById('val-panier').innerText = p + ' €';
+      document.getElementById('val-panier').innerText = p.toLocaleString('fr-FR') + ' €';
       const actuel = t * c * p;
       const newConv = (parseFloat(document.getElementById('calc-conv').value) + 2.5) / 100;
       const futur = t * newConv * p;
-      document.getElementById('res-ca-actuel').innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(actuel);
-      document.getElementById('res-perte').innerText = "- " + new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(futur - actuel);
+      document.getElementById('res-ca-actuel').innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(actuel);
+      document.getElementById('res-perte').innerText = "- " + new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(futur - actuel);
       document.getElementById('res-ca').innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(futur);
     }
     ['calc-trafic', 'calc-conv', 'calc-panier'].forEach(id => document.getElementById(id).addEventListener('input', updateROI));
