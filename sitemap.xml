@@ -32,4 +32,19 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://boost-my-site.com/blog/artisan-site-web-google-maps.html</loc>
+    <lastmod>2024-04-23</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://boost-my-site.com/blog/fast-food-commande-en-ligne.html</loc>
+    <lastmod>2024-04-23</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://boost-my-site.com/blog/erreurs-seo-commercants-locaux.html</loc>
+    <lastmod>2024-04-23</lastmod>
+    <priority>0.80</priority>
+  </url>
 </urlset>
