@@ -240,6 +240,7 @@
 
   <!-- MOBILE MENU OVERLAY -->
   <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="toggleMenu()" aria-label="Fermer le menu">&times;</button>
     <div class="mobile-nav-links">
       <a href="#expertises" onclick="toggleMenu()">Expertise</a>
       <a href="#roi" onclick="toggleMenu()">ROI</a>
@@ -289,7 +290,7 @@
           <p>Découvrez combien vous perdez d'argent chaque mois avec un site obsolète, et comment BoostMySite va exploser votre rentabilité.</p>
         </div>
 
-        <div class="roi-calculator glass-panel tilt-card" id="roiCalc" style="display: grid; grid-template-columns: 1fr 400px; gap: 40px; padding: 40px;">
+        <div class="roi-calculator glass-panel tilt-card" id="roiCalc">
           <div class="roi-inputs">
             <!-- QUICK PRESETS -->
             <div style="margin-bottom: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
