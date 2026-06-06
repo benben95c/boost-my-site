@@ -432,7 +432,7 @@ header.scrolled {
 
 .roi-inputs label { display: block; font-size: 15px; color: var(--text-secondary); margin-bottom: 12px; font-weight: 500; }
 .roi-inputs input[type=range] { width: 100%; margin-bottom: 32px; accent-color: var(--accent-emerald); cursor: pointer; }
-.roi-inputs .val-display { float: right; color: var(--text-primary); background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; font-variant-numeric: tabular-nums; }
+.roi-inputs .val-display { color: var(--text-primary); background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 6px; font-variant-numeric: tabular-nums; }
 
 .roi-results { background: rgba(0,0,0,0.4); padding: 40px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.3); text-align: center; }
 .roi-results h3 { font-size: 20px; color: var(--text-secondary); margin-bottom: 16px; }
@@ -667,7 +667,8 @@ footer { padding: 60px 0; border-top: 1px solid var(--border-light); margin-top:
   .bento-large, .bento-tall { grid-column: 1; grid-row: auto; }
   .pricing-wrapper { grid-template-columns: 1fr; }
   .contact-fusion { grid-template-columns: 1fr; }
-  .roi-calculator { grid-template-columns: 1fr; padding: 24px; }
+  .roi-calculator { display: flex; flex-direction: column; gap: 32px; padding: 24px; }
+  .roi-results { padding: 24px !important; }
   
   .hero { padding: 120px 0 60px; }
   .hero h1 { font-size: 42px; line-height: 1.1; }
