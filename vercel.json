@@ -2,5 +2,11 @@
   "name": "boostmysite",
   "version": 2,
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/devis-ai",
+      "destination": "https://devis-ai-api.onrender.com/widget/generate/zaqvxayko1gdz0gthpkp8c"
+    }
+  ]
 }

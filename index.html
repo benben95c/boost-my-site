@@ -900,7 +900,7 @@
         const desc = document.getElementById('daiDesc').value;
 
         try {
-          const res = await fetch('https://devis-ai-api.onrender.com/widget/generate/zaqvxayko1gdz0gthpkp8c', {
+          const res = await fetch('/api/devis-ai', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nom, email, telephone: tel, description: desc })
