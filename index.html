@@ -449,110 +449,43 @@
             </div>
             <div style="text-align: left; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
               <span style="color: var(--accent-purple); font-weight: bold;">⚡ Pourquoi choisir un expert ?</span><br/>
-              <span style="color: var(--text-secondary); font-size: 14px;">Même pour un "site simple", ma technologie permet à un petit restaurant de passer <strong>devant</strong> ses concurrents sur Google Maps.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CUSTOM QUOTE CONFIGURATOR -->
+              <span style="color: var(--text-secondary); font-size: 14px;">Même pour un "site simple", ma technologie permet à un petit    <!-- DEVIS IA QUOTE CONFIGURATOR -->
     <section id="configurateur" class="section container">
       <div class="section-header" style="text-align: left; margin-bottom: 60px;">
         <span style="color: var(--accent-purple); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 14px;">Sur-mesure</span>
-        <h2 style="font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-top: 10px;">Payer pour <span class="text-gradient">exactement</span><br/>ce dont vous avez besoin.</h2>
-        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 20px; max-width: 600px;">Pas de packs rigides. Sélectionnez vos fonctionnalités et voyez votre investissement s'ajuster en temps réel.</p>
+        <h2 style="font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-top: 10px;">Obtenez votre devis <span class="text-gradient">par IA</span><br/>en 10 secondes.</h2>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 20px; max-width: 600px;">Décrivez votre projet, et notre intelligence artificielle calculera instantanément l'investissement nécessaire pour le réaliser.</p>
       </div>
 
-      <div class="config-container">
-        <div class="config-items-side">
-          <!-- SMART ANALYSIS BOX -->
-          <div class="smart-config-box bento-reveal">
-            <div class="smart-config-input-wrap" style="display: flex; flex-direction: column;">
-              <textarea class="smart-config-input" id="smartInput" placeholder="Ex: Je suis coach sportif et je veux un site complet avec 5 pages et un blog..."></textarea>
-              <button class="smart-magic-btn" id="smartMagicBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                Analyser mon besoin
-              </button>
-            </div>
-            <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 10px; text-align: center;">L'intelligence de BoostMySite sélectionne pour vous les options idéales.</p>
-          </div>
-          <div class="config-grid">
-            <!-- Starter Base -->
-            <div class="config-card active" data-price="490" data-delay="3" id="feat-base" style="pointer-events: none; opacity: 0.8;">
-              <div class="config-info">
-                <h4>Pack Starter Incontournable</h4>
-                <p>Design Premium, Responsive, SEO & Maps</p>
-                <div class="config-price">Inclus (490€)</div>
+      <div class="config-container" style="display: block; max-width: 800px; margin: 0 auto;">
+        <div class="glass-panel" style="padding: 40px;">
+          <form id="devisAiForm">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+              <div class="form-group">
+                <label>Votre Nom</label>
+                <input type="text" id="daiName" required placeholder="John Doe">
               </div>
-              <div class="custom-checkbox"></div>
-            </div>
-
-            <!-- Page supplémentaire -->
-            <div class="config-card" data-price="100" data-delay="1" id="feat-pages">
-              <div class="config-info">
-                <h4>Pages Supplémentaires</h4>
-                <p>Menu, Galerie, Services détaillés...</p>
-                <div class="config-price">+100€ / page</div>
-                <div class="config-counter">
-                  <button class="counter-btn minus" type="button">−</button>
-                  <span class="counter-val" id="page-count">0</span>
-                  <button class="counter-btn plus" type="button">+</button>
-                </div>
+              <div class="form-group">
+                <label>Votre E-mail</label>
+                <input type="email" id="daiEmail" required placeholder="john@example.com">
               </div>
-              <div class="custom-checkbox" style="display:none"></div>
             </div>
-
-            <!-- Réservation -->
-            <div class="config-card" data-price="150" data-delay="2" id="feat-booking">
-              <div class="config-info">
-                <h4>Prise de RDV / Réservation</h4>
-                <p>Calendly ou système natif intégré</p>
-                <div class="config-price">+150€</div>
-              </div>
-              <div class="custom-checkbox"></div>
+            <div class="form-group">
+              <label>Téléphone (Optionnel)</label>
+              <input type="tel" id="daiTel" placeholder="06 12 34 56 78">
             </div>
-
-            <!-- Blog -->
-            <div class="config-card" data-price="250" data-delay="3" id="feat-blog">
-              <div class="config-info">
-                <h4>Espace Blog / Actualités</h4>
-                <p>CMS simple pour vos articles</p>
-                <div class="config-price">+250€</div>
-              </div>
-              <div class="custom-checkbox"></div>
+            <div class="form-group">
+              <label>Description du projet</label>
+              <textarea id="daiDesc" rows="5" required placeholder="Ex: Je suis coach sportif et je souhaite un site de 5 pages avec un système de réservation..."></textarea>
             </div>
-
-            <!-- SEO Pro -->
-            <div class="config-card" data-price="150" data-delay="2" id="feat-seo">
-              <div class="config-info">
-                <h4>Pack SEO Poids Lourd</h4>
-                <p>Audit mot-clés + Stratégie contenu</p>
-                <div class="config-price">+150€</div>
-              </div>
-              <div class="custom-checkbox"></div>
-            </div>
-
-            <!-- Multilingue -->
-            <div class="config-card" data-price="200" data-delay="2" id="feat-lang">
-              <div class="config-info">
-                <h4>Version Multilingue</h4>
-                <p>Français + Anglais inclus</p>
-                <div class="config-price">+200€</div>
-              </div>
-              <div class="custom-checkbox"></div>
-            </div>
-          </div>
+            <button type="submit" class="btn btn-gradient magnetic" style="width: 100%; border: none; padding: 18px;" id="daiBtn">
+              <span id="daiBtnText">Générer mon devis par IA ✨</span>
+            </button>
+            <p id="daiStatus" style="display:none; text-align:center; margin-top:16px; font-weight:bold;"></p>
+          </form>
         </div>
-
-        <div class="config-summary glass-panel">
-          <div class="config-total-label">Votre investissement</div>
-          <div class="config-total-val text-gradient" id="config-total">490€</div>
-          <div class="config-delay">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Livraison estimée : <span id="config-days">3</span> jours
-          </div>
-          <button class="btn btn-gradient magnetic" style="width: 100%; justify-content: center;" id="btn-reserve-custom">Lancer mon projet 🚀</button>
+      </div>
+    </section>mon projet 🚀</button>
           <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 16px;">Paiement 50% à la commande, 50% à la livraison.</p>
         </div>
       </div>
@@ -946,146 +879,52 @@
       }
     });
 
-    // ===== 14. CONFIGURATEUR DE DEVIS =====
-    const configCards = document.querySelectorAll('.config-card:not(#feat-base)');
-    const totalDisplay = document.getElementById('config-total');
-    const delayDisplay = document.getElementById('config-days');
-    const pageCountDisplay = document.getElementById('page-count');
-    const btnReserve = document.getElementById('btn-reserve-custom');
-    
-    let pages = 0;
-
-    function updateConfig() {
-      let total = 490;
-      let delay = 3;
-      let details = ["Pack Starter (Base)"];
-
-      configCards.forEach(card => {
-        if (card.classList.contains('active')) {
-          total += parseInt(card.dataset.price);
-          delay += parseInt(card.dataset.delay);
-          details.push(card.querySelector('h4').innerText);
-        }
-      });
-
-      if (pages > 0) {
-        total += pages * 100;
-        delay += pages * 1; // +1 jour par page
-        details.push(`${pages} Page(s) supplémentaire(s)`);
-      }
-
-      gsap.to(totalDisplay, {
-        innerText: total,
-        duration: 0.5,
-        snap: { innerText: 1 },
-        onUpdate: function() { totalDisplay.innerText = Math.round(this.targets()[0].innerText) + '€'; }
-      });
-      
-      delayDisplay.innerText = delay;
-      return details.join(', ');
-    }
-
-    configCards.forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.config-counter')) return;
-        card.classList.toggle('active');
-        updateConfig();
-      });
-    });
-
-    document.querySelectorAll('.counter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (btn.classList.contains('plus')) pages++;
-        else if (pages > 0) pages--;
+    // ===== 14. DEVIS IA INLINE =====
+    const devisAiForm = document.getElementById('devisAiForm');
+    if (devisAiForm) {
+      devisAiForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btnText = document.getElementById('daiBtnText');
+        const status = document.getElementById('daiStatus');
+        const btn = document.getElementById('daiBtn');
         
-        pageCountDisplay.innerText = pages;
-        const parent = btn.closest('.config-card');
-        if (pages > 0) parent.classList.add('active');
-        else parent.classList.remove('active');
-        
-        updateConfig();
-      });
-    });
+        btn.disabled = true;
+        btnText.innerText = "Analyse par IA en cours...";
+        status.style.display = "block";
+        status.style.color = "var(--text-secondary)";
+        status.innerText = "Calcul des coûts et délais...";
 
-    btnReserve.addEventListener('click', () => {
-      const details = updateConfig();
-      const messageField = document.getElementById('fcMessage');
-      messageField.value = `Bonjour Brahim, je souhaite réserver le pack sur-mesure suivant configuré sur le site :\n\nOptions choisies : ${details}.\nEstimation : ${totalDisplay.innerText}.\n\nMerci de me recontacter pour lancer le projet !`;
-      
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: "#contact",
-        ease: "power3.inOut"
-      });
-      messageField.focus();
-    });
+        const nom = document.getElementById('daiName').value;
+        const email = document.getElementById('daiEmail').value;
+        const tel = document.getElementById('daiTel').value;
+        const desc = document.getElementById('daiDesc').value;
 
-    // ===== 14. SMART CONFIGURATOR ANALYSIS =====
-    const smartInput = document.getElementById('smartInput');
-    const smartBtn = document.getElementById('smartMagicBtn');
-
-    smartBtn.addEventListener('click', () => {
-      const text = smartInput.value.toLowerCase();
-      if (!text) return;
-
-      // Visual feedback
-      smartBtn.innerHTML = 'Analyse en cours...';
-      smartBtn.style.opacity = '0.7';
-
-      setTimeout(() => {
-        // Advanced keyword logic
-        const needs = {
-          blog: ['blog', 'article', 'actualité', 'rédaction', 'contenu', 'écrire'],
-          booking: ['réserv', 'rendez-vous', 'rdv', 'calendly', 'booking', 'coach', 'séance', 'planning'],
-          lang: ['anglais', 'langue', 'traduction', 'multilingue', 'international', 'english'],
-          seo: ['seo', 'google', 'référencement', 'visibilité', 'client', 'trouver', 'premier', 'rang', 'notoriété']
-        };
-
-        let found = false;
-        if (needs.blog.some(k => text.includes(k))) {
-          if (!document.getElementById('feat-blog').classList.contains('active')) { document.getElementById('feat-blog').click(); found = true; }
-        }
-        if (needs.booking.some(k => text.includes(k))) {
-          if (!document.getElementById('feat-booking').classList.contains('active')) { document.getElementById('feat-booking').click(); found = true; }
-        }
-        if (needs.lang.some(k => text.includes(k))) {
-          if (!document.getElementById('feat-lang').classList.contains('active')) { document.getElementById('feat-lang').click(); found = true; }
-        }
-        if (needs.seo.some(k => text.includes(k))) {
-          if (!document.getElementById('feat-seo').classList.contains('active')) { document.getElementById('feat-seo').click(); found = true; }
-        }
-        
-        // Count pages if mentioned
-        const pageWords = ['complet', 'plusieurs', 'beaucoup', 'multi', 'nombreuses', 'pages'];
-        const pageMatch = text.match(/(\d+)\s*page/);
-        
-        if (pageMatch) {
-          const count = parseInt(pageMatch[1]);
-          const plusBtn = document.querySelector('#feat-pages .plus');
-          // Reset count first by clicking minus enough times (simpler for logic)
-          for(let i=0; i<10; i++) document.querySelector('#feat-pages .minus').click();
-          for(let i=0; i<count; i++) { plusBtn.click(); found = true; }
-        } else if (pageWords.some(k => text.includes(k))) {
-          // If "complet" or "multi" is mentioned without a number, add 3 pages by default
-          for(let i=0; i<10; i++) document.querySelector('#feat-pages .minus').click();
-          for(let i=0; i<3; i++) { 
-            document.querySelector('#feat-pages .plus').click(); 
+        try {
+          const res = await fetch('https://devis-ai-api.onrender.com/widget/generate/zaqvxayko1gdz0gthpkp8c', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nom, email, telephone: tel, description: desc })
+          });
+          const json = await res.json();
+          if (res.status >= 400) {
+            status.style.color = "var(--accent-purple)";
+            status.innerText = json.detail || "Une erreur est survenue.";
+            btnText.innerText = "Réessayer";
+            btn.disabled = false;
+          } else {
+            status.style.color = "var(--accent-emerald)";
+            status.innerText = json.message || "Devis généré et envoyé !";
+            btnText.innerText = "Devis envoyé ✅";
+            btn.style.display = "none";
           }
-          found = true;
+        } catch(err) {
+          status.style.color = "var(--accent-purple)";
+          status.innerText = "Erreur réseau. Veuillez réessayer.";
+          btnText.innerText = "Réessayer";
+          btn.disabled = false;
         }
-
-        if (found) {
-          smartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Analyse réussie !';
-        } else {
-          smartBtn.innerHTML = 'Besoin d\'un peu plus de détails...';
-        }
-        setTimeout(() => {
-          smartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg> Analyser mon besoin';
-          smartBtn.style.opacity = '1';
-        }, 2000);
-      }, 800);
-    });
+      });
+    }
 
     // ===== 15. STICKY CTA VISIBILITY =====
     const stickyCta = document.getElementById('stickyCta');
