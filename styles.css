@@ -920,3 +920,12 @@ footer { padding: 60px 0; border-top: 1px solid var(--border-light); margin-top:
     font-size: 24px;
   }
 }
+
+/* ==== OVERRIDES DEVIS-AI WIDGET ==== */
+/* Remonte la bulle pour ne pas cacher le bouton "Lancer mon projet" */
+#devis-ai-widget-btn {
+  bottom: 90px !important;
+}
+#devis-ai-widget-modal {
+  bottom: 160px !important;
+}
