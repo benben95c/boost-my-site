@@ -928,4 +928,65 @@ footer { padding: 60px 0; border-top: 1px solid var(--border-light); margin-top:
 }
 #devis-ai-widget-modal {
   bottom: 160px !important;
+  background: rgba(20, 20, 25, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff !important;
+}
+#devis-ai-widget-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+#devis-ai-widget-body p {
+  color: #9ca3af !important;
+}
+.devis-ai-input {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+}
+.devis-ai-input::placeholder {
+  color: #6b7280 !important;
+}
+#devis-ai-widget-submit {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 14px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+#devis-ai-widget-submit:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5) !important;
+}
+#devis-ai-widget-close {
+  color: #ffffff !important;
+  opacity: 0.7;
+}
+#devis-ai-widget-close:hover {
+  opacity: 1;
+}
+
+/* Mobile Responsiveness for Devis-AI Widget */
+@media (max-width: 768px) {
+  #devis-ai-widget-modal {
+    width: calc(100vw - 40px) !important;
+    right: 20px !important;
+    left: 20px !important;
+    bottom: 100px !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+  }
+  #devis-ai-widget-btn {
+    bottom: 80px !important;
+    right: 15px !important;
+  }
 }
