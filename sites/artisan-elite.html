@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Rénovation & Dépannage — Artisan BTP d'Élite Île-de-France</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090c12;
+      --card: #111724;
+      --accent: #2563eb;
+      --accent-glow: #3b82f6;
+      --amber: #f59e0b;
+      --green: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      padding-bottom: 90px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .demo-bar {
+      background: #111422;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #9aa1c4;
+    }
+    .demo-bar a {
+      background: linear-gradient(120deg, #3d6bff, #8a5cff);
+      color: white;
+      padding: 5px 14px;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Header */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-amber {
+      background: var(--amber);
+      color: #000;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 60px 0 50px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 20px 0;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto 36px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .trust-strip span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    /* Before / After Slider */
+    .ba-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      margin: 40px 0;
+    }
+    .ba-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .ba-container {
+      position: relative;
+      height: 420px;
+      border-radius: 12px;
+      overflow: hidden;
+      user-select: none;
+    }
+    .ba-img {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      color: white;
+    }
+    .ba-before {
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%), radial-gradient(circle at center, #3d281a 0%, #17110c 100%);
+      z-index: 1;
+    }
+    .ba-after {
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%), url('project-artisan.jpg') center/cover no-repeat;
+      z-index: 2;
+      width: 50%;
+      border-right: 3px solid #fff;
+    }
+    .ba-slider {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+      z-index: 10;
+    }
+    .ba-badge {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      align-self: flex-start;
+      margin-bottom: 8px;
+    }
+    
+    /* Pricing Estimator */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s;
+    }
+    .pricing-card:hover { border-color: var(--accent); }
+    .pricing-card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .price-num {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: #60a5fa;
+      margin: 16px 0 8px;
+    }
+    .price-features {
+      list-style: none;
+      margin: 16px 0 24px;
+      display: grid;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      flex: 1;
+    }
+    .price-features li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+    
+    /* Sticky bottom call for mobile */
+    .sticky-call {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      z-index: 100;
+      display: none;
+    }
+    .sticky-call a {
+      background: #ef4444;
+      color: #fff;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      font-size: 16px;
+    }
+    @media (max-width: 768px) {
+      .sticky-call { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-bar">
+    <span>Démonstration client : <strong>Apex Rénovation & BTP d'Élite</strong></span>
+    <a href="../portfolio.html">Retour au portfolio</a>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="nav">
+        <div class="logo">
+          <span>APEX RÉNOVATION</span>
+        </div>
+        <div class="status-badge">
+          <span class="pulse-dot"></span>
+          <span>Équipe d'astreinte disponible (Arrivée ~25 min)</span>
+        </div>
+        <a href="tel:+33189000000" class="btn-primary">Appel Direct 24/7 : 01 89 00 00 00</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="status-badge" style="margin-bottom: 16px;">Garantie Décennale AXA & Certifié Qualibat</div>
+      <h1>L'Excellence du BTP <br><span>Sans Mauvaise Surprise</span></h1>
+      <p>Rénovation complète, plomberie d'urgence et dépannage électrique. Devis transparent avant intervention et finitions haut de gamme.</p>
+
+      <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+        <a href="tel:+33189000000" class="btn-amber">Demande d'intervention urgente</a>
+        <a href="#tarifs" class="btn-primary" style="background:transparent; border:1px solid var(--border);">Consulter nos forfaits</a>
+      </div>
+
+      <div class="trust-strip">
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--amber)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Avis Google vérifiés : <strong>4.9 / 5 (140+ avis)</strong></span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <strong>Garantie décennale 10 ans</strong></span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-glow)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Intervention en <strong>30 minutes</strong></span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#60a5fa"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Devis gratuit <strong>sans engagement</strong></span>
+      </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="ba-section">
+      <div class="ba-header">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 26px;">Glissez pour comparer : Avant / Après</h2>
+          <p style="color: var(--muted); font-size: 14px;">Chantier de rénovation intégrale salle de bain & plomberie encastrée — Paris 16e</p>
+        </div>
+        <span style="font-size: 13px; color: var(--accent-glow); font-weight: 600;">Glissez le curseur horizontalement ⇄</span>
+      </div>
+
+      <div class="ba-container">
+        <!-- Before -->
+        <div class="ba-img ba-before">
+          <span class="ba-badge" style="background:#7f1d1d;">Avant Rénovation</span>
+          <h3 style="font-size:18px;">Canalisations vétustes, carrelage fissuré et infiltration</h3>
+        </div>
+        <!-- After -->
+        <div class="ba-img ba-after" id="afterBox">
+          <span class="ba-badge" style="background:#14532d;">Après Intervention Apex</span>
+          <h3 style="font-size:18px;">Douche italienne marbre, robinetterie encastrée & zéro fuite</h3>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="ba-slider" oninput="slideBA(this.value)">
+      </div>
+    </section>
+
+    <!-- Transparent Pricing -->
+    <section id="tarifs" style="margin: 60px 0;">
+      <h2 style="font-family: var(--font-display); font-size: 32px; text-align: center; margin-bottom: 12px;">Nos Forfaits Clairs & Agréés Assurances</h2>
+      <p style="text-align: center; color: var(--muted); max-width: 540px; margin: 0 auto;">Aucun coût caché. Tous nos tarifs sont validés avec vous avant de commencer les travaux.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Dépannage & Recherche de Fuite</h3>
+          <p style="color:var(--muted); font-size:13px;">Détection acoustique ou caméra thermique</p>
+          <div class="price-num">Dès 120 €</div>
+          <ul class="price-features">
+            <li>Rapport détaillé pour votre assurance</li>
+            <li>Réparation immédiate de la fuite</li>
+            <li>Prise en charge convention IRSI</li>
+          </ul>
+          <button class="btn-primary" onclick="alert('Réservation pré-remplie !')">Demander cette intervention</button>
+        </div>
+
+        <div class="pricing-card" style="border-color: var(--accent);">
+          <div style="background:var(--accent); color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:99px; align-self:flex-start; margin-bottom:10px;">LE PLUS DEMANDÉ</div>
+          <h3>Remplacement Chauffe-Eau / Ballon</h3>
+          <p style="color:var(--muted); font-size:13px;">Atlantic / Thermor haute efficacité</p>
+          <div class="price-num">Dès 590 €</div>
+          <ul class="price-features">
+            <li>Dépose et recyclage de l'ancien ballon</li>
+            <li>Groupe de sécurité neuf offert</li>
+            <li>Garantie cuve 5 ans constructeur</li>
+          </ul>
+          <button class="btn-primary" onclick="alert('Réservation pré-remplie !')">Demander cette intervention</button>
+        </div>
+
+        <div class="pricing-card">
+          <h3>Rénovation Salle de Bain Clé en Main</h3>
+          <p style="color:var(--muted); font-size:13px;">De la plomberie à la pose du carrelage</p>
+          <div class="price-num">Sur Devis (Gratuit)</div>
+          <ul class="price-features">
+            <li>Plans 3D et choix des matériaux</li>
+            <li>Chantier propre nettoyé chaque soir</li>
+            <li>Garantie décennale obligatoire incluse</li>
+          </ul>
+          <button class="btn-primary" onclick="alert('Demande de devis transmise !')">Obtenir mon devis gratuit</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="sticky-call">
+    <a href="tel:+33189000000"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Urgence Dépannage (01 89 00 00 00)</a>
+  </div>
+
+  <script>
+    function slideBA(val) {
+      document.getElementById('afterBox').style.width = val + '%';
+    }
+  </script>
+</body>
+</html>

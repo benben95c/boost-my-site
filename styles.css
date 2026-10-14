@@ -237,8 +237,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .project p { color: var(--muted); font-size: 15.5px; flex: 1; }
 .link-arrow { display: inline-flex; gap: 8px; align-items: center; font-weight: 500; font-size: 15px; margin-top: 8px; }
 .link-arrow svg { width: 16px; height: 16px; transition: transform .25s ease; }
-.link-arrow:hover svg { transform: translateX(5px); }
-@media (max-width: 960px) { .projects { grid-template-columns: 1fr; } }
+@media (max-width: 1040px) { .projects { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 680px) { .projects { grid-template-columns: 1fr; } }
 
 /* ---------- Portfolio page ---------- */
 .case { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding: 56px 0; border-top: 1px solid var(--line); }

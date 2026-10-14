@@ -95,21 +95,65 @@ const FAQ = [
 
 const PROJECTS = [
   {
-    tag: 'SaaS et IA', title: 'Devis-AI', img: 'devis-ai.jpg', alt: 'Devis-AI, plateforme de génération de devis par IA',
-    short: 'Outil de génération de devis pour les professionnels. Application complète : interface, base de données, comptes utilisateurs et intégration IA.',
-    long: "Un outil de génération de devis conçu pour les professionnels. Le projet a demandé une architecture full-stack complète : interface moderne, base de données sécurisée, gestion des utilisateurs et intégration d'intelligence artificielle.",
-    href: 'https://devis-ai.fr', cta: 'Visiter le site', external: true
+    tag: 'Chauffeur Privé & VTC',
+    title: 'Prestige Drive Paris',
+    img: 'project-chauffeur.jpg',
+    alt: 'Prestige Drive Paris, site vitrine luxe pour chauffeur privé',
+    short: 'Site vitrine haut de gamme avec simulateur de tarif instantané, sélection de forfaits aéroports et réservation en direct.',
+    long: "Création d'une vitrine numérique haut de gamme pour chauffeur privé et artisan taxi d'exception. L'interface intègre un simulateur d'itinéraires en temps réel (Orly, Roissy CDG, gares), une mise en valeur de la flotte de prestige et un déclencheur d'appel direct sur smartphone pour capter chaque opportunité sans intermédiaire ni commission.",
+    href: 'sites/chauffeur-prestige.html',
+    cta: 'Tester la démo en ligne',
+    external: false
   },
   {
-    tag: 'Web3', title: 'cGAS Crypto', img: 'cgascrypto.jpg', alt: 'cGAS Crypto, interface Web3',
-    short: "Interface et intégration Web3 du premier token indexé sur le gaz naturel, déployé sur Arbitrum.",
-    long: "Conception de l'interface et de l'intégration Web3 du premier token indexé sur le gaz naturel, sur Arbitrum. Une expérience pensée pour la finance décentralisée, avec connexion de portefeuille et un design soigné.",
-    href: 'https://www.cgascrypto.com', cta: 'Visiter le site', external: true
+    tag: 'Artisanat & BTP',
+    title: 'Apex Rénovation & BTP',
+    img: 'project-artisan.jpg',
+    alt: "Apex Rénovation, site pour artisan du bâtiment et dépannage d'urgence",
+    short: 'Module interactif Avant/Après, badge d’urgence géolocalisé, forfaits transparents et garanties décennales rassurantes.',
+    long: "Conception d'une plateforme de conversion pour entreprise générale de bâtiment et dépannage rapide. Un comparateur interactif Avant/Après permet au client d'apprécier la qualité des finitions, complété par l'affichage d'un délai d'intervention en direct, de forfaits clairs agréés assurances et de la preuve sociale Google.",
+    href: 'sites/artisan-elite.html',
+    cta: 'Tester la démo en ligne',
+    external: false
   },
   {
-    tag: 'Éducation', title: 'SES Campus', img: 'ses-campus.jpg', alt: "SES Campus, plateforme d'apprentissage en ligne",
-    short: "Plateforme d'apprentissage sur mesure pour un professeur de SES : gestion du contenu et parcours clair pour les élèves.",
-    long: "Une plateforme d'apprentissage sur mesure pour un professeur de SES. Gestion du contenu pédagogique et présentation claire et rassurante pour les élèves.",
+    tag: 'Bistronomie & Vente Directe',
+    title: 'Maison Braise Paris',
+    img: 'project-restaurant.jpg',
+    alt: 'Maison Braise, site web de restaurant avec réservation et commande directe',
+    short: 'Expérience culinaire immersive avec carte filtrable, widget de réservation de table instantané et commande directe sans commission.',
+    long: "Site vitrine et commercial conçu pour affranchir les restaurateurs des 30% de commission des plateformes tierces. Carte interactive triée par catégorie, module de réservation de table en direct avec confirmation instantanée et promotion de la vente à emporter en Click & Collect.",
+    href: 'sites/restaurant-braise.html',
+    cta: 'Tester la démo en ligne',
+    external: false
+  },
+  {
+    tag: 'SaaS & Intelligence Artificielle',
+    title: 'Devis-AI',
+    img: 'devis-ai.jpg',
+    alt: 'Devis-AI, plateforme SaaS de génération de devis par intelligence artificielle',
+    short: 'Application SaaS complète de génération de devis pour professionnels : interface Next.js, base de données sécurisée et moteur IA.',
+    long: "Outil SaaS complet développé sur mesure pour les indépendants et professionnels du BTP. L'application intègre une interface moderne et réactive, une gestion d'authentification et de profils, une base de données chiffrée et un moteur d'intelligence artificielle automatisant la création de devis complexes.",
+    href: 'https://devis-ai.fr',
+    cta: 'Visiter le SaaS en direct',
+    external: true
+  },
+  {
+    tag: 'Web3 & Architecture DeFi',
+    title: 'cGAS Crypto',
+    img: 'cgascrypto.jpg',
+    alt: 'cGAS Crypto, interface Web3 pour token indiciel sur Arbitrum',
+    short: "Architecture et interface Web3 du premier token indiciel adossé au gaz naturel, déployé sur le réseau Arbitrum.",
+    long: "Conception de l'interface décentralisée et de l'intégration Web3 pour le premier token indiciel adossé au gaz naturel sur la blockchain Arbitrum. Expérience utilisateur financière institutionnelle : interaction avec les smart contracts, connexion de wallets Web3 (MetaMask, WalletConnect) et suivi temps réel des flux de liquidité. Architecture et projet livrés avec succès.",
+    href: null
+  },
+  {
+    tag: 'Plateforme E-Learning',
+    title: 'SES Campus',
+    img: 'ses-campus.jpg',
+    alt: "SES Campus, plateforme d'apprentissage et de révision en ligne",
+    short: "Plateforme pédagogique sur mesure pour enseignants et étudiants en Sciences Économiques : cours structurés et parcours clair.",
+    long: "Conception d'une plateforme d'apprentissage privée dédiée à la préparation aux examens de Sciences Économiques et Sociales. Gestion hiérarchisée des contenus de cours, fiches méthodologiques interactives, espace de révision optimisé pour la lecture sur mobile et tablette. Architecture et projet livrés avec succès.",
     href: null
   }
 ];
@@ -527,10 +571,10 @@ function buildHome() {
       <div class="container">
         <div class="section-head">
           <div>
-            <span class="eyebrow" data-reveal>Réalisations</span>
-            <h2 class="h-lg" data-reveal style="--d:.05s">Quelques projets livrés</h2>
+            <span class="eyebrow" data-reveal>Réalisations & Démos</span>
+            <h2 class="h-lg" data-reveal style="--d:.05s">Démos interactives et projets livrés</h2>
           </div>
-          <p class="lead" data-reveal style="--d:.1s">Des produits en ligne, utilisés au quotidien.</p>
+          <p class="lead" data-reveal style="--d:.1s">Découvrez ce que peut être votre futur site : simulateurs de tarifs instantanés, modules Avant/Après, réservation directe et SaaS IA.</p>
         </div>
         <div class="projects">${projects}
         </div>
@@ -597,7 +641,7 @@ function buildHome() {
         priceRange: '€€',
         address: { '@type': 'PostalAddress', addressLocality: 'Paris', addressCountry: 'FR' },
         contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: EMAIL, availableLanguage: ['French', 'English'] },
-        sameAs: ['https://devis-ai.fr', 'https://cgascrypto.com'],
+        sameAs: ['https://devis-ai.fr'],
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
           name: 'Services BoostMySite',
@@ -640,12 +684,14 @@ function buildPortfolio() {
             <span class="tag">${p.tag}</span>
             <h2>${p.title}</h2>
             <p>${p.long}</p>
-            ${p.href ? `<a href="${p.href}" target="_blank" rel="noopener noreferrer" class="btn ${i === 1 ? 'btn--primary' : 'btn--ghost'}">${p.cta}</a>` : ''}
+            ${p.href
+              ? `<a href="${p.href}" ${p.external || p.href.startsWith('sites/') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="btn ${i % 2 === 0 ? 'btn--primary' : 'btn--ghost'}">${p.cta}</a>`
+              : `<span class="tag" style="display:inline-block; margin-top:16px; padding:8px 16px; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-pill); font-size:13px; color:var(--text-dim);">Architecture livrée / Étude de cas</span>`}
           </div>
           <div class="case-img"><img src="${p.img}" alt="${esc(p.alt)}" loading="lazy" width="1200" height="750"></div>
         </article>`).join('');
 
-  const body = `${pageHero({ eyebrow: 'Réalisations', title: 'Des projets concrets, en ligne.', lead: "De l'application d'IA au projet Web3, voici ce que j'ai conçu et mis en ligne." })}
+  const body = `${pageHero({ eyebrow: 'Réalisations & Démos', title: 'Démos métiers et projets en ligne.', lead: "Découvrez nos démonstrations interactives orientées conversion et nos projets logiciels déployés en production." })}
     <section class="section" style="padding-top:20px">
       <div class="container">${cases}
       </div>
@@ -654,17 +700,18 @@ ${ctaBand('')}`;
 
   const schema = jsonLd({
     '@context': 'https://schema.org', '@type': 'ItemList', name: 'Réalisations BoostMySite',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Devis-AI, plateforme de génération de devis par IA', url: 'https://devis-ai.fr' },
-      { '@type': 'ListItem', position: 2, name: 'cGAS Crypto, interface Web3 pour un token indexé sur le gaz naturel', url: 'https://cgascrypto.com' },
-      { '@type': 'ListItem', position: 3, name: "SES Campus, plateforme d'apprentissage en ligne", url: `${SITE}/portfolio.html` }
-    ]
+    itemListElement: PROJECTS.map((p, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: `${p.title} — ${p.tag}`,
+      url: p.href ? (p.href.startsWith('http') ? p.href : `${SITE}/${p.href}`) : `${SITE}/portfolio.html`
+    }))
   });
 
   write('portfolio.html', layout({
-    title: 'Réalisations | Devis-AI, cGAS Crypto, SES Campus | BoostMySite',
-    desc: "Les projets réalisés par BoostMySite : Devis-AI (SaaS et IA), cGAS Crypto (Web3) et SES Campus (plateforme d'apprentissage).",
-    canonical: 'portfolio.html', current: 'portfolio', body, extraHead: schema, ogImage: `${SITE}/devis-ai.jpg`
+    title: 'Réalisations & Démos interactives | BoostMySite',
+    desc: "Découvrez les démos interactives et projets réalisés par BoostMySite : Chauffeur VIP, Artisan BTP, Restaurant & Click-and-Collect, SaaS IA et Web3.",
+    canonical: 'portfolio.html', current: 'portfolio', body, extraHead: schema, ogImage: `${SITE}/project-chauffeur.jpg`
   }));
 }
 
