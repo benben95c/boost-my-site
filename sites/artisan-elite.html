@@ -1197,6 +1197,43 @@
       return tex;
     }
 
+    // Architectural Studio Environment Reflection Map Generator
+    function createArchEnvMap() {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 512;
+      const ctx = c.getContext('2d');
+
+      // Gradient room envelope
+      const bg = ctx.createLinearGradient(0, 0, 0, 512);
+      bg.addColorStop(0, '#10141f');
+      bg.addColorStop(0.3, '#1c2436');
+      bg.addColorStop(0.5, '#2a354c');
+      bg.addColorStop(0.7, '#182030');
+      bg.addColorStop(1, '#090c12');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1024, 512);
+
+      // Loft daylight window reflection
+      const windowGlow = ctx.createLinearGradient(120, 140, 320, 340);
+      windowGlow.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+      windowGlow.addColorStop(0.5, 'rgba(220, 240, 255, 0.6)');
+      windowGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = windowGlow;
+      ctx.fillRect(80, 100, 260, 240);
+
+      // Warm cove interior spotlight reflection
+      const cove = ctx.createRadialGradient(720, 160, 20, 720, 160, 240);
+      cove.addColorStop(0, 'rgba(255, 220, 160, 0.9)');
+      cove.addColorStop(0.5, 'rgba(212, 175, 55, 0.4)');
+      cove.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = cove;
+      ctx.fillRect(520, 60, 400, 220);
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.mapping = THREE.EquirectangularReflectionMapping;
+      return tex;
+    }
+
     function initArch3D() {
       const container = document.getElementById('arch3dCanvas');
       if (!container || typeof THREE === 'undefined') return;
@@ -1214,6 +1251,8 @@
       archRenderer.toneMapping = THREE.ACESFilmicToneMapping;
       archRenderer.toneMappingExposure = 1.15;
       container.appendChild(archRenderer.domElement);
+
+      archScene.environment = createArchEnvMap();
 
       // Studio Lighting Suite
       const ambLight = new THREE.AmbientLight(0xfff7ee, 0.95);
