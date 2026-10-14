@@ -600,23 +600,22 @@
     <section class="arch3d-section" id="arch3d">
       <div class="arch3d-header">
         <div>
-          <span class="status-badge" style="font-size:11px; margin-bottom:6px;">Maquette 3D Interactive Réelle</span>
-          <h2 id="archTitle">Conception Salle de Bain & Sanitaires</h2>
+          <span class="status-badge" style="font-size:11px; margin-bottom:6px;">Maquette 3D Interactive</span>
+          <h2 id="archTitle">Conception Salle de Bain Haute Couture</h2>
         </div>
         <div class="arch-mode-toggle">
-          <button class="arch-mode-btn active" id="btnSalleDeBain" onclick="switchArchModel('86e9f604435d410abf6aaa8c11937eb7', this, 'Conception Salle de Bain & Sanitaires')">Salle de Bain & Sanitaires</button>
-          <button class="arch-mode-btn" id="btnAppartement" onclick="switchArchModel('6a7a5fe208344b2e8123a88923dbd5b3', this, 'Rénovation Complète Appartement')">Rénovation Complète Appartement</button>
-          <button class="arch-mode-btn" id="btnSuite" onclick="switchArchModel('e6de9fbc2089400db8969d9a02957df0', this, 'Suite Haute Couture')">Suite Haute Couture</button>
+          <button class="arch-mode-btn active" id="btnMarbreNoir" onclick="setArchMaterialStyle('noir', this)">Marbre Noir & Laiton</button>
+          <button class="arch-mode-btn" id="btnMarbreBlanc" onclick="setArchMaterialStyle('blanc', this)">Calacatta Blanc</button>
+          <button class="arch-mode-btn" id="btnBetonLoft" onclick="setArchMaterialStyle('beton', this)">Béton & Chêne Fumé</button>
+          <button class="arch-mode-btn" id="btnBlueprint" onclick="setArchMaterialStyle('blueprint', this)">Plan Filaire BTP</button>
         </div>
       </div>
 
-      <div class="arch3d-canvas-container" id="arch3dCanvas" style="height: 520px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-radius: 16px; overflow: hidden; background: #0b0e14; position: relative;">
-        <iframe id="archIframe" title="Maquette 3D Architecture"
-          src="https://sketchfab.com/models/86e9f604435d410abf6aaa8c11937eb7/embed?autostart=1&preload=1&ui_theme=dark&ui_watermark=0&ui_hint=0&ui_infos=0"
-          style="width: 100%; height: 100%; border: none; display: block;"
-          allow="autoplay; fullscreen; xr-spatial-tracking"
-          allowfullscreen>
-        </iframe>
+      <div class="arch3d-canvas-container" id="arch3dCanvas" style="height: 480px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-radius: 16px; overflow: hidden; background: radial-gradient(circle at center, #172134 0%, #080b11 80%); position: relative;">
+        <div class="arch3d-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24L21 8"/><polyline points="21 3 21 8 16 8"/></svg>
+          Glissez pour inspecter la pièce sous tous les angles
+        </div>
       </div>
     </section>
 
@@ -869,20 +868,322 @@
       document.getElementById('quoteModal').classList.remove('active');
     }
 
-    /* ---------------- ARCHITECTURAL 3D MAQUETTE CONTROLS ---------------- */
-    function switchArchModel(modelId, btn, title) {
-      document.querySelectorAll('.arch-mode-toggle .arch-mode-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      const iframe = document.getElementById('archIframe');
-      if (iframe) {
-        iframe.src = `https://sketchfab.com/models/${modelId}/embed?autostart=1&preload=1&ui_theme=dark&ui_watermark=0&ui_hint=0&ui_infos=0`;
+    /* ---------------- THREE.JS ARCHITECTURAL 3D LUXURY ROOM ---------------- */
+    let archScene, archCamera, archRenderer, archRoomGroup;
+    let archDragging = false, archPrevX = 0, archRotY = 0.55;
+    let archLights = {};
+    let archMaterials = {};
+
+    function initArch3D() {
+      const container = document.getElementById('arch3dCanvas');
+      if (!container || typeof THREE === 'undefined') return;
+
+      archScene = new THREE.Scene();
+      archCamera = new THREE.PerspectiveCamera(38, container.clientWidth / container.clientHeight, 0.1, 100);
+      archCamera.position.set(4.0, 3.0, 4.8);
+      archCamera.lookAt(0, 0.35, 0);
+
+      archRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      archRenderer.setSize(container.clientWidth, container.clientHeight);
+      archRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      archRenderer.shadowMap.enabled = true;
+      archRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(archRenderer.domElement);
+
+      // Studio Lighting
+      const ambLight = new THREE.AmbientLight(0xffffff, 0.75);
+      archScene.add(ambLight);
+      archLights.amb = ambLight;
+
+      const mainLight = new THREE.DirectionalLight(0xfff6eb, 1.4);
+      mainLight.position.set(4.5, 7.5, 3.5);
+      mainLight.castShadow = true;
+      mainLight.shadow.mapSize.width = 1024;
+      mainLight.shadow.mapSize.height = 1024;
+      archScene.add(mainLight);
+      archLights.main = mainLight;
+
+      // LED Backlight mirror glow
+      const mirrorGlow = new THREE.PointLight(0xffeedd, 1.5, 5);
+      mirrorGlow.position.set(-0.8, 1.6, -1.9);
+      archScene.add(mirrorGlow);
+      archLights.mirror = mirrorGlow;
+
+      // Niche cove light
+      const nicheGlow = new THREE.PointLight(0xd4af37, 1.2, 3.5);
+      nicheGlow.position.set(1.4, 1.2, -2.0);
+      archScene.add(nicheGlow);
+      archLights.niche = nicheGlow;
+
+      archRoomGroup = new THREE.Group();
+      archScene.add(archRoomGroup);
+
+      // Luxury Materials
+      archMaterials = {
+        floorMat: new THREE.MeshStandardMaterial({ color: 0x161b24, roughness: 0.35, metalness: 0.15 }),
+        wallMat: new THREE.MeshStandardMaterial({ color: 0x1f2533, roughness: 0.6 }),
+        leftWallMat: new THREE.MeshStandardMaterial({ color: 0x222a3a, roughness: 0.6 }),
+        tubMat: new THREE.MeshStandardMaterial({ color: 0x101217, roughness: 0.2, metalness: 0.25 }),
+        tubRimMat: new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.92, roughness: 0.22 }),
+        waterMat: new THREE.MeshStandardMaterial({ color: 0x0e2430, roughness: 0.08, metalness: 0.7, transparent: true, opacity: 0.8 }),
+        fixturesMat: new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.92, roughness: 0.22 }),
+        vanityBaseMat: new THREE.MeshStandardMaterial({ color: 0x3d3024, roughness: 0.55 }),
+        vanityTopMat: new THREE.MeshStandardMaterial({ color: 0xf0f2f5, roughness: 0.2, metalness: 0.1 }),
+        basinMat: new THREE.MeshStandardMaterial({ color: 0x111317, roughness: 0.2 }),
+        glassMat: new THREE.MeshStandardMaterial({ color: 0x93c5fd, transparent: true, opacity: 0.35, roughness: 0.05 }),
+        mirrorHaloMat: new THREE.MeshBasicMaterial({ color: 0xffeedd }),
+        mirrorFaceMat: new THREE.MeshStandardMaterial({ color: 0x1c2330, metalness: 0.95, roughness: 0.05 }),
+        towelMat: new THREE.MeshStandardMaterial({ color: 0xf3f4f6, roughness: 0.9 })
+      };
+
+      // 1. Room Shell
+      const floor = new THREE.Mesh(new THREE.BoxGeometry(4.4, 0.1, 4.4), archMaterials.floorMat);
+      floor.position.y = -0.05;
+      floor.receiveShadow = true;
+      archRoomGroup.add(floor);
+
+      const backWall = new THREE.Mesh(new THREE.BoxGeometry(4.4, 2.8, 0.1), archMaterials.wallMat);
+      backWall.position.set(0, 1.4, -2.2);
+      backWall.receiveShadow = true;
+      archRoomGroup.add(backWall);
+
+      const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2.8, 4.4), archMaterials.leftWallMat);
+      leftWall.position.set(-2.2, 1.4, 0);
+      leftWall.receiveShadow = true;
+      archRoomGroup.add(leftWall);
+
+      // Baseboard Trim
+      const trimMat = new THREE.MeshStandardMaterial({ color: 0x0d1017, metalness: 0.8, roughness: 0.3 });
+      const trimBack = new THREE.Mesh(new THREE.BoxGeometry(4.4, 0.08, 0.04), trimMat);
+      trimBack.position.set(0, 0.04, -2.13);
+      archRoomGroup.add(trimBack);
+
+      // 2. High-End Oval Freestanding Bathtub
+      const tubGroup = new THREE.Group();
+      tubGroup.position.set(0.65, 0.28, 0.35);
+
+      const tubOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.58, 0.56, 36), archMaterials.tubMat);
+      tubOuter.scale.set(1.45, 1, 0.88);
+      tubOuter.castShadow = true;
+      tubGroup.add(tubOuter);
+
+      const tubRim = new THREE.Mesh(new THREE.TorusGeometry(0.72, 0.025, 16, 36), archMaterials.tubRimMat);
+      tubRim.rotation.x = Math.PI / 2;
+      tubRim.scale.set(1.45, 0.88, 1);
+      tubRim.position.y = 0.28;
+      tubGroup.add(tubRim);
+
+      const water = new THREE.Mesh(new THREE.CylinderGeometry(0.68, 0.54, 0.02, 32), archMaterials.waterMat);
+      water.scale.set(1.42, 1, 0.85);
+      water.position.y = 0.22;
+      tubGroup.add(water);
+
+      archRoomGroup.add(tubGroup);
+
+      // 3. Freestanding Floor Mixer Tap
+      const faucetGroup = new THREE.Group();
+      faucetGroup.position.set(0.65, 0, 1.05);
+
+      const tapStem = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.85, 16), archMaterials.fixturesMat);
+      tapStem.position.y = 0.44;
+      tapStem.castShadow = true;
+      faucetGroup.add(tapStem);
+
+      const tapSpout = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.03, 0.24), archMaterials.fixturesMat);
+      tapSpout.position.set(0, 0.86, -0.1);
+      faucetGroup.add(tapSpout);
+
+      const tapLever = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.12, 12), archMaterials.fixturesMat);
+      tapLever.rotation.z = Math.PI / 3;
+      tapLever.position.set(0.04, 0.82, 0);
+      faucetGroup.add(tapLever);
+
+      archRoomGroup.add(faucetGroup);
+
+      // 4. Italian Shower Screen & Rainfall Column
+      const showerGlass = new THREE.Mesh(new THREE.BoxGeometry(0.03, 2.3, 1.5), archMaterials.glassMat);
+      showerGlass.position.set(-1.0, 1.15, -1.35);
+      archRoomGroup.add(showerGlass);
+
+      const glassFrameTop = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.04, 1.5), archMaterials.fixturesMat);
+      glassFrameTop.position.set(-1.0, 2.3, -1.35);
+      archRoomGroup.add(glassFrameTop);
+
+      const rainArm = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.4, 12), archMaterials.fixturesMat);
+      rainArm.position.set(-1.7, 2.5, -1.6);
+      archRoomGroup.add(rainArm);
+
+      const rainDisc = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.02, 24), archMaterials.fixturesMat);
+      rainDisc.position.set(-1.7, 2.3, -1.6);
+      rainDisc.castShadow = true;
+      archRoomGroup.add(rainDisc);
+
+      const drain = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.01, 0.8), archMaterials.fixturesMat);
+      drain.position.set(-1.7, 0.01, -1.6);
+      archRoomGroup.add(drain);
+
+      // 5. Designer Floating Vanity Unit
+      const vanityGroup = new THREE.Group();
+      vanityGroup.position.set(-0.7, 0.75, -1.82);
+
+      const vanityBody = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.38, 0.54), archMaterials.vanityBaseMat);
+      vanityBody.castShadow = true;
+      vanityGroup.add(vanityBody);
+
+      const vanityTop = new THREE.Mesh(new THREE.BoxGeometry(1.44, 0.06, 0.56), archMaterials.vanityTopMat);
+      vanityTop.position.y = 0.21;
+      vanityTop.castShadow = true;
+      vanityGroup.add(vanityTop);
+
+      const basin = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.18, 0.14, 28), archMaterials.basinMat);
+      basin.position.set(0, 0.31, 0);
+      basin.castShadow = true;
+      vanityGroup.add(basin);
+
+      const basinTap = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.32, 12), archMaterials.fixturesMat);
+      basinTap.position.set(0, 0.40, -0.18);
+      vanityGroup.add(basinTap);
+
+      const shelf = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.03, 0.45), archMaterials.vanityBaseMat);
+      shelf.position.y = -0.35;
+      vanityGroup.add(shelf);
+
+      for (let i = 0; i < 3; i++) {
+        const towel = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.28, 16), archMaterials.towelMat);
+        towel.rotation.z = Math.PI / 2;
+        towel.position.set(-0.25 + i * 0.18, -0.30, 0);
+        vanityGroup.add(towel);
       }
-      if (title) {
-        document.getElementById('archTitle').textContent = title;
+
+      archRoomGroup.add(vanityGroup);
+
+      // 6. Arched Backlit LED Mirror
+      const mirrorGroup = new THREE.Group();
+      mirrorGroup.position.set(-0.7, 1.62, -2.14);
+
+      const mirrorGlowMesh = new THREE.Mesh(new THREE.BoxGeometry(1.08, 0.98, 0.02), archMaterials.mirrorHaloMat);
+      mirrorGroup.add(mirrorGlowMesh);
+
+      const mirrorFace = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.9, 0.03), archMaterials.mirrorFaceMat);
+      mirrorFace.position.z = 0.02;
+      mirrorGroup.add(mirrorFace);
+
+      archRoomGroup.add(mirrorGroup);
+
+      // 7. Architectural Backlit Vertical Wall Niche
+      const nicheBox = new THREE.Mesh(new THREE.BoxGeometry(0.55, 1.8, 0.04), new THREE.MeshStandardMaterial({ color: 0x0b0e14, roughness: 0.8 }));
+      nicheBox.position.set(1.4, 1.3, -2.13);
+      archRoomGroup.add(nicheBox);
+
+      const nicheLed = new THREE.Mesh(new THREE.BoxGeometry(0.02, 1.7, 0.05), archMaterials.mirrorHaloMat);
+      nicheLed.position.set(1.65, 1.3, -2.12);
+      archRoomGroup.add(nicheLed);
+
+      // Controls
+      container.addEventListener('mousedown', (e) => {
+        archDragging = true;
+        archPrevX = e.clientX;
+      });
+      window.addEventListener('mouseup', () => { archDragging = false; });
+      window.addEventListener('mousemove', (e) => {
+        if (!archDragging) return;
+        const delta = e.clientX - archPrevX;
+        archPrevX = e.clientX;
+        archRotY += delta * 0.007;
+      });
+
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          archDragging = true;
+          archPrevX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+      window.addEventListener('touchend', () => { archDragging = false; });
+      window.addEventListener('touchmove', (e) => {
+        if (!archDragging || e.touches.length !== 1) return;
+        const delta = e.touches[0].clientX - archPrevX;
+        archPrevX = e.touches[0].clientX;
+        archRotY += delta * 0.007;
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        archCamera.aspect = container.clientWidth / container.clientHeight;
+        archCamera.updateProjectionMatrix();
+        archRenderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      animateArchStudio();
+    }
+
+    function setArchMaterialStyle(style, btn) {
+      document.querySelectorAll('.arch-mode-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const isBlueprint = (style === 'blueprint');
+      const allMats = Object.values(archMaterials).filter(m => m && m.isMaterial);
+      allMats.forEach(m => { m.wireframe = isBlueprint; });
+
+      if (isBlueprint) {
+        allMats.forEach(m => { if (m.color) m.color.set(0x38bdf8); });
+        if (archLights.amb) archLights.amb.intensity = 1.8;
+        return;
+      }
+
+      if (style === 'noir') {
+        archMaterials.floorMat.color.set(0x161b24);
+        archMaterials.wallMat.color.set(0x1f2533);
+        archMaterials.leftWallMat.color.set(0x222a3a);
+        archMaterials.tubMat.color.set(0x101217);
+        archMaterials.tubRimMat.color.set(0xd4af37);
+        archMaterials.fixturesMat.color.set(0xd4af37);
+        archMaterials.vanityBaseMat.color.set(0x3d3024);
+        archMaterials.vanityTopMat.color.set(0xf0f2f5);
+        archMaterials.basinMat.color.set(0x111317);
+        archMaterials.mirrorHaloMat.color.set(0xffeedd);
+        archLights.amb.intensity = 0.75;
+        archLights.main.color.set(0xfff6eb);
+      } else if (style === 'blanc') {
+        archMaterials.floorMat.color.set(0xf5f6f8);
+        archMaterials.wallMat.color.set(0xf0f2f5);
+        archMaterials.leftWallMat.color.set(0xe8ebf0);
+        archMaterials.tubMat.color.set(0xffffff);
+        archMaterials.tubRimMat.color.set(0xe0b875);
+        archMaterials.fixturesMat.color.set(0xd6a758);
+        archMaterials.vanityBaseMat.color.set(0x997755);
+        archMaterials.vanityTopMat.color.set(0x161b24);
+        archMaterials.basinMat.color.set(0xffffff);
+        archMaterials.mirrorHaloMat.color.set(0xffffff);
+        archLights.amb.intensity = 0.95;
+        archLights.main.color.set(0xffffff);
+      } else if (style === 'beton') {
+        archMaterials.floorMat.color.set(0x282c34);
+        archMaterials.wallMat.color.set(0x22262e);
+        archMaterials.leftWallMat.color.set(0x1e2228);
+        archMaterials.tubMat.color.set(0x1f2229);
+        archMaterials.tubRimMat.color.set(0x111111);
+        archMaterials.fixturesMat.color.set(0x111111); // Matte Black
+        archMaterials.vanityBaseMat.color.set(0x2c221a);
+        archMaterials.vanityTopMat.color.set(0x282c34);
+        archMaterials.basinMat.color.set(0x1f2229);
+        archMaterials.mirrorHaloMat.color.set(0xffc580);
+        archLights.amb.intensity = 0.65;
+        archLights.main.color.set(0xffe2b8);
       }
     }
 
+    function animateArchStudio() {
+      requestAnimationFrame(animateArchStudio);
+      if (!archDragging) {
+        archRotY += 0.0012;
+      }
+      if (archRoomGroup) {
+        archRoomGroup.rotation.y = archRotY;
+      }
+      archRenderer.render(archScene, archCamera);
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      initArch3D();
       calcBtpQuote();
     });
   </script>

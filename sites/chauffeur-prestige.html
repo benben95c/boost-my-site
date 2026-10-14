@@ -204,6 +204,18 @@
       font-weight: 700;
       box-shadow: 0 0 15px rgba(212,175,55,0.3);
     }
+    .color-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .color-btn:hover, .color-btn.active {
+      transform: scale(1.2);
+      border-color: var(--gold);
+    }
     .canvas-container {
       width: 100%;
       height: 420px;
@@ -613,40 +625,52 @@
     <section class="showroom-section" id="showroom">
       <div class="showroom-header">
         <div>
-          <span class="badge-gold">Studio 3D Temps Réel • Qualité Ultra-HD</span>
-          <h2 style="margin-top:6px;" id="carShowroomTitle">Porsche 911 Carrera 4S</h2>
+          <span class="badge-gold">Studio 3D Interactif • Flotte VTC Prestige</span>
+          <h2 style="margin-top:6px;" id="carShowroomTitle">Mercedes-Benz Classe S Limousine</h2>
         </div>
         <div class="showroom-controls">
-          <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Modèle 3D Actif :</span>
-          <button class="arch-mode-btn active" id="btnPorsche" onclick="switchCarModel('d01b254483794de3819786d93e0e1ebf', this, 'Porsche 911 Carrera 4S')">Porsche 911 Carrera 4S</button>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <button class="arch-mode-btn active" id="btnModSedan" onclick="selectShowroomVehicle('sedan', this)">Mercedes Classe S</button>
+            <button class="arch-mode-btn" id="btnModVan" onclick="selectShowroomVehicle('van', this)">Mercedes Classe V</button>
+            <button class="arch-mode-btn" id="btnModMaybach" onclick="selectShowroomVehicle('maybach', this)">Mercedes-Maybach</button>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <span style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Teinte :</span>
+            <button class="color-btn active" style="background:#090a0e" title="Noir Obsidienne Métallisé" onclick="setCarColor('#090a0e', this)"></button>
+            <button class="color-btn" style="background:#4a505b" title="Gris Sélénite" onclick="setCarColor('#4a505b', this)"></button>
+            <button class="color-btn" style="background:#121d38" title="Bleu Nautique Profond" onclick="setCarColor('#121d38', this)"></button>
+            <button class="color-btn" style="background:#e8ecf2" title="Blanc Diamant Nacré" onclick="setCarColor('#e8ecf2', this)"></button>
+          </div>
+          <button class="btn-outline" style="padding:6px 14px; font-size:12px;" onclick="toggleCarHeadlights()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+            Phares LED
+          </button>
         </div>
       </div>
 
-      <div class="canvas-container" id="car3dCanvas" style="height: 520px; border: 1px solid rgba(212,175,55,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.85); border-radius: 16px; overflow: hidden; background: #07080a; position: relative;">
-        <iframe id="carIframe" title="(FREE) Porsche 911 Carrera 4S - Lionsharp Studios"
-          src="https://sketchfab.com/models/d01b254483794de3819786d93e0e1ebf/embed?autostart=1&preload=1&ui_theme=dark&ui_watermark=0&ui_hint=0&ui_infos=0"
-          style="width: 100%; height: 100%; border: none; display: block;"
-          allow="autoplay; fullscreen; xr-spatial-tracking"
-          allowfullscreen>
-        </iframe>
+      <div class="canvas-container" id="car3dCanvas" style="height: 480px; border: 1px solid rgba(212,175,55,0.25); box-shadow: 0 20px 60px rgba(0,0,0,0.85); border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 50% 40%, #151a26 0%, #07080a 75%); position: relative;">
+        <div class="showroom-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24L21 8"/><polyline points="21 3 21 8 16 8"/></svg>
+          Glissez pour inspecter à 360° • Zoom à la molette
+        </div>
       </div>
 
-      <div class="showroom-specs">
+      <div class="showroom-specs" id="showroomSpecs">
+        <div class="spec-item">
+          <small>Gamme</small>
+          <strong id="specCat">Limousine Première Classe</strong>
+        </div>
+        <div class="spec-item">
+          <small>Capacité</small>
+          <strong id="specCap">3 Passagers • 3 Grands Bagages</strong>
+        </div>
+        <div class="spec-item">
+          <small>Confort VIP</small>
+          <strong id="specComfort">Sièges massants, insonorisation palace</strong>
+        </div>
         <div class="spec-item">
           <small>Motorisation</small>
-          <strong>Flat-6 Bi-Turbo 450 ch</strong>
-        </div>
-        <div class="spec-item">
-          <small>Insonorisation</small>
-          <strong>Vitrage acoustique feuilleté</strong>
-        </div>
-        <div class="spec-item">
-          <small>Confort Intérieur</small>
-          <strong>Sièges sport cuir étendu & régulation</strong>
-        </div>
-        <div class="spec-item">
-          <small>Transmission</small>
-          <strong>Traction intégrale 4S & Boîte PDK 8</strong>
+          <strong id="specMotor">Hybride Rechargeable V6</strong>
         </div>
       </div>
     </section>
@@ -1049,20 +1073,540 @@
       goToStep(3);
     }
 
-    /* ---------------- 3D VEHICLE SHOWROOM CONTROLS ---------------- */
-    function switchCarModel(modelId, btn, title) {
-      document.querySelectorAll('.showroom-controls .arch-mode-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      const iframe = document.getElementById('carIframe');
-      if (iframe) {
-        iframe.src = `https://sketchfab.com/models/${modelId}/embed?autostart=1&preload=1&ui_theme=dark&ui_watermark=0&ui_hint=0&ui_infos=0`;
+    /* ---------------- THREE.JS PROCEDURAL LUXURY VTC SHOWROOM ---------------- */
+    let carScene, carCamera, carRenderer, carTurntable, activeCarGroup;
+    let currentVehType = 'sedan';
+    let carBodyPaintMat, carRoofPaintMat;
+    let headlightSpots = [], headlightMeshes = [];
+    let isCarDragging = false, prevCarMouseX = 0;
+    let targetCarRotY = -0.65, currentCarRotY = -0.65;
+    let carZoomDist = 5.2;
+
+    // Procedural Studio Reflection Map Generator
+    function createStudioEnvMap() {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 512;
+      const ctx = c.getContext('2d');
+
+      const bg = ctx.createLinearGradient(0, 0, 0, 512);
+      bg.addColorStop(0, '#0a0d14');
+      bg.addColorStop(0.35, '#131826');
+      bg.addColorStop(0.5, '#1d263a');
+      bg.addColorStop(0.65, '#131826');
+      bg.addColorStop(1, '#05070a');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1024, 512);
+
+      // Overhead softbox
+      const softbox = ctx.createRadialGradient(512, 110, 20, 512, 110, 320);
+      softbox.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+      softbox.addColorStop(0.4, 'rgba(230, 240, 255, 0.65)');
+      softbox.addColorStop(0.8, 'rgba(160, 190, 240, 0.2)');
+      softbox.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = softbox;
+      ctx.fillRect(160, 20, 704, 200);
+
+      // Left strip light
+      const leftGrad = ctx.createLinearGradient(60, 0, 130, 0);
+      leftGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      leftGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.9)');
+      leftGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = leftGrad;
+      ctx.fillRect(60, 130, 70, 240);
+
+      // Right gold strip light
+      const rightGrad = ctx.createLinearGradient(890, 0, 960, 0);
+      rightGrad.addColorStop(0, 'rgba(212, 175, 55, 0)');
+      rightGrad.addColorStop(0.5, 'rgba(245, 215, 125, 0.85)');
+      rightGrad.addColorStop(1, 'rgba(212, 175, 55, 0)');
+      ctx.fillStyle = rightGrad;
+      ctx.fillRect(890, 130, 70, 240);
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.mapping = THREE.EquirectangularReflectionMapping;
+      return tex;
+    }
+
+    function initCar3D() {
+      const container = document.getElementById('car3dCanvas');
+      if (!container || typeof THREE === 'undefined') return;
+
+      carScene = new THREE.Scene();
+
+      carCamera = new THREE.PerspectiveCamera(34, container.clientWidth / container.clientHeight, 0.1, 100);
+      updateCarCamera();
+
+      carRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      carRenderer.setSize(container.clientWidth, container.clientHeight);
+      carRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      carRenderer.shadowMap.enabled = true;
+      carRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      carRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+      carRenderer.toneMappingExposure = 1.15;
+      container.appendChild(carRenderer.domElement);
+
+      carScene.environment = createStudioEnvMap();
+
+      // Studio 3-Point Lighting
+      const amb = new THREE.AmbientLight(0xffffff, 0.8);
+      carScene.add(amb);
+
+      const keyLight = new THREE.DirectionalLight(0xfff8ee, 1.8);
+      keyLight.position.set(4.5, 6.5, 4.0);
+      keyLight.castShadow = true;
+      keyLight.shadow.mapSize.width = 1024;
+      keyLight.shadow.mapSize.height = 1024;
+      keyLight.shadow.bias = -0.0005;
+      carScene.add(keyLight);
+
+      const overheadLight = new THREE.DirectionalLight(0xe5eeff, 1.2);
+      overheadLight.position.set(0, 8, 0);
+      carScene.add(overheadLight);
+
+      const rimLight = new THREE.DirectionalLight(0xd4af37, 1.2);
+      rimLight.position.set(-5, 4.5, -4);
+      carScene.add(rimLight);
+
+      // Turntable
+      carTurntable = new THREE.Group();
+      carScene.add(carTurntable);
+
+      const turntableMat = new THREE.MeshStandardMaterial({
+        color: 0x090b10,
+        metalness: 0.35,
+        roughness: 0.22
+      });
+      const disc = new THREE.Mesh(new THREE.CylinderGeometry(3.3, 3.35, 0.08, 64), turntableMat);
+      disc.position.y = -0.42;
+      disc.receiveShadow = true;
+      carTurntable.add(disc);
+
+      const ledRing = new THREE.Mesh(
+        new THREE.TorusGeometry(3.32, 0.02, 16, 64),
+        new THREE.MeshBasicMaterial({ color: 0xd4af37 })
+      );
+      ledRing.rotation.x = Math.PI / 2;
+      ledRing.position.y = -0.38;
+      carTurntable.add(ledRing);
+
+      const shadowMat = new THREE.ShadowMaterial({ opacity: 0.55 });
+      const shadowPlane = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), shadowMat);
+      shadowPlane.rotation.x = -Math.PI / 2;
+      shadowPlane.position.y = -0.419;
+      shadowPlane.receiveShadow = true;
+      carTurntable.add(shadowPlane);
+
+      // Shared Paint Materials
+      carBodyPaintMat = new THREE.MeshStandardMaterial({
+        color: 0x090a0e,
+        metalness: 0.90,
+        roughness: 0.14
+      });
+      carRoofPaintMat = new THREE.MeshStandardMaterial({
+        color: 0x090a0e,
+        metalness: 0.90,
+        roughness: 0.14
+      });
+
+      // Build Initial Vehicle
+      buildSelectedVehicle('sedan');
+
+      // Mouse & Touch Orbit Controls
+      container.addEventListener('mousedown', (e) => {
+        isCarDragging = true;
+        prevCarMouseX = e.clientX;
+      });
+      window.addEventListener('mouseup', () => { isCarDragging = false; });
+      window.addEventListener('mousemove', (e) => {
+        if (!isCarDragging) return;
+        const delta = e.clientX - prevCarMouseX;
+        prevCarMouseX = e.clientX;
+        targetCarRotY += delta * 0.007;
+      });
+
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isCarDragging = true;
+          prevCarMouseX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+      window.addEventListener('touchend', () => { isCarDragging = false; });
+      window.addEventListener('touchmove', (e) => {
+        if (!isCarDragging || e.touches.length !== 1) return;
+        const delta = e.touches[0].clientX - prevCarMouseX;
+        prevCarMouseX = e.touches[0].clientX;
+        targetCarRotY += delta * 0.007;
+      }, { passive: true });
+
+      container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        carZoomDist = Math.max(3.8, Math.min(7.2, carZoomDist + e.deltaY * 0.005));
+        updateCarCamera();
+      }, { passive: false });
+
+      window.addEventListener('resize', () => {
+        carCamera.aspect = container.clientWidth / container.clientHeight;
+        carCamera.updateProjectionMatrix();
+        carRenderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      animateCarStudio();
+    }
+
+    function updateCarCamera() {
+      const angle = 0.72;
+      carCamera.position.set(
+        Math.cos(angle) * carZoomDist * 0.65,
+        1.25,
+        Math.sin(angle) * carZoomDist * 0.75
+      );
+      carCamera.lookAt(0, 0.12, 0);
+    }
+
+    // Helper: Create High-Detail 20-inch Mercedes AMG Multi-Spoke Wheel
+    function createMercedesWheel() {
+      const g = new THREE.Group();
+
+      const tireMat = new THREE.MeshStandardMaterial({ color: 0x141517, roughness: 0.85 });
+      const rimMat = new THREE.MeshStandardMaterial({ color: 0xd8dde4, metalness: 0.95, roughness: 0.15 });
+      const discMat = new THREE.MeshStandardMaterial({ color: 0x8a929b, metalness: 0.85, roughness: 0.3 });
+      const caliperMat = new THREE.MeshStandardMaterial({ color: 0xb91c1c, metalness: 0.5, roughness: 0.25 });
+      const chromeMat = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, metalness: 0.98, roughness: 0.05 });
+
+      // Tire Outer Bevel
+      const tire = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.20, 32), tireMat);
+      tire.rotation.x = Math.PI / 2;
+      tire.castShadow = true;
+      g.add(tire);
+
+      // Alloy Rim Barrel
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.21, 24), rimMat);
+      barrel.rotation.x = Math.PI / 2;
+      g.add(barrel);
+
+      // Brake Disc Inside
+      const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.19, 0.035, 20), discMat);
+      disc.rotation.x = Math.PI / 2;
+      disc.position.z = -0.02;
+      g.add(disc);
+
+      // Red AMG Caliper
+      const caliper = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.10, 0.055), caliperMat);
+      caliper.position.set(0.11, 0.07, -0.02);
+      g.add(caliper);
+
+      // 12 Turbine Radial Alloy Spokes
+      for (let i = 0; i < 12; i++) {
+        const spoke = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.22, 8), rimMat);
+        spoke.rotation.z = (i * Math.PI) / 6;
+        spoke.position.z = 0.09;
+        g.add(spoke);
       }
-      if (title) {
-        document.getElementById('carShowroomTitle').textContent = title;
+
+      // Center Hub Cap with Mercedes Star
+      const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.02, 16), chromeMat);
+      hub.rotation.x = Math.PI / 2;
+      hub.position.z = 0.10;
+      g.add(hub);
+
+      return g;
+    }
+
+    // Vehicle Builder
+    function buildSelectedVehicle(type) {
+      if (activeCarGroup) carTurntable.remove(activeCarGroup);
+      activeCarGroup = new THREE.Group();
+      carTurntable.add(activeCarGroup);
+
+      headlightSpots = [];
+      headlightMeshes = [];
+
+      const chromeMat = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, metalness: 0.98, roughness: 0.05 });
+      const darkGlassMat = new THREE.MeshStandardMaterial({ color: 0x05070c, metalness: 0.95, roughness: 0.03, transparent: true, opacity: 0.92 });
+      const ledHeadMat = new THREE.MeshBasicMaterial({ color: 0xedf7ff });
+      const ledTailMat = new THREE.MeshBasicMaterial({ color: 0xd92626 });
+      const darkTrimMat = new THREE.MeshStandardMaterial({ color: 0x161920, roughness: 0.5 });
+
+      if (type === 'sedan' || type === 'maybach') {
+        const isMaybach = (type === 'maybach');
+
+        // 1. Aerodynamic Sleek Extruded Body Silhouette with Wheel Arches
+        const shape = new THREE.Shape();
+        shape.moveTo(2.10, -0.18);
+        shape.lineTo(2.20, -0.04); // front bumper apex
+        shape.lineTo(2.05, 0.12);  // hood front tip
+        shape.lineTo(1.15, 0.22);  // aerodynamic hood slope
+        shape.quadraticCurveTo(0.92, 0.36, 0.68, 0.58); // elegant windshield rake
+        shape.lineTo(-0.35, 0.62); // roof curve
+        shape.quadraticCurveTo(-0.85, 0.58, -1.25, 0.24); // fastback rear window slope
+        shape.lineTo(-1.85, 0.20); // trunk deck
+        shape.lineTo(-1.95, 0.04); // rear bumper edge
+        shape.lineTo(-1.90, -0.18); // rear bumper tuck
+        // Bottom Rocker Sill with Wheel Arch Cutouts
+        shape.lineTo(-1.58, -0.18);
+        shape.absarc(-1.25, -0.18, 0.37, 0, Math.PI, false); // Rear Wheel Well Cutout
+        shape.lineTo(0.95, -0.18); // Side sill
+        shape.absarc(1.25, -0.18, 0.37, 0, Math.PI, false);  // Front Wheel Well Cutout
+        shape.lineTo(2.10, -0.18);
+
+        const extrudeSettings = {
+          steps: 2,
+          depth: 1.44,
+          bevelEnabled: true,
+          bevelThickness: 0.07,
+          bevelSize: 0.07,
+          bevelSegments: 4
+        };
+        const bodyGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+        const bodyMesh = new THREE.Mesh(bodyGeo, carBodyPaintMat);
+        bodyMesh.position.z = -0.72; // Center horizontally
+        bodyMesh.castShadow = true;
+        bodyMesh.receiveShadow = true;
+        activeCarGroup.add(bodyMesh);
+
+        // Maybach Two-Tone Upper Hood & Roof Panel
+        if (isMaybach) {
+          carRoofPaintMat.color.set(0xdfba6e); // Champagne Gold upper
+          const roofCover = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.05, 1.34), carRoofPaintMat);
+          roofCover.position.set(-0.15, 0.46, 0);
+          activeCarGroup.add(roofCover);
+        }
+
+        // 2. Greenhouse / Panoramic Cabin Glass Inserts
+        const cabinGlass = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.44, 1.36), darkGlassMat);
+        cabinGlass.position.set(-0.15, 0.38, 0);
+        activeCarGroup.add(cabinGlass);
+
+        // Chrome Daylight Opening (DLO) Beltline Trim
+        [-0.73, 0.73].forEach(z => {
+          const trim = new THREE.Mesh(new THREE.BoxGeometry(2.35, 0.025, 0.02), chromeMat);
+          trim.position.set(-0.15, 0.16, z);
+          activeCarGroup.add(trim);
+        });
+
+        // 3. Iconic Mercedes Chrome Grille
+        const grilleSurround = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.34, 0.82), chromeMat);
+        grilleSurround.position.set(2.15, -0.04, 0);
+        activeCarGroup.add(grilleSurround);
+
+        if (isMaybach) {
+          // Vertical Waterfall Pinstripe Grille
+          for (let i = 0; i < 16; i++) {
+            const slat = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.007, 0.30, 8), chromeMat);
+            slat.position.set(2.18, -0.04, -0.36 + i * 0.048);
+            activeCarGroup.add(slat);
+          }
+        } else {
+          // Classic Horizontal Louvers
+          for (let i = 0; i < 4; i++) {
+            const louver = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.016, 0.78), chromeMat);
+            louver.position.set(2.18, -0.14 + i * 0.065, 0);
+            activeCarGroup.add(louver);
+          }
+        }
+
+        // Chrome Mercedes 3D Star on Hood Tip
+        const starStem = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.007, 0.06, 8), chromeMat);
+        starStem.position.set(1.92, 0.17, 0);
+        activeCarGroup.add(starStem);
+
+        const starRing = new THREE.Mesh(new THREE.TorusGeometry(0.032, 0.006, 8, 20), chromeMat);
+        starRing.rotation.y = Math.PI / 2;
+        starRing.position.set(1.92, 0.22, 0);
+        activeCarGroup.add(starRing);
+
+        // 4. Multibeam Crystal LED Headlights
+        [-0.56, 0.56].forEach(z => {
+          const drl = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.025, 0.24), ledHeadMat);
+          drl.position.set(2.12, 0.02, z);
+          drl.rotation.y = z > 0 ? 0.20 : -0.20;
+          activeCarGroup.add(drl);
+          headlightMeshes.push(drl);
+
+          const spot = new THREE.SpotLight(0xdbeafe, 2.8, 12, Math.PI / 7, 0.4, 1.2);
+          spot.position.set(2.2, -0.05, z);
+          const target = new THREE.Object3D();
+          target.position.set(6.0, -0.42, z * 1.5);
+          carScene.add(target);
+          spot.target = target;
+          activeCarGroup.add(spot);
+          headlightSpots.push(spot);
+        });
+
+        // 5. Executive OLED Taillights
+        [-0.60, 0.60].forEach(z => {
+          const tail = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.09, 0.24), ledTailMat);
+          tail.position.set(-1.95, 0.02, z);
+          tail.rotation.y = z > 0 ? -0.18 : 0.18;
+          activeCarGroup.add(tail);
+        });
+
+        // Dual Chrome Exhaust Tips
+        [-0.48, 0.48].forEach(z => {
+          const exh = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.03, 0.12), chromeMat);
+          exh.position.set(-1.92, -0.14, z);
+          activeCarGroup.add(exh);
+        });
+
+        // 6. Wheels Placed Inside Cutout Wheel Wells
+        const wheelCoords = [
+          [1.25, -0.18, 0.72],
+          [1.25, -0.18, -0.72],
+          [-1.25, -0.18, 0.72],
+          [-1.25, -0.18, -0.72]
+        ];
+        wheelCoords.forEach(pos => {
+          const w = createMercedesWheel();
+          w.position.set(pos[0], pos[1], pos[2]);
+          if (pos[2] < 0) w.rotation.y = Math.PI;
+          activeCarGroup.add(w);
+        });
+
+      } else if (type === 'van') {
+        // Mercedes-Benz Classe V Extra-Long Luxury Van
+        const shape = new THREE.Shape();
+        shape.moveTo(2.0, -0.18);
+        shape.lineTo(2.12, 0.08); // blunt van front
+        shape.lineTo(1.85, 0.28); // short sloping hood
+        shape.lineTo(1.30, 0.88); // steep tall van windshield
+        shape.lineTo(-1.80, 0.90); // long flat executive roof
+        shape.lineTo(-1.95, 0.82); // rear spoiler edge
+        shape.lineTo(-1.95, -0.18); // flat vertical tailgate
+        // Wheel Wells
+        shape.lineTo(-1.58, -0.18);
+        shape.absarc(-1.25, -0.18, 0.38, 0, Math.PI, false);
+        shape.lineTo(0.95, -0.18);
+        shape.absarc(1.25, -0.18, 0.38, 0, Math.PI, false);
+        shape.lineTo(2.0, -0.18);
+
+        const vanGeo = new THREE.ExtrudeGeometry(shape, {
+          steps: 2, depth: 1.48, bevelEnabled: true, bevelThickness: 0.08, bevelSize: 0.08, bevelSegments: 4
+        });
+        const vanMesh = new THREE.Mesh(vanGeo, carBodyPaintMat);
+        vanMesh.position.z = -0.74;
+        vanMesh.castShadow = true;
+        vanMesh.receiveShadow = true;
+        activeCarGroup.add(vanMesh);
+
+        // Tinted Panoramic Side Privacy Glass
+        const vanGlass = new THREE.Mesh(new THREE.BoxGeometry(2.7, 0.52, 1.42), darkGlassMat);
+        vanGlass.position.set(-0.25, 0.52, 0);
+        activeCarGroup.add(vanGlass);
+
+        // Mercedes Van Chrome Grille with Central Large Star
+        const vanGrille = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.36, 0.88), chromeMat);
+        vanGrille.position.set(2.08, 0.06, 0);
+        activeCarGroup.add(vanGrille);
+
+        const vanStar = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.012, 8, 24), chromeMat);
+        vanStar.rotation.y = Math.PI / 2;
+        vanStar.position.set(2.12, 0.06, 0);
+        activeCarGroup.add(vanStar);
+
+        // Van Headlights
+        [-0.58, 0.58].forEach(z => {
+          const hl = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.14, 0.22), ledHeadMat);
+          hl.position.set(2.05, 0.10, z);
+          activeCarGroup.add(hl);
+          headlightMeshes.push(hl);
+
+          const spot = new THREE.SpotLight(0xdbeafe, 2.8, 12, Math.PI / 7, 0.4, 1.2);
+          spot.position.set(2.15, 0.10, z);
+          const target = new THREE.Object3D();
+          target.position.set(6.0, -0.42, z * 1.5);
+          carScene.add(target);
+          spot.target = target;
+          activeCarGroup.add(spot);
+          headlightSpots.push(spot);
+        });
+
+        // Vertical OLED Tail Pillars
+        [-0.64, 0.64].forEach(z => {
+          const tail = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.45, 0.06), ledTailMat);
+          tail.position.set(-1.96, 0.35, z);
+          activeCarGroup.add(tail);
+        });
+
+        // Wheels
+        [
+          [1.25, -0.18, 0.74],
+          [1.25, -0.18, -0.74],
+          [-1.25, -0.18, 0.74],
+          [-1.25, -0.18, -0.74]
+        ].forEach(pos => {
+          const w = createMercedesWheel();
+          w.position.set(pos[0], pos[1], pos[2]);
+          if (pos[2] < 0) w.rotation.y = Math.PI;
+          activeCarGroup.add(w);
+        });
       }
     }
 
+    function selectShowroomVehicle(type, btn) {
+      document.querySelectorAll('.showroom-controls .arch-mode-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      currentVehType = type;
+      buildSelectedVehicle(type);
+
+      const titleEl = document.getElementById('carShowroomTitle');
+      const catEl = document.getElementById('specCat');
+      const capEl = document.getElementById('specCap');
+      const comEl = document.getElementById('specComfort');
+      const motEl = document.getElementById('specMotor');
+
+      if (type === 'sedan') {
+        titleEl.textContent = 'Mercedes-Benz Classe S Limousine';
+        catEl.textContent = 'Limousine Première Classe';
+        capEl.textContent = '3 Passagers • 3 Grands Bagages';
+        comEl.textContent = 'Sièges massants, insonorisation palace';
+        motEl.textContent = 'Hybride Rechargeable V6';
+      } else if (type === 'van') {
+        titleEl.textContent = 'Mercedes-Benz Classe V Extra-Long';
+        catEl.textContent = 'Salon Roulant VIP';
+        capEl.textContent = '7 Passagers • 8 Bagages XL';
+        comEl.textContent = 'Disposition salon face à face, table amovible';
+        motEl.textContent = 'Diesel 237 ch 4MATIC 4x4';
+      } else if (type === 'maybach') {
+        titleEl.textContent = 'Mercedes-Maybach S 680 Prestige';
+        catEl.textContent = 'Haute Joaillerie Automobile';
+        capEl.textContent = '2 Passagers VIP • 3 Bagages';
+        comEl.textContent = 'Empattement allongé, repose-mollets, champagne frais';
+        motEl.textContent = 'V12 Bi-Turbo 612 ch';
+      }
+    }
+
+    function setCarColor(hex, btn) {
+      if (!carBodyPaintMat) return;
+      carBodyPaintMat.color.set(hex);
+      if (currentVehType !== 'maybach') {
+        carRoofPaintMat.color.set(hex);
+      }
+      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    let carLightsOn = true;
+    function toggleCarHeadlights() {
+      carLightsOn = !carLightsOn;
+      headlightSpots.forEach(s => s.intensity = carLightsOn ? 2.8 : 0);
+      headlightMeshes.forEach(m => m.visible = carLightsOn);
+    }
+
+    function animateCarStudio() {
+      requestAnimationFrame(animateCarStudio);
+      if (!isCarDragging) {
+        targetCarRotY += 0.0016;
+      }
+      currentCarRotY += (targetCarRotY - currentCarRotY) * 0.08;
+      if (carTurntable) {
+        carTurntable.rotation.y = currentCarRotY;
+      }
+      carRenderer.render(carScene, carCamera);
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      initCar3D();
       updateBookingEstimate();
     });
   </script>
