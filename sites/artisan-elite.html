@@ -7,10 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root {
       --bg: #090c12;
       --card: #111724;
+      --card-alt: #161e30;
       --accent: #2563eb;
       --accent-glow: #3b82f6;
       --amber: #f59e0b;
@@ -39,16 +41,22 @@
       align-items: center;
       font-size: 13px;
       color: #9aa1c4;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
     }
     .demo-bar a {
       background: linear-gradient(120deg, #3d6bff, #8a5cff);
       color: white;
-      padding: 5px 14px;
+      padding: 6px 16px;
       border-radius: 99px;
       font-weight: 600;
       font-size: 12px;
+      transition: opacity 0.2s;
     }
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .demo-bar a:hover { opacity: 0.9; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
     
     /* Header */
     header {
@@ -89,7 +97,10 @@
       background: var(--green);
       border-radius: 50%;
       box-shadow: 0 0 10px var(--green);
+      animation: pulse 2s infinite;
     }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.3); } }
+
     .btn-primary {
       background: var(--accent);
       color: #fff;
@@ -99,31 +110,55 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      cursor: pointer;
       border: none;
-      transition: background 0.2s;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { background: #1d4ed8; }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
     .btn-amber {
-      background: var(--amber);
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: #000;
       font-weight: 700;
-      padding: 14px 28px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-amber:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35);
+    }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 24px;
       border-radius: 8px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
     }
-    
+    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
     /* Hero */
     .hero {
-      padding: 60px 0 50px;
+      padding: 60px 0 40px;
       text-align: center;
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      font-size: clamp(2.3rem, 5vw, 4rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.15;
@@ -138,7 +173,7 @@
       max-width: 680px;
       margin: 0 auto 36px;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 17px;
     }
     .trust-strip {
       display: flex;
@@ -152,16 +187,88 @@
     .trust-strip span {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
-    
+
+    /* 3D Architectural Room Viewer Section */
+    .arch3d-section {
+      background: linear-gradient(180deg, #111724 0%, #090c12 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin: 40px 0 60px;
+      position: relative;
+    }
+    .arch3d-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .arch3d-header h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+    }
+    .arch-mode-toggle {
+      display: flex;
+      background: #090c12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .arch-mode-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .arch-mode-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+    .arch3d-canvas-container {
+      width: 100%;
+      height: 420px;
+      border-radius: 14px;
+      background: radial-gradient(circle at center, #172134 0%, #080b11 80%);
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+    }
+    .arch3d-canvas-container:active { cursor: grabbing; }
+    .arch3d-hint {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      padding: 6px 16px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+      color: var(--muted);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     /* Before / After Slider */
     .ba-section {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 36px;
-      margin: 40px 0;
+      margin: 40px 0 60px;
     }
     .ba-header {
       display: flex;
@@ -173,8 +280,8 @@
     }
     .ba-container {
       position: relative;
-      height: 420px;
-      border-radius: 12px;
+      height: 440px;
+      border-radius: 14px;
       overflow: hidden;
       user-select: none;
     }
@@ -188,7 +295,7 @@
       color: white;
     }
     .ba-before {
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%), radial-gradient(circle at center, #3d281a 0%, #17110c 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%), radial-gradient(circle at center, #3d281a 0%, #17110c 100%);
       z-index: 1;
     }
     .ba-after {
@@ -207,8 +314,6 @@
       z-index: 10;
     }
     .ba-badge {
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
       padding: 6px 14px;
       border-radius: 6px;
       font-size: 12px;
@@ -218,56 +323,203 @@
       align-self: flex-start;
       margin-bottom: 8px;
     }
-    
-    /* Pricing Estimator */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin: 40px 0;
-    }
-    .pricing-card {
+
+    /* Complex BTP Calculator */
+    .calculator-section {
       background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      margin: 40px 0 60px;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      margin-top: 28px;
+    }
+    @media (max-width: 860px) {
+      .calc-grid { grid-template-columns: 1fr; }
+    }
+    .calc-param-group {
+      margin-bottom: 24px;
+    }
+    .calc-param-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .calc-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .calc-chip {
+      background: #090c12;
+      border: 1px solid var(--border);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .calc-chip.active {
+      background: rgba(37,99,235,0.15);
+      border-color: var(--accent);
+      color: #60a5fa;
+      font-weight: 600;
+    }
+    .calc-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .calc-slider-wrap input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+    }
+    .calc-sqm-badge {
+      background: #090c12;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: #60a5fa;
+      min-width: 80px;
+      text-align: center;
+    }
+    .calc-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .calc-opt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #090c12;
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .calc-opt-row input { accent-color: var(--accent); width: 16px; height: 16px; }
+
+    /* Quote summary receipt */
+    .quote-summary-card {
+      background: #090c12;
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 28px;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.2s;
+      justify-content: space-between;
     }
-    .pricing-card:hover { border-color: var(--accent); }
-    .pricing-card h3 {
-      font-family: var(--font-display);
-      font-size: 20px;
-      margin-bottom: 8px;
+    .quote-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
     }
-    .price-num {
-      font-family: var(--font-display);
-      font-size: 32px;
-      font-weight: 700;
-      color: #60a5fa;
-      margin: 16px 0 8px;
-    }
-    .price-features {
-      list-style: none;
-      margin: 16px 0 24px;
-      display: grid;
-      gap: 10px;
+    .quote-line {
+      display: flex;
+      justify-content: space-between;
       font-size: 14px;
       color: var(--muted);
-      flex: 1;
     }
-    .price-features li::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      background: var(--green);
+    .quote-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
+    .quote-total-row strong {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: #60a5fa;
+    }
+
+    /* Emergency Dispatch Radar */
+    .radar-section {
+      background: linear-gradient(135deg, #0e1526 0%, #090c12 100%);
+      border: 1px solid rgba(37,99,235,0.25);
+      border-radius: 20px;
+      padding: 32px;
+      margin: 40px 0 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .radar-section { grid-template-columns: 1fr; }
+    }
+    .radar-screen {
+      height: 260px;
+      background: #06090e;
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .radar-circle {
+      position: absolute;
       border-radius: 50%;
-      display: inline-block;
-      margin-right: 8px;
+      border: 1px solid rgba(59,130,246,0.2);
     }
-    
-    /* Sticky bottom call for mobile */
+    .radar-sweep {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(37,99,235,0.4) 0deg, transparent 60deg);
+      animation: sweep 4s linear infinite;
+    }
+    @keyframes sweep { to { transform: rotate(360deg); } }
+    .radar-blip {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #34d399;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #34d399;
+    }
+
+    /* Modal Devis */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: #0f141e;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    }
+
     .sticky-call {
       position: fixed;
       bottom: 20px;
@@ -277,7 +529,7 @@
       display: none;
     }
     .sticky-call a {
-      background: #ef4444;
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
       color: #fff;
       font-weight: 700;
       display: flex;
@@ -296,7 +548,7 @@
 <body>
 
   <div class="demo-bar">
-    <span>Démonstration client : <strong>Apex Rénovation & BTP d'Élite</strong></span>
+    <span>Démonstration client en direct : <strong>Apex Rénovation & BTP</strong></span>
     <a href="../portfolio.html">Retour au portfolio</a>
   </div>
 
@@ -308,31 +560,64 @@
         </div>
         <div class="status-badge">
           <span class="pulse-dot"></span>
-          <span>Équipe d'astreinte disponible (Arrivée ~25 min)</span>
+          <span>4 Camionnettes d'astreinte actives en Île-de-France</span>
         </div>
         <a href="tel:+33189000000" class="btn-primary">Appel Direct 24/7 : 01 89 00 00 00</a>
       </div>
     </header>
 
     <section class="hero">
-      <div class="status-badge" style="margin-bottom: 16px;">Garantie Décennale AXA & Certifié Qualibat</div>
+      <div class="status-badge" style="margin-bottom: 16px;">Garantie Décennale AXA & Certification Qualibat RGE</div>
       <h1>L'Excellence du BTP <br><span>Sans Mauvaise Surprise</span></h1>
-      <p>Rénovation complète, plomberie d'urgence et dépannage électrique. Devis transparent avant intervention et finitions haut de gamme.</p>
+      <p>Rénovation complète d'appartements, plomberie d'urgence et réfection électrique. Un devis transparent et détaillé avant chaque début de chantier.</p>
 
       <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
-        <a href="tel:+33189000000" class="btn-amber">Demande d'intervention urgente</a>
-        <a href="#tarifs" class="btn-primary" style="background:transparent; border:1px solid var(--border);">Consulter nos forfaits</a>
+        <a href="#calculateur" class="btn-primary">Calculer mon devis en 30 secondes</a>
+        <a href="#arch3d" class="btn-outline">Visiter la maquette 3D</a>
       </div>
 
       <div class="trust-strip">
-        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--amber)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Avis Google vérifiés : <strong>4.9 / 5 (140+ avis)</strong></span>
-        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <strong>Garantie décennale 10 ans</strong></span>
-        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-glow)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Intervention en <strong>30 minutes</strong></span>
-        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#60a5fa"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Devis gratuit <strong>sans engagement</strong></span>
+        <span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--amber)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Avis Google vérifiés : <strong>4.9 / 5 (140+ avis)</strong>
+        </span>
+        <span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <strong>Garantie décennale 10 ans</strong>
+        </span>
+        <span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-glow)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Intervention en <strong>30 minutes</strong>
+        </span>
+        <span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#60a5fa"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Devis gratuit <strong>sans engagement</strong>
+        </span>
       </div>
     </section>
 
-    <!-- Before / After -->
+    <!-- 3D Architectural Room Viewer -->
+    <section class="arch3d-section" id="arch3d">
+      <div class="arch3d-header">
+        <div>
+          <span class="status-badge" style="font-size:11px; margin-bottom:6px;">Maquette 3D Interactive</span>
+          <h2>Conception Salle de Bain Haute Couture</h2>
+        </div>
+        <div class="arch-mode-toggle">
+          <button class="arch-mode-btn active" id="btnModePrestige" onclick="setArchMode('prestige')">Finitions Prestige</button>
+          <button class="arch-mode-btn" id="btnModeBlueprint" onclick="setArchMode('blueprint')">Plan Filaire BTP</button>
+        </div>
+      </div>
+
+      <div class="arch3d-canvas-container" id="arch3dCanvas">
+        <div class="arch3d-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24L21 8"/><polyline points="21 3 21 8 16 8"/></svg>
+          Glissez pour inspecter la pièce sous tous les angles
+        </div>
+      </div>
+    </section>
+
+    <!-- Before / After Slider -->
     <section class="ba-section">
       <div class="ba-header">
         <div>
@@ -357,61 +642,386 @@
       </div>
     </section>
 
-    <!-- Transparent Pricing -->
-    <section id="tarifs" style="margin: 60px 0;">
-      <h2 style="font-family: var(--font-display); font-size: 32px; text-align: center; margin-bottom: 12px;">Nos Forfaits Clairs & Agréés Assurances</h2>
-      <p style="text-align: center; color: var(--muted); max-width: 540px; margin: 0 auto;">Aucun coût caché. Tous nos tarifs sont validés avec vous avant de commencer les travaux.</p>
+    <!-- Complex BTP Price Calculator -->
+    <section class="calculator-section" id="calculateur">
+      <div style="text-align:center;">
+        <span class="status-badge" style="font-size:11px;">Configurateur Numérique</span>
+        <h2 style="font-family:var(--font-display); font-size:32px; margin-top:8px;">Estimez votre Chantier en Direct</h2>
+        <p style="color:var(--muted); max-width:540px; margin:8px auto 0;">Prix réels basés sur la grille officielle BTP 2026. Aucun dépassement de budget garanti par contrat.</p>
+      </div>
 
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3>Dépannage & Recherche de Fuite</h3>
-          <p style="color:var(--muted); font-size:13px;">Détection acoustique ou caméra thermique</p>
-          <div class="price-num">Dès 120 €</div>
-          <ul class="price-features">
-            <li>Rapport détaillé pour votre assurance</li>
-            <li>Réparation immédiate de la fuite</li>
-            <li>Prise en charge convention IRSI</li>
-          </ul>
-          <button class="btn-primary" onclick="alert('Réservation pré-remplie !')">Demander cette intervention</button>
+      <div class="calc-grid">
+        <!-- Left: Form Parameters -->
+        <div>
+          <div class="calc-param-group">
+            <label>1. Type de Projet</label>
+            <div class="calc-chips">
+              <span class="calc-chip active" onclick="setCalcProject('sdb', 1200, this)">Salle de bain complète</span>
+              <span class="calc-chip" onclick="setCalcProject('cuisine', 1050, this)">Cuisine équipée</span>
+              <span class="calc-chip" onclick="setCalcProject('total', 950, this)">Rénovation complète</span>
+              <span class="calc-chip" onclick="setCalcProject('plomb', 750, this)">Plomberie & Chauffage</span>
+            </div>
+          </div>
+
+          <div class="calc-param-group">
+            <label>2. Surface du Chantier : <span id="sqmLabel" style="color:#60a5fa; font-weight:700;">18 m²</span></label>
+            <div class="calc-slider-wrap">
+              <input type="range" min="8" max="120" value="18" id="sqmSlider" oninput="updateSqm(this.value)">
+              <div class="calc-sqm-badge" id="sqmBadge">18 m²</div>
+            </div>
+          </div>
+
+          <div class="calc-param-group">
+            <label>3. Niveau de Finitions & Matériaux</label>
+            <div class="calc-chips">
+              <span class="calc-chip" onclick="setFinishes('standard', 1.0, this)">Standard Pro (Grès cérame)</span>
+              <span class="calc-chip active" onclick="setFinishes('elegance', 1.25, this)">Élégance (Grand format & LED)</span>
+              <span class="calc-chip" onclick="setFinishes('haute', 1.6, this)">Marbre & Haute Couture</span>
+            </div>
+          </div>
+
+          <div class="calc-param-group">
+            <label>4. Prestations Techniques Additionnelles</label>
+            <div class="calc-options-list">
+              <label class="calc-opt-row">
+                <span>Dépose, évacuation et recyclage des anciens sanitaires</span>
+                <input type="checkbox" id="optDemolition" checked onchange="calcBtpQuote()">
+              </label>
+              <label class="calc-opt-row">
+                <span>Mise aux normes électriques complète NF C 15-100</span>
+                <input type="checkbox" id="optElectric" checked onchange="calcBtpQuote()">
+              </label>
+              <label class="calc-opt-row">
+                <span>Système d'étanchéité liquide sous carrelage (SPEC)</span>
+                <input type="checkbox" id="optWaterproof" checked onchange="calcBtpQuote()">
+              </label>
+            </div>
+          </div>
         </div>
 
-        <div class="pricing-card" style="border-color: var(--accent);">
-          <div style="background:var(--accent); color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:99px; align-self:flex-start; margin-bottom:10px;">LE PLUS DEMANDÉ</div>
-          <h3>Remplacement Chauffe-Eau / Ballon</h3>
-          <p style="color:var(--muted); font-size:13px;">Atlantic / Thermor haute efficacité</p>
-          <div class="price-num">Dès 590 €</div>
-          <ul class="price-features">
-            <li>Dépose et recyclage de l'ancien ballon</li>
-            <li>Groupe de sécurité neuf offert</li>
-            <li>Garantie cuve 5 ans constructeur</li>
-          </ul>
-          <button class="btn-primary" onclick="alert('Réservation pré-remplie !')">Demander cette intervention</button>
-        </div>
+        <!-- Right: Real-time Itemized Receipt -->
+        <div class="quote-summary-card">
+          <div>
+            <div style="font-family:var(--font-display); font-size:18px; font-weight:700; color:#fff;">Estimation Détaillée du Chantier</div>
+            <div style="font-size:12px; color:var(--muted); margin-top:2px;">Norme NF DTU • Garantie Décennale AXA</div>
 
-        <div class="pricing-card">
-          <h3>Rénovation Salle de Bain Clé en Main</h3>
-          <p style="color:var(--muted); font-size:13px;">De la plomberie à la pose du carrelage</p>
-          <div class="price-num">Sur Devis (Gratuit)</div>
-          <ul class="price-features">
-            <li>Plans 3D et choix des matériaux</li>
-            <li>Chantier propre nettoyé chaque soir</li>
-            <li>Garantie décennale obligatoire incluse</li>
-          </ul>
-          <button class="btn-primary" onclick="alert('Demande de devis transmise !')">Obtenir mon devis gratuit</button>
+            <div class="quote-lines">
+              <div class="quote-line">
+                <span>Fournitures & Matériaux HT</span>
+                <strong id="lineMaterials" style="color:#fff;">11 250 €</strong>
+              </div>
+              <div class="quote-line">
+                <span>Main d'œuvre qualifiée HT</span>
+                <strong id="lineLabor" style="color:#fff;">10 400 €</strong>
+              </div>
+              <div class="quote-line">
+                <span>Options techniques sélectionnées</span>
+                <strong id="lineOptions" style="color:#fff;">2 100 €</strong>
+              </div>
+              <div class="quote-line">
+                <span>TVA réduite BTP (10%)</span>
+                <strong id="lineTva" style="color:#fff;">2 375 €</strong>
+              </div>
+            </div>
+
+            <div class="quote-total-row">
+              <div>
+                <span style="font-size:12px; text-transform:uppercase; color:var(--muted);">Total TTC estimé</span>
+                <div style="font-size:11px; color:#34d399;">Paiement échelonné 30/40/30</div>
+              </div>
+              <strong id="totalBtpDisplay">26 125 €</strong>
+            </div>
+          </div>
+
+          <div>
+            <button class="btn-primary" style="width:100%; justify-content:center; padding:14px; font-size:15px;" onclick="openQuoteModal()">
+              Télécharger le devis détaillé en PDF
+            </button>
+            <div style="text-align:center; font-size:11px; color:var(--muted); margin-top:8px;">
+              Validité 30 jours • Visite technique de confirmation offerte
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Radar Section -->
+    <section class="radar-section">
+      <div>
+        <span class="status-badge">Télémétrie d'Intervention en Direct</span>
+        <h2 style="font-family:var(--font-display); font-size:28px; margin:12px 0 14px;">Interventions d'Urgence Île-de-France</h2>
+        <p style="color:var(--muted); font-size:15px; margin-bottom:20px;">Nos véhicules équipés sillonnent Paris et la petite couronne pour répondre aux fuites d'eau majeures et pannes de courant en moins de 30 minutes.</p>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+          <div><strong style="color:#34d399;">Camionnette 1 :</strong> Paris 16e (En route, arrivée ~12 min)</div>
+          <div><strong style="color:#34d399;">Camionnette 2 :</strong> Boulogne-Billancourt (Disponible)</div>
+          <div><strong style="color:#34d399;">Camionnette 3 :</strong> Paris 11e (En intervention)</div>
+          <div><strong style="color:#34d399;">Camionnette 4 :</strong> Neuilly-sur-Seine (Disponible)</div>
+        </div>
+      </div>
+
+      <div class="radar-screen">
+        <div class="radar-circle" style="width:70px; height:70px;"></div>
+        <div class="radar-circle" style="width:150px; height:150px;"></div>
+        <div class="radar-circle" style="width:230px; height:230px;"></div>
+        <div class="radar-sweep"></div>
+        <!-- Blips -->
+        <div class="radar-blip" style="top:35%; left:45%;" title="Camionnette 1"></div>
+        <div class="radar-blip" style="top:60%; left:30%;" title="Camionnette 2"></div>
+        <div class="radar-blip" style="top:50%; left:65%;" title="Camionnette 3"></div>
+        <div class="radar-blip" style="top:25%; left:35%;" title="Camionnette 4"></div>
       </div>
     </section>
 
   </div>
 
+  <!-- Devis Modal -->
+  <div class="modal-overlay" id="quoteModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:16px;">
+        <div>
+          <h3 style="font-family:var(--font-display); font-size:20px;">Devis Prévisionnel BTP n° DEV-2026-084</h3>
+          <small style="color:var(--muted);">Émis par Apex Rénovation Île-de-France</small>
+        </div>
+        <button onclick="closeQuoteModal()" style="background:none; border:none; color:#fff; cursor:pointer;" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <p style="font-size:14px; color:var(--muted); margin-bottom:16px;">
+        Votre devis détaillé pour <strong><span id="modalProjectName">Salle de bain</span> (<span id="modalSqm">18 m²</span>)</strong> a été calculé. Le montant TTC s'élève à <strong><span id="modalTotal">26 125 €</span></strong>.
+      </p>
+      <div style="display:flex; gap:12px;">
+        <button class="btn-primary" style="flex:1; justify-content:center;" onclick="window.print()">Imprimer / Sauvegarder PDF</button>
+        <button class="btn-outline" style="flex:1; justify-content:center;" onclick="alert('Visite technique confirmée ! Un chef de chantier vous contactera.'); closeQuoteModal();">Valider avec un chef de chantier</button>
+      </div>
+    </div>
+  </div>
+
   <div class="sticky-call">
-    <a href="tel:+33189000000"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Urgence Dépannage (01 89 00 00 00)</a>
+    <a href="tel:+33189000000">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Urgence Dépannage (01 89 00 00 00)
+    </a>
   </div>
 
   <script>
     function slideBA(val) {
       document.getElementById('afterBox').style.width = val + '%';
     }
+
+    /* Calculator Logic */
+    let projectRatePerM2 = 1200;
+    let finishMultiplier = 1.25;
+    let surfaceM2 = 18;
+    let projectName = 'Salle de bain complète';
+
+    function setCalcProject(type, rate, el) {
+      document.querySelectorAll('.calc-chips .calc-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      projectRatePerM2 = rate;
+      projectName = el.textContent;
+      calcBtpQuote();
+    }
+
+    function setFinishes(type, mult, el) {
+      el.parentElement.querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      finishMultiplier = mult;
+      calcBtpQuote();
+    }
+
+    function updateSqm(val) {
+      surfaceM2 = parseInt(val, 10);
+      document.getElementById('sqmLabel').textContent = surfaceM2 + ' m²';
+      document.getElementById('sqmBadge').textContent = surfaceM2 + ' m²';
+      calcBtpQuote();
+    }
+
+    function calcBtpQuote() {
+      const baseCost = surfaceM2 * projectRatePerM2 * finishMultiplier;
+      let materialsHT = Math.round(baseCost * 0.52);
+      let laborHT = Math.round(baseCost * 0.48);
+
+      let optionsCost = 0;
+      if (document.getElementById('optDemolition').checked) optionsCost += 650;
+      if (document.getElementById('optElectric').checked) optionsCost += 1200;
+      if (document.getElementById('optWaterproof').checked) optionsCost += 450;
+
+      const subtotalHT = materialsHT + laborHT + optionsCost;
+      const tva = Math.round(subtotalHT * 0.10);
+      const totalTTC = subtotalHT + tva;
+
+      document.getElementById('lineMaterials').textContent = materialsHT.toLocaleString('fr-FR') + ' €';
+      document.getElementById('lineLabor').textContent = laborHT.toLocaleString('fr-FR') + ' €';
+      document.getElementById('lineOptions').textContent = optionsCost.toLocaleString('fr-FR') + ' €';
+      document.getElementById('lineTva').textContent = tva.toLocaleString('fr-FR') + ' €';
+      document.getElementById('totalBtpDisplay').textContent = totalTTC.toLocaleString('fr-FR') + ' €';
+
+      document.getElementById('modalProjectName').textContent = projectName;
+      document.getElementById('modalSqm').textContent = surfaceM2 + ' m²';
+      document.getElementById('modalTotal').textContent = totalTTC.toLocaleString('fr-FR') + ' €';
+    }
+
+    function openQuoteModal() {
+      document.getElementById('quoteModal').classList.add('active');
+    }
+    function closeQuoteModal() {
+      document.getElementById('quoteModal').classList.remove('active');
+    }
+
+    /* ---------------- THREE.JS ARCHITECTURAL 3D ROOM ---------------- */
+    let archScene, archCamera, archRenderer, roomGroup;
+    let archDragging = false, archPrevX = 0, archRotY = 0.6;
+    let isBlueprint = false;
+    let archMaterials = [];
+
+    function initArch3D() {
+      const container = document.getElementById('arch3dCanvas');
+      if (!container || typeof THREE === 'undefined') return;
+
+      archScene = new THREE.Scene();
+      archCamera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+      archCamera.position.set(4.2, 3.2, 5.2);
+      archCamera.lookAt(0, 0, 0);
+
+      archRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      archRenderer.setSize(container.clientWidth, container.clientHeight);
+      archRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      archRenderer.shadowMap.enabled = true;
+      container.appendChild(archRenderer.domElement);
+
+      // Lighting
+      const amb = new THREE.AmbientLight(0xffffff, 0.8);
+      archScene.add(amb);
+
+      const dir = new THREE.DirectionalLight(0xfffaed, 1.4);
+      dir.position.set(5, 8, 4);
+      dir.castShadow = true;
+      archScene.add(dir);
+
+      const ledGlow = new THREE.PointLight(0x60a5fa, 1.8, 6);
+      ledGlow.position.set(0, 1.2, -1.8);
+      archScene.add(ledGlow);
+
+      // Room Group
+      roomGroup = new THREE.Group();
+      archScene.add(roomGroup);
+
+      // Materials
+      const floorMat = new THREE.MeshStandardMaterial({ color: 0x181c24, roughness: 0.3, metalness: 0.1 });
+      const wallMat = new THREE.MeshStandardMaterial({ color: 0x222938, roughness: 0.6 });
+      const tubMat = new THREE.MeshStandardMaterial({ color: 0x0f1115, roughness: 0.2, metalness: 0.3 });
+      const glassMat = new THREE.MeshStandardMaterial({ color: 0x93c5fd, transparent: true, opacity: 0.35, roughness: 0.05 });
+      const chromeMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.9, roughness: 0.2 });
+      const ledMirrorMat = new THREE.MeshBasicMaterial({ color: 0x93c5fd });
+
+      archMaterials.push(floorMat, wallMat, tubMat, glassMat, chromeMat);
+
+      // Floor
+      const floor = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.1, 4.2), floorMat);
+      floor.position.y = -0.05;
+      floor.receiveShadow = true;
+      roomGroup.add(floor);
+
+      // Back Wall
+      const backWall = new THREE.Mesh(new THREE.BoxGeometry(4.2, 2.6, 0.1), wallMat);
+      backWall.position.set(0, 1.3, -2.1);
+      roomGroup.add(backWall);
+
+      // Left Wall
+      const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2.6, 4.2), wallMat);
+      leftWall.position.set(-2.1, 1.3, 0);
+      roomGroup.add(leftWall);
+
+      // Freestanding Bathtub (matte black)
+      const tub = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.55, 0.55, 24), tubMat);
+      tub.scale.set(1.4, 1, 0.85);
+      tub.position.set(0.6, 0.28, 0.3);
+      tub.castShadow = true;
+      roomGroup.add(tub);
+
+      // Italian Shower Glass Partition
+      const showerGlass = new THREE.Mesh(new THREE.BoxGeometry(0.04, 2.1, 1.4), glassMat);
+      showerGlass.position.set(-1.1, 1.05, -1.35);
+      roomGroup.add(showerGlass);
+
+      // Floating Vanity Counter
+      const vanity = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.22, 0.55), tubMat);
+      vanity.position.set(-0.8, 0.8, -1.75);
+      roomGroup.add(vanity);
+
+      // LED Backlit Mirror
+      const mirror = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.9, 0.04), ledMirrorMat);
+      mirror.position.set(-0.8, 1.6, -2.02);
+      roomGroup.add(mirror);
+
+      // Controls
+      container.addEventListener('mousedown', (e) => {
+        archDragging = true;
+        archPrevX = e.clientX;
+      });
+      window.addEventListener('mouseup', () => { archDragging = false; });
+      window.addEventListener('mousemove', (e) => {
+        if (!archDragging) return;
+        const delta = e.clientX - archPrevX;
+        archPrevX = e.clientX;
+        archRotY += delta * 0.008;
+      });
+
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          archDragging = true;
+          archPrevX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+      window.addEventListener('touchend', () => { archDragging = false; });
+      window.addEventListener('touchmove', (e) => {
+        if (!archDragging || e.touches.length !== 1) return;
+        const delta = e.touches[0].clientX - archPrevX;
+        archPrevX = e.touches[0].clientX;
+        archRotY += delta * 0.008;
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        archCamera.aspect = container.clientWidth / container.clientHeight;
+        archCamera.updateProjectionMatrix();
+        archRenderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      animateArch();
+    }
+
+    function setArchMode(mode) {
+      document.getElementById('btnModePrestige').classList.toggle('active', mode === 'prestige');
+      document.getElementById('btnModeBlueprint').classList.toggle('active', mode === 'blueprint');
+      isBlueprint = (mode === 'blueprint');
+
+      archMaterials.forEach(m => {
+        m.wireframe = isBlueprint;
+        if (isBlueprint) {
+          m.color.set(0x38bdf8);
+        } else {
+          // Restore prestige colors
+          archMaterials[0].color.set(0x181c24);
+          archMaterials[1].color.set(0x222938);
+          archMaterials[2].color.set(0x0f1115);
+          archMaterials[3].color.set(0x93c5fd);
+        }
+      });
+    }
+
+    function animateArch() {
+      requestAnimationFrame(animateArch);
+      if (!archDragging) {
+        archRotY += 0.0015;
+      }
+      if (roomGroup) {
+        roomGroup.rotation.y = archRotY;
+      }
+      archRenderer.render(archScene, archCamera);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initArch3D();
+      calcBtpQuote();
+    });
   </script>
 </body>
 </html>
