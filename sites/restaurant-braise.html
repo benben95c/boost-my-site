@@ -673,52 +673,68 @@
     /* ---------------- THREE.JS 3D EMBER PARTICLES ---------------- */
     let emberScene, emberCamera, emberRenderer, emberGeometry, emberPoints;
     let emberPositions, emberVelocities;
-    const EMBER_COUNT = 850;
     let mouseX = 0, mouseY = 0;
+    function createEmberTexture() {
+      const c = document.createElement('canvas');
+      c.width = 64; c.height = 64;
+      const ctx = c.getContext('2d');
+      const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0, 'rgba(255, 255, 240, 1)');      // Hot white-gold core
+      g.addColorStop(0.2, 'rgba(255, 190, 60, 0.95)');  // Golden fire
+      g.addColorStop(0.45, 'rgba(234, 88, 12, 0.65)');  // Terracotta ember
+      g.addColorStop(0.75, 'rgba(180, 40, 5, 0.2)');    // Deep smoke edge
+      g.addColorStop(1, 'rgba(0, 0, 0, 0)');            // Perfectly feathered border
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(c);
+    }
 
     function initEmbers3D() {
       const canvas = document.getElementById('embersCanvas');
       if (!canvas || typeof THREE === 'undefined') return;
 
       emberScene = new THREE.Scene();
-      emberCamera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-      emberCamera.position.z = 25;
+      emberCamera = new THREE.PerspectiveCamera(55, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      emberCamera.position.z = 24;
 
-      emberRenderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false });
+      emberRenderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
       emberRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      emberRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      emberRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      emberPositions = new Float32Array(EMBER_COUNT * 3);
-      emberVelocities = new Float32Array(EMBER_COUNT * 3);
+      const COUNT = 160; // refined, elegant count
+      emberPositions = new Float32Array(COUNT * 3);
+      emberVelocities = new Float32Array(COUNT * 3);
+      const emberScales = new Float32Array(COUNT);
 
-      for (let i = 0; i < EMBER_COUNT; i++) {
-        emberPositions[i * 3] = (Math.random() - 0.5) * 45;
-        emberPositions[i * 3 + 1] = (Math.random() - 0.5) * 30;
-        emberPositions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+      for (let i = 0; i < COUNT; i++) {
+        emberPositions[i * 3] = (Math.random() - 0.5) * 36;
+        emberPositions[i * 3 + 1] = Math.random() * 26 - 13;
+        emberPositions[i * 3 + 2] = (Math.random() - 0.5) * 12;
 
-        emberVelocities[i * 3] = (Math.random() - 0.5) * 0.03;
-        emberVelocities[i * 3 + 1] = Math.random() * 0.06 + 0.02; // rise up
-        emberVelocities[i * 3 + 2] = (Math.random() - 0.5) * 0.03;
+        emberVelocities[i * 3] = (Math.random() - 0.5) * 0.02;
+        emberVelocities[i * 3 + 1] = Math.random() * 0.035 + 0.015; // gentle natural upward drift
+        emberVelocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
       }
 
       emberGeometry = new THREE.BufferGeometry();
       emberGeometry.setAttribute('position', new THREE.BufferAttribute(emberPositions, 3));
 
-      // Particle shader/material
+      // Feathered Glowing Texture Material
       const emberMaterial = new THREE.PointsMaterial({
-        color: 0xf97316,
-        size: 0.38,
+        map: createEmberTexture(),
+        size: 1.4,
         transparent: true,
         opacity: 0.85,
-        blending: THREE.AdditiveBlending
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
       });
 
       emberPoints = new THREE.Points(emberGeometry, emberMaterial);
       emberScene.add(emberPoints);
 
       window.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 0.8;
-        mouseY = (e.clientY / window.innerHeight - 0.5) * 0.8;
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
       });
 
       window.addEventListener('resize', () => {
@@ -727,26 +743,28 @@
         emberRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
       });
 
-      animateEmbers();
-    }
+      let clock = 0;
+      function animateEmbers() {
+        requestAnimationFrame(animateEmbers);
+        clock += 0.02;
+        const positions = emberGeometry.attributes.position.array;
 
-    function animateEmbers() {
-      requestAnimationFrame(animateEmbers);
-      const positions = emberGeometry.attributes.position.array;
+        for (let i = 0; i < COUNT; i++) {
+          // Add subtle organic sinusoidal sway
+          positions[i * 3] += emberVelocities[i * 3] + Math.sin(clock + i) * 0.008 + mouseX * 0.03;
+          positions[i * 3 + 1] += emberVelocities[i * 3 + 1];
+          positions[i * 3 + 2] += emberVelocities[i * 3 + 2] + Math.cos(clock + i) * 0.008;
 
-      for (let i = 0; i < EMBER_COUNT; i++) {
-        positions[i * 3] += emberVelocities[i * 3] + mouseX * 0.05;
-        positions[i * 3 + 1] += emberVelocities[i * 3 + 1];
-        positions[i * 3 + 2] += emberVelocities[i * 3 + 2];
-
-        // Reset if too high
-        if (positions[i * 3 + 1] > 18) {
-          positions[i * 3 + 1] = -18;
-          positions[i * 3] = (Math.random() - 0.5) * 45;
+          // Gentle recycle loop
+          if (positions[i * 3 + 1] > 14) {
+            positions[i * 3 + 1] = -14;
+            positions[i * 3] = (Math.random() - 0.5) * 36;
+          }
         }
+        emberGeometry.attributes.position.needsUpdate = true;
+        emberRenderer.render(emberScene, emberCamera);
       }
-      emberGeometry.attributes.position.needsUpdate = true;
-      emberRenderer.render(emberScene, emberCamera);
+      animateEmbers();
     }
 
     /* ---------------- MENU & CLICK & COLLECT ENGINE ---------------- */
