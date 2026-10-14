@@ -631,14 +631,14 @@
       <div class="showroom-header">
         <div>
           <span class="badge-gold">Studio 3D Interactif • Flotte VTC Prestige</span>
-          <h2 style="margin-top:6px;" id="carShowroomTitle">Mercedes-Benz Classe S Limousine</h2>
+          <h2 style="margin-top:6px;" id="carShowroomTitle">Mercedes-Benz AMG GT Prestige</h2>
         </div>
         <div class="showroom-controls">
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-            <button class="arch-mode-btn active" id="btnModSedan" onclick="selectShowroomVehicle('sedan', this)">Mercedes Limousine</button>
+            <button class="arch-mode-btn active" id="btnModMercedes" onclick="selectShowroomVehicle('mercedes', this)">Mercedes-AMG GT</button>
+            <button class="arch-mode-btn" id="btnModPorsche" onclick="selectShowroomVehicle('porsche', this)">Porsche 911 Carrera</button>
             <button class="arch-mode-btn" id="btnModMaybach" onclick="selectShowroomVehicle('maybach', this)">Mercedes-Maybach</button>
-            <button class="arch-mode-btn" id="btnModFerrari" onclick="selectShowroomVehicle('ferrari', this)">Ferrari Escort VIP</button>
-            <button class="arch-mode-btn" id="btnModVan" onclick="selectShowroomVehicle('van', this)">Mercedes Classe V</button>
+            <button class="arch-mode-btn" id="btnModFerrari" onclick="selectShowroomVehicle('ferrari', this)">Ferrari Spider VIP</button>
           </div>
           <div style="display:flex; gap:8px; align-items:center;">
             <span style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Teinte :</span>
@@ -1097,51 +1097,50 @@
     let carGLTFLoader = null;
 
     const VEHICLE_CATALOG = {
-      sedan: {
-        id: 'sedan',
-        name: 'Mercedes-Benz Limousine Prestige',
+      mercedes: {
+        id: 'mercedes',
+        name: 'Mercedes-Benz AMG GT Prestige',
         url: 'models/mercedes.glb',
-        cat: 'Limousine Première Classe',
-        cap: '3 Passagers • 3 Grands Bagages',
-        comfort: 'Sièges massants chauffants, insonorisation acoustique palace',
-        motor: 'Hybride Rechargeable V6 Biturbo 435 ch',
+        cat: 'Grand Tourisme & Transfert Express VIP',
+        cap: '2 Passagers • 2 Grands Bagages',
+        comfort: 'Sellerie cuir Nappa étendu, sonorisation Burmester High-End 3D, double vitrage acoustique',
+        motor: 'V8 Biturbo 585 ch • 0 à 100 km/h en 3.6s',
         targetDim: 4.4,
-        hideFilter: 'LIGHTBAR',
+        hideNodes: ['Object_33', 'Object_67', 'Object_94', 'Object_112', 'Object_148'],
+        rotCorrection: 0
+      },
+      porsche: {
+        id: 'porsche',
+        name: 'Porsche 911 Carrera 4S VIP',
+        url: 'models/porsche.glb',
+        cat: 'Légende Grand Tourisme & Escorte Privée',
+        cap: '2 Passagers • 2 Bagages Cabine',
+        comfort: 'Pack Sport Chrono, sièges sport adaptatifs 18 positions chauffants et ventilés',
+        motor: 'Flat-6 Bi-Turbo 450 ch • Transmission intégrale PDK 8 rapports',
+        targetDim: 4.4,
         rotCorrection: 0
       },
       maybach: {
         id: 'maybach',
         name: 'Mercedes-Maybach Vision Grand Luxe',
         url: 'models/concept.glb',
-        cat: 'Haute Joaillerie Automobile',
+        cat: 'Haute Joaillerie Automobile & Salon Privé',
         cap: '2 Passagers VIP • 3 Bagages',
-        comfort: 'Empattement allongé, repose-mollets, bar réfrigéré champagne',
-        motor: 'V12 Bi-Turbo 612 ch • Châssis Magic Body Control',
+        comfort: 'Empattement allongé, repose-mollets première classe, bar réfrigéré champagne millésimé',
+        motor: 'Châssis Magic Body Control • V12 Bi-Turbo 612 ch acoustique feutrée',
         targetDim: 4.5,
         rotCorrection: 0
       },
       ferrari: {
         id: 'ferrari',
-        name: 'Grand Tourisme Escort VIP',
+        name: 'Ferrari 458 Spider VIP',
         url: 'models/ferrari.glb',
-        cat: 'Supercar d\'Escorte Privée',
+        cat: 'Supercar d\'Escorte Exceptionnelle',
         cap: '2 Passagers • 2 Bagages Cabine',
-        comfort: 'Sellerie cuir étendu surpiqué, carbone mat, échappement sport',
-        motor: 'V8 Biturbo 720 ch • 0 à 100 km/h en 2.9s',
+        comfort: 'Habitable carbone et cuir pleine fleur cousu main, échappement à valves actives',
+        motor: 'V8 Atmosphérique 570 ch • Ciel ouvert en 14 secondes',
         targetDim: 4.3,
         rotCorrection: Math.PI / 2
-      },
-      van: {
-        id: 'van',
-        name: 'Mercedes-Benz Salon VIP',
-        url: 'models/mercedes.glb',
-        cat: 'Salon Roulant VIP',
-        cap: '7 Passagers • 8 Bagages XL',
-        comfort: 'Disposition salon face à face, table amovible, vitrage privacy',
-        motor: 'Diesel 237 ch 4MATIC Transmission Intégrale',
-        targetDim: 4.4,
-        hideFilter: 'LIGHTBAR',
-        rotCorrection: 0
       }
     };
 
@@ -1260,7 +1259,7 @@
       carTurntable.add(shadowPlane);
 
       // Build Initial Vehicle
-      buildSelectedVehicle('sedan');
+      buildSelectedVehicle('mercedes');
 
       // Mouse & Touch Orbit Controls
       container.addEventListener('mousedown', (e) => {
@@ -1331,7 +1330,7 @@
 
     // Vehicle Builder with High-Poly GLTF Loader & Dynamic Turntable Fitting
     function buildSelectedVehicle(type) {
-      const config = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.sedan;
+      const config = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.mercedes;
       initCarLoaders();
 
       // Clear existing car group
@@ -1355,8 +1354,11 @@
           showCarLoader(false);
           const rawScene = gltf.scene;
 
-          // Traversal: Shadows, Environment intensity & Optional mesh filters
+          // Traversal: Hide unwanted fixtures (e.g. Roof lightbar and decals on Mercedes)
           rawScene.traverse(child => {
+            if (config.hideNodes && config.hideNodes.includes(child.name)) {
+              child.visible = false;
+            }
             if (config.hideFilter && child.name && child.name.includes(config.hideFilter)) {
               child.visible = false;
             }
@@ -1410,7 +1412,7 @@
       activeCarGroup = new THREE.Group();
       activeCarGroup.add(model);
 
-      // Traversal to find headlights
+      // Traversal for realistic materials, tinted glass, alloy rims & headlights
       model.traverse(child => {
         if (child.isMesh) {
           child.castShadow = true;
@@ -1419,8 +1421,41 @@
           const mName = (child.material && child.material.name ? child.material.name : '').toLowerCase();
           const nodeName = (child.name || '').toLowerCase();
 
-          // Detect Headlights meshes
-          if (nodeName.includes('headlight') || mName.includes('headlight') || mName.includes('projector') || mName.includes('signal_led')) {
+          // 1. Realistic Tinted Automotive Glass (Fixes white windshield on Concept, Ferrari, Porsche)
+          if (mName.includes('glass') || mName.includes('window') || mName.includes('windshield') || mName.includes('cristales') || nodeName.includes('windshield') || nodeName.includes('window')) {
+            child.material = new THREE.MeshPhysicalMaterial({
+              color: 0x0a101d,
+              metalness: 0.1,
+              roughness: 0.05,
+              transparent: true,
+              opacity: 0.28,
+              envMapIntensity: 2.5
+            });
+            child.castShadow = false;
+            child.receiveShadow = true;
+          }
+
+          // 2. Realistic Diamond-Cut Alloy Rims (Fixes white Ferrari wheels)
+          if (mName === 'metal_gray' || (mName.includes('wheel') && !mName.includes('tyre') && !mName.includes('tire')) || (mName.includes('rim') && !mName.includes('tyre') && !mName.includes('tire')) || mName === 'silver') {
+            child.material = new THREE.MeshStandardMaterial({
+              color: 0x2d333f,
+              metalness: 0.92,
+              roughness: 0.22,
+              envMapIntensity: 2.0
+            });
+          }
+
+          // 3. Realistic Deep Matte Rubber Tires
+          if (mName.includes('tire') || mName.includes('tyre') || mName === 'rubber' || nodeName.includes('tire') || nodeName.includes('tyre')) {
+            child.material = new THREE.MeshStandardMaterial({
+              color: 0x101216,
+              metalness: 0.05,
+              roughness: 0.85
+            });
+          }
+
+          // 4. Detect Headlights meshes
+          if (nodeName.includes('headlight') || mName.includes('headlight') || mName.includes('projector') || mName.includes('signal_led') || mName === 'lights') {
             headlightMeshes.push(child);
           }
         }
@@ -1468,22 +1503,56 @@
           const mName = (mat.name || '').toLowerCase();
           const nodeName = (child.name || '').toLowerCase();
 
-          const isPaint = mName.includes('ext') ||
-                          mName.includes('paint') ||
-                          mName.includes('body_color') ||
-                          mName.includes('body color') ||
-                          nodeName.includes('body') ||
-                          nodeName.includes('hood') ||
-                          nodeName.includes('door') ||
-                          nodeName.includes('bumper');
+          // Strictly filter out non-body elements
+          const isNonPaint = mName.includes('glass') ||
+                             mName.includes('window') ||
+                             mName.includes('windshield') ||
+                             mName.includes('cristales') ||
+                             mName.includes('wheel') ||
+                             mName.includes('tyre') ||
+                             mName.includes('tire') ||
+                             mName.includes('rim') ||
+                             mName.includes('rotor') ||
+                             mName.includes('brake') ||
+                             mName.includes('caliper') ||
+                             mName.includes('disc') ||
+                             mName.includes('rubber') ||
+                             mName.includes('metal_gray') ||
+                             mName.includes('chrome') ||
+                             mName.includes('interior') ||
+                             mName.includes('leather') ||
+                             mName.includes('carpet') ||
+                             mName.includes('plastic') ||
+                             mName.includes('badge') ||
+                             mName.includes('license') ||
+                             mName.includes('logo') ||
+                             mName.includes('silver') ||
+                             nodeName.includes('wheel') ||
+                             nodeName.includes('tire') ||
+                             nodeName.includes('tyre') ||
+                             nodeName.includes('rim') ||
+                             nodeName.includes('brake') ||
+                             nodeName.includes('glass') ||
+                             nodeName.includes('windshield') ||
+                             nodeName.includes('interior') ||
+                             nodeName.includes('steering');
 
-          if (isPaint && !mName.includes('glass') && !mName.includes('window') && !mName.includes('wheel') && !mName.includes('tyre') && !mName.includes('badge')) {
-            if (mat.color) {
-              mat.color.set(hex);
-              mat.roughness = 0.16;
-              mat.metalness = 0.88;
-              mat.needsUpdate = true;
-            }
+          if (isNonPaint) return;
+
+          // Target specific car paint materials
+          const isPaint = mName.includes('ext') ||
+                          mName === 'paint' ||
+                          mName.includes('paint 1') ||
+                          mName.includes('paint 2') ||
+                          mName.includes('body_color') ||
+                          mName.includes('carroceria') ||
+                          mName.includes('coat');
+
+          if (isPaint && mat.color) {
+            mat.color.set(hex);
+            mat.roughness = 0.16;
+            mat.metalness = 0.88;
+            mat.needsUpdate = true;
           }
         }
       });
@@ -1496,7 +1565,7 @@
       currentVehType = type;
       buildSelectedVehicle(type);
 
-      const cfg = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.sedan;
+      const cfg = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.mercedes;
       const titleEl = document.getElementById('carShowroomTitle');
       const catEl = document.getElementById('specCat');
       const capEl = document.getElementById('specCap');

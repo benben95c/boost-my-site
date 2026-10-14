@@ -1142,6 +1142,9 @@
 
       const tex = new THREE.CanvasTexture(c);
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
       return tex;
     }
 
@@ -1167,6 +1170,9 @@
 
       const tex = new THREE.CanvasTexture(c);
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
       return tex;
     }
 
@@ -1194,6 +1200,9 @@
 
       const tex = new THREE.CanvasTexture(c);
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
       return tex;
     }
 
@@ -1262,16 +1271,25 @@
       const sunLight = new THREE.DirectionalLight(0xfffaed, 1.8);
       sunLight.position.set(5.5, 7.0, 4.0);
       sunLight.castShadow = true;
-      sunLight.shadow.mapSize.width = 1024;
-      sunLight.shadow.mapSize.height = 1024;
-      sunLight.shadow.bias = -0.0005;
+      sunLight.shadow.mapSize.width = 2048;
+      sunLight.shadow.mapSize.height = 2048;
+      sunLight.shadow.camera.near = 1;
+      sunLight.shadow.camera.far = 18;
+      sunLight.shadow.camera.left = -3.5;
+      sunLight.shadow.camera.right = 3.5;
+      sunLight.shadow.camera.top = 3.5;
+      sunLight.shadow.camera.bottom = -3.5;
+      sunLight.shadow.radius = 2.5;
+      sunLight.shadow.bias = -0.0003;
       archScene.add(sunLight);
       archLights.sun = sunLight;
 
-      // Soft window bounce
-      const windowLight = new THREE.DirectionalLight(0x93c5fd, 0.9);
-      windowLight.position.set(-6, 3, 0);
+      // Soft window daylight bounce
+      const windowLight = new THREE.DirectionalLight(0xdbeafe, 1.2);
+      windowLight.position.set(-3.8, 2.2, 0.8);
+      windowLight.target.position.set(0, 1.0, 0.2);
       archScene.add(windowLight);
+      archScene.add(windowLight.target);
       archLights.window = windowLight;
 
       // Warm Cove & Mirror Glow Lights
@@ -1321,8 +1339,6 @@
         basinMat: new THREE.MeshStandardMaterial({ color: 0x101318, roughness: 0.25 }),
         radiatorMat: new THREE.MeshStandardMaterial({ color: 0x111317, metalness: 0.7, roughness: 0.3 }),
         towelMat: new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.9 }),
-        plantPotMat: new THREE.MeshStandardMaterial({ color: 0x222630, roughness: 0.6 }),
-        leafMat: new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.45 }),
         // Technical Blueprint Conduits
         pipeHotMat: new THREE.MeshBasicMaterial({ color: 0xef4444 }),
         pipeColdMat: new THREE.MeshBasicMaterial({ color: 0x3b82f6 }),
@@ -1382,13 +1398,34 @@
       wallLeft.receiveShadow = true;
       archRoomGroup.add(wallLeft);
 
-      // Frosted Architectural Steel Window
+      // Frosted Architectural Steel Crittall Window with Soft Daylight Glow (No shadow staircases)
       const winFrame = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.8, 1.4), archMaterials.fixturesMat);
       winFrame.position.set(-2.18, 1.6, 0.8);
+      winFrame.castShadow = false;
+      winFrame.receiveShadow = false;
       archRoomGroup.add(winFrame);
 
-      const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.02, 1.74, 1.34), new THREE.MeshStandardMaterial({ color: 0xdbeafe, roughness: 0.6, transparent: true, opacity: 0.5 }));
+      const winMullionH = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.025, 1.38), archMaterials.fixturesMat);
+      winMullionH.position.set(-2.18, 1.6, 0.8);
+      archRoomGroup.add(winMullionH);
+
+      const winMullionV = new THREE.Mesh(new THREE.BoxGeometry(0.045, 1.78, 0.025), archMaterials.fixturesMat);
+      winMullionV.position.set(-2.18, 1.6, 0.8);
+      archRoomGroup.add(winMullionV);
+
+      const winGlassMat = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        emissive: 0xdbeafe,
+        emissiveIntensity: 0.42,
+        roughness: 0.25,
+        metalness: 0.05,
+        transparent: true,
+        opacity: 0.88
+      });
+      const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.02, 1.74, 1.34), winGlassMat);
       winGlass.position.set(-2.17, 1.6, 0.8);
+      winGlass.castShadow = false;
+      winGlass.receiveShadow = false;
       archRoomGroup.add(winGlass);
 
       // Suspended Ceiling Soffit Beam with Cove Light
@@ -1407,26 +1444,36 @@
         archRoomGroup.add(spotRing);
       });
 
-      // Recessed Wall Niche with Luxury Cosmetic Bottles
-      const nicheBack = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.4, 0.08), archMaterials.wallShowerMat);
-      nicheBack.position.set(1.35, 1.35, -2.22);
+      // Recessed Architectural Wall Niche (Clean depth offset to eliminate z-fighting with wood slats)
+      const nicheFrame = new THREE.Mesh(new THREE.BoxGeometry(0.82, 1.42, 0.02), archMaterials.fixturesMat);
+      nicheFrame.position.set(1.35, 1.35, -2.175);
+      archRoomGroup.add(nicheFrame);
+
+      const nicheBack = new THREE.Mesh(new THREE.BoxGeometry(0.76, 1.36, 0.04), archMaterials.wallShowerMat);
+      nicheBack.position.set(1.35, 1.35, -2.25);
+      nicheBack.receiveShadow = true;
       archRoomGroup.add(nicheBack);
 
-      const nicheLed = new THREE.Mesh(new THREE.BoxGeometry(0.78, 0.025, 0.06), archMaterials.mirrorHaloMat);
-      nicheLed.position.set(1.35, 2.02, -2.18);
+      const nicheLed = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.025, 0.04), archMaterials.mirrorHaloMat);
+      nicheLed.position.set(1.35, 2.01, -2.22);
       archRoomGroup.add(nicheLed);
 
-      // 3 Luxury Bath Bottles in Niche
-      [-0.22, 0, 0.22].forEach((bx, idx) => {
+      // Floating tempered glass shelf in niche
+      const nicheShelf = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.015, 0.10), archMaterials.glassMat);
+      nicheShelf.position.set(1.35, 0.95, -2.21);
+      archRoomGroup.add(nicheShelf);
+
+      // 3 Luxury Bath Bottles on Niche Shelf
+      [-0.20, 0, 0.20].forEach((bx, idx) => {
         const bBottle = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.04, 0.04, 0.16 + idx * 0.03, 16),
-          new THREE.MeshStandardMaterial({ color: idx === 1 ? 0xb45309 : 0x1f2937, roughness: 0.15, transparent: true, opacity: 0.85 })
+          new THREE.CylinderGeometry(0.038, 0.038, 0.15 + idx * 0.025, 16),
+          new THREE.MeshStandardMaterial({ color: idx === 1 ? 0xb45309 : 0x1f2937, roughness: 0.15, transparent: true, opacity: 0.88 })
         );
-        bBottle.position.set(1.35 + bx, 0.76 + (0.16 + idx * 0.03) / 2, -2.18);
+        bBottle.position.set(1.35 + bx, 0.95 + 0.008 + (0.15 + idx * 0.025) / 2, -2.21);
         archRoomGroup.add(bBottle);
         // Brass pump dispenser
-        const bPump = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.04, 8), archMaterials.fixturesMat);
-        bPump.position.set(1.35 + bx, 0.76 + 0.16 + idx * 0.03 + 0.02, -2.18);
+        const bPump = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.007, 0.035, 8), archMaterials.fixturesMat);
+        bPump.position.set(1.35 + bx, 0.95 + 0.008 + 0.15 + idx * 0.025 + 0.018, -2.21);
         archRoomGroup.add(bPump);
       });
 
@@ -1628,33 +1675,7 @@
 
       archRoomGroup.add(radGroup);
 
-      // 7. ARCHITECTURAL MINIMALIST PLANT
-      const plantGroup = new THREE.Group();
-      plantGroup.position.set(1.75, 0.28, 1.55);
-
-      const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.14, 0.34, 24), archMaterials.plantPotMat);
-      plantGroup.add(pot);
-
-      // Tripod Brass Legs
-      for (let leg = 0; leg < 3; leg++) {
-        const ang = (leg * Math.PI * 2) / 3;
-        const pLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.36, 8), archMaterials.fixturesMat);
-        pLeg.position.set(Math.cos(ang) * 0.14, -0.10, Math.sin(ang) * 0.14);
-        plantGroup.add(pLeg);
-      }
-
-      // Green Tropical Leaves
-      for (let l = 0; l < 6; l++) {
-        const leafMesh = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.45, 8), archMaterials.leafMat);
-        const lAng = (l * Math.PI * 2) / 6;
-        leafMesh.position.set(Math.cos(lAng) * 0.08, 0.28, Math.sin(lAng) * 0.08);
-        leafMesh.rotation.set((Math.random() - 0.5) * 0.4, lAng, 0.45);
-        plantGroup.add(leafMesh);
-      }
-
-      archRoomGroup.add(plantGroup);
-
-      // 8. BTP TECHNICAL PIPE NETWORK (Blueprint mode)
+      // 7. BTP TECHNICAL PIPE NETWORK (Blueprint mode)
       // Red Hot Water (ECS Ø16)
       const hotPipe1 = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 3.4, 8), archMaterials.pipeHotMat);
       hotPipe1.position.set(-0.7, 0.18, -2.15);
