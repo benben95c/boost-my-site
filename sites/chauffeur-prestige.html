@@ -182,17 +182,27 @@
       gap: 12px;
       flex-wrap: wrap;
     }
-    .color-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3);
+    .arch-mode-btn {
+      background: #0d1017;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
       cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
+      font-weight: 600;
+      transition: all 0.2s;
     }
-    .color-btn:hover, .color-btn.active {
-      transform: scale(1.15);
+    .arch-mode-btn:hover {
       border-color: var(--gold);
+      color: #fff;
+    }
+    .arch-mode-btn.active {
+      background: var(--gold);
+      border-color: var(--gold-light);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(212,175,55,0.3);
     }
     .canvas-container {
       width: 100%;
@@ -603,45 +613,40 @@
     <section class="showroom-section" id="showroom">
       <div class="showroom-header">
         <div>
-          <span class="badge-gold">Studio 3D Interactif</span>
-          <h2 style="margin-top:6px;">Mercedes-Benz Classe S Limousine</h2>
+          <span class="badge-gold">Studio 3D Temps Réel • Qualité Ultra-HD</span>
+          <h2 style="margin-top:6px;" id="carShowroomTitle">Porsche 911 Carrera 4S</h2>
         </div>
         <div class="showroom-controls">
-          <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Teinte carrosserie :</span>
-          <button class="color-btn active" style="background:#0c0d10" title="Noir Onyx Métallisé" onclick="changeCarColor('#0c0d10', this)"></button>
-          <button class="color-btn" style="background:#4a505b" title="Gris Sélénite" onclick="changeCarColor('#4a505b', this)"></button>
-          <button class="color-btn" style="background:#14234b" title="Bleu Minuit Profond" onclick="changeCarColor('#14234b', this)"></button>
-          <button class="color-btn" style="background:#d4dade" title="Blanc Diamant Nacré" onclick="changeCarColor('#d4dade', this)"></button>
-          <button class="btn-outline" style="padding:6px 14px; font-size:12px; margin-left:8px;" onclick="toggleHeadlights()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
-            Phares LED
-          </button>
+          <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Modèle 3D Actif :</span>
+          <button class="arch-mode-btn active" id="btnPorsche" onclick="switchCarModel('d01b254483794de3819786d93e0e1ebf', this, 'Porsche 911 Carrera 4S')">Porsche 911 Carrera 4S</button>
         </div>
       </div>
 
-      <div class="canvas-container" id="car3dCanvas">
-        <div class="showroom-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24L21 8"/><polyline points="21 3 21 8 16 8"/></svg>
-          Glissez pour pivoter à 360° • Zoom à la molette
-        </div>
+      <div class="canvas-container" id="car3dCanvas" style="height: 520px; border: 1px solid rgba(212,175,55,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.85); border-radius: 16px; overflow: hidden; background: #07080a; position: relative;">
+        <iframe id="carIframe" title="(FREE) Porsche 911 Carrera 4S - Lionsharp Studios"
+          src="https://sketchfab.com/models/d01b254483794de3819786d93e0e1ebf/embed?autostart=1&preload=1&ui_theme=dark&ui_watermark=0&ui_hint=0&ui_infos=0"
+          style="width: 100%; height: 100%; border: none; display: block;"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          allowfullscreen>
+        </iframe>
       </div>
 
       <div class="showroom-specs">
         <div class="spec-item">
           <small>Motorisation</small>
-          <strong>Hybride Rechargeable V6</strong>
+          <strong>Flat-6 Bi-Turbo 450 ch</strong>
         </div>
         <div class="spec-item">
           <small>Insonorisation</small>
-          <strong>Double vitrage acoustique</strong>
+          <strong>Vitrage acoustique feuilleté</strong>
         </div>
         <div class="spec-item">
-          <small>Confort Arrière</small>
-          <strong>Sièges massants & climatisés</strong>
+          <small>Confort Intérieur</small>
+          <strong>Sièges sport cuir étendu & régulation</strong>
         </div>
         <div class="spec-item">
-          <small>Connectivité</small>
-          <strong>Wi-Fi 5G & Chargeurs induction</strong>
+          <small>Transmission</small>
+          <strong>Traction intégrale 4S & Boîte PDK 8</strong>
         </div>
       </div>
     </section>
@@ -1044,527 +1049,20 @@
       goToStep(3);
     }
 
-    /* ---------------- THREE.JS PROCEDURAL LUXURY CAR SHOWROOM ---------------- */
-    let scene, camera, renderer, carGroup, carPaintMat, turntableGroup;
-    let headlightLights = [], headlightMeshes = [];
-    let isDragging = false, prevMouseX = 0, prevMouseY = 0;
-    let targetRotationY = -0.6, currentRotationY = -0.6;
-    let cameraDistance = 5.2;
-
-    // Procedural Studio Environment Reflection Map
-    function createStudioEnvTexture() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1024;
-      canvas.height = 512;
-      const ctx = canvas.getContext('2d');
-
-      // Studio dark atmosphere gradient
-      const grad = ctx.createLinearGradient(0, 0, 0, 512);
-      grad.addColorStop(0, '#0a0d14');
-      grad.addColorStop(0.35, '#121622');
-      grad.addColorStop(0.5, '#1c2436');
-      grad.addColorStop(0.65, '#121622');
-      grad.addColorStop(1, '#05070a');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1024, 512);
-
-      // Huge overhead studio softbox light panel
-      const overheadGrad = ctx.createRadialGradient(512, 110, 20, 512, 110, 320);
-      overheadGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-      overheadGrad.addColorStop(0.35, 'rgba(235, 245, 255, 0.7)');
-      overheadGrad.addColorStop(0.7, 'rgba(160, 190, 240, 0.25)');
-      overheadGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = overheadGrad;
-      ctx.fillRect(160, 20, 704, 200);
-
-      // Left long linear studio strip light (sharp shoulder crease reflection)
-      const leftStrip = ctx.createLinearGradient(60, 0, 130, 0);
-      leftStrip.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      leftStrip.addColorStop(0.5, 'rgba(255, 255, 255, 0.9)');
-      leftStrip.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      ctx.fillStyle = leftStrip;
-      ctx.fillRect(60, 130, 70, 240);
-
-      // Right warm gold studio strip light (executive rim highlight)
-      const rightStrip = ctx.createLinearGradient(890, 0, 960, 0);
-      rightStrip.addColorStop(0, 'rgba(212, 175, 55, 0)');
-      rightStrip.addColorStop(0.5, 'rgba(245, 215, 125, 0.85)');
-      rightStrip.addColorStop(1, 'rgba(212, 175, 55, 0)');
-      ctx.fillStyle = rightStrip;
-      ctx.fillRect(890, 130, 70, 240);
-
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.mapping = THREE.EquirectangularReflectionMapping;
-      return texture;
-    }
-
-    function initCar3D() {
-      const container = document.getElementById('car3dCanvas');
-      if (!container || typeof THREE === 'undefined') return;
-
-      scene = new THREE.Scene();
-
-      // Camera positioned at executive eye-level 3/4 hero angle
-      camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 100);
-      updateCameraPosition();
-
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
-      container.appendChild(renderer.domElement);
-
-      // Apply procedural studio environment map for realistic automotive reflections
-      const envTex = createStudioEnvTexture();
-      scene.environment = envTex;
-
-      // Studio Lighting
-      const ambLight = new THREE.AmbientLight(0xffffff, 0.75);
-      scene.add(ambLight);
-
-      // Key light from front 3/4
-      const keyLight = new THREE.DirectionalLight(0xfff8ee, 1.8);
-      keyLight.position.set(4.5, 6.5, 4.0);
-      keyLight.castShadow = true;
-      keyLight.shadow.mapSize.width = 1024;
-      keyLight.shadow.mapSize.height = 1024;
-      keyLight.shadow.bias = -0.0005;
-      scene.add(keyLight);
-
-      // Soft overhead panel fill
-      const overheadLight = new THREE.DirectionalLight(0xe5eeff, 1.2);
-      overheadLight.position.set(0, 8, 0);
-      scene.add(overheadLight);
-
-      // Warm rear rim light
-      const rimLight = new THREE.DirectionalLight(0xd4af37, 1.2);
-      rimLight.position.set(-5, 4.5, -4);
-      scene.add(rimLight);
-
-      // Showroom Turntable Group
-      turntableGroup = new THREE.Group();
-      scene.add(turntableGroup);
-
-      // High-Gloss Studio Turntable Platform
-      const turntableMat = new THREE.MeshStandardMaterial({
-        color: 0x0a0c12,
-        metalness: 0.45,
-        roughness: 0.18
-      });
-      const turntableDisc = new THREE.Mesh(new THREE.CylinderGeometry(3.4, 3.45, 0.08, 64), turntableMat);
-      turntableDisc.position.y = -0.44;
-      turntableDisc.receiveShadow = true;
-      turntableGroup.add(turntableDisc);
-
-      // Illuminated Gold LED Turntable Perimeter Ring
-      const rimLedMat = new THREE.MeshBasicMaterial({ color: 0xd4af37 });
-      const rimLed = new THREE.Mesh(new THREE.TorusGeometry(3.42, 0.025, 16, 64), rimLedMat);
-      rimLed.rotation.x = Math.PI / 2;
-      rimLed.position.y = -0.40;
-      turntableGroup.add(rimLed);
-
-      // Soft Floor Contact Shadow
-      const shadowPlane = new THREE.Mesh(
-        new THREE.PlaneGeometry(8, 8),
-        new THREE.ShadowMaterial({ opacity: 0.55 })
-      );
-      shadowPlane.rotation.x = -Math.PI / 2;
-      shadowPlane.position.y = -0.479;
-      shadowPlane.receiveShadow = true;
-      scene.add(shadowPlane);
-
-      // BUILD MERCEDES-BENZ S-CLASS LIMOUSINE
-      carGroup = new THREE.Group();
-      turntableGroup.add(carGroup);
-
-      // Materials
-      carPaintMat = new THREE.MeshStandardMaterial({
-        color: 0x090b10, // Noir Onyx Métallisé default
-        metalness: 0.90,
-        roughness: 0.14
-      });
-
-      const chromeMat = new THREE.MeshStandardMaterial({
-        color: 0xf5f5f5,
-        metalness: 0.98,
-        roughness: 0.04
-      });
-
-      const darkChromeMat = new THREE.MeshStandardMaterial({
-        color: 0x333333,
-        metalness: 0.9,
-        roughness: 0.1
-      });
-
-      const glassMat = new THREE.MeshStandardMaterial({
-        color: 0x05070c,
-        metalness: 0.95,
-        roughness: 0.03,
-        transparent: true,
-        opacity: 0.90
-      });
-
-      const tireRubberMat = new THREE.MeshStandardMaterial({
-        color: 0x141517,
-        roughness: 0.82
-      });
-
-      const rimAlloyMat = new THREE.MeshStandardMaterial({
-        color: 0xe2e6ea,
-        metalness: 0.92,
-        roughness: 0.18
-      });
-
-      const brakeDiscMat = new THREE.MeshStandardMaterial({
-        color: 0x889098,
-        metalness: 0.85,
-        roughness: 0.3
-      });
-
-      const brakeCaliperMat = new THREE.MeshStandardMaterial({
-        color: 0xb91c1c, // AMG Red Calipers
-        metalness: 0.5,
-        roughness: 0.25
-      });
-
-      const ledHeadMat = new THREE.MeshBasicMaterial({ color: 0xedf7ff });
-      const ledTailMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
-      const mirrorGlassMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.98, roughness: 0.02 });
-
-      // 1. Lower Chassis & Aerodynamic Rocker Sills
-      const chassis = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.36, 1.58), carPaintMat);
-      chassis.position.y = -0.06;
-      chassis.castShadow = true;
-      chassis.receiveShadow = true;
-      carGroup.add(chassis);
-
-      // Front bumper apron with air intakes
-      const frontBumper = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.28, 1.54), carPaintMat);
-      frontBumper.position.set(1.88, -0.10, 0);
-      frontBumper.castShadow = true;
-      carGroup.add(frontBumper);
-
-      // Lower gloss black air intake grille
-      const lowerIntake = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 1.3), darkChromeMat);
-      lowerIntake.position.set(2.08, -0.18, 0);
-      carGroup.add(lowerIntake);
-
-      // Front horizontal chrome splitter blade
-      const frontSplitter = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.025, 1.35), chromeMat);
-      frontSplitter.position.set(2.09, -0.23, 0);
-      carGroup.add(frontSplitter);
-
-      // Rear bumper & aerodynamic diffuser
-      const rearBumper = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.28, 1.54), carPaintMat);
-      rearBumper.position.set(-1.86, -0.10, 0);
-      rearBumper.castShadow = true;
-      carGroup.add(rearBumper);
-
-      // Dual twin chrome exhaust tips
-      [-0.52, -0.44, 0.44, 0.52].forEach(z => {
-        const exhaust = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.1, 16), chromeMat);
-        exhaust.rotation.z = Math.PI / 2;
-        exhaust.position.set(-2.06, -0.20, z);
-        carGroup.add(exhaust);
-      });
-
-      // 2. Sculpted Hood & Trunk
-      const hood = new THREE.Mesh(new THREE.BoxGeometry(1.22, 0.30, 1.54), carPaintMat);
-      hood.position.set(1.24, -0.01, 0);
-      hood.rotation.z = -0.04; // subtle sleek downward nose slant
-      hood.castShadow = true;
-      carGroup.add(hood);
-
-      const trunk = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.30, 1.54), carPaintMat);
-      trunk.position.set(-1.42, -0.01, 0);
-      trunk.rotation.z = 0.03; // aerodynamic taper
-      trunk.castShadow = true;
-      carGroup.add(trunk);
-
-      // 3. Arched Luxury Greenhouse / Cabin & Pillars
-      const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.92, 0.46, 1.32), glassMat);
-      cabin.position.set(-0.08, 0.31, 0);
-      cabin.castShadow = true;
-      carGroup.add(cabin);
-
-      // Angled Front Windshield
-      const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.44, 1.30), glassMat);
-      windshield.position.set(0.84, 0.24, 0);
-      windshield.rotation.z = -0.52; // Sleek 30-degree executive rake
-      carGroup.add(windshield);
-
-      // Angled Rear Window
-      const rearWindow = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.42, 1.30), glassMat);
-      rearWindow.position.set(-0.98, 0.24, 0);
-      rearWindow.rotation.z = 0.48;
-      carGroup.add(rearWindow);
-
-      // Roof Panel & Sunroof
-      const roof = new THREE.Mesh(new THREE.BoxGeometry(1.72, 0.04, 1.34), carPaintMat);
-      roof.position.set(-0.08, 0.53, 0);
-      carGroup.add(roof);
-
-      const sunroof = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.01, 0.95), glassMat);
-      sunroof.position.set(0.05, 0.551, 0);
-      carGroup.add(sunroof);
-
-      // Chrome Window Trim (DLO Surround)
-      [-0.67, 0.67].forEach(z => {
-        const trimBottom = new THREE.Mesh(new THREE.BoxGeometry(2.35, 0.02, 0.02), chromeMat);
-        trimBottom.position.set(-0.06, 0.11, z);
-        carGroup.add(trimBottom);
-
-        const trimRoof = new THREE.Mesh(new THREE.BoxGeometry(1.76, 0.02, 0.02), chromeMat);
-        trimRoof.position.set(-0.08, 0.52, z);
-        carGroup.add(trimRoof);
-      });
-
-      // 4. Iconic Mercedes-Benz Radiator Grille
-      const grilleSurround = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.32, 0.84), chromeMat);
-      grilleSurround.position.set(2.10, -0.05, 0);
-      carGroup.add(grilleSurround);
-
-      // Horizontal Chrome Louvers
-      for (let i = 0; i < 4; i++) {
-        const louver = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.016, 0.80), chromeMat);
-        louver.position.set(2.13, -0.15 + i * 0.065, 0);
-        carGroup.add(louver);
-      }
-
-      // Upright Chrome Mercedes Star on Hood Tip
-      const starStem = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.07, 8), chromeMat);
-      starStem.position.set(1.82, 0.17, 0);
-      carGroup.add(starStem);
-
-      const starRing = new THREE.Mesh(new THREE.TorusGeometry(0.035, 0.006, 8, 20), chromeMat);
-      starRing.rotation.y = Math.PI / 2;
-      starRing.position.set(1.82, 0.22, 0);
-      carGroup.add(starRing);
-
-      // 5. High-Definition Multibeam LED Headlights
-      [-0.58, 0.58].forEach(z => {
-        // Angled acrylic headlamp housing
-        const hlHousing = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.12, 0.26), darkChromeMat);
-        hlHousing.position.set(2.05, -0.04, z);
-        hlHousing.rotation.y = z > 0 ? 0.18 : -0.18;
-        carGroup.add(hlHousing);
-
-        // LED Daytime Running Eyebrow
-        const drl = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.025, 0.24), ledHeadMat);
-        drl.position.set(2.09, 0.01, z);
-        drl.rotation.y = z > 0 ? 0.18 : -0.18;
-        carGroup.add(drl);
-        headlightMeshes.push(drl);
-
-        // Twin LED Projector Lenses
-        [-0.06, 0.06].forEach(oz => {
-          const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 16), ledHeadMat);
-          lens.rotation.z = Math.PI / 2;
-          lens.position.set(2.11, -0.05, z + oz);
-          carGroup.add(lens);
-          headlightMeshes.push(lens);
-        });
-
-        // Real Forward Headlight Spotlights projecting onto floor
-        const spot = new THREE.SpotLight(0xdbeafe, 2.8, 12, Math.PI / 7, 0.4, 1.2);
-        spot.position.set(2.2, -0.05, z);
-        const target = new THREE.Object3D();
-        target.position.set(6.0, -0.44, z * 1.5);
-        scene.add(target);
-        spot.target = target;
-        carGroup.add(spot);
-        headlightLights.push(spot);
-      });
-
-      // 6. Executive OLED Taillight Clusters
-      const tailBar = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.03, 1.34), ledTailMat);
-      tailBar.position.set(-2.07, 0.04, 0);
-      carGroup.add(tailBar);
-
-      [-0.60, 0.60].forEach(z => {
-        const tailBlock = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.12, 0.24), ledTailMat);
-        tailBlock.position.set(-2.06, -0.02, z);
-        tailBlock.rotation.y = z > 0 ? -0.15 : 0.15;
-        carGroup.add(tailBlock);
-      });
-
-      // 7. Aerodynamic Side Wing Mirrors
-      [-0.78, 0.78].forEach(z => {
-        const mirrorArm = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.02, 0.12), carPaintMat);
-        mirrorArm.position.set(0.72, 0.18, z * 0.95);
-        carGroup.add(mirrorArm);
-
-        const mirrorCap = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.08, 0.12), carPaintMat);
-        mirrorCap.position.set(0.72, 0.19, z);
-        carGroup.add(mirrorCap);
-
-        const mirrorFace = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.065, 0.10), mirrorGlassMat);
-        mirrorFace.position.set(0.65, 0.19, z);
-        carGroup.add(mirrorFace);
-
-        // Amber LED indicator slit
-        const amberLed = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.015, 0.02), new THREE.MeshBasicMaterial({ color: 0xf59e0b }));
-        amberLed.position.set(0.72, 0.19, z + (z > 0 ? 0.055 : -0.055));
-        carGroup.add(amberLed);
-      });
-
-      // 8. Flush Chrome Executive Door Handles
-      [
-        [0.35, 0.08, 0.80], [0.35, 0.08, -0.80],
-        [-0.45, 0.08, 0.80], [-0.45, 0.08, -0.80]
-      ].forEach(pos => {
-        const handle = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.025, 0.03), chromeMat);
-        handle.position.set(pos[0], pos[1], pos[2]);
-        carGroup.add(handle);
-      });
-
-      // 9. Detailed 20-inch Multi-Spoke Alloy Wheels
-      const wheelPositions = [
-        [1.25, -0.22, 0.81],
-        [1.25, -0.22, -0.81],
-        [-1.25, -0.22, 0.81],
-        [-1.25, -0.22, -0.81]
-      ];
-
-      wheelPositions.forEach(pos => {
-        const wheelSubGroup = new THREE.Group();
-        wheelSubGroup.position.set(pos[0], pos[1], pos[2]);
-
-        // Outer Tire Rubber
-        const tire = new THREE.Mesh(new THREE.CylinderGeometry(0.33, 0.33, 0.22, 32), tireRubberMat);
-        tire.rotation.x = Math.PI / 2;
-        tire.castShadow = true;
-        wheelSubGroup.add(tire);
-
-        // Diamond-Cut Multi-Spoke Alloy Rim
-        const rimOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.23, 24), rimAlloyMat);
-        rimOuter.rotation.x = Math.PI / 2;
-        wheelSubGroup.add(rimOuter);
-
-        // Perforated Steel Brake Disc inside
-        const brakeDisc = new THREE.Mesh(new THREE.CylinderGeometry(0.20, 0.20, 0.04, 20), brakeDiscMat);
-        brakeDisc.rotation.x = Math.PI / 2;
-        brakeDisc.position.z = pos[2] > 0 ? -0.03 : 0.03;
-        wheelSubGroup.add(brakeDisc);
-
-        // AMG Red Brake Caliper
-        const caliper = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.11, 0.06), brakeCaliperMat);
-        caliper.position.set(0.12, 0.08, pos[2] > 0 ? -0.03 : 0.03);
-        wheelSubGroup.add(caliper);
-
-        // Chrome Center Cap with Mercedes Star
-        const centerCap = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.24, 16), chromeMat);
-        centerCap.rotation.x = Math.PI / 2;
-        wheelSubGroup.add(centerCap);
-
-        carGroup.add(wheelSubGroup);
-      });
-
-      // Orbit Controls with Mouse & Touch
-      container.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        prevMouseX = e.clientX;
-        prevMouseY = e.clientY;
-      });
-      window.addEventListener('mouseup', () => { isDragging = false; });
-      window.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const deltaX = e.clientX - prevMouseX;
-        prevMouseX = e.clientX;
-        targetRotationY += deltaX * 0.007;
-      });
-
-      container.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-          isDragging = true;
-          prevMouseX = e.touches[0].clientX;
-        }
-      }, { passive: true });
-      window.addEventListener('touchend', () => { isDragging = false; });
-      window.addEventListener('touchmove', (e) => {
-        if (!isDragging || e.touches.length !== 1) return;
-        const deltaX = e.touches[0].clientX - prevMouseX;
-        prevMouseX = e.touches[0].clientX;
-        targetRotationY += deltaX * 0.007;
-      }, { passive: true });
-
-      // Zoom with wheel
-      container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        cameraDistance = Math.max(3.8, Math.min(7.5, cameraDistance + e.deltaY * 0.005));
-        updateCameraPosition();
-      }, { passive: false });
-
-      // Resize
-      window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-      });
-
-      animateCar();
-    }
-
-    function updateCameraPosition() {
-      // Keep executive eye-level perspective
-      const angle = 0.75;
-      camera.position.set(
-        Math.cos(angle) * cameraDistance * 0.65,
-        1.25,
-        Math.sin(angle) * cameraDistance * 0.75
-      );
-      camera.lookAt(0, 0.12, 0);
-    }
-
-    function changeCarColor(hex, btn) {
-      if (!carPaintMat) return;
-      carPaintMat.color.set(hex);
-
-      // Adjust material finish per paint type
-      if (hex === '#0c0d10' || hex === '#090b10') {
-        carPaintMat.metalness = 0.90;
-        carPaintMat.roughness = 0.14;
-      } else if (hex === '#4a505b') {
-        carPaintMat.metalness = 0.88;
-        carPaintMat.roughness = 0.18;
-      } else if (hex === '#14234b') {
-        carPaintMat.metalness = 0.92;
-        carPaintMat.roughness = 0.13;
-      } else if (hex === '#d4dade') {
-        carPaintMat.metalness = 0.70;
-        carPaintMat.roughness = 0.16;
-      }
-
-      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+    /* ---------------- 3D VEHICLE SHOWROOM CONTROLS ---------------- */
+    function switchCarModel(modelId, btn, title) {
+      document.querySelectorAll('.showroom-controls .arch-mode-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-    }
-
-    let lightsOn = true;
-    function toggleHeadlights() {
-      lightsOn = !lightsOn;
-      headlightLights.forEach(l => l.intensity = lightsOn ? 2.8 : 0);
-      headlightMeshes.forEach(m => {
-        m.visible = lightsOn;
-      });
-    }
-
-    function animateCar() {
-      requestAnimationFrame(animateCar);
-      if (!isDragging) {
-        targetRotationY += 0.0016;
+      const iframe = document.getElementById('carIframe');
+      if (iframe) {
+        iframe.src = `https://sketchfab.com/models/${modelId}/embed?autostart=1&preload=1&ui_theme=dark&ui_watermark=0&ui_hint=0&ui_infos=0`;
       }
-      currentRotationY += (targetRotationY - currentRotationY) * 0.08;
-      if (turntableGroup) {
-        turntableGroup.rotation.y = currentRotationY;
+      if (title) {
+        document.getElementById('carShowroomTitle').textContent = title;
       }
-      renderer.render(scene, camera);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      initCar3D();
       updateBookingEstimate();
     });
   </script>
