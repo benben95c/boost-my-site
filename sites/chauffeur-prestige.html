@@ -631,14 +631,14 @@
       <div class="showroom-header">
         <div>
           <span class="badge-gold">Studio 3D Interactif • Flotte VTC Prestige</span>
-          <h2 style="margin-top:6px;" id="carShowroomTitle">Mercedes-Benz AMG GT Prestige</h2>
+          <h2 style="margin-top:6px;" id="carShowroomTitle">Mercedes-Benz AMG GT 63 S — Limousine Prestige</h2>
         </div>
         <div class="showroom-controls">
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-            <button class="arch-mode-btn active" id="btnModMercedes" onclick="selectShowroomVehicle('mercedes', this)">Mercedes-AMG GT</button>
-            <button class="arch-mode-btn" id="btnModPorsche" onclick="selectShowroomVehicle('porsche', this)">Porsche 911 Carrera</button>
-            <button class="arch-mode-btn" id="btnModMaybach" onclick="selectShowroomVehicle('maybach', this)">Mercedes-Maybach</button>
-            <button class="arch-mode-btn" id="btnModFerrari" onclick="selectShowroomVehicle('ferrari', this)">Ferrari Spider VIP</button>
+            <button class="arch-mode-btn active" id="btnModLimousine" onclick="selectShowroomVehicle('limousine', this)">Mercedes Limousine</button>
+            <button class="arch-mode-btn" id="btnModVan" onclick="selectShowroomVehicle('van', this)">Mercedes Classe V</button>
+            <button class="arch-mode-btn" id="btnModBerline" onclick="selectShowroomVehicle('berline', this)">Mercedes Berline</button>
+            <button class="arch-mode-btn" id="btnModSuv" onclick="selectShowroomVehicle('suv', this)">Mercedes SUV G-Class</button>
           </div>
           <div style="display:flex; gap:8px; align-items:center;">
             <span style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Teinte :</span>
@@ -668,19 +668,19 @@
       <div class="showroom-specs" id="showroomSpecs">
         <div class="spec-item">
           <small>Gamme</small>
-          <strong id="specCat">Limousine Première Classe</strong>
+          <strong id="specCat">Grand Tourisme VIP & Transferts Longue Distance</strong>
         </div>
         <div class="spec-item">
           <small>Capacité</small>
-          <strong id="specCap">3 Passagers • 3 Grands Bagages</strong>
+          <strong id="specCap">3 Passagers VIP • 3 Grands Bagages</strong>
         </div>
         <div class="spec-item">
           <small>Confort VIP</small>
-          <strong id="specComfort">Sièges massants, insonorisation palace</strong>
+          <strong id="specComfort">Pack Chauffeur étendu, sièges massants ventilés, double vitrage acoustique & audio Burmester 3D</strong>
         </div>
         <div class="spec-item">
           <small>Motorisation</small>
-          <strong id="specMotor">Hybride Rechargeable V6</strong>
+          <strong id="specMotor">V8 Biturbo 639 ch • 0 à 100 km/h en 3.2s • Transmission 4MATIC+</strong>
         </div>
       </div>
     </section>
@@ -1085,7 +1085,7 @@
 
     /* ---------------- THREE.JS HIGH-POLY AUTOMOTIVE SHOWROOM (GLTF / PBR) ---------------- */
     let carScene, carCamera, carRenderer, carTurntable, activeCarGroup;
-    let currentVehType = 'sedan';
+    let currentVehType = 'limousine';
     let currentColorHex = '#090a0e';
     let carLightsOn = true;
     let headlightSpots = [], headlightMeshes = [];
@@ -1097,50 +1097,49 @@
     let carGLTFLoader = null;
 
     const VEHICLE_CATALOG = {
-      mercedes: {
-        id: 'mercedes',
-        name: 'Mercedes-Benz AMG GT Prestige',
-        url: 'models/mercedes.glb',
-        cat: 'Grand Tourisme & Transfert Express VIP',
-        cap: '2 Passagers • 2 Grands Bagages',
-        comfort: 'Sellerie cuir Nappa étendu, sonorisation Burmester High-End 3D, double vitrage acoustique',
-        motor: 'V8 Biturbo 585 ch • 0 à 100 km/h en 3.6s',
-        targetDim: 4.4,
-        hideNodes: ['Object_33', 'Object_67', 'Object_94', 'Object_112', 'Object_148'],
+      limousine: {
+        id: 'limousine',
+        name: 'Mercedes-Benz AMG GT 63 S — Limousine Prestige',
+        url: 'models/gt63s.glb',
+        cat: 'Grand Tourisme VIP & Transferts Longue Distance',
+        cap: '3 Passagers VIP • 3 Grands Bagages',
+        comfort: 'Pack Chauffeur étendu, sièges massants ventilés, double vitrage acoustique & audio Burmester 3D',
+        motor: 'V8 Biturbo 639 ch • 0 à 100 km/h en 3.2s • Transmission 4MATIC+',
+        targetDim: 4.8,
         rotCorrection: 0
       },
-      porsche: {
-        id: 'porsche',
-        name: 'Porsche 911 Carrera 4S VIP',
-        url: 'models/porsche.glb',
-        cat: 'Légende Grand Tourisme & Escorte Privée',
-        cap: '2 Passagers • 2 Bagages Cabine',
-        comfort: 'Pack Sport Chrono, sièges sport adaptatifs 18 positions chauffants et ventilés',
-        motor: 'Flat-6 Bi-Turbo 450 ch • Transmission intégrale PDK 8 rapports',
-        targetDim: 4.4,
-        rotCorrection: 0
-      },
-      maybach: {
-        id: 'maybach',
-        name: 'Mercedes-Maybach Vision Grand Luxe',
-        url: 'models/concept.glb',
-        cat: 'Haute Joaillerie Automobile & Salon Privé',
-        cap: '2 Passagers VIP • 3 Bagages',
-        comfort: 'Empattement allongé, repose-mollets première classe, bar réfrigéré champagne millésimé',
-        motor: 'Châssis Magic Body Control • V12 Bi-Turbo 612 ch acoustique feutrée',
-        targetDim: 4.5,
-        rotCorrection: 0
-      },
-      ferrari: {
-        id: 'ferrari',
-        name: 'Ferrari 458 Spider VIP',
-        url: 'models/ferrari.glb',
-        cat: 'Supercar d\'Escorte Exceptionnelle',
-        cap: '2 Passagers • 2 Bagages Cabine',
-        comfort: 'Habitable carbone et cuir pleine fleur cousu main, échappement à valves actives',
-        motor: 'V8 Atmosphérique 570 ch • Ciel ouvert en 14 secondes',
-        targetDim: 4.3,
+      van: {
+        id: 'van',
+        name: 'Mercedes-Benz Classe V — Salon Mobile VIP',
+        url: 'models/van.glb',
+        cat: 'Van Première Classe • Délégations, Familles & Salons',
+        cap: '7 Passagers VIP • 8 Bagages Volumineux',
+        comfort: 'Configuration salon face-à-face, table centrale escamotable, prises 220V/USB & Wi-Fi 5G',
+        motor: 'Diesel 300d 237 ch 9G-Tronic • Suspension pneumatique AIRMATIC ultra-feutrée',
+        targetDim: 4.9,
         rotCorrection: Math.PI / 2
+      },
+      berline: {
+        id: 'berline',
+        name: 'Mercedes-Benz Classe E / C — Berline Affaires',
+        url: 'models/c63.glb',
+        cat: 'Affaires, Événements & Transferts Aéroports Roissy/Orly',
+        cap: '3 Passagers • 3 Bagages',
+        comfort: 'Sellerie cuir noir grainé, climatisation tri-zone Thermotronic, rafraîchissements & presse',
+        motor: 'Hybride 313 ch • Conduite souple silencieuse zéro émission en ville',
+        targetDim: 4.65,
+        rotCorrection: 0
+      },
+      suv: {
+        id: 'suv',
+        name: 'Mercedes-Benz Classe G 63 AMG — Escorte & Prestige',
+        url: 'models/g_class.glb',
+        cat: 'Prestige VIP, Événements Privés & Sécurité Rapprochée',
+        cap: '4 Passagers VIP • 4 Bagages',
+        comfort: 'Sellerie cuir designo, vitres teintées anti-regards 95%, marchepieds rétractables',
+        motor: 'V8 Biturbo 585 ch • Présence statutaire exceptionnelle & sécurité absolue',
+        targetDim: 4.75,
+        rotCorrection: -Math.PI / 2
       }
     };
 
@@ -1210,7 +1209,7 @@
       carScene.environment = createStudioEnvMap();
 
       // Studio 3-Point Lighting
-      const amb = new THREE.AmbientLight(0xffffff, 0.8);
+      const amb = new THREE.AmbientLight(0xffffff, 0.85);
       carScene.add(amb);
 
       const keyLight = new THREE.DirectionalLight(0xfff8ee, 1.8);
@@ -1258,8 +1257,8 @@
       shadowPlane.receiveShadow = true;
       carTurntable.add(shadowPlane);
 
-      // Build Initial Vehicle
-      buildSelectedVehicle('mercedes');
+      // Build Initial Vehicle (Mercedes Limousine)
+      buildSelectedVehicle('limousine');
 
       // Mouse & Touch Orbit Controls
       container.addEventListener('mousedown', (e) => {
@@ -1330,7 +1329,7 @@
 
     // Vehicle Builder with High-Poly GLTF Loader & Dynamic Turntable Fitting
     function buildSelectedVehicle(type) {
-      const config = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.mercedes;
+      const config = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.limousine;
       initCarLoaders();
 
       // Clear existing car group
@@ -1354,47 +1353,36 @@
           showCarLoader(false);
           const rawScene = gltf.scene;
 
-          // Traversal: Hide unwanted fixtures (e.g. Roof lightbar and decals on Mercedes)
-          rawScene.traverse(child => {
-            if (config.hideNodes && config.hideNodes.includes(child.name)) {
-              child.visible = false;
-            }
-            if (config.hideFilter && child.name && child.name.includes(config.hideFilter)) {
-              child.visible = false;
-            }
-            if (child.isMesh) {
-              child.castShadow = true;
-              child.receiveShadow = true;
-              if (child.material) {
-                child.material.envMapIntensity = 1.35;
-              }
-            }
-          });
-
-          // Apply orientation correction if needed
+          // Apply orientation correction first if model faces sideways
           if (config.rotCorrection) {
             rawScene.rotation.y = config.rotCorrection;
           }
 
-          // Compute initial bounding box and center horizontally
+          // Step 1: Update matrix world to measure true bounding box
           rawScene.updateMatrixWorld(true);
-          const bbox = new THREE.Box3().setFromObject(rawScene);
-          const center = new THREE.Vector3();
-          bbox.getCenter(center);
-          rawScene.position.x -= center.x;
-          rawScene.position.z -= center.z;
+          const rawBbox = new THREE.Box3().setFromObject(rawScene);
+          const rawSize = new THREE.Vector3();
+          rawBbox.getSize(rawSize);
 
-          // Normalize scale to fit the 6.6m studio turntable
-          const size = new THREE.Vector3();
-          bbox.getSize(size);
-          const maxDim = Math.max(size.x, size.z);
-          const targetDim = config.targetDim || 4.3;
+          // Step 2: Scale proportionally to fit 6.6m turntable
+          const maxDim = Math.max(rawSize.x, rawSize.z);
+          const targetDim = config.targetDim || 4.7;
           const scale = targetDim / maxDim;
           rawScene.scale.set(scale, scale, scale);
 
-          // Flush tire contact on turntable floor (y = -0.38)
+          // Step 3: Update matrix world with scale applied
           rawScene.updateMatrixWorld(true);
+
+          // Step 4: Measure scaled bounding box
           const scaledBbox = new THREE.Box3().setFromObject(rawScene);
+          const scaledCenter = new THREE.Vector3();
+          scaledBbox.getCenter(scaledCenter);
+
+          // Step 5: Center horizontally (X and Z) so the car revolves perfectly on its physical center of gravity
+          rawScene.position.x -= scaledCenter.x;
+          rawScene.position.z -= scaledCenter.z;
+
+          // Step 6: Flush tire contact on turntable floor (y = -0.38)
           rawScene.position.y -= (scaledBbox.min.y - (-0.38));
 
           carCache[type] = rawScene;
@@ -1412,87 +1400,138 @@
       activeCarGroup = new THREE.Group();
       activeCarGroup.add(model);
 
-      // Traversal for realistic materials, tinted glass, alloy rims & headlights
+      // Traversal for double-sided geometry, tinted glass, alloy rims & OLED headlights
       model.traverse(child => {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
 
+          // CRITICAL FIX: Ensure double-sided rendering on all vehicle meshes
+          // Automotive models mirror right/left wheels with negative scale matrices (scale.x = -1).
+          // Standard FrontSide culls inverted faces, causing wheels/tires on one side to disappear!
+          if (child.material) {
+            if (Array.isArray(child.material)) {
+              child.material.forEach(m => {
+                m.side = THREE.DoubleSide;
+                m.depthWrite = true;
+              });
+            } else {
+              child.material.side = THREE.DoubleSide;
+              child.material.depthWrite = true;
+            }
+          }
+
           const mName = (child.material && child.material.name ? child.material.name : '').toLowerCase();
           const nodeName = (child.name || '').toLowerCase();
 
-          // 1. Realistic Tinted Automotive Glass (Fixes white windshield on Concept, Ferrari, Porsche)
-          if (mName.includes('glass') || mName.includes('window') || mName.includes('windshield') || mName.includes('cristales') || nodeName.includes('windshield') || nodeName.includes('window')) {
-            child.material = new THREE.MeshPhysicalMaterial({
-              color: 0x0a101d,
-              metalness: 0.1,
-              roughness: 0.05,
-              transparent: true,
-              opacity: 0.28,
-              envMapIntensity: 2.5
-            });
-            child.castShadow = false;
-            child.receiveShadow = true;
+          // 1. Realistic Tinted Automotive Glass
+          if (mName.includes('glass') || mName.includes('window') || mName.includes('windshield') || mName.includes('cristales') || nodeName.includes('windshield') || nodeName.includes('window') || mName === 'ftc_glass_met') {
+            // Keep headlight glass separate so it can glow
+            if (!mName.includes('headlight') && !mName.includes('lights') && !nodeName.includes('headlight')) {
+              child.material = new THREE.MeshPhysicalMaterial({
+                color: 0x0a101d,
+                metalness: 0.1,
+                roughness: 0.05,
+                transparent: true,
+                opacity: 0.35,
+                envMapIntensity: 2.5,
+                side: THREE.DoubleSide
+              });
+              child.castShadow = false;
+              child.receiveShadow = true;
+            }
           }
 
-          // 2. Realistic Diamond-Cut Alloy Rims (Fixes white Ferrari wheels)
-          if (mName === 'metal_gray' || (mName.includes('wheel') && !mName.includes('tyre') && !mName.includes('tire')) || (mName.includes('rim') && !mName.includes('tyre') && !mName.includes('tire')) || mName === 'silver') {
+          // 2. Realistic Diamond-Cut Alloy Rims & Metallic Trim
+          if (mName === 'metal_gray' || mName === 'aluminum' || mName === 'chrome' || mName === 'chrome 2' || mName === 'rims' || mName === 'rims 2' || (mName.includes('wheel') && !mName.includes('tyre') && !mName.includes('tire')) || (mName.includes('rim') && !mName.includes('tyre') && !mName.includes('tire')) || mName === 'silver') {
             child.material = new THREE.MeshStandardMaterial({
-              color: 0x2d333f,
-              metalness: 0.92,
-              roughness: 0.22,
-              envMapIntensity: 2.0
+              color: (mName.includes('chrome') || mName === 'aluminum') ? 0xd0d5dd : 0x242832,
+              metalness: 0.94,
+              roughness: (mName.includes('chrome')) ? 0.08 : 0.22,
+              envMapIntensity: 2.2,
+              side: THREE.DoubleSide
             });
           }
 
-          // 3. Realistic Deep Matte Rubber Tires
-          if (mName.includes('tire') || mName.includes('tyre') || mName === 'rubber' || nodeName.includes('tire') || nodeName.includes('tyre')) {
+          // 3. Realistic Deep Matte Rubber Tires (DoubleSide strictly enforced for both sides)
+          if (mName.includes('tire') || mName.includes('tyre') || mName === 'rubber' || nodeName.includes('tire') || nodeName.includes('tyre') || mName === 'black_mt') {
             child.material = new THREE.MeshStandardMaterial({
-              color: 0x101216,
-              metalness: 0.05,
-              roughness: 0.85
+              color: 0x121418,
+              metalness: 0.04,
+              roughness: 0.88,
+              side: THREE.DoubleSide
             });
           }
 
-          // 4. Detect Headlights meshes
-          if (nodeName.includes('headlight') || mName.includes('headlight') || mName.includes('projector') || mName.includes('signal_led') || mName === 'lights') {
+          // 4. Detect Headlights / OLED DRL meshes
+          const isHeadlight = nodeName.includes('headlight') ||
+                              mName.includes('headlight') ||
+                              nodeName.includes('drl') ||
+                              mName.includes('drl') ||
+                              mName === 'incendence_mt' ||
+                              mName === 'front drl' ||
+                              mName.includes('lighta') ||
+                              mName === 'mmat_lights1' ||
+                              (mName.includes('light') && !mName.includes('tail') && !mName.includes('rear') && !mName.includes('red'));
+
+          if (isHeadlight) {
+            if (child.material) {
+              child.material = child.material.clone();
+              child.material.emissive = new THREE.Color(0xdbeafe);
+              child.material.emissiveIntensity = carLightsOn ? 2.8 : 0;
+              child.material.toneMapped = false;
+              child.material.side = THREE.DoubleSide;
+            }
             headlightMeshes.push(child);
           }
         }
       });
 
-      // Front Multibeam LED Projection Spotlights (Beaming onto turntable floor)
-      const spotLeft = new THREE.SpotLight(0xdbeafe, 3.2, 16, Math.PI / 6, 0.45, 1.2);
-      spotLeft.position.set(0.65, 0.20, 2.3);
+      // Front OLED Matrix Lighting: Wide, soft feathered floor illumination (NO harsh triangular cone!)
+      const spotLeft = new THREE.SpotLight(0xdbeafe, 1.8, 14, Math.PI / 3.2, 0.92, 1.2);
+      spotLeft.position.set(0.65, 0.35, 1.8);
       const targetL = new THREE.Object3D();
-      targetL.position.set(1.4, -0.42, 6.5);
+      targetL.position.set(1.1, -0.42, 5.0);
       carScene.add(targetL);
       spotLeft.target = targetL;
       activeCarGroup.add(spotLeft);
       headlightSpots.push(spotLeft);
 
-      const spotRight = new THREE.SpotLight(0xdbeafe, 3.2, 16, Math.PI / 6, 0.45, 1.2);
-      spotRight.position.set(-0.65, 0.20, 2.3);
+      const spotRight = new THREE.SpotLight(0xdbeafe, 1.8, 14, Math.PI / 3.2, 0.92, 1.2);
+      spotRight.position.set(-0.65, 0.35, 1.8);
       const targetR = new THREE.Object3D();
-      targetR.position.set(-1.4, -0.42, 6.5);
+      targetR.position.set(-1.1, -0.42, 5.0);
       carScene.add(targetR);
       spotRight.target = targetR;
       activeCarGroup.add(spotRight);
       headlightSpots.push(spotRight);
 
-      // Apply headlights state
-      headlightSpots.forEach(s => s.intensity = carLightsOn ? 3.2 : 0);
-      headlightMeshes.forEach(m => {
-        if (m.material && m.material.emissive) {
-          m.material.emissive.set(carLightsOn ? 0xffffff : 0x000000);
-          m.material.emissiveIntensity = carLightsOn ? 1.5 : 0;
-        }
-      });
+      // Soft forward ambient headlight glow directly in front of bumper
+      const frontGlow = new THREE.PointLight(0xdbeafe, carLightsOn ? 1.4 : 0, 3.8, 2);
+      frontGlow.position.set(0, 0.40, 2.2);
+      activeCarGroup.add(frontGlow);
+      headlightSpots.push(frontGlow);
+
+      // Apply initial headlights state
+      updateHeadlightsState();
 
       carTurntable.add(activeCarGroup);
 
-      // Apply active paint color
+      // Apply active paint color immediately
       applyPaintColor(currentColorHex);
+    }
+
+    function updateHeadlightsState() {
+      headlightSpots.forEach(s => {
+        if (s.isSpotLight) s.intensity = carLightsOn ? 1.8 : 0;
+        else if (s.isPointLight) s.intensity = carLightsOn ? 1.4 : 0;
+      });
+      headlightMeshes.forEach(m => {
+        if (m.material && m.material.emissive) {
+          m.material.emissive.set(carLightsOn ? 0xdbeafe : 0x000000);
+          m.material.emissiveIntensity = carLightsOn ? 2.8 : 0;
+        }
+      });
     }
 
     function applyPaintColor(hex) {
@@ -1527,6 +1566,12 @@
                              mName.includes('license') ||
                              mName.includes('logo') ||
                              mName.includes('silver') ||
+                             mName.includes('light') ||
+                             mName.includes('drl') ||
+                             mName.includes('tail') ||
+                             mName.includes('grid') ||
+                             mName.includes('exhaust') ||
+                             mName.includes('carbon') ||
                              nodeName.includes('wheel') ||
                              nodeName.includes('tire') ||
                              nodeName.includes('tyre') ||
@@ -1539,19 +1584,25 @@
 
           if (isNonPaint) return;
 
-          // Target specific car paint materials
-          const isPaint = mName.includes('ext') ||
-                          mName === 'paint' ||
-                          mName.includes('paint 1') ||
-                          mName.includes('paint 2') ||
-                          mName.includes('body_color') ||
+          // Target genuine car paint body materials:
+          // gt63s: "Carpaint"
+          // van: "Body_MT"
+          // c63: "MercedesBenz_C63AMGEdition507_2014Paint_Material1"
+          // g_class: "MMAT_CarPaint_010"
+          const isPaint = mName.includes('carpaint') ||
+                          mName.includes('paint') ||
+                          mName === 'body_mt' ||
                           mName.includes('carroceria') ||
+                          mName.includes('body_color') ||
                           mName.includes('coat');
 
           if (isPaint && mat.color) {
             mat.color.set(hex);
             mat.roughness = 0.16;
             mat.metalness = 0.88;
+            mat.clearcoat = 1.0;
+            mat.clearcoatRoughness = 0.04;
+            mat.side = THREE.DoubleSide;
             mat.needsUpdate = true;
           }
         }
@@ -1565,7 +1616,7 @@
       currentVehType = type;
       buildSelectedVehicle(type);
 
-      const cfg = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.mercedes;
+      const cfg = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.limousine;
       const titleEl = document.getElementById('carShowroomTitle');
       const catEl = document.getElementById('specCat');
       const capEl = document.getElementById('specCap');
@@ -1588,14 +1639,7 @@
 
     function toggleCarHeadlights() {
       carLightsOn = !carLightsOn;
-      headlightSpots.forEach(s => s.intensity = carLightsOn ? 3.2 : 0);
-      headlightMeshes.forEach(m => {
-        if (m.material && m.material.emissive) {
-          m.material.emissive.set(carLightsOn ? 0xffffff : 0x000000);
-          m.material.emissiveIntensity = carLightsOn ? 1.5 : 0;
-        }
-        m.visible = carLightsOn;
-      });
+      updateHeadlightsState();
     }
 
     function animateCarStudio() {
