@@ -365,6 +365,85 @@
       border-color: var(--accent);
       color: #93c5fd;
     }
+    .arch-lighting-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .arch-light-btn {
+      background: #090c12;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .arch-light-btn:hover {
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    .arch-light-btn.active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: #f59e0b;
+      color: #fbbf24;
+    }
+
+    /* Interactive Van Dispatch Cards */
+    .van-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .van-card {
+      background: #06090e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .van-card:hover, .van-card.active {
+      border-color: #3b82f6;
+      background: rgba(37,99,235,0.08);
+      transform: translateX(4px);
+    }
+    .van-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .van-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+      box-shadow: 0 0 8px #10b981;
+    }
+    .van-eta {
+      font-size: 11px;
+      background: rgba(16,185,129,0.15);
+      color: #34d399;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-weight: 700;
+    }
+    .van-details {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
     .arch3d-canvas-container {
       width: 100%;
       height: 520px;
@@ -920,6 +999,27 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           Plan de Coupe BTP Axo
         </button>
+        <button class="arch-view-btn" id="btnToggleBim" onclick="toggleBimDimensions(this)" style="margin-left:auto; border-color:rgba(59,130,246,0.4); color:#60a5fa;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="6" x2="2" y2="18"/><line x1="22" y1="6" x2="22" y2="18"/><circle cx="12" cy="12" r="2"/></svg>
+          Cotes & Métré BIM (3D)
+        </button>
+      </div>
+
+      <!-- Real-Time Ambience Lighting Simulation Bar -->
+      <div class="arch-lighting-bar">
+        <span style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); font-weight:700;">Simulateur d'Éclairage 24h :</span>
+        <button class="arch-light-btn active" id="lbtn-day" onclick="setArchLightingAmbience('day', this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          Matinée (5500K)
+        </button>
+        <button class="arch-light-btn" id="lbtn-sunset" onclick="setArchLightingAmbience('sunset', this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>
+          Crépuscule Doré (3200K)
+        </button>
+        <button class="arch-light-btn" id="lbtn-night" onclick="setArchLightingAmbience('night', this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          Ambiance Spa Nuit (LED 2400K)
+        </button>
       </div>
 
       <div class="arch3d-canvas-container" id="arch3dCanvas">
@@ -1099,11 +1199,42 @@
         <span class="status-badge">Télémétrie d'Intervention en Direct</span>
         <h2 style="font-family:var(--font-display); font-size:28px; margin:12px 0 14px;">Interventions d'Urgence Île-de-France</h2>
         <p style="color:var(--muted); font-size:15px; margin-bottom:20px;">Nos véhicules équipés sillonnent Paris et la petite couronne pour répondre aux fuites d'eau majeures et pannes de courant en moins de 30 minutes.</p>
-        <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-          <div><strong style="color:#34d399;">Camionnette 1 :</strong> Paris 16e (En route, arrivée ~12 min)</div>
-          <div><strong style="color:#34d399;">Camionnette 2 :</strong> Boulogne-Billancourt (Disponible)</div>
-          <div><strong style="color:#34d399;">Camionnette 3 :</strong> Paris 11e (En intervention)</div>
-          <div><strong style="color:#34d399;">Camionnette 4 :</strong> Neuilly-sur-Seine (Disponible)</div>
+        <div class="van-cards-list">
+          <div class="van-card active" onclick="selectRadarVan(1, this)">
+            <div class="van-card-top">
+              <span class="van-status-dot"></span>
+              <strong>Camionnette 1 — Paris 8e & Triangle d'Or</strong>
+              <span class="van-eta">Arrivée ~12 min</span>
+            </div>
+            <div class="van-details">Technicien Référent : Marc D. (Compagnon Plombier) • Équipements : Caméra d'inspection Fluke, furet hydrocureur Rems & poste à braser cuivre</div>
+          </div>
+
+          <div class="van-card" onclick="selectRadarVan(2, this)">
+            <div class="van-card-top">
+              <span class="van-status-dot"></span>
+              <strong>Camionnette 2 — Neuilly-sur-Seine & Paris 16e</strong>
+              <span class="van-eta">Disponible • Immédiat</span>
+            </div>
+            <div class="van-details">Technicien Référent : Karim B. (Électricien Haute Sécurité NF C 15-100) • Diagnostic court-circuit & tableau électrique Schneider</div>
+          </div>
+
+          <div class="van-card" onclick="selectRadarVan(3, this)">
+            <div class="van-card-top">
+              <span class="van-status-dot" style="background:#f59e0b; box-shadow:0 0 8px #f59e0b;"></span>
+              <strong>Camionnette 3 — Paris 11e / Bastille & Marais</strong>
+              <span class="van-eta" style="color:#f59e0b; background:rgba(245,158,11,0.15);">En intervention</span>
+            </div>
+            <div class="van-details">Remplacement chauffe-eau thermodynamique Atlantic & robinetterie encastrée Grohe</div>
+          </div>
+
+          <div class="van-card" onclick="selectRadarVan(4, this)">
+            <div class="van-card-top">
+              <span class="van-status-dot"></span>
+              <strong>Camionnette 4 — Boulogne-Billancourt & Issy</strong>
+              <span class="van-eta">Disponible • Immédiat</span>
+            </div>
+            <div class="van-details">Technicien Référent : Lucas M. (Artisan Plaquiste & Carrelage Grand Format CSTB) • Assèchement dégât des eaux</div>
+          </div>
         </div>
       </div>
 
@@ -1113,10 +1244,10 @@
         <div class="radar-circle" style="width:230px; height:230px;"></div>
         <div class="radar-sweep"></div>
         <!-- Blips -->
-        <div class="radar-blip" style="top:35%; left:45%;" title="Camionnette 1"></div>
-        <div class="radar-blip" style="top:60%; left:30%;" title="Camionnette 2"></div>
-        <div class="radar-blip" style="top:50%; left:65%;" title="Camionnette 3"></div>
-        <div class="radar-blip" style="top:25%; left:35%;" title="Camionnette 4"></div>
+        <div class="radar-blip active" id="rblip-1" style="top:35%; left:45%; transform:scale(1.4);" title="Camionnette 1"></div>
+        <div class="radar-blip" id="rblip-2" style="top:60%; left:30%;" title="Camionnette 2"></div>
+        <div class="radar-blip" id="rblip-3" style="top:50%; left:65%; background:#f59e0b; box-shadow:0 0 10px #f59e0b;" title="Camionnette 3"></div>
+        <div class="radar-blip" id="rblip-4" style="top:25%; left:35%;" title="Camionnette 4"></div>
       </div>
     </section>
 
@@ -1215,7 +1346,7 @@
     }
 
     /* ---------------- THREE.JS SKETCHFAB-GRADE ARCHITECTURAL 3D MAQUETTE ---------------- */
-    let archScene, archCamera, archRenderer, archRoomGroup, archPipesGroup;
+    let archScene, archCamera, archRenderer, archRoomGroup, archPipesGroup, archDimensionsGroup;
     let archDragging = false, archPrevX = 0, archPrevY = 0;
     let archRotY = 0.65, archRotX = 0.28, archZoom = 6.4;
     let archLights = {};
@@ -1399,87 +1530,88 @@
       const ctx = c.getContext('2d');
 
       if (theme === 'blanc') {
-        // Luxury warm ivory museum rag paper
+        // Luxury Venetian chalk-white & alabaster plaster canvas
         ctx.fillStyle = '#faf8f5';
         ctx.fillRect(0, 0, 768, 1152);
 
-        // Fine art paper tooth & organic texture
-        ctx.fillStyle = 'rgba(0,0,0,0.015)';
-        for (let i = 0; i < 7000; i++) {
+        // Fine art paper tooth & organic plaster texture
+        ctx.fillStyle = 'rgba(212, 175, 55, 0.025)';
+        for (let i = 0; i < 9000; i++) {
           ctx.fillRect(Math.random() * 768, Math.random() * 1152, 1.5, 1.5);
         }
 
-        // Soft champagne / mineral background wash
-        const wash = ctx.createRadialGradient(384, 520, 80, 384, 520, 520);
-        wash.addColorStop(0, 'rgba(238, 228, 214, 0.7)');
-        wash.addColorStop(0.6, 'rgba(246, 242, 235, 0.4)');
+        // Radiant champagne / soft gold mineral wash
+        const wash = ctx.createRadialGradient(384, 480, 60, 384, 480, 480);
+        wash.addColorStop(0, 'rgba(245, 230, 200, 0.75)');
+        wash.addColorStop(0.5, 'rgba(250, 243, 230, 0.45)');
         wash.addColorStop(1, 'rgba(250, 248, 245, 0)');
         ctx.fillStyle = wash;
         ctx.fillRect(0, 0, 768, 1152);
 
-        // Architectural arc in soft warm taupe
-        ctx.lineWidth = 18;
-        ctx.strokeStyle = 'rgba(195, 180, 162, 0.55)';
-        ctx.beginPath();
-        ctx.arc(384, 460, 220, 0.1 * Math.PI, 1.35 * Math.PI);
-        ctx.stroke();
+        // 24-Carat Radiant Liquid Gold Leaf Gradient
+        const goldGrad = ctx.createLinearGradient(160, 180, 620, 880);
+        goldGrad.addColorStop(0, '#fef08a');
+        goldGrad.addColorStop(0.25, '#d4af37');
+        goldGrad.addColorStop(0.55, '#f5d77f');
+        goldGrad.addColorStop(0.85, '#aa820a');
+        goldGrad.addColorStop(1, '#fde047');
 
-        // Bold black/charcoal calligraphic strokes (Sumi-e / Soulages spirit)
-        ctx.strokeStyle = '#181e29';
-        ctx.lineWidth = 36;
+        // Master Fluid Arc in 24k Gold Leaf
+        ctx.lineWidth = 32;
+        ctx.strokeStyle = goldGrad;
         ctx.lineCap = 'round';
         ctx.beginPath();
-        ctx.moveTo(220, 780);
-        ctx.bezierCurveTo(240, 480, 500, 380, 560, 260);
+        ctx.arc(384, 460, 230, 0.12 * Math.PI, 1.38 * Math.PI);
         ctx.stroke();
 
-        ctx.lineWidth = 22;
+        // Harmonious secondary gold ribbon wave
+        ctx.lineWidth = 18;
         ctx.beginPath();
-        ctx.moveTo(280, 790);
-        ctx.bezierCurveTo(340, 600, 520, 580, 480, 360);
+        ctx.moveTo(180, 780);
+        ctx.bezierCurveTo(240, 490, 520, 420, 580, 230);
         ctx.stroke();
 
-        // 24-Carat Genuine Gold Leaf Layer (Dorure à la feuille)
-        const goldGrad = ctx.createLinearGradient(200, 200, 600, 800);
-        goldGrad.addColorStop(0, '#d4af37');
-        goldGrad.addColorStop(0.3, '#fbebb2');
-        goldGrad.addColorStop(0.6, '#aa820a');
-        goldGrad.addColorStop(1, '#f5d77f');
+        // Delicate champagne gold counter-curve
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.65)';
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.moveTo(240, 840);
+        ctx.bezierCurveTo(340, 640, 480, 580, 520, 380);
+        ctx.stroke();
 
-        // Gold leaf diagonal organic band
+        // 24k Gold Concentric Focal Embellishment
+        ctx.fillStyle = goldGrad;
+        ctx.beginPath();
+        ctx.arc(460, 340, 28, 0, Math.PI * 2);
+        ctx.fill();
+
         ctx.strokeStyle = goldGrad;
-        ctx.lineWidth = 14;
+        ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.moveTo(190, 690);
-        ctx.bezierCurveTo(310, 510, 460, 440, 590, 400);
+        ctx.arc(460, 340, 44, 0, Math.PI * 2);
         ctx.stroke();
 
-        // Gold leaf flecks and splatters
-        for (let i = 0; i < 45; i++) {
-          const gx = 260 + (Math.random() - 0.5) * 280;
-          const gy = 520 + (Math.random() - 0.5) * 380;
+        // Gold leaf flecks and micro-relief particles
+        for (let i = 0; i < 60; i++) {
+          const gx = 320 + (Math.random() - 0.5) * 320;
+          const gy = 520 + (Math.random() - 0.5) * 440;
           ctx.fillStyle = goldGrad;
           ctx.beginPath();
-          ctx.arc(gx, gy, 2 + Math.random() * 6, 0, Math.PI * 2);
+          ctx.arc(gx, gy, 1.5 + Math.random() * 5.5, 0, Math.PI * 2);
           ctx.fill();
         }
 
-        // Gold circle focal accent
+        // Minimalist gold leaf artist hallmark at bottom right
         ctx.fillStyle = goldGrad;
-        ctx.beginPath();
-        ctx.arc(460, 340, 24, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillRect(660, 1040, 32, 38);
+        ctx.fillStyle = '#0a0d14';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('APEX', 676, 1064);
 
-        // Minimalist red gallery artist seal at bottom right
-        ctx.fillStyle = '#b91c1c';
-        ctx.fillRect(660, 1040, 32, 42);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 12px sans-serif';
-        ctx.fillText('APEX', 662, 1066);
-
-        // Thin golden inner border
-        ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
-        ctx.lineWidth = 2;
+        // Hairline gold leaf gallery framing border
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.55)';
+        ctx.lineWidth = 2.5;
         ctx.strokeRect(36, 36, 768 - 72, 1152 - 72);
       } else if (theme === 'noir') {
         // Deep obsidian Nero Marquina canvas
@@ -1593,8 +1725,9 @@
       sunLight.shadow.camera.right = 3.5;
       sunLight.shadow.camera.top = 3.5;
       sunLight.shadow.camera.bottom = -3.5;
-      sunLight.shadow.radius = 2.5;
-      sunLight.shadow.bias = -0.0003;
+      sunLight.shadow.radius = 2.0;
+      sunLight.shadow.bias = 0.0002;
+      sunLight.shadow.normalBias = 0.02;
       archScene.add(sunLight);
       archLights.sun = sunLight;
 
@@ -1626,7 +1759,10 @@
       archPipesGroup.visible = false;
       archRoomGroup.add(archPipesGroup);
 
-      // Build Textures
+      // Build Textures & High-Definition Environment Reflection Map
+      archTextures.envMap = createArchEnvMap();
+      archScene.environment = archTextures.envMap;
+
       archTextures.marbleNoir = createProceduralMarble('#12151c', 'rgba(255,255,255,0.22)', 'rgba(212,175,55,0.45)');
       archTextures.marbleBlanc = createProceduralMarble('#f8fafc', 'rgba(100,116,139,0.3)', 'rgba(212,175,55,0.25)');
       archTextures.woodSlats = createProceduralWoodSlats('#5c4431', '#1e140d');
@@ -1649,7 +1785,7 @@
         tubRimMat: new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.95, roughness: 0.18 }),
         fixturesMat: new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.95, roughness: 0.18 }),
         glassMat: new THREE.MeshStandardMaterial({ color: 0xbcd8f5, transparent: true, opacity: 0.35, roughness: 0.05 }),
-        mirrorGlassMat: new THREE.MeshStandardMaterial({ color: 0x1a212d, metalness: 0.98, roughness: 0.04 }),
+        mirrorGlassMat: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.98, roughness: 0.04, envMap: archTextures.envMap, envMapIntensity: 2.2 }),
         mirrorHaloMat: new THREE.MeshBasicMaterial({ color: 0xffedd5 }),
         vanityWoodMat: new THREE.MeshStandardMaterial({ map: archTextures.woodSlats, roughness: 0.55 }),
         vanityTopMat: new THREE.MeshStandardMaterial({ map: archTextures.marbleBlanc, roughness: 0.2 }),
@@ -1692,17 +1828,16 @@
       archRoomGroup.add(linearDrain);
 
       // 2. WALLS & CEILING SOFFIT
-      // Back Wall - Marble Shower Section
-      const wallBackShower = new THREE.Mesh(new THREE.BoxGeometry(1.8, 2.8, 0.1), archMaterials.wallShowerMat);
-      wallBackShower.position.set(-1.35, 1.4, -2.25);
-      wallBackShower.receiveShadow = true;
-      archRoomGroup.add(wallBackShower);
+      // Back Wall - Continuous Master Marble Wall (Unified Shower + Vanity Suite without texture cuts)
+      const wallBackMaster = new THREE.Mesh(new THREE.BoxGeometry(3.3, 2.8, 0.1), archMaterials.wallShowerMat);
+      wallBackMaster.position.set(-0.60, 1.4, -2.25);
+      wallBackMaster.receiveShadow = true;
+      archRoomGroup.add(wallBackMaster);
 
-      // Back Wall - Center Micro-cement Section
-      const wallBackCenter = new THREE.Mesh(new THREE.BoxGeometry(1.5, 2.8, 0.1), archMaterials.wallMainMat);
-      wallBackCenter.position.set(0.3, 1.4, -2.25);
-      wallBackCenter.receiveShadow = true;
-      archRoomGroup.add(wallBackCenter);
+      // Brushed Brass Architectural Transition Inlay between Marble & Wood Slats
+      const wallInlay = new THREE.Mesh(new THREE.BoxGeometry(0.018, 2.8, 0.125), archMaterials.fixturesMat);
+      wallInlay.position.set(1.05, 1.4, -2.24);
+      archRoomGroup.add(wallInlay);
 
       // Back Wall - Right Acoustic Fluted Wood Slat Wall
       const wallBackSlats = new THREE.Mesh(new THREE.BoxGeometry(1.2, 2.8, 0.12), archMaterials.slatsMat);
@@ -1710,40 +1845,30 @@
       wallBackSlats.receiveShadow = true;
       archRoomGroup.add(wallBackSlats);
 
-      // Left Wall with Frosted Loft Window
+      // Left Wall with Atelier Crittall Window
       const wallLeft = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2.8, 4.5), archMaterials.wallMainMat);
       wallLeft.position.set(-2.25, 1.4, 0);
       wallLeft.receiveShadow = true;
       archRoomGroup.add(wallLeft);
 
-      // Frosted Architectural Steel Crittall Window with Soft Daylight Glow (No shadow staircases)
+      // Parisian Atelier Crittall Window (Crisp satin daylight panel, zero shadow artifacts)
       const winFrame = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.8, 1.4), archMaterials.fixturesMat);
-      winFrame.position.set(-2.18, 1.6, 0.8);
+      winFrame.position.set(-2.16, 1.6, 0.8);
       winFrame.castShadow = false;
       winFrame.receiveShadow = false;
       archRoomGroup.add(winFrame);
 
       const winMullionH = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.025, 1.38), archMaterials.fixturesMat);
-      winMullionH.position.set(-2.18, 1.6, 0.8);
+      winMullionH.position.set(-2.16, 1.6, 0.8);
       archRoomGroup.add(winMullionH);
 
       const winMullionV = new THREE.Mesh(new THREE.BoxGeometry(0.045, 1.78, 0.025), archMaterials.fixturesMat);
-      winMullionV.position.set(-2.18, 1.6, 0.8);
+      winMullionV.position.set(-2.16, 1.6, 0.8);
       archRoomGroup.add(winMullionV);
 
-      const winGlassMat = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        emissive: 0xdbeafe,
-        emissiveIntensity: 0.42,
-        roughness: 0.25,
-        metalness: 0.05,
-        transparent: true,
-        opacity: 0.88
-      });
-      const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.02, 1.74, 1.34), winGlassMat);
+      const winGlassMat = new THREE.MeshBasicMaterial({ color: 0xf4f7fa });
+      const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.015, 1.74, 1.34), winGlassMat);
       winGlass.position.set(-2.17, 1.6, 0.8);
-      winGlass.castShadow = false;
-      winGlass.receiveShadow = false;
       archRoomGroup.add(winGlass);
 
       // Suspended Ceiling Soffit Beam with Cove Light
@@ -1776,9 +1901,18 @@
       artworkGroup.add(artBacking);
 
       // 2. Fine Art Canvas (Dynamic High-End PBR Texture with Gold Leaf & Calligraphy)
+      const canvasEdgeMat = new THREE.MeshStandardMaterial({ color: 0x181a20, roughness: 0.8 });
+      const canvasMaterials = [
+        canvasEdgeMat, // +X right
+        canvasEdgeMat, // -X left
+        canvasEdgeMat, // +Y top
+        canvasEdgeMat, // -Y bottom
+        archMaterials.artworkMat, // +Z front face (PBR Artwork)
+        canvasEdgeMat  // -Z back
+      ];
       const canvasMesh = new THREE.Mesh(
         new THREE.BoxGeometry(0.78, 1.28, 0.025),
-        archMaterials.artworkMat
+        canvasMaterials
       );
       canvasMesh.position.z = 0.015;
       canvasMesh.castShadow = true;
@@ -2014,11 +2148,6 @@
       mirrorFace.position.z = 0.03;
       mirrorGroup.add(mirrorFace);
 
-      // Touch Power Indicator
-      const touchCircle = new THREE.Mesh(new THREE.CircleGeometry(0.025, 16), new THREE.MeshBasicMaterial({ color: 0x60a5fa }));
-      touchCircle.position.set(0, -0.32, 0.055);
-      mirrorGroup.add(touchCircle);
-
       archRoomGroup.add(mirrorGroup);
 
       // 6. DESIGNER VERTICAL RADIATOR & TOWEL WARMER
@@ -2069,6 +2198,57 @@
       const elecConduit = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 2.2, 8), archMaterials.pipeElecMat);
       elecConduit.position.set(-0.7, 1.6, -2.18);
       archPipesGroup.add(elecConduit);
+
+      // 8. 3D TECHNICAL BIM MEASUREMENTS GROUP (Cotes & Métré BIM en direct)
+      archDimensionsGroup = new THREE.Group();
+      archDimensionsGroup.visible = false;
+      archRoomGroup.add(archDimensionsGroup);
+
+      function createDimLine(start, end, labelText, offsetDir) {
+        const dimG = new THREE.Group();
+        const mat = new THREE.LineBasicMaterial({ color: 0x38bdf8 });
+        const geom = new THREE.BufferGeometry().setFromPoints([start, end]);
+        const line = new THREE.Line(geom, mat);
+        dimG.add(line);
+
+        // Arrow endpoints
+        [start, end].forEach(p => {
+          const tick = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.04), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+          tick.position.copy(p);
+          dimG.add(tick);
+        });
+
+        // Crisp Canvas Sprite Label
+        const canvas = document.createElement('canvas');
+        canvas.width = 320; canvas.height = 72;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgba(9, 12, 18, 0.90)';
+        ctx.fillRect(0, 0, 320, 72);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(3, 3, 314, 66);
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 22px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(labelText, 160, 36);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true });
+        const sprite = new THREE.Sprite(spriteMat);
+        sprite.scale.set(0.75, 0.17, 1);
+        const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
+        if (offsetDir) mid.add(offsetDir);
+        sprite.position.copy(mid);
+        dimG.add(sprite);
+
+        archDimensionsGroup.add(dimG);
+      }
+
+      createDimLine(new THREE.Vector3(-2.25, 0.08, 2.25), new THREE.Vector3(2.25, 0.08, 2.25), "L: 4.50 m (Largeur Totale)", new THREE.Vector3(0, 0.15, 0.20));
+      createDimLine(new THREE.Vector3(-2.28, 0.04, 2.25), new THREE.Vector3(-2.28, 2.80, 2.25), "H: 2.80 m (Sous Plafond)", new THREE.Vector3(-0.25, 0, 0));
+      createDimLine(new THREE.Vector3(-2.15, 0.08, -0.55), new THREE.Vector3(-0.55, 0.08, -0.55), "Douche: 1.60 x 1.60 m", new THREE.Vector3(0, 0.12, 0.20));
+      createDimLine(new THREE.Vector3(-1.43, 1.12, -1.85), new THREE.Vector3(0.03, 1.12, -1.85), "Vasque: 1.46 m", new THREE.Vector3(0, 0.16, 0));
 
       // Orbit Interaction with Mouse & Touch
       container.addEventListener('mousedown', (e) => {
@@ -2264,6 +2444,68 @@
     function closeArchInfoCard() {
       const card = document.getElementById('archInfoCard');
       if (card) card.style.display = 'none';
+    }
+
+    // Toggle 3D Technical BIM Measurement Lines
+    function toggleBimDimensions(btn) {
+      if (!archDimensionsGroup) return;
+      archDimensionsGroup.visible = !archDimensionsGroup.visible;
+      if (btn) btn.classList.toggle('active', archDimensionsGroup.visible);
+    }
+
+    // Interactive 24-Hour Lighting Ambience Simulator
+    function setArchLightingAmbience(mode, btn) {
+      document.querySelectorAll('.arch-light-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      if (!archLights.sun || !archLights.amb || !archLights.window) return;
+
+      if (mode === 'day') {
+        archLights.sun.intensity = 1.8;
+        archLights.sun.color.set(0xfffaed);
+        archLights.amb.intensity = 0.95;
+        archLights.amb.color.set(0xfff7ee);
+        archLights.window.intensity = 1.2;
+        archLights.window.color.set(0xdbeafe);
+        if (archLights.cove) archLights.cove.intensity = 0.8;
+        if (archLights.niche) archLights.niche.intensity = 0.9;
+        archRenderer.toneMappingExposure = 1.15;
+      } else if (mode === 'sunset') {
+        archLights.sun.intensity = 2.2;
+        archLights.sun.color.set(0xffa726);
+        archLights.amb.intensity = 0.75;
+        archLights.amb.color.set(0xffd180);
+        archLights.window.intensity = 0.8;
+        archLights.window.color.set(0xff9800);
+        if (archLights.cove) archLights.cove.intensity = 1.8;
+        if (archLights.niche) archLights.niche.intensity = 1.8;
+        archRenderer.toneMappingExposure = 1.25;
+      } else if (mode === 'night') {
+        archLights.sun.intensity = 0.18;
+        archLights.sun.color.set(0x1e3a8a);
+        archLights.amb.intensity = 0.30;
+        archLights.amb.color.set(0x0f172a);
+        archLights.window.intensity = 0.25;
+        archLights.window.color.set(0x1e293b);
+        if (archLights.cove) archLights.cove.intensity = 3.2;
+        if (archLights.niche) archLights.niche.intensity = 3.0;
+        archRenderer.toneMappingExposure = 1.45;
+      }
+    }
+
+    // Interactive Van Dispatch Radar Selection
+    function selectRadarVan(vanId, el) {
+      document.querySelectorAll('.van-card').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.radar-blip').forEach(b => {
+        b.classList.remove('active');
+        b.style.transform = 'scale(1)';
+      });
+      if (el) el.classList.add('active');
+      const blip = document.getElementById('rblip-' + vanId);
+      if (blip) {
+        blip.classList.add('active');
+        blip.style.transform = 'scale(1.5)';
+      }
     }
 
     // Update 3D Hotspot Screen Coordinates

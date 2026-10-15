@@ -546,22 +546,48 @@
     .flight-pill:hover { border-color: var(--gold); }
     .flight-status-result {
       background: #0b0e14;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 12px 16px;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
       font-size: 13px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .status-badge-green {
       background: rgba(16,185,129,0.15);
       color: #34d399;
       border: 1px solid rgba(16,185,129,0.3);
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: 99px;
       font-size: 11px;
       font-weight: 700;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flight-radar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .flight-radar-item small {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .flight-radar-item strong {
+      font-size: 13px;
+      color: #f1f5f9;
     }
 
     /* Vehicle selection cards */
@@ -622,7 +648,10 @@
       accent-color: var(--gold);
     }
 
-    /* Digital Boarding Pass */
+    /* Digital Boarding Pass with 3D Holographic Tilt */
+    .boarding-pass-wrapper {
+      perspective: 1200px;
+    }
     .boarding-pass {
       background: linear-gradient(135deg, #11141c 0%, #0a0c10 100%);
       border: 1px solid var(--border);
@@ -631,6 +660,30 @@
       position: relative;
       box-shadow: 0 15px 40px rgba(0,0,0,0.6);
       margin-top: 24px;
+      transform-style: preserve-3d;
+      transition: transform 0.12s ease-out, box-shadow 0.2s ease, border-color 0.2s;
+      overflow: hidden;
+    }
+    .boarding-pass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212,175,55,0.20) 0%, transparent 65%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1;
+    }
+    .boarding-pass:hover::before {
+      opacity: 1;
+    }
+    .boarding-pass:hover {
+      border-color: rgba(212,175,55,0.5);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(212,175,55,0.18);
+    }
+    .boarding-pass > * {
+      position: relative;
+      z-index: 2;
     }
     .bp-header {
       display: flex;
@@ -762,7 +815,13 @@
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Service VIP Paris & Île-de-France
         </span>
-        <a href="tel:+33667226790" class="btn-gold" style="padding: 10px 20px; font-size: 13px;">06 67 22 67 90</a>
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <button id="btnAudioFx" class="btn-outline" style="padding: 9px 16px; font-size: 12px; border-radius: 99px; border-color: rgba(212,175,55,0.4);" onclick="toggleAudioFX()">
+            <svg id="audioIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px; vertical-align:middle; color:var(--gold);"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <span id="audioStatusText">Ambiance Sonore VIP (Active)</span>
+          </button>
+          <a href="tel:+33667226790" class="btn-gold" style="padding: 10px 20px; font-size: 13px;">06 67 22 67 90</a>
+        </div>
       </div>
     </header>
 
@@ -864,10 +923,42 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
             Phares LED
           </button>
+          <button class="btn-outline" id="btnNightMode" style="padding:6px 14px; font-size:12px;" onclick="toggleNightRunwayMode(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            Mode Nuit VIP
+          </button>
         </div>
       </div>
 
       <div class="canvas-container" id="car3dCanvas" style="height: 480px; border: 1px solid rgba(212,175,55,0.25); box-shadow: 0 20px 60px rgba(0,0,0,0.85); border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 50% 40%, #151a26 0%, #07080a 75%); position: relative;">
+        <!-- Live Cockpit Telemetry HUD -->
+        <div id="cockpitHud" style="position:absolute; top:18px; left:18px; z-index:10; background:rgba(10, 13, 20, 0.82); backdrop-filter:blur(10px); border:1px solid rgba(212,175,55,0.3); border-radius:12px; padding:12px 16px; pointer-events:auto; display:flex; flex-direction:column; gap:8px; box-shadow:0 8px 32px rgba(0,0,0,0.6); min-width:210px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-weight:700; display:flex; align-items:center; gap:6px;">
+              <span style="width:6px; height:6px; border-radius:50%; background:#22c55e; box-shadow:0 0 8px #22c55e; display:inline-block;"></span>
+              Télémétrie Châssis
+            </span>
+            <span style="font-size:10px; font-family:monospace; color:#94a3b8;" id="hudDriveMode">4MATIC+ ACTIVE</span>
+          </div>
+          <div style="display:flex; align-items:baseline; justify-content:space-between;">
+            <span style="font-size:11px; color:#94a3b8;">0-100 km/h :</span>
+            <span style="font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--gold-light);" id="hudAccel">3.2 s</span>
+          </div>
+          <div style="display:flex; align-items:baseline; justify-content:space-between;">
+            <span style="font-size:11px; color:#94a3b8;">Puissance :</span>
+            <span style="font-family:monospace; font-size:13px; font-weight:700; color:#fff;" id="hudPower">639 ch • 900 Nm</span>
+          </div>
+          <div style="margin-top:2px;">
+            <div style="display:flex; justify-content:space-between; font-size:9px; color:#64748b; margin-bottom:3px; text-transform:uppercase;">
+              <span>Régime Moteur</span>
+              <span id="hudRpmVal" style="color:#d4af37; font-family:monospace;">1 250 tr/min</span>
+            </div>
+            <div style="height:4px; width:100%; background:rgba(255,255,255,0.1); border-radius:2px; overflow:hidden;">
+              <div id="hudRpmBar" style="height:100%; width:32%; background:linear-gradient(90deg, #38bdf8, #d4af37); transition:width 0.4s ease;"></div>
+            </div>
+          </div>
+        </div>
+
         <div id="carLoadingOverlay" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(7,8,10,0.82); backdrop-filter:blur(8px); z-index:15; transition:opacity 0.3s; pointer-events:none; opacity:0;">
           <div style="width:36px; height:36px; border:2px solid rgba(212,175,55,0.2); border-top-color:#d4af37; border-radius:50%; animation:carSpin 0.7s linear infinite;"></div>
           <span style="margin-top:12px; font-size:11px; color:#d4af37; letter-spacing:1px; text-transform:uppercase; font-weight:600;">Chargement Maquette Studio 3D...</span>
@@ -966,11 +1057,44 @@
               <span class="flight-pill" onclick="fillFlight('AF 1234')">AF 1234 (CDG 2E)</span>
               <span class="flight-pill" onclick="fillFlight('EK 073')">EK 073 (CDG 1)</span>
               <span class="flight-pill" onclick="fillFlight('BA 304')">BA 304 (Orly 1)</span>
+              <span class="flight-pill" onclick="fillFlight('DL 262')">DL 262 (CDG 2E)</span>
             </div>
           </div>
           <div id="flightResult" class="flight-status-result" style="display:none;">
-            <span class="status-badge-green">VOL CONFIRMÉ</span>
-            <span id="flightResultText">Air France AF 1234 • Prévu à l'heure • Terminal 2E • Accueil personnalisé en sortie de douane.</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="status-badge-green" id="flightBadge">
+                  <span style="width:6px; height:6px; border-radius:50%; background:#34d399; box-shadow:0 0 6px #34d399; display:inline-block;"></span>
+                  VOL CONFIRMÉ
+                </span>
+                <strong style="color:#fff; font-size:14px;" id="flightName">Air France AF 1234</strong>
+              </div>
+              <span style="font-size:11px; color:var(--gold-light);" id="flightAircraft">Boeing 777-300ER • Cabine La Première</span>
+            </div>
+
+            <div class="flight-radar-grid">
+              <div class="flight-radar-item">
+                <small>Itinéraire Aérien</small>
+                <strong id="flightRoute">New York JFK ➔ Paris-CDG</strong>
+              </div>
+              <div class="flight-radar-item">
+                <small>Statut Télémesure</small>
+                <strong id="flightLiveStatus" style="color:#34d399;">En approche finale • À l'heure</strong>
+              </div>
+              <div class="flight-radar-item">
+                <small>Débarquement</small>
+                <strong id="flightGate">Terminal 2E • Porte K32</strong>
+              </div>
+              <div class="flight-radar-item">
+                <small>Livraison Bagages</small>
+                <strong id="flightCarousel">Tapis 14 (SkyPriority)</strong>
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:10px; font-size:12px; color:#cbd5e1; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:8px; padding:10px 14px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold); flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="flightDriverMessage">Votre chauffeur Karim M. est stationné au Parking Pro VIP Terminal 2E et se positionne Porte 14 avec tablette nominative tactile.</span>
+            </div>
           </div>
         </div>
 
@@ -1076,7 +1200,8 @@
           <h3 style="font-family:var(--font-display); font-size:24px; margin-top:10px;">Votre Pass d'Accompagnement VIP</h3>
         </div>
 
-        <div class="boarding-pass">
+        <div class="boarding-pass-wrapper">
+        <div class="boarding-pass" id="boardingPassCard">
           <div class="bp-header">
             <div>
               <div style="font-family:var(--font-display); font-size:20px; color:var(--gold-light);">PRESTIGE DRIVE PARIS</div>
@@ -1126,11 +1251,16 @@
                 Ce voucher électronique garantit votre véhicule et votre tarif fixe sans majoration d'embouteillage.
               </div>
             </div>
-            <div style="display:flex; gap:10px;">
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
               <button class="btn-outline" style="padding:10px 18px; font-size:13px;" onclick="window.print()">Imprimer le Voucher</button>
-              <button class="btn-gold" style="padding:10px 18px; font-size:13px;" onclick="alert('SMS de confirmation envoyé avec le numéro direct de votre chauffeur !')">Recevoir par SMS</button>
+              <button class="btn-outline" style="padding:10px 18px; font-size:13px;" onclick="alert('SMS de confirmation envoyé avec le numéro direct de votre chauffeur !')">Recevoir par SMS</button>
+              <button class="btn-gold" style="padding:10px 18px; font-size:13px;" onclick="openWhatsAppDispatch()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                WhatsApp Conciergerie
+              </button>
             </div>
           </div>
+        </div>
         </div>
 
         <div style="text-align:center; margin-top:24px;">
@@ -1327,9 +1457,114 @@
       if (document.getElementById('optBaby').checked) total += 15;
       document.getElementById('step2Total').textContent = total + ' €';
       return total;
+    /* ---------------- VIP WEB AUDIO ENGINE (SYNTHÉTISÉ EN DIRECT SANS FICHIER EXTERNE) ---------------- */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          audioCtx = new AudioContext();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playLuxuryChime() {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + i * 0.04);
+          gain.gain.setValueAtTime(0.001, now + i * 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.08 / (i + 1), now + i * 0.04 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.04 + 0.65);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now + i * 0.04);
+          osc.stop(now + i * 0.04 + 0.70);
+        });
+      } catch (e) {}
+    }
+
+    function playEngineRumble(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const baseFreq = (type === 'limousine' || type === 'suv') ? 56 : 42;
+        const osc = audioCtx.createOscillator();
+        const subOsc = audioCtx.createOscillator();
+        const filter = audioCtx.createBiquadFilter();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(baseFreq * 2.2, now);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.6);
+
+        subOsc.type = 'sine';
+        subOsc.frequency.setValueAtTime(baseFreq, now);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(280, now);
+        filter.frequency.exponentialRampToValueAtTime(130, now + 0.6);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.12, now + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
+
+        osc.connect(filter);
+        subOsc.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        subOsc.start(now);
+        osc.stop(now + 0.7);
+        subOsc.stop(now + 0.7);
+      } catch (e) {}
+    }
+
+    function playRelayClick() {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1100, now);
+        osc.frequency.exponentialRampToValueAtTime(350, now + 0.03);
+        gain.gain.setValueAtTime(0.07, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.04);
+      } catch (e) {}
+    }
+
+    function toggleAudioFX() {
+      soundEnabled = !soundEnabled;
+      const status = document.getElementById('audioStatusText');
+      if (status) status.textContent = soundEnabled ? 'Ambiance Sonore VIP (Active)' : 'Ambiance Sonore (Muette)';
+      if (soundEnabled) {
+        playLuxuryChime();
+      }
     }
 
     function goToStep(step) {
+      playLuxuryChime();
       document.querySelectorAll('.wizard-tab-content').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.step-node').forEach(n => n.classList.remove('active'));
 
@@ -1339,21 +1574,98 @@
       }
     }
 
+    /* ---------------- REAL-TIME PARIS AIRPORTS FLIGHT RADAR DATABASE ---------------- */
+    const FLIGHT_DATABASE = {
+      'AF 1234': {
+        airline: 'Air France AF 1234',
+        aircraft: 'Boeing 777-300ER • Cabine La Première',
+        route: 'New York JFK ➔ Paris-CDG Terminal 2E',
+        status: 'EN APPROCHE FINALE • À L\'HEURE',
+        statusColor: '#34d399',
+        gate: 'Terminal 2E • Porte K32',
+        carousel: 'Tapis Bagages n° 14 (SkyPriority)',
+        driverMsg: 'Votre chauffeur Karim M. est stationné au Parking Pro VIP Terminal 2E et se positionne Porte 14 avec tablette nominative tactile.'
+      },
+      'EK 073': {
+        airline: 'Emirates EK 073',
+        aircraft: 'Airbus A380-800 • First Class Suite',
+        route: 'Dubaï DXB ➔ Paris-CDG Terminal 1',
+        status: 'ATTERRI (AVANCE DE 12 MIN)',
+        statusColor: '#34d399',
+        gate: 'Terminal 1 • Porte B12',
+        carousel: 'Tapis Bagages n° 4',
+        driverMsg: 'Votre chauffeur Pierre D. vous attend dès la sortie de douane Terminal 1 avec tablette lumineuse Prestige Drive.'
+      },
+      'BA 304': {
+        airline: 'British Airways BA 304',
+        aircraft: 'Airbus A320neo • Club Europe',
+        route: 'Londres Heathrow LHR ➔ Paris-Orly 1',
+        status: 'VOL EN ROUTE • À L\'HEURE',
+        statusColor: '#38bdf8',
+        gate: 'Orly 1 • Hall 1 Porte 10A',
+        carousel: 'Tapis Bagages n° 2',
+        driverMsg: 'Votre chauffeur est positionné au Parking Pro Orly 1, pancarte nominative prête.'
+      },
+      'DL 262': {
+        airline: 'Delta Air Lines DL 262',
+        aircraft: 'Airbus A350-900 • Delta One Suite',
+        route: 'Atlanta ATL ➔ Paris-CDG Terminal 2E',
+        status: 'VOL EN ROUTE • À L\'HEURE',
+        statusColor: '#38bdf8',
+        gate: 'Terminal 2E • Hall M Porte M44',
+        carousel: 'Tapis Bagages n° 18',
+        driverMsg: 'Chauffeur d\'astreinte prévenu, synchronisation automatique de l\'heure de sortie des bagages.'
+      }
+    };
+
     function fillFlight(code) {
       document.getElementById('flightInput').value = code;
       checkFlightStatus();
     }
 
     function checkFlightStatus() {
-      const val = document.getElementById('flightInput').value.trim();
+      playLuxuryChime();
+      const val = document.getElementById('flightInput').value.trim().toUpperCase();
       const res = document.getElementById('flightResult');
-      const txt = document.getElementById('flightResultText');
       if (!val) return;
+
+      const flight = FLIGHT_DATABASE[val] || {
+        airline: 'Vol ' + val,
+        aircraft: 'Vol International Régulier Long-Courrier',
+        route: 'Provenance Extérieure ➔ Paris Aéroports (CDG / Orly)',
+        status: 'VOL CONFIRMÉ • CHAUFFEUR ASSIGNÉ',
+        statusColor: '#34d399',
+        gate: 'Terminal Confirmé à l\'atterrissage',
+        carousel: 'Distribution bagages prioritaire',
+        driverMsg: 'Votre chauffeur suit le statut ADS-B du vol en direct et ajuste sa présence sans aucun frais d\'attente.'
+      };
+
       res.style.display = 'flex';
-      txt.innerHTML = '<strong>' + val.toUpperCase() + '</strong> • En approche à l\'heure • Terminal de débarquement confirmé • Chauffeur alerté en direct.';
+      document.getElementById('flightName').textContent = flight.airline;
+      document.getElementById('flightAircraft').textContent = flight.aircraft;
+      document.getElementById('flightRoute').textContent = flight.route;
+      const statusEl = document.getElementById('flightLiveStatus');
+      statusEl.textContent = flight.status;
+      statusEl.style.color = flight.statusColor;
+      document.getElementById('flightGate').textContent = flight.gate;
+      document.getElementById('flightCarousel').textContent = flight.carousel;
+      document.getElementById('flightDriverMessage').textContent = flight.driverMsg;
+    }
+
+    function openWhatsAppDispatch() {
+      const code = document.getElementById('bpCode').textContent;
+      const dep = document.getElementById('bpDep').textContent;
+      const dest = document.getElementById('bpDest').textContent;
+      const date = document.getElementById('bpDate').textContent;
+      const veh = document.getElementById('bpVeh').textContent;
+      const price = document.getElementById('bpPrice').textContent;
+      const msg = `Bonjour Prestige Drive Paris,\nJe confirme ma réservation VIP n° ${code} :\n- Prise en charge : ${dep}\n- Destination : ${dest}\n- Date/Heure : ${date}\n- Véhicule : ${veh}\n- Tarif forfaitaire garanti : ${price}\nMerci de me confirmer la prise en charge immédiate.`;
+      const url = `https://wa.me/33667226790?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
     }
 
     function generateVoucher() {
+      playLuxuryChime();
       const total = calcTotal();
       const sel = document.getElementById('simDest');
       const destText = sel.options[sel.selectedIndex].dataset.dest;
@@ -1380,6 +1692,7 @@
     let currentVehType = 'limousine';
     let currentColorHex = '#090a0e';
     let carLightsOn = true;
+    let isNightRunwayMode = false;
     let headlightSpots = [], headlightMeshes = [];
     let isCarDragging = false, prevCarMouseX = 0;
     let targetCarRotY = -0.65, currentCarRotY = -0.65;
@@ -1398,7 +1711,12 @@
         comfort: 'Pack Chauffeur étendu, sièges massants ventilés, double vitrage acoustique & audio Burmester 3D',
         motor: 'V8 Biturbo 639 ch • 0 à 100 km/h en 3.2s • Transmission 4MATIC+',
         targetDim: 4.8,
-        rotCorrection: 0
+        rotCorrection: 0,
+        accel: '3.2 s',
+        power: '639 ch • 900 Nm',
+        driveMode: 'AMG 4MATIC+ / RACE',
+        rpmVal: '1 250 tr/min',
+        rpmPct: '32%'
       },
       van: {
         id: 'van',
@@ -1409,7 +1727,12 @@
         comfort: 'Configuration salon face-à-face, table centrale escamotable, prises 220V/USB & Wi-Fi 5G',
         motor: 'Diesel 300d 237 ch 9G-Tronic • Suspension pneumatique AIRMATIC ultra-feutrée',
         targetDim: 5.1,
-        rotCorrection: 0
+        rotCorrection: 0,
+        accel: '7.8 s',
+        power: '237 ch • 500 Nm',
+        driveMode: 'AIRMATIC SALON VIP',
+        rpmVal: '900 tr/min',
+        rpmPct: '22%'
       },
       berline: {
         id: 'berline',
@@ -1420,7 +1743,12 @@
         comfort: 'Sellerie cuir noir grainé, climatisation tri-zone Thermotronic, rafraîchissements & presse',
         motor: 'Hybride 313 ch • Conduite souple silencieuse zéro émission en ville',
         targetDim: 4.65,
-        rotCorrection: 0
+        rotCorrection: 0,
+        accel: '5.4 s',
+        power: '313 ch • 550 Nm',
+        driveMode: 'HYBRID EV / CONFORT',
+        rpmVal: '800 tr/min',
+        rpmPct: '20%'
       },
       suv: {
         id: 'suv',
@@ -1431,7 +1759,12 @@
         comfort: 'Sellerie cuir designo, vitres teintées anti-regards 95%, marchepieds rétractables',
         motor: 'V8 Biturbo 585 ch • Présence statutaire exceptionnelle & sécurité absolue',
         targetDim: 4.75,
-        rotCorrection: -Math.PI / 2
+        rotCorrection: -Math.PI / 2,
+        accel: '4.5 s',
+        power: '585 ch • 850 Nm',
+        driveMode: 'V8 BITURBO ESCORTE',
+        rpmVal: '1 400 tr/min',
+        rpmPct: '38%'
       }
     };
 
@@ -1915,12 +2248,85 @@
       });
     }
 
+    function updateTelemetryHUD(cfg) {
+      if (!cfg) return;
+      const accel = document.getElementById('hudAccel');
+      const power = document.getElementById('hudPower');
+      const drive = document.getElementById('hudDriveMode');
+      const rpmVal = document.getElementById('hudRpmVal');
+      const rpmBar = document.getElementById('hudRpmBar');
+
+      if (accel) accel.textContent = cfg.accel || '3.2 s';
+      if (power) power.textContent = cfg.power || '639 ch • 900 Nm';
+      if (drive) drive.textContent = cfg.driveMode || '4MATIC+ ACTIVE';
+      if (rpmVal) rpmVal.textContent = cfg.rpmVal || '1 250 tr/min';
+      if (rpmBar) rpmBar.style.width = cfg.rpmPct || '32%';
+    }
+
+    function toggleNightRunwayMode(btn) {
+      isNightRunwayMode = !isNightRunwayMode;
+      if (btn) btn.classList.toggle('active', isNightRunwayMode);
+      playRelayClick();
+
+      if (!carScene) return;
+
+      if (isNightRunwayMode) {
+        if (!carLightsOn) {
+          carLightsOn = true;
+          updateHeadlightsState();
+        }
+        carScene.traverse(child => {
+          if (child.isAmbientLight) child.intensity = 0.22;
+          if (child.isDirectionalLight) {
+            if (child.position.y > 6 && child.position.x > 0) {
+              child.intensity = 0.40;
+              child.color.set(0x94a3b8);
+            } else if (child.position.y > 7) {
+              child.intensity = 0.20;
+            } else {
+              child.intensity = 1.6;
+              child.color.set(0xd4af37);
+            }
+          }
+        });
+
+        if (carTurntable && carTurntable.children[0]) {
+          carTurntable.children[0].material.color.set(0x06080d);
+          carTurntable.children[0].material.roughness = 0.10;
+          carTurntable.children[0].material.metalness = 0.88;
+        }
+        carRenderer.toneMappingExposure = 1.35;
+      } else {
+        carScene.traverse(child => {
+          if (child.isAmbientLight) child.intensity = 0.85;
+          if (child.isDirectionalLight) {
+            if (child.position.y > 6 && child.position.x > 0) {
+              child.intensity = 1.8;
+              child.color.set(0xfff8ee);
+            } else if (child.position.y > 7) {
+              child.intensity = 1.2;
+            } else {
+              child.intensity = 1.2;
+              child.color.set(0xd4af37);
+            }
+          }
+        });
+        if (carTurntable && carTurntable.children[0]) {
+          carTurntable.children[0].material.color.set(0x090b10);
+          carTurntable.children[0].material.roughness = 0.22;
+          carTurntable.children[0].material.metalness = 0.35;
+        }
+        carRenderer.toneMappingExposure = 1.15;
+      }
+    }
+
     function selectShowroomVehicle(type, btn) {
       document.querySelectorAll('.showroom-controls .arch-mode-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
 
       currentVehType = type;
       buildSelectedVehicle(type);
+      playEngineRumble(type);
 
       const cfg = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.limousine;
       const titleEl = document.getElementById('carShowroomTitle');
@@ -1934,6 +2340,8 @@
       if (capEl) capEl.textContent = cfg.cap;
       if (comEl) comEl.textContent = cfg.comfort;
       if (motEl) motEl.textContent = cfg.motor;
+
+      updateTelemetryHUD(cfg);
     }
 
     function setCarColor(hex, btn) {
@@ -1941,11 +2349,35 @@
       document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       applyPaintColor(hex);
+      playLuxuryChime();
     }
 
     function toggleCarHeadlights() {
       carLightsOn = !carLightsOn;
       updateHeadlightsState();
+      playRelayClick();
+    }
+
+    function initBoardingPassTilt() {
+      const card = document.getElementById('boardingPassCard');
+      if (!card) return;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotX = ((y - centerY) / centerY) * -8;
+        const rotY = ((x - centerX) / centerX) * 8;
+        card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
     }
 
     function animateCarStudio() {
@@ -1963,6 +2395,8 @@
     window.addEventListener('DOMContentLoaded', () => {
       initCar3D();
       updateBookingEstimate();
+      updateTelemetryHUD(VEHICLE_CATALOG.limousine);
+      initBoardingPassTilt();
     });
   </script>
 </body>
