@@ -1110,14 +1110,14 @@
       },
       van: {
         id: 'van',
-        name: 'Mercedes-Benz Classe V — Salon Mobile VIP',
+        name: 'Mercedes-Benz Classe V & Sprinter VIP — Salon Mobile',
         url: 'models/van.glb',
-        cat: 'Van Première Classe • Délégations, Familles & Salons',
-        cap: '7 Passagers VIP • 8 Bagages Volumineux',
+        cat: 'Van Première Classe • Délégations, VIP & Salons Privés',
+        cap: '7 à 8 Passagers VIP • 8 Bagages Volumineux',
         comfort: 'Configuration salon face-à-face, table centrale escamotable, prises 220V/USB & Wi-Fi 5G',
         motor: 'Diesel 300d 237 ch 9G-Tronic • Suspension pneumatique AIRMATIC ultra-feutrée',
-        targetDim: 4.9,
-        rotCorrection: Math.PI / 2
+        targetDim: 5.1,
+        rotCorrection: 0
       },
       berline: {
         id: 'berline',
@@ -1425,9 +1425,9 @@
           const nodeName = (child.name || '').toLowerCase();
 
           // 1. Realistic Tinted Automotive Glass
-          if (mName.includes('glass') || mName.includes('window') || mName.includes('windshield') || mName.includes('cristales') || nodeName.includes('windshield') || nodeName.includes('window') || mName === 'ftc_glass_met') {
+          if (mName.includes('glass') || mName.includes('window') || mName.includes('windshield') || mName.includes('cristales') || mName.includes('vitre') || nodeName.includes('windshield') || nodeName.includes('window') || nodeName.includes('vitre') || mName === 'ftc_glass_met') {
             // Keep headlight glass separate so it can glow
-            if (!mName.includes('headlight') && !mName.includes('lights') && !nodeName.includes('headlight')) {
+            if (!mName.includes('headlight') && !mName.includes('lights') && !nodeName.includes('headlight') && !mName.includes('phare')) {
               child.material = new THREE.MeshPhysicalMaterial({
                 color: 0x0a101d,
                 metalness: 0.1,
@@ -1468,6 +1468,8 @@
                               mName.includes('headlight') ||
                               nodeName.includes('drl') ||
                               mName.includes('drl') ||
+                              nodeName.includes('phare') ||
+                              mName.includes('phare') ||
                               mName === 'incendence_mt' ||
                               mName === 'front drl' ||
                               mName.includes('lighta') ||
@@ -1547,6 +1549,12 @@
                              mName.includes('window') ||
                              mName.includes('windshield') ||
                              mName.includes('cristales') ||
+                             mName.includes('vitre') ||
+                             mName.includes('autre') ||
+                             mName.includes('chassis') ||
+                             mName.includes('interrieur') ||
+                             mName.includes('interieur') ||
+                             (mName.includes('material') && !mName.includes('paint')) ||
                              mName.includes('wheel') ||
                              mName.includes('tyre') ||
                              mName.includes('tire') ||
@@ -1567,6 +1575,7 @@
                              mName.includes('logo') ||
                              mName.includes('silver') ||
                              mName.includes('light') ||
+                             mName.includes('phare') ||
                              mName.includes('drl') ||
                              mName.includes('tail') ||
                              mName.includes('grid') ||
@@ -1578,6 +1587,10 @@
                              nodeName.includes('rim') ||
                              nodeName.includes('brake') ||
                              nodeName.includes('glass') ||
+                             nodeName.includes('vitre') ||
+                             nodeName.includes('phare') ||
+                             nodeName.includes('autre') ||
+                             nodeName.includes('cylinder') ||
                              nodeName.includes('windshield') ||
                              nodeName.includes('interior') ||
                              nodeName.includes('steering');
@@ -1586,11 +1599,12 @@
 
           // Target genuine car paint body materials:
           // gt63s: "Carpaint"
-          // van: "Body_MT"
+          // van: "Carrosserie", "Carrosserie_5"
           // c63: "MercedesBenz_C63AMGEdition507_2014Paint_Material1"
           // g_class: "MMAT_CarPaint_010"
           const isPaint = mName.includes('carpaint') ||
                           mName.includes('paint') ||
+                          mName.includes('carrosserie') ||
                           mName === 'body_mt' ||
                           mName.includes('carroceria') ||
                           mName.includes('body_color') ||
