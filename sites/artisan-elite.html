@@ -25,7 +25,12 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: 
+        linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 65%);
+      background-size: 36px 36px, 36px 36px, 100% 700px;
       color: var(--text);
       font-family: var(--font-body);
       line-height: 1.6;
@@ -153,16 +158,44 @@
 
     /* Hero */
     .hero {
-      padding: 60px 0 40px;
+      padding: 65px 0 45px;
       text-align: center;
+      position: relative;
+    }
+    .hero-cert-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .cert-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #93c5fd;
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .cert-pill.axa {
+      border-color: rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+      color: #6ee7b7;
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin: 20px 0;
+      line-height: 1.14;
+      margin: 18px 0 22px;
     }
     .hero h1 span {
       background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
@@ -170,24 +203,93 @@
       -webkit-text-fill-color: transparent;
     }
     .hero p {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto 36px;
       color: var(--muted);
       font-size: 17px;
+      line-height: 1.7;
     }
-    .trust-strip {
+    .hero-actions {
       display: flex;
       justify-content: center;
-      gap: 24px;
+      gap: 16px;
       flex-wrap: wrap;
-      margin: 30px 0;
-      font-size: 13px;
-      color: var(--muted);
+      margin-bottom: 44px;
     }
-    .trust-strip span {
+
+    /* 4-Card Key Performance Metrics Ribbon */
+    .arch-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 36px 0 44px;
+    }
+    @media (max-width: 880px) {
+      .arch-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .arch-metrics-grid { grid-template-columns: 1fr; }
+    }
+    .arch-metric-card {
+      background: linear-gradient(180deg, rgba(17, 23, 36, 0.8) 0%, rgba(9, 12, 18, 0.95) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 14px;
+      padding: 18px 16px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .arch-metric-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(59, 130, 246, 0.45);
+    }
+    .arch-metric-number {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: #60a5fa;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .arch-metric-label {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    /* 4-Pillar Trust & Guarantees Strip */
+    .arch-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      padding: 22px 24px;
+      background: rgba(17, 23, 36, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    .arch-trust-item {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
+      text-align: left;
+    }
+    .arch-trust-item svg {
+      color: #3b82f6;
+      flex-shrink: 0;
+    }
+    .arch-trust-item div strong {
+      display: block;
+      color: #f1f5f9;
+      font-size: 13px;
+    }
+    .arch-trust-item div span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
     }
 
     /* 3D Architectural Room Viewer Section - Sketchfab Grade */
@@ -705,32 +807,79 @@
     </header>
 
     <section class="hero">
-      <div class="status-badge" style="margin-bottom: 16px;">Garantie Décennale AXA & Certification Qualibat RGE</div>
-      <h1>L'Excellence du BTP <br><span>Sans Mauvaise Surprise</span></h1>
-      <p>Rénovation complète d'appartements, plomberie d'urgence et réfection électrique. Un devis transparent et détaillé avant chaque début de chantier.</p>
+      <div class="hero-cert-bar">
+        <div class="cert-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Qualibat RGE N° 84920
+        </div>
+        <div class="cert-pill axa">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Garantie Décennale AXA 10 Ans (Police 0847291)
+        </div>
+        <div class="status-badge">
+          <span class="pulse-dot"></span>
+          <span>4 Camionnettes d'astreinte actives en Île-de-France</span>
+        </div>
+      </div>
 
-      <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+      <h1>L'Excellence du BTP <br><span>Sans Mauvaise Surprise</span></h1>
+      <p>Rénovation complète d'appartements haussmanniens, conception de salles de bains d'architecte et plomberie d'urgence haut de gamme à Paris. Un devis ferme, transparent et détaillé sous 24h sans aucun dépassement imprévu.</p>
+
+      <div class="hero-actions">
         <a href="#calculateur" class="btn-primary">Calculer mon devis en 30 secondes</a>
         <a href="#arch3d" class="btn-outline">Visiter la maquette 3D</a>
       </div>
 
-      <div class="trust-strip">
-        <span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--amber)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          Avis Google vérifiés : <strong>4.9 / 5 (140+ avis)</strong>
-        </span>
-        <span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <strong>Garantie décennale 10 ans</strong>
-        </span>
-        <span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-glow)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Intervention en <strong>30 minutes</strong>
-        </span>
-        <span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#60a5fa"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          Devis gratuit <strong>sans engagement</strong>
-        </span>
+      <!-- 4-Card Key Performance Metrics Ribbon -->
+      <div class="arch-metrics-grid">
+        <div class="arch-metric-card">
+          <div class="arch-metric-number">15 Ans</div>
+          <div class="arch-metric-label">D'Artisanat d'Art à Paris</div>
+        </div>
+        <div class="arch-metric-card">
+          <div class="arch-metric-number">450+</div>
+          <div class="arch-metric-label">Chantiers Livrés Clé en Main</div>
+        </div>
+        <div class="arch-metric-card">
+          <div class="arch-metric-number">0 €</div>
+          <div class="arch-metric-label">D'Acompte avant Démarrage</div>
+        </div>
+        <div class="arch-metric-card">
+          <div class="arch-metric-number">100%</div>
+          <div class="arch-metric-label">Respect Délais Contractuels</div>
+        </div>
+      </div>
+
+      <!-- 4-Pillar Trust & Guarantees Strip -->
+      <div class="arch-trust-grid">
+        <div class="arch-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--amber)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <div>
+            <strong>Avis Clients Certifiés</strong>
+            <span>4.9 / 5 sur Google (140+ avis vérifiés)</span>
+          </div>
+        </div>
+        <div class="arch-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>
+            <strong>Couverture Décennale 10 Ans</strong>
+            <span>Assurance AXA France N° 0847291</span>
+          </div>
+        </div>
+        <div class="arch-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-glow)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div>
+            <strong>Intervention en 30 Minutes</strong>
+            <span>Dépannage d'urgence 24h/7j Paris & IDF</span>
+          </div>
+        </div>
+        <div class="arch-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#60a5fa"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <div>
+            <strong>Devis Ferme & Plans 3D</strong>
+            <span>Transmis sous 24h, 100% gratuit</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1083,7 +1232,7 @@
       shower: { pos: new THREE.Vector3(-1.3, 1.4, -1.3), el: 'hs-shower', title: "1. Douche à l'Italienne XXL", text: "Système d'étanchéité liquide sous carrelage (SPEC certifié CSTB). Receveur de plain-pied sans ressaut, caniveau de sol inox brossé et ciel de pluie 40x40 cm." },
       tub: { pos: new THREE.Vector3(0.65, 0.55, 0.45), el: 'hs-tub', title: "2. Baignoire Îlot Haute Couture", text: "Résine minérale monobloc haute résistance thermique. Robinetterie mitigeur sur pied en laiton brossé encastrée sous chape désolidarisée." },
       vanity: { pos: new THREE.Vector3(-0.7, 1.3, -1.8), el: 'hs-vanity', title: "3. Meuble Vasque & Miroir LED", text: "Plan marbre massif biseauté, caisson suspendu en chêne cannelé à tiroirs amortis. Grand miroir capsule rétro-éclairé 2700K anti-buée." },
-      niche: { pos: new THREE.Vector3(1.35, 1.3, -2.1), el: 'hs-niche', title: "4. Niche Murale Éclairée & BTP", text: "Niche encastrée étanche avec profilé LED 24V intégré. Raccordement plomberie multicouche serti aux normes NF DTU 60.1." }
+      niche: { pos: new THREE.Vector3(1.35, 1.35, -2.12), el: 'hs-niche', title: "4. Tableau d'Art Contemporain & Dorure à la Feuille", text: "Œuvre originale sur mesure avec rehauts à la feuille d'or 24 carats, encadrement flottant en laiton brossé et applique muséale CRI 98. Harmonie parfaite avec le marbre Calacatta." }
     };
 
     /* Procedural PBR Texture Generators (0 KB network overhead, zero black screen) */
@@ -1243,6 +1392,171 @@
       return tex;
     }
 
+    // Fine Art Contemporary Gallery Artwork Generator (Tableau d'Art Haute Couture)
+    function createProceduralArtwork(theme) {
+      const c = document.createElement('canvas');
+      c.width = 768; c.height = 1152;
+      const ctx = c.getContext('2d');
+
+      if (theme === 'blanc') {
+        // Luxury warm ivory museum rag paper
+        ctx.fillStyle = '#faf8f5';
+        ctx.fillRect(0, 0, 768, 1152);
+
+        // Fine art paper tooth & organic texture
+        ctx.fillStyle = 'rgba(0,0,0,0.015)';
+        for (let i = 0; i < 7000; i++) {
+          ctx.fillRect(Math.random() * 768, Math.random() * 1152, 1.5, 1.5);
+        }
+
+        // Soft champagne / mineral background wash
+        const wash = ctx.createRadialGradient(384, 520, 80, 384, 520, 520);
+        wash.addColorStop(0, 'rgba(238, 228, 214, 0.7)');
+        wash.addColorStop(0.6, 'rgba(246, 242, 235, 0.4)');
+        wash.addColorStop(1, 'rgba(250, 248, 245, 0)');
+        ctx.fillStyle = wash;
+        ctx.fillRect(0, 0, 768, 1152);
+
+        // Architectural arc in soft warm taupe
+        ctx.lineWidth = 18;
+        ctx.strokeStyle = 'rgba(195, 180, 162, 0.55)';
+        ctx.beginPath();
+        ctx.arc(384, 460, 220, 0.1 * Math.PI, 1.35 * Math.PI);
+        ctx.stroke();
+
+        // Bold black/charcoal calligraphic strokes (Sumi-e / Soulages spirit)
+        ctx.strokeStyle = '#181e29';
+        ctx.lineWidth = 36;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(220, 780);
+        ctx.bezierCurveTo(240, 480, 500, 380, 560, 260);
+        ctx.stroke();
+
+        ctx.lineWidth = 22;
+        ctx.beginPath();
+        ctx.moveTo(280, 790);
+        ctx.bezierCurveTo(340, 600, 520, 580, 480, 360);
+        ctx.stroke();
+
+        // 24-Carat Genuine Gold Leaf Layer (Dorure à la feuille)
+        const goldGrad = ctx.createLinearGradient(200, 200, 600, 800);
+        goldGrad.addColorStop(0, '#d4af37');
+        goldGrad.addColorStop(0.3, '#fbebb2');
+        goldGrad.addColorStop(0.6, '#aa820a');
+        goldGrad.addColorStop(1, '#f5d77f');
+
+        // Gold leaf diagonal organic band
+        ctx.strokeStyle = goldGrad;
+        ctx.lineWidth = 14;
+        ctx.beginPath();
+        ctx.moveTo(190, 690);
+        ctx.bezierCurveTo(310, 510, 460, 440, 590, 400);
+        ctx.stroke();
+
+        // Gold leaf flecks and splatters
+        for (let i = 0; i < 45; i++) {
+          const gx = 260 + (Math.random() - 0.5) * 280;
+          const gy = 520 + (Math.random() - 0.5) * 380;
+          ctx.fillStyle = goldGrad;
+          ctx.beginPath();
+          ctx.arc(gx, gy, 2 + Math.random() * 6, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Gold circle focal accent
+        ctx.fillStyle = goldGrad;
+        ctx.beginPath();
+        ctx.arc(460, 340, 24, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Minimalist red gallery artist seal at bottom right
+        ctx.fillStyle = '#b91c1c';
+        ctx.fillRect(660, 1040, 32, 42);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText('APEX', 662, 1066);
+
+        // Thin golden inner border
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(36, 36, 768 - 72, 1152 - 72);
+      } else if (theme === 'noir') {
+        // Deep obsidian Nero Marquina canvas
+        ctx.fillStyle = '#0b0d13';
+        ctx.fillRect(0, 0, 768, 1152);
+
+        // Subtle dark slate textured background
+        const grad = ctx.createRadialGradient(384, 576, 50, 384, 576, 500);
+        grad.addColorStop(0, '#1c2230');
+        grad.addColorStop(1, '#0b0d13');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 768, 1152);
+
+        const goldGrad = ctx.createLinearGradient(150, 200, 600, 900);
+        goldGrad.addColorStop(0, '#fef08a');
+        goldGrad.addColorStop(0.4, '#d4af37');
+        goldGrad.addColorStop(0.8, '#854d0e');
+        goldGrad.addColorStop(1, '#fde047');
+
+        // Dynamic gold leaf strokes
+        ctx.strokeStyle = goldGrad;
+        ctx.lineWidth = 42;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(180, 840);
+        ctx.bezierCurveTo(280, 480, 520, 400, 580, 240);
+        ctx.stroke();
+
+        ctx.lineWidth = 16;
+        ctx.beginPath();
+        ctx.moveTo(250, 880);
+        ctx.bezierCurveTo(380, 620, 490, 520, 520, 380);
+        ctx.stroke();
+
+        // Splatters
+        for (let i = 0; i < 50; i++) {
+          const gx = 360 + (Math.random() - 0.5) * 320;
+          const gy = 540 + (Math.random() - 0.5) * 400;
+          ctx.fillStyle = goldGrad;
+          ctx.beginPath();
+          ctx.arc(gx, gy, 2 + Math.random() * 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Gold border
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(36, 36, 768 - 72, 1152 - 72);
+      } else {
+        // Béton ciré / chêne: Minimalist Architectural Bauhaus
+        ctx.fillStyle = '#222834';
+        ctx.fillRect(0, 0, 768, 1152);
+
+        ctx.fillStyle = '#2d3748';
+        ctx.beginPath();
+        ctx.arc(384, 520, 220, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = '#f8fafc';
+        ctx.lineWidth = 14;
+        ctx.beginPath();
+        ctx.moveTo(240, 760);
+        ctx.lineTo(540, 360);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#d4af37';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(60, 60, 768 - 120, 1152 - 120);
+      }
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      return tex;
+    }
+
     function initArch3D() {
       const container = document.getElementById('arch3dCanvas');
       if (!container || typeof THREE === 'undefined') return;
@@ -1318,6 +1632,9 @@
       archTextures.woodSlats = createProceduralWoodSlats('#5c4431', '#1e140d');
       archTextures.woodSlatsLight = createProceduralWoodSlats('#a17a56', '#2d1f14');
       archTextures.floorTiles = createTileGridTexture('#161a22', '#090b0e');
+      archTextures.artworkNoir = createProceduralArtwork('noir');
+      archTextures.artworkBlanc = createProceduralArtwork('blanc');
+      archTextures.artworkBeton = createProceduralArtwork('beton');
 
       // PBR Materials Suite
       archMaterials = {
@@ -1339,6 +1656,7 @@
         basinMat: new THREE.MeshStandardMaterial({ color: 0x101318, roughness: 0.25 }),
         radiatorMat: new THREE.MeshStandardMaterial({ color: 0x111317, metalness: 0.7, roughness: 0.3 }),
         towelMat: new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.9 }),
+        artworkMat: new THREE.MeshStandardMaterial({ map: archTextures.artworkNoir, roughness: 0.38, metalness: 0.15 }),
         // Technical Blueprint Conduits
         pipeHotMat: new THREE.MeshBasicMaterial({ color: 0xef4444 }),
         pipeColdMat: new THREE.MeshBasicMaterial({ color: 0x3b82f6 }),
@@ -1444,38 +1762,91 @@
         archRoomGroup.add(spotRing);
       });
 
-      // Recessed Architectural Wall Niche (Clean depth offset to eliminate z-fighting with wood slats)
-      const nicheFrame = new THREE.Mesh(new THREE.BoxGeometry(0.82, 1.42, 0.02), archMaterials.fixturesMat);
-      nicheFrame.position.set(1.35, 1.35, -2.175);
-      archRoomGroup.add(nicheFrame);
+      // ==========================================
+      // CONTEMPORARY FINE ART GALLERY CANVAS & PICTURE LIGHT (Tableau d'Art Haute Couture)
+      // ==========================================
+      const artworkGroup = new THREE.Group();
+      artworkGroup.position.set(1.35, 1.35, -2.17);
 
-      const nicheBack = new THREE.Mesh(new THREE.BoxGeometry(0.76, 1.36, 0.04), archMaterials.wallShowerMat);
-      nicheBack.position.set(1.35, 1.35, -2.25);
-      nicheBack.receiveShadow = true;
-      archRoomGroup.add(nicheBack);
+      // 1. Shadowbox Backplate
+      const artBacking = new THREE.Mesh(
+        new THREE.BoxGeometry(0.86, 1.36, 0.015),
+        new THREE.MeshStandardMaterial({ color: 0x0a0c10, roughness: 0.9 })
+      );
+      artworkGroup.add(artBacking);
 
-      const nicheLed = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.025, 0.04), archMaterials.mirrorHaloMat);
-      nicheLed.position.set(1.35, 2.01, -2.22);
-      archRoomGroup.add(nicheLed);
+      // 2. Fine Art Canvas (Dynamic High-End PBR Texture with Gold Leaf & Calligraphy)
+      const canvasMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(0.78, 1.28, 0.025),
+        archMaterials.artworkMat
+      );
+      canvasMesh.position.z = 0.015;
+      canvasMesh.castShadow = true;
+      canvasMesh.receiveShadow = true;
+      artworkGroup.add(canvasMesh);
 
-      // Floating tempered glass shelf in niche
-      const nicheShelf = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.015, 0.10), archMaterials.glassMat);
-      nicheShelf.position.set(1.35, 0.95, -2.21);
-      archRoomGroup.add(nicheShelf);
+      // 3. Ultra-Slim Brushed Brass Floating Shadow Frame (4 Precision Rails)
+      const frameMat = archMaterials.fixturesMat;
+      const fThick = 0.018; // 1.8cm frame profile
+      const fDepth = 0.04;  // 4cm depth proud of canvas
 
-      // 3 Luxury Bath Bottles on Niche Shelf
-      [-0.20, 0, 0.20].forEach((bx, idx) => {
-        const bBottle = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.038, 0.038, 0.15 + idx * 0.025, 16),
-          new THREE.MeshStandardMaterial({ color: idx === 1 ? 0xb45309 : 0x1f2937, roughness: 0.15, transparent: true, opacity: 0.88 })
-        );
-        bBottle.position.set(1.35 + bx, 0.95 + 0.008 + (0.15 + idx * 0.025) / 2, -2.21);
-        archRoomGroup.add(bBottle);
-        // Brass pump dispenser
-        const bPump = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.007, 0.035, 8), archMaterials.fixturesMat);
-        bPump.position.set(1.35 + bx, 0.95 + 0.008 + 0.15 + idx * 0.025 + 0.018, -2.21);
-        archRoomGroup.add(bPump);
+      // Top rail
+      const fTop = new THREE.Mesh(new THREE.BoxGeometry(0.86, fThick, fDepth), frameMat);
+      fTop.position.set(0, 0.68 - fThick / 2, 0.02);
+      artworkGroup.add(fTop);
+
+      // Bottom rail
+      const fBottom = new THREE.Mesh(new THREE.BoxGeometry(0.86, fThick, fDepth), frameMat);
+      fBottom.position.set(0, -0.68 + fThick / 2, 0.02);
+      artworkGroup.add(fBottom);
+
+      // Left rail
+      const fLeft = new THREE.Mesh(new THREE.BoxGeometry(fThick, 1.36 - fThick * 2, fDepth), frameMat);
+      fLeft.position.set(-0.43 + fThick / 2, 0, 0.02);
+      artworkGroup.add(fLeft);
+
+      // Right rail
+      const fRight = new THREE.Mesh(new THREE.BoxGeometry(fThick, 1.36 - fThick * 2, fDepth), frameMat);
+      fRight.position.set(0.43 - fThick / 2, 0, 0.02);
+      artworkGroup.add(fRight);
+
+      // 4. Designer Museum Picture Light (Applique de tableau dorée en laiton)
+      const picLightGroup = new THREE.Group();
+      picLightGroup.position.set(0, 0.74, 0.02);
+
+      // Wall mounting plate
+      const picMount = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.04, 0.02), frameMat);
+      picLightGroup.add(picMount);
+
+      // Dual forward brass extension stems
+      [-0.14, 0.14].forEach(sx => {
+        const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.14, 8), frameMat);
+        stem.rotation.x = Math.PI / 2;
+        stem.position.set(sx, 0.01, 0.07);
+        picLightGroup.add(stem);
       });
+
+      // Cylindrical Picture Light Bar (46 cm long)
+      const lightBar = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.48, 16), frameMat);
+      lightBar.rotation.z = Math.PI / 2;
+      lightBar.position.set(0, 0.01, 0.14);
+      picLightGroup.add(lightBar);
+
+      // Downward LED emitter strip
+      const ledStrip = new THREE.Mesh(
+        new THREE.BoxGeometry(0.44, 0.006, 0.008),
+        new THREE.MeshBasicMaterial({ color: 0xfff4db })
+      );
+      ledStrip.position.set(0, 0.01 - 0.012, 0.14);
+      picLightGroup.add(ledStrip);
+
+      // Soft warm museum downlight washing the artwork
+      const artSpot = new THREE.PointLight(0xffecd0, 0.95, 1.8, 1.8);
+      artSpot.position.set(0, -0.05, 0.16);
+      picLightGroup.add(artSpot);
+
+      artworkGroup.add(picLightGroup);
+      archRoomGroup.add(artworkGroup);
 
       // 3. FREESTANDING SCULPTED LUXURY BATHTUB (Baignoire Îlot Double Dosseret)
       const tubGroup = new THREE.Group();
@@ -1818,6 +2189,11 @@
         archMaterials.vanityTopMat.needsUpdate = true;
         archMaterials.basinMat.color.set(0x101318);
         archMaterials.radiatorMat.color.set(0x111317);
+        if (archMaterials.artworkMat) {
+          archMaterials.artworkMat.color.set(0xffffff);
+          archMaterials.artworkMat.map = archTextures.artworkNoir;
+          archMaterials.artworkMat.needsUpdate = true;
+        }
         archLights.amb.color.set(0xfff7ee);
         archLights.sun.color.set(0xfffaed);
       } else if (style === 'blanc') {
@@ -1836,6 +2212,11 @@
         archMaterials.vanityTopMat.needsUpdate = true;
         archMaterials.basinMat.color.set(0xffffff);
         archMaterials.radiatorMat.color.set(0xd4af37);
+        if (archMaterials.artworkMat) {
+          archMaterials.artworkMat.color.set(0xffffff);
+          archMaterials.artworkMat.map = archTextures.artworkBlanc;
+          archMaterials.artworkMat.needsUpdate = true;
+        }
         archLights.amb.color.set(0xffffff);
         archLights.sun.color.set(0xffffff);
       } else if (style === 'beton') {
@@ -1854,6 +2235,11 @@
         archMaterials.vanityTopMat.needsUpdate = true;
         archMaterials.basinMat.color.set(0x222630);
         archMaterials.radiatorMat.color.set(0x111111);
+        if (archMaterials.artworkMat) {
+          archMaterials.artworkMat.color.set(0xffffff);
+          archMaterials.artworkMat.map = archTextures.artworkBeton;
+          archMaterials.artworkMat.needsUpdate = true;
+        }
         archLights.amb.color.set(0xffedd5);
         archLights.sun.color.set(0xffedd5);
       }

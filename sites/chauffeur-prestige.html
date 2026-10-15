@@ -125,15 +125,50 @@
 
     /* Hero */
     .hero {
-      padding: 60px 0 40px;
+      padding: 70px 0 45px;
       text-align: center;
+      position: relative;
+    }
+    .hero-badge-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+    .live-dispatch-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold-light);
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .pulse-gold {
+      width: 8px;
+      height: 8px;
+      background: #d4af37;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #d4af37;
+      animation: pulseGold 2s infinite;
+    }
+    @keyframes pulseGold {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.35); }
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.3rem, 5vw, 4rem);
-      line-height: 1.18;
+      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+      line-height: 1.15;
       letter-spacing: -0.01em;
-      margin: 18px 0;
+      margin: 18px 0 22px;
       font-weight: 600;
     }
     .hero h1 span {
@@ -142,17 +177,133 @@
       -webkit-text-fill-color: transparent;
     }
     .hero p {
-      max-width: 660px;
-      margin: 0 auto 32px;
-      color: var(--text-muted);
+      max-width: 740px;
+      margin: 0 auto 36px;
+      color: #b3b7c2;
       font-size: 17px;
+      line-height: 1.7;
     }
     .hero-actions {
       display: flex;
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 40px;
+      margin-bottom: 46px;
+    }
+
+    /* 4-Card Luxury Key Figures Ribbon */
+    .hero-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 36px 0 44px;
+    }
+    @media (max-width: 880px) {
+      .hero-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .hero-metrics-grid { grid-template-columns: 1fr; }
+    }
+    .metric-card {
+      background: linear-gradient(135deg, rgba(20, 24, 34, 0.75) 0%, rgba(10, 12, 16, 0.95) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 14px;
+      padding: 18px 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(212, 175, 55, 0.45);
+    }
+    .metric-number {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .metric-label {
+      font-size: 11px;
+      color: #9aa0ae;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    /* Luxury Palace Trust Strip */
+    .palace-trust-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      padding: 22px 26px;
+      background: rgba(15, 17, 23, 0.6);
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .palace-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+    .palace-trust-item svg {
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .palace-trust-item div strong {
+      display: block;
+      color: #f1f5f9;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+    }
+    .palace-trust-item div span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    /* Fleet Cards Enhancements */
+    .fleet-badge-floating {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(10, 12, 16, 0.88);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+    .fleet-specs-row {
+      display: flex;
+      gap: 12px;
+      margin: 12px 0 14px;
+      font-size: 12px;
+      color: #cbd5e1;
+      flex-wrap: wrap;
+    }
+    .fleet-specs-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.04);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
     /* 3D Showroom Section */
@@ -616,13 +767,75 @@
     </header>
 
     <section class="hero">
-      <span class="badge-gold">Chauffeur Privé & Artisan Taxi</span>
-      <h1>L'Élégance du Trajet <br><span>Sur-Mesure à Paris</span></h1>
-      <p>Mise à disposition haut de gamme, transferts aéroports CDG & Orly en tarif fixe garanti sans majoration. Voyagez dans le silence et le raffinement absolu.</p>
+      <div class="hero-badge-row">
+        <div class="live-dispatch-badge">
+          <span class="pulse-gold"></span>
+          <span>42 Chauffeurs VIP en Service • Prise en charge &lt; 15 min</span>
+        </div>
+        <span class="badge-gold">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Maison de Grande Remise • Agrément Préfecture de Police Paris
+        </span>
+      </div>
+
+      <h1>L'Art du Déplacement <br><span>De Haute Distinction</span></h1>
+      <p>Service officiel de chauffeur privé pour personnalités, délégations diplomatiques et dirigeants d'affaires. Transferts d'aéroports CDG, Orly et Le Bourget en tarif fixe forfaitaire garanti, sans aucune majoration liée aux embouteillages.</p>
       
       <div class="hero-actions">
-        <a href="#simulateur" class="btn-gold">Configurer mon trajet</a>
-        <a href="#showroom" class="btn-outline">Visualiser la flotte 3D</a>
+        <a href="#simulateur" class="btn-gold">Calculer mon tarif & réserver</a>
+        <a href="#showroom" class="btn-outline">Découvrir la flotte 3D</a>
+      </div>
+
+      <!-- 4-Card Luxury Key Figures Ribbon -->
+      <div class="hero-metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">15 000+</div>
+          <div class="metric-label">Missions VIP Réalisées</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">99.9%</div>
+          <div class="metric-label">Ponctualité Immédiate</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">100%</div>
+          <div class="metric-label">Flotte Mercedes-Benz Hybride & V8</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">5.0 / 5</div>
+          <div class="metric-label">Note d'Excellence Palace</div>
+        </div>
+      </div>
+
+      <!-- Luxury Palace Trust Strip -->
+      <div class="palace-trust-strip">
+        <div class="palace-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div>
+            <strong>Accueil Nominatif VIP</strong>
+            <span>Pancarte tablette en sortie de douane ou quai TGV</span>
+          </div>
+        </div>
+        <div class="palace-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div>
+            <strong>Chauffeurs d'Élite Bilingues</strong>
+            <span>Formés au protocole diplomatique et discret</span>
+          </div>
+        </div>
+        <div class="palace-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          <div>
+            <strong>Attention & Confort Palace</strong>
+            <span>Eaux fraîches, serviettes Oshibori & Wi-Fi 5G</span>
+          </div>
+        </div>
+        <div class="palace-trust-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div>
+            <strong>Tarifs Forfaitaires Fixes</strong>
+            <span>Zéro majoration embouteillages ou météo</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -791,10 +1004,10 @@
             <span style="font-size:12px; color:var(--gold-light);">Sélectionné</span>
           </div>
 
-          <div class="veh-option-card" id="cardVeh2" onclick="selectVeh('suv', -15, this)">
-            <span style="border:1px solid rgba(255,255,255,0.2); padding:3px 8px; border-radius:99px; font-size:10px; color:var(--text-muted); text-transform:uppercase;">Écologique</span>
-            <h4 style="margin-top:8px;">Honda CR-V Hybride Executive</h4>
-            <p style="font-size:13px; color:var(--text-muted);">SUV spacieux, grand coffre, toit ouvrant panoramique.</p>
+          <div class="veh-option-card" id="cardVeh2" onclick="selectVeh('classe-e', -15, this)">
+            <span style="border:1px solid rgba(255,255,255,0.2); padding:3px 8px; border-radius:99px; font-size:10px; color:var(--text-muted); text-transform:uppercase;">Affaires</span>
+            <h4 style="margin-top:8px;">Mercedes-Benz Classe E Berline</h4>
+            <p style="font-size:13px; color:var(--text-muted);">Berline d'affaires sobre et feutrée, confort acoustique optimal.</p>
             <div class="veh-price-tag" id="vehPrice2">70 €</div>
             <span style="font-size:12px; color:var(--text-muted);">Choisir ce modèle</span>
           </div>
@@ -949,37 +1162,102 @@
       <p style="text-align: center; color: var(--text-muted); max-width: 500px; margin: 0 auto 40px;">Des véhicules récents, hybrides, nettoyés et désinfectés avant chaque prise en charge.</p>
 
       <div class="fleet-grid">
-        <div class="fleet-card">
+        <!-- Card 1: Mercedes Classe S -->
+        <div class="fleet-card" style="position:relative;">
+          <span class="fleet-badge-floating">Palace & Cérémonies VIP</span>
           <div class="fleet-img">
             <img src="project-chauffeur.jpg" alt="Mercedes-Benz Classe S Berline Première Classe">
           </div>
           <div class="fleet-body">
-            <h3>Mercedes Classe S Première Classe</h3>
-            <p style="color: var(--text-muted); font-size: 14px;">Pour vos rendez-vous d'affaires, réceptions officielles et mariages d'exception.</p>
-            <div class="amenities">
-              <span class="amenity">Presse internationale</span>
-              <span class="amenity">Sièges massants</span>
-              <span class="amenity">Discrétion absolue</span>
-              <span class="amenity">Confort palace</span>
+            <h3>Mercedes-Benz Classe S Première Classe</h3>
+            <p style="color: var(--text-muted); font-size: 14px;">Le fleuron mondial du raffinement. Confort feutré, insonorisation acoustique double vitrage et espace aux jambes princier.</p>
+            <div class="fleet-specs-row">
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                3 Passagers VIP
+              </span>
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                3 Grands Bagages
+              </span>
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                Wi-Fi 5G & Audio 3D
+              </span>
             </div>
-            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 10px;">Réserver ce véhicule</a>
+            <div class="amenities">
+              <span class="amenity">Sièges massants & ventilés</span>
+              <span class="amenity">Discrétion diplomatique</span>
+              <span class="amenity">Champagne au frais</span>
+              <span class="amenity">Bouteilles Evian</span>
+            </div>
+            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 11px;" onclick="selectVehFromFleet('berline')">Réserver la Classe S</a>
           </div>
         </div>
 
-        <div class="fleet-card">
+        <!-- Card 2: Mercedes Classe V -->
+        <div class="fleet-card" style="position:relative;">
+          <span class="fleet-badge-floating">Délégations & Groupes VIP</span>
           <div class="fleet-img">
-            <img src="vehicle-honda.jpg" alt="Honda CR-V Hybride VIP">
+            <img src="vehicle-classe-v.jpg" alt="Mercedes-Benz Classe V Extra-Long Salon VIP">
           </div>
           <div class="fleet-body">
-            <h3>Honda CR-V Hybride Executive</h3>
-            <p style="color: var(--text-muted); font-size: 14px;">SUV silencieux, espace aux jambes exceptionnel, toit ouvrant panoramique.</p>
-            <div class="amenities">
-              <span class="amenity">Wi-Fi 5G à bord</span>
-              <span class="amenity">Bouteilles Evian</span>
-              <span class="amenity">Chargeurs iPhone & USB-C</span>
-              <span class="amenity">Grand coffre valises</span>
+            <h3>Mercedes-Benz Classe V Extra-Long Salon VIP</h3>
+            <p style="color: var(--text-muted); font-size: 14px;">Le véritable jet privé de la route. Salon vis-à-vis en cuir nappa avec table centrale pour réunions itinérantes et familles.</p>
+            <div class="fleet-specs-row">
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                7 Passagers VIP
+              </span>
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                8 Bagages Soute
+              </span>
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Prises 220V & USB-C
+              </span>
             </div>
-            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 10px;">Réserver ce véhicule</a>
+            <div class="amenities">
+              <span class="amenity">Salon conférence 7 places</span>
+              <span class="amenity">Vitrage teinté anti-regard</span>
+              <span class="amenity">Climatisation tri-zone</span>
+              <span class="amenity">Table amovible</span>
+            </div>
+            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 11px;" onclick="selectVehFromFleet('van')">Réserver le Van Classe V</a>
+          </div>
+        </div>
+
+        <!-- Card 3: Mercedes Classe E -->
+        <div class="fleet-card" style="position:relative;">
+          <span class="fleet-badge-floating">Navettes Aéroports & Corporate</span>
+          <div class="fleet-img">
+            <img src="vehicle-classe-e.jpg" alt="Mercedes-Benz Classe E Berline Affaires">
+          </div>
+          <div class="fleet-body">
+            <h3>Mercedes-Benz Classe E Berline Affaires</h3>
+            <p style="color: var(--text-muted); font-size: 14px;">La référence du voyage d'affaires à Paris. Ligne aérodynamique, confort acoustique exemplaire et suspension feutrée.</p>
+            <div class="fleet-specs-row">
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                3 Passagers
+              </span>
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                3 Valises
+              </span>
+              <span class="fleet-specs-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
+                Hybride Silencieux
+              </span>
+            </div>
+            <div class="amenities">
+              <span class="amenity">Chargeurs induction & USB-C</span>
+              <span class="amenity">Wi-Fi haut débit</span>
+              <span class="amenity">Bouteilles d'eau fraîches</span>
+              <span class="amenity">Presse du jour</span>
+            </div>
+            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 11px;" onclick="selectVehFromFleet('classe-e')">Réserver la Classe E</a>
           </div>
         </div>
       </div>
@@ -1021,12 +1299,26 @@
 
     function selectVeh(type, mod, el) {
       document.querySelectorAll('.veh-option-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
+      if (el) el.classList.add('selected');
       vehModifier = mod;
       if (type === 'berline') selectedVehName = 'Mercedes Classe S Limousine';
-      else if (type === 'suv') selectedVehName = 'Honda CR-V Hybride Executive';
+      else if (type === 'classe-e' || type === 'suv') selectedVehName = 'Mercedes-Benz Classe E Berline';
       else selectedVehName = 'Mercedes-Benz Classe V Extra-Long';
       calcTotal();
+    }
+
+    function selectVehFromFleet(type) {
+      goToStep(2);
+      if (type === 'berline') {
+        const el = document.getElementById('cardVeh1');
+        selectVeh('berline', 0, el);
+      } else if (type === 'van') {
+        const el = document.getElementById('cardVeh3');
+        selectVeh('van', 35, el);
+      } else {
+        const el = document.getElementById('cardVeh2');
+        selectVeh('classe-e', -15, el);
+      }
     }
 
     function calcTotal() {
