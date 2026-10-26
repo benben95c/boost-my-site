@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Maps Tournée & Détecteur Cash — BoostMySite</title>
+  <title>Maps Tournée & Auto-Scanner Prospects — BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -112,6 +112,12 @@
       text-decoration: none;
       cursor: pointer;
       white-space: nowrap;
+    }
+
+    .btn-top-scan {
+      background: #0F172A;
+      color: #FBBF24;
+      border-color: #0F172A;
     }
 
     .btn-top-danger {
@@ -258,7 +264,7 @@
     }
 
     textarea {
-      min-height: 85px;
+      min-height: 80px;
       resize: vertical;
       line-height: 1.4;
     }
@@ -280,6 +286,7 @@
     }
 
     .btn-blue { background: var(--gblue); color: #fff; }
+    .btn-dark { background: #0F172A; color: #FBBF24; }
     .btn-outline { background: #fff; color: var(--ink); border: 1px solid var(--border); }
     .btn-danger { background: #FEF2F2; color: var(--red); border: 1px solid #FECACA; }
     .btn-xs { padding: 6px 9px; font-size: 11.5px; border-radius: 7px; }
@@ -416,7 +423,7 @@
     }
 
     .cash-tag {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
       padding: 2px 6px;
       border-radius: 5px;
@@ -427,6 +434,9 @@
 
     .cash-tag.eur { background: #DCFCE7; color: #15803D; }
     .cash-tag.hot { background: #FEF3C7; color: #B45309; }
+    .cash-tag.indep { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
+    .cash-tag.reseau { background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74; }
+    .cash-tag.franchise { background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; }
     .cash-tag.time-ok { background: #E0F2FE; color: #0369A1; }
     .cash-tag.time-rush { background: #FEE2E2; color: #B91C1C; }
 
@@ -502,6 +512,23 @@
       align-items: center;
     }
 
+    .pill-scan-btn {
+      background: #0F172A;
+      color: #FBBF24;
+      border: 1.5px solid #F59E0B;
+      padding: 6px 10px;
+      border-radius: 99px;
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 800;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
     .circle-map-btn {
       width: 34px;
       height: 34px;
@@ -535,6 +562,7 @@
     .radar-left {
       min-width: 0;
       flex: 1;
+      cursor: pointer;
     }
 
     .radar-kicker {
@@ -599,6 +627,75 @@
       border-color: #4ADE80;
     }
 
+    /* AUTO-SCANNER MODAL OVER MAP */
+    .scanner-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 900;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .scanner-modal-backdrop.open {
+      display: flex;
+    }
+
+    .scanner-sheet {
+      width: 100%;
+      max-width: 560px;
+      max-height: 88dvh;
+      background: var(--surface);
+      border-radius: 18px 18px 0 0;
+      padding: 16px 14px calc(16px + var(--safe-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+    }
+
+    .scanner-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .scanner-head strong {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .scanner-controls {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 8px;
+    }
+
+    .scanner-results-list {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 44dvh;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 4px 0;
+    }
+
+    .scan-item-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 11px;
+      background: #F8FAFC;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
     /* BOTTOM SWIPEABLE STOP CARDS ON MAP */
     .map-cards-strip {
       position: absolute;
@@ -629,7 +726,7 @@
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.24);
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
     }
 
     .map-stop-card.active-card {
@@ -833,9 +930,6 @@
       display: none;
     }
 
-    /* ==========================================================
-       MOBILE VIEWPORT (< 920px)
-       ========================================================== */
     @media (max-width: 920px) {
       .workspace {
         display: block;
@@ -896,7 +990,7 @@
         background: var(--surface);
         border-top: 1px solid var(--border);
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         z-index: 700;
         flex-shrink: 0;
       }
@@ -905,7 +999,7 @@
         border: none;
         background: transparent;
         font-family: var(--font);
-        font-size: 11px;
+        font-size: 10.5px;
         font-weight: 700;
         color: var(--muted);
         display: flex;
@@ -917,7 +1011,7 @@
       }
 
       .m-nav-btn .m-icon {
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1;
       }
 
@@ -929,13 +1023,14 @@
 </head>
 <body>
 
-  <!-- BARRE HAUTE : SWITCH 1-CLIC ENTRE CARTE ET DEVIS + BOUTONS RECHARGER / TOUT VIDER -->
+  <!-- BARRE HAUTE : SWITCH 1-CLIC + SCANNER AUTO + VIDER -->
   <header>
     <div class="app-switch">
       <a href="tournee-clients.html" class="active">📍 Carte</a>
       <a href="devis-express.html">📄 Devis</a>
     </div>
     <div class="top-right">
+      <button type="button" class="btn-top btn-top-scan" onclick="openScannerModal()">🔍 Auto-Scan</button>
       <button type="button" class="btn-top" onclick="loadPontoisePreset(true)" title="Recharger les 18 prospects de Pontoise/Cergy">↺ 18 Pontoise</button>
       <button type="button" class="btn-top btn-top-danger" onclick="clearAllProspects()" title="Vider toute la liste">🗑️ Vider</button>
     </div>
@@ -960,13 +1055,12 @@
 
       <!-- ONGLET 1 : LISTE OPTIMISÉE -->
       <div class="tab-pane active" id="paneRoute">
-        <!-- BASCULE ORDRE GÉOGRAPHIQUE VS ORDRE CASH RENTABILITÉ -->
         <div class="mode-switch-bar">
           <button type="button" class="mode-switch-btn active" id="btnModeRoute" onclick="setSortMode('route')">
             🚗 Ordre Trajet (Court)
           </button>
           <button type="button" class="mode-switch-btn" id="btnModeCash" onclick="setSortMode('cash')">
-            💰 Ordre Cash (Priorité €)
+            💰 Ordre Cash (Indépendants #1)
           </button>
         </div>
 
@@ -991,9 +1085,9 @@
           </div>
           <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px;"></div>
           <div style="display:flex; gap:5px; flex-wrap:wrap;">
-            <button type="button" class="btn btn-outline btn-xs" onclick="resetDoneStatus()">↺ Décocher les "Fait"</button>
-            <button type="button" class="btn btn-danger btn-xs" onclick="clearAllProspects()">🗑️ Tout supprimer</button>
-            <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset(true)">📍 Recharger les 18</button>
+            <button type="button" class="btn btn-dark btn-xs" onclick="openScannerModal()">🔍 Trouver des prospects</button>
+            <button type="button" class="btn btn-outline btn-xs" onclick="resetDoneStatus()">↺ Décocher "Fait"</button>
+            <button type="button" class="btn btn-danger btn-xs" onclick="clearAllProspects()">🗑️ Tout vider</button>
           </div>
         </div>
 
@@ -1062,7 +1156,7 @@
       </div>
     </aside>
 
-    <!-- CARTE PLEIN ÉCRAN + DÉTECTEUR CASH EN HAUT + FICHES EN BAS -->
+    <!-- CARTE PLEIN ÉCRAN + DÉTECTEUR CASH + SCANNER AUTO + FICHES EN BAS -->
     <main class="map-Area">
       <div class="mobile-map-top-stack">
         <div class="mobile-map-top-bar">
@@ -1071,20 +1165,23 @@
             <span id="mapPillText">Chargement...</span>
           </div>
           <div class="map-right-controls">
+            <button type="button" class="pill-scan-btn" onclick="openScannerModal()">
+              🔍 Scanner cette zone
+            </button>
             <button type="button" class="circle-map-btn" title="Vue globale" onclick="fitEntireRoute()">🗺️</button>
             <button type="button" class="circle-map-btn" title="Ma position GPS" onclick="locateUserOnMap()">🎯</button>
             <button type="button" class="circle-map-btn" title="Satellite / Plan" onclick="toggleSatellite(this)">🛰️</button>
           </div>
         </div>
 
-        <!-- DÉTECTEUR CASH TEMPS RÉEL : INDIQUE QUI ALLER VOIR MAINTENANT POUR FAIRE DE L'ARGENT -->
+        <!-- DÉTECTEUR CASH TEMPS RÉEL : PRIORISE LES 100% INDÉPENDANTS HORS FRANCHISES -->
         <div class="cash-radar-bar" id="cashRadarBar">
           <div class="radar-left" onclick="focusTopCashTarget()">
             <div class="radar-kicker">
-              <span>💰 DÉTECTEUR CASH TEMPS RÉEL (<span id="radarClock">--:--</span>)</span>
+              <span>💰 PRIORITÉ CASH TEMPS RÉEL (<span id="radarClock">--:--</span> • HORS FRANCHISES)</span>
             </div>
             <div class="radar-target-name" id="radarTargetName">Analyse des cibles...</div>
-            <div class="radar-reason" id="radarTargetReason">Calcul du meilleur ratio €€€ / horaire / distance</div>
+            <div class="radar-reason" id="radarTargetReason">Calcul Indépendant vs Franchise / Horaire / Distance</div>
           </div>
           <div class="radar-actions">
             <button type="button" class="radar-btn go" onclick="focusTopCashTarget()">🎯 Voir #1</button>
@@ -1099,11 +1196,67 @@
     </main>
   </div>
 
+  <!-- MODAL AUTO-SCANNER DE PROSPECTS AUTOUR DE LA CARTE -->
+  <div class="scanner-modal-backdrop" id="scannerModalBackdrop" onclick="if(event.target===this) closeScannerModal()">
+    <div class="scanner-sheet">
+      <div class="scanner-head">
+        <div>
+          <strong>🔍 Auto-Scanner de Prospects (autour de la carte)</strong>
+          <div style="font-size:11.5px; color:var(--muted);">Trouve tout seul les commerces 100% indépendants avec le nom du gérant</div>
+        </div>
+        <button type="button" class="btn-top" onclick="closeScannerModal()">✕ Fermer</button>
+      </div>
+
+      <div class="scanner-controls">
+        <div>
+          <label for="scanSector">Secteur d'activité</label>
+          <select id="scanSector" onchange="runMapProspectScanner()">
+            <option value="resto" selected>🍔 Restos, Fast-Foods & Pizzerias (990 €)</option>
+            <option value="artisan">🔧 Artisans BTP, Parquets, Plombiers (990 €)</option>
+            <option value="beaute">💇 Coiffure & Instituts Beauté (490 €)</option>
+            <option value="garage">🚗 Garages & Carrosseries Auto (990 €)</option>
+            <option value="boulangerie">🥖 Boulangeries & Pâtisseries (490 €)</option>
+          </select>
+        </div>
+        <div>
+          <label for="scanRadius">Rayon autour carte</label>
+          <select id="scanRadius" onchange="runMapProspectScanner()">
+            <option value="1">1 km</option>
+            <option value="2" selected>2 km</option>
+            <option value="4">4 km</option>
+          </select>
+        </div>
+      </div>
+
+      <label style="display:flex; align-items:center; gap:7px; font-size:12px; font-weight:700; color:#166534; background:#DCFCE7; padding:7px 10px; border-radius:8px; cursor:pointer;">
+        <input type="checkbox" id="scanExcludeFranchises" checked onchange="runMapProspectScanner()">
+        Exclure les franchises & chaînes (Garder uniquement les 100% Indépendants)
+      </label>
+
+      <div id="scannerStatusText" style="font-size:12px; font-weight:700; color:var(--gblue);"></div>
+
+      <div class="scanner-results-list" id="scannerResultsList"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; padding-top:4px; border-top:1px solid var(--border);">
+        <button type="button" class="btn btn-blue" onclick="applyScannedProspects(true)">
+          ⚡ Créer tournée avec ces cibles
+        </button>
+        <button type="button" class="btn btn-outline" onclick="applyScannedProspects(false)">
+          ➕ Ajouter à ma liste actuelle
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- BARRE BASSE MOBILE -->
   <nav class="mobile-bottom-nav">
     <button type="button" class="m-nav-btn active" id="mNavMap" onclick="switchMobileMode('map')">
       <span class="m-icon">🗺️</span>
-      <span>Carte & Radar</span>
+      <span>Carte</span>
+    </button>
+    <button type="button" class="m-nav-btn" onclick="openScannerModal()">
+      <span class="m-icon">🔍</span>
+      <span>Auto-Scan</span>
     </button>
     <button type="button" class="m-nav-btn" id="mNavList" onclick="switchMobileMode('route')">
       <span class="m-icon">📋</span>
@@ -1116,13 +1269,34 @@
   </nav>
 
   <script>
-    const STORAGE_KEY = 'bms_route_prospects_v5';
-    const DONE_STORAGE_KEY = 'bms_route_done_v5';
-    const CLEARED_FLAG_KEY = 'bms_route_cleared_v5';
+    const STORAGE_KEY = 'bms_route_prospects_v6';
+    const DONE_STORAGE_KEY = 'bms_route_done_v6';
+    const CLEARED_FLAG_KEY = 'bms_route_cleared_v6';
+
+    // Dictionnaire des franchises nationales et réseaux où le franchisé local est souvent bloqué par le siège
+    const FRANCHISE_BRANDS = [
+      'chicken street', 'o\'tacos', 'otacos', 'mcdo', 'mcdonald', 'burger king', 'kfc',
+      'domino', 'pizza hut', 'pizza rabb', 'subway', 'pitaya', 'pokawa', 'g la dalle',
+      'point b', 'big m', 'chikin', 'cote sushi', 'côté sushi', 'planet sushi', 'sushi shop',
+      'eat sushi', 'lady sushi', 'paul ', 'brioche doree', 'marie blachere', 'ange ',
+      'carrefour', 'franprix', 'coccimarket', 'cocci market', 'monoprix', 'auchan', 'leclerc',
+      'intermarche', 'lidl', 'aldi', 'picard', 'biocoop', 'naturalia', 'nicolas',
+      'franck provost', 'jean louis david', 'saint algue', 'camille albane', 'tchip', 'coiff&co',
+      'yves rocher', 'body minute', 'sephora', 'marionnaud', 'nocibe',
+      'midas', 'speedy', 'norauto', 'feu vert', 'carglass', 'euromaster', 'point s',
+      'century 21', 'orpi', 'laforet', 'stephane plaza', 'guy hoquet', 'foncia',
+      'elior', 'sodexo', 'compass', 'flunch', 'hippopotamus', 'buffalo grill', 'del arte',
+      'leon de bruxelles', 'courtepaille', 'au bureau', ' Indiana ', 'columbus'
+    ];
+
+    const MINI_CHAIN_BRANDS = [
+      'pepper smash', 'be\'sushi', 'be sushi', 'atelier du sushi'
+    ];
 
     let prospects = [];
     let doneAddresses = {};
-    let sortMode = 'route'; // 'route' (chemin le plus court) ou 'cash' (rentabilité immédiate)
+    let lastScannedProspects = [];
+    let sortMode = 'route';
     let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine, userLocationMarker;
     let userGpsCoords = null;
     let isSatellite = false;
@@ -1141,7 +1315,7 @@
     };
 
     function initMap() {
-      map = L.map('map', { zoomControl: true }).setView([49.0509, 2.1008], 13);
+      map = L.map('map', { zoomControl: true }).setView([49.048, 2.092], 13);
       currentTileLayer = L.tileLayer(TILE_LAYERS.roadmap, { maxZoom: 20 }).addTo(map);
       markersLayer = L.layerGroup().addTo(map);
 
@@ -1167,7 +1341,6 @@
         }, 120);
       }, { passive: true });
 
-      // Met à jour le radar cash en temps réel toutes les 30 secondes
       setInterval(() => {
         if (cachedGeoNodes.length > 1) {
           refreshLiveCashDetector();
@@ -1176,63 +1349,89 @@
     }
 
     /* =========================================================================
-       INTELLIGENCE COMMERCIALE : CALCUL DU SCORE CASH TEMPS RÉEL PAR PROSPECT
+       DÉTECTION FRANCHISE VS 100% INDÉPENDANT & CALCUL CLOSING TEMPS RÉEL
        ========================================================================= */
+    function detectFranchiseStatus(name, explicitStatus, nbEtab = 1) {
+      if (explicitStatus) return explicitStatus;
+      const lower = String(name || '').toLowerCase();
+      for (const brand of FRANCHISE_BRANDS) {
+        if (lower.includes(brand)) return 'franchise';
+      }
+      for (const mini of MINI_CHAIN_BRANDS) {
+        if (lower.includes(mini)) return 'reseau';
+      }
+      if (nbEtab >= 5) return 'franchise';
+      if (nbEtab >= 2) return 'reseau';
+      return 'indep';
+    }
+
     function evaluateRealTimeProspectPriority(node, refPoint) {
       const now = new Date();
       const hourDec = now.getHours() + now.getMinutes() / 60;
       const category = node.category || inferCategory(node.name, node.pitch);
       const potentialEur = node.potentialEur || (node.pack === 'starter' ? 490 : 990);
-      const baseWinProb = node.winProb || (node.pack === 'pro' ? 88 : 78);
+      const franchiseStatus = detectFranchiseStatus(node.name, node.franchiseStatus, node.nbEtab || 1);
 
-      // 1. Analyse du créneau horaire en direct (Rush vs Dispo du patron)
+      // Base de closing réaliste selon statut indépendant vs franchise
+      let baseWinProb = node.winProb || (node.pack === 'pro' ? 84 : 78);
+      let franchiseMultiplier = 1.0;
+      let statusBadgeHtml = '';
+
+      if (franchiseStatus === 'franchise') {
+        baseWinProb = Math.min(baseWinProb, 20); // Franchise nationale : 15-20% max (bloqué par le siège)
+        franchiseMultiplier = 0.22;
+        statusBadgeHtml = `<span class="cash-tag franchise">🚫 Franchise (Bloqué siège)</span>`;
+      } else if (franchiseStatus === 'reseau') {
+        baseWinProb = Math.min(baseWinProb, 42); // Mini-réseau : 35-45% (accord associés requis)
+        franchiseMultiplier = 0.52;
+        statusBadgeHtml = `<span class="cash-tag reseau">⚠️ Réseau (Accord associés)</span>`;
+      } else {
+        // 100% Indépendant : le patron décide seul au comptoir !
+        franchiseMultiplier = 1.25;
+        statusBadgeHtml = `<span class="cash-tag indep">✅ 100% Indépendant</span>`;
+      }
+
+      // Analyse du créneau horaire en direct (Rush vs Dispo du patron)
       let timeMultiplier = 1.0;
       let timeBadgeText = '🟢 Créneau idéal';
       let isRush = false;
 
       if (category === 'resto') {
         if (hourDec >= 11.9 && hourDec <= 14.15) {
-          // Plein coup de feu du midi en restauration
           timeMultiplier = 0.58;
           timeBadgeText = '🟠 Rush midi (12h-14h)';
           isRush = true;
         } else if (hourDec >= 19.0 && hourDec <= 21.5) {
-          // Coup de feu du soir
           timeMultiplier = 0.62;
           timeBadgeText = '🟠 Rush soir (19h-21h30)';
           isRush = true;
         } else if ((hourDec >= 9.5 && hourDec < 11.9) || (hourDec > 14.15 && hourDec < 19.0)) {
-          // Créneau en or : entre les deux services, le gérant est dispo !
-          timeMultiplier = 1.25;
-          timeBadgeText = '🟢 Dispo idéale (Hors rush)';
+          timeMultiplier = 1.2;
+          timeBadgeText = '🟢 Hors rush (Dispo)';
         }
       } else if (category === 'artisan') {
-        // Artisans / Commerces / Bureaux : très disponibles entre 9h et 18h (même entre 12h et 14h !)
         if (hourDec >= 11.8 && hourDec <= 14.2) {
-          timeMultiplier = 1.35; // Bonus midi pendant que les restos sont en rush !
-          timeBadgeText = '🔥 Top cible midi (Hors resto)';
+          timeMultiplier = 1.35;
+          timeBadgeText = '🔥 Top cible midi';
         } else if (hourDec >= 8.5 && hourDec <= 18.5) {
           timeMultiplier = 1.15;
           timeBadgeText = '🟢 Patron dispo';
         }
       } else {
-        // Beauté / Bien-être / Santé
         if (hourDec >= 9.5 && hourDec <= 18.0) {
           timeMultiplier = 1.1;
           timeBadgeText = '🟢 Ouvert & dispo';
         }
       }
 
-      // 2. Bonus proximité temps réel (moins de route = plus de temps de vente)
       let distKm = 2.0;
       if (refPoint && node.lat && node.lon) {
         distKm = (haversineMeters(refPoint, node) * 1.28) / 1000;
       }
       const proximityBonus = Math.max(0.72, 1.25 - (distKm * 0.06));
 
-      // 3. Score Cash pondéré (Espérance de gain immédiat)
-      const rawScore = (potentialEur / 10) * (baseWinProb / 100) * timeMultiplier * proximityBonus;
-      const displayScore = Math.min(99, Math.max(60, Math.round(baseWinProb * (timeMultiplier > 1 ? 1.06 : 0.85))));
+      const rawScore = (potentialEur / 10) * (baseWinProb / 100) * franchiseMultiplier * timeMultiplier * proximityBonus;
+      const displayScore = Math.min(95, Math.max(15, Math.round(baseWinProb * (timeMultiplier > 1 ? 1.04 : (isRush ? 0.82 : 1.0)))));
 
       return {
         potentialEur,
@@ -1240,19 +1439,234 @@
         rawScore,
         timeBadgeText,
         isRush,
-        distKm
+        distKm,
+        franchiseStatus,
+        statusBadgeHtml
       };
     }
 
     function inferCategory(name, pitch) {
       const s = ((name || '') + ' ' + (pitch || '')).toLowerCase();
-      if (s.includes('parquet') || s.includes('artisan') || s.includes('market') || s.includes('colis') || s.includes('salon')) {
+      if (s.includes('parquet') || s.includes('artisan') || s.includes('market') || s.includes('garage') || s.includes('auto') || s.includes('plomb') || s.includes('menuis')) {
         return 'artisan';
       }
-      if (s.includes('institut') || s.includes('massage') || s.includes('cabinet') || s.includes('thérap')) {
+      if (s.includes('institut') || s.includes('massage') || s.includes('cabinet') || s.includes('coiff') || s.includes('beauté')) {
         return 'beaute';
       }
       return 'resto';
+    }
+
+    /* =========================================================================
+       AUTO-SCANNER DE PROSPECTS EN DIRECT AUTOUR DE LA CARTE (API RNE / INSEE)
+       ========================================================================= */
+    const SECTOR_CONFIG = {
+      resto: {
+        naf: '56.10C,56.10A',
+        pack: 'pro',
+        potentialEur: 990,
+        demo: '../sites/fastfood-smash.html',
+        category: 'resto',
+        pitchLabel: 'Resto / Fast-Food 100% Indépendant : proposer Click & Collect sans commission (990 €).'
+      },
+      artisan: {
+        naf: '43.32A,43.33Z,43.22A,43.21A,43.34Z',
+        pack: 'pro',
+        potentialEur: 990,
+        demo: '../sites/artisan-elite.html',
+        category: 'artisan',
+        pitchLabel: 'Artisan BTP Indépendant : 1 seul chantier signé rembourse 3x son site vitrine + devis (990 €).'
+      },
+      beaute: {
+        naf: '96.02A,96.02B',
+        pack: 'starter',
+        potentialEur: 490,
+        demo: '../sites/artisan-elite.html',
+        category: 'beaute',
+        pitchLabel: 'Salon / Institut 100% Indépendant : proposer site vitrine + carte des soins & RDV WhatsApp (490 €).'
+      },
+      garage: {
+        naf: '45.20A',
+        pack: 'pro',
+        potentialEur: 990,
+        demo: '../sites/artisan-elite.html',
+        category: 'artisan',
+        pitchLabel: 'Garage Auto Indépendant : proposer site prise de RDV atelier & devis carrosserie/mécanique (990 €).'
+      },
+      boulangerie: {
+        naf: '10.71C,10.71D',
+        pack: 'starter',
+        potentialEur: 490,
+        demo: '../sites/fastfood-smash.html',
+        category: 'resto',
+        pitchLabel: 'Boulangerie / Pâtisserie Indépendante : proposer vitrine + pré-commande gâteaux/formules midi (490 €).'
+      }
+    };
+
+    function openScannerModal() {
+      document.getElementById('scannerModalBackdrop').classList.add('open');
+      runMapProspectScanner();
+    }
+
+    function closeScannerModal() {
+      document.getElementById('scannerModalBackdrop').classList.remove('open');
+    }
+
+    async function runMapProspectScanner() {
+      const sectorKey = document.getElementById('scanSector').value || 'resto';
+      const radiusKm = parseFloat(document.getElementById('scanRadius').value) || 2;
+      const excludeFranchises = document.getElementById('scanExcludeFranchises').checked;
+      const statusEl = document.getElementById('scannerStatusText');
+      const listEl = document.getElementById('scannerResultsList');
+
+      const center = map.getCenter();
+      const cfg = SECTOR_CONFIG[sectorKey] || SECTOR_CONFIG.resto;
+
+      statusEl.textContent = `⏳ Scan en cours dans un rayon de ${radiusKm} km autour de la carte...`;
+      listEl.innerHTML = '';
+
+      try {
+        // Interroge 3 pages en parallèle sur l'API officielle Recherche d'Entreprises (INSEE/RNE)
+        const pages = [1, 2, 3];
+        const responses = await Promise.all(
+          pages.map(p =>
+            fetch(`https://recherche-entreprises.api.gouv.fr/near_point?lat=${center.lat.toFixed(5)}&long=${center.lng.toFixed(5)}&radius=${radiusKm}&activite_principale=${cfg.naf}&per_page=25&page=${p}`)
+              .then(r => r.json())
+              .catch(() => ({ results: [] }))
+          )
+        );
+
+        const rawResults = responses.flatMap(r => r.results || []);
+        const discovered = [];
+        const seenNames = new Set();
+
+        for (const item of rawResults) {
+          if (item.etat_administratif && item.etat_administratif !== 'A') continue;
+          const nbEtab = item.nombre_etablissements_ouverts || 1;
+          const m = (item.matching_etablissements && item.matching_etablissements[0]) || item.siege;
+          if (!m || !m.adresse) continue;
+
+          const rawName = (m.liste_enseignes && m.liste_enseignes[0]) || m.nom_commercial || item.nom_complet || '';
+          const cleanName = formatBusinessName(rawName);
+          if (!cleanName || seenNames.has(cleanName.toLowerCase())) continue;
+
+          const fStatus = detectFranchiseStatus(cleanName, null, nbEtab);
+          if (excludeFranchises && fStatus !== 'indep') continue;
+
+          // Récupère le nom exact du dirigeant / gérant pour le terrain
+          let bossName = '';
+          if (item.dirigeants && item.dirigeants.length > 0) {
+            const d = item.dirigeants[0];
+            if (d.prenoms || d.nom) {
+              bossName = `${formatBusinessName(d.prenoms || '')} ${formatBusinessName(d.nom || '')}`.trim();
+            }
+          }
+
+          const yearCreated = item.date_creation ? item.date_creation.slice(0, 4) : '';
+          const isRecent = yearCreated && parseInt(yearCreated, 10) >= 2022;
+          const winProb = fStatus === 'indep' ? (isRecent ? 90 : 84) : (fStatus === 'reseau' ? 42 : 20);
+
+          const lat = parseFloat(m.latitude);
+          const lon = parseFloat(m.longitude);
+          if (isNaN(lat) || isNaN(lon)) continue;
+
+          seenNames.add(cleanName.toLowerCase());
+
+          const pitchParts = [
+            bossName ? `👤 Demander le gérant : ${bossName}` : `👤 100% Indépendant (décideur sur place)`,
+            yearCreated ? `Créé en ${yearCreated}${isRecent ? ' (Récent 🔥)' : ''}` : '',
+            cfg.pitchLabel
+          ].filter(Boolean).join(' • ');
+
+          discovered.push({
+            name: cleanName,
+            address: formatAddressCase(m.adresse),
+            phone: '',
+            pitch: pitchParts,
+            demo: cfg.demo,
+            pack: cfg.pack,
+            category: cfg.category,
+            potentialEur: cfg.potentialEur,
+            winProb,
+            franchiseStatus: fStatus,
+            nbEtab,
+            bossName,
+            yearCreated,
+            lat,
+            lon
+          });
+
+          if (discovered.length >= 16) break;
+        }
+
+        lastScannedProspects = discovered;
+
+        if (discovered.length === 0) {
+          statusEl.textContent = `Aucun commerce trouvé dans ce rayon. Essayez d'augmenter le rayon à 4 km ou de bouger la carte.`;
+          return;
+        }
+
+        statusEl.textContent = `✅ ${discovered.length} prospects ciblés trouvés autour de la carte :`;
+        listEl.innerHTML = discovered.map((p, idx) => `
+          <div class="scan-item-card">
+            <div style="min-width:0; flex:1;">
+              <div style="font-size:13px; font-weight:800; color:var(--ink);">${idx + 1}. ${escHtml(p.name)}</div>
+              <div style="font-size:11px; color:var(--muted);">${escHtml(p.address)}</div>
+              <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:4px;">
+                <span class="cash-tag ${p.franchiseStatus}">${p.franchiseStatus === 'indep' ? '✅ 100% Indépendant' : '⚠️ Réseau/Franchise'}</span>
+                <span class="cash-tag eur">💰 ${p.potentialEur} €</span>
+                <span class="cash-tag hot">🔥 Closing ${p.winProb}%</span>
+                ${p.bossName ? `<span class="cash-tag time-ok">👤 Gérant : ${escHtml(p.bossName)}</span>` : ''}
+              </div>
+            </div>
+            <button type="button" class="btn btn-outline btn-xs" onclick="addSingleScannedProspect(${idx}, this)">+ Ajouter</button>
+          </div>
+        `).join('');
+      } catch (e) {
+        statusEl.textContent = `Erreur lors du scan. Vérifiez votre connexion internet.`;
+      }
+    }
+
+    function formatBusinessName(str) {
+      return String(str || '')
+        .toLowerCase()
+        .replace(/\b\w/g, l => l.toUpperCase())
+        .trim();
+    }
+
+    function formatAddressCase(str) {
+      return String(str || '')
+        .toLowerCase()
+        .replace(/\b\w/g, l => l.toUpperCase())
+        .trim();
+    }
+
+    function addSingleScannedProspect(idx, btnEl) {
+      const p = lastScannedProspects[idx];
+      if (!p) return;
+      localStorage.removeItem(CLEARED_FLAG_KEY);
+      prospects.push(p);
+      saveProspects();
+      renderRawProspects();
+      if (btnEl) {
+        btnEl.textContent = '✓ Ajouté';
+        btnEl.disabled = true;
+      }
+      optimizeRoute();
+    }
+
+    function applyScannedProspects(replaceExisting) {
+      if (!lastScannedProspects || lastScannedProspects.length === 0) return;
+      localStorage.removeItem(CLEARED_FLAG_KEY);
+      if (replaceExisting) {
+        prospects = [...lastScannedProspects];
+        doneAddresses = {};
+      } else {
+        prospects = [...prospects, ...lastScannedProspects];
+      }
+      saveProspects();
+      renderRawProspects();
+      closeScannerModal();
+      optimizeRoute();
     }
 
     function toggleSatellite(btn) {
@@ -1325,18 +1739,22 @@
       document.getElementById('setupCountInline').textContent = prospects.length;
 
       if (prospects.length === 0) {
-        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12.5px; padding:16px;">Liste vide. Ajoutez vos adresses ci-dessus ou cliquez sur "↺ 18 Pontoise".</div>';
+        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12.5px; padding:16px;">Liste vide. Utilisez "🔍 Auto-Scan" ou cliquez sur "↺ 18 Pontoise".</div>';
         return;
       }
-      box.innerHTML = prospects.map((p, idx) => `
-        <div class="client-row">
-          <div style="min-width:0; flex:1;">
-            <strong>${idx + 1}. ${escHtml(p.name)} <span style="color:var(--green); font-weight:800;">(${p.potentialEur || (p.pack === 'starter' ? 490 : 990)} €)</span></strong>
-            <span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escHtml(p.address)}</span>
+      box.innerHTML = prospects.map((p, idx) => {
+        const fSt = detectFranchiseStatus(p.name, p.franchiseStatus, p.nbEtab || 1);
+        const fLabel = fSt === 'indep' ? '✅ Indép.' : (fSt === 'reseau' ? '⚠️ Réseau' : '🚫 Franchise');
+        return `
+          <div class="client-row">
+            <div style="min-width:0; flex:1;">
+              <strong>${idx + 1}. ${escHtml(p.name)} <span style="color:var(--green); font-weight:800;">(${p.potentialEur || 990} € • ${fLabel})</span></strong>
+              <span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escHtml(p.address)}</span>
+            </div>
+            <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByIndex(${idx})">🗑️ Retirer</button>
           </div>
-          <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByIndex(${idx})" title="Retirer ce prospect">🗑️ Retirer</button>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function addFromBulk() {
@@ -1345,29 +1763,6 @@
       if (!rawText) return;
 
       localStorage.removeItem(CLEARED_FLAG_KEY);
-
-      if (rawText.includes('google.com/maps/dir/') || rawText.includes('google.fr/maps/dir/')) {
-        try {
-          const afterDir = rawText.split('/maps/dir/')[1].split('?')[0];
-          const parts = afterDir.split('/').filter(seg => seg && !seg.startsWith('@') && !seg.startsWith('data='));
-          const decoded = parts.map(seg => decodeURIComponent(seg.replace(/\+/g, ' ')).trim()).filter(Boolean);
-          if (decoded.length >= 2) {
-            document.getElementById('startAddress').value = decoded[0];
-            prospects = decoded.slice(1).map(addr => ({
-              name: addr.split(',')[0].trim(),
-              address: addr,
-              pack: 'pro',
-              potentialEur: 990,
-              winProb: 85
-            }));
-            textarea.value = '';
-            saveProspects();
-            renderRawProspects();
-            optimizeRoute();
-            return;
-          }
-        } catch (e) {}
-      }
 
       rawText.split('\n').forEach(line => {
         let cleaned = line.trim().replace(/^Client\s*:\s*/i, '');
@@ -1382,7 +1777,7 @@
               address: address || name,
               pack: 'pro',
               potentialEur: 990,
-              winProb: 85
+              winProb: 84
             });
             return;
           }
@@ -1392,7 +1787,7 @@
           address: cleaned,
           pack: 'pro',
           potentialEur: 990,
-          winProb: 85
+          winProb: 84
         });
       });
 
@@ -1402,7 +1797,6 @@
       optimizeRoute();
     }
 
-    /* SUPPRIMER 1 PROSPECT (DEPUIS LA CARTE, LA LISTE OU L'ONGLET ADRESSES) */
     function removeProspectByIndex(idx) {
       if (idx < 0 || idx >= prospects.length) return;
       const removed = prospects.splice(idx, 1)[0];
@@ -1412,9 +1806,8 @@
       saveProspects();
       renderRawProspects();
 
-      // Supprime aussi immédiatement du cache carte sans tout re-géocoder
       if (removed && cachedGeoNodes.length > 1) {
-        const nodeIdx = cachedGeoNodes.findIndex((n, i) => i > 0 && n.rawAddress === removed.address && n.name === removed.name);
+        const nodeIdx = cachedGeoNodes.findIndex((n, i) => i > 0 && n.name === removed.name);
         if (nodeIdx !== -1) {
           cachedGeoNodes.splice(nodeIdx, 1);
           cachedDurations.splice(nodeIdx, 1);
@@ -1455,7 +1848,10 @@
       document.getElementById('itineraryOutput').innerHTML = `
         <div style="text-align:center; padding:24px 12px; color:var(--muted); font-size:13px;">
           La liste est vide.<br><br>
-          <button type="button" class="btn btn-blue btn-xs" onclick="loadPontoisePreset(true)">↺ Recharger les 18 prospects de Pontoise</button>
+          <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+            <button type="button" class="btn btn-dark btn-xs" onclick="openScannerModal()">🔍 Trouver des prospects sur la carte</button>
+            <button type="button" class="btn btn-blue btn-xs" onclick="loadPontoisePreset(true)">↺ Recharger les 18 de Pontoise</button>
+          </div>
         </div>
       `;
       document.getElementById('mapCardsStrip').innerHTML = '';
@@ -1464,12 +1860,11 @@
       document.getElementById('statDriveTime').textContent = '0 min';
       document.getElementById('statDistance').textContent = '0 km';
       document.getElementById('doneProgressBadge').textContent = '0/0';
-      document.getElementById('mapPillText').textContent = '0 prospect dans la liste';
-      document.getElementById('radarTargetName').textContent = 'Liste vide — Ajoutez des adresses';
-      document.getElementById('radarTargetReason').textContent = 'Cliquez sur "⚙️ Gérer" ou "↺ 18 Pontoise"';
+      document.getElementById('mapPillText').textContent = '0 prospect • Cliquez sur 🔍 Scanner cette zone';
+      document.getElementById('radarTargetName').textContent = 'Liste vide — Cliquez sur 🔍 Scanner cette zone';
+      document.getElementById('radarTargetReason').textContent = 'Le scanner trouve tout seul les indépendants autour de vous';
     }
 
-    /* VIDER TOUTE LA LISTE */
     function clearAllProspects() {
       prospects = [];
       doneAddresses = {};
@@ -1488,199 +1883,253 @@
           name: 'Pepper Smash (& Brasserie Paris Pontoise)',
           address: '18 Mail de la Cavalerie, 95300 Pontoise',
           phone: '01 30 32 79 28',
-          pitch: '0 site web (paye 30% à UberEats/Deliveroo). Montrer Click & Collect WhatsApp 990 € / CB 1 490 €.',
+          pitch: '⚠️ Mini-réseau (peppersmash.fr) : vérifier si le gérant local est autonome. Par contre la Brasserie Paris Pontoise juste à côté est 100% indépendante !',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro',
           category: 'resto',
+          franchiseStatus: 'reseau',
           potentialEur: 990,
-          winProb: 96
+          winProb: 42,
+          lat: 49.041836,
+          lon: 2.086164
         },
         {
           name: 'Institut MEI LI (Massage)',
           address: '31 Place Notre Dame, 95300 Pontoise',
           phone: '06 05 94 16 33',
-          pitch: '0 site web (que PagesJaunes). Gérante en 06 direct : proposer vitrine + tarifs & RDV WhatsApp (490 €).',
+          pitch: '✅ 100% Indépendante (06 direct) : 0 site web (que PagesJaunes). Proposer vitrine + tarifs & RDV WhatsApp (490 €).',
           demo: '../sites/artisan-elite.html',
           pack: 'starter',
           category: 'beaute',
+          franchiseStatus: 'indep',
           potentialEur: 490,
-          winProb: 86
+          winProb: 82,
+          lat: 49.049527,
+          lon: 2.09169
         },
         {
           name: 'Be\'Sushi / L\'Atelier du Sushi',
           address: '11 Rue de Rouen, 95300 Pontoise',
           phone: '01 30 31 90 74',
-          pitch: 'Pas de site actif + confusion Google avec ancienne crêperie. Proposer Click & Collect (990 €).',
+          pitch: '⚠️ Petit réseau multi-boutiques : demander si le gérant de Pontoise décide seul pour corriger sa fiche Google et son Click & Collect (990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro',
           category: 'resto',
+          franchiseStatus: 'reseau',
           potentialEur: 990,
-          winProb: 91
+          winProb: 45,
+          lat: 49.049705,
+          lon: 2.090679
         },
         {
           name: 'Chicken Drive Pontoise',
           address: '18 Rue de Rouen, 95300 Pontoise',
           phone: '07 59 70 40 28',
-          pitch: '0 site web (gérant en 07 direct + UberEats). Proposer retrait Drive sans attente (990 €).',
+          pitch: '✅ 100% Indépendant (gérant en 07 direct, pas une franchise nationale) : 0 site web, paye 30% à UberEats. Proposer Click & Collect 990 €.',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 990,
-          winProb: 94
+          winProb: 88,
+          lat: 49.049742,
+          lon: 2.090568
         },
         {
           name: 'Cabinets Thérapeutes (Outrebon / Follet)',
           address: '26 Rue Sere-Depoin, 95300 Pontoise',
           phone: '01 34 22 18 84',
-          pitch: '0 site web (que PagesJaunes). Proposer page vitrine professionnelle & prise de RDV (490 €).',
+          pitch: '✅ 100% Indépendantes : 0 site web. Proposer page vitrine professionnelle & prise de RDV (490 €).',
           demo: '../sites/artisan-elite.html',
           pack: 'starter',
           category: 'beaute',
+          franchiseStatus: 'indep',
           potentialEur: 490,
-          winProb: 78
+          winProb: 78,
+          lat: 49.047723,
+          lon: 2.096423
         },
         {
           name: 'Barlou Burger / Miss Kebab',
           address: '75 Rue Pierre Butin, 95300 Pontoise',
           phone: '06 68 89 05 95',
-          pitch: '0 site officiel + 3 noms mélangés sur Google (gérant en 06). Proposer site clair + menu (490 € / 990 €).',
+          pitch: '✅ 100% Indépendant (patron en 06 direct) : 0 site officiel + 3 noms mélangés sur Google. Proposer site clair + menu (490 € / 990 €).',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 490,
-          winProb: 89
+          winProb: 86,
+          lat: 49.049396,
+          lon: 2.095971
         },
         {
           name: 'O\'Twist Fast-Food',
           address: '35 Rue de Gisors, 95300 Pontoise',
           phone: '09 81 12 91 70',
-          pitch: '0 site internet sur un axe très passant. Proposer carte mobile + commande (490 €).',
+          pitch: '✅ 100% Indépendant : 0 site internet sur un axe très passant. Proposer carte mobile + commande (490 €).',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 490,
-          winProb: 82
+          winProb: 82,
+          lat: 49.052804,
+          lon: 2.095096
         },
         {
-          name: 'Créa Parquets & CocciMarket',
+          name: 'Créa Parquets (Artisan Indépendant)',
           address: '32 Rue des Pâtis, 95300 Pontoise',
           phone: '06 04 52 38 09',
-          pitch: 'Artisan parqueteur sans site (06 direct) : 1 seul chantier signé rembourse 3x son site (990 €).',
+          pitch: '✅ Artisan 100% Indépendant (06 direct, décide seul) : 1 seul chantier de parquet signé rembourse 3x son site (990 €).',
           demo: '../sites/artisan-elite.html',
           pack: 'pro',
           category: 'artisan',
+          franchiseStatus: 'indep',
           potentialEur: 990,
-          winProb: 93
+          winProb: 91,
+          lat: 49.052456,
+          lon: 2.082167
         },
         {
           name: 'Restaurant L\'Italien (ex Pepper-Grill)',
           address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône',
           phone: '01 84 24 12 12',
-          pitch: 'URGENCE : 0 site et Google affiche encore l\'ancien resto fermé "Pepper-Grill" ! Proposer Pro 990 €.',
+          pitch: '✅ 100% Indépendant & URGENT : 0 site et Google affiche encore l\'ancien resto fermé "Pepper-Grill" ! Proposer Pro 990 €.',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 990,
-          winProb: 97
+          winProb: 93,
+          lat: 49.046926,
+          lon: 2.105279
         },
         {
           name: 'Bamako Market & Relais Colis',
           address: '9 Avenue du Général de Gaulle, 95310 Saint-Ouen-l\'Aumône',
           phone: '09 55 82 79 89',
-          pitch: '0 site web alors que des centaines de clients passent pour les colis. Proposer vitrine 490 €.',
+          pitch: '✅ 100% Indépendant : 0 site web alors que des centaines de clients passent pour les colis. Proposer vitrine 490 €.',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter',
           category: 'artisan',
+          franchiseStatus: 'indep',
           potentialEur: 490,
-          winProb: 80
+          winProb: 79,
+          lat: 49.043723,
+          lon: 2.10807
         },
         {
-          name: 'Chicken Street Cergy (Face Fac)',
+          name: 'Chicken Street Cergy (Franchise)',
           address: '16 Place des Cerclades, 95000 Cergy',
           phone: '06 68 45 93 51',
-          pitch: 'Gérant en 06 face à l\'université : proposer Click & Collect étudiants hors UberEats (990 € / 1 490 €).',
+          pitch: '🚫 FRANCHISE NATIONALE (chickenstreet.fr) : site national imposé par le siège. Le franchisé ne peut généralement pas acheter de site (proposer uniquement pub TikTok/Insta locale ou passer au suivant).',
           demo: '../sites/fastfood-smash.html',
-          pack: 'pro',
+          pack: 'starter',
           category: 'resto',
-          potentialEur: 990,
-          winProb: 94
+          franchiseStatus: 'franchise',
+          potentialEur: 490,
+          winProb: 18,
+          lat: 49.03743,
+          lon: 2.082063
         },
         {
           name: 'Restaurant MG / Adiza (Grillades)',
           address: '3 Rue des Italiens, 95000 Cergy',
           phone: '06 61 29 13 51',
-          pitch: 'Très fréquenté (gérant en 06) mais 0 site web (que UberEats). Proposer carte + pré-commande midi (490 € / 990 €).',
+          pitch: '✅ 100% Indépendant (gérant en 06 direct) : très fréquenté mais 0 site web. Proposer carte + pré-commande midi (490 € / 990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'starter',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 490,
-          winProb: 88
+          winProb: 86,
+          lat: 49.036596,
+          lon: 2.077381
         },
         {
           name: 'Brasserie Le Cergy & Spice N Grill',
           address: '10 Avenue Bernard Hirsch, 95000 Cergy',
           phone: '01 34 24 23 31',
-          pitch: 'Entre ESSEC et Préfecture : Le Cergy n\'a aucun site web pour capter les pauses déj (990 €).',
+          pitch: '✅ 100% Indépendants (2 commerces côte à côte) : entre ESSEC et Préfecture, aucun site web pour capter les pauses déj (990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 990,
-          winProb: 90
+          winProb: 87,
+          lat: 49.034203,
+          lon: 2.078768
         },
         {
           name: 'Le Cezam Fast-Food (QG ESSEC)',
           address: '20 Avenue Bernard Hirsch, 95000 Cergy',
           phone: '01 34 24 01 35',
-          pitch: 'QG de l\'ESSEC mais 0 site web (que Instagram) ! Proposer Click & Collect 990 € pour éviter la queue.',
+          pitch: '✅ 100% Indépendant (pas une franchise !) : QG de l\'ESSEC mais 0 site web. Proposer Click & Collect 990 € pour éviter la queue.',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 990,
-          winProb: 95
+          winProb: 90,
+          lat: 49.03453,
+          lon: 2.078865
         },
         {
           name: 'Le Bosphore & Printemps d\'Asie',
           address: '3 Rue des Chênes Émeraude, 95000 Cergy',
           phone: '01 30 73 40 40',
-          pitch: 'Face à l\'Hôtel Mercure mais aucun vrai site pour capter les clients de l\'hôtel le soir (990 €).',
+          pitch: '✅ 100% Indépendants : face à l\'Hôtel Mercure mais aucun vrai site pour capter les clients de l\'hôtel le soir (990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 990,
-          winProb: 89
+          winProb: 85,
+          lat: 49.041019,
+          lon: 2.072904
         },
         {
           name: 'Full Pizza & Orient Primeurs',
           address: '5 Rue des Linandes Beiges, 95000 Cergy',
           phone: '01 30 31 25 26',
-          pitch: 'Pizzeria de quartier sans aucun site internet ! Proposer carte pizzas + commande directe (490 €).',
+          pitch: '✅ 100% Indépendant : pizzeria de quartier sans aucun site internet ! Proposer carte pizzas + commande directe (490 €).',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 490,
-          winProb: 85
+          winProb: 84,
+          lat: 49.044137,
+          lon: 2.069154
         },
         {
           name: 'Salons des Bellevues & Resto Acadie',
           address: 'Rue des Bellevues, 95610 Éragny',
           phone: '01 30 30 52 68',
-          pitch: 'ZAC des Bellevues : proposer refonte moderne pour réservation de salles & repas PME (990 €).',
+          pitch: '✅ 100% Indépendant : proposer refonte moderne pour réservation de salles & repas PME (990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro',
           category: 'artisan',
+          franchiseStatus: 'indep',
           potentialEur: 990,
-          winProb: 86
+          winProb: 83,
+          lat: 49.025303,
+          lon: 2.113579
         },
         {
-          name: 'Pôle 4 Restos Osny (Chalet d\'Oz, L\'Érable, Shanghai)',
+          name: 'Pôle 4 Restos Indépendants Osny (Chalet d\'Oz, L\'Érable, Shanghai)',
           address: '24 Chemin du Poirier Charles Guérin, 95520 Osny',
           phone: '07 51 34 86 57',
-          pitch: 'JACKPOT : 4 restos sur le même parking et AUCUN n\'a de site ! Potentiel 2 à 3 signatures d\'un coup.',
+          pitch: '✅ JACKPOT 100% INDÉPENDANTS : 4 restos indépendants sur le même parking et AUCUN n\'a de site !',
           demo: '../sites/fastfood-smash.html',
           pack: 'cb',
           category: 'resto',
+          franchiseStatus: 'indep',
           potentialEur: 1490,
-          winProb: 98
+          winProb: 92,
+          lat: 49.078167,
+          lon: 2.078444
         }
       ];
       saveProspects();
@@ -1872,7 +2321,13 @@
       pillText.textContent = 'Calcul de la tournée...';
 
       try {
-        const startGeo = await geocodeSmart(startAddr, null);
+        let startGeo;
+        if (startAddr.includes('15 Rue des Écuries') && startAddr.includes('95300')) {
+          startGeo = { lat: 49.04143, lon: 2.085911, label: startAddr };
+        } else {
+          startGeo = await geocodeSmart(startAddr, null);
+        }
+
         const nodes = [{
           isStart: true,
           name: 'Départ',
@@ -1883,24 +2338,40 @@
         }];
 
         for (let i = 0; i < prospects.length; i++) {
-          status.textContent = `Localisation (${i + 1}/${prospects.length})...`;
-          const g = await geocodeSmart(prospects[i].address, startGeo);
+          let lat = prospects[i].lat;
+          let lon = prospects[i].lon;
+          let label = prospects[i].address;
+
+          if (!lat || !lon) {
+            status.textContent = `Localisation (${i + 1}/${prospects.length})...`;
+            const g = await geocodeSmart(prospects[i].address, startGeo);
+            lat = g.lat;
+            lon = g.lon;
+            label = g.label;
+            prospects[i].lat = lat;
+            prospects[i].lon = lon;
+          }
+
           nodes.push({
             isStart: false,
             name: prospects[i].name,
-            address: g.label,
+            address: label,
             rawAddress: prospects[i].address,
             phone: prospects[i].phone || '',
             pitch: prospects[i].pitch || '',
             demo: prospects[i].demo || '../sites/fastfood-smash.html',
             pack: prospects[i].pack || 'pro',
             category: prospects[i].category || inferCategory(prospects[i].name, prospects[i].pitch),
+            franchiseStatus: detectFranchiseStatus(prospects[i].name, prospects[i].franchiseStatus, prospects[i].nbEtab || 1),
+            nbEtab: prospects[i].nbEtab || 1,
             potentialEur: prospects[i].potentialEur || (prospects[i].pack === 'starter' ? 490 : 990),
-            winProb: prospects[i].winProb || 88,
-            lat: g.lat,
-            lon: g.lon
+            winProb: prospects[i].winProb || 84,
+            lat,
+            lon
           });
         }
+
+        saveProspects();
 
         const mode = document.getElementById('travelMode').value;
         const speedKmh = mode === 'foot' ? 4.8 : (mode === 'bike' ? 16.5 : 28);
@@ -1961,7 +2432,6 @@
       }
 
       const refPoint = userGpsCoords || nodes[0];
-      // Évalue chaque noeud en temps réel
       for (let i = 1; i < nodes.length; i++) {
         nodes[i].liveEval = evaluateRealTimeProspectPriority(nodes[i], refPoint);
       }
@@ -1970,7 +2440,6 @@
       let order;
 
       if (sortMode === 'cash') {
-        // Trie les commerces non-faits en priorité par score Cash décroissant, puis les faits à la fin
         const indices = [];
         for (let i = 1; i < nodes.length; i++) indices.push(i);
         indices.sort((a, b) => {
@@ -2008,7 +2477,6 @@
       currentOrderedNodes = orderedNodes;
       const totalClientStops = prospects.length;
 
-      // Trouve la cible #1 Cash parmi les commerces NON FAITS
       let bestCashScore = -1;
       topCashStepPos = 1;
       orderedNodes.forEach((node, stepPos) => {
@@ -2067,7 +2535,7 @@
 
         const isDone = Boolean(doneAddresses[node.address]);
         const isTopCash = (!isDone && stepPos === topCashStepPos);
-        const ev = node.liveEval || { potentialEur: 990, displayScore: 88, timeBadgeText: '🟢 Dispo', isRush: false };
+        const ev = node.liveEval || evaluateRealTimeProspectPriority(node, nodes[0]);
 
         const icon = L.divIcon({
           className: '',
@@ -2086,14 +2554,14 @@
 
         const cashBadgesHtml = `
           <div class="cash-tags-row">
-            ${isTopCash ? `<span class="cash-tag hot">👑 PRIORITÉ #1 CASH</span>` : ''}
+            ${isTopCash ? `<span class="cash-tag hot">👑 CIBLE #1</span>` : ''}
+            ${ev.statusBadgeHtml}
             <span class="cash-tag eur">💰 ${ev.potentialEur} €</span>
             <span class="cash-tag hot">🔥 Closing ${ev.displayScore}%</span>
             <span class="cash-tag ${ev.isRush ? 'time-rush' : 'time-ok'}">${ev.timeBadgeText}</span>
           </div>
         `;
 
-        // Fiche dans l'onglet Liste
         htmlCards.push(`
           <div class="stop-item ${isDone ? 'done' : ''} ${isTopCash ? 'top-cash-target' : ''}" id="stopCard-${stepPos}" onclick="selectStopFromList(${stepPos})">
             <div class="badge-num" id="listBadge-${stepPos}">${isDone ? '✓' : stepPos}</div>
@@ -2110,7 +2578,7 @@
                 <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
                   ${isDone ? '✓ Fait' : '✅ Fait'}
                 </button>
-                <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByStep(${stepPos})" title="Retirer ce prospect de la liste">
+                <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByStep(${stepPos})" title="Retirer ce prospect">
                   🗑️
                 </button>
               </div>
@@ -2118,7 +2586,6 @@
           </div>
         `);
 
-        // Fiche en bas de la carte (optimisée téléphone)
         bottomStripCards.push(`
           <div class="map-stop-card ${stepPos === 1 ? 'active-card' : ''} ${isDone ? 'done-card' : ''} ${isTopCash ? 'top-cash-card' : ''}" id="mscCard-${stepPos}" data-step="${stepPos}">
             <div class="msc-header-nav">
@@ -2215,7 +2682,7 @@
 
       if (!bestNode) {
         document.getElementById('radarTargetName').textContent = '🎉 Tous les prospects ont été visités !';
-        document.getElementById('radarTargetReason').textContent = 'Cliquez sur ↺ Décocher ou ajoutez de nouvelles adresses';
+        document.getElementById('radarTargetReason').textContent = 'Cliquez sur 🔍 Scanner cette zone pour en trouver de nouveaux';
         return;
       }
 
@@ -2223,7 +2690,7 @@
       const ev = bestNode.liveEval;
       const approxMins = Math.max(2, Math.round((ev.distKm / 26) * 60));
       document.getElementById('radarTargetName').textContent = `#${bestStep} ${bestNode.name} (${ev.potentialEur} €)`;
-      document.getElementById('radarTargetReason').textContent = `Score ${ev.displayScore}% • ${ev.timeBadgeText} • ~${approxMins} min de route`;
+      document.getElementById('radarTargetReason').textContent = `100% Indépendant • Closing ${ev.displayScore}% • ${ev.timeBadgeText} (~${approxMins} min)`;
     }
 
     function focusTopCashTarget() {
@@ -2248,7 +2715,7 @@
       document.getElementById('doneProgressBadge').textContent = `${doneCount}/${totalStops}`;
       document.getElementById('statTotalCash').textContent = remainingCash.toLocaleString('fr-FR') + ' €';
       const distTxt = document.getElementById('statDistance').textContent;
-      document.getElementById('mapPillText').textContent = `${doneCount}/${totalStops} faits • Potentiel : ${remainingCash.toLocaleString('fr-FR')} € (${distTxt})`;
+      document.getElementById('mapPillText').textContent = `${doneCount}/${totalStops} faits • ${distTxt}`;
     }
 
     function toggleStopDone(stepPos, address) {
