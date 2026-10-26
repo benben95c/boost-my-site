@@ -47,58 +47,60 @@
 
     /* TOP APP SWITCHER BAR (IDENTICAL TO MAP) */
     header {
-      height: 48px;
-      background: #0F172A;
-      border-bottom: 1px solid #1E293B;
-      padding: 0 12px;
+      height: 50px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E7EB;
+      padding: 0 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 40;
-      gap: 8px;
+      gap: 10px;
     }
 
     .app-switch {
       display: inline-flex;
-      background: #1E293B;
+      background: #F3F4F6;
       padding: 3px;
-      border-radius: 9px;
+      border-radius: 8px;
       gap: 2px;
+      border: 1px solid #E5E7EB;
     }
 
     .app-switch a {
       text-decoration: none;
       font-size: 12px;
-      font-weight: 800;
-      padding: 6px 10px;
-      border-radius: 7px;
-      color: #94A3B8;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      color: #6B7280;
     }
 
     .app-switch a.active {
-      background: var(--gblue);
-      color: #fff;
+      background: #FFFFFF;
+      color: #111827;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
 
     .btn-top {
-      padding: 6px 10px;
-      border-radius: 8px;
+      padding: 6px 11px;
+      border-radius: 7px;
       font-family: var(--font);
       font-size: 12px;
-      font-weight: 700;
-      border: 1px solid #334155;
-      background: #1E293B;
-      color: #fff;
+      font-weight: 600;
+      border: 1px solid #E5E7EB;
+      background: #FFFFFF;
+      color: #111827;
       text-decoration: none;
     }
 
     .pin-lock-screen {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at top, #1E293B 0%, #0F172A 75%);
-      color: #fff;
+      background: #FFFFFF;
+      color: #111827;
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -113,46 +115,46 @@
 
     .pin-card {
       width: 100%;
-      max-width: 340px;
+      max-width: 320px;
       text-align: center;
     }
 
     .pin-dots {
       display: flex;
       justify-content: center;
-      gap: 14px;
-      margin: 18px 0 22px;
+      gap: 12px;
+      margin: 20px 0 24px;
     }
 
     .pin-dot {
-      width: 16px;
-      height: 16px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      border: 2px solid #475569;
+      border: 1.5px solid #D1D5DB;
     }
 
     .pin-dot.filled {
-      background: #F59E0B;
-      border-color: #F59E0B;
+      background: #111827;
+      border-color: #111827;
     }
 
     .pin-keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      max-width: 270px;
-      margin: 0 auto 18px;
+      gap: 10px;
+      max-width: 240px;
+      margin: 0 auto 20px;
     }
 
     .pin-key {
-      height: 58px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.06);
-      color: #fff;
+      height: 54px;
+      border-radius: 12px;
+      border: 1px solid #E5E7EB;
+      background: #F9FAFB;
+      color: #111827;
       font-family: var(--font);
-      font-size: 22px;
-      font-weight: 800;
+      font-size: 20px;
+      font-weight: 600;
       cursor: pointer;
     }
 
@@ -505,9 +507,8 @@
   <!-- ÉCRAN DE VERROUILLAGE PAR CODE PIN (ACCÈS ÉQUIPE DEV UNIQUEMENT : 9595) -->
   <div class="pin-lock-screen" id="pinLockScreen">
     <div class="pin-card">
-      <div style="display:inline-block; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); color:#FBBF24; padding:5px 12px; border-radius:99px; font-size:11px; font-weight:800; text-transform:uppercase; margin-bottom:12px;">🔒 Accès Interne Équipe</div>
-      <div style="font-size:22px; font-weight:900; margin-bottom:5px;">BoostMySite Pro</div>
-      <div style="font-size:12.5px; color:#94A3B8;">Entrez le code PIN développeur</div>
+      <div style="font-size:18px; font-weight:700; margin-bottom:4px; color:#111827;">BoostMySite — Interne</div>
+      <div style="font-size:13px; color:#6B7280;">Code d'accès équipe</div>
       <div class="pin-dots">
         <div class="pin-dot" id="pDot0"></div>
         <div class="pin-dot" id="pDot1"></div>
@@ -524,26 +525,26 @@
         <button type="button" class="pin-key" onclick="pressPin('7')">7</button>
         <button type="button" class="pin-key" onclick="pressPin('8')">8</button>
         <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
-        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:14px; color:#94A3B8;">C</button>
+        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:13px; color:#6B7280;">C</button>
         <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
-        <button type="button" class="pin-key" onclick="backspacePin()" style="font-size:16px;">⌫</button>
+        <button type="button" class="pin-key" onclick="backspacePin()" style="font-size:15px;">⌫</button>
       </div>
-      <a href="../index.html" style="color:#64748B; font-size:12px; text-decoration:none;">← Retour au site public boost-my-site.com</a>
+      <a href="../index.html" style="color:#6B7280; font-size:12px; text-decoration:none;">Retour au site public</a>
     </div>
   </div>
 
   <!-- BARRE HAUTE : SWITCH 1-CLIC CARTE / DEVIS -->
   <header id="internalHeader">
     <div class="app-switch">
-      <a href="tournee-clients.html">📍 Carte</a>
-      <a href="devis-express.html" class="active">📄 Devis</a>
+      <a href="tournee-clients.html">Carte</a>
+      <a href="devis-express.html" class="active">Devis</a>
     </div>
     <a href="../portfolio.html" class="btn-top">Démos</a>
   </header>
 
   <div id="pdfAutoBanner" class="pdf-auto-banner">
-    <span>✅ Devis PDF téléchargé sur votre appareil !</span>
-    <button type="button" class="btn-action btn-pdf" style="padding:7px 12px; font-size:12px;" onclick="downloadPDF()">⬇️ Re-télécharger le PDF</button>
+    <span>Devis PDF téléchargé sur votre appareil.</span>
+    <button type="button" class="btn-action btn-pdf" style="padding:7px 12px; font-size:12px;" onclick="downloadPDF()">Télécharger à nouveau</button>
   </div>
 
   <main class="sheet">
@@ -569,8 +570,8 @@
         <input type="tel" id="clientPhone" placeholder="Téléphone WhatsApp (06 / 07...)">
       </div>
       <input type="text" id="clientAddress" style="margin-top:8px;" placeholder="Adresse (optionnel)">
-      <button type="button" onclick="openDirectWhatsAppChat()" style="margin-top:8px; width:100%; padding:8px 10px; border-radius:8px; border:1px solid #BBF7D0; background:#F0FDF4; color:#15803D; font-family:var(--font); font-size:12px; font-weight:700; cursor:pointer; text-align:center;">
-        💬 Numéro non enregistré ? Ouvrir le chat WhatsApp direct + Lien PDF
+      <button type="button" onclick="openDirectWhatsAppChat()" style="margin-top:8px; width:100%; padding:8px 10px; border-radius:8px; border:1px solid #E5E7EB; background:#F9FAFB; color:#374151; font-family:var(--font); font-size:12px; font-weight:600; cursor:pointer; text-align:center;">
+        Numéro non enregistré ? Ouvrir la discussion WhatsApp directe
       </button>
     </div>
 
@@ -633,7 +634,7 @@
     </div>
   </main>
 
-  <div id="toast" class="toast">📄 PDF généré et prêt pour WhatsApp !</div>
+  <div id="toast" class="toast">PDF généré et prêt pour WhatsApp</div>
 
   <!-- BARRE BASSE FIXE POUR ENVOYER D'UNE MAIN SUR TÉLÉPHONE -->
   <div class="sticky-bottom-bar">
@@ -644,10 +645,10 @@
       </div>
       <div class="sticky-btns">
         <button type="button" class="btn-action btn-wa" onclick="sendWhatsAppWithPDF()" title="Génère le fichier PDF et l'envoie sur WhatsApp">
-          📲 WhatsApp + PDF
+          WhatsApp + PDF
         </button>
         <button type="button" class="btn-action btn-pdf" onclick="downloadPDF()" title="Télécharger directement le fichier PDF">
-          📄 PDF
+          Télécharger PDF
         </button>
       </div>
     </div>
