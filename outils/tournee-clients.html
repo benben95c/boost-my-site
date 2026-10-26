@@ -800,6 +800,15 @@
        VERSION MOBILE (< 920px)
        ========================================================== */
     @media (max-width: 920px) {
+      .app-header-row {
+        height: 46px;
+        padding: 0 10px;
+      }
+
+      .hide-on-mobile {
+        display: none !important;
+      }
+
       .priority-inline-bar {
         display: none;
       }
@@ -827,6 +836,17 @@
         display: none !important;
       }
 
+      .map-right-dock {
+        top: 10px;
+        right: 10px;
+        gap: 5px;
+      }
+
+      .map-ctrl-btn {
+        padding: 6px 9px;
+        font-size: 11.5px;
+      }
+
       .sidebar {
         position: absolute;
         inset: 0;
@@ -846,11 +866,15 @@
         display: none;
       }
 
+      .client-list {
+        max-height: none;
+      }
+
       .sheet-mobile-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 14px;
+        padding: 10px 12px;
         border-bottom: 1px solid var(--border);
         background: var(--surface);
         flex-shrink: 0;
@@ -890,17 +914,17 @@
         font-family: var(--font);
         font-size: 11px;
         font-weight: 600;
-        margin-bottom: 6px;
+        margin-bottom: 5px;
         cursor: pointer;
         box-shadow: 0 2px 6px rgba(0,0,0,0.12);
       }
 
       .map-cards-strip {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        padding: 2px 12px 4px;
+        padding: 2px 10px 4px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
       }
@@ -908,17 +932,17 @@
       .map-cards-strip::-webkit-scrollbar { display: none; }
 
       .map-stop-card {
-        flex: 0 0 calc(100vw - 24px);
+        flex: 0 0 calc(100vw - 20px);
         max-width: 390px;
         scroll-snap-align: center;
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 11px 12px;
+        border-radius: 11px;
+        padding: 10px 11px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
       }
 
       .map-stop-card.done-card {
@@ -944,7 +968,7 @@
         background: var(--bg);
         color: var(--ink);
         border-radius: 5px;
-        padding: 3px 8px;
+        padding: 2px 7px;
         font-size: 11px;
         font-weight: 600;
         cursor: pointer;
@@ -971,9 +995,21 @@
         text-overflow: ellipsis;
       }
 
+      .msc-status-compact {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .msc-actions-row {
         display: grid;
-        grid-template-columns: 1.2fr 1fr 1fr 1fr;
+        grid-template-columns: 1.15fr 1fr 1fr 1fr;
         gap: 5px;
         margin-top: 2px;
       }
@@ -1019,7 +1055,7 @@
       }
 
       .mobile-bottom-nav {
-        height: calc(52px + var(--safe-bottom));
+        height: calc(54px + var(--safe-bottom));
         padding-bottom: var(--safe-bottom);
         background: var(--surface);
         border-top: 1px solid var(--border);
@@ -1033,13 +1069,25 @@
         border: none;
         background: transparent;
         font-family: var(--font);
-        font-size: 11.5px;
+        font-size: 11px;
         font-weight: 600;
         color: var(--muted);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 3px;
         cursor: pointer;
+      }
+
+      .m-nav-btn svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .m-nav-btn.active {
@@ -1098,7 +1146,7 @@
       </div>
 
       <div class="top-right">
-        <button type="button" class="btn-top btn-top-primary" onclick="openScannerModal()">Scanner la zone</button>
+        <button type="button" class="btn-top btn-top-primary hide-on-mobile" onclick="openScannerModal()">Scanner la zone</button>
         <button type="button" class="btn-top" onclick="loadPontoisePreset(true)" title="Recharger les 18 commerces">Pontoise (18)</button>
         <button type="button" class="btn-top btn-top-danger" onclick="clearAllProspects()" title="Vider toute la liste">Vider</button>
       </div>
@@ -1107,9 +1155,10 @@
 
   <!-- INDICATEUR DE PRIORITÉ COMPACT SUR MOBILE -->
   <div class="mobile-priority-strip" onclick="focusTopCashTarget()">
-    <div style="min-width:0; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+    <div style="min-width:0; flex:1; display:flex; align-items:center; gap:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+      <span class="dot-live"></span>
       <span style="color:var(--muted);">Priorité :</span>
-      <strong id="mobileRadarName" style="color:var(--ink);">Chargement...</strong>
+      <strong id="mobileRadarName" style="color:var(--ink); overflow:hidden; text-overflow:ellipsis;">Chargement...</strong>
     </div>
     <button type="button" class="btn btn-outline btn-xs" onclick="event.stopPropagation(); toggleSortMode();" id="mobileSortBtn">Trier par potentiel</button>
   </div>
@@ -1299,10 +1348,22 @@
 
   <!-- NAVIGATION BASSE SUR MOBILE -->
   <nav class="mobile-bottom-nav">
-    <button type="button" class="m-nav-btn active" id="mNavMap" onclick="switchMobileMode('map')">Carte</button>
-    <button type="button" class="m-nav-btn" onclick="openScannerModal()">Scanner</button>
-    <button type="button" class="m-nav-btn" id="mNavList" onclick="switchMobileMode('route')">Liste (<span id="mNavCount">0</span>)</button>
-    <button type="button" class="m-nav-btn" id="mNavSetup" onclick="switchMobileMode('setup')">Adresses</button>
+    <button type="button" class="m-nav-btn active" id="mNavMap" onclick="switchMobileMode('map')">
+      <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+      <span>Carte</span>
+    </button>
+    <button type="button" class="m-nav-btn" onclick="openScannerModal()">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <span>Scanner</span>
+    </button>
+    <button type="button" class="m-nav-btn" id="mNavList" onclick="switchMobileMode('route')">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+      <span>Liste (<span id="mNavCount">0</span>)</span>
+    </button>
+    <button type="button" class="m-nav-btn" id="mNavSetup" onclick="switchMobileMode('setup')">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <span>Adresses</span>
+    </button>
   </nav>
 
   <script>
@@ -2644,9 +2705,24 @@
         const devisUrl = `devis-express.html?client=${encodeURIComponent(node.name)}&address=${encodeURIComponent(node.address)}&phone=${encodeURIComponent(node.phone || '')}&pack=${encodeURIComponent(node.pack || 'pro')}&price=${encodeURIComponent(ev.potentialEur)}`;
         const cleanTel = (node.phone || '').replace(/\s+/g, '');
 
+        const shortStatusLabel = ev.franchiseStatus === 'indep'
+          ? 'Indépendant'
+          : (ev.franchiseStatus === 'reseau' ? 'Réseau local' : 'Franchise');
+
         const statusLineHtml = `
           <div class="stop-status-line">
             <span class="status-pill ${ev.franchiseStatus}">${ev.statusLabel}</span>
+            <span>${ev.potentialEur} €</span>
+            <span style="color:var(--muted);">·</span>
+            <span>Closing ${ev.displayScore}%</span>
+            <span style="color:var(--muted);">·</span>
+            <span style="color:${ev.isRush ? 'var(--red)' : 'var(--muted)'};">${ev.timeBadgeText}</span>
+          </div>
+        `;
+
+        const mobileStatusLineHtml = `
+          <div class="msc-status-compact">
+            <span class="status-pill ${ev.franchiseStatus}">${shortStatusLabel}</span>
             <span>${ev.potentialEur} €</span>
             <span style="color:var(--muted);">·</span>
             <span>Closing ${ev.displayScore}%</span>
@@ -2692,7 +2768,7 @@
               <div class="msc-title">${stepPos}. ${escHtml(node.name)}</div>
               <div class="msc-addr">${escHtml(node.address)}</div>
             </div>
-            ${statusLineHtml}
+            ${mobileStatusLineHtml}
             <div class="msc-actions-row">
               <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">Itinéraire</a>
               <button type="button" class="msc-btn ${isDone ? 'is-done' : ''}" id="mscDoneBtn-${stepPos}" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
@@ -2736,7 +2812,11 @@
 
       routeShadowLine = L.polyline(drawnGeometry, { color: '#FFFFFF', weight: 7, opacity: 0.9 }).addTo(map);
       routeMainLine = L.polyline(drawnGeometry, { color: '#2563EB', weight: 4, opacity: 0.95 }).addTo(map);
-      map.fitBounds(routeMainLine.getBounds(), { padding: [40, 40] });
+      if (window.innerWidth <= 920) {
+        map.fitBounds(routeMainLine.getBounds(), { paddingTopLeft: [24, 24], paddingBottomRight: [24, 155] });
+      } else {
+        map.fitBounds(routeMainLine.getBounds(), { padding: [40, 40] });
+      }
 
       buildGoogleMapsExportLinks(orderedNodes);
     }
@@ -2803,6 +2883,7 @@
         }
       });
       document.getElementById('doneProgressBadge').textContent = `${doneCount}/${totalStops}`;
+      document.getElementById('mNavCount').textContent = `${doneCount}/${totalStops}`;
       document.getElementById('statTotalCash').textContent = remainingCash.toLocaleString('fr-FR') + ' €';
     }
 
@@ -2861,6 +2942,10 @@
     }
 
     function scrollStripToStep(stepPos) {
+      const wrap = document.getElementById('mapBottomWrapper');
+      if (wrap && wrap.classList.contains('collapsed')) {
+        toggleBottomCardsCollapse();
+      }
       const card = document.getElementById(`mscCard-${stepPos}`);
       const strip = document.getElementById('mapCardsStrip');
       if (card && strip) {
