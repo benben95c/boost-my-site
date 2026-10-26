@@ -247,13 +247,27 @@
       font-size: 0.96rem;
     }
 
+    .ba-wrapper,
+    .ba-wrapper * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .ba-wrapper *::selection {
+      background: transparent;
+      color: inherit;
+    }
+
     .ba-wrapper {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 8.5;
       overflow: hidden;
-      user-select: none;
       background: #1A1917;
+      cursor: ew-resize;
+      touch-action: pan-y;
     }
 
     .ba-wrapper img {
@@ -279,6 +293,7 @@
       background: #fff;
       cursor: ew-resize;
       z-index: 10;
+      pointer-events: none;
     }
 
     .ba-knob {
@@ -297,6 +312,7 @@
       font-size: 0.85rem;
       font-weight: 700;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      pointer-events: none;
     }
 
     .ba-label {
@@ -309,6 +325,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       z-index: 5;
+      pointer-events: none;
     }
 
     .ba-label.left { left: 24px; }
@@ -551,8 +568,8 @@
         </div>
 
         <div class="ba-wrapper" id="baSlider">
-          <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=85" alt="Après rénovation">
-          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=80" class="ba-before" id="baBeforeImg" alt="Avant rénovation">
+          <img src="project-artisan.jpg" draggable="false" alt="Après rénovation" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=85'">
+          <img src="artisan-before.jpg" draggable="false" class="ba-before" id="baBeforeImg" alt="Avant rénovation" onerror="this.src='https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=80'">
           <span class="ba-label left">État initial</span>
           <span class="ba-label right">Livraison Valmont</span>
           <div class="ba-handle" id="baHandle">
@@ -570,40 +587,53 @@
             <p class="eyebrow">Matériauthèque Interactive</p>
             <h2>Composez vos finitions en 3D</h2>
           </div>
-          <p>Manipulez la scène à la souris et testez nos harmonies de pierres naturelles et d'essences de bois.</p>
+          <p>Manipulez la maquette architecturale à la souris (rotation 360° & zoom) et testez nos harmonies de pierres naturelles et d'essences de bois.</p>
         </div>
 
         <div class="studio-grid">
-          <div class="canvas-box" id="threeContainer">
-            <div class="canvas-hint">Maintenez le clic pour pivoter la vue 3D</div>
+          <div class="canvas-box" id="threeContainer" style="height: 540px;">
+            <div style="position:absolute; top:14px; left:14px; z-index:10; display:flex; gap:6px; flex-wrap:wrap;">
+              <button type="button" class="swatch-btn active" style="padding:7px 12px; font-size:0.76rem;" onclick="setCamView('overview', this)">Vue d'ensemble</button>
+              <button type="button" class="swatch-btn" style="padding:7px 12px; font-size:0.76rem;" onclick="setCamView('vanity', this)">Focus Double Vasque</button>
+              <button type="button" class="swatch-btn" style="padding:7px 12px; font-size:0.76rem;" onclick="setCamView('bath', this)">Focus Baignoire & Douche</button>
+            </div>
+            <div class="canvas-hint">Glissez pour pivoter à 360° • Molette pour zoomer</div>
           </div>
 
           <div>
             <div class="swatch-group">
-              <span class="swatch-label">1. Revêtement mural & sol</span>
+              <span class="swatch-label">1. Revêtement mural & sol (Calepinage grand format)</span>
               <div class="swatch-row">
-                <button class="swatch-btn active" onclick="setStone('#E5DEC9', this)">Travertin Romain</button>
-                <button class="swatch-btn" onclick="setStone('#D8D6D0', this)">Marbre de Carrare</button>
-                <button class="swatch-btn" onclick="setStone('#3B3A37', this)">Ardoise d'Angers</button>
-                <button class="swatch-btn" onclick="setStone('#C8B9A6', this)">Pierre de Bourgogne</button>
+                <button class="swatch-btn active" onclick="setStone('travertin', this)">Travertin Romain</button>
+                <button class="swatch-btn" onclick="setStone('carrare', this)">Marbre de Carrare</button>
+                <button class="swatch-btn" onclick="setStone('ardoise', this)">Ardoise d'Angers</button>
+                <button class="swatch-btn" onclick="setStone('bourgogne', this)">Pierre de Bourgogne</button>
               </div>
             </div>
 
             <div class="swatch-group">
-              <span class="swatch-label">2. Meuble vasque</span>
+              <span class="swatch-label">2. Meuble vasque cannelé sur mesure</span>
               <div class="swatch-row">
-                <button class="swatch-btn active" onclick="setWood('#6E4F35', this)">Noyer Américain</button>
-                <button class="swatch-btn" onclick="setWood('#B89768', this)">Chêne Clair Brossé</button>
-                <button class="swatch-btn" onclick="setWood('#242220', this)">Frêne Noirci</button>
-                <button class="swatch-btn" onclick="setWood('#DED8CE', this)">Laque Argile Mate</button>
+                <button class="swatch-btn active" onclick="setWood('noyer', this)">Noyer Américain</button>
+                <button class="swatch-btn" onclick="setWood('chene', this)">Chêne Clair Brossé</button>
+                <button class="swatch-btn" onclick="setWood('frene', this)">Frêne Noirci</button>
+                <button class="swatch-btn" onclick="setWood('argile', this)">Laque Argile Mate</button>
               </div>
             </div>
 
             <div class="swatch-group">
-              <span class="swatch-label">3. Atmosphère lumineuse</span>
+              <span class="swatch-label">3. Robinetterie & Détails métalliques</span>
               <div class="swatch-row">
-                <button class="swatch-btn active" onclick="setLight('day', this)">Lumière du jour</button>
-                <button class="swatch-btn" onclick="setLight('warm', this)">Soirée tamisée (2700K)</button>
+                <button class="swatch-btn active" onclick="setMetal('brass', this)">Laiton Brossé</button>
+                <button class="swatch-btn" onclick="setMetal('black', this)">Noir Mat Architecte</button>
+              </div>
+            </div>
+
+            <div class="swatch-group" style="margin-bottom:0;">
+              <span class="swatch-label">4. Atmosphère lumineuse</span>
+              <div class="swatch-row">
+                <button class="swatch-btn active" onclick="setLight('day', this)">Lumière Zénithale</button>
+                <button class="swatch-btn" onclick="setLight('warm', this)">Soirée Tamisée (2700K)</button>
               </div>
             </div>
           </div>
@@ -679,22 +709,39 @@
   </footer>
 
   <script>
-    // BEFORE / AFTER SLIDER
+    // BEFORE / AFTER SLIDER (ZERO BLUE TEXT SELECTION)
     const slider = document.getElementById('baSlider');
     const beforeImg = document.getElementById('baBeforeImg');
     const handle = document.getElementById('baHandle');
     let dragging = false;
 
+    function clearBrowserSelection() {
+      if (window.getSelection) {
+        const sel = window.getSelection();
+        if (sel && sel.removeAllRanges) sel.removeAllRanges();
+      }
+    }
+
     function moveSlider(clientX) {
       const rect = slider.getBoundingClientRect();
       let pos = ((clientX - rect.left) / rect.width) * 100;
-      pos = Math.max(5, Math.min(95, pos));
+      pos = Math.max(4, Math.min(96, pos));
       beforeImg.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
       handle.style.left = `${pos}%`;
     }
 
-    slider.addEventListener('mousedown', (e) => { dragging = true; moveSlider(e.clientX); });
-    window.addEventListener('mousemove', (e) => { if (dragging) moveSlider(e.clientX); });
+    slider.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      clearBrowserSelection();
+      dragging = true;
+      moveSlider(e.clientX);
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      e.preventDefault();
+      clearBrowserSelection();
+      moveSlider(e.clientX);
+    });
     window.addEventListener('mouseup', () => { dragging = false; });
     slider.addEventListener('touchstart', (e) => { dragging = true; moveSlider(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('touchmove', (e) => { if (dragging) moveSlider(e.touches[0].clientX); }, { passive: true });
@@ -715,8 +762,92 @@
       document.getElementById('priceOutput').textContent = total.toLocaleString('fr-FR') + ' €';
     }
 
-    // MINIMAL ARCHITECTURAL 3D SCENE
-    let wallMat, woodMat, ambientLight, spotLight;
+    // PROCEDURAL TEXTURE GENERATORS FOR ARCHITECTURAL 3D SCENE
+    function createStoneTexture(preset) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+
+      const palettes = {
+        travertin: { bg: '#E6DFCE', vein1: '#D2C7B0', vein2: '#F3EFE6', grout: '#C4B9A2', mode: 'travertine' },
+        carrare:   { bg: '#F3F2EE', vein1: '#C5C7CC', vein2: '#E1E2E5', grout: '#D6D5D0', mode: 'marble' },
+        ardoise:   { bg: '#2F3133', vein1: '#3D4043', vein2: '#232527', grout: '#484B4F', mode: 'slate' },
+        bourgogne: { bg: '#D4C5B0', vein1: '#BFA98E', vein2: '#E4D8C6', grout: '#B39F84', mode: 'limestone' }
+      };
+      const p = palettes[preset] || palettes.travertin;
+
+      ctx.fillStyle = p.bg;
+      ctx.fillRect(0, 0, 512, 512);
+
+      // Subtle mineral grain & natural veins
+      for (let i = 0; i < 160; i++) {
+        ctx.strokeStyle = i % 2 === 0 ? p.vein1 : p.vein2;
+        ctx.globalAlpha = 0.22 + (i % 5) * 0.04;
+        ctx.lineWidth = p.mode === 'marble' ? (0.8 + (i % 3) * 0.9) : (1.5 + (i % 4));
+        ctx.beginPath();
+        let x = (i * 37) % 512;
+        let y = (i * 53) % 512;
+        ctx.moveTo(x, y);
+        for (let s = 0; s < 5; s++) {
+          x += p.mode === 'travertine' ? 45 : (Math.sin(i + s) * 38);
+          y += p.mode === 'travertine' ? (Math.cos(i + s) * 6) : 28;
+          ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      // Large-format architectural slab joints (Calepinage 120x60)
+      ctx.globalAlpha = 0.65;
+      ctx.strokeStyle = p.grout;
+      ctx.lineWidth = 2;
+      for (let gx = 128; gx < 512; gx += 128) {
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, 512); ctx.stroke();
+      }
+      for (let gy = 128; gy < 512; gy += 128) {
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(512, gy); ctx.stroke();
+      }
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(2, 1.5);
+      return tex;
+    }
+
+    function createWoodTexture(preset) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+
+      const woods = {
+        noyer:  { bg: '#5E412B', fiber: '#472F1D', highlight: '#735238' },
+        chene:  { bg: '#C2A278', fiber: '#A8875C', highlight: '#D4B78E' },
+        frene:  { bg: '#22211F', fiber: '#151413', highlight: '#33312E' },
+        argile: { bg: '#DFD9CE', fiber: '#D4CEC2', highlight: '#EAE5DC' }
+      };
+      const w = woods[preset] || woods.noyer;
+
+      ctx.fillStyle = w.bg;
+      ctx.fillRect(0, 0, 512, 512);
+
+      for (let i = 0; i < 240; i++) {
+        ctx.fillStyle = i % 3 === 0 ? w.highlight : w.fiber;
+        ctx.globalAlpha = preset === 'argile' ? 0.08 : 0.22;
+        const x = (i * 19) % 512;
+        ctx.fillRect(x, 0, 2 + (i % 3), 512);
+      }
+
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    // ARCHITECTURAL 3D BATHROOM MAQUETTE
+    let wallMat, floorMat, woodMat, metalMat, ambientLight, sunLight, mirrorHaloLight, nicheLight;
+    let camTargetPos = { x: 4.1, y: 2.55, z: 4.6 };
+    let camLookTarget = { x: 0.0, y: 1.05, z: -0.3 };
+    let roomGroup;
+
     (function init3D() {
       const container = document.getElementById('threeContainer');
       if (!container || typeof THREE === 'undefined') return;
@@ -724,112 +855,365 @@
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xE8E2D7);
 
-      const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
-      camera.position.set(4.2, 3.1, 5.2);
-      camera.lookAt(0, 0.8, 0);
+      const camera = new THREE.PerspectiveCamera(36, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.set(camTargetPos.x, camTargetPos.y, camTargetPos.z);
 
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       container.appendChild(renderer.domElement);
 
-      ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+      // Lighting
+      ambientLight = new THREE.AmbientLight(0xFFFDF9, 0.72);
       scene.add(ambientLight);
 
-      spotLight = new THREE.DirectionalLight(0xfff6e5, 0.9);
-      spotLight.position.set(5, 8, 6);
-      spotLight.castShadow = true;
-      scene.add(spotLight);
+      sunLight = new THREE.DirectionalLight(0xFFF6E6, 0.92);
+      sunLight.position.set(4.5, 7.5, 5.5);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 1024;
+      sunLight.shadow.mapSize.height = 1024;
+      scene.add(sunLight);
 
-      const group = new THREE.Group();
-      scene.add(group);
+      mirrorHaloLight = new THREE.PointLight(0xFFCF8B, 0.85, 3.8);
+      mirrorHaloLight.position.set(0.75, 1.92, -1.35);
+      scene.add(mirrorHaloLight);
 
-      wallMat = new THREE.MeshStandardMaterial({ color: 0xE5DEC9, roughness: 0.55 });
-      woodMat = new THREE.MeshStandardMaterial({ color: 0x6E4F35, roughness: 0.45 });
-      const porcelainMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.15 });
-      const brassMat = new THREE.MeshStandardMaterial({ color: 0xB5945B, metalness: 0.8, roughness: 0.25 });
+      nicheLight = new THREE.PointLight(0xFFD296, 0.7, 2.5);
+      nicheLight.position.set(-1.35, 1.65, -1.42);
+      scene.add(nicheLight);
 
-      // Floor & Walls
-      const floor = new THREE.Mesh(new THREE.BoxGeometry(4, 0.15, 3.4), wallMat);
+      roomGroup = new THREE.Group();
+      scene.add(roomGroup);
+
+      // Core Materials
+      const stoneTex = createStoneTexture('travertin');
+      wallMat = new THREE.MeshStandardMaterial({ map: stoneTex, roughness: 0.48, metalness: 0.04 });
+      floorMat = new THREE.MeshStandardMaterial({ map: stoneTex, roughness: 0.42, metalness: 0.05 });
+
+      const woodTex = createWoodTexture('noyer');
+      woodMat = new THREE.MeshStandardMaterial({ map: woodTex, roughness: 0.42, metalness: 0.05 });
+
+      metalMat = new THREE.MeshStandardMaterial({ color: 0xC5A067, metalness: 0.86, roughness: 0.22 });
+      const porcelainMat = new THREE.MeshStandardMaterial({ color: 0xFAF8F5, roughness: 0.14, metalness: 0.02 });
+      const counterMarbleMat = new THREE.MeshStandardMaterial({ color: 0xF5F3EE, roughness: 0.18 });
+      const waterMat = new THREE.MeshStandardMaterial({ color: 0xB8DBD9, roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.82 });
+      const mirrorGlassMat = new THREE.MeshStandardMaterial({ color: 0xE6ECEF, metalness: 0.92, roughness: 0.06 });
+      const haloEmissiveMat = new THREE.MeshBasicMaterial({ color: 0xFFE3B3 });
+      const showerGlassMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.24, roughness: 0.05, metalness: 0.2 });
+
+      // 1. ARCHITECTURAL SHELL (FLOOR, BACK WALL, LEFT WALL, SHOWER CURB)
+      const floor = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.16, 3.8), floorMat);
+      floor.position.set(0, -0.08, 0);
       floor.receiveShadow = true;
-      group.add(floor);
+      roomGroup.add(floor);
 
-      const backWall = new THREE.Mesh(new THREE.BoxGeometry(4, 2.8, 0.15), wallMat);
-      backWall.position.set(0, 1.4, -1.62);
+      const backWall = new THREE.Mesh(new THREE.BoxGeometry(4.6, 3.0, 0.16), wallMat);
+      backWall.position.set(0, 1.5, -1.82);
       backWall.receiveShadow = true;
-      group.add(backWall);
+      roomGroup.add(backWall);
 
-      const sideWall = new THREE.Mesh(new THREE.BoxGeometry(0.15, 2.8, 3.4), wallMat);
-      sideWall.position.set(-1.92, 1.4, 0);
-      group.add(sideWall);
+      const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.16, 3.0, 3.8), wallMat);
+      leftWall.position.set(-2.22, 1.5, 0);
+      leftWall.receiveShadow = true;
+      roomGroup.add(leftWall);
 
-      // Floating Vanity
-      const vanity = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.45, 0.75), woodMat);
-      vanity.position.set(0.2, 0.85, -1.15);
-      vanity.castShadow = true;
-      group.add(vanity);
+      // Baseboard plinth
+      const plinth = new THREE.Mesh(new THREE.BoxGeometry(4.44, 0.08, 0.03), metalMat);
+      plinth.position.set(0.08, 0.04, -1.73);
+      roomGroup.add(plinth);
 
-      // Basin
-      const basin = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.22, 0.18, 32), porcelainMat);
-      basin.position.set(0.2, 1.16, -1.15);
-      group.add(basin);
+      // 2. FLOATING FLUTED DOUBLE VANITY (MEUBLE DOUBLE VASQUE CANNELÉ)
+      const vanityGroup = new THREE.Group();
+      vanityGroup.position.set(0.75, 0.78, -1.34);
+      roomGroup.add(vanityGroup);
 
-      // Mirror with brass rim
-      const mirrorRim = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.04, 48), brassMat);
-      mirrorRim.rotation.x = Math.PI / 2;
-      mirrorRim.position.set(0.2, 1.9, -1.52);
-      group.add(mirrorRim);
+      const vanityBody = new THREE.Mesh(new THREE.BoxGeometry(2.1, 0.44, 0.72), woodMat);
+      vanityBody.castShadow = true;
+      vanityBody.receiveShadow = true;
+      vanityGroup.add(vanityBody);
 
-      // Monolithic bathtub
-      const tub = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.55, 0.62, 36), porcelainMat);
-      tub.scale.set(1.35, 1, 0.85);
-      tub.position.set(-0.75, 0.38, 0.45);
-      tub.castShadow = true;
-      group.add(tub);
+      // 26 Vertical 3D Fluted Wood Slats (Tasseaux architecturaux)
+      for (let i = 0; i < 26; i++) {
+        const slat = new THREE.Mesh(new THREE.BoxGeometry(0.052, 0.42, 0.025), woodMat);
+        slat.position.set(-0.98 + i * 0.078, 0, 0.365);
+        slat.castShadow = true;
+        vanityGroup.add(slat);
+      }
 
-      let isDown = false, prevX = 0;
-      container.addEventListener('mousedown', (e) => { isDown = true; prevX = e.clientX; });
-      window.addEventListener('mouseup', () => { isDown = false; });
-      window.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        group.rotation.y += (e.clientX - prevX) * 0.007;
-        group.rotation.y = Math.max(-0.6, Math.min(0.8, group.rotation.y));
-        prevX = e.clientX;
+      // Brass drawer reveal strip
+      const brassStrip = new THREE.Mesh(new THREE.BoxGeometry(2.08, 0.015, 0.74), metalMat);
+      brassStrip.position.set(0, 0.08, 0.01);
+      vanityGroup.add(brassStrip);
+
+      // Monolithic Marble Countertop
+      const countertop = new THREE.Mesh(new THREE.BoxGeometry(2.14, 0.05, 0.75), counterMarbleMat);
+      countertop.position.set(0, 0.245, 0);
+      countertop.castShadow = true;
+      vanityGroup.add(countertop);
+
+      // Double Sculpted Vessel Basins + Wall-Mounted Brass Faucets
+      [-0.52, 0.52].forEach((offsetX) => {
+        // Outer basin shell
+        const basinOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.19, 0.15, 36), porcelainMat);
+        basinOuter.position.set(offsetX, 0.34, 0.02);
+        basinOuter.castShadow = true;
+        vanityGroup.add(basinOuter);
+
+        // Inner water & brass drain
+        const basinWater = new THREE.Mesh(new THREE.CylinderGeometry(0.21, 0.18, 0.02, 32), waterMat);
+        basinWater.position.set(offsetX, 0.405, 0.02);
+        vanityGroup.add(basinWater);
+
+        const drain = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.025, 20), metalMat);
+        drain.position.set(offsetX, 0.41, 0.02);
+        vanityGroup.add(drain);
+
+        // Wall-mounted faucet spout & mixer lever
+        const escutcheon = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.07, 0.02), metalMat);
+        escutcheon.position.set(offsetX, 0.56, -0.38);
+        vanityGroup.add(escutcheon);
+
+        const spout = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.22, 16), metalMat);
+        spout.rotation.x = Math.PI / 2;
+        spout.position.set(offsetX - 0.04, 0.56, -0.27);
+        vanityGroup.add(spout);
+
+        const knob = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.07, 16), metalMat);
+        knob.rotation.x = Math.PI / 2;
+        knob.position.set(offsetX + 0.05, 0.56, -0.34);
+        vanityGroup.add(knob);
       });
 
+      // 3. BACKLIT ARCHITECTURAL MIRROR (GRAND MIROIR RÉTRO-ÉCLAIRÉ LED)
+      const mirrorHalo = new THREE.Mesh(new THREE.CylinderGeometry(0.82, 0.82, 0.02, 64), haloEmissiveMat);
+      mirrorHalo.scale.set(1.25, 0.72, 1);
+      mirrorHalo.rotation.x = Math.PI / 2;
+      mirrorHalo.position.set(0.75, 1.92, -1.72);
+      roomGroup.add(mirrorHalo);
+
+      const mirrorFrame = new THREE.Mesh(new THREE.CylinderGeometry(0.79, 0.79, 0.04, 64), metalMat);
+      mirrorFrame.scale.set(1.25, 1, 0.72);
+      mirrorFrame.rotation.x = Math.PI / 2;
+      mirrorFrame.position.set(0.75, 1.92, -1.70);
+      roomGroup.add(mirrorFrame);
+
+      const mirrorSurface = new THREE.Mesh(new THREE.CylinderGeometry(0.76, 0.76, 0.045, 64), mirrorGlassMat);
+      mirrorSurface.scale.set(1.25, 1, 0.72);
+      mirrorSurface.rotation.x = Math.PI / 2;
+      mirrorSurface.position.set(0.75, 1.92, -1.695);
+      roomGroup.add(mirrorSurface);
+
+      // 4. WALK-IN ITALIAN SHOWER (DOUCHE À L'ITALIENNE & PAROI VITRÉE)
+      // Recessed illuminated wall niche
+      const nicheFrame = new THREE.Mesh(new THREE.BoxGeometry(0.78, 0.38, 0.06), metalMat);
+      nicheFrame.position.set(-1.35, 1.62, -1.72);
+      roomGroup.add(nicheFrame);
+
+      const nicheBack = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.32, 0.04), haloEmissiveMat);
+      nicheBack.position.set(-1.35, 1.62, -1.73);
+      roomGroup.add(nicheBack);
+
+      // Overhead rain shower head (Ciel de pluie)
+      const showerArm = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.55, 16), metalMat);
+      showerArm.rotation.z = Math.PI / 2;
+      showerArm.position.set(-1.86, 2.55, -0.95);
+      roomGroup.add(showerArm);
+
+      const showerHead = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.02, 32), metalMat);
+      showerHead.position.set(-1.58, 2.53, -0.95);
+      roomGroup.add(showerHead);
+
+      // Glass Partition & Architectural Frame
+      const glassPane = new THREE.Mesh(new THREE.BoxGeometry(0.025, 2.55, 1.55), showerGlassMat);
+      glassPane.position.set(-0.68, 1.275, -0.96);
+      roomGroup.add(glassPane);
+
+      const glassProfileTop = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 1.56), metalMat);
+      glassProfileTop.position.set(-0.68, 2.55, -0.96);
+      roomGroup.add(glassProfileTop);
+
+      const glassProfileEdge = new THREE.Mesh(new THREE.BoxGeometry(0.04, 2.55, 0.04), metalMat);
+      glassProfileEdge.position.set(-0.68, 1.275, -0.19);
+      roomGroup.add(glassProfileEdge);
+
+      // 5. SCULPTED FREESTANDING BATHTUB (BAIGNOIRE ÎLOT + ROBINET SUR PIED)
+      const tubGroup = new THREE.Group();
+      tubGroup.position.set(-0.85, 0.0, 0.85);
+      tubGroup.rotation.y = 0.22;
+      roomGroup.add(tubGroup);
+
+      const tubOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.66, 0.54, 0.58, 48), porcelainMat);
+      tubOuter.scale.set(1.42, 1, 0.82);
+      tubOuter.position.y = 0.29;
+      tubOuter.castShadow = true;
+      tubGroup.add(tubOuter);
+
+      const tubWater = new THREE.Mesh(new THREE.CylinderGeometry(0.59, 0.50, 0.04, 48), waterMat);
+      tubWater.scale.set(1.38, 1, 0.78);
+      tubWater.position.y = 0.565;
+      tubGroup.add(tubWater);
+
+      // Wooden bath caddy across the tub
+      const bathTray = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.025, 1.12), woodMat);
+      bathTray.position.set(0.12, 0.59, 0);
+      bathTray.castShadow = true;
+      tubGroup.add(bathTray);
+
+      // Floor-standing brass swan-neck faucet
+      const standPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.026, 0.82, 20), metalMat);
+      standPipe.position.set(-0.75, 0.41, -0.42);
+      standPipe.castShadow = true;
+      tubGroup.add(standPipe);
+
+      const standSpout = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.026, 0.026), metalMat);
+      standSpout.position.set(-0.64, 0.81, -0.35);
+      standSpout.rotation.y = -0.45;
+      tubGroup.add(standSpout);
+
+      // 6. ARCHITECTURAL HEATED TOWEL RAIL (SÈCHE-SERVIETTES LAITON)
+      const railGroup = new THREE.Group();
+      railGroup.position.set(-2.11, 1.45, 0.75);
+      roomGroup.add(railGroup);
+
+      [-0.22, 0.22].forEach(zPos => {
+        const post = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 1.25, 12), metalMat);
+        post.position.set(0, 0, zPos);
+        railGroup.add(post);
+      });
+      for (let r = -0.48; r <= 0.48; r += 0.16) {
+        const rung = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.44, 12), metalMat);
+        rung.rotation.x = Math.PI / 2;
+        rung.position.set(0.02, r, 0);
+        railGroup.add(rung);
+      }
+
+      // Mouse Orbit & Wheel Zoom
+      let isDraggingScene = false, prevX = 0, prevY = 0;
+      let targetRotY = -0.18, targetRotX = 0.0;
+
+      container.addEventListener('mousedown', (e) => {
+        if (e.target.tagName === 'BUTTON') return;
+        isDraggingScene = true;
+        prevX = e.clientX;
+        prevY = e.clientY;
+      });
+      window.addEventListener('mouseup', () => { isDraggingScene = false; });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDraggingScene) return;
+        targetRotY += (e.clientX - prevX) * 0.0065;
+        targetRotX += (e.clientY - prevY) * 0.004;
+        targetRotY = Math.max(-0.75, Math.min(0.85, targetRotY));
+        targetRotX = Math.max(-0.2, Math.min(0.28, targetRotX));
+        prevX = e.clientX;
+        prevY = e.clientY;
+      });
+
+      container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const factor = e.deltaY > 0 ? 1.06 : 0.94;
+        camTargetPos.x = Math.max(2.2, Math.min(6.2, camTargetPos.x * factor));
+        camTargetPos.y = Math.max(1.5, Math.min(4.2, camTargetPos.y * factor));
+        camTargetPos.z = Math.max(2.4, Math.min(6.8, camTargetPos.z * factor));
+      }, { passive: false });
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      const lookVec = new THREE.Vector3(camLookTarget.x, camLookTarget.y, camLookTarget.z);
       function animate() {
         requestAnimationFrame(animate);
-        if (!isDown) group.rotation.y += 0.0012;
+        if (!isDraggingScene) {
+          targetRotY += Math.sin(Date.now() * 0.0005) * 0.0004;
+        }
+        roomGroup.rotation.y += (targetRotY - roomGroup.rotation.y) * 0.08;
+        roomGroup.rotation.x += (targetRotX - roomGroup.rotation.x) * 0.08;
+
+        camera.position.x += (camTargetPos.x - camera.position.x) * 0.07;
+        camera.position.y += (camTargetPos.y - camera.position.y) * 0.07;
+        camera.position.z += (camTargetPos.z - camera.position.z) * 0.07;
+        lookVec.x += (camLookTarget.x - lookVec.x) * 0.07;
+        lookVec.y += (camLookTarget.y - lookVec.y) * 0.07;
+        lookVec.z += (camLookTarget.z - lookVec.z) * 0.07;
+        camera.lookAt(lookVec);
+
         renderer.render(scene, camera);
       }
       animate();
     })();
 
-    function setStone(hex, btn) {
-      if (wallMat) wallMat.color.set(hex);
+    function setStone(preset, btn) {
+      const tex = createStoneTexture(preset);
+      if (wallMat && floorMat) {
+        wallMat.map = tex;
+        floorMat.map = tex;
+        wallMat.needsUpdate = true;
+        floorMat.needsUpdate = true;
+      }
       btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
 
-    function setWood(hex, btn) {
-      if (woodMat) woodMat.color.set(hex);
+    function setWood(preset, btn) {
+      const tex = createWoodTexture(preset);
+      if (woodMat) {
+        woodMat.map = tex;
+        woodMat.needsUpdate = true;
+      }
       btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+    }
+
+    function setMetal(preset, btn) {
+      btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (!metalMat) return;
+      if (preset === 'black') {
+        metalMat.color.setHex(0x1E1E1E);
+        metalMat.metalness = 0.45;
+        metalMat.roughness = 0.4;
+      } else {
+        metalMat.color.setHex(0xC5A067);
+        metalMat.metalness = 0.86;
+        metalMat.roughness = 0.22;
+      }
     }
 
     function setLight(mode, btn) {
       btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      if (!ambientLight || !spotLight) return;
+      if (!ambientLight || !sunLight) return;
       if (mode === 'warm') {
-        ambientLight.intensity = 0.42;
-        spotLight.color.setHex(0xffb86c);
-        spotLight.intensity = 1.15;
+        ambientLight.intensity = 0.48;
+        sunLight.color.setHex(0xFFB969);
+        sunLight.intensity = 0.72;
+        if (mirrorHaloLight) mirrorHaloLight.intensity = 1.45;
+        if (nicheLight) nicheLight.intensity = 1.25;
       } else {
-        ambientLight.intensity = 0.75;
-        spotLight.color.setHex(0xfff6e5);
-        spotLight.intensity = 0.9;
+        ambientLight.intensity = 0.72;
+        sunLight.color.setHex(0xFFF6E6);
+        sunLight.intensity = 0.92;
+        if (mirrorHaloLight) mirrorHaloLight.intensity = 0.85;
+        if (nicheLight) nicheLight.intensity = 0.7;
+      }
+    }
+
+    function setCamView(view, btn) {
+      btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (view === 'vanity') {
+        camTargetPos = { x: 1.45, y: 1.65, z: 2.25 };
+        camLookTarget = { x: 0.7, y: 1.25, z: -1.35 };
+      } else if (view === 'bath') {
+        camTargetPos = { x: 1.9, y: 1.85, z: 2.8 };
+        camLookTarget = { x: -1.0, y: 0.85, z: 0.1 };
+      } else {
+        camTargetPos = { x: 4.1, y: 2.55, z: 4.6 };
+        camLookTarget = { x: 0.0, y: 1.05, z: -0.3 };
       }
     }
   </script>
