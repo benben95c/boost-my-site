@@ -3,442 +3,681 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Optimiseur de Tournée Clients | BoostMySite</title>
+  <title>Maps Prospection — Optimiseur de Tournée BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <style>
     :root {
-      --bg: #F6F5F2;
-      --card: #FFFFFF;
-      --ink: #18181B;
-      --muted: #64646B;
-      --primary: #1D4ED8;
-      --primary-hover: #1E40AF;
-      --green: #15803D;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --gblue: #1A73E8;
+      --gblue-hover: #1557B0;
+      --green: #16A34A;
       --green-bg: #DCFCE7;
-      --amber: #B45309;
+      --amber: #D97706;
       --amber-bg: #FEF3C7;
-      --red: #B91C1C;
-      --border: #E4E4E7;
-      --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --red: #DC2626;
+      --border: #E2E8F0;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      background: var(--bg);
-      color: var(--ink);
       font-family: var(--font);
-      line-height: 1.5;
-      padding-bottom: 60px;
-    }
-    header {
-      background: var(--ink);
-      color: #fff;
-      padding: 14px 24px;
+      color: var(--ink);
+      background: var(--bg);
+      height: 100vh;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* TOP BAR */
+    header {
+      height: 58px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      display: flex;
       align-items: center;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      z-index: 20;
+      flex-shrink: 0;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
       gap: 12px;
     }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--gblue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
     header h1 {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .top-actions {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    header a {
-      color: #D4D4D8;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      background: rgba(255,255,255,0.1);
-      padding: 6px 12px;
-      border-radius: 6px;
-    }
-    .container {
-      max-width: 1320px;
-      margin: 24px auto;
-      padding: 0 20px;
+
+    /* MAIN SPLIT WORKSPACE (GOOGLE MAPS LAYOUT) */
+    .workspace {
+      flex: 1;
       display: grid;
       grid-template-columns: 440px 1fr;
-      gap: 24px;
-      align-items: start;
+      overflow: hidden;
+      position: relative;
     }
-    @media (max-width: 1024px) {
-      .container { grid-template-columns: 1fr; }
+
+    /* LEFT SIDEBAR */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 10;
     }
-    .panel {
-      background: var(--card);
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+      background: #F1F5F9;
+      padding: 4px;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .tab-btn {
+      padding: 10px 12px;
+      border: none;
+      background: transparent;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .tab-btn.active {
+      background: var(--surface);
+      color: var(--gblue);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .tab-pane {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px;
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* FORM ELEMENTS */
+    .section-box {
+      background: #F8FAFC;
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 14px;
+      margin-bottom: 14px;
     }
-    .panel h2 {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 12px;
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     label {
       display: block;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 6px;
+      color: var(--ink);
+      margin-bottom: 5px;
     }
-    input[type="text"], input[type="time"], input[type="number"], select, textarea {
+
+    input[type="text"], input[type="time"], select, textarea {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      font-family: inherit;
-      font-size: 14px;
+      font-family: var(--font);
+      font-size: 13.5px;
       color: var(--ink);
-      background: #FAFAFA;
-      outline: none;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--primary);
       background: #fff;
+      outline: none;
+      transition: border-color 0.15s;
     }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gblue);
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
+    }
+
     textarea {
-      min-height: 125px;
+      min-height: 110px;
       resize: vertical;
-      font-size: 13px;
-      line-height: 1.5;
+      line-height: 1.45;
+      font-size: 12.5px;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
+      gap: 7px;
+      padding: 10px 15px;
       border-radius: 8px;
+      font-family: var(--font);
+      font-size: 13px;
       font-weight: 700;
-      font-size: 13.5px;
-      cursor: pointer;
       border: none;
-      font-family: inherit;
-      transition: all 0.15s;
+      cursor: pointer;
       text-decoration: none;
+      transition: all 0.15s;
     }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-hover); }
+
+    .btn-blue { background: var(--gblue); color: #fff; }
+    .btn-blue:hover { background: var(--gblue-hover); }
     .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover { filter: brightness(0.95); }
     .btn-outline {
       background: #fff;
       color: var(--ink);
       border: 1px solid var(--border);
     }
-    .btn-outline:hover { background: #F4F4F5; }
-    .btn-sm { padding: 6px 11px; font-size: 12px; border-radius: 6px; }
+    .btn-outline:hover { background: #F1F5F9; }
+    .btn-xs { padding: 5px 10px; font-size: 11.5px; border-radius: 6px; }
 
-    /* Liste des clients saisis */
-    .raw-list {
+    /* PROSPECT PILLS LIST */
+    .client-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      max-height: 290px;
+      gap: 6px;
+      max-height: 220px;
       overflow-y: auto;
-      margin-top: 12px;
+      margin-top: 10px;
     }
-    .raw-item {
+
+    .client-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
-      background: #F9FAFB;
+      gap: 8px;
+      background: #fff;
       border: 1px solid var(--border);
+      padding: 8px 11px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12.5px;
     }
-    .raw-item strong { display: block; color: var(--ink); }
-    .raw-item span { color: var(--muted); font-size: 12px; }
 
-    /* Carte Leaflet */
-    #map {
+    .client-row strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12.5px;
+    }
+
+    .client-row span {
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+
+    /* STICKY BOTTOM CTA IN SIDEBAR */
+    .sidebar-footer {
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .btn-optimize-main {
       width: 100%;
-      height: 410px;
+      padding: 14px;
+      font-size: 14.5px;
       border-radius: 10px;
-      border: 1px solid var(--border);
-      z-index: 1;
+      box-shadow: 0 4px 14px rgba(26, 115, 232, 0.25);
     }
 
-    /* Résumé de la tournée */
-    .summary-bar {
+    /* STATS STRIP IN RESULTS */
+    .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
     }
-    @media (max-width: 680px) {
-      .summary-bar { grid-template-columns: repeat(2, 1fr); }
-    }
-    .stat-box {
+
+    .stat-card {
       background: #F8FAFC;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 14px;
-    }
-    .stat-box span {
-      font-size: 11.5px;
-      color: var(--muted);
-      font-weight: 600;
-      display: block;
-    }
-    .stat-box strong {
-      font-size: 20px;
-      color: var(--ink);
-      font-weight: 700;
+      border-radius: 9px;
+      padding: 10px;
+      text-align: center;
     }
 
-    /* Feuille de route ordonnée */
-    .itinerary-list {
+    .stat-card span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .stat-card strong {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    /* TIMELINE STOPS */
+    .timeline {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
-    .stop-card {
+
+    .stop-item {
       background: #fff;
       border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 16px;
+      padding: 12px;
       display: grid;
-      grid-template-columns: 42px 1fr auto;
-      gap: 14px;
-      align-items: center;
-      transition: border-color 0.15s;
+      grid-template-columns: 32px 1fr;
+      gap: 11px;
+      cursor: pointer;
+      transition: all 0.15s;
     }
-    .stop-card.visited {
-      opacity: 0.6;
-      background: #F9FAFB;
+
+    .stop-item:hover, .stop-item.active {
+      border-color: var(--gblue);
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
     }
-    @media (max-width: 640px) {
-      .stop-card { grid-template-columns: 36px 1fr; }
-      .stop-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .stop-item.done {
+      opacity: 0.52;
+      background: #F8FAFC;
     }
-    .stop-num {
-      width: 38px;
-      height: 38px;
+
+    .badge-num {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: var(--primary);
+      background: var(--gblue);
       color: #fff;
-      font-weight: 700;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .stop-num.start { background: var(--ink); }
-    .stop-leg-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--amber-bg);
-      color: var(--amber);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 99px;
-      margin-bottom: 4px;
-    }
-    .stop-eta {
-      display: inline-block;
-      background: var(--green-bg);
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 99px;
-      margin-left: 6px;
-    }
-    .stop-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .marker-pin {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #1D4ED8;
-      color: #fff;
-      border: 2px solid #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .marker-pin.start { background: #18181B; }
+
+    .badge-num.start { background: var(--ink); }
+
+    .leg-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--gblue);
+      background: #EFF6FF;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-bottom: 4px;
+    }
+
+    .stop-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* MAP AREA */
+    .map-Area {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* FLOATING MAP CONTROLS */
+    .map-switcher {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 500;
+      background: var(--surface);
+      padding: 5px;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+      display: flex;
+      gap: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .layer-btn {
+      padding: 7px 12px;
+      border: none;
+      background: transparent;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 7px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .layer-btn.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    /* CUSTOM GOOGLE-STYLE MAP PINS */
+    .g-pin {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--gblue);
+      color: #fff;
+      border: 2.5px solid #fff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .g-pin.start {
+      background: #0F172A;
+      width: 34px;
+      height: 34px;
+    }
+
+    /* QR CODE MODAL FOR IPHONE */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(3px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 100%;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    @media (max-width: 960px) {
+      body { overflow: auto; height: auto; }
+      .workspace { grid-template-columns: 1fr; height: auto; }
+      .map-Area { height: 460px; }
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-      Optimiseur de Tournée Clients — Prospection Terrain BoostMySite
-    </h1>
-    <div style="display:flex; gap:10px;">
-      <a href="../index.html">← Retour au site BoostMySite</a>
+    <div class="brand-left">
+      <div class="brand-icon">📍</div>
+      <div>
+        <h1>Maps Prospection — Optimiseur de Tournée</h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset()">
+        📍 Charger ma tournée Pontoise / Cergy
+      </button>
+      <a href="../index.html" class="btn btn-outline btn-xs">← Site BoostMySite</a>
     </div>
   </header>
 
-  <div class="container">
-    <!-- Colonne Gauche : Saisie & Paramètres -->
-    <div>
-      <!-- 1. Point de Départ -->
-      <div class="panel">
-        <h2>
-          <span>1. Point de départ</span>
-          <button type="button" class="btn btn-outline btn-sm" onclick="useMyGPS()">📍 Ma position GPS</button>
-        </h2>
-        <label for="startAddress">Adresse de départ (où vous êtes maintenant)</label>
-        <input type="text" id="startAddress" placeholder="Ex : Place de la République, 75011 Paris" value="Place de la République, 75011 Paris">
-
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:12px;">
-          <div>
-            <label for="travelMode">Mode</label>
-            <select id="travelMode">
-              <option value="driving">🚗 Voiture / Scooter</option>
-              <option value="foot">🚶 À pied</option>
-              <option value="bike">🚲 Vélo</option>
-            </select>
-          </div>
-          <div>
-            <label for="startTime">Départ à</label>
-            <input type="time" id="startTime" value="14:00">
-          </div>
-          <div>
-            <label for="dwellMinutes">Temps / client</label>
-            <select id="dwellMinutes">
-              <option value="10">10 min</option>
-              <option value="15" selected>15 min</option>
-              <option value="20">20 min</option>
-              <option value="30">30 min</option>
-            </select>
-          </div>
-        </div>
-        <label style="display:flex; align-items:center; gap:8px; margin-top:10px; cursor:pointer; font-weight:500; color:var(--ink);">
-          <input type="checkbox" id="returnToStart"> Revenir au point de départ à la fin de la tournée
-        </label>
-      </div>
-
-      <!-- 2. Ajout Rapide des Clients -->
-      <div class="panel">
-        <h2>
-          <span>2. Ajouter vos clients à voir</span>
-          <button type="button" class="btn btn-outline btn-sm" onclick="loadSampleProspects()">Charger un exemple</button>
-        </h2>
-
-        <label for="bulkInput">Collez votre liste (1 client par ligne : <em>Nom - Adresse</em> ou juste <em>Adresse</em>)</label>
-        <textarea id="bulkInput" placeholder="Smash King - 64 boulevard Voltaire, 75011 Paris&#10;O'Tacos Charonne - 112 rue de Charonne, 75011 Paris&#10;Burger Artisanal - 28 avenue Parmentier, 75011 Paris&#10;Chicken Spot - 15 rue du Faubourg du Temple, 75010 Paris"></textarea>
-
-        <div style="display:flex; gap:8px; margin-top:10px;">
-          <button type="button" class="btn btn-outline" style="flex:1;" onclick="addFromBulk()">
-            + Ajouter ces lignes à la liste
-          </button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="clearAllProspects()" title="Vider la liste">
-            Vider
-          </button>
-        </div>
-
-        <!-- Ajout individuel -->
-        <div style="border-top:1px solid var(--border); margin-top:14px; padding-top:12px;">
-          <label>Ou ajouter un commerce manuellement :</label>
-          <div style="display:grid; grid-template-columns:0.9fr 1.1fr auto; gap:6px;">
-            <input type="text" id="singleName" placeholder="Nom (ex: Tacos King)">
-            <input type="text" id="singleAddr" placeholder="Adresse complète + Ville">
-            <button type="button" class="btn btn-outline" onclick="addSingleProspect()">+</button>
-          </div>
-        </div>
-
-        <!-- Liste actuelle -->
-        <div class="raw-list" id="prospectsListContainer"></div>
-
-        <button type="button" class="btn btn-primary" id="btnOptimize" style="width:100%; margin-top:16px; padding:13px; font-size:15px;" onclick="optimizeRoute()">
-          ⚡ Calculer l'ordre le plus rapide
+  <div class="workspace">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="tabs">
+        <button type="button" class="tab-btn active" id="tabBtnSetup" onclick="switchTab('setup')">
+          1. Adresses (<span id="countBadge">0</span>)
         </button>
-        <p id="statusMsg" style="font-size:12.5px; color:var(--muted); margin-top:8px; text-align:center;"></p>
+        <button type="button" class="tab-btn" id="tabBtnRoute" onclick="switchTab('route')">
+          2. Ordre Optimisé
+        </button>
       </div>
-    </div>
 
-    <!-- Colonne Droite : Carte & Ordre Optimisé -->
-    <div>
-      <div class="panel">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
-          <h2 style="margin:0;">3. Votre Feuille de Route Optimisée</h2>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a id="btnFullGoogleMaps" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-sm" style="display:none;">
-              🗺️ Ouvrir toute la tournée dans Google Maps
-            </a>
-            <button type="button" class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Imprimer / PDF</button>
+      <!-- TAB 1 : SETUP -->
+      <div class="tab-pane active" id="paneSetup">
+        <!-- POINT DE DEPART -->
+        <div class="section-box">
+          <div class="section-title">
+            <span>Départ & Mode de transport</span>
+            <button type="button" class="btn btn-outline btn-xs" onclick="useMyGPS()">📍 Mon GPS</button>
           </div>
+          <label for="startAddress">Adresse de départ (et zone de recherche prioritaire)</label>
+          <input type="text" id="startAddress" value="15 Rue des Écuries, 95300 Pontoise" placeholder="Ex: 15 Rue des Écuries, 95300 Pontoise">
+
+          <div style="display:grid; grid-template-columns:1.2fr 0.9fr 0.9fr; gap:8px; margin-top:10px;">
+            <div>
+              <label for="travelMode">Mode</label>
+              <select id="travelMode">
+                <option value="driving" selected>🚗 Voiture / Scooter</option>
+                <option value="foot">🚶 À pied</option>
+                <option value="bike">🚲 Vélo</option>
+              </select>
+            </div>
+            <div>
+              <label for="startTime">Départ</label>
+              <input type="time" id="startTime" value="14:00">
+            </div>
+            <div>
+              <label for="dwellMinutes">RDV / client</label>
+              <select id="dwellMinutes">
+                <option value="10">10 min</option>
+                <option value="15" selected>15 min</option>
+                <option value="20">20 min</option>
+                <option value="30">30 min</option>
+              </select>
+            </div>
+          </div>
+
+          <label style="display:flex; align-items:center; gap:7px; margin-top:10px; cursor:pointer; font-weight:500;">
+            <input type="checkbox" id="returnToStart"> Boucler vers le point de départ à la fin
+          </label>
         </div>
 
-        <div class="summary-bar">
-          <div class="stat-box">
-            <span>Clients à visiter</span>
-            <strong id="statStops">0</strong>
+        <!-- AJOUT RAPIDE OU LIEN GOOGLE MAPS -->
+        <div class="section-box">
+          <div class="section-title">
+            <span>Ajouter des clients ou coller un lien Google Maps</span>
+            <button type="button" class="btn btn-outline btn-xs" onclick="clearAllProspects()">Tout vider</button>
           </div>
-          <div class="stat-box">
-            <span>Temps de trajet total</span>
-            <strong id="statDriveTime">0 min</strong>
+          <textarea id="bulkInput" placeholder="Collez ici :&#10;• Soit une liste d'adresses (1 par ligne)&#10;• Soit directement le lien complet d'un itinéraire Google Maps (https://www.google.com/maps/dir/...)"></textarea>
+          <button type="button" class="btn btn-outline" style="width:100%; margin-top:8px;" onclick="addFromBulk()">
+            + Ajouter à la liste ci-dessous
+          </button>
+
+          <div class="client-list" id="prospectsListContainer"></div>
+        </div>
+      </div>
+
+      <!-- TAB 2 : OPTIMIZED ROUTE -->
+      <div class="tab-pane" id="paneRoute">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span>Trajet pur</span>
+            <strong id="statDriveTime">—</strong>
           </div>
-          <div class="stat-box">
-            <span>Distance totale</span>
-            <strong id="statDistance">0 km</strong>
+          <div class="stat-card">
+            <span>Distance réelle</span>
+            <strong id="statDistance">—</strong>
           </div>
-          <div class="stat-box">
-            <span>Fin estimée (avec RDV)</span>
+          <div class="stat-card">
+            <span>Fin avec RDV</span>
             <strong id="statEndTime">—</strong>
           </div>
         </div>
 
-        <div id="map"></div>
-      </div>
+        <!-- BOUTONS EXPORT GOOGLE MAPS / IPHONE -->
+        <div id="exportBox" style="display:none; margin-bottom:14px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:12px;">
+          <div style="font-size:12px; font-weight:700; color:#1E3A8A; margin-bottom:8px;">
+            📲 Envoyer l'itinéraire trié sur votre téléphone :
+          </div>
+          <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;"></div>
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="openQRModal()">
+              📱 QR Code vers iPhone
+            </button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="copyFirstGmapsLink()">
+              🔗 Copier le lien Maps
+            </button>
+          </div>
+        </div>
 
-      <div class="panel">
-        <h2>Ordre exact de passage (du 1er au dernier client)</h2>
-        <div class="itinerary-list" id="itineraryOutput">
-          <div style="text-align:center; padding:32px 16px; color:var(--muted); font-size:14px;">
-            Ajoutez vos clients à gauche puis cliquez sur <strong>« Calculer l'ordre le plus rapide »</strong> pour obtenir votre feuille de route dans l'ordre optimal.
+        <div class="timeline" id="itineraryOutput">
+          <div style="text-align:center; padding:32px 12px; color:var(--muted); font-size:13px;">
+            Cliquez sur le bouton bleu <strong>« Optimiser l'itinéraire »</strong> en bas pour trier vos arrêts dans l'ordre le plus rapide.
           </div>
         </div>
       </div>
+
+      <!-- STICKY FOOTER BUTTON -->
+      <div class="sidebar-footer">
+        <button type="button" class="btn btn-blue btn-optimize-main" id="btnOptimize" onclick="optimizeRoute()">
+          ⚡ Optimiser l'itinéraire sur Google Maps
+        </button>
+        <div id="statusMsg" style="font-size:11.5px; color:var(--muted); text-align:center; margin-top:6px;"></div>
+      </div>
+    </aside>
+
+    <!-- RIGHT : REAL GOOGLE MAP -->
+    <main class="map-Area">
+      <div class="map-switcher">
+        <button type="button" class="layer-btn active" onclick="setMapLayer('roadmap', this)">Plan Google</button>
+        <button type="button" class="layer-btn" onclick="setMapLayer('hybrid', this)">Satellite</button>
+        <button type="button" class="layer-btn" onclick="setMapLayer('osm', this)">OpenStreetMap</button>
+      </div>
+      <div id="map"></div>
+    </main>
+  </div>
+
+  <!-- MODAL QR CODE IPHONE -->
+  <div class="modal-backdrop" id="qrModal" onclick="if(event.target===this) closeQRModal()">
+    <div class="modal-box">
+      <h3 style="font-size:17px; font-weight:800; margin-bottom:6px;">Envoyer vers votre iPhone</h3>
+      <p style="font-size:12.5px; color:var(--muted); margin-bottom:16px;">
+        Ouvrez l'appareil photo de votre iPhone et visez ce QR Code pour lancer la navigation Google Maps dans l'ordre exact optimisé.
+      </p>
+      <img id="qrImage" src="" alt="QR Code Google Maps" style="width:210px; height:210px; border:1px solid var(--border); border-radius:12px; padding:8px; margin-bottom:14px;">
+      <div id="qrSegmentSelector" style="display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin-bottom:14px;"></div>
+      <button type="button" class="btn btn-outline" style="width:100%;" onclick="closeQRModal()">Fermer</button>
     </div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'bms_route_prospects_v1';
+    const STORAGE_KEY = 'bms_route_prospects_v2';
     let prospects = [];
-    let map, markersLayer, routePolyline;
+    let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine;
+    let mapMarkerRefs = [];
+    let generatedGmapsUrls = [];
+
+    const TILE_LAYERS = {
+      roadmap: {
+        url: 'https://mt1.google.com/vt/lyrs=m&hl=fr&x={x}&y={y}&z={z}',
+        attr: '© Google Maps'
+      },
+      hybrid: {
+        url: 'https://mt1.google.com/vt/lyrs=y&hl=fr&x={x}&y={y}&z={z}',
+        attr: '© Google Maps Satellite'
+      },
+      osm: {
+        url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attr: '© OpenStreetMap'
+      }
+    };
 
     function initMap() {
-      map = L.map('map').setView([48.867, 2.363], 13);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap',
-        maxZoom: 19
+      map = L.map('map', { zoomControl: true }).setView([49.0509, 2.1008], 13);
+      currentTileLayer = L.tileLayer(TILE_LAYERS.roadmap.url, {
+        attribution: TILE_LAYERS.roadmap.attr,
+        maxZoom: 20
       }).addTo(map);
       markersLayer = L.layerGroup().addTo(map);
     }
 
+    function setMapLayer(type, btn) {
+      document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (currentTileLayer) map.removeLayer(currentTileLayer);
+      const cfg = TILE_LAYERS[type] || TILE_LAYERS.roadmap;
+      currentTileLayer = L.tileLayer(cfg.url, { attribution: cfg.attr, maxZoom: 20 }).addTo(map);
+    }
+
+    function switchTab(tab) {
+      document.getElementById('tabBtnSetup').classList.toggle('active', tab === 'setup');
+      document.getElementById('tabBtnRoute').classList.toggle('active', tab === 'route');
+      document.getElementById('paneSetup').classList.toggle('active', tab === 'setup');
+      document.getElementById('paneRoute').classList.toggle('active', tab === 'route');
+    }
+
+    function escHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
     function saveProspects() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(prospects));
-      } catch (e) {}
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prospects)); } catch (e) {}
     }
 
     function loadProspects() {
@@ -447,80 +686,78 @@
         if (raw) {
           prospects = JSON.parse(raw);
         }
-      } catch (e) {
-        prospects = [];
-      }
-      renderRawProspects();
-    }
-
-    function escHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    }
-
-    function renderRawProspects() {
-      const box = document.getElementById('prospectsListContainer');
-      document.getElementById('statStops').textContent = prospects.length;
-      if (prospects.length === 0) {
-        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12.5px; padding:12px;">Aucun client dans la liste pour le moment.</div>';
-        return;
-      }
-      box.innerHTML = prospects.map((p, idx) => `
-        <div class="raw-item">
-          <div>
-            <strong>${escHtml(p.name)}</strong>
-            <span>${escHtml(p.address)}</span>
-          </div>
-          <button type="button" onclick="removeProspect(${idx})" style="background:none; border:none; color:var(--red); font-weight:700; cursor:pointer; font-size:16px;" title="Retirer">&times;</button>
-        </div>
-      `).join('');
-    }
-
-    function parseLine(line) {
-      const cleaned = line.trim();
-      if (!cleaned) return null;
-      const separators = [' - ', ' | ', ' : ', ' — ', ';'];
-      for (const sep of separators) {
-        if (cleaned.includes(sep)) {
-          const parts = cleaned.split(sep);
-          const name = parts.shift().trim();
-          const address = parts.join(sep).trim();
-          return { name: name || address, address: address || name, visited: false, status: 'À voir' };
-        }
-      }
-      return { name: 'Client : ' + cleaned.split(',')[0], address: cleaned, visited: false, status: 'À voir' };
-    }
-
-    function addFromBulk() {
-      const textarea = document.getElementById('bulkInput');
-      const lines = textarea.value.split('\n');
-      let added = 0;
-      lines.forEach(line => {
-        const parsed = parseLine(line);
-        if (parsed) {
-          prospects.push(parsed);
-          added++;
-        }
-      });
-      if (added > 0) {
-        textarea.value = '';
-        saveProspects();
+      } catch (e) { prospects = []; }
+      if (!prospects || prospects.length === 0) {
+        loadPontoisePreset(false);
+      } else {
         renderRawProspects();
       }
     }
 
-    function addSingleProspect() {
-      const nameEl = document.getElementById('singleName');
-      const addrEl = document.getElementById('singleAddr');
-      const addr = addrEl.value.trim();
-      if (!addr) return alert('Veuillez saisir l’adresse du client.');
-      const name = nameEl.value.trim() || addr.split(',')[0];
-      prospects.push({ name, address: addr, visited: false, status: 'À voir' });
-      nameEl.value = '';
-      addrEl.value = '';
+    function renderRawProspects() {
+      const box = document.getElementById('prospectsListContainer');
+      document.getElementById('countBadge').textContent = prospects.length;
+      if (prospects.length === 0) {
+        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12px; padding:12px;">Aucun arrêt dans la liste.</div>';
+        return;
+      }
+      box.innerHTML = prospects.map((p, idx) => `
+        <div class="client-row">
+          <div>
+            <strong>${idx + 1}. ${escHtml(p.name)}</strong>
+            <span>${escHtml(p.address)}</span>
+          </div>
+          <button type="button" onclick="removeProspect(${idx})" style="background:none;border:none;color:var(--red);font-weight:800;cursor:pointer;font-size:16px;">×</button>
+        </div>
+      `).join('');
+    }
+
+    /* Supporte soit un lien Google Maps (https://www.google.com/maps/dir/...), soit des lignes de texte */
+    function addFromBulk() {
+      const textarea = document.getElementById('bulkInput');
+      const rawText = textarea.value.trim();
+      if (!rawText) return;
+
+      // Cas 1 : Lien Google Maps complet collé !
+      if (rawText.includes('google.com/maps/dir/') || rawText.includes('google.fr/maps/dir/')) {
+        try {
+          const afterDir = rawText.split('/maps/dir/')[1].split('?')[0];
+          const parts = afterDir.split('/').filter(seg => seg && !seg.startsWith('@') && !seg.startsWith('data='));
+          const decoded = parts.map(seg => decodeURIComponent(seg.replace(/\+/g, ' ')).trim()).filter(Boolean);
+          if (decoded.length >= 2) {
+            document.getElementById('startAddress').value = decoded[0];
+            prospects = decoded.slice(1).map(addr => ({
+              name: addr.split(',')[0].trim(),
+              address: addr
+            }));
+            textarea.value = '';
+            saveProspects();
+            renderRawProspects();
+            optimizeRoute();
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // Cas 2 : Liste classique (1 adresse par ligne)
+      const lines = rawText.split('\n');
+      lines.forEach(line => {
+        let cleaned = line.trim().replace(/^Client\s*:\s*/i, '');
+        if (!cleaned) return;
+        const seps = [' - ', ' | ', ' — ', ';'];
+        for (const sep of seps) {
+          if (cleaned.includes(sep)) {
+            const p = cleaned.split(sep);
+            const name = p.shift().trim();
+            const address = p.join(sep).trim();
+            prospects.push({ name: name || address, address: address || name });
+            return;
+          }
+        }
+        prospects.push({ name: cleaned.split(',')[0].trim(), address: cleaned });
+      });
+
+      textarea.value = '';
       saveProspects();
       renderRawProspects();
     }
@@ -535,30 +772,45 @@
       prospects = [];
       saveProspects();
       renderRawProspects();
-      document.getElementById('itineraryOutput').innerHTML = '';
       markersLayer.clearLayers();
-      if (routePolyline) map.removeLayer(routePolyline);
+      if (routeShadowLine) map.removeLayer(routeShadowLine);
+      if (routeMainLine) map.removeLayer(routeMainLine);
+      document.getElementById('itineraryOutput').innerHTML = '';
+      document.getElementById('exportBox').style.display = 'none';
     }
 
-    function loadSampleProspects() {
+    /* Ta vraie tournée Pontoise / Cergy / St-Ouen-l'Aumône / Osny pré-chargée */
+    function loadPontoisePreset(autoRun = true) {
+      document.getElementById('startAddress').value = '15 Rue des Écuries, 95300 Pontoise';
       prospects = [
-        { name: 'Smash Lab Voltaire', address: '64 boulevard Voltaire, 75011 Paris', visited: false, status: 'À voir' },
-        { name: 'Braise & Burger Bastille', address: '14 rue de la Roquette, 75011 Paris', visited: false, status: 'À voir' },
-        { name: 'Crispy Street Oberkampf', address: '98 rue Oberkampf, 75011 Paris', visited: false, status: 'À voir' },
-        { name: 'French Tacos Nation', address: '210 boulevard Voltaire, 75011 Paris', visited: false, status: 'À voir' },
-        { name: 'Artisan Burger Goncourt', address: '18 rue du Faubourg du Temple, 75011 Paris', visited: false, status: 'À voir' }
+        { name: 'Mail de la Cavalerie', address: 'Mail de la Cavalerie, 95300 Pontoise' },
+        { name: 'Massage Pontoise', address: '31 Place Notre Dame, 95300 Pontoise' },
+        { name: 'Commerce 11 Rue de Rouen', address: '11 Rue de Rouen, 95300 Pontoise' },
+        { name: 'Commerce 18 Rue de Rouen', address: '18 Rue de Rouen, 95300 Pontoise' },
+        { name: '26 Rue Sere-Depoin', address: '26 Rue Sere-Depoin, 95300 Pontoise' },
+        { name: '75 Rue Pierre Butin', address: '75 Rue Pierre Butin, 95300 Pontoise' },
+        { name: '35 Rue de Gisors', address: '35 Rue de Gisors, 95300 Pontoise' },
+        { name: 'CocciMarket Pontoise', address: 'Rue des Pâtis, 95300 Pontoise' },
+        { name: '40 Rue du Général Leclerc', address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône' },
+        { name: '9 Av. du Général de Gaulle', address: '9 Avenue du Général de Gaulle, 95310 Saint-Ouen-l\'Aumône' },
+        { name: '16 Place des Cerclades', address: '16 Place des Cerclades, 95000 Cergy' },
+        { name: '3 Rue des Italiens', address: '3 Rue des Italiens, 95000 Cergy' },
+        { name: '10 Avenue Bernard Hirsch', address: '10 Avenue Bernard Hirsch, 95000 Cergy' },
+        { name: '20 Avenue Bernard Hirsch', address: '20 Avenue Bernard Hirsch, 95000 Cergy' },
+        { name: 'Mercure Cergy-Pontoise', address: '3 Rue des Chênes Émeraude, 95000 Cergy' },
+        { name: 'Rue des Linandes Beiges', address: 'Rue des Linandes Beiges, 95000 Cergy' },
+        { name: 'ZAC des Bellevues', address: 'Rue des Bellevues, 95610 Éragny' },
+        { name: 'Zone Commerciale de l\'Oseraie', address: 'Chemin du Poirier Charles Guérin, 95520 Osny' }
       ];
       saveProspects();
       renderRawProspects();
-      optimizeRoute();
+      if (autoRun) optimizeRoute();
     }
 
     function useMyGPS() {
-      if (!navigator.geolocation) {
-        return alert('La géolocalisation n’est pas activée sur ce navigateur.');
-      }
+      if (!navigator.geolocation) return alert('Géolocalisation non disponible.');
       const status = document.getElementById('statusMsg');
-      status.textContent = 'Récupération de votre position GPS...';
+      status.textContent = 'Lecture du GPS...';
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude, longitude } = pos.coords;
         try {
@@ -569,37 +821,13 @@
           } else {
             document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
           }
-          status.textContent = 'Position GPS définie comme point de départ.';
+          status.textContent = 'Départ mis à jour sur votre position GPS.';
         } catch (e) {
           document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
-          status.textContent = 'Coordonnées GPS définies.';
         }
-      }, () => {
-        status.textContent = 'Impossible de lire le GPS. Entrez votre adresse de départ manuellement.';
       });
     }
 
-    /* Géocodage via API Adresse Data.gouv.fr (Base Adresse Nationale - gratuit & sans clé) */
-    async function geocodeAddress(query) {
-      const gpsMatch = query.match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
-      if (gpsMatch) {
-        return { lat: parseFloat(gpsMatch[1]), lon: parseFloat(gpsMatch[2]), label: query };
-      }
-      const url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=1`;
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.features && data.features.length > 0) {
-        const feat = data.features[0];
-        return {
-          lon: feat.geometry.coordinates[0],
-          lat: feat.geometry.coordinates[1],
-          label: feat.properties.label
-        };
-      }
-      throw new Error('Adresse introuvable : ' + query);
-    }
-
-    /* Distance Haversine de secours (en mètres) */
     function haversineMeters(a, b) {
       const R = 6371000;
       const toRad = d => d * Math.PI / 180;
@@ -609,9 +837,63 @@
       return 2 * R * Math.asin(Math.sqrt(s));
     }
 
-    /* Algorithme TSP : Plus proche voisin + amélioration 2-Opt */
-    function solveTSP(durationsMatrix, returnToStart) {
-      const n = durationsMatrix.length; // index 0 = départ, 1..n-1 = clients
+    /* Géocodage intelligent verrouillé autour de la zone de départ (évite les erreurs à 500 km !) */
+    async function geocodeSmart(rawQuery, biasGeo = null) {
+      const cleanQuery = rawQuery.replace(/^Client\s*:\s*/i, '').trim();
+      const gpsMatch = cleanQuery.match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
+      if (gpsMatch) {
+        return { lat: parseFloat(gpsMatch[1]), lon: parseFloat(gpsMatch[2]), label: cleanQuery };
+      }
+
+      // Construction des variantes de recherche (adresse complète, puis après la virgule si nom de boutique devant)
+      const candidates = [cleanQuery];
+      if (cleanQuery.includes(',')) {
+        const afterFirstComma = cleanQuery.split(',').slice(1).join(',').trim();
+        if (afterFirstComma.length > 5) candidates.push(afterFirstComma);
+      }
+      if (biasGeo && biasGeo.city && !/\b\d{5}\b/.test(cleanQuery)) {
+        candidates.push(`${cleanQuery} ${biasGeo.postcode || ''} ${biasGeo.city}`);
+      }
+
+      let bestMatch = null;
+      let bestDist = Infinity;
+
+      for (const q of candidates) {
+        let url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(q)}&limit=5`;
+        if (biasGeo && biasGeo.lat && biasGeo.lon) {
+          url += `&lat=${biasGeo.lat}&lon=${biasGeo.lon}`;
+        }
+        try {
+          const res = await fetch(url);
+          const data = await res.json();
+          if (data.features && data.features.length > 0) {
+            for (const feat of data.features) {
+              const pt = {
+                lon: feat.geometry.coordinates[0],
+                lat: feat.geometry.coordinates[1],
+                label: feat.properties.label,
+                city: feat.properties.city,
+                postcode: feat.properties.postcode
+              };
+              if (!biasGeo) return pt;
+              const d = haversineMeters(biasGeo, pt);
+              if (d < bestDist) {
+                bestDist = d;
+                bestMatch = pt;
+              }
+              if (d < 25000) return pt; // Moins de 25 km du départ = validé immédiatement !
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (bestMatch) return bestMatch;
+      throw new Error('Adresse introuvable : ' + rawQuery);
+    }
+
+    /* TSP : Plus proche voisin + optimisation 2-Opt complète */
+    function solveTSP(matrix, returnToStart) {
+      const n = matrix.length;
       const visited = new Array(n).fill(false);
       visited[0] = true;
       const order = [0];
@@ -620,46 +902,38 @@
         const last = order[order.length - 1];
         let bestNext = -1;
         let bestCost = Infinity;
-        for (let candidate = 1; candidate < n; candidate++) {
-          if (!visited[candidate] && durationsMatrix[last][candidate] < bestCost) {
-            bestCost = durationsMatrix[last][candidate];
-            bestNext = candidate;
+        for (let c = 1; c < n; c++) {
+          if (!visited[c] && matrix[last][c] < bestCost) {
+            bestCost = matrix[last][c];
+            bestNext = c;
           }
         }
         visited[bestNext] = true;
         order.push(bestNext);
       }
 
-      if (returnToStart) {
-        order.push(0);
-      }
+      if (returnToStart) order.push(0);
 
       function routeCost(seq) {
         let total = 0;
-        for (let i = 0; i < seq.length - 1; i++) {
-          total += durationsMatrix[seq[i]][seq[i + 1]];
-        }
+        for (let i = 0; i < seq.length - 1; i++) total += matrix[seq[i]][seq[i + 1]];
         return total;
       }
 
-      // Optimisation 2-Opt pour éliminer tout croisement
       const endLimit = returnToStart ? order.length - 2 : order.length - 1;
       let improved = true;
       while (improved) {
         improved = false;
         for (let i = 1; i < endLimit; i++) {
           for (let k = i + 1; k <= endLimit; k++) {
-            const candidate = order.slice(0, i)
-              .concat(order.slice(i, k + 1).reverse())
-              .concat(order.slice(k + 1));
-            if (routeCost(candidate) + 0.1 < routeCost(order)) {
+            const candidate = order.slice(0, i).concat(order.slice(i, k + 1).reverse()).concat(order.slice(k + 1));
+            if (routeCost(candidate) + 0.05 < routeCost(order)) {
               for (let m = 0; m < order.length; m++) order[m] = candidate[m];
               improved = true;
             }
           }
         }
       }
-
       return order;
     }
 
@@ -676,37 +950,31 @@
         addFromBulk();
       }
       if (prospects.length === 0) {
-        return alert('Ajoutez d’abord au moins un client à visiter.');
+        return alert('Ajoutez d’abord vos clients dans l’onglet 1.');
       }
       const startAddr = document.getElementById('startAddress').value.trim();
-      if (!startAddr) {
-        return alert('Indiquez votre adresse de départ.');
-      }
+      if (!startAddr) return alert('Indiquez votre adresse de départ.');
 
       const btn = document.getElementById('btnOptimize');
       const status = document.getElementById('statusMsg');
       btn.disabled = true;
-      status.textContent = 'Localisation des adresses en cours...';
+      status.textContent = 'Localisation du point de départ...';
 
       try {
-        const startGeo = await geocodeAddress(startAddr);
+        const startGeo = await geocodeSmart(startAddr, null);
         const nodes = [{
           isStart: true,
-          name: 'Point de Départ',
+          name: 'Départ',
           address: startGeo.label,
           lat: startGeo.lat,
           lon: startGeo.lon
         }];
 
         for (let i = 0; i < prospects.length; i++) {
-          status.textContent = `Géolocalisation (${i + 1}/${prospects.length}) : ${prospects[i].name}...`;
-          const g = await geocodeAddress(prospects[i].address);
-          prospects[i].lat = g.lat;
-          prospects[i].lon = g.lon;
-          prospects[i].resolvedAddress = g.label;
+          status.textContent = `Localisation (${i + 1}/${prospects.length}) : ${prospects[i].name}...`;
+          const g = await geocodeSmart(prospects[i].address, startGeo);
           nodes.push({
             isStart: false,
-            prospectIdx: i,
             name: prospects[i].name,
             address: g.label,
             lat: g.lat,
@@ -714,44 +982,39 @@
           });
         }
 
-        status.textContent = 'Calcul du chemin le plus rapide entre tous vos clients...';
+        status.textContent = 'Calcul du meilleur ordre de passage...';
         const mode = document.getElementById('travelMode').value;
-        const speedKmh = mode === 'foot' ? 4.8 : (mode === 'bike' ? 16 : 24);
+        const speedKmh = mode === 'foot' ? 4.8 : (mode === 'bike' ? 16.5 : 28);
         const n = nodes.length;
-        let durations = Array.from({ length: n }, () => new Array(n).fill(0));
-        let distances = Array.from({ length: n }, () => new Array(n).fill(0));
+        const durations = Array.from({ length: n }, () => new Array(n).fill(0));
+        const distances = Array.from({ length: n }, () => new Array(n).fill(0));
 
-        // Essai table routière OSRM + repli précis
         try {
           const coordsStr = nodes.map(pt => `${pt.lon},${pt.lat}`).join(';');
-          const osrmProfile = mode === 'foot' ? 'foot' : (mode === 'bike' ? 'bike' : 'driving');
-          const res = await fetch(`https://router.project-osrm.org/table/v1/${osrmProfile}/${coordsStr}?annotations=duration,distance`);
+          const res = await fetch(`https://router.project-osrm.org/table/v1/driving/${coordsStr}?annotations=duration,distance`);
           const data = await res.json();
-          if (data.code === 'Ok' && data.durations) {
+          if (data.code === 'Ok' && data.distances) {
             for (let i = 0; i < n; i++) {
               for (let j = 0; j < n; j++) {
-                const distM = data.distances ? data.distances[i][j] : haversineMeters(nodes[i], nodes[j]) * 1.3;
+                const distM = data.distances[i][j] ?? (haversineMeters(nodes[i], nodes[j]) * 1.28);
                 distances[i][j] = distM;
-                // Ajustement réaliste selon le mode choisi
-                if (mode === 'foot') {
-                  durations[i][j] = (distM / 1000) / 4.8 * 3600;
-                } else if (mode === 'bike') {
-                  durations[i][j] = (distM / 1000) / 16 * 3600;
-                } else {
+                if (mode === 'driving' && data.durations && data.durations[i][j]) {
                   durations[i][j] = data.durations[i][j];
+                } else {
+                  durations[i][j] = (distM / 1000) / speedKmh * 3600;
                 }
               }
             }
           } else {
-            throw new Error('Fallback');
+            throw new Error('OSRM Fallback');
           }
-        } catch (err) {
+        } catch (e) {
           for (let i = 0; i < n; i++) {
             for (let j = 0; j < n; j++) {
               if (i === j) continue;
-              const roadMeters = haversineMeters(nodes[i], nodes[j]) * 1.32;
-              distances[i][j] = roadMeters;
-              durations[i][j] = (roadMeters / 1000) / speedKmh * 3600;
+              const roadM = haversineMeters(nodes[i], nodes[j]) * 1.28;
+              distances[i][j] = roadM;
+              durations[i][j] = (roadM / 1000) / speedKmh * 3600;
             }
           }
         }
@@ -759,63 +1022,65 @@
         const returnToStart = document.getElementById('returnToStart').checked;
         const order = solveTSP(durations, returnToStart);
 
-        renderOptimizedResult(nodes, order, durations, distances);
-        status.textContent = 'Tournée optimisée avec succès !';
+        await renderOptimizedMapAndList(nodes, order, durations, distances);
+        switchTab('route');
+        status.textContent = `Tournée optimisée (${prospects.length} arrêts triés) !`;
       } catch (err) {
-        alert(err.message || 'Erreur lors de la localisation d’une adresse.');
-        status.textContent = 'Vérifiez l’orthographe des adresses.';
+        alert(err.message || 'Erreur lors de la localisation.');
+        status.textContent = 'Vérifiez vos adresses.';
       } finally {
         btn.disabled = false;
       }
     }
 
-    function renderOptimizedResult(nodes, order, durations, distances) {
+    async function renderOptimizedMapAndList(nodes, order, durations, distances) {
       markersLayer.clearLayers();
-      if (routePolyline) map.removeLayer(routePolyline);
+      mapMarkerRefs = [];
+      if (routeShadowLine) map.removeLayer(routeShadowLine);
+      if (routeMainLine) map.removeLayer(routeMainLine);
 
       const startTime = document.getElementById('startTime').value || '14:00';
       const dwellMins = parseInt(document.getElementById('dwellMinutes').value, 10) || 15;
-      const modeIcon = document.getElementById('travelMode').value === 'foot' ? '🚶' : (document.getElementById('travelMode').value === 'bike' ? '🚲' : '🚗');
+      const mode = document.getElementById('travelMode').value;
+      const modeIcon = mode === 'foot' ? '🚶' : (mode === 'bike' ? '🚲' : '🚗');
+      const gmapsTravelMode = mode === 'foot' ? 'walking' : (mode === 'bike' ? 'bicycling' : 'driving');
 
       let totalDriveSec = 0;
       let totalDistMeters = 0;
       let elapsedMinutes = 0;
-      const latlngs = [];
-      const gmapsWaypoints = [];
-
+      const orderedNodes = order.map(idx => nodes[idx]);
       const htmlCards = [];
 
-      order.forEach((nodeIdx, stepPos) => {
-        const node = nodes[nodeIdx];
-        latlngs.push([node.lat, node.lon]);
-        gmapsWaypoints.push(encodeURIComponent(node.address));
-
+      orderedNodes.forEach((node, stepPos) => {
         if (stepPos === 0) {
           const icon = L.divIcon({
             className: '',
-            html: '<div class="marker-pin start">D</div>',
-            iconSize: [28, 28],
-            iconAnchor: [14, 14]
+            html: '<div class="g-pin start">D</div>',
+            iconSize: [34, 34],
+            iconAnchor: [17, 17]
           });
-          L.marker([node.lat, node.lon], { icon }).bindPopup(`<strong>Départ</strong><br>${escHtml(node.address)}`).addTo(markersLayer);
+          const m = L.marker([node.lat, node.lon], { icon })
+            .bindPopup(`<strong>Point de départ (${startTime.replace(':','h')})</strong><br>${escHtml(node.address)}`)
+            .addTo(markersLayer);
+          mapMarkerRefs.push(m);
 
           htmlCards.push(`
-            <div class="stop-card">
-              <div class="stop-num start">D</div>
+            <div class="stop-item" onclick="focusMarker(0)">
+              <div class="badge-num start">D</div>
               <div>
-                <span class="stop-eta">Départ à ${startTime.replace(':', 'h')}</span>
-                <strong style="display:block; font-size:15px; margin-top:4px;">Point de départ</strong>
-                <span style="font-size:13px; color:var(--muted);">${escHtml(node.address)}</span>
+                <div class="leg-meta">Départ à ${startTime.replace(':', 'h')}</div>
+                <strong style="display:block; font-size:13.5px;">Point de départ</strong>
+                <span style="font-size:12px; color:var(--muted);">${escHtml(node.address)}</span>
               </div>
-              <div></div>
             </div>
           `);
           return;
         }
 
         const prevIdx = order[stepPos - 1];
-        const legSec = durations[prevIdx][nodeIdx];
-        const legMeters = distances[prevIdx][nodeIdx];
+        const currIdx = order[stepPos];
+        const legSec = durations[prevIdx][currIdx];
+        const legMeters = distances[prevIdx][currIdx];
         totalDriveSec += legSec;
         totalDistMeters += legMeters;
 
@@ -826,52 +1091,52 @@
 
         if (node.isStart) {
           htmlCards.push(`
-            <div class="stop-card">
-              <div class="stop-num start">🏁</div>
+            <div class="stop-item" onclick="focusMarker(0)">
+              <div class="badge-num start">🏁</div>
               <div>
-                <span class="stop-leg-pill">${modeIcon} ${legMins} min (${legKm} km) depuis le dernier client</span>
-                <span class="stop-eta">Retour estimé : ${arrivalStr}</span>
-                <strong style="display:block; font-size:15px; margin-top:4px;">Retour au point de départ</strong>
-                <span style="font-size:13px; color:var(--muted);">${escHtml(node.address)}</span>
+                <div class="leg-meta">${modeIcon} ${legMins} min (${legKm} km) • Retour ${arrivalStr}</div>
+                <strong style="display:block; font-size:13.5px;">Retour au point de départ</strong>
+                <span style="font-size:12px; color:var(--muted);">${escHtml(node.address)}</span>
               </div>
-              <div></div>
             </div>
           `);
           return;
         }
 
-        // Marqueur numéroté sur la carte
         const icon = L.divIcon({
           className: '',
-          html: `<div class="marker-pin">${stepPos}</div>`,
-          iconSize: [28, 28],
-          iconAnchor: [14, 14]
+          html: `<div class="g-pin">${stepPos}</div>`,
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
         });
-        L.marker([node.lat, node.lon], { icon })
-          .bindPopup(`<strong>#${stepPos} — ${escHtml(node.name)}</strong><br>${escHtml(node.address)}`)
+        const m = L.marker([node.lat, node.lon], { icon })
+          .bindPopup(`
+            <div style="font-family:sans-serif; min-width:180px;">
+              <strong style="font-size:14px;">Arrêt #${stepPos} — ${escHtml(node.name)}</strong>
+              <p style="font-size:12px; color:#555; margin:4px 0 8px;">${escHtml(node.address)}</p>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}" target="_blank" style="display:inline-block; background:#1A73E8; color:#fff; text-decoration:none; padding:5px 10px; border-radius:6px; font-size:12px; font-weight:700;">Y aller sur Google Maps</a>
+            </div>
+          `)
           .addTo(markersLayer);
+        mapMarkerRefs.push(m);
 
-        const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}`;
+        const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}`;
         const wazeUrl = `https://waze.com/ul?ll=${node.lat},${node.lon}&navigate=yes`;
 
         htmlCards.push(`
-          <div class="stop-card" id="stopCard-${stepPos}">
-            <div class="stop-num">${stepPos}</div>
+          <div class="stop-item" id="stopCard-${stepPos}" onclick="focusMarker(${stepPos})">
+            <div class="badge-num">${stepPos}</div>
             <div>
-              <div>
-                <span class="stop-leg-pill">${modeIcon} ${legMins} min • ${legKm} km</span>
-                <span class="stop-eta">Arrivée ~${arrivalStr}</span>
+              <div class="leg-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}</div>
+              <strong style="display:block; font-size:14px; color:var(--ink);">${escHtml(node.name)}</strong>
+              <span style="font-size:12px; color:var(--muted); display:block;">${escHtml(node.address)}</span>
+              <div class="stop-actions" onclick="event.stopPropagation();">
+                <a href="${singleMapsUrl}" target="_blank" class="btn btn-outline btn-xs">🗺️ Google Maps</a>
+                <a href="${wazeUrl}" target="_blank" class="btn btn-outline btn-xs">🚗 Waze</a>
+                <label style="display:inline-flex; align-items:center; gap:4px; font-size:11.5px; cursor:pointer; margin-left:auto;">
+                  <input type="checkbox" onchange="document.getElementById('stopCard-${stepPos}').classList.toggle('done', this.checked)"> Fait
+                </label>
               </div>
-              <strong style="display:block; font-size:16px; margin-top:4px;">${escHtml(node.name)}</strong>
-              <span style="font-size:13px; color:var(--muted);">${escHtml(node.address)}</span>
-            </div>
-            <div class="stop-actions">
-              <a href="${singleMapsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Google Maps</a>
-              <a href="${wazeUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Waze</a>
-              <label style="display:inline-flex; align-items:center; gap:5px; margin:0; font-size:12.5px; cursor:pointer; color:var(--ink);">
-                <input type="checkbox" onchange="document.getElementById('stopCard-${stepPos}').classList.toggle('visited', this.checked)">
-                Fait
-              </label>
             </div>
           </div>
         `);
@@ -881,27 +1146,112 @@
 
       document.getElementById('itineraryOutput').innerHTML = htmlCards.join('');
 
-      // Statistiques globales
-      const totalDriveMins = Math.round(totalDriveSec / 60);
-      document.getElementById('statDriveTime').textContent = totalDriveMins >= 60
-        ? Math.floor(totalDriveMins / 60) + 'h ' + (totalDriveMins % 60) + 'm'
-        : totalDriveMins + ' min';
+      // Mise à jour des compteurs
+      const totalMins = Math.round(totalDriveSec / 60);
+      document.getElementById('statDriveTime').textContent = totalMins >= 60
+        ? `${Math.floor(totalMins / 60)}h ${String(totalMins % 60).padStart(2, '0')}m`
+        : `${totalMins} min`;
       document.getElementById('statDistance').textContent = (totalDistMeters / 1000).toFixed(1).replace('.', ',') + ' km';
       document.getElementById('statEndTime').textContent = addMinutesToTime(startTime, elapsedMinutes);
 
-      // Tracé sur la carte
-      routePolyline = L.polyline(latlngs, { color: '#1D4ED8', weight: 4, opacity: 0.85 }).addTo(map);
-      map.fitBounds(routePolyline.getBounds(), { padding: [35, 35] });
+      // Tracé routier réel rue par rue via OSRM Route GeoJSON
+      let drawnGeometry = null;
+      try {
+        const coordsStr = orderedNodes.map(pt => `${pt.lon},${pt.lat}`).join(';');
+        const res = await fetch(`https://router.project-osrm.org/route/v1/driving/${coordsStr}?overview=full&geometries=geojson`);
+        const data = await res.json();
+        if (data.code === 'Ok' && data.routes && data.routes[0]) {
+          drawnGeometry = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+        }
+      } catch (e) {}
 
-      // Lien Google Maps multi-étapes complet
-      const fullGmapsBtn = document.getElementById('btnFullGoogleMaps');
-      fullGmapsBtn.href = 'https://www.google.com/maps/dir/' + gmapsWaypoints.join('/');
-      fullGmapsBtn.style.display = 'inline-flex';
+      if (!drawnGeometry) {
+        drawnGeometry = orderedNodes.map(pt => [pt.lat, pt.lon]);
+      }
+
+      // Double ligne façon Google Maps (bordure blanche + cœur bleu Google #1A73E8)
+      routeShadowLine = L.polyline(drawnGeometry, { color: '#FFFFFF', weight: 8, opacity: 0.9 }).addTo(map);
+      routeMainLine = L.polyline(drawnGeometry, { color: '#1A73E8', weight: 5, opacity: 0.95 }).addTo(map);
+      map.fitBounds(routeMainLine.getBounds(), { padding: [45, 45] });
+
+      // Génération des liens Google Maps (découpés par tranches de 10 arrêts max pour compatibilité iPhone Google Maps)
+      buildGoogleMapsExportLinks(orderedNodes);
+    }
+
+    function focusMarker(stepPos) {
+      const m = mapMarkerRefs[stepPos];
+      if (m) {
+        map.setView(m.getLatLng(), 16, { animate: true });
+        m.openPopup();
+      }
+    }
+
+    function buildGoogleMapsExportLinks(orderedNodes) {
+      const exportBox = document.getElementById('exportBox');
+      const container = document.getElementById('gmapsSegmentsContainer');
+      exportBox.style.display = 'block';
+      generatedGmapsUrls = [];
+
+      // Lien global (pour ordinateur)
+      const allWaypoints = orderedNodes.map(n => encodeURIComponent(n.address)).join('/');
+      const fullUrl = `https://www.google.com/maps/dir/${allWaypoints}`;
+      generatedGmapsUrls.push({ label: 'Toute la tournée', url: fullUrl });
+
+      // Si > 10 points, découpage par tranches de 9 stops pour l'application mobile Google Maps
+      if (orderedNodes.length > 10) {
+        const chunkSize = 9;
+        let partNum = 1;
+        for (let i = 0; i < orderedNodes.length - 1; i += chunkSize) {
+          const slice = orderedNodes.slice(i, i + chunkSize + 1);
+          const url = 'https://www.google.com/maps/dir/' + slice.map(n => encodeURIComponent(n.address)).join('/');
+          const startIdx = i === 0 ? 1 : i;
+          const endIdx = Math.min(i + chunkSize, orderedNodes.length - 1);
+          generatedGmapsUrls.push({
+            label: `Partie ${partNum} (Arrêts ${startIdx} à ${endIdx})`,
+            url
+          });
+          partNum++;
+        }
+      }
+
+      container.innerHTML = generatedGmapsUrls.map((item, idx) => `
+        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="btn ${idx === 0 ? 'btn-blue' : 'btn-outline'} btn-xs">
+          🗺️ ${item.label}
+        </a>
+      `).join('');
+    }
+
+    function openQRModal(urlIdx = 0) {
+      if (generatedGmapsUrls.length === 0) return;
+      const chosen = generatedGmapsUrls[urlIdx] || generatedGmapsUrls[0];
+      document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(chosen.url)}`;
+      const sel = document.getElementById('qrSegmentSelector');
+      if (generatedGmapsUrls.length > 1) {
+        sel.innerHTML = generatedGmapsUrls.map((g, i) => `
+          <button type="button" class="btn ${i === urlIdx ? 'btn-blue' : 'btn-outline'} btn-xs" onclick="openQRModal(${i})">
+            ${g.label}
+          </button>
+        `).join('');
+      } else {
+        sel.innerHTML = '';
+      }
+      document.getElementById('qrModal').classList.add('open');
+    }
+
+    function closeQRModal() {
+      document.getElementById('qrModal').classList.remove('open');
+    }
+
+    function copyFirstGmapsLink() {
+      if (generatedGmapsUrls.length === 0) return;
+      navigator.clipboard.writeText(generatedGmapsUrls[0].url);
+      alert('Lien Google Maps optimisé copié dans le presse-papiers !');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       initMap();
       loadProspects();
+      optimizeRoute();
     });
   </script>
 </body>

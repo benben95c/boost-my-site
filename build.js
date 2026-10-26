@@ -276,7 +276,8 @@ function header(r, current) {
     ['Réalisations', `${r}portfolio.html`, 'portfolio'],
     ['Tarifs', `${r}index.html#tarifs`, ''],
     ['FAQ', `${r}faq.html`, 'faq'],
-    ['Blog', `${r}blog.html`, 'blog']
+    ['Blog', `${r}blog.html`, 'blog'],
+    ['📍 Maps Tournée', `${r}outils/tournee-clients.html`, '']
   ];
   const nav = links.map(([t, h, k]) => `<a href="${h}"${k && k === current ? ' aria-current="page"' : ''}>${t}</a>`).join('\n        ');
   const mobile = links.map(([t, h]) => `<a href="${h}">${t}</a>`).join('\n    ');
