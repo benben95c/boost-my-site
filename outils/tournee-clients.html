@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Maps Tournée — BoostMySite</title>
+  <title>Maps Tournée & Détecteur Cash — BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -22,7 +22,10 @@
       --gblue-dark: #1557B0;
       --green: #16A34A;
       --green-bg: #DCFCE7;
+      --gold: #D97706;
+      --gold-bg: #FEF3C7;
       --red: #DC2626;
+      --red-bg: #FEE2E2;
       --border: #E2E8F0;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --safe-top: env(safe-area-inset-top, 0px);
@@ -58,13 +61,13 @@
       height: 48px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 0 12px;
+      padding: 0 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 40;
       flex-shrink: 0;
-      gap: 8px;
+      gap: 6px;
     }
 
     .app-switch {
@@ -79,9 +82,10 @@
       text-decoration: none;
       font-size: 12px;
       font-weight: 700;
-      padding: 6px 10px;
+      padding: 6px 9px;
       border-radius: 6px;
       color: var(--muted);
+      white-space: nowrap;
     }
 
     .app-switch a.active {
@@ -93,15 +97,15 @@
     .top-right {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .btn-top {
-      padding: 6px 10px;
+      padding: 6px 9px;
       border-radius: 7px;
       font-family: var(--font);
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11.5px;
+      font-weight: 700;
       border: 1px solid var(--border);
       background: #fff;
       color: var(--ink);
@@ -110,11 +114,17 @@
       white-space: nowrap;
     }
 
+    .btn-top-danger {
+      color: var(--red);
+      border-color: #FECACA;
+      background: #FEF2F2;
+    }
+
     /* MAIN WORKSPACE */
     .workspace {
       flex: 1;
       display: grid;
-      grid-template-columns: 420px 1fr;
+      grid-template-columns: 430px 1fr;
       overflow: hidden;
       position: relative;
       height: calc(100dvh - 48px);
@@ -166,12 +176,40 @@
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 14px;
+      padding: 12px;
       display: none;
     }
 
     .tab-pane.active {
       display: block;
+    }
+
+    /* SORT MODE SWITCHER (ROUTE VS CASH PRIORITY) */
+    .mode-switch-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #F1F5F9;
+      padding: 3px;
+      border-radius: 9px;
+      margin-bottom: 10px;
+      gap: 3px;
+    }
+
+    .mode-switch-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 6px;
+      border-radius: 7px;
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .mode-switch-btn.active {
+      background: #0F172A;
+      color: #fff;
     }
 
     /* FORM ELEMENTS (16PX FONT SIZE PREVENTS SAFARI IOS ZOOM) */
@@ -193,6 +231,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
     }
 
     label {
@@ -219,7 +258,7 @@
     }
 
     textarea {
-      min-height: 90px;
+      min-height: 85px;
       resize: vertical;
       line-height: 1.4;
     }
@@ -228,11 +267,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 10px 14px;
+      gap: 5px;
+      padding: 9px 12px;
       border-radius: 8px;
       font-family: var(--font);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       border: none;
       cursor: pointer;
@@ -242,13 +281,14 @@
 
     .btn-blue { background: var(--gblue); color: #fff; }
     .btn-outline { background: #fff; color: var(--ink); border: 1px solid var(--border); }
-    .btn-xs { padding: 7px 10px; font-size: 12px; border-radius: 7px; }
+    .btn-danger { background: #FEF2F2; color: var(--red); border: 1px solid #FECACA; }
+    .btn-xs { padding: 6px 9px; font-size: 11.5px; border-radius: 7px; }
 
     .client-list {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      max-height: 220px;
+      max-height: 260px;
       overflow-y: auto;
       margin-top: 10px;
     }
@@ -276,7 +316,7 @@
     }
 
     .sidebar-footer {
-      padding: 12px 14px;
+      padding: 10px 12px;
       border-top: 1px solid var(--border);
       background: var(--surface);
       flex-shrink: 0;
@@ -287,26 +327,26 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .stat-card {
       background: #F8FAFC;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 8px 4px;
+      padding: 7px 4px;
       text-align: center;
     }
 
     .stat-card span {
       display: block;
-      font-size: 10.5px;
+      font-size: 10px;
       color: var(--muted);
       font-weight: 600;
     }
 
     .stat-card strong {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 800;
     }
 
@@ -329,8 +369,13 @@
       cursor: pointer;
     }
 
+    .stop-item.top-cash-target {
+      border-color: #F59E0B;
+      background: #FFFBEB;
+    }
+
     .stop-item.done {
-      opacity: 0.6;
+      opacity: 0.55;
       background: #F0FDF4;
       border-color: #86EFAC;
     }
@@ -348,6 +393,7 @@
       justify-content: center;
     }
 
+    .stop-item.top-cash-target .badge-num { background: #D97706; }
     .stop-item.done .badge-num { background: var(--green); }
     .badge-num.start { background: var(--ink); }
 
@@ -362,9 +408,31 @@
       margin-bottom: 3px;
     }
 
+    .cash-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 4px 0;
+    }
+
+    .cash-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .cash-tag.eur { background: #DCFCE7; color: #15803D; }
+    .cash-tag.hot { background: #FEF3C7; color: #B45309; }
+    .cash-tag.time-ok { background: #E0F2FE; color: #0369A1; }
+    .cash-tag.time-rush { background: #FEE2E2; color: #B91C1C; }
+
     .stop-actions {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       margin-top: 8px;
       flex-wrap: wrap;
     }
@@ -383,31 +451,37 @@
       z-index: 1;
     }
 
-    /* FLOATING TOP PILL ON MAP */
-    .mobile-map-top-bar {
+    /* REAL-TIME MONEY RADAR BANNER AT TOP OF MAP */
+    .mobile-map-top-stack {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
+      top: 8px;
+      left: 8px;
+      right: 8px;
       z-index: 500;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
       gap: 6px;
       pointer-events: none;
     }
 
-    .mobile-map-top-bar > * {
+    .mobile-map-top-stack > * {
       pointer-events: auto;
+    }
+
+    .mobile-map-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
     }
 
     .tour-summary-pill {
       background: rgba(15, 23, 42, 0.92);
       backdrop-filter: blur(8px);
       color: #fff;
-      padding: 7px 12px;
+      padding: 6px 11px;
       border-radius: 99px;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
@@ -424,13 +498,13 @@
 
     .map-right-controls {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       align-items: center;
     }
 
     .circle-map-btn {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: #fff;
       border: 1px solid var(--border);
@@ -438,10 +512,91 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
       color: var(--ink);
+    }
+
+    /* LIVE CASH DETECTOR RADAR WIDGET */
+    .cash-radar-bar {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #fff;
+      border: 1.5px solid #F59E0B;
+      border-radius: 12px;
+      padding: 8px 10px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.32);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .radar-left {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .radar-kicker {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #FBBF24;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .radar-target-name {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1px;
+    }
+
+    .radar-reason {
+      font-size: 10.5px;
+      color: #CBD5E1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .radar-actions {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .radar-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .radar-btn.go {
+      background: #F59E0B;
+      color: #0F172A;
+    }
+
+    .radar-btn.sort {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.22);
+    }
+
+    .radar-btn.sort.active {
+      background: #16A34A;
+      border-color: #4ADE80;
     }
 
     /* BOTTOM SWIPEABLE STOP CARDS ON MAP */
@@ -449,7 +604,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 10px;
+      bottom: 8px;
       z-index: 500;
       display: flex;
       gap: 10px;
@@ -470,15 +625,20 @@
       background: #FFFFFF;
       border: 1.5px solid var(--border);
       border-radius: 14px;
-      padding: 12px 13px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.22);
+      padding: 11px 12px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.24);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
 
     .map-stop-card.active-card {
       border-color: var(--gblue);
+    }
+
+    .map-stop-card.top-cash-card {
+      border-color: #F59E0B;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.28);
     }
 
     .map-stop-card.done-card {
@@ -511,25 +671,35 @@
       cursor: pointer;
     }
 
+    .msc-arrow-btn.del {
+      color: var(--red);
+      border-color: #FECACA;
+      background: #FEF2F2;
+    }
+
     .msc-top {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 9px;
     }
 
     .msc-num {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: var(--gblue);
       color: #fff;
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12.5px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       margin-top: 2px;
+    }
+
+    .map-stop-card.top-cash-card .msc-num {
+      background: #D97706;
     }
 
     .map-stop-card.done-card .msc-num {
@@ -542,14 +712,14 @@
     }
 
     .msc-title {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 800;
       color: var(--ink);
       line-height: 1.25;
     }
 
     .msc-addr {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--muted);
       margin-top: 1px;
       white-space: nowrap;
@@ -558,12 +728,12 @@
     }
 
     .msc-pitch {
-      font-size: 11.5px;
+      font-size: 11px;
       color: #9A3412;
       background: #FFF7ED;
       border: 1px solid #FED7AA;
-      padding: 5px 8px;
-      border-radius: 7px;
+      padding: 4px 7px;
+      border-radius: 6px;
       line-height: 1.3;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -585,11 +755,11 @@
     }
 
     .msc-btn {
-      min-height: 38px;
-      padding: 7px 8px;
+      min-height: 36px;
+      padding: 6px 8px;
       border-radius: 8px;
       font-family: var(--font);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       border: 1px solid var(--border);
       background: #F8FAFC;
@@ -607,13 +777,13 @@
       background: var(--gblue);
       color: #fff;
       border-color: var(--gblue);
-      font-size: 12.5px;
+      font-size: 12px;
     }
 
     .msc-btn.done-btn {
       background: #fff;
       border-color: var(--border);
-      font-size: 12.5px;
+      font-size: 12px;
     }
 
     .msc-btn.done-btn.is-done {
@@ -636,6 +806,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .g-pin.cash-king-pin {
+      background: #D97706;
+      width: 34px;
+      height: 34px;
+      font-size: 13px;
+      border: 2.5px solid #FEF08A;
+      box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.35), 0 4px 10px rgba(0,0,0,0.4);
     }
 
     .g-pin.done-pin { background: var(--green); }
@@ -750,15 +929,15 @@
 </head>
 <body>
 
-  <!-- BARRE HAUTE : SWITCH 1-CLIC ENTRE CARTE ET DEVIS -->
+  <!-- BARRE HAUTE : SWITCH 1-CLIC ENTRE CARTE ET DEVIS + BOUTONS RECHARGER / TOUT VIDER -->
   <header>
     <div class="app-switch">
-      <a href="tournee-clients.html" class="active">📍 Carte Tournée</a>
-      <a href="devis-express.html">📄 Devis Express</a>
+      <a href="tournee-clients.html" class="active">📍 Carte</a>
+      <a href="devis-express.html">📄 Devis</a>
     </div>
     <div class="top-right">
-      <button type="button" class="btn-top" onclick="loadPontoisePreset(true)">↺ Pontoise</button>
-      <a href="../portfolio.html" class="btn-top">Démos</a>
+      <button type="button" class="btn-top" onclick="loadPontoisePreset(true)" title="Recharger les 18 prospects de Pontoise/Cergy">↺ 18 Pontoise</button>
+      <button type="button" class="btn-top btn-top-danger" onclick="clearAllProspects()" title="Vider toute la liste">🗑️ Vider</button>
     </div>
   </header>
 
@@ -772,16 +951,30 @@
 
       <div class="tabs">
         <button type="button" class="tab-btn active" id="tabBtnRoute" onclick="switchView('route')">
-          1. Ordre Optimisé (<span id="doneProgressBadge">0/0</span>)
+          1. Tournée (<span id="doneProgressBadge">0/0</span>)
         </button>
         <button type="button" class="tab-btn" id="tabBtnSetup" onclick="switchView('setup')">
-          2. Adresses (<span id="countBadge">0</span>)
+          2. Gérer Liste (<span id="countBadge">0</span>)
         </button>
       </div>
 
       <!-- ONGLET 1 : LISTE OPTIMISÉE -->
       <div class="tab-pane active" id="paneRoute">
+        <!-- BASCULE ORDRE GÉOGRAPHIQUE VS ORDRE CASH RENTABILITÉ -->
+        <div class="mode-switch-bar">
+          <button type="button" class="mode-switch-btn active" id="btnModeRoute" onclick="setSortMode('route')">
+            🚗 Ordre Trajet (Court)
+          </button>
+          <button type="button" class="mode-switch-btn" id="btnModeCash" onclick="setSortMode('cash')">
+            💰 Ordre Cash (Priorité €)
+          </button>
+        </div>
+
         <div class="stats-grid">
+          <div class="stat-card">
+            <span>Potentiel Total</span>
+            <strong id="statTotalCash" style="color:var(--green);">—</strong>
+          </div>
           <div class="stat-card">
             <span>Trajet</span>
             <strong id="statDriveTime">—</strong>
@@ -790,20 +983,17 @@
             <span>Distance</span>
             <strong id="statDistance">—</strong>
           </div>
-          <div class="stat-card">
-            <span>Fin RDV</span>
-            <strong id="statEndTime">—</strong>
-          </div>
         </div>
 
-        <div id="exportBox" style="display:none; margin-bottom:12px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:10px;">
-          <div style="font-size:11.5px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
-            Ouvrir l'itinéraire complet dans Google Maps :
+        <div id="exportBox" style="display:none; margin-bottom:10px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:10px;">
+          <div style="font-size:11px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
+            Exporter dans Google Maps ou gérer la liste :
           </div>
-          <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px;"></div>
-          <div style="display:flex; gap:6px;">
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="copyFirstGmapsLink()">Copier le lien</button>
-            <button type="button" class="btn btn-outline btn-xs" onclick="resetDoneStatus()">Réinitialiser</button>
+          <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px;"></div>
+          <div style="display:flex; gap:5px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-outline btn-xs" onclick="resetDoneStatus()">↺ Décocher les "Fait"</button>
+            <button type="button" class="btn btn-danger btn-xs" onclick="clearAllProspects()">🗑️ Tout supprimer</button>
+            <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset(true)">📍 Recharger les 18</button>
           </div>
         </div>
 
@@ -849,12 +1039,15 @@
 
         <div class="section-box">
           <div class="section-title">
-            <span>Ajouter des adresses ou lien Maps</span>
-            <button type="button" class="btn btn-outline btn-xs" onclick="clearAllProspects()">Vider</button>
+            <span>Liste des prospects (<span id="setupCountInline">0</span>)</span>
+            <div style="display:flex; gap:4px;">
+              <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset(true)">↺ 18 Pontoise</button>
+              <button type="button" class="btn btn-danger btn-xs" onclick="clearAllProspects()">🗑️ Tout vider</button>
+            </div>
           </div>
-          <textarea id="bulkInput" placeholder="1 adresse par ligne ou lien Google Maps complet..."></textarea>
-          <button type="button" class="btn btn-outline" style="width:100%; margin-top:8px;" onclick="addFromBulk()">
-            + Ajouter à la liste
+          <textarea id="bulkInput" placeholder="Ajouter : 1 adresse par ligne (ex: Le Gourmet - 12 Rue de Paris, Pontoise) ou lien Google Maps..."></textarea>
+          <button type="button" class="btn btn-blue" style="width:100%; margin-top:8px;" onclick="addFromBulk()">
+            + Ajouter à la tournée
           </button>
 
           <div class="client-list" id="prospectsListContainer"></div>
@@ -862,24 +1055,41 @@
       </div>
 
       <div class="sidebar-footer">
-        <button type="button" class="btn btn-blue" style="width:100%; padding:13px;" id="btnOptimize" onclick="optimizeRoute()">
+        <button type="button" class="btn btn-blue" style="width:100%; padding:12px;" id="btnOptimize" onclick="optimizeRoute()">
           ⚡ Recalculer l'itinéraire
         </button>
         <div id="statusMsg" style="font-size:11px; color:var(--muted); text-align:center; margin-top:4px;"></div>
       </div>
     </aside>
 
-    <!-- CARTE PLEIN ÉCRAN + FICHES EN BAS -->
+    <!-- CARTE PLEIN ÉCRAN + DÉTECTEUR CASH EN HAUT + FICHES EN BAS -->
     <main class="map-Area">
-      <div class="mobile-map-top-bar">
-        <div class="tour-summary-pill">
-          <span class="dot"></span>
-          <span id="mapPillText">Chargement...</span>
+      <div class="mobile-map-top-stack">
+        <div class="mobile-map-top-bar">
+          <div class="tour-summary-pill">
+            <span class="dot"></span>
+            <span id="mapPillText">Chargement...</span>
+          </div>
+          <div class="map-right-controls">
+            <button type="button" class="circle-map-btn" title="Vue globale" onclick="fitEntireRoute()">🗺️</button>
+            <button type="button" class="circle-map-btn" title="Ma position GPS" onclick="locateUserOnMap()">🎯</button>
+            <button type="button" class="circle-map-btn" title="Satellite / Plan" onclick="toggleSatellite(this)">🛰️</button>
+          </div>
         </div>
-        <div class="map-right-controls">
-          <button type="button" class="circle-map-btn" title="Vue globale" onclick="fitEntireRoute()">🗺️</button>
-          <button type="button" class="circle-map-btn" title="Ma position GPS" onclick="locateUserOnMap()">🎯</button>
-          <button type="button" class="circle-map-btn" title="Satellite / Plan" onclick="toggleSatellite(this)">🛰️</button>
+
+        <!-- DÉTECTEUR CASH TEMPS RÉEL : INDIQUE QUI ALLER VOIR MAINTENANT POUR FAIRE DE L'ARGENT -->
+        <div class="cash-radar-bar" id="cashRadarBar">
+          <div class="radar-left" onclick="focusTopCashTarget()">
+            <div class="radar-kicker">
+              <span>💰 DÉTECTEUR CASH TEMPS RÉEL (<span id="radarClock">--:--</span>)</span>
+            </div>
+            <div class="radar-target-name" id="radarTargetName">Analyse des cibles...</div>
+            <div class="radar-reason" id="radarTargetReason">Calcul du meilleur ratio €€€ / horaire / distance</div>
+          </div>
+          <div class="radar-actions">
+            <button type="button" class="radar-btn go" onclick="focusTopCashTarget()">🎯 Voir #1</button>
+            <button type="button" class="radar-btn sort" id="radarSortBtn" onclick="toggleSortMode()">💰 Trier €</button>
+          </div>
         </div>
       </div>
 
@@ -893,7 +1103,7 @@
   <nav class="mobile-bottom-nav">
     <button type="button" class="m-nav-btn active" id="mNavMap" onclick="switchMobileMode('map')">
       <span class="m-icon">🗺️</span>
-      <span>Carte & Fiches</span>
+      <span>Carte & Radar</span>
     </button>
     <button type="button" class="m-nav-btn" id="mNavList" onclick="switchMobileMode('route')">
       <span class="m-icon">📋</span>
@@ -901,20 +1111,28 @@
     </button>
     <button type="button" class="m-nav-btn" id="mNavSetup" onclick="switchMobileMode('setup')">
       <span class="m-icon">⚙️</span>
-      <span>Adresses</span>
+      <span>Gérer / Vider</span>
     </button>
   </nav>
 
   <script>
-    const STORAGE_KEY = 'bms_route_prospects_v4';
-    const DONE_STORAGE_KEY = 'bms_route_done_v4';
+    const STORAGE_KEY = 'bms_route_prospects_v5';
+    const DONE_STORAGE_KEY = 'bms_route_done_v5';
+    const CLEARED_FLAG_KEY = 'bms_route_cleared_v5';
+
     let prospects = [];
     let doneAddresses = {};
+    let sortMode = 'route'; // 'route' (chemin le plus court) ou 'cash' (rentabilité immédiate)
     let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine, userLocationMarker;
+    let userGpsCoords = null;
     let isSatellite = false;
     let mapMarkerRefs = [];
+    let cachedGeoNodes = [];
+    let cachedDurations = [];
+    let cachedDistances = [];
     let currentOrderedNodes = [];
     let generatedGmapsUrls = [];
+    let topCashStepPos = 1;
     let isProgrammaticScroll = false;
 
     const TILE_LAYERS = {
@@ -948,6 +1166,93 @@
           }
         }, 120);
       }, { passive: true });
+
+      // Met à jour le radar cash en temps réel toutes les 30 secondes
+      setInterval(() => {
+        if (cachedGeoNodes.length > 1) {
+          refreshLiveCashDetector();
+        }
+      }, 30000);
+    }
+
+    /* =========================================================================
+       INTELLIGENCE COMMERCIALE : CALCUL DU SCORE CASH TEMPS RÉEL PAR PROSPECT
+       ========================================================================= */
+    function evaluateRealTimeProspectPriority(node, refPoint) {
+      const now = new Date();
+      const hourDec = now.getHours() + now.getMinutes() / 60;
+      const category = node.category || inferCategory(node.name, node.pitch);
+      const potentialEur = node.potentialEur || (node.pack === 'starter' ? 490 : 990);
+      const baseWinProb = node.winProb || (node.pack === 'pro' ? 88 : 78);
+
+      // 1. Analyse du créneau horaire en direct (Rush vs Dispo du patron)
+      let timeMultiplier = 1.0;
+      let timeBadgeText = '🟢 Créneau idéal';
+      let isRush = false;
+
+      if (category === 'resto') {
+        if (hourDec >= 11.9 && hourDec <= 14.15) {
+          // Plein coup de feu du midi en restauration
+          timeMultiplier = 0.58;
+          timeBadgeText = '🟠 Rush midi (12h-14h)';
+          isRush = true;
+        } else if (hourDec >= 19.0 && hourDec <= 21.5) {
+          // Coup de feu du soir
+          timeMultiplier = 0.62;
+          timeBadgeText = '🟠 Rush soir (19h-21h30)';
+          isRush = true;
+        } else if ((hourDec >= 9.5 && hourDec < 11.9) || (hourDec > 14.15 && hourDec < 19.0)) {
+          // Créneau en or : entre les deux services, le gérant est dispo !
+          timeMultiplier = 1.25;
+          timeBadgeText = '🟢 Dispo idéale (Hors rush)';
+        }
+      } else if (category === 'artisan') {
+        // Artisans / Commerces / Bureaux : très disponibles entre 9h et 18h (même entre 12h et 14h !)
+        if (hourDec >= 11.8 && hourDec <= 14.2) {
+          timeMultiplier = 1.35; // Bonus midi pendant que les restos sont en rush !
+          timeBadgeText = '🔥 Top cible midi (Hors resto)';
+        } else if (hourDec >= 8.5 && hourDec <= 18.5) {
+          timeMultiplier = 1.15;
+          timeBadgeText = '🟢 Patron dispo';
+        }
+      } else {
+        // Beauté / Bien-être / Santé
+        if (hourDec >= 9.5 && hourDec <= 18.0) {
+          timeMultiplier = 1.1;
+          timeBadgeText = '🟢 Ouvert & dispo';
+        }
+      }
+
+      // 2. Bonus proximité temps réel (moins de route = plus de temps de vente)
+      let distKm = 2.0;
+      if (refPoint && node.lat && node.lon) {
+        distKm = (haversineMeters(refPoint, node) * 1.28) / 1000;
+      }
+      const proximityBonus = Math.max(0.72, 1.25 - (distKm * 0.06));
+
+      // 3. Score Cash pondéré (Espérance de gain immédiat)
+      const rawScore = (potentialEur / 10) * (baseWinProb / 100) * timeMultiplier * proximityBonus;
+      const displayScore = Math.min(99, Math.max(60, Math.round(baseWinProb * (timeMultiplier > 1 ? 1.06 : 0.85))));
+
+      return {
+        potentialEur,
+        displayScore,
+        rawScore,
+        timeBadgeText,
+        isRush,
+        distKm
+      };
+    }
+
+    function inferCategory(name, pitch) {
+      const s = ((name || '') + ' ' + (pitch || '')).toLowerCase();
+      if (s.includes('parquet') || s.includes('artisan') || s.includes('market') || s.includes('colis') || s.includes('salon')) {
+        return 'artisan';
+      }
+      if (s.includes('institut') || s.includes('massage') || s.includes('cabinet') || s.includes('thérap')) {
+        return 'beaute';
+      }
+      return 'resto';
     }
 
     function toggleSatellite(btn) {
@@ -976,8 +1281,8 @@
         setTimeout(() => map.invalidateSize(), 200);
       } else {
         document.getElementById('mobileSheetTitle').textContent = mode === 'route'
-          ? 'Liste complète de la tournée'
-          : 'Gérer les adresses & départ';
+          ? 'Feuille de route & Cash'
+          : 'Gérer / Supprimer des adresses';
         switchView(mode);
         sidebar.classList.add('mobile-sheet-open');
       }
@@ -995,16 +1300,18 @@
     }
 
     function loadProspects() {
+      let userCleared = false;
       try {
+        userCleared = localStorage.getItem(CLEARED_FLAG_KEY) === '1';
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) prospects = JSON.parse(raw);
+        if (raw !== null) prospects = JSON.parse(raw);
         const rawDone = localStorage.getItem(DONE_STORAGE_KEY);
         if (rawDone) doneAddresses = JSON.parse(rawDone) || {};
       } catch (e) {
         prospects = [];
         doneAddresses = {};
       }
-      if (!prospects || prospects.length === 0) {
+      if ((!prospects || prospects.length === 0) && !userCleared) {
         loadPontoisePreset(false);
       } else {
         renderRawProspects();
@@ -1015,17 +1322,19 @@
       const box = document.getElementById('prospectsListContainer');
       document.getElementById('countBadge').textContent = prospects.length;
       document.getElementById('mNavCount').textContent = prospects.length;
+      document.getElementById('setupCountInline').textContent = prospects.length;
+
       if (prospects.length === 0) {
-        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12px; padding:12px;">Aucun arrêt.</div>';
+        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12.5px; padding:16px;">Liste vide. Ajoutez vos adresses ci-dessus ou cliquez sur "↺ 18 Pontoise".</div>';
         return;
       }
       box.innerHTML = prospects.map((p, idx) => `
         <div class="client-row">
-          <div>
-            <strong>${idx + 1}. ${escHtml(p.name)}</strong>
-            <span>${escHtml(p.address)}</span>
+          <div style="min-width:0; flex:1;">
+            <strong>${idx + 1}. ${escHtml(p.name)} <span style="color:var(--green); font-weight:800;">(${p.potentialEur || (p.pack === 'starter' ? 490 : 990)} €)</span></strong>
+            <span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escHtml(p.address)}</span>
           </div>
-          <button type="button" onclick="removeProspect(${idx})" style="background:none;border:none;color:var(--red);font-weight:800;cursor:pointer;font-size:18px;padding:0 4px;">×</button>
+          <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByIndex(${idx})" title="Retirer ce prospect">🗑️ Retirer</button>
         </div>
       `).join('');
     }
@@ -1034,6 +1343,8 @@
       const textarea = document.getElementById('bulkInput');
       const rawText = textarea.value.trim();
       if (!rawText) return;
+
+      localStorage.removeItem(CLEARED_FLAG_KEY);
 
       if (rawText.includes('google.com/maps/dir/') || rawText.includes('google.fr/maps/dir/')) {
         try {
@@ -1044,7 +1355,10 @@
             document.getElementById('startAddress').value = decoded[0];
             prospects = decoded.slice(1).map(addr => ({
               name: addr.split(',')[0].trim(),
-              address: addr
+              address: addr,
+              pack: 'pro',
+              potentialEur: 990,
+              winProb: 85
             }));
             textarea.value = '';
             saveProspects();
@@ -1063,11 +1377,23 @@
             const p = cleaned.split(sep);
             const name = p.shift().trim();
             const address = p.join(sep).trim();
-            prospects.push({ name: name || address, address: address || name });
+            prospects.push({
+              name: name || address,
+              address: address || name,
+              pack: 'pro',
+              potentialEur: 990,
+              winProb: 85
+            });
             return;
           }
         }
-        prospects.push({ name: cleaned.split(',')[0].trim(), address: cleaned });
+        prospects.push({
+          name: cleaned.split(',')[0].trim(),
+          address: cleaned,
+          pack: 'pro',
+          potentialEur: 990,
+          winProb: 85
+        });
       });
 
       textarea.value = '';
@@ -1076,43 +1402,109 @@
       optimizeRoute();
     }
 
-    function removeProspect(idx) {
-      prospects.splice(idx, 1);
+    /* SUPPRIMER 1 PROSPECT (DEPUIS LA CARTE, LA LISTE OU L'ONGLET ADRESSES) */
+    function removeProspectByIndex(idx) {
+      if (idx < 0 || idx >= prospects.length) return;
+      const removed = prospects.splice(idx, 1)[0];
+      if (prospects.length === 0) {
+        localStorage.setItem(CLEARED_FLAG_KEY, '1');
+      }
       saveProspects();
       renderRawProspects();
+
+      // Supprime aussi immédiatement du cache carte sans tout re-géocoder
+      if (removed && cachedGeoNodes.length > 1) {
+        const nodeIdx = cachedGeoNodes.findIndex((n, i) => i > 0 && n.rawAddress === removed.address && n.name === removed.name);
+        if (nodeIdx !== -1) {
+          cachedGeoNodes.splice(nodeIdx, 1);
+          cachedDurations.splice(nodeIdx, 1);
+          cachedDurations.forEach(row => row.splice(nodeIdx, 1));
+          cachedDistances.splice(nodeIdx, 1);
+          cachedDistances.forEach(row => row.splice(nodeIdx, 1));
+          if (prospects.length === 0) {
+            clearMapAndUIOnly();
+          } else {
+            rebuildDisplayFromCache();
+          }
+          return;
+        }
+      }
+      if (prospects.length === 0) {
+        clearMapAndUIOnly();
+      } else {
+        optimizeRoute();
+      }
     }
 
+    function removeProspectByStep(stepPos) {
+      const node = currentOrderedNodes[stepPos];
+      if (!node || node.isStart) return;
+      const idx = prospects.findIndex(p => p.name === node.name || p.address === node.rawAddress || p.address === node.address);
+      if (idx !== -1) {
+        removeProspectByIndex(idx);
+      }
+    }
+
+    function clearMapAndUIOnly() {
+      markersLayer.clearLayers();
+      mapMarkerRefs = [];
+      cachedGeoNodes = [];
+      currentOrderedNodes = [];
+      if (routeShadowLine) map.removeLayer(routeShadowLine);
+      if (routeMainLine) map.removeLayer(routeMainLine);
+      document.getElementById('itineraryOutput').innerHTML = `
+        <div style="text-align:center; padding:24px 12px; color:var(--muted); font-size:13px;">
+          La liste est vide.<br><br>
+          <button type="button" class="btn btn-blue btn-xs" onclick="loadPontoisePreset(true)">↺ Recharger les 18 prospects de Pontoise</button>
+        </div>
+      `;
+      document.getElementById('mapCardsStrip').innerHTML = '';
+      document.getElementById('exportBox').style.display = 'none';
+      document.getElementById('statTotalCash').textContent = '0 €';
+      document.getElementById('statDriveTime').textContent = '0 min';
+      document.getElementById('statDistance').textContent = '0 km';
+      document.getElementById('doneProgressBadge').textContent = '0/0';
+      document.getElementById('mapPillText').textContent = '0 prospect dans la liste';
+      document.getElementById('radarTargetName').textContent = 'Liste vide — Ajoutez des adresses';
+      document.getElementById('radarTargetReason').textContent = 'Cliquez sur "⚙️ Gérer" ou "↺ 18 Pontoise"';
+    }
+
+    /* VIDER TOUTE LA LISTE */
     function clearAllProspects() {
       prospects = [];
       doneAddresses = {};
+      localStorage.setItem(CLEARED_FLAG_KEY, '1');
       saveProspects();
       renderRawProspects();
-      markersLayer.clearLayers();
-      if (routeShadowLine) map.removeLayer(routeShadowLine);
-      if (routeMainLine) map.removeLayer(routeMainLine);
-      document.getElementById('itineraryOutput').innerHTML = '';
-      document.getElementById('mapCardsStrip').innerHTML = '';
-      document.getElementById('exportBox').style.display = 'none';
+      clearMapAndUIOnly();
     }
 
     function loadPontoisePreset(autoRun = true) {
+      localStorage.removeItem(CLEARED_FLAG_KEY);
+      doneAddresses = {};
       document.getElementById('startAddress').value = '15 Rue des Écuries, 95300 Pontoise';
       prospects = [
         {
           name: 'Pepper Smash (& Brasserie Paris Pontoise)',
           address: '18 Mail de la Cavalerie, 95300 Pontoise',
           phone: '01 30 32 79 28',
-          pitch: '0 site web (paye 30% à UberEats/Deliveroo). Montrer Click & Collect WhatsApp 990 €.',
+          pitch: '0 site web (paye 30% à UberEats/Deliveroo). Montrer Click & Collect WhatsApp 990 € / CB 1 490 €.',
           demo: '../sites/fastfood-smash.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 96
         },
         {
           name: 'Institut MEI LI (Massage)',
           address: '31 Place Notre Dame, 95300 Pontoise',
           phone: '06 05 94 16 33',
-          pitch: '0 site web (que PagesJaunes). Proposer vitrine + tarifs & RDV WhatsApp (490 €).',
+          pitch: '0 site web (que PagesJaunes). Gérante en 06 direct : proposer vitrine + tarifs & RDV WhatsApp (490 €).',
           demo: '../sites/artisan-elite.html',
-          pack: 'starter'
+          pack: 'starter',
+          category: 'beaute',
+          potentialEur: 490,
+          winProb: 86
         },
         {
           name: 'Be\'Sushi / L\'Atelier du Sushi',
@@ -1120,31 +1512,43 @@
           phone: '01 30 31 90 74',
           pitch: 'Pas de site actif + confusion Google avec ancienne crêperie. Proposer Click & Collect (990 €).',
           demo: '../sites/restaurant-braise.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 91
         },
         {
           name: 'Chicken Drive Pontoise',
           address: '18 Rue de Rouen, 95300 Pontoise',
           phone: '07 59 70 40 28',
-          pitch: '0 site web (juste un 07 + UberEats). Proposer retrait Drive sans attente (490 € / 990 €).',
+          pitch: '0 site web (gérant en 07 direct + UberEats). Proposer retrait Drive sans attente (990 €).',
           demo: '../sites/fastfood-smash.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 94
         },
         {
           name: 'Cabinets Thérapeutes (Outrebon / Follet)',
           address: '26 Rue Sere-Depoin, 95300 Pontoise',
           phone: '01 34 22 18 84',
-          pitch: '0 site web (que PagesJaunes). Proposer page vitrine professionnelle & RDV (490 €).',
+          pitch: '0 site web (que PagesJaunes). Proposer page vitrine professionnelle & prise de RDV (490 €).',
           demo: '../sites/artisan-elite.html',
-          pack: 'starter'
+          pack: 'starter',
+          category: 'beaute',
+          potentialEur: 490,
+          winProb: 78
         },
         {
           name: 'Barlou Burger / Miss Kebab',
           address: '75 Rue Pierre Butin, 95300 Pontoise',
           phone: '06 68 89 05 95',
-          pitch: '0 site officiel + 3 noms mélangés sur Google. Proposer site clair + menu (490 € / 990 €).',
+          pitch: '0 site officiel + 3 noms mélangés sur Google (gérant en 06). Proposer site clair + menu (490 € / 990 €).',
           demo: '../sites/fastfood-smash.html',
-          pack: 'starter'
+          pack: 'starter',
+          category: 'resto',
+          potentialEur: 490,
+          winProb: 89
         },
         {
           name: 'O\'Twist Fast-Food',
@@ -1152,23 +1556,32 @@
           phone: '09 81 12 91 70',
           pitch: '0 site internet sur un axe très passant. Proposer carte mobile + commande (490 €).',
           demo: '../sites/fastfood-smash.html',
-          pack: 'starter'
+          pack: 'starter',
+          category: 'resto',
+          potentialEur: 490,
+          winProb: 82
         },
         {
           name: 'Créa Parquets & CocciMarket',
           address: '32 Rue des Pâtis, 95300 Pontoise',
           phone: '06 04 52 38 09',
-          pitch: 'Artisan parqueteur sans site (juste un 06) : 1 seul chantier signé rembourse 3x le site (990 €).',
+          pitch: 'Artisan parqueteur sans site (06 direct) : 1 seul chantier signé rembourse 3x son site (990 €).',
           demo: '../sites/artisan-elite.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'artisan',
+          potentialEur: 990,
+          winProb: 93
         },
         {
           name: 'Restaurant L\'Italien (ex Pepper-Grill)',
           address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône',
           phone: '01 84 24 12 12',
-          pitch: 'URGENT : 0 site et Google affiche encore l\'ancien resto fermé "Pepper-Grill" ! Proposer Pro 990 €.',
+          pitch: 'URGENCE : 0 site et Google affiche encore l\'ancien resto fermé "Pepper-Grill" ! Proposer Pro 990 €.',
           demo: '../sites/restaurant-braise.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 97
         },
         {
           name: 'Bamako Market & Relais Colis',
@@ -1176,31 +1589,43 @@
           phone: '09 55 82 79 89',
           pitch: '0 site web alors que des centaines de clients passent pour les colis. Proposer vitrine 490 €.',
           demo: '../sites/fastfood-smash.html',
-          pack: 'starter'
+          pack: 'starter',
+          category: 'artisan',
+          potentialEur: 490,
+          winProb: 80
         },
         {
           name: 'Chicken Street Cergy (Face Fac)',
           address: '16 Place des Cerclades, 95000 Cergy',
           phone: '06 68 45 93 51',
-          pitch: 'Géré localement en 06 face à l\'université : proposer commande directe étudiants hors UberEats.',
+          pitch: 'Gérant en 06 face à l\'université : proposer Click & Collect étudiants hors UberEats (990 € / 1 490 €).',
           demo: '../sites/fastfood-smash.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 94
         },
         {
           name: 'Restaurant MG / Adiza (Grillades)',
           address: '3 Rue des Italiens, 95000 Cergy',
           phone: '06 61 29 13 51',
-          pitch: 'Très fréquenté mais 0 site web (que UberEats). Proposer carte + pré-commande midi (490 € / 990 €).',
+          pitch: 'Très fréquenté (gérant en 06) mais 0 site web (que UberEats). Proposer carte + pré-commande midi (490 € / 990 €).',
           demo: '../sites/restaurant-braise.html',
-          pack: 'starter'
+          pack: 'starter',
+          category: 'resto',
+          potentialEur: 490,
+          winProb: 88
         },
         {
           name: 'Brasserie Le Cergy & Spice N Grill',
           address: '10 Avenue Bernard Hirsch, 95000 Cergy',
           phone: '01 34 24 23 31',
-          pitch: 'Entre ESSEC et Préfecture : Le Cergy n\'a aucun site web pour capter les pauses déj (490 € / 990 €).',
+          pitch: 'Entre ESSEC et Préfecture : Le Cergy n\'a aucun site web pour capter les pauses déj (990 €).',
           demo: '../sites/restaurant-braise.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 90
         },
         {
           name: 'Le Cezam Fast-Food (QG ESSEC)',
@@ -1208,7 +1633,10 @@
           phone: '01 34 24 01 35',
           pitch: 'QG de l\'ESSEC mais 0 site web (que Instagram) ! Proposer Click & Collect 990 € pour éviter la queue.',
           demo: '../sites/fastfood-smash.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 95
         },
         {
           name: 'Le Bosphore & Printemps d\'Asie',
@@ -1216,7 +1644,10 @@
           phone: '01 30 73 40 40',
           pitch: 'Face à l\'Hôtel Mercure mais aucun vrai site pour capter les clients de l\'hôtel le soir (990 €).',
           demo: '../sites/restaurant-braise.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'resto',
+          potentialEur: 990,
+          winProb: 89
         },
         {
           name: 'Full Pizza & Orient Primeurs',
@@ -1224,7 +1655,10 @@
           phone: '01 30 31 25 26',
           pitch: 'Pizzeria de quartier sans aucun site internet ! Proposer carte pizzas + commande directe (490 €).',
           demo: '../sites/fastfood-smash.html',
-          pack: 'starter'
+          pack: 'starter',
+          category: 'resto',
+          potentialEur: 490,
+          winProb: 85
         },
         {
           name: 'Salons des Bellevues & Resto Acadie',
@@ -1232,15 +1666,21 @@
           phone: '01 30 30 52 68',
           pitch: 'ZAC des Bellevues : proposer refonte moderne pour réservation de salles & repas PME (990 €).',
           demo: '../sites/restaurant-braise.html',
-          pack: 'pro'
+          pack: 'pro',
+          category: 'artisan',
+          potentialEur: 990,
+          winProb: 86
         },
         {
-          name: 'Le Chalet d\'Oz, L\'Érable & Le Shanghai',
+          name: 'Pôle 4 Restos Osny (Chalet d\'Oz, L\'Érable, Shanghai)',
           address: '24 Chemin du Poirier Charles Guérin, 95520 Osny',
           phone: '07 51 34 86 57',
-          pitch: '4 restos sur le même parking (Chalet d\'Oz, L\'Érable, Le Shanghai, New Saïgon) et AUCUN n\'a de site !',
+          pitch: 'JACKPOT : 4 restos sur le même parking et AUCUN n\'a de site ! Potentiel 2 à 3 signatures d\'un coup.',
           demo: '../sites/fastfood-smash.html',
-          pack: 'pro'
+          pack: 'cb',
+          category: 'resto',
+          potentialEur: 1490,
+          winProb: 98
         }
       ];
       saveProspects();
@@ -1252,6 +1692,7 @@
       if (!navigator.geolocation) return alert('Géolocalisation non disponible.');
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
+        userGpsCoords = { lat: latitude, lon: longitude };
         if (userLocationMarker) map.removeLayer(userLocationMarker);
         const icon = L.divIcon({
           className: '',
@@ -1261,6 +1702,7 @@
         });
         userLocationMarker = L.marker([latitude, longitude], { icon }).addTo(map);
         map.flyTo([latitude, longitude], 16, { duration: 0.6 });
+        if (cachedGeoNodes.length > 1) rebuildDisplayFromCache();
       }, () => {
         alert('Activez la localisation GPS pour vous voir sur la carte.');
       }, { enableHighAccuracy: true });
@@ -1268,7 +1710,7 @@
 
     function fitEntireRoute() {
       if (routeMainLine) {
-        map.fitBounds(routeMainLine.getBounds(), { padding: [35, 35] });
+        map.fitBounds(routeMainLine.getBounds(), { padding: [40, 40] });
       }
     }
 
@@ -1276,6 +1718,7 @@
       if (!navigator.geolocation) return alert('Géolocalisation non disponible.');
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude, longitude } = pos.coords;
+        userGpsCoords = { lat: latitude, lon: longitude };
         try {
           const res = await fetch(`https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${latitude}`);
           const data = await res.json();
@@ -1392,12 +1835,33 @@
       return String(h).padStart(2, '0') + 'h' + String(m).padStart(2, '0');
     }
 
+    function setSortMode(mode) {
+      sortMode = mode;
+      document.getElementById('btnModeRoute').classList.toggle('active', mode === 'route');
+      document.getElementById('btnModeCash').classList.toggle('active', mode === 'cash');
+      const radarBtn = document.getElementById('radarSortBtn');
+      if (radarBtn) {
+        radarBtn.classList.toggle('active', mode === 'cash');
+        radarBtn.textContent = mode === 'cash' ? '✓ Tri Cash actif' : '💰 Trier €';
+      }
+      if (cachedGeoNodes.length > 1) {
+        rebuildDisplayFromCache();
+      }
+    }
+
+    function toggleSortMode() {
+      setSortMode(sortMode === 'cash' ? 'route' : 'cash');
+    }
+
     async function optimizeRoute() {
       if (document.getElementById('bulkInput').value.trim()) {
         addFromBulk();
         return;
       }
-      if (prospects.length === 0) return;
+      if (prospects.length === 0) {
+        clearMapAndUIOnly();
+        return;
+      }
       const startAddr = document.getElementById('startAddress').value.trim();
       if (!startAddr) return;
 
@@ -1413,6 +1877,7 @@
           isStart: true,
           name: 'Départ',
           address: startGeo.label,
+          rawAddress: startAddr,
           lat: startGeo.lat,
           lon: startGeo.lon
         }];
@@ -1424,10 +1889,14 @@
             isStart: false,
             name: prospects[i].name,
             address: g.label,
+            rawAddress: prospects[i].address,
             phone: prospects[i].phone || '',
             pitch: prospects[i].pitch || '',
             demo: prospects[i].demo || '../sites/fastfood-smash.html',
             pack: prospects[i].pack || 'pro',
+            category: prospects[i].category || inferCategory(prospects[i].name, prospects[i].pitch),
+            potentialEur: prospects[i].potentialEur || (prospects[i].pack === 'starter' ? 490 : 990),
+            winProb: prospects[i].winProb || 88,
             lat: g.lat,
             lon: g.lon
           });
@@ -1467,10 +1936,11 @@
           }
         }
 
-        const returnToStart = document.getElementById('returnToStart').checked;
-        const order = solveTSP(durations, returnToStart);
+        cachedGeoNodes = nodes;
+        cachedDurations = durations;
+        cachedDistances = distances;
 
-        await renderOptimizedMapAndList(nodes, order, durations, distances);
+        await rebuildDisplayFromCache();
         switchView('route');
         if (window.innerWidth <= 920) switchMobileMode('map');
         status.textContent = '';
@@ -1479,6 +1949,43 @@
       } finally {
         btn.disabled = false;
       }
+    }
+
+    async function rebuildDisplayFromCache() {
+      const nodes = cachedGeoNodes;
+      const durations = cachedDurations;
+      const distances = cachedDistances;
+      if (!nodes || nodes.length <= 1) {
+        clearMapAndUIOnly();
+        return;
+      }
+
+      const refPoint = userGpsCoords || nodes[0];
+      // Évalue chaque noeud en temps réel
+      for (let i = 1; i < nodes.length; i++) {
+        nodes[i].liveEval = evaluateRealTimeProspectPriority(nodes[i], refPoint);
+      }
+
+      const returnToStart = document.getElementById('returnToStart').checked;
+      let order;
+
+      if (sortMode === 'cash') {
+        // Trie les commerces non-faits en priorité par score Cash décroissant, puis les faits à la fin
+        const indices = [];
+        for (let i = 1; i < nodes.length; i++) indices.push(i);
+        indices.sort((a, b) => {
+          const doneA = Boolean(doneAddresses[nodes[a].address]);
+          const doneB = Boolean(doneAddresses[nodes[b].address]);
+          if (doneA !== doneB) return doneA ? 1 : -1;
+          return nodes[b].liveEval.rawScore - nodes[a].liveEval.rawScore;
+        });
+        order = [0, ...indices];
+        if (returnToStart) order.push(0);
+      } else {
+        order = solveTSP(durations, returnToStart);
+      }
+
+      await renderOptimizedMapAndList(nodes, order, durations, distances);
     }
 
     async function renderOptimizedMapAndList(nodes, order, durations, distances) {
@@ -1495,9 +2002,26 @@
       let totalDriveSec = 0;
       let totalDistMeters = 0;
       let elapsedMinutes = 0;
+      let totalRemainingCash = 0;
+
       const orderedNodes = order.map(idx => nodes[idx]);
       currentOrderedNodes = orderedNodes;
       const totalClientStops = prospects.length;
+
+      // Trouve la cible #1 Cash parmi les commerces NON FAITS
+      let bestCashScore = -1;
+      topCashStepPos = 1;
+      orderedNodes.forEach((node, stepPos) => {
+        if (stepPos === 0 || node.isStart) return;
+        const isDone = Boolean(doneAddresses[node.address]);
+        if (!isDone) {
+          totalRemainingCash += (node.liveEval ? node.liveEval.potentialEur : 990);
+          if (node.liveEval && node.liveEval.rawScore > bestCashScore) {
+            bestCashScore = node.liveEval.rawScore;
+            topCashStepPos = stepPos;
+          }
+        }
+      });
 
       const htmlCards = [];
       const bottomStripCards = [];
@@ -1542,11 +2066,14 @@
         if (node.isStart) return;
 
         const isDone = Boolean(doneAddresses[node.address]);
+        const isTopCash = (!isDone && stepPos === topCashStepPos);
+        const ev = node.liveEval || { potentialEur: 990, displayScore: 88, timeBadgeText: '🟢 Dispo', isRush: false };
+
         const icon = L.divIcon({
           className: '',
-          html: `<div class="g-pin ${isDone ? 'done-pin' : ''}" id="mapPin-${stepPos}">${isDone ? '✓' : stepPos}</div>`,
-          iconSize: [28, 28],
-          iconAnchor: [14, 14]
+          html: `<div class="g-pin ${isDone ? 'done-pin' : (isTopCash ? 'cash-king-pin' : '')}" id="mapPin-${stepPos}">${isDone ? '✓' : (isTopCash ? '💰' : stepPos)}</div>`,
+          iconSize: isTopCash ? [34, 34] : [28, 28],
+          iconAnchor: isTopCash ? [17, 17] : [14, 14]
         });
         mapMarkerRefs[stepPos] = L.marker([node.lat, node.lon], { icon })
           .on('click', () => scrollStripToStep(stepPos))
@@ -1554,36 +2081,50 @@
 
         const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}`;
         const demoUrl = node.demo || '../sites/fastfood-smash.html';
-        const devisUrl = `devis-express.html?client=${encodeURIComponent(node.name)}&address=${encodeURIComponent(node.address)}&phone=${encodeURIComponent(node.phone || '')}&pack=${encodeURIComponent(node.pack || 'pro')}`;
+        const devisUrl = `devis-express.html?client=${encodeURIComponent(node.name)}&address=${encodeURIComponent(node.address)}&phone=${encodeURIComponent(node.phone || '')}&pack=${encodeURIComponent(node.pack || 'pro')}&price=${encodeURIComponent(ev.potentialEur)}`;
         const cleanTel = (node.phone || '').replace(/\s+/g, '');
+
+        const cashBadgesHtml = `
+          <div class="cash-tags-row">
+            ${isTopCash ? `<span class="cash-tag hot">👑 PRIORITÉ #1 CASH</span>` : ''}
+            <span class="cash-tag eur">💰 ${ev.potentialEur} €</span>
+            <span class="cash-tag hot">🔥 Closing ${ev.displayScore}%</span>
+            <span class="cash-tag ${ev.isRush ? 'time-rush' : 'time-ok'}">${ev.timeBadgeText}</span>
+          </div>
+        `;
 
         // Fiche dans l'onglet Liste
         htmlCards.push(`
-          <div class="stop-item ${isDone ? 'done' : ''}" id="stopCard-${stepPos}" onclick="selectStopFromList(${stepPos})">
+          <div class="stop-item ${isDone ? 'done' : ''} ${isTopCash ? 'top-cash-target' : ''}" id="stopCard-${stepPos}" onclick="selectStopFromList(${stepPos})">
             <div class="badge-num" id="listBadge-${stepPos}">${isDone ? '✓' : stepPos}</div>
             <div>
               <span class="leg-meta">${legMins} min (${legKm} km) • ${arrivalStr}</span>
               <strong style="display:block; font-size:13.5px;">${escHtml(node.name)}</strong>
               <span style="font-size:11.5px; color:var(--muted); display:block;">${escHtml(node.address)}</span>
+              ${cashBadgesHtml}
               ${node.pitch ? `<div style="font-size:11.5px; color:#9A3412; background:#FFF7ED; padding:5px 7px; border-radius:6px; margin-top:4px;">${escHtml(node.pitch)}</div>` : ''}
               <div class="stop-actions" onclick="event.stopPropagation();">
-                <a href="${singleMapsUrl}" target="_blank" class="btn btn-blue btn-xs">🗺️ Y aller</a>
+                <a href="${singleMapsUrl}" target="_blank" class="btn btn-blue btn-xs">🗺️ GPS</a>
                 <a href="${demoUrl}" target="_blank" class="btn btn-outline btn-xs">🖥️ Démo</a>
                 <a href="${devisUrl}" class="btn btn-outline btn-xs">📄 Devis</a>
                 <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
-                  ${isDone ? '✓ Fait' : 'Fait'}
+                  ${isDone ? '✓ Fait' : '✅ Fait'}
+                </button>
+                <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByStep(${stepPos})" title="Retirer ce prospect de la liste">
+                  🗑️
                 </button>
               </div>
             </div>
           </div>
         `);
 
-        // Fiche en bas de la carte (optimisée téléphone 2 rangées de boutons)
+        // Fiche en bas de la carte (optimisée téléphone)
         bottomStripCards.push(`
-          <div class="map-stop-card ${stepPos === 1 ? 'active-card' : ''} ${isDone ? 'done-card' : ''}" id="mscCard-${stepPos}" data-step="${stepPos}">
+          <div class="map-stop-card ${stepPos === 1 ? 'active-card' : ''} ${isDone ? 'done-card' : ''} ${isTopCash ? 'top-cash-card' : ''}" id="mscCard-${stepPos}" data-step="${stepPos}">
             <div class="msc-header-nav">
-              <span>Arrêt ${stepPos}/${totalClientStops} • ${legMins} min (${legKm} km) • ${arrivalStr}</span>
+              <span>Arrêt ${stepPos}/${totalClientStops} • ${legMins} min (${legKm} km)</span>
               <div class="msc-step-arrows">
+                <button type="button" class="msc-arrow-btn del" onclick="removeProspectByStep(${stepPos})" title="Retirer ce prospect">🗑️</button>
                 <button type="button" class="msc-arrow-btn" onclick="scrollStripToStep(${Math.max(1, stepPos - 1)})">←</button>
                 <button type="button" class="msc-arrow-btn" onclick="scrollStripToStep(${Math.min(totalClientStops, stepPos + 1)})">→</button>
               </div>
@@ -1595,6 +2136,7 @@
                 <div class="msc-addr">${escHtml(node.address)}</div>
               </div>
             </div>
+            ${cashBadgesHtml}
             ${node.pitch ? `<div class="msc-pitch">${escHtml(node.pitch)}</div>` : ''}
             <div class="msc-actions-primary">
               <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">🗺️ Lancer GPS Maps</a>
@@ -1604,7 +2146,7 @@
             </div>
             <div class="msc-actions-secondary">
               <a href="${demoUrl}" target="_blank" class="msc-btn">🖥️ Démo</a>
-              <a href="${devisUrl}" class="msc-btn">📄 Devis</a>
+              <a href="${devisUrl}" class="msc-btn">📄 Devis (${ev.potentialEur}€)</a>
               ${cleanTel ? `<a href="tel:${cleanTel}" class="msc-btn">📞 Appeler</a>` : `<a href="https://waze.com/ul?ll=${node.lat},${node.lon}&navigate=yes" target="_blank" class="msc-btn">🚗 Waze</a>`}
             </div>
           </div>
@@ -1622,10 +2164,11 @@
         : `${totalMins} min`;
       const distFormatted = (totalDistMeters / 1000).toFixed(1).replace('.', ',') + ' km';
 
+      document.getElementById('statTotalCash').textContent = totalRemainingCash.toLocaleString('fr-FR') + ' €';
       document.getElementById('statDriveTime').textContent = timeFormatted;
       document.getElementById('statDistance').textContent = distFormatted;
-      document.getElementById('statEndTime').textContent = addMinutesToTime(startTime, elapsedMinutes);
       updateDoneCounters();
+      refreshLiveCashDetector();
 
       let drawnGeometry = null;
       try {
@@ -1641,21 +2184,71 @@
 
       routeShadowLine = L.polyline(drawnGeometry, { color: '#FFFFFF', weight: 7, opacity: 0.9 }).addTo(map);
       routeMainLine = L.polyline(drawnGeometry, { color: '#1A73E8', weight: 4.5, opacity: 0.95 }).addTo(map);
-      map.fitBounds(routeMainLine.getBounds(), { padding: [35, 35] });
+      map.fitBounds(routeMainLine.getBounds(), { padding: [40, 40] });
 
       buildGoogleMapsExportLinks(orderedNodes);
+    }
+
+    function refreshLiveCashDetector() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('radarClock').textContent = `${hh}h${mm}`;
+
+      if (!currentOrderedNodes || currentOrderedNodes.length <= 1) return;
+
+      const refPoint = userGpsCoords || currentOrderedNodes[0];
+      let bestStep = -1;
+      let bestNode = null;
+      let bestScore = -1;
+
+      currentOrderedNodes.forEach((node, stepPos) => {
+        if (stepPos === 0 || node.isStart) return;
+        if (doneAddresses[node.address]) return;
+        node.liveEval = evaluateRealTimeProspectPriority(node, refPoint);
+        if (node.liveEval.rawScore > bestScore) {
+          bestScore = node.liveEval.rawScore;
+          bestNode = node;
+          bestStep = stepPos;
+        }
+      });
+
+      if (!bestNode) {
+        document.getElementById('radarTargetName').textContent = '🎉 Tous les prospects ont été visités !';
+        document.getElementById('radarTargetReason').textContent = 'Cliquez sur ↺ Décocher ou ajoutez de nouvelles adresses';
+        return;
+      }
+
+      topCashStepPos = bestStep;
+      const ev = bestNode.liveEval;
+      const approxMins = Math.max(2, Math.round((ev.distKm / 26) * 60));
+      document.getElementById('radarTargetName').textContent = `#${bestStep} ${bestNode.name} (${ev.potentialEur} €)`;
+      document.getElementById('radarTargetReason').textContent = `Score ${ev.displayScore}% • ${ev.timeBadgeText} • ~${approxMins} min de route`;
+    }
+
+    function focusTopCashTarget() {
+      if (!currentOrderedNodes || currentOrderedNodes.length <= 1) return;
+      if (window.innerWidth <= 920) switchMobileMode('map');
+      scrollStripToStep(topCashStepPos);
     }
 
     function updateDoneCounters() {
       const totalStops = prospects.length;
       let doneCount = 0;
+      let remainingCash = 0;
       currentOrderedNodes.forEach(n => {
-        if (!n.isStart && doneAddresses[n.address]) doneCount++;
+        if (!n.isStart) {
+          if (doneAddresses[n.address]) {
+            doneCount++;
+          } else {
+            remainingCash += (n.liveEval ? n.liveEval.potentialEur : (n.potentialEur || 990));
+          }
+        }
       });
       document.getElementById('doneProgressBadge').textContent = `${doneCount}/${totalStops}`;
+      document.getElementById('statTotalCash').textContent = remainingCash.toLocaleString('fr-FR') + ' €';
       const distTxt = document.getElementById('statDistance').textContent;
-      const driveTxt = document.getElementById('statDriveTime').textContent;
-      document.getElementById('mapPillText').textContent = `${doneCount}/${totalStops} faits • ${driveTxt} (${distTxt})`;
+      document.getElementById('mapPillText').textContent = `${doneCount}/${totalStops} faits • Potentiel : ${remainingCash.toLocaleString('fr-FR')} € (${distTxt})`;
     }
 
     function toggleStopDone(stepPos, address) {
@@ -1685,6 +2278,7 @@
       }
 
       updateDoneCounters();
+      refreshLiveCashDetector();
 
       if (nowDone && document.getElementById(`mscCard-${stepPos + 1}`)) {
         setTimeout(() => scrollStripToStep(stepPos + 1), 220);
@@ -1694,7 +2288,11 @@
     function resetDoneStatus() {
       doneAddresses = {};
       saveProspects();
-      optimizeRoute();
+      if (cachedGeoNodes.length > 1) {
+        rebuildDisplayFromCache();
+      } else {
+        optimizeRoute();
+      }
     }
 
     function selectStopFromList(stepPos) {
@@ -1737,7 +2335,7 @@
       generatedGmapsUrls = [];
 
       const allWaypoints = orderedNodes.map(n => encodeURIComponent(n.address)).join('/');
-      generatedGmapsUrls.push({ label: 'Toute la tournée', url: `https://www.google.com/maps/dir/${allWaypoints}` });
+      generatedGmapsUrls.push({ label: 'Toute la tournée Maps', url: `https://www.google.com/maps/dir/${allWaypoints}` });
 
       if (orderedNodes.length > 10) {
         const chunkSize = 9;
@@ -1760,16 +2358,14 @@
       `).join('');
     }
 
-    function copyFirstGmapsLink() {
-      if (generatedGmapsUrls.length === 0) return;
-      navigator.clipboard.writeText(generatedGmapsUrls[0].url);
-      alert('Lien Google Maps copié !');
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       initMap();
       loadProspects();
-      optimizeRoute();
+      if (prospects.length > 0) {
+        optimizeRoute();
+      } else {
+        clearMapAndUIOnly();
+      }
     });
   </script>
 </body>
