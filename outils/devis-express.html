@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- jsPDF pour générer un vrai fichier PDF instantané à envoyer sur WhatsApp -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --bg: #F8FAFC;
@@ -35,7 +37,7 @@
       background: var(--bg);
       color: var(--ink);
       line-height: 1.45;
-      padding-bottom: calc(96px + var(--safe-bottom));
+      padding-bottom: calc(108px + var(--safe-bottom));
       -webkit-font-smoothing: antialiased;
     }
 
@@ -87,6 +89,27 @@
       background: #fff;
       color: var(--ink);
       text-decoration: none;
+    }
+
+    /* CLIENT PDF BANNER WHEN OPENED FROM WHATSAPP LINK */
+    .pdf-auto-banner {
+      display: none;
+      max-width: 600px;
+      margin: 10px auto 0;
+      background: #DCFCE7;
+      border: 1px solid #86EFAC;
+      color: #14532D;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .pdf-auto-banner.show {
+      display: flex;
     }
 
     /* MAIN SHEET */
@@ -321,36 +344,41 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
     }
 
     .sticky-totals strong {
       display: block;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 800;
       color: var(--ink);
+      white-space: nowrap;
     }
 
     .sticky-totals span {
       display: block;
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--muted);
+      white-space: nowrap;
     }
 
     .sticky-btns {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     .btn-action {
-      padding: 11px 15px;
+      padding: 11px 13px;
       border-radius: 9px;
       font-family: var(--font);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       border: none;
       cursor: pointer;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .btn-wa {
@@ -358,9 +386,40 @@
       color: #fff;
     }
 
+    .btn-wa-num {
+      background: #DCFCE7;
+      color: #15803D;
+      border: 1px solid #86EFAC;
+    }
+
     .btn-pdf {
       background: var(--ink);
       color: #fff;
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast {
+      position: fixed;
+      bottom: calc(78px + var(--safe-bottom));
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0F172A;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 99px;
+      font-size: 12.5px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     @media (max-width: 480px) {
@@ -372,30 +431,6 @@
       }
       .client-grid {
         grid-template-columns: 1fr;
-      }
-    }
-
-    @media print {
-      header,
-      #presetSelect,
-      .offers-grid,
-      .step-offer-select-label,
-      .sig-clear,
-      .sticky-bottom-bar {
-        display: none !important;
-      }
-      body {
-        background: #fff;
-        padding: 0;
-      }
-      .sheet {
-        border: none;
-        max-width: 100%;
-        padding: 0;
-      }
-      input {
-        border: none !important;
-        padding: 0 !important;
       }
     }
   </style>
@@ -410,6 +445,11 @@
     </div>
     <a href="../portfolio.html" class="btn-top">Démos</a>
   </header>
+
+  <div id="pdfAutoBanner" class="pdf-auto-banner">
+    <span>✅ Devis PDF téléchargé sur votre appareil !</span>
+    <button type="button" class="btn-action btn-pdf" style="padding:7px 12px; font-size:12px;" onclick="downloadPDF()">⬇️ Re-télécharger le PDF</button>
+  </div>
 
   <main class="sheet">
     <div class="sheet-header">
@@ -431,9 +471,12 @@
       </select>
       <div class="client-grid">
         <input type="text" id="clientName" placeholder="Nom du commerce">
-        <input type="tel" id="clientPhone" placeholder="Téléphone (06 / 01...)">
+        <input type="tel" id="clientPhone" placeholder="Téléphone WhatsApp (06 / 07...)">
       </div>
       <input type="text" id="clientAddress" style="margin-top:8px;" placeholder="Adresse (optionnel)">
+      <button type="button" onclick="openDirectWhatsAppChat()" style="margin-top:8px; width:100%; padding:8px 10px; border-radius:8px; border:1px solid #BBF7D0; background:#F0FDF4; color:#15803D; font-family:var(--font); font-size:12px; font-weight:700; cursor:pointer; text-align:center;">
+        💬 Numéro non enregistré ? Ouvrir le chat WhatsApp direct + Lien PDF
+      </button>
     </div>
 
     <!-- 2. FORMULE (GRILLE 2x2 COMPACTE SUR MOBILE) -->
@@ -488,12 +531,14 @@
     <!-- 4. SIGNATURE -->
     <div>
       <div class="sig-head">
-        <span class="step-label" style="margin:0;">Bon pour accord — Signature au doigt</span>
+        <span class="step-label" style="margin:0;">Bon pour accord — Signature au doigt (intégrée au PDF)</span>
         <button type="button" class="sig-clear" onclick="clearSig()">Effacer</button>
       </div>
       <canvas id="sigCanvas" class="sig-canvas"></canvas>
     </div>
   </main>
+
+  <div id="toast" class="toast">📄 PDF généré et prêt pour WhatsApp !</div>
 
   <!-- BARRE BASSE FIXE POUR ENVOYER D'UNE MAIN SUR TÉLÉPHONE -->
   <div class="sticky-bottom-bar">
@@ -503,8 +548,12 @@
         <span id="stickyDepositText">Acompte 50 % : 495 €</span>
       </div>
       <div class="sticky-btns">
-        <button type="button" class="btn-action btn-wa" onclick="sendWhatsApp()">📲 WhatsApp</button>
-        <button type="button" class="btn-action btn-pdf" onclick="window.print()">📄 PDF</button>
+        <button type="button" class="btn-action btn-wa" onclick="sendWhatsAppWithPDF()" title="Génère le fichier PDF et l'envoie sur WhatsApp">
+          📲 WhatsApp + PDF
+        </button>
+        <button type="button" class="btn-action btn-pdf" onclick="downloadPDF()" title="Télécharger directement le fichier PDF">
+          📄 PDF
+        </button>
       </div>
     </div>
   </div>
@@ -539,7 +588,7 @@
         items: [
           'Site complet sur téléphone et ordinateur (présentation, carte/tarifs, horaires)',
           'Photos de vos produits et de votre établissement incluses',
-          'Bouton d’appel direct et liaison avec votre fiche Google Maps',
+          'Bouton d\'appel direct et liaison avec votre fiche Google Maps',
           'Mise en ligne et hébergement rapide inclus (0 abonnement obligatoire)'
         ]
       },
@@ -547,7 +596,7 @@
         title: 'Forfait Site Complet + Click & Collect Comptoir (Livraison 5-7 jours)',
         price: 990,
         items: [
-          'Site complet sur mesure jusqu’à 5 pages + référencement Google local',
+          'Site complet sur mesure jusqu\'à 5 pages + référencement Google local',
           'Module Click & Collect : choix du menu, suppléments, sauces et heure de retrait',
           'Réception directe des commandes sur WhatsApp Caisse + paiement au comptoir',
           'Photos sur place, QR Codes comptoir/tables et fiche Google Maps inclus'
@@ -575,7 +624,22 @@
     };
 
     let currentOfferKey = 'pro';
-    const refCode = 'BMS-' + Math.floor(1000 + Math.random() * 9000);
+    let refCode = 'BMS-' + Math.floor(1000 + Math.random() * 9000);
+    let hasSignature = false;
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    function cleanPdfText(str) {
+      return String(str || '')
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/[\u2013\u2014]/g, "-")
+        .replace(/[\u00A0\u202F]/g, " ");
+    }
 
     function selectOffer(key) {
       currentOfferKey = key;
@@ -608,35 +672,293 @@
       selectOffer(p.offer);
     }
 
-    function sendWhatsApp() {
+    function getQuoteFilename(shopName) {
+      const slug = (shopName || 'Client')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '-')
+        .replace(/^-|-$/g, '') || 'Client';
+      return `Devis-BoostMySite-${slug}.pdf`;
+    }
+
+    function buildDirectPdfUrl() {
+      const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
+      const addr = document.getElementById('clientAddress').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+      const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
+      const q = new URLSearchParams({
+        pdf: '1',
+        ref: refCode,
+        client: shop,
+        address: addr,
+        phone: phone,
+        pack: currentOfferKey,
+        price: String(total)
+      });
+      return `https://boost-my-site.com/outils/devis-express.html?${q.toString()}`;
+    }
+
+    /* GÉNÈRE UN VRAI DOCUMENT PDF A4 PRO AVEC JSPDF (+ SIGNATURE CLIENT) */
+    function generatePDFDocument() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+      const shop = cleanPdfText(document.getElementById('clientName').value.trim() || 'Votre établissement');
+      const addr = cleanPdfText(document.getElementById('clientAddress').value.trim());
+      const phone = cleanPdfText(document.getElementById('clientPhone').value.trim());
+      const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
+      const half = Math.round(total / 2);
+      const rest = total - half;
+      const o = OFFERS[currentOfferKey];
+      const dateStr = cleanPdfText(document.getElementById('docDate').textContent || new Date().toLocaleDateString('fr-FR'));
+
+      // 1. EN-TÊTE BOOST MY SITE
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(20);
+      doc.setTextColor(15, 23, 42);
+      doc.text('BoostMySite', 16, 22);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      doc.setTextColor(100, 116, 139);
+      doc.text('Creation de sites web & Click & Collect pour commercants', 16, 28);
+      doc.text('Brahim Ben Said  |  06 98 72 72 47  |  https://boost-my-site.com', 16, 33.5);
+
+      // Bloc Réf Devis à droite
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(13);
+      doc.setTextColor(15, 23, 42);
+      doc.text('DEVIS / BON DE COMMANDE', 194, 21, { align: 'right' });
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(22, 163, 74);
+      doc.text(`Ref : #${cleanPdfText(refCode)}`, 194, 27.5, { align: 'right' });
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Date : ${dateStr}`, 194, 33, { align: 'right' });
+
+      // Ligne séparatrice
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.4);
+      doc.line(16, 39, 194, 39);
+
+      // 2. ENCADRÉ CLIENT
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(16, 45, 178, 28, 3, 3, 'FD');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.setTextColor(100, 116, 139);
+      doc.text('ETABLISSEMENT / CLIENT', 22, 52);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(13);
+      doc.setTextColor(15, 23, 42);
+      doc.text(shop, 22, 59.5);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      doc.setTextColor(71, 85, 105);
+      const clientDetails = [addr, phone ? `Tel : ${phone}` : ''].filter(Boolean).join('   |   ') || 'Pontoise / Cergy-Pontoise (95)';
+      doc.text(clientDetails, 22, 66.5);
+
+      // 3. TABLEAU DE LA PRESTATION
+      doc.setFillColor(15, 23, 42);
+      doc.roundedRect(16, 81, 178, 10, 2, 2, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9.5);
+      doc.setTextColor(255, 255, 255);
+      doc.text('DETAIL DE LA PRESTATION CLE EN MAIN', 22, 87.3);
+      doc.text('MONTANT', 188, 87.3, { align: 'right' });
+
+      // Cadre contenu prestation
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(226, 232, 240);
+      doc.rect(16, 91, 178, 66, 'FD');
+
+      // Titre de l'offre + Prix
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11.5);
+      doc.setTextColor(15, 23, 42);
+      doc.text(cleanPdfText(o.title), 22, 100);
+      doc.setFontSize(13);
+      doc.text(`${total} EUR`, 188, 100, { align: 'right' });
+
+      doc.setDrawColor(241, 245, 249);
+      doc.line(22, 104, 188, 104);
+
+      // Liste des éléments inclus avec coches vertes vectorielles
+      let yPos = 112;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(51, 65, 85);
+
+      o.items.forEach(item => {
+        // Coche verte vectorielle
+        doc.setDrawColor(22, 163, 74);
+        doc.setLineWidth(0.7);
+        doc.line(22.5, yPos - 1.5, 23.8, yPos - 0.2);
+        doc.line(23.8, yPos - 0.2, 26.2, yPos - 3.2);
+
+        const wrapped = doc.splitTextToSize(cleanPdfText(item), 156);
+        doc.text(wrapped, 29, yPos);
+        yPos += wrapped.length * 5.5 + 3.5;
+      });
+
+      // 4. RÉCAPITULATIF FINANCIER & MODALITÉS DE RÈGLEMENT
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(203, 213, 225);
+      doc.setLineWidth(0.4);
+      doc.roundedRect(16, 164, 178, 36, 3, 3, 'FD');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12.5);
+      doc.setTextColor(15, 23, 42);
+      doc.text('PRIX TOTAL CLE EN MAIN', 22, 174);
+      doc.setFontSize(15);
+      doc.text(`${total} EUR`, 188, 174, { align: 'right' });
+
+      doc.setDrawColor(226, 232, 240);
+      doc.line(22, 178, 188, 178);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(22, 163, 74);
+      doc.text('1. Acompte de 50 % au demarrage du projet :', 22, 186);
+      doc.text(`${half} EUR`, 188, 186, { align: 'right' });
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(71, 85, 105);
+      doc.text('2. Solde de 50 % a la livraison (apres validation du site) :', 22, 193.5);
+      doc.text(`${rest} EUR`, 188, 193.5, { align: 'right' });
+
+      // 5. GARANTIES & CADRE SIGNATURE ("BON POUR ACCORD")
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9.5);
+      doc.setTextColor(15, 23, 42);
+      doc.text('ENGAGEMENTS BOOST MY SITE :', 16, 212);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(100, 116, 139);
+      doc.text('- Aucun abonnement obligatoire : vous etes 100 % proprietaire de votre site.', 16, 218.5);
+      doc.text('- Livraison cle en main : nous nous occupons des textes, photos et mise en ligne.', 16, 224);
+      doc.text('- Option maintenance & modifications illimitees (facultatif) : 39 EUR / mois.', 16, 229.5);
+
+      // Cadre signature à droite
+      doc.setFillColor(252, 251, 249);
+      doc.setDrawColor(203, 213, 225);
+      doc.roundedRect(114, 206, 80, 44, 3, 3, 'FD');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(15, 23, 42);
+      doc.text('BON POUR ACCORD & SIGNATURE :', 119, 213);
+
+      if (hasSignature) {
+        try {
+          const sigDataUrl = canvas.toDataURL('image/png');
+          doc.addImage(sigDataUrl, 'PNG', 118, 216, 72, 28);
+        } catch (e) {}
+      } else {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(148, 163, 184);
+        doc.text('(Signature client ou validation WhatsApp)', 119, 230);
+      }
+
+      // Pied de page
+      doc.setDrawColor(226, 232, 240);
+      doc.line(16, 274, 194, 274);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(148, 163, 184);
+      doc.text('BoostMySite - Brahim Ben Said - Tel : 06 98 72 72 47 - https://boost-my-site.com', 105, 281, { align: 'center' });
+
+      return doc;
+    }
+
+    function buildWhatsAppMessageText() {
       const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
       const addr = document.getElementById('clientAddress').value.trim();
       const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
       const half = Math.round(total / 2);
       const o = OFFERS[currentOfferKey];
+      const pdfLink = buildDirectPdfUrl();
 
-      const lines = [
-        `BON DE COMMANDE BOOST MY SITE (${refCode})`,
-        `Établissement : ${shop}`,
+      return [
+        `📄 *DEVIS BOOST MY SITE (${refCode})*`,
+        `Établissement : *${shop}*`,
         addr ? `Adresse : ${addr}` : '',
         ``,
-        `${o.title}`,
-        ...o.items.map(i => `• ${i}`),
+        `*${o.title}*`,
+        ...o.items.map(i => `✓ ${i}`),
         ``,
-        `Prix total clé en main : ${total} €`,
+        `*Prix total clé en main : ${total} €*`,
         `• Acompte au démarrage (50 %) : ${half} €`,
         `• Solde à la livraison après validation (50 %) : ${total - half} €`,
         ``,
-        `Brahim Ben Said — 06 98 72 72 47`,
-        `https://boost-my-site.com`
+        `📥 *Télécharger le Devis PDF officiel :*`,
+        pdfLink,
+        ``,
+        `Brahim Ben Said — 06 98 72 72 47`
       ].filter(Boolean).join('\n');
+    }
 
+    function downloadPDF() {
+      const shop = document.getElementById('clientName').value.trim() || 'Client';
+      const filename = getQuoteFilename(shop);
+      const doc = generatePDFDocument();
+      doc.save(filename);
+      showToast('📄 Devis PDF téléchargé : ' + filename);
+    }
+
+    function openDirectWhatsAppChat() {
+      const shop = document.getElementById('clientName').value.trim() || 'Client';
+      const filename = getQuoteFilename(shop);
+      const doc = generatePDFDocument();
+      doc.save(filename);
+      const lines = buildWhatsAppMessageText();
       let phone = document.getElementById('clientPhone').value.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
       if (phone.startsWith('0')) phone = '33' + phone.slice(1);
       const url = phone
         ? `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`
         : `https://wa.me/?text=${encodeURIComponent(lines)}`;
       window.open(url, '_blank');
+    }
+
+    async function sendWhatsAppWithPDF() {
+      const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
+      const filename = getQuoteFilename(shop);
+      const lines = buildWhatsAppMessageText();
+
+      // 1. Génère le vrai fichier PDF
+      const doc = generatePDFDocument();
+      const pdfBlob = doc.output('blob');
+      const pdfFile = new File([pdfBlob], filename, { type: 'application/pdf' });
+
+      // 2. Sur iPhone / Android : partage directement le fichier .PDF + le texte vers WhatsApp
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        try {
+          await navigator.share({
+            files: [pdfFile],
+            title: `Devis BoostMySite - ${shop}`,
+            text: lines
+          });
+          return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+      }
+
+      // 3. Sur ordinateur (ou si partage natif indisponible) : télécharge le fichier PDF ET ouvre WhatsApp avec le lien PDF direct
+      openDirectWhatsAppChat();
+      showToast('📄 PDF téléchargé + Lien PDF envoyé dans WhatsApp !');
     }
 
     const canvas = document.getElementById('sigCanvas');
@@ -660,19 +982,24 @@
       return { x: cx - rect.left, y: cy - rect.top };
     }
 
-    canvas.addEventListener('mousedown', e => { drawing = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+    canvas.addEventListener('mousedown', e => { drawing = true; hasSignature = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
     canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
     window.addEventListener('mouseup', () => { drawing = false; });
 
-    canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; hasSignature = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
     canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
     window.addEventListener('touchend', () => { drawing = false; });
 
     function clearSig() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hasSignature = false;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('ref')) {
+        refCode = params.get('ref');
+      }
       document.getElementById('docRef').textContent = 'Devis #' + refCode;
       document.getElementById('docDate').textContent = new Date().toLocaleDateString('fr-FR');
 
@@ -686,7 +1013,6 @@
 
       initCanvas();
 
-      const params = new URLSearchParams(window.location.search);
       if (params.get('client')) document.getElementById('clientName').value = params.get('client');
       if (params.get('phone')) document.getElementById('clientPhone').value = params.get('phone');
       if (params.get('address')) document.getElementById('clientAddress').value = params.get('address');
@@ -695,6 +1021,18 @@
         selectOffer(packParam);
       } else {
         selectOffer('pro');
+      }
+      if (params.get('price')) {
+        document.getElementById('customPriceInput').value = params.get('price');
+        recalcDeposit();
+      }
+
+      // Si le client clique sur le lien PDF reçu dans WhatsApp (?pdf=1), télécharge automatiquement son PDF !
+      if (params.get('pdf') === '1') {
+        document.getElementById('pdfAutoBanner').classList.add('show');
+        setTimeout(() => {
+          downloadPDF();
+        }, 350);
       }
     });
   </script>
