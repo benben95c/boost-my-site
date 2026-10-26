@@ -784,21 +784,24 @@
         <div class="menu-header">
           <div>
             <h2>La Carte</h2>
+            <p style="color:var(--ink-muted); font-size:0.95rem; margin-top:6px;">Tous nos burgers et wraps sont disponibles en Solo ou en Menu (+4,00 € avec Frites Maison & Boisson).</p>
           </div>
           <div class="category-tabs">
-            <button class="cat-btn active" onclick="filterMenu('all', this)">Tout voir</button>
-            <button class="cat-btn" onclick="filterMenu('smash', this)">Smash Burgers</button>
-            <button class="cat-btn" onclick="filterMenu('sides', this)">Frites & Sides</button>
-            <button class="cat-btn" onclick="filterMenu('drinks', this)">Boissons & Desserts</button>
+            <button class="cat-btn active" onclick="filterMenu('all', this)">Tout voir (21)</button>
+            <button class="cat-btn" onclick="filterMenu('smash', this)">Smash Burgers (6)</button>
+            <button class="cat-btn" onclick="filterMenu('chicken', this)">Crispy Chicken & Wraps (3)</button>
+            <button class="cat-btn" onclick="filterMenu('sides', this)">Frites & Finger Food (6)</button>
+            <button class="cat-btn" onclick="filterMenu('drinks', this)">Shakes, Desserts & Boissons (6)</button>
           </div>
         </div>
 
         <div class="products-grid" id="productsGrid">
+          <!-- ================= SMASH BURGERS (6) ================= -->
           <!-- SMASH 1 -->
           <article class="product-card" data-cat="smash">
             <div class="product-img-wrap">
-              <span class="product-tag">Signature</span>
-              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Le Double OG Smash">
+              <span class="product-tag">Best-Seller</span>
+              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Double OG Smash" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
@@ -814,14 +817,14 @@
           <article class="product-card" data-cat="smash">
             <div class="product-img-wrap">
               <span class="product-tag">Épicé</span>
-              <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80" alt="Oklahoma Onion">
+              <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80" alt="Oklahoma Jalapeño" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
                 <h3 class="product-name">Oklahoma Jalapeño</h3>
                 <span class="product-price">11,90 €</span>
               </div>
-              <p class="product-desc">2 steaks smashés dans une fine dentelle d'oignons blancs, cheddar affiné, jalapeños marinés, mayo fumée.</p>
+              <p class="product-desc">2 steaks smashés dans une fine dentelle d'oignons blancs caramélisés, cheddar affiné, jalapeños marinés, mayo fumée.</p>
               <button class="product-add" onclick="openComposer('Oklahoma Jalapeño', 11.90, true)">Choisir (Solo ou Menu)</button>
             </div>
           </article>
@@ -829,45 +832,127 @@
           <!-- SMASH 3 -->
           <article class="product-card" data-cat="smash">
             <div class="product-img-wrap">
-              <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80" alt="Truffle Melt">
+              <span class="product-tag">Recette Signature</span>
+              <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80" alt="Smoky Truffle" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
-                <h3 class="product-name">Smoky Truffle</h3>
+                <h3 class="product-name">Smoky Truffle Melt</h3>
                 <span class="product-price">13,50 €</span>
               </div>
-              <p class="product-desc">2 steaks smashés, gouda à la truffe noire, champignons rôtis au beurre, oignons confits.</p>
-              <button class="product-add" onclick="openComposer('Smoky Truffle', 13.50, true)">Choisir (Solo ou Menu)</button>
+              <p class="product-desc">2 steaks smashés, gouda affiné à la truffe noire, champignons bruns rôtis au beurre, oignons confits.</p>
+              <button class="product-add" onclick="openComposer('Smoky Truffle Melt', 13.50, true)">Choisir (Solo ou Menu)</button>
             </div>
           </article>
 
           <!-- SMASH 4 -->
           <article class="product-card" data-cat="smash">
             <div class="product-img-wrap">
-              <span class="product-tag">Croustillant</span>
-              <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=800&q=80" alt="Nashville Hot Chicken">
+              <span class="product-tag">3 Viandes</span>
+              <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=80" alt="Triple Banger Monster" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
-                <h3 class="product-name">Nashville Crispy</h3>
-                <span class="product-price">11,50 €</span>
+                <h3 class="product-name">Triple Banger (3 Steaks)</h3>
+                <span class="product-price">13,90 €</span>
               </div>
-              <p class="product-desc">Haut de cuisse de poulet fermier mariné 24h au babeurre, panure épicée, coleslaw croquant, miel pimenté.</p>
-              <button class="product-add" onclick="openComposer('Nashville Crispy', 11.50, true)">Choisir (Solo ou Menu)</button>
+              <p class="product-desc">3 steaks smashés Black Angus (270g), triple cheddar maturé, bacon de bœuf croustillant, oignons frits, sauce Banger.</p>
+              <button class="product-add" onclick="openComposer('Triple Banger (3 Steaks)', 13.90, true)">Choisir (Solo ou Menu)</button>
             </div>
           </article>
 
-          <!-- SIDE 1 -->
+          <!-- SMASH 5 -->
+          <article class="product-card" data-cat="smash">
+            <div class="product-img-wrap">
+              <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80" alt="Bacon Maple BBQ" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Bacon Maple BBQ</h3>
+                <span class="product-price">12,50 €</span>
+              </div>
+              <p class="product-desc">2 steaks smashés, poitrine de bœuf fumée au bois de hêtre, double cheddar, onion rings maison, sauce BBQ au sirop d'érable.</p>
+              <button class="product-add" onclick="openComposer('Bacon Maple BBQ', 12.50, true)">Choisir (Solo ou Menu)</button>
+            </div>
+          </article>
+
+          <!-- SMASH 6 -->
+          <article class="product-card" data-cat="smash">
+            <div class="product-img-wrap">
+              <span class="product-tag">Classique</span>
+              <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=800&q=80" alt="Simple Cheeseburger" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Single OG Cheeseburger</h3>
+                <span class="product-price">8,50 €</span>
+              </div>
+              <p class="product-desc">1 steak smashé Black Angus, double American cheese, cornichons croquants, ketchup maison et moutarde douce.</p>
+              <button class="product-add" onclick="openComposer('Single OG Cheeseburger', 8.50, true)">Choisir (Solo ou Menu)</button>
+            </div>
+          </article>
+
+          <!-- ================= CRISPY CHICKEN & WRAPS (3) ================= -->
+          <!-- CHICKEN 1 -->
+          <article class="product-card" data-cat="chicken">
+            <div class="product-img-wrap">
+              <span class="product-tag">Croustillant</span>
+              <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=800&q=80" alt="Nashville Hot Chicken" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Nashville Hot Crispy</h3>
+                <span class="product-price">11,50 €</span>
+              </div>
+              <p class="product-desc">Haut de cuisse de poulet fermier mariné 24h au babeurre, panure épicée, coleslaw croquant, miel pimenté.</p>
+              <button class="product-add" onclick="openComposer('Nashville Hot Crispy', 11.50, true)">Choisir (Solo ou Menu)</button>
+            </div>
+          </article>
+
+          <!-- CHICKEN 2 -->
+          <article class="product-card" data-cat="chicken">
+            <div class="product-img-wrap">
+              <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" alt="Honey Butter Chicken" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Honey Butter Chicken</h3>
+                <span class="product-price">11,50 €</span>
+              </div>
+              <p class="product-desc">Filet de poulet croustillant glacé au beurre de miel salé, cheddar fondant, laitue iceberg et mayo à l'ail rôti.</p>
+              <button class="product-add" onclick="openComposer('Honey Butter Chicken', 11.50, true)">Choisir (Solo ou Menu)</button>
+            </div>
+          </article>
+
+          <!-- CHICKEN 3 -->
+          <article class="product-card" data-cat="chicken">
+            <div class="product-img-wrap">
+              <span class="product-tag">Végétarien</span>
+              <img src="https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=800&q=80" alt="Veggie Halloumi Smash" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Halloumi & Portobello</h3>
+                <span class="product-price">10,90 €</span>
+              </div>
+              <p class="product-desc">Halloumi doré à la plancha, champignon Portobello rôti, avocat frais, oignons rouges pickles et sauce herbacée.</p>
+              <button class="product-add" onclick="openComposer('Halloumi & Portobello', 10.90, true)">Choisir (Solo ou Menu)</button>
+            </div>
+          </article>
+
+          <!-- ================= FRITES & FINGER FOOD (6) ================= -->
+          <!-- SIDE 1 (FIXED IMAGE!) -->
           <article class="product-card" data-cat="sides">
             <div class="product-img-wrap">
-              <img src="https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=800&q=80" alt="House Fries">
+              <span class="product-tag">Fait Maison</span>
+              <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80" alt="Frites Double Cuisson" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
                 <h3 class="product-name">Frites Double Cuisson</h3>
                 <span class="product-price">4,00 €</span>
               </div>
-              <p class="product-desc">Pommes de terre Agria coupées au couteau avec la peau, sel de Guérande et romarin.</p>
+              <p class="product-desc">Pommes de terre Agria coupées au couteau avec la peau, double bain de cuisson, fleur de sel de Guérande et romarin.</p>
               <button class="product-add" onclick="openComposer('Frites Double Cuisson', 4.00, false)">Ajouter au panier</button>
             </div>
           </article>
@@ -875,29 +960,93 @@
           <!-- SIDE 2 -->
           <article class="product-card" data-cat="sides">
             <div class="product-img-wrap">
-              <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80" alt="Tenders">
+              <span class="product-tag">Gourmand</span>
+              <img src="https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=800&q=80" alt="Loaded Fries Cheddar Bacon" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Loaded Fries Cheddar & Bacon</h3>
+                <span class="product-price">6,50 €</span>
+              </div>
+              <p class="product-desc">Grande portion de frites maison nappée de sauce cheddar fondue, éclats de bacon de bœuf grillé, cébette et jalapeños.</p>
+              <button class="product-add" onclick="openComposer('Loaded Fries Cheddar & Bacon', 6.50, false)">Ajouter au panier</button>
+            </div>
+          </article>
+
+          <!-- SIDE 3 -->
+          <article class="product-card" data-cat="sides">
+            <div class="product-img-wrap">
+              <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=800&q=80" alt="Truffle Parmesan Fries" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Frites Truffe & Parmesan</h3>
+                <span class="product-price">6,90 €</span>
+              </div>
+              <p class="product-desc">Frites maison lustrées à l'huile de truffe noire, parmesan Parmigiano Reggiano râpé minute et persil plat.</p>
+              <button class="product-add" onclick="openComposer('Frites Truffe & Parmesan', 6.90, false)">Ajouter au panier</button>
+            </div>
+          </article>
+
+          <!-- SIDE 4 -->
+          <article class="product-card" data-cat="sides">
+            <div class="product-img-wrap">
+              <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80" alt="Tenders Cornflakes" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
                 <h3 class="product-name">Tenders Cornflakes (x4)</h3>
                 <span class="product-price">6,90 €</span>
               </div>
-              <p class="product-desc">Filets de poulet frais panés minute, servis avec notre sauce Honey Mustard maison.</p>
+              <p class="product-desc">Filets de poulet frais panés minute aux cornflakes dorés, servis avec notre sauce Honey Mustard maison.</p>
               <button class="product-add" onclick="openComposer('Tenders Cornflakes (x4)', 6.90, false)">Ajouter au panier</button>
             </div>
           </article>
 
+          <!-- SIDE 5 -->
+          <article class="product-card" data-cat="sides">
+            <div class="product-img-wrap">
+              <span class="product-tag">À partager</span>
+              <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=800&q=80" alt="Bucket Tenders x10" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Bucket Crispy Tenders (x10)</h3>
+                <span class="product-price">15,90 €</span>
+              </div>
+              <p class="product-desc">10 grands filets de poulet croustillants accompagnés de 3 sauces maison au choix (Banger, Honey Mustard, Mayo Truffe).</p>
+              <button class="product-add" onclick="openComposer('Bucket Crispy Tenders (x10)', 15.90, false)">Ajouter au panier</button>
+            </div>
+          </article>
+
+          <!-- SIDE 6 -->
+          <article class="product-card" data-cat="sides">
+            <div class="product-img-wrap">
+              <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80" alt="Mac & Cheese Bites" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Mozza & Cheddar Sticks (x5)</h3>
+                <span class="product-price">5,90 €</span>
+              </div>
+              <p class="product-desc">Bâtonnets de mozzarella filante et vieux cheddar panés à la chapelure japonaise Panko, sauce marinara aux herbes.</p>
+              <button class="product-add" onclick="openComposer('Mozza & Cheddar Sticks (x5)', 5.90, false)">Ajouter au panier</button>
+            </div>
+          </article>
+
+          <!-- ================= SHAKES, DESSERTS & BOISSONS (6) ================= -->
           <!-- DRINK 1 -->
           <article class="product-card" data-cat="drinks">
             <div class="product-img-wrap">
-              <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80" alt="Milkshake">
+              <span class="product-tag">Turbiné Minute</span>
+              <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80" alt="Shake Vanille Pécan" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
                 <h3 class="product-name">Shake Vanille & Pécan</h3>
                 <span class="product-price">5,90 €</span>
               </div>
-              <p class="product-desc">Glace artisanale turbinée à la vanille Bourbon, éclats de noix de pécan caramélisées.</p>
+              <p class="product-desc">Glace artisanale turbinée à la vanille Bourbon de Madagascar, éclats de noix de pécan caramélisées et chantilly.</p>
               <button class="product-add" onclick="openComposer('Shake Vanille & Pécan', 5.90, false)">Ajouter au panier</button>
             </div>
           </article>
@@ -905,32 +1054,92 @@
           <!-- DRINK 2 -->
           <article class="product-card" data-cat="drinks">
             <div class="product-img-wrap">
-              <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Cookie">
+              <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" alt="Shake Chocolat Oreo" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
-                <h3 class="product-name">Cookie Mi-Cuit</h3>
-                <span class="product-price">3,90 €</span>
+                <h3 class="product-name">Shake Peanut Butter & Brownie</h3>
+                <span class="product-price">6,20 €</span>
               </div>
-              <p class="product-desc">Chocolat noir 70% Valrhona, beurre demi-sel et fleur de sel.</p>
-              <button class="product-add" onclick="openComposer('Cookie Mi-Cuit', 3.90, false)">Ajouter au panier</button>
+              <p class="product-desc">Crème glacée au lait entier, beurre de cacahuète grillée, morceaux de brownie fondant et sauce chocolat noir.</p>
+              <button class="product-add" onclick="openComposer('Shake Peanut Butter & Brownie', 6.20, false)">Ajouter au panier</button>
             </div>
           </article>
 
           <!-- DRINK 3 -->
           <article class="product-card" data-cat="drinks">
             <div class="product-img-wrap">
-              <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80" alt="Citronnade">
+              <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Cookie Mi-Cuit" onerror="this.src='project-fastfood.jpg'">
             </div>
             <div class="product-body">
               <div class="product-top">
-                <h3 class="product-name">Citronnade Gingembre</h3>
-                <span class="product-price">3,80 €</span>
+                <h3 class="product-name">Cookie Mi-Cuit Valrhona</h3>
+                <span class="product-price">3,90 €</span>
               </div>
-              <p class="product-desc">Citrons de Sicile pressés à froid, infusion de gingembre frais et menthe.</p>
-              <button class="product-add" onclick="openComposer('Citronnade Gingembre', 3.80, false)">Ajouter au panier</button>
+              <p class="product-desc">Cuit sur place tout au long de la journée : chocolat noir 70% Valrhona, beurre demi-sel et fleur de sel.</p>
+              <button class="product-add" onclick="openComposer('Cookie Mi-Cuit Valrhona', 3.90, false)">Ajouter au panier</button>
             </div>
           </article>
+
+          <!-- DRINK 4 -->
+          <article class="product-card" data-cat="drinks">
+            <div class="product-img-wrap">
+              <span class="product-tag">Fait Maison</span>
+              <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80" alt="Citronnade Gingembre" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Citronnade Gingembre (40cl)</h3>
+                <span class="product-price">3,80 €</span>
+              </div>
+              <p class="product-desc">Citrons jaunes de Sicile pressés à froid chaque matin, infusion de gingembre frais, menthe et sucre de canne bio.</p>
+              <button class="product-add" onclick="openComposer('Citronnade Gingembre (40cl)', 3.80, false)">Ajouter au panier</button>
+            </div>
+          </article>
+
+          <!-- DRINK 5 -->
+          <article class="product-card" data-cat="drinks">
+            <div class="product-img-wrap">
+              <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=800&q=80" alt="Thé Glacé Pêche Maison" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Iced Tea Pêche Blanche (40cl)</h3>
+                <span class="product-price">3,80 €</span>
+              </div>
+              <p class="product-desc">Infusion de thé noir Ceylan bio infusé à froid, purée de pêche blanche de vigne et zeste de citron vert.</p>
+              <button class="product-add" onclick="openComposer('Iced Tea Pêche Blanche (40cl)', 3.80, false)">Ajouter au panier</button>
+            </div>
+          </article>
+
+          <!-- DRINK 6 -->
+          <article class="product-card" data-cat="drinks">
+            <div class="product-img-wrap">
+              <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80" alt="Sodas & Eaux" onerror="this.src='project-fastfood.jpg'">
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <h3 class="product-name">Coca-Cola / Zéro / San Pellegrino</h3>
+                <span class="product-price">2,90 €</span>
+              </div>
+              <p class="product-desc">Canette 33cl fraîche (Coca-Cola Original, Coca-Cola Sans Sucres, Sprite) ou bouteille San Pellegrino 50cl.</p>
+              <button class="product-add" onclick="openComposer('Boisson 33cl (Coca / Zéro / Eau)', 2.90, false)">Ajouter au panier</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- BAR À SAUCES MAISON -->
+        <div style="margin-top:48px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+          <div>
+            <span style="font-size:0.76rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--red);">Préparées chaque matin en cuisine</span>
+            <h3 style="font-family:var(--font-display); font-size:1.45rem; margin-top:4px;">Nos Sauces Maison Signature — 1,20 €</h3>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="cat-btn" onclick="openComposer('Sauce Secrète Banger', 1.20, false)">+ Sauce Secrète Banger</button>
+            <button class="cat-btn" onclick="openComposer('Mayo Truffe Noire', 1.20, false)">+ Mayo Truffe Noire</button>
+            <button class="cat-btn" onclick="openComposer('Honey Mustard Maison', 1.20, false)">+ Honey Mustard</button>
+            <button class="cat-btn" onclick="openComposer('Sauce Cheddar Fondant', 1.50, false)">+ Cheddar Chaud (1,50 €)</button>
+          </div>
         </div>
       </div>
     </section>
@@ -988,7 +1197,7 @@
 
   <!-- MODAL MENU COMPOSER -->
   <div class="modal-backdrop" id="composerModal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:540px;">
       <div class="modal-top">
         <h3 class="modal-title" id="modalProductName">Double OG Smash</h3>
         <button class="modal-close" onclick="closeComposer()">×</button>
@@ -1005,6 +1214,39 @@
               <strong>En Menu (+4,00 €)</strong>
               <span>Frites maison + Boisson</span>
             </button>
+          </div>
+        </div>
+
+        <div id="menuSideAndDrinkBox" style="display:none;">
+          <div class="opt-group">
+            <span class="opt-label">2. Accompagnement du Menu</span>
+            <select id="menuSideSelect" class="pickup-slot" style="margin-bottom:0;" onchange="updateModalTotal()">
+              <option value="0" data-label="Frites Double Cuisson">Frites Maison Double Cuisson (Inclus)</option>
+              <option value="1.5" data-label="Loaded Fries Cheddar & Bacon">Loaded Fries Cheddar & Bacon (+1,50 €)</option>
+              <option value="2.0" data-label="Frites Truffe & Parmesan">Frites Truffe & Parmesan (+2,00 €)</option>
+            </select>
+          </div>
+          <div class="opt-group">
+            <span class="opt-label">3. Boisson du Menu</span>
+            <select id="menuDrinkSelect" class="pickup-slot" style="margin-bottom:0;">
+              <option>Citronnade Gingembre Maison</option>
+              <option>Iced Tea Pêche Blanche Maison</option>
+              <option>Coca-Cola Original 33cl</option>
+              <option>Coca-Cola Sans Sucres 33cl</option>
+              <option>San Pellegrino 50cl</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="opt-group">
+          <span class="opt-label">Suppléments gourmands (Optionnel)</span>
+          <div class="opt-choices">
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.86rem; padding:10px; border:1px solid var(--border); border-radius:10px; cursor:pointer;">
+              <input type="checkbox" id="extraPatty" value="2.5" onchange="updateModalTotal()"> +Steak Smashé (+2,50 €)
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.86rem; padding:10px; border:1px solid var(--border); border-radius:10px; cursor:pointer;">
+              <input type="checkbox" id="extraBacon" value="1.5" onchange="updateModalTotal()"> +Bacon Crispy (+1,50 €)
+            </label>
           </div>
         </div>
       </div>
@@ -1048,10 +1290,10 @@
 
   <script>
     let cart = [];
-    let currentItem = { name: '', basePrice: 0, isMenu: false };
+    let currentItem = { name: '', basePrice: 0, isMenu: false, allowMenu: false };
 
     function filterMenu(cat, btn) {
-      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.category-tabs .cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('.product-card').forEach(card => {
         card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'flex' : 'none';
@@ -1059,9 +1301,12 @@
     }
 
     function openComposer(name, price, allowMenu) {
-      currentItem = { name, basePrice: price, isMenu: false };
+      currentItem = { name, basePrice: Number(price), isMenu: false, allowMenu: Boolean(allowMenu) };
       document.getElementById('modalProductName').textContent = name;
       document.getElementById('menuOptionsContainer').style.display = allowMenu ? 'block' : 'none';
+      if (document.getElementById('extraPatty')) document.getElementById('extraPatty').checked = false;
+      if (document.getElementById('extraBacon')) document.getElementById('extraBacon').checked = false;
+      if (document.getElementById('menuSideSelect')) document.getElementById('menuSideSelect').selectedIndex = 0;
       selectFormula(false);
       document.getElementById('composerModal').classList.add('open');
     }
@@ -1074,14 +1319,49 @@
       currentItem.isMenu = isMenu;
       document.getElementById('optSolo').classList.toggle('selected', !isMenu);
       document.getElementById('optMenu').classList.toggle('selected', isMenu);
-      const finalPrice = currentItem.basePrice + (isMenu ? 4.0 : 0);
-      document.getElementById('modalPriceDisplay').textContent = finalPrice.toFixed(2).replace('.', ',') + ' €';
+      const sideBox = document.getElementById('menuSideAndDrinkBox');
+      if (sideBox) sideBox.style.display = isMenu ? 'block' : 'none';
+      updateModalTotal();
+    }
+
+    function getCalculatedItem() {
+      let total = currentItem.basePrice;
+      const details = [];
+      if (currentItem.allowMenu) {
+        if (currentItem.isMenu) {
+          total += 4.0;
+          const sideSel = document.getElementById('menuSideSelect');
+          const sideExtra = parseFloat(sideSel.value || '0');
+          const sideName = sideSel.options[sideSel.selectedIndex].dataset.label;
+          const drinkName = document.getElementById('menuDrinkSelect').value;
+          total += sideExtra;
+          details.push(`Menu : ${sideName} + ${drinkName}`);
+        } else {
+          details.push('Solo');
+        }
+        if (document.getElementById('extraPatty').checked) {
+          total += 2.5;
+          details.push('+Steak Smashé');
+        }
+        if (document.getElementById('extraBacon').checked) {
+          total += 1.5;
+          details.push('+Bacon Crispy');
+        }
+      }
+      return {
+        label: details.length ? `${currentItem.name} (${details.join(', ')})` : currentItem.name,
+        price: total
+      };
+    }
+
+    function updateModalTotal() {
+      const calc = getCalculatedItem();
+      document.getElementById('modalPriceDisplay').textContent = calc.price.toFixed(2).replace('.', ',') + ' €';
     }
 
     function confirmAddToCart() {
-      const price = currentItem.basePrice + (currentItem.isMenu ? 4.0 : 0);
-      const label = currentItem.isMenu ? currentItem.name + ' (Menu Frites + Boisson)' : currentItem.name;
-      cart.push({ label, price });
+      const calc = getCalculatedItem();
+      cart.push(calc);
       closeComposer();
       renderCart();
       toggleCart(true);
