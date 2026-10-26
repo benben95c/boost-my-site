@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Devis Express — BoostMySite</title>
+  <title>BMS Pro — Devis Express</title>
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F172A">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BMS Pro">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="app-icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -44,8 +48,8 @@
     /* TOP APP SWITCHER BAR (IDENTICAL TO MAP) */
     header {
       height: 48px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+      background: #0F172A;
+      border-bottom: 1px solid #1E293B;
       padding: 0 12px;
       display: flex;
       align-items: center;
@@ -58,37 +62,98 @@
 
     .app-switch {
       display: inline-flex;
-      background: #F1F5F9;
+      background: #1E293B;
       padding: 3px;
-      border-radius: 8px;
+      border-radius: 9px;
       gap: 2px;
     }
 
     .app-switch a {
       text-decoration: none;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       padding: 6px 10px;
-      border-radius: 6px;
-      color: var(--muted);
+      border-radius: 7px;
+      color: #94A3B8;
     }
 
     .app-switch a.active {
-      background: var(--surface);
-      color: var(--ink);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+      background: var(--gblue);
+      color: #fff;
     }
 
     .btn-top {
       padding: 6px 10px;
-      border-radius: 7px;
+      border-radius: 8px;
       font-family: var(--font);
       font-size: 12px;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--ink);
+      font-weight: 700;
+      border: 1px solid #334155;
+      background: #1E293B;
+      color: #fff;
       text-decoration: none;
+    }
+
+    .pin-lock-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #1E293B 0%, #0F172A 75%);
+      color: #fff;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .pin-lock-screen.unlocked {
+      display: none !important;
+    }
+
+    .pin-card {
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+    }
+
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 18px 0 22px;
+    }
+
+    .pin-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #475569;
+    }
+
+    .pin-dot.filled {
+      background: #F59E0B;
+      border-color: #F59E0B;
+    }
+
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 270px;
+      margin: 0 auto 18px;
+    }
+
+    .pin-key {
+      height: 58px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 800;
+      cursor: pointer;
     }
 
     /* CLIENT PDF BANNER WHEN OPENED FROM WHATSAPP LINK */
@@ -437,11 +502,41 @@
 </head>
 <body>
 
+  <!-- ÉCRAN DE VERROUILLAGE PAR CODE PIN (ACCÈS ÉQUIPE DEV UNIQUEMENT : 9595) -->
+  <div class="pin-lock-screen" id="pinLockScreen">
+    <div class="pin-card">
+      <div style="display:inline-block; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); color:#FBBF24; padding:5px 12px; border-radius:99px; font-size:11px; font-weight:800; text-transform:uppercase; margin-bottom:12px;">🔒 Accès Interne Équipe</div>
+      <div style="font-size:22px; font-weight:900; margin-bottom:5px;">BoostMySite Pro</div>
+      <div style="font-size:12.5px; color:#94A3B8;">Entrez le code PIN développeur</div>
+      <div class="pin-dots">
+        <div class="pin-dot" id="pDot0"></div>
+        <div class="pin-dot" id="pDot1"></div>
+        <div class="pin-dot" id="pDot2"></div>
+        <div class="pin-dot" id="pDot3"></div>
+      </div>
+      <div class="pin-keypad">
+        <button type="button" class="pin-key" onclick="pressPin('1')">1</button>
+        <button type="button" class="pin-key" onclick="pressPin('2')">2</button>
+        <button type="button" class="pin-key" onclick="pressPin('3')">3</button>
+        <button type="button" class="pin-key" onclick="pressPin('4')">4</button>
+        <button type="button" class="pin-key" onclick="pressPin('5')">5</button>
+        <button type="button" class="pin-key" onclick="pressPin('6')">6</button>
+        <button type="button" class="pin-key" onclick="pressPin('7')">7</button>
+        <button type="button" class="pin-key" onclick="pressPin('8')">8</button>
+        <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
+        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:14px; color:#94A3B8;">C</button>
+        <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
+        <button type="button" class="pin-key" onclick="backspacePin()" style="font-size:16px;">⌫</button>
+      </div>
+      <a href="../index.html" style="color:#64748B; font-size:12px; text-decoration:none;">← Retour au site public boost-my-site.com</a>
+    </div>
+  </div>
+
   <!-- BARRE HAUTE : SWITCH 1-CLIC CARTE / DEVIS -->
-  <header>
+  <header id="internalHeader">
     <div class="app-switch">
-      <a href="tournee-clients.html">📍 Carte Tournée</a>
-      <a href="devis-express.html" class="active">📄 Devis Express</a>
+      <a href="tournee-clients.html">📍 Carte</a>
+      <a href="devis-express.html" class="active">📄 Devis</a>
     </div>
     <a href="../portfolio.html" class="btn-top">Démos</a>
   </header>
@@ -995,8 +1090,66 @@
       hasSignature = false;
     }
 
+    const DEV_PIN_STORAGE_KEY = 'bms_dev_auth_v1';
+    const REQUIRED_PIN = '9595';
+    let enteredPin = '';
+
+    function updatePinDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById('pDot' + i);
+        if (dot) dot.classList.toggle('filled', i < enteredPin.length);
+      }
+    }
+
+    function pressPin(digit) {
+      if (enteredPin.length >= 4) return;
+      enteredPin += digit;
+      updatePinDots();
+      if (enteredPin.length === 4) {
+        if (enteredPin === REQUIRED_PIN) {
+          try { localStorage.setItem(DEV_PIN_STORAGE_KEY, REQUIRED_PIN); } catch (e) {}
+          document.getElementById('pinLockScreen').classList.add('unlocked');
+          setTimeout(() => initCanvas(), 60);
+        } else {
+          setTimeout(() => { enteredPin = ''; updatePinDots(); }, 350);
+        }
+      }
+    }
+
+    function backspacePin() {
+      enteredPin = enteredPin.slice(0, -1);
+      updatePinDots();
+    }
+
+    function clearPin() {
+      enteredPin = '';
+      updatePinDots();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const lock = document.getElementById('pinLockScreen');
+      if (!lock || lock.classList.contains('unlocked')) return;
+      if (e.key >= '0' && e.key <= '9') pressPin(e.key);
+      else if (e.key === 'Backspace') backspacePin();
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
+      const isClientPdfDownload = params.get('pdf') === '1';
+
+      // Si c'est un client qui clique sur son lien PDF WhatsApp : on déverrouille juste son devis mais on cache tous les outils internes !
+      if (isClientPdfDownload) {
+        document.getElementById('pinLockScreen').classList.add('unlocked');
+        document.getElementById('internalHeader').style.display = 'none';
+        document.getElementById('presetSelect').style.display = 'none';
+      } else {
+        try {
+          if (localStorage.getItem(DEV_PIN_STORAGE_KEY) === REQUIRED_PIN) {
+            document.getElementById('pinLockScreen').classList.add('unlocked');
+          }
+        } catch (e) {}
+      }
+
       if (params.get('ref')) {
         refCode = params.get('ref');
       }
@@ -1027,8 +1180,7 @@
         recalcDeposit();
       }
 
-      // Si le client clique sur le lien PDF reçu dans WhatsApp (?pdf=1), télécharge automatiquement son PDF !
-      if (params.get('pdf') === '1') {
+      if (isClientPdfDownload) {
         document.getElementById('pdfAutoBanner').classList.add('show');
         setTimeout(() => {
           downloadPDF();

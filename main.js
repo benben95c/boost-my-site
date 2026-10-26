@@ -95,4 +95,31 @@
   /* Année du pied de page */
   var y = d.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
+
+  /* Accès secret Équipe Dev : 4 clics rapides sur le copyright du bas (ou Shift+Alt+D sur PC) */
+  var copySpan = d.querySelector('.footer-bottom span');
+  var tapCount = 0;
+  var tapTimer = null;
+  function goDevApp() {
+    var inSubdir = window.location.pathname.indexOf('/metiers/') !== -1 || window.location.pathname.indexOf('/villes/') !== -1;
+    window.location.href = (inSubdir ? '../' : '') + 'outils/tournee-clients.html';
+  }
+  if (copySpan) {
+    copySpan.style.userSelect = 'none';
+    copySpan.addEventListener('click', function () {
+      tapCount++;
+      clearTimeout(tapTimer);
+      if (tapCount >= 4) {
+        tapCount = 0;
+        goDevApp();
+      } else {
+        tapTimer = setTimeout(function () { tapCount = 0; }, 1200);
+      }
+    });
+  }
+  window.addEventListener('keydown', function (e) {
+    if (e.shiftKey && e.altKey && (e.key === 'D' || e.key === 'd')) {
+      goDevApp();
+    }
+  });
 })();

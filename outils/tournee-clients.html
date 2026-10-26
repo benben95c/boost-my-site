@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Maps Tournée & Auto-Scanner Prospects — BoostMySite</title>
+  <title>BMS Pro — Carte & Auto-Scanner</title>
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F172A">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BMS Pro">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="app-icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <style>
@@ -22,7 +26,7 @@
       --gblue-dark: #1557B0;
       --green: #16A34A;
       --green-bg: #DCFCE7;
-      --gold: #D97706;
+      --gold: #F59E0B;
       --gold-bg: #FEF3C7;
       --red: #DC2626;
       --red-bg: #FEE2E2;
@@ -37,12 +41,17 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    input, textarea, select {
+      user-select: auto;
     }
 
     html, body {
       font-family: var(--font);
       color: var(--ink);
-      background: var(--bg);
+      background: #0F172A;
       height: 100%;
       height: 100dvh;
       width: 100%;
@@ -56,42 +65,163 @@
       flex-direction: column;
     }
 
-    /* TOP APP SWITCHER BAR */
-    header {
+    /* ==========================================================
+       ÉCRAN DE VERROUILLAGE ÉQUIPE DEV (CODE PIN : 9595)
+       ========================================================== */
+    .pin-lock-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #1E293B 0%, #0F172A 75%);
+      color: #fff;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .pin-lock-screen.unlocked {
+      display: none !important;
+    }
+
+    .pin-card {
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+    }
+
+    .pin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #FBBF24;
+      padding: 5px 12px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .pin-title {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .pin-sub {
+      font-size: 12.5px;
+      color: #94A3B8;
+      margin-bottom: 22px;
+    }
+
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .pin-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #475569;
+      background: transparent;
+      transition: all 0.15s ease;
+    }
+
+    .pin-dot.filled {
+      background: #F59E0B;
+      border-color: #F59E0B;
+      transform: scale(1.1);
+    }
+
+    .pin-dot.error {
+      background: #EF4444;
+      border-color: #EF4444;
+    }
+
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 270px;
+      margin: 0 auto 20px;
+    }
+
+    .pin-key {
+      height: 60px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pin-key:active {
+      background: rgba(245, 158, 11, 0.3);
+      border-color: #F59E0B;
+    }
+
+    .pin-back-link {
+      color: #64748B;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    /* ==========================================================
+       NATIVE APP TOP BAR + DOCKED CASH RADAR
+       ========================================================== */
+    header.app-header {
+      padding-top: var(--safe-top);
+      background: #0F172A;
+      color: #fff;
+      border-bottom: 1px solid #1E293B;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .app-header-row {
       height: 48px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
       padding: 0 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 40;
-      flex-shrink: 0;
       gap: 6px;
     }
 
     .app-switch {
       display: inline-flex;
-      background: #F1F5F9;
+      background: #1E293B;
       padding: 3px;
-      border-radius: 8px;
+      border-radius: 9px;
       gap: 2px;
     }
 
     .app-switch a {
       text-decoration: none;
       font-size: 12px;
-      font-weight: 700;
-      padding: 6px 9px;
-      border-radius: 6px;
-      color: var(--muted);
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 7px;
+      color: #94A3B8;
       white-space: nowrap;
     }
 
     .app-switch a.active {
-      background: var(--surface);
-      color: var(--ink);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+      background: var(--gblue);
+      color: #fff;
     }
 
     .top-right {
@@ -102,38 +232,117 @@
 
     .btn-top {
       padding: 6px 9px;
-      border-radius: 7px;
+      border-radius: 8px;
       font-family: var(--font);
       font-size: 11.5px;
-      font-weight: 700;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--ink);
+      font-weight: 800;
+      border: 1px solid #334155;
+      background: #1E293B;
+      color: #F8FAFC;
       text-decoration: none;
       cursor: pointer;
       white-space: nowrap;
     }
 
     .btn-top-scan {
-      background: #0F172A;
-      color: #FBBF24;
-      border-color: #0F172A;
+      background: #F59E0B;
+      color: #0F172A;
+      border-color: #F59E0B;
     }
 
     .btn-top-danger {
-      color: var(--red);
-      border-color: #FECACA;
-      background: #FEF2F2;
+      color: #FCA5A5;
+      border-color: #7F1D1D;
+      background: rgba(127, 29, 29, 0.35);
+    }
+
+    /* DOCKED CASH RADAR STRIP (NEVER BLOCKS MAP TOUCH) */
+    .cash-radar-dock {
+      background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%);
+      border-bottom: 1.5px solid #F59E0B;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      z-index: 39;
+      flex-shrink: 0;
+    }
+
+    .radar-left {
+      min-width: 0;
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .radar-kicker {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #FBBF24;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radar-target-name {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .radar-reason {
+      font-size: 10.5px;
+      color: #CBD5E1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .radar-actions {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .radar-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .radar-btn.go {
+      background: #F59E0B;
+      color: #0F172A;
+    }
+
+    .radar-btn.sort {
+      background: #334155;
+      color: #fff;
+    }
+
+    .radar-btn.sort.active {
+      background: #16A34A;
+      color: #fff;
     }
 
     /* MAIN WORKSPACE */
     .workspace {
       flex: 1;
       display: grid;
-      grid-template-columns: 430px 1fr;
+      grid-template-columns: 420px 1fr;
       overflow: hidden;
       position: relative;
-      height: calc(100dvh - 48px);
+      background: var(--bg);
     }
 
     /* SIDEBAR / MOBILE SHEET */
@@ -190,7 +399,7 @@
       display: block;
     }
 
-    /* SORT MODE SWITCHER (ROUTE VS CASH PRIORITY) */
+    /* SORT MODE SWITCHER */
     .mode-switch-bar {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -218,7 +427,6 @@
       color: #fff;
     }
 
-    /* FORM ELEMENTS (16PX FONT SIZE PREVENTS SAFARI IOS ZOOM) */
     .section-box {
       background: #F8FAFC;
       border: 1px solid var(--border);
@@ -329,7 +537,6 @@
       flex-shrink: 0;
     }
 
-    /* STATS STRIP */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -419,7 +626,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 4px;
-      margin: 4px 0;
+      margin: 3px 0;
     }
 
     .cash-tag {
@@ -461,32 +668,25 @@
       z-index: 1;
     }
 
-    /* REAL-TIME MONEY RADAR BANNER AT TOP OF MAP */
-    .mobile-map-top-stack {
+    /* FLOATING CONTROLS ON MAP */
+    .map-floating-top {
       position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
+      top: 10px;
+      left: 10px;
+      right: 10px;
       z-index: 500;
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      justify-content: space-between;
+      align-items: flex-start;
       pointer-events: none;
     }
 
-    .mobile-map-top-stack > * {
+    .map-floating-top > * {
       pointer-events: auto;
     }
 
-    .mobile-map-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-    }
-
     .tour-summary-pill {
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(15, 23, 42, 0.9);
       backdrop-filter: blur(8px);
       color: #fff;
       padding: 6px 11px;
@@ -506,208 +706,71 @@
       background: #4ADE80;
     }
 
-    .map-right-controls {
+    .map-right-dock {
       display: flex;
-      gap: 5px;
-      align-items: center;
-    }
-
-    .pill-scan-btn {
-      background: #0F172A;
-      color: #FBBF24;
-      border: 1.5px solid #F59E0B;
-      padding: 6px 10px;
-      border-radius: 99px;
-      font-family: var(--font);
-      font-size: 11.5px;
-      font-weight: 800;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
+      flex-direction: column;
+      gap: 7px;
+      align-items: flex-end;
     }
 
     .circle-map-btn {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.96);
       border: 1px solid var(--border);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.22);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13.5px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       color: var(--ink);
     }
 
-    /* LIVE CASH DETECTOR RADAR WIDGET */
-    .cash-radar-bar {
-      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-      color: #fff;
-      border: 1.5px solid #F59E0B;
-      border-radius: 12px;
-      padding: 8px 10px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.32);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .radar-left {
-      min-width: 0;
-      flex: 1;
-      cursor: pointer;
-    }
-
-    .radar-kicker {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #FBBF24;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .radar-target-name {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-top: 1px;
-    }
-
-    .radar-reason {
-      font-size: 10.5px;
-      color: #CBD5E1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .radar-actions {
-      display: flex;
-      gap: 5px;
-      flex-shrink: 0;
-    }
-
-    .radar-btn {
-      border: none;
-      border-radius: 8px;
-      padding: 7px 9px;
-      font-family: var(--font);
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .radar-btn.go {
-      background: #F59E0B;
-      color: #0F172A;
-    }
-
-    .radar-btn.sort {
-      background: rgba(255,255,255,0.14);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.22);
-    }
-
-    .radar-btn.sort.active {
-      background: #16A34A;
-      border-color: #4ADE80;
-    }
-
-    /* AUTO-SCANNER MODAL OVER MAP */
-    .scanner-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(4px);
-      z-index: 900;
-      display: none;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .scanner-modal-backdrop.open {
-      display: flex;
-    }
-
-    .scanner-sheet {
-      width: 100%;
-      max-width: 560px;
-      max-height: 88dvh;
-      background: var(--surface);
-      border-radius: 18px 18px 0 0;
-      padding: 16px 14px calc(16px + var(--safe-bottom));
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
-    }
-
-    .scanner-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
-    }
-
-    .scanner-head strong {
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .scanner-controls {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 8px;
-    }
-
-    .scanner-results-list {
-      flex: 1;
-      overflow-y: auto;
-      max-height: 44dvh;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      padding: 4px 0;
-    }
-
-    .scan-item-card {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 9px 11px;
-      background: #F8FAFC;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* BOTTOM SWIPEABLE STOP CARDS ON MAP */
-    .map-cards-strip {
+    /* BOTTOM SWIPEABLE STOP CARDS ON MAP (COLLAPSIBLE FOR FULLSCREEN MAP) */
+    .map-bottom-wrapper {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 8px;
+      bottom: 6px;
       z-index: 500;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+      transition: transform 0.22s ease;
+    }
+
+    .map-bottom-wrapper > * {
+      pointer-events: auto;
+    }
+
+    .map-bottom-wrapper.collapsed .map-cards-strip {
+      display: none;
+    }
+
+    .card-collapse-pill {
+      align-self: center;
+      background: rgba(15, 23, 42, 0.92);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 99px;
+      padding: 4px 12px;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+    }
+
+    .map-cards-strip {
       display: flex;
       gap: 10px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding: 4px 12px 6px;
+      padding: 2px 12px 4px;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
@@ -722,11 +785,11 @@
       background: #FFFFFF;
       border: 1.5px solid var(--border);
       border-radius: 14px;
-      padding: 11px 12px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.24);
+      padding: 10px 12px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.26);
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .map-stop-card.active-card {
@@ -735,7 +798,7 @@
 
     .map-stop-card.top-cash-card {
       border-color: #F59E0B;
-      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.28);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
     }
 
     .map-stop-card.done-card {
@@ -777,22 +840,22 @@
     .msc-top {
       display: flex;
       align-items: flex-start;
-      gap: 9px;
+      gap: 8px;
     }
 
     .msc-num {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: var(--gblue);
       color: #fff;
       font-weight: 800;
-      font-size: 12.5px;
+      font-size: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .map-stop-card.top-cash-card .msc-num {
@@ -809,51 +872,52 @@
     }
 
     .msc-title {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 800;
       color: var(--ink);
-      line-height: 1.25;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .msc-addr {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--muted);
-      margin-top: 1px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .msc-pitch {
-      font-size: 11px;
+      font-size: 10.5px;
       color: #9A3412;
       background: #FFF7ED;
       border: 1px solid #FED7AA;
       padding: 4px 7px;
       border-radius: 6px;
-      line-height: 1.3;
+      line-height: 1.25;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    /* TWO CLEAN ROWS OF THUMB BUTTONS ON MOBILE CARD */
     .msc-actions-primary {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
-      gap: 6px;
+      gap: 5px;
     }
 
     .msc-actions-secondary {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
+      gap: 5px;
     }
 
     .msc-btn {
-      min-height: 36px;
-      padding: 6px 8px;
+      min-height: 34px;
+      padding: 5px 7px;
       border-radius: 8px;
       font-family: var(--font);
       font-size: 11.5px;
@@ -874,19 +938,126 @@
       background: var(--gblue);
       color: #fff;
       border-color: var(--gblue);
-      font-size: 12px;
     }
 
     .msc-btn.done-btn {
       background: #fff;
       border-color: var(--border);
-      font-size: 12px;
     }
 
     .msc-btn.done-btn.is-done {
       background: var(--green);
       color: #fff;
       border-color: var(--green);
+    }
+
+    /* AUTO-SCANNER NATIVE BOTTOM SHEET */
+    .scanner-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 900;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .scanner-modal-backdrop.open {
+      display: flex;
+    }
+
+    .scanner-sheet {
+      width: 100%;
+      max-width: 560px;
+      max-height: 88dvh;
+      background: var(--surface);
+      border-radius: 20px 20px 0 0;
+      padding: 14px 14px calc(14px + var(--safe-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.35);
+    }
+
+    .scanner-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .sector-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .sector-chips::-webkit-scrollbar { display: none; }
+
+    .sector-chip {
+      padding: 7px 11px;
+      border-radius: 99px;
+      border: 1.5px solid var(--border);
+      background: #F8FAFC;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .sector-chip.active {
+      background: #0F172A;
+      color: #FBBF24;
+      border-color: #0F172A;
+    }
+
+    .radius-chips {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .radius-chip {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .radius-chip.active {
+      background: var(--gblue);
+      color: #fff;
+      border-color: var(--gblue);
+    }
+
+    .scanner-results-list {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 42dvh;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .scan-item-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: #F8FAFC;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
     }
 
     /* MAP PINS */
@@ -935,7 +1106,7 @@
         display: block;
         position: relative;
         width: 100%;
-        height: calc(100dvh - 48px - 54px - var(--safe-bottom));
+        flex: 1;
       }
 
       .map-Area {
@@ -987,8 +1158,8 @@
       .mobile-bottom-nav {
         height: calc(54px + var(--safe-bottom));
         padding-bottom: var(--safe-bottom);
-        background: var(--surface);
-        border-top: 1px solid var(--border);
+        background: #0F172A;
+        border-top: 1px solid #1E293B;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         z-index: 700;
@@ -1001,7 +1172,7 @@
         font-family: var(--font);
         font-size: 10.5px;
         font-weight: 700;
-        color: var(--muted);
+        color: #94A3B8;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1016,32 +1187,79 @@
       }
 
       .m-nav-btn.active {
-        color: var(--gblue);
+        color: #38BDF8;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- BARRE HAUTE : SWITCH 1-CLIC + SCANNER AUTO + VIDER -->
-  <header>
-    <div class="app-switch">
-      <a href="tournee-clients.html" class="active">📍 Carte</a>
-      <a href="devis-express.html">📄 Devis</a>
+  <!-- ÉCRAN DE VERROUILLAGE PAR CODE PIN (ACCÈS ÉQUIPE DEV UNIQUEMENT : 9595) -->
+  <div class="pin-lock-screen" id="pinLockScreen">
+    <div class="pin-card">
+      <div class="pin-badge">🔒 Accès Interne Équipe</div>
+      <div class="pin-title">BoostMySite Pro</div>
+      <div class="pin-sub">Entrez le code PIN développeur pour accéder au Radar & Devis</div>
+      <div class="pin-dots">
+        <div class="pin-dot" id="pDot0"></div>
+        <div class="pin-dot" id="pDot1"></div>
+        <div class="pin-dot" id="pDot2"></div>
+        <div class="pin-dot" id="pDot3"></div>
+      </div>
+      <div class="pin-keypad">
+        <button type="button" class="pin-key" onclick="pressPin('1')">1</button>
+        <button type="button" class="pin-key" onclick="pressPin('2')">2</button>
+        <button type="button" class="pin-key" onclick="pressPin('3')">3</button>
+        <button type="button" class="pin-key" onclick="pressPin('4')">4</button>
+        <button type="button" class="pin-key" onclick="pressPin('5')">5</button>
+        <button type="button" class="pin-key" onclick="pressPin('6')">6</button>
+        <button type="button" class="pin-key" onclick="pressPin('7')">7</button>
+        <button type="button" class="pin-key" onclick="pressPin('8')">8</button>
+        <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
+        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:14px; color:#94A3B8;">C</button>
+        <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
+        <button type="button" class="pin-key" onclick="backspacePin()" style="font-size:16px;">⌫</button>
+      </div>
+      <a href="../index.html" class="pin-back-link">← Retour au site public boost-my-site.com</a>
     </div>
-    <div class="top-right">
-      <button type="button" class="btn-top btn-top-scan" onclick="openScannerModal()">🔍 Auto-Scan</button>
-      <button type="button" class="btn-top" onclick="loadPontoisePreset(true)" title="Recharger les 18 prospects de Pontoise/Cergy">↺ 18 Pontoise</button>
-      <button type="button" class="btn-top btn-top-danger" onclick="clearAllProspects()" title="Vider toute la liste">🗑️ Vider</button>
+  </div>
+
+  <!-- BARRE HAUTE STYLE APP NATIVE -->
+  <header class="app-header">
+    <div class="app-header-row">
+      <div class="app-switch">
+        <a href="tournee-clients.html" class="active">📍 Carte</a>
+        <a href="devis-express.html">📄 Devis</a>
+      </div>
+      <div class="top-right">
+        <button type="button" class="btn-top btn-top-scan" onclick="openScannerModal()">🔍 Scan</button>
+        <button type="button" class="btn-top" onclick="loadPontoisePreset(true)" title="Recharger les 18 prospects de Pontoise/Cergy">↺ 18</button>
+        <button type="button" class="btn-top btn-top-danger" onclick="clearAllProspects()" title="Vider toute la liste">🗑️</button>
+      </div>
     </div>
   </header>
+
+  <!-- RADAR CASH TEMPS RÉEL DOCKÉ SOUS LE HEADER (ZÉRO GÊNE SUR LA CARTE) -->
+  <div class="cash-radar-dock" id="cashRadarBar">
+    <div class="radar-left" onclick="focusTopCashTarget()">
+      <div class="radar-kicker">
+        <span>💰 CIBLE PRIORITAIRE (<span id="radarClock">--:--</span> • 100% INDÉPENDANTS)</span>
+      </div>
+      <div class="radar-target-name" id="radarTargetName">Analyse des cibles...</div>
+      <div class="radar-reason" id="radarTargetReason">Calcul Indépendant vs Franchise / Horaire / Distance</div>
+    </div>
+    <div class="radar-actions">
+      <button type="button" class="radar-btn go" onclick="focusTopCashTarget()">🎯 Voir</button>
+      <button type="button" class="radar-btn sort" id="radarSortBtn" onclick="toggleSortMode()">💰 Tri €</button>
+    </div>
+  </div>
 
   <div class="workspace">
     <!-- SIDEBAR (GAUCHE SUR PC, TIROIR SUR MOBILE) -->
     <aside class="sidebar" id="mainSidebar">
       <div class="sheet-mobile-header">
         <strong id="mobileSheetTitle">Feuille de route</strong>
-        <button type="button" class="btn-top" onclick="switchMobileMode('map')">✕ Voir la carte</button>
+        <button type="button" class="btn btn-outline btn-xs" onclick="switchMobileMode('map')">✕ Voir la carte</button>
       </div>
 
       <div class="tabs">
@@ -1156,99 +1374,80 @@
       </div>
     </aside>
 
-    <!-- CARTE PLEIN ÉCRAN + DÉTECTEUR CASH + SCANNER AUTO + FICHES EN BAS -->
+    <!-- CARTE PLEIN ÉCRAN + BOUTONS FLOTTANTS + FICHES RÉDUCTIBLES EN BAS -->
     <main class="map-Area">
-      <div class="mobile-map-top-stack">
-        <div class="mobile-map-top-bar">
-          <div class="tour-summary-pill">
-            <span class="dot"></span>
-            <span id="mapPillText">Chargement...</span>
-          </div>
-          <div class="map-right-controls">
-            <button type="button" class="pill-scan-btn" onclick="openScannerModal()">
-              🔍 Scanner cette zone
-            </button>
-            <button type="button" class="circle-map-btn" title="Vue globale" onclick="fitEntireRoute()">🗺️</button>
-            <button type="button" class="circle-map-btn" title="Ma position GPS" onclick="locateUserOnMap()">🎯</button>
-            <button type="button" class="circle-map-btn" title="Satellite / Plan" onclick="toggleSatellite(this)">🛰️</button>
-          </div>
+      <div class="map-floating-top">
+        <div class="tour-summary-pill">
+          <span class="dot"></span>
+          <span id="mapPillText">Chargement...</span>
         </div>
-
-        <!-- DÉTECTEUR CASH TEMPS RÉEL : PRIORISE LES 100% INDÉPENDANTS HORS FRANCHISES -->
-        <div class="cash-radar-bar" id="cashRadarBar">
-          <div class="radar-left" onclick="focusTopCashTarget()">
-            <div class="radar-kicker">
-              <span>💰 PRIORITÉ CASH TEMPS RÉEL (<span id="radarClock">--:--</span> • HORS FRANCHISES)</span>
-            </div>
-            <div class="radar-target-name" id="radarTargetName">Analyse des cibles...</div>
-            <div class="radar-reason" id="radarTargetReason">Calcul Indépendant vs Franchise / Horaire / Distance</div>
-          </div>
-          <div class="radar-actions">
-            <button type="button" class="radar-btn go" onclick="focusTopCashTarget()">🎯 Voir #1</button>
-            <button type="button" class="radar-btn sort" id="radarSortBtn" onclick="toggleSortMode()">💰 Trier €</button>
-          </div>
+        <div class="map-right-dock">
+          <button type="button" class="circle-map-btn" title="Vue globale" onclick="fitEntireRoute()">🗺️</button>
+          <button type="button" class="circle-map-btn" title="Ma position GPS" onclick="locateUserOnMap()">🎯</button>
+          <button type="button" class="circle-map-btn" title="Satellite / Plan" onclick="toggleSatellite(this)">🛰️</button>
         </div>
       </div>
 
-      <div class="map-cards-strip" id="mapCardsStrip"></div>
+      <div class="map-bottom-wrapper" id="mapBottomWrapper">
+        <button type="button" class="card-collapse-pill" id="cardCollapseBtn" onclick="toggleBottomCardsCollapse()">
+          ▾ Réduire la fiche (Carte plein écran)
+        </button>
+        <div class="map-cards-strip" id="mapCardsStrip"></div>
+      </div>
 
       <div id="map"></div>
     </main>
   </div>
 
-  <!-- MODAL AUTO-SCANNER DE PROSPECTS AUTOUR DE LA CARTE -->
+  <!-- MODAL AUTO-SCANNER DE PROSPECTS AUTOUR DE LA CARTE (AVEC PUCES TACTILES 1-TAP) -->
   <div class="scanner-modal-backdrop" id="scannerModalBackdrop" onclick="if(event.target===this) closeScannerModal()">
     <div class="scanner-sheet">
       <div class="scanner-head">
         <div>
-          <strong>🔍 Auto-Scanner de Prospects (autour de la carte)</strong>
-          <div style="font-size:11.5px; color:var(--muted);">Trouve tout seul les commerces 100% indépendants avec le nom du gérant</div>
+          <strong>🔍 Auto-Scanner autour de la carte</strong>
+          <div style="font-size:11px; color:var(--muted);">Trouve tout seul les commerces 100% indépendants + nom du patron</div>
         </div>
-        <button type="button" class="btn-top" onclick="closeScannerModal()">✕ Fermer</button>
+        <button type="button" class="btn btn-outline btn-xs" onclick="closeScannerModal()">✕ Fermer</button>
       </div>
 
-      <div class="scanner-controls">
-        <div>
-          <label for="scanSector">Secteur d'activité</label>
-          <select id="scanSector" onchange="runMapProspectScanner()">
-            <option value="resto" selected>🍔 Restos, Fast-Foods & Pizzerias (990 €)</option>
-            <option value="artisan">🔧 Artisans BTP, Parquets, Plombiers (990 €)</option>
-            <option value="beaute">💇 Coiffure & Instituts Beauté (490 €)</option>
-            <option value="garage">🚗 Garages & Carrosseries Auto (990 €)</option>
-            <option value="boulangerie">🥖 Boulangeries & Pâtisseries (490 €)</option>
-          </select>
-        </div>
-        <div>
-          <label for="scanRadius">Rayon autour carte</label>
-          <select id="scanRadius" onchange="runMapProspectScanner()">
-            <option value="1">1 km</option>
-            <option value="2" selected>2 km</option>
-            <option value="4">4 km</option>
-          </select>
-        </div>
+      <!-- PUCES DE SECTEUR 1-TAP AU POUCE -->
+      <div class="sector-chips" id="sectorChips">
+        <button type="button" class="sector-chip active" data-sector="resto" onclick="pickScanSector('resto', this)">🍔 Restos & Fast-Food</button>
+        <button type="button" class="sector-chip" data-sector="artisan" onclick="pickScanSector('artisan', this)">🔧 Artisans BTP</button>
+        <button type="button" class="sector-chip" data-sector="beaute" onclick="pickScanSector('beaute', this)">💇 Coiffure & Beauté</button>
+        <button type="button" class="sector-chip" data-sector="garage" onclick="pickScanSector('garage', this)">🚗 Garages Auto</button>
+        <button type="button" class="sector-chip" data-sector="boulangerie" onclick="pickScanSector('boulangerie', this)">🥖 Boulangeries</button>
       </div>
 
-      <label style="display:flex; align-items:center; gap:7px; font-size:12px; font-weight:700; color:#166534; background:#DCFCE7; padding:7px 10px; border-radius:8px; cursor:pointer;">
-        <input type="checkbox" id="scanExcludeFranchises" checked onchange="runMapProspectScanner()">
-        Exclure les franchises & chaînes (Garder uniquement les 100% Indépendants)
-      </label>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
+        <div class="radius-chips">
+          <span style="font-size:11.5px; font-weight:700; color:var(--muted);">Rayon :</span>
+          <button type="button" class="radius-chip" onclick="pickScanRadius(1, this)">1 km</button>
+          <button type="button" class="radius-chip active" onclick="pickScanRadius(2, this)">2 km</button>
+          <button type="button" class="radius-chip" onclick="pickScanRadius(4, this)">4 km</button>
+        </div>
+        <label style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:800; color:#166534; background:#DCFCE7; padding:5px 9px; border-radius:7px; cursor:pointer; margin:0;">
+          <input type="checkbox" id="scanExcludeFranchises" checked onchange="runMapProspectScanner()">
+          Sans franchises (100% Indép.)
+        </label>
+      </div>
 
       <div id="scannerStatusText" style="font-size:12px; font-weight:700; color:var(--gblue);"></div>
 
       <div class="scanner-results-list" id="scannerResultsList"></div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; padding-top:4px; border-top:1px solid var(--border);">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; padding-top:6px; border-top:1px solid var(--border);">
         <button type="button" class="btn btn-blue" onclick="applyScannedProspects(true)">
-          ⚡ Créer tournée avec ces cibles
+          ⚡ Nouvelle tournée
         </button>
         <button type="button" class="btn btn-outline" onclick="applyScannedProspects(false)">
-          ➕ Ajouter à ma liste actuelle
+          ➕ Ajouter à ma liste
         </button>
       </div>
     </div>
   </div>
 
-  <!-- BARRE BASSE MOBILE -->
+  <!-- BARRE BASSE NATIVE APP -->
   <nav class="mobile-bottom-nav">
     <button type="button" class="m-nav-btn active" id="mNavMap" onclick="switchMobileMode('map')">
       <span class="m-icon">🗺️</span>
@@ -1269,11 +1468,74 @@
   </nav>
 
   <script>
+    /* =========================================================================
+       SYSTÈME D'AUTHENTIFICATION ÉQUIPE DEV (CODE PIN : 9595)
+       ========================================================================= */
+    const DEV_PIN_STORAGE_KEY = 'bms_dev_auth_v1';
+    const REQUIRED_PIN = '9595';
+    let enteredPin = '';
+
+    function checkDevAuth() {
+      try {
+        if (localStorage.getItem(DEV_PIN_STORAGE_KEY) === REQUIRED_PIN) {
+          document.getElementById('pinLockScreen').classList.add('unlocked');
+          return true;
+        }
+      } catch (e) {}
+      return false;
+    }
+
+    function updatePinDots(isError = false) {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById('pDot' + i);
+        dot.classList.toggle('filled', i < enteredPin.length && !isError);
+        dot.classList.toggle('error', isError);
+      }
+    }
+
+    function pressPin(digit) {
+      if (enteredPin.length >= 4) return;
+      enteredPin += digit;
+      updatePinDots(false);
+      if (enteredPin.length === 4) {
+        if (enteredPin === REQUIRED_PIN) {
+          try { localStorage.setItem(DEV_PIN_STORAGE_KEY, REQUIRED_PIN); } catch (e) {}
+          document.getElementById('pinLockScreen').classList.add('unlocked');
+          setTimeout(() => { if (map) map.invalidateSize(); }, 100);
+        } else {
+          updatePinDots(true);
+          setTimeout(() => {
+            enteredPin = '';
+            updatePinDots(false);
+          }, 450);
+        }
+      }
+    }
+
+    function backspacePin() {
+      enteredPin = enteredPin.slice(0, -1);
+      updatePinDots(false);
+    }
+
+    function clearPin() {
+      enteredPin = '';
+      updatePinDots(false);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const lock = document.getElementById('pinLockScreen');
+      if (!lock || lock.classList.contains('unlocked')) return;
+      if (e.key >= '0' && e.key <= '9') pressPin(e.key);
+      else if (e.key === 'Backspace') backspacePin();
+    });
+
+    /* =========================================================================
+       CONFIGURATION TOURNÉE & DÉTECTEUR FRANCHISE VS INDÉPENDANT
+       ========================================================================= */
     const STORAGE_KEY = 'bms_route_prospects_v6';
     const DONE_STORAGE_KEY = 'bms_route_done_v6';
     const CLEARED_FLAG_KEY = 'bms_route_cleared_v6';
 
-    // Dictionnaire des franchises nationales et réseaux où le franchisé local est souvent bloqué par le siège
     const FRANCHISE_BRANDS = [
       'chicken street', 'o\'tacos', 'otacos', 'mcdo', 'mcdonald', 'burger king', 'kfc',
       'domino', 'pizza hut', 'pizza rabb', 'subway', 'pitaya', 'pokawa', 'g la dalle',
@@ -1286,7 +1548,7 @@
       'midas', 'speedy', 'norauto', 'feu vert', 'carglass', 'euromaster', 'point s',
       'century 21', 'orpi', 'laforet', 'stephane plaza', 'guy hoquet', 'foncia',
       'elior', 'sodexo', 'compass', 'flunch', 'hippopotamus', 'buffalo grill', 'del arte',
-      'leon de bruxelles', 'courtepaille', 'au bureau', ' Indiana ', 'columbus'
+      'leon de bruxelles', 'courtepaille', 'au bureau', 'columbus'
     ];
 
     const MINI_CHAIN_BRANDS = [
@@ -1296,6 +1558,8 @@
     let prospects = [];
     let doneAddresses = {};
     let lastScannedProspects = [];
+    let currentScanSector = 'resto';
+    let currentScanRadius = 2;
     let sortMode = 'route';
     let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine, userLocationMarker;
     let userGpsCoords = null;
@@ -1348,9 +1612,13 @@
       }, 30000);
     }
 
-    /* =========================================================================
-       DÉTECTION FRANCHISE VS 100% INDÉPENDANT & CALCUL CLOSING TEMPS RÉEL
-       ========================================================================= */
+    function toggleBottomCardsCollapse() {
+      const wrap = document.getElementById('mapBottomWrapper');
+      const btn = document.getElementById('cardCollapseBtn');
+      const collapsed = wrap.classList.toggle('collapsed');
+      btn.textContent = collapsed ? '▴ Afficher les fiches prospects' : '▾ Réduire la fiche (Carte plein écran)';
+    }
+
     function detectFranchiseStatus(name, explicitStatus, nbEtab = 1) {
       if (explicitStatus) return explicitStatus;
       const lower = String(name || '').toLowerCase();
@@ -1372,26 +1640,23 @@
       const potentialEur = node.potentialEur || (node.pack === 'starter' ? 490 : 990);
       const franchiseStatus = detectFranchiseStatus(node.name, node.franchiseStatus, node.nbEtab || 1);
 
-      // Base de closing réaliste selon statut indépendant vs franchise
       let baseWinProb = node.winProb || (node.pack === 'pro' ? 84 : 78);
       let franchiseMultiplier = 1.0;
       let statusBadgeHtml = '';
 
       if (franchiseStatus === 'franchise') {
-        baseWinProb = Math.min(baseWinProb, 20); // Franchise nationale : 15-20% max (bloqué par le siège)
+        baseWinProb = Math.min(baseWinProb, 20);
         franchiseMultiplier = 0.22;
         statusBadgeHtml = `<span class="cash-tag franchise">🚫 Franchise (Bloqué siège)</span>`;
       } else if (franchiseStatus === 'reseau') {
-        baseWinProb = Math.min(baseWinProb, 42); // Mini-réseau : 35-45% (accord associés requis)
+        baseWinProb = Math.min(baseWinProb, 42);
         franchiseMultiplier = 0.52;
         statusBadgeHtml = `<span class="cash-tag reseau">⚠️ Réseau (Accord associés)</span>`;
       } else {
-        // 100% Indépendant : le patron décide seul au comptoir !
         franchiseMultiplier = 1.25;
         statusBadgeHtml = `<span class="cash-tag indep">✅ 100% Indépendant</span>`;
       }
 
-      // Analyse du créneau horaire en direct (Rush vs Dispo du patron)
       let timeMultiplier = 1.0;
       let timeBadgeText = '🟢 Créneau idéal';
       let isRush = false;
@@ -1399,28 +1664,28 @@
       if (category === 'resto') {
         if (hourDec >= 11.9 && hourDec <= 14.15) {
           timeMultiplier = 0.58;
-          timeBadgeText = '🟠 Rush midi (12h-14h)';
+          timeBadgeText = '🟠 Rush midi';
           isRush = true;
         } else if (hourDec >= 19.0 && hourDec <= 21.5) {
           timeMultiplier = 0.62;
-          timeBadgeText = '🟠 Rush soir (19h-21h30)';
+          timeBadgeText = '🟠 Rush soir';
           isRush = true;
         } else if ((hourDec >= 9.5 && hourDec < 11.9) || (hourDec > 14.15 && hourDec < 19.0)) {
           timeMultiplier = 1.2;
-          timeBadgeText = '🟢 Hors rush (Dispo)';
+          timeBadgeText = '🟢 Hors rush';
         }
       } else if (category === 'artisan') {
         if (hourDec >= 11.8 && hourDec <= 14.2) {
           timeMultiplier = 1.35;
-          timeBadgeText = '🔥 Top cible midi';
+          timeBadgeText = '🔥 Top midi';
         } else if (hourDec >= 8.5 && hourDec <= 18.5) {
           timeMultiplier = 1.15;
-          timeBadgeText = '🟢 Patron dispo';
+          timeBadgeText = '🟢 Dispo';
         }
       } else {
         if (hourDec >= 9.5 && hourDec <= 18.0) {
           timeMultiplier = 1.1;
-          timeBadgeText = '🟢 Ouvert & dispo';
+          timeBadgeText = '🟢 Ouvert';
         }
       }
 
@@ -1457,7 +1722,7 @@
     }
 
     /* =========================================================================
-       AUTO-SCANNER DE PROSPECTS EN DIRECT AUTOUR DE LA CARTE (API RNE / INSEE)
+       AUTO-SCANNER DE PROSPECTS AUTOUR DE LA CARTE
        ========================================================================= */
     const SECTOR_CONFIG = {
       resto: {
@@ -1502,6 +1767,18 @@
       }
     };
 
+    function pickScanSector(sector, btn) {
+      currentScanSector = sector;
+      document.querySelectorAll('.sector-chip').forEach(c => c.classList.toggle('active', c === btn));
+      runMapProspectScanner();
+    }
+
+    function pickScanRadius(rad, btn) {
+      currentScanRadius = rad;
+      document.querySelectorAll('.radius-chip').forEach(c => c.classList.toggle('active', c === btn));
+      runMapProspectScanner();
+    }
+
     function openScannerModal() {
       document.getElementById('scannerModalBackdrop').classList.add('open');
       runMapProspectScanner();
@@ -1512,8 +1789,8 @@
     }
 
     async function runMapProspectScanner() {
-      const sectorKey = document.getElementById('scanSector').value || 'resto';
-      const radiusKm = parseFloat(document.getElementById('scanRadius').value) || 2;
+      const sectorKey = currentScanSector || 'resto';
+      const radiusKm = currentScanRadius || 2;
       const excludeFranchises = document.getElementById('scanExcludeFranchises').checked;
       const statusEl = document.getElementById('scannerStatusText');
       const listEl = document.getElementById('scannerResultsList');
@@ -1521,11 +1798,10 @@
       const center = map.getCenter();
       const cfg = SECTOR_CONFIG[sectorKey] || SECTOR_CONFIG.resto;
 
-      statusEl.textContent = `⏳ Scan en cours dans un rayon de ${radiusKm} km autour de la carte...`;
+      statusEl.textContent = `⏳ Scan en cours (${radiusKm} km autour de la carte)...`;
       listEl.innerHTML = '';
 
       try {
-        // Interroge 3 pages en parallèle sur l'API officielle Recherche d'Entreprises (INSEE/RNE)
         const pages = [1, 2, 3];
         const responses = await Promise.all(
           pages.map(p =>
@@ -1552,7 +1828,6 @@
           const fStatus = detectFranchiseStatus(cleanName, null, nbEtab);
           if (excludeFranchises && fStatus !== 'indep') continue;
 
-          // Récupère le nom exact du dirigeant / gérant pour le terrain
           let bossName = '';
           if (item.dirigeants && item.dirigeants.length > 0) {
             const d = item.dirigeants[0];
@@ -1601,43 +1876,37 @@
         lastScannedProspects = discovered;
 
         if (discovered.length === 0) {
-          statusEl.textContent = `Aucun commerce trouvé dans ce rayon. Essayez d'augmenter le rayon à 4 km ou de bouger la carte.`;
+          statusEl.textContent = `Aucun commerce trouvé dans ce rayon. Passez à 4 km ou déplacez la carte.`;
           return;
         }
 
-        statusEl.textContent = `✅ ${discovered.length} prospects ciblés trouvés autour de la carte :`;
+        statusEl.textContent = `✅ ${discovered.length} prospects trouvés autour de la carte :`;
         listEl.innerHTML = discovered.map((p, idx) => `
           <div class="scan-item-card">
             <div style="min-width:0; flex:1;">
               <div style="font-size:13px; font-weight:800; color:var(--ink);">${idx + 1}. ${escHtml(p.name)}</div>
               <div style="font-size:11px; color:var(--muted);">${escHtml(p.address)}</div>
               <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:4px;">
-                <span class="cash-tag ${p.franchiseStatus}">${p.franchiseStatus === 'indep' ? '✅ 100% Indépendant' : '⚠️ Réseau/Franchise'}</span>
+                <span class="cash-tag ${p.franchiseStatus}">${p.franchiseStatus === 'indep' ? '✅ 100% Indép.' : '⚠️ Réseau/Franchise'}</span>
                 <span class="cash-tag eur">💰 ${p.potentialEur} €</span>
-                <span class="cash-tag hot">🔥 Closing ${p.winProb}%</span>
-                ${p.bossName ? `<span class="cash-tag time-ok">👤 Gérant : ${escHtml(p.bossName)}</span>` : ''}
+                <span class="cash-tag hot">🔥 ${p.winProb}%</span>
+                ${p.bossName ? `<span class="cash-tag time-ok">👤 ${escHtml(p.bossName)}</span>` : ''}
               </div>
             </div>
             <button type="button" class="btn btn-outline btn-xs" onclick="addSingleScannedProspect(${idx}, this)">+ Ajouter</button>
           </div>
         `).join('');
       } catch (e) {
-        statusEl.textContent = `Erreur lors du scan. Vérifiez votre connexion internet.`;
+        statusEl.textContent = `Erreur réseau lors du scan.`;
       }
     }
 
     function formatBusinessName(str) {
-      return String(str || '')
-        .toLowerCase()
-        .replace(/\b\w/g, l => l.toUpperCase())
-        .trim();
+      return String(str || '').toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).trim();
     }
 
     function formatAddressCase(str) {
-      return String(str || '')
-        .toLowerCase()
-        .replace(/\b\w/g, l => l.toUpperCase())
-        .trim();
+      return String(str || '').toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).trim();
     }
 
     function addSingleScannedProspect(idx, btnEl) {
@@ -1739,7 +2008,7 @@
       document.getElementById('setupCountInline').textContent = prospects.length;
 
       if (prospects.length === 0) {
-        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12.5px; padding:16px;">Liste vide. Utilisez "🔍 Auto-Scan" ou cliquez sur "↺ 18 Pontoise".</div>';
+        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12.5px; padding:16px;">Liste vide. Utilisez "🔍 Scan" ou cliquez sur "↺ 18".</div>';
         return;
       }
       box.innerHTML = prospects.map((p, idx) => {
@@ -1751,7 +2020,7 @@
               <strong>${idx + 1}. ${escHtml(p.name)} <span style="color:var(--green); font-weight:800;">(${p.potentialEur || 990} € • ${fLabel})</span></strong>
               <span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escHtml(p.address)}</span>
             </div>
-            <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByIndex(${idx})">🗑️ Retirer</button>
+            <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByIndex(${idx})">🗑️</button>
           </div>
         `;
       }).join('');
@@ -1860,8 +2129,8 @@
       document.getElementById('statDriveTime').textContent = '0 min';
       document.getElementById('statDistance').textContent = '0 km';
       document.getElementById('doneProgressBadge').textContent = '0/0';
-      document.getElementById('mapPillText').textContent = '0 prospect • Cliquez sur 🔍 Scanner cette zone';
-      document.getElementById('radarTargetName').textContent = 'Liste vide — Cliquez sur 🔍 Scanner cette zone';
+      document.getElementById('mapPillText').textContent = '0 prospect • Cliquez sur 🔍 Scan';
+      document.getElementById('radarTargetName').textContent = 'Liste vide — Cliquez sur 🔍 Scan en haut';
       document.getElementById('radarTargetReason').textContent = 'Le scanner trouve tout seul les indépendants autour de vous';
     }
 
@@ -2023,7 +2292,7 @@
           name: 'Chicken Street Cergy (Franchise)',
           address: '16 Place des Cerclades, 95000 Cergy',
           phone: '06 68 45 93 51',
-          pitch: '🚫 FRANCHISE NATIONALE (chickenstreet.fr) : site national imposé par le siège. Le franchisé ne peut généralement pas acheter de site (proposer uniquement pub TikTok/Insta locale ou passer au suivant).',
+          pitch: '🚫 FRANCHISE NATIONALE (chickenstreet.fr) : site national imposé par le siège. Le franchisé ne peut généralement pas acheter de site.',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter',
           category: 'resto',
@@ -2291,7 +2560,7 @@
       const radarBtn = document.getElementById('radarSortBtn');
       if (radarBtn) {
         radarBtn.classList.toggle('active', mode === 'cash');
-        radarBtn.textContent = mode === 'cash' ? '✓ Tri Cash actif' : '💰 Trier €';
+        radarBtn.textContent = mode === 'cash' ? '✓ Tri €' : '💰 Tri €';
       }
       if (cachedGeoNodes.length > 1) {
         rebuildDisplayFromCache();
@@ -2554,10 +2823,10 @@
 
         const cashBadgesHtml = `
           <div class="cash-tags-row">
-            ${isTopCash ? `<span class="cash-tag hot">👑 CIBLE #1</span>` : ''}
+            ${isTopCash ? `<span class="cash-tag hot">👑 #1</span>` : ''}
             ${ev.statusBadgeHtml}
-            <span class="cash-tag eur">💰 ${ev.potentialEur} €</span>
-            <span class="cash-tag hot">🔥 Closing ${ev.displayScore}%</span>
+            <span class="cash-tag eur">💰 ${ev.potentialEur}€</span>
+            <span class="cash-tag hot">🔥 ${ev.displayScore}%</span>
             <span class="cash-tag ${ev.isRush ? 'time-rush' : 'time-ok'}">${ev.timeBadgeText}</span>
           </div>
         `;
@@ -2578,7 +2847,7 @@
                 <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
                   ${isDone ? '✓ Fait' : '✅ Fait'}
                 </button>
-                <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByStep(${stepPos})" title="Retirer ce prospect">
+                <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByStep(${stepPos})">
                   🗑️
                 </button>
               </div>
@@ -2682,7 +2951,7 @@
 
       if (!bestNode) {
         document.getElementById('radarTargetName').textContent = '🎉 Tous les prospects ont été visités !';
-        document.getElementById('radarTargetReason').textContent = 'Cliquez sur 🔍 Scanner cette zone pour en trouver de nouveaux';
+        document.getElementById('radarTargetReason').textContent = 'Cliquez sur 🔍 Scan pour en trouver de nouveaux';
         return;
       }
 
@@ -2696,6 +2965,8 @@
     function focusTopCashTarget() {
       if (!currentOrderedNodes || currentOrderedNodes.length <= 1) return;
       if (window.innerWidth <= 920) switchMobileMode('map');
+      const wrap = document.getElementById('mapBottomWrapper');
+      if (wrap.classList.contains('collapsed')) toggleBottomCardsCollapse();
       scrollStripToStep(topCashStepPos);
     }
 
@@ -2764,6 +3035,8 @@
 
     function selectStopFromList(stepPos) {
       if (window.innerWidth <= 920) switchMobileMode('map');
+      const wrap = document.getElementById('mapBottomWrapper');
+      if (wrap.classList.contains('collapsed')) toggleBottomCardsCollapse();
       if (stepPos === 0) {
         const m = mapMarkerRefs[0];
         if (m) map.flyTo(m.getLatLng(), 16, { duration: 0.5 });
@@ -2826,6 +3099,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      checkDevAuth();
       initMap();
       loadProspects();
       if (prospects.length > 0) {
