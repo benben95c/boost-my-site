@@ -281,7 +281,7 @@
 
     .ba-before {
       clip-path: inset(0 50% 0 0);
-      filter: grayscale(0.85) contrast(1.05) brightness(0.82);
+      filter: saturate(0.82) contrast(1.02);
     }
 
     .ba-handle {
@@ -290,10 +290,12 @@
       bottom: 0;
       left: 50%;
       width: 2px;
+      transform: translateX(-50%);
       background: #fff;
       cursor: ew-resize;
       z-index: 10;
       pointer-events: none;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
     }
 
     .ba-knob {
@@ -311,21 +313,24 @@
       justify-content: center;
       font-size: 0.85rem;
       font-weight: 700;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
       pointer-events: none;
+      transition: transform 0.1s ease;
     }
 
     .ba-label {
       position: absolute;
       bottom: 24px;
       padding: 8px 16px;
-      background: rgba(26, 25, 23, 0.78);
+      background: rgba(26, 25, 23, 0.82);
+      backdrop-filter: blur(6px);
       color: #fff;
       font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       z-index: 5;
       pointer-events: none;
+      transition: opacity 0.2s ease;
     }
 
     .ba-label.left { left: 24px; }
@@ -570,10 +575,10 @@
         <div class="ba-wrapper" id="baSlider">
           <img src="project-artisan.jpg" draggable="false" alt="Après rénovation" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=85'">
           <img src="artisan-before.jpg" draggable="false" class="ba-before" id="baBeforeImg" alt="Avant rénovation" onerror="this.src='https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=80'">
-          <span class="ba-label left">État initial</span>
-          <span class="ba-label right">Livraison Valmont</span>
+          <span class="ba-label left" id="baLabelLeft">État initial</span>
+          <span class="ba-label right" id="baLabelRight">Livraison Valmont</span>
           <div class="ba-handle" id="baHandle">
-            <div class="ba-knob">↔</div>
+            <div class="ba-knob" id="baKnob">↔</div>
           </div>
         </div>
       </div>
@@ -709,10 +714,13 @@
   </footer>
 
   <script>
-    // BEFORE / AFTER SLIDER (ZERO BLUE TEXT SELECTION)
+    // BEFORE / AFTER SLIDER (ZERO BLUE TEXT SELECTION & FULL 0-100% RANGE)
     const slider = document.getElementById('baSlider');
     const beforeImg = document.getElementById('baBeforeImg');
     const handle = document.getElementById('baHandle');
+    const knob = document.getElementById('baKnob');
+    const labelLeft = document.getElementById('baLabelLeft');
+    const labelRight = document.getElementById('baLabelRight');
     let dragging = false;
 
     function clearBrowserSelection() {
@@ -725,9 +733,26 @@
     function moveSlider(clientX) {
       const rect = slider.getBoundingClientRect();
       let pos = ((clientX - rect.left) / rect.width) * 100;
-      pos = Math.max(4, Math.min(96, pos));
+      pos = Math.max(0, Math.min(100, pos));
       beforeImg.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
       handle.style.left = `${pos}%`;
+
+      // Keep circular knob fully visible inside container edges when line reaches 0% or 100%
+      const pxFromLeft = (pos / 100) * rect.width;
+      const halfKnob = 26;
+      let knobShift = 0;
+      if (pxFromLeft < halfKnob) {
+        knobShift = halfKnob - pxFromLeft;
+      } else if (rect.width - pxFromLeft < halfKnob) {
+        knobShift = -(halfKnob - (rect.width - pxFromLeft));
+      }
+      if (knob) {
+        knob.style.transform = `translate(calc(-50% + ${knobShift}px), -50%)`;
+      }
+
+      // Hide label when its side is covered by the opposite image
+      if (labelLeft) labelLeft.style.opacity = pos < 16 ? '0' : '1';
+      if (labelRight) labelRight.style.opacity = pos > 84 ? '0' : '1';
     }
 
     slider.addEventListener('mousedown', (e) => {
