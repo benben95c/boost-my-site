@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Atelier du Smash — Smash Burgers, Poulet Croustillant &amp; Frites Maison (Click &amp; Collect)</title>
+  <meta name="description" content="Commandez en Click &amp; Collect sans file d'attente chez L'Atelier du Smash : potato bun boulanger du matin, bœuf français smashé sur fonte, frites au couteau et sauces maison.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;1,9..144,600&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FastFoodRestaurant",
+    "name": "L'Atelier du Smash",
+    "servesCuisine": ["Smash Burger", "Street Food", "Frites Maison", "Poulet Croustillant"],
+    "priceRange": "€",
+    "telephone": "+33148000000",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "64 boulevard Voltaire",
+      "addressLocality": "Paris",
+      "postalCode": "75011",
+      "addressCountry": "FR"
+    },
+    "openingHours": "Mo-Su 11:30-23:30"
+  }
+  </script>
+  <style>
+    :root {
+      --kraft: #FBF7F0;
+      --kraft-alt: #F3ECE0;
+      --card: #FFFFFF;
+      --ink: #1A1615;
+      --muted: #635B54;
+      --red: #C92A2A;
+      --red-dark: #A51E1E;
+      --cheddar: #E69500;
+      --cheddar-bg: #FFF6E0;
+      --pickle: #2D6A3E;
+      --pickle-bg: #EAF3EC;
+      --border: #E2D9C8;
+      --border-strong: #1A1615;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-cond: 'Barlow Condensed', sans-serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--kraft);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.55;
+      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Barre de retour portfolio BoostMySite */
+    .demo-bar {
+      background: var(--ink);
+      color: #E2D9C8;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .demo-bar strong { color: #FFF; }
+    .demo-bar-actions { display: flex; gap: 10px; align-items: center; }
+    .demo-bar a, .demo-bar button {
+      background: var(--kraft);
+      color: var(--ink);
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .demo-bar button.btn-roi {
+      background: var(--cheddar);
+      color: var(--ink);
+    }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+    /* En-tête Diner Artisanal */
+    header {
+      background: var(--kraft);
+      border-bottom: 2px solid var(--ink);
+      padding: 18px 0;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-stamp {
+      width: 44px;
+      height: 44px;
+      background: var(--red);
+      color: #fff;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-cond);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.04em;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .brand-text strong {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      display: block;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .brand-text span {
+      font-family: var(--font-cond);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .open-pill {
+      background: var(--pickle-bg);
+      color: var(--pickle);
+      border: 1.5px solid var(--pickle);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .open-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pickle);
+    }
+    .cart-btn {
+      background: var(--red);
+      color: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+      transition: transform 0.15s;
+    }
+    .cart-btn:hover { transform: translate(-1px, -1px); }
+    .cart-count {
+      background: var(--cheddar);
+      color: var(--ink);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* Hero Street-Food */
+    .hero {
+      padding: 40px 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+    .hero-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .stamp-tag {
+      font-family: var(--font-cond);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1.5px solid var(--ink);
+      background: var(--cheddar-bg);
+      color: var(--ink);
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.8vw, 3.8rem);
+      line-height: 1.05;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      color: var(--red);
+      font-style: italic;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      max-width: 540px;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      padding: 13px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    .btn-red:hover { background: var(--red-dark); }
+    .btn-kraft {
+      background: var(--card);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      padding: 13px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    .craft-promises {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border);
+      font-size: 12.5px;
+    }
+    .craft-promises div strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13.5px;
+    }
+    .craft-promises div span { color: var(--muted); }
+
+    .hero-visual {
+      background: var(--card);
+      border: 2px solid var(--ink);
+      box-shadow: 6px 6px 0 var(--ink);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-visual img {
+      width: 100%;
+      height: 390px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-sticker {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      background: rgba(251, 247, 240, 0.96);
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Navigation Catégories Sticky */
+    .cat-bar {
+      position: sticky;
+      top: 49px;
+      z-index: 90;
+      background: var(--kraft);
+      padding: 16px 0;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 28px;
+    }
+    .cat-tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .cat-tab {
+      background: var(--card);
+      border: 2px solid var(--ink);
+      color: var(--ink);
+      padding: 9px 18px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .cat-tab.active {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    /* Grille Produits */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+    .item-card {
+      background: var(--card);
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      box-shadow: 4px 4px 0 var(--ink);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s;
+    }
+    .item-card:hover { transform: translateY(-2px); }
+    .item-photo-wrap {
+      position: relative;
+      height: 195px;
+      overflow: hidden;
+      border-bottom: 2px solid var(--ink);
+      background: var(--kraft-alt);
+    }
+    .item-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .item-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--cheddar);
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      font-family: var(--font-cond);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+    .item-body {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .item-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .item-title-row h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .item-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .item-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+    }
+    .price-block strong {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--red);
+      display: block;
+      line-height: 1;
+    }
+    .price-block small {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .btn-compose {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-compose:hover { background: var(--red); }
+
+    /* Bandeau Légal Origine des Viandes & Allergènes (Obligatoire Décret 2022 & 2015) */
+    .legal-meat-box {
+      background: var(--kraft-alt);
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 36px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Simulateur d'Économies Restaurateur (0% Commission vs Plateformes) */
+    .owner-roi-section {
+      background: var(--card);
+      border: 2px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 48px 0;
+    }
+    .roi-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: center;
+      margin-top: 20px;
+    }
+    @media (max-width: 820px) {
+      .roi-grid { grid-template-columns: 1fr; }
+    }
+    .roi-result-box {
+      background: var(--cheddar-bg);
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+    .roi-result-box strong {
+      font-family: var(--font-display);
+      font-size: 40px;
+      color: var(--red);
+      display: block;
+      line-height: 1.1;
+      margin: 6px 0;
+    }
+
+    /* Modale Configurateur de Menu (Menu Composer) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 22, 21, 0.65);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.active { display: flex; }
+    .composer-modal {
+      background: var(--kraft);
+      border: 2px solid var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
+      border-radius: 12px;
+      max-width: 580px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .composer-head {
+      background: var(--card);
+      padding: 18px 22px;
+      border-bottom: 2px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .composer-head h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+    }
+    .composer-body {
+      padding: 20px 22px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .step-group h4 {
+      font-family: var(--font-cond);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 15px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .step-group h4 span {
+      background: var(--ink);
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 480px) {
+      .choice-grid { grid-template-columns: 1fr; }
+    }
+    .choice-pill {
+      background: var(--card);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .choice-pill.selected {
+      background: var(--cheddar-bg);
+      border-width: 2px;
+      border-color: var(--red);
+    }
+    .composer-foot {
+      background: var(--card);
+      padding: 16px 22px;
+      border-top: 2px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Tiroir Panier Click & Collect */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 22, 21, 0.6);
+      z-index: 2100;
+      display: none;
+    }
+    .drawer-backdrop.active { display: block; }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -440px;
+      width: 100%;
+      max-width: 430px;
+      height: 100%;
+      background: var(--kraft);
+      border-left: 2px solid var(--ink);
+      z-index: 2101;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.28s ease;
+    }
+    .cart-drawer.active { right: 0; }
+    .cart-head {
+      background: var(--card);
+      padding: 20px;
+      border-bottom: 2px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cart-card {
+      background: var(--card);
+      border: 1.5px solid var(--ink);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .cart-foot {
+      background: var(--card);
+      padding: 18px 20px;
+      border-top: 2px solid var(--ink);
+    }
+    .cart-foot input, .cart-foot select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--ink);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13.5px;
+      margin-bottom: 8px;
+      background: var(--kraft);
+    }
+    .hp-trap { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+
+    /* Barre fixe mobile */
+    .mobile-sticky-cart {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      z-index: 95;
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .mobile-sticky-cart { display: block; }
+    }
+
+    footer {
+      border-top: 2px solid var(--ink);
+      padding-top: 32px;
+      margin-top: 56px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barre Démo BoostMySite -->
+  <div class="demo-bar">
+    <span>Démonstration Fast-Food &amp; Click-and-Collect : <strong>L'Atelier du Smash</strong> (100 % Humain • Zéro Commission)</span>
+    <div class="demo-bar-actions">
+      <button type="button" class="btn-roi" onclick="document.getElementById('roiSection').scrollIntoView({behavior:'smooth'})">
+        Simulateur Économies UberEats
+      </button>
+      <a href="../portfolio.html">Retour au portfolio</a>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <div class="brand-stamp">AS</div>
+        <div class="brand-text">
+          <strong>L'ATELIER DU SMASH</strong>
+          <span>Bœuf Français Smashé Minute &amp; Frites Maison • Paris 11e</span>
+        </div>
+      </a>
+      <div class="header-meta">
+        <span class="open-pill">
+          <span class="open-dot"></span>
+          Ouvert • Retrait Click &amp; Collect en 12 min
+        </span>
+        <button type="button" class="cart-btn" onclick="toggleCartDrawer(true)">
+          <span>Ma Commande</span>
+          <span class="cart-count" id="headerCartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Authentique -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badges">
+            <span class="stamp-tag">Pain Potato Bun du Boulanger</span>
+            <span class="stamp-tag">Bœuf Limousin 100 % France</span>
+            <span class="stamp-tag">Certifié Halal &amp; Fait Maison</span>
+          </div>
+          <h1>Croûte caramélisée, <br><em>cheddar coulant &amp; frites au couteau.</em></h1>
+          <p>Pas de viande surgelée ni d'intermédiaire : nos boules de bœuf français sont smashées à la commande sur plaque de fonte brûlante. Commandez en ligne au prix du comptoir et récupérez votre sac tout chaud sans faire la queue.</p>
+          <div class="hero-cta-row">
+            <a href="#carte" class="btn-red">Composer mon Menu Click &amp; Collect</a>
+            <a href="#roiSection" class="btn-kraft">Gérant ? Voir l'économie sans UberEats</a>
+          </div>
+          <div class="craft-promises">
+            <div>
+              <strong>Livré chaque matin 7h</strong>
+              <span>Buns briochés pétris par notre artisan boulanger</span>
+            </div>
+            <div>
+              <strong>Double bain de cuisson</strong>
+              <span>Pommes de terre Bintje épluchées et coupées sur place</span>
+            </div>
+            <div>
+              <strong>0 % de majoration</strong>
+              <span>Jusqu'à 25 % moins cher que sur les applis de livraison</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img src="project-fastfood.jpg" alt="Double Smash Burger artisanal au cheddar affiné et potato bun doré">
+          <div class="hero-sticker">
+            <div>
+              <strong style="display:block; font-size:14px;">64 boulevard Voltaire, 75011 Paris</strong>
+              <span style="font-size:12px; color:var(--muted);">Service continu 7j/7 de 11h30 à 23h30 • Sur place ou À emporter</span>
+            </div>
+            <span style="background:var(--pickle-bg); color:var(--pickle); font-weight:800; font-size:12px; padding:5px 10px; border-radius:6px; white-space:nowrap;">★ 4,9/5 (620 avis)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation par Catégorie -->
+    <div class="cat-bar" id="carte">
+      <div class="cat-tabs">
+        <button type="button" class="cat-tab active" onclick="filterFastFood('smash', this)">Smash Burgers (Bœuf France)</button>
+        <button type="button" class="cat-tab" onclick="filterFastFood('chicken', this)">Crispy Chicken &amp; Wraps</button>
+        <button type="button" class="cat-tab" onclick="filterFastFood('sides', this)">Frites Maison &amp; Sides</button>
+        <button type="button" class="cat-tab" onclick="filterFastFood('desserts', this)">Cookies, Shakes &amp; Boissons</button>
+      </div>
+    </div>
+
+    <!-- Grille de la Carte -->
+    <section>
+      <div class="menu-grid" id="ffGrid"></div>
+    </section>
+
+    <!-- Bandeau Légal Obligatoire : Origine des Viandes (Décret 2022) & 14 Allergènes -->
+    <div class="legal-meat-box">
+      <div style="max-width:740px;">
+        <strong style="display:block; font-size:14px; margin-bottom:4px;">
+          Traçabilité &amp; Origine des Viandes (Décret n°2002-1465 modifié 2022) :
+        </strong>
+        <span style="font-size:13px; color:var(--muted);">
+          • <strong>Viande bovine (Steaks smashés) :</strong> Née, élevée et abattue en <strong>France</strong> (Races Limousine &amp; Charolaise).<br>
+          • <strong>Viande de volaille (Filets de poulet croustillant) :</strong> Élevée et abattue en <strong>France</strong>.<br>
+          • Tous nos prix sont affichés en euros (€) nets TTC, service compris.
+        </span>
+      </div>
+      <button type="button" class="btn-kraft" style="padding:9px 16px; font-size:13px;" onclick="document.getElementById('allergenModal').classList.add('active')">
+        Tableau des 14 Allergènes (Décret 2015-447)
+      </button>
+    </div>
+
+    <!-- Simulateur Restaurateur : Pourquoi avoir son propre site Click & Collect ? -->
+    <section class="owner-roi-section" id="roiSection">
+      <span class="stamp-tag">Espace Démo Gérant de Fast-Food</span>
+      <h2 style="font-family:var(--font-display); font-size:28px; margin-top:10px;">
+        Calculez combien vous économisez en passant vos clients habitués en Click &amp; Collect direct
+      </h2>
+      <p style="color:var(--muted); font-size:14.5px; margin-top:4px;">
+        Les plateformes tierces prélèvent jusqu'à 30 % de commission sur chaque commande. Avec votre propre site BoostMySite, vous encaissez 100 % de votre chiffre d'affaires.
+      </p>
+
+      <div class="roi-grid">
+        <div>
+          <div style="margin-bottom:20px;">
+            <label for="roiOrders" style="display:flex; justify-content:space-between; font-weight:700; font-size:14px; margin-bottom:8px;">
+              <span>Commandes Click &amp; Collect par jour :</span>
+              <strong id="roiOrdersVal" style="color:var(--red);">30 commandes / jour</strong>
+            </label>
+            <input type="range" id="roiOrders" min="5" max="120" value="30" style="width:100%; accent-color:var(--red);" oninput="updateRoiCalc()">
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <label for="roiBasket" style="display:flex; justify-content:space-between; font-weight:700; font-size:14px; margin-bottom:8px;">
+              <span>Panier moyen par commande :</span>
+              <strong id="roiBasketVal" style="color:var(--red);">18 €</strong>
+            </label>
+            <input type="range" id="roiBasket" min="10" max="45" value="18" style="width:100%; accent-color:var(--red);" oninput="updateRoiCalc()">
+          </div>
+
+          <p style="font-size:13px; color:var(--muted);">
+            Astuce terrain : un simple QR Code imprimé sur vos sacs en papier kraft (« -10 % sur votre prochaine commande sur notre site ») convertit vos clients UberEats en clients directs dès la 1re commande.
+          </p>
+        </div>
+
+        <div class="roi-result-box">
+          <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;">Commission 30 % économisée chaque mois</span>
+          <strong id="roiMonthlySaved">4 860 € / mois</strong>
+          <span style="font-size:13px; color:var(--muted); display:block; margin-bottom:14px;">
+            Soit <strong id="roiYearlySaved" style="display:inline; font-size:14px; color:var(--ink);">58 320 € / an</strong> de marge nette conservée dans votre trésorerie.
+          </span>
+          <a href="../index.html#contact" class="btn-red" style="width:100%; justify-content:center; font-size:14px;">
+            Obtenir ce site pour mon restaurant (dès 490 €)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pied de page Légal LCEN / RGPD / Médiateur -->
+    <footer>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px; margin-bottom:24px;">
+        <div>
+          <strong style="color:var(--ink); display:block; margin-bottom:4px;">L'Atelier du Smash SAS</strong>
+          Capital de 10 000 € • SIRET : 904 312 789 00014 • RCS Paris B 904 312 789 • TVA intracommunautaire : FR 61 904312789.<br>
+          Siège : 64 boulevard Voltaire, 75011 Paris • Tél : 01 48 00 00 00 • Directeur de publication : M. Sofiane Mansouri.
+        </div>
+        <div>
+          <strong style="color:var(--ink); display:block; margin-bottom:4px;">Conditions Click &amp; Collect &amp; Médiation</strong>
+          Conformément à l'article L.221-28 4° du Code de la consommation, le droit de rétractation ne peut être exercé pour les commandes de repas préparés à la minute.<br>
+          Médiateur de la consommation (Art. L.612-1) : CM2C — 49 rue de Ponthieu, 75008 Paris (www.cm2c.net).
+        </div>
+        <div>
+          <strong style="color:var(--ink); display:block; margin-bottom:4px;">Données Personnelles (RGPD) &amp; Hébergeur</strong>
+          Vos nom et numéro de téléphone servent uniquement au suivi et au retrait de votre commande au comptoir (suppression automatique sous 30 jours).<br>
+          Hébergement : o2switch SAS, Chemin des Pardiaux, 63000 Clermont-Ferrand (04 44 44 60 40).
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Barre Mobile Fixe -->
+  <div class="mobile-sticky-cart">
+    <button type="button" class="btn-red" style="width:100%; justify-content:space-between; padding:15px 20px;" onclick="toggleCartDrawer(true)">
+      <span>Voir ma commande Click &amp; Collect</span>
+      <strong id="mobileCartBadge">0 article • 0,00 €</strong>
+    </button>
+  </div>
+
+  <!-- Modale Configurateur de Menu (Menu Composer) -->
+  <div class="modal-backdrop" id="composerBackdrop" onclick="if(event.target===this)closeComposer()">
+    <div class="composer-modal">
+      <div class="composer-head">
+        <div>
+          <h3 id="compTitle">Le Classique Double Smash</h3>
+          <small id="compBasePriceLabel" style="color:var(--muted); font-weight:600;">Recette préparée minute</small>
+        </div>
+        <button type="button" onclick="closeComposer()" style="background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink);" aria-label="Fermer">&times;</button>
+      </div>
+
+      <div class="composer-body">
+        <!-- Étape 1 : Seul ou Menu -->
+        <div class="step-group" id="stepFormulaGroup">
+          <h4>1. Choisissez votre formule <span>Obligatoire</span></h4>
+          <div class="choice-grid">
+            <div class="choice-pill selected" id="pillSeul" onclick="selectFormula(false)">
+              <span>Seul</span>
+              <strong>+ 0,00 €</strong>
+            </div>
+            <div class="choice-pill" id="pillMenu" onclick="selectFormula(true)">
+              <span>Menu (+Frites Maison &amp; Boisson)</span>
+              <strong>+ 3,50 €</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 2 : Taille du Smash -->
+        <div class="step-group" id="stepSizeGroup">
+          <h4>2. Taille du burger <span>Obligatoire</span></h4>
+          <div class="choice-grid">
+            <div class="choice-pill selected" id="sizeSimple" onclick="selectSize(0, 'Simple/Recette originale', this)">
+              <span>Recette originale</span>
+              <strong>Inclus</strong>
+            </div>
+            <div class="choice-pill" id="sizeDouble" onclick="selectSize(2.5, 'Supplément Steak Smashé + Cheddar', this)">
+              <span>+1 Steak Smashé &amp; Cheddar</span>
+              <strong>+ 2,50 €</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 3 : Suppléments -->
+        <div class="step-group" id="stepExtrasGroup">
+          <h4>3. Suppléments gourmands <span style="background:var(--border); color:var(--ink);">Optionnel</span></h4>
+          <div class="choice-grid" id="extrasContainer">
+            <div class="choice-pill" onclick="toggleExtra('Cheddar maturé affiné', 1.0, this)">
+              <span>Cheddar affiné</span>
+              <strong>+ 1,00 €</strong>
+            </div>
+            <div class="choice-pill" onclick="toggleExtra('Bacon de bœuf fumé', 1.5, this)">
+              <span>Bacon de bœuf grillé</span>
+              <strong>+ 1,50 €</strong>
+            </div>
+            <div class="choice-pill" onclick="toggleExtra('Oignons caramélisés plancha', 1.0, this)">
+              <span>Oignons confits</span>
+              <strong>+ 1,00 €</strong>
+            </div>
+            <div class="choice-pill" onclick="toggleExtra('Piments Jalapeños frais', 0.8, this)">
+              <span>Jalapeños marinés</span>
+              <strong>+ 0,80 €</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 4 : Sauce Maison -->
+        <div class="step-group">
+          <h4>4. Sauce maison préparée ce matin <span>Incluse</span></h4>
+          <div class="choice-grid" id="saucesContainer">
+            <div class="choice-pill selected" onclick="selectSauce('Sauce Secrète Fumée', this)">
+              <span>Sauce Secrète Fumée</span>
+              <strong>Incluse</strong>
+            </div>
+            <div class="choice-pill" onclick="selectSauce('Mayo Ail Rôti & Poivre Noir', this)">
+              <span>Mayo Ail Rôti &amp; Poivre</span>
+              <strong>Incluse</strong>
+            </div>
+            <div class="choice-pill" onclick="selectSauce('Miel-Moutarde à l’Ancienne', this)">
+              <span>Miel-Moutarde Maison</span>
+              <strong>Incluse</strong>
+            </div>
+            <div class="choice-pill" onclick="selectSauce('Mayo Pimentée Sriracha', this)">
+              <span>Mayo Pimentée Sriracha</span>
+              <strong>Incluse</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 5 : Boisson (Affiché si Menu choisi) -->
+        <div class="step-group" id="stepDrinkGroup" style="display:none;">
+          <h4>5. Boisson fraîche du menu (33 cl) <span>Incluse au menu</span></h4>
+          <div class="choice-grid" id="drinksContainer">
+            <div class="choice-pill selected" onclick="selectDrink('Citronnade Maison Menthe (33 cl)', this)">
+              <span>Citronnade Maison (33 cl)</span>
+              <strong>Menu</strong>
+            </div>
+            <div class="choice-pill" onclick="selectDrink('Thé Glacé Pêche Maison (33 cl)', this)">
+              <span>Thé Glacé Maison (33 cl)</span>
+              <strong>Menu</strong>
+            </div>
+            <div class="choice-pill" onclick="selectDrink('Coca-Cola Original (33 cl)', this)">
+              <span>Coca-Cola (33 cl)</span>
+              <strong>Menu</strong>
+            </div>
+            <div class="choice-pill" onclick="selectDrink('Coca-Cola Sans Sucres (33 cl)', this)">
+              <span>Coca Zéro (33 cl)</span>
+              <strong>Menu</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer-foot">
+        <div>
+          <span style="font-size:12px; color:var(--muted); display:block;">Total de cet article</span>
+          <strong id="compTotalPrice" style="font-family:var(--font-display); font-size:24px; color:var(--red);">9,90 €</strong>
+        </div>
+        <button type="button" class="btn-red" onclick="confirmComposeItem()">
+          Ajouter au panier Click &amp; Collect
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tiroir Panier Click & Collect -->
+  <div class="drawer-backdrop" id="cartBackdrop" onclick="toggleCartDrawer(false)"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head">
+      <div>
+        <h3 style="font-family:var(--font-display); font-size:22px;">Votre Sac Click &amp; Collect</h3>
+        <small style="color:var(--pickle); font-weight:700;">Retrait comptoir sans attente • 0 % de commission</small>
+      </div>
+      <button type="button" onclick="toggleCartDrawer(false)" style="background:none; border:none; font-size:24px; cursor:pointer;" aria-label="Fermer">&times;</button>
+    </div>
+
+    <div class="cart-list" id="cartItemsContainer"></div>
+
+    <form class="cart-foot" id="checkoutForm">
+      <div class="hp-trap" aria-hidden="true">
+        <input type="text" id="ffBotcheck" tabindex="-1" autocomplete="off">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <select id="orderMode" required>
+          <option value="À Emporter (Click & Collect)">À Emporter (Sac chaud)</option>
+          <option value="Sur Place (Plateau)">Sur Place (Comptoir)</option>
+        </select>
+        <select id="pickupSlot" required>
+          <option value="Dès que possible (~12 min)">Retrait ~12 min</option>
+          <option value="Dans 30 minutes">Dans 30 min</option>
+          <option value="Créneau 12h30">12h30</option>
+          <option value="Créneau 19h30">19h30</option>
+          <option value="Créneau 20h30">20h30</option>
+        </select>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <input type="text" id="custName" placeholder="Votre prénom" required maxlength="60">
+        <input type="tel" id="custPhone" placeholder="Téléphone mobile" required maxlength="20">
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin:10px 0 12px;">
+        <span style="font-size:13px; font-weight:700;">Total TTC (Prix comptoir)</span>
+        <strong id="drawerTotal" style="font-family:var(--font-display); font-size:26px; color:var(--red);">0,00 €</strong>
+      </div>
+
+      <button type="submit" class="btn-red" style="width:100%; justify-content:center;">
+        Envoyer ma commande en cuisine
+      </button>
+      <p id="orderSuccessBanner" style="display:none; margin-top:10px; padding:10px; background:var(--pickle-bg); color:var(--pickle); border-radius:6px; font-size:12.5px; font-weight:700;"></p>
+    </form>
+  </aside>
+
+  <!-- Modale des 14 Allergènes (Décret n°2015-447) -->
+  <div class="modal-backdrop" id="allergenModal" onclick="if(event.target===this)this.classList.remove('active')">
+    <div class="composer-modal" style="max-width:560px;">
+      <div class="composer-head">
+        <h3>Liste des 14 Allergènes Majeurs (Décret n°2015-447)</h3>
+        <button type="button" onclick="document.getElementById('allergenModal').classList.remove('active')" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+      </div>
+      <div class="composer-body" style="font-size:13.5px; color:var(--ink); line-height:1.7;">
+        <p>Conformément au règlement UE n°1169/2011 (INCO), voici la présence des allergènes dans nos préparations :</p>
+        <ul style="padding-left:18px;">
+          <li><strong>Potato Buns &amp; Tortillas Blé :</strong> <em>Gluten (blé), Lait, Œufs, Graines de sésame</em>.</li>
+          <li><strong>Steaks Smashés Bœuf 100 % Pur Muscle :</strong> Sans allergène.</li>
+          <li><strong>Cheddar Affiné &amp; Sauce Cheddar :</strong> <em>Lait (lactose)</em>.</li>
+          <li><strong>Crispy Chicken :</strong> <em>Gluten (blé), Œufs, Céleri (marinade d'épices)</em>.</li>
+          <li><strong>Sauces Maison :</strong> <em>Œufs, Moutarde, Sulfites (vinaigre/cornichons)</em>.</li>
+          <li><strong>Cookies &amp; Milkshakes :</strong> <em>Gluten, Lait, Œufs, Fruits à coque (pécan/noisettes), Soja</em>.</li>
+        </ul>
+      </div>
+      <div class="composer-foot">
+        <span></span>
+        <button type="button" class="btn-red" onclick="document.getElementById('allergenModal').classList.remove('active')">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CATALOG = [
+      {
+        id: 101,
+        cat: 'smash',
+        badge: 'Best-Seller',
+        name: 'L’Original Double Smash',
+        desc: '2 steaks de bœuf français smashés à la fonte (croûte dentelle), double cheddar maturé, pickles de cornichons maison, oignons blancs ciselés, sauce secrète fumée dans un potato bun toasté au beurre.',
+        price: 9.90,
+        canMenu: true,
+        img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 102,
+        cat: 'smash',
+        badge: 'Gourmand',
+        name: 'Le Bacon &amp; Oignons Confits',
+        desc: 'Double bœuf limousin smashé, double cheddar affiné, tranches de poitrine de bœuf fumée au bois de hêtre, compotée d’oignons caramélisés 2h à la plancha et sauce barbecue maison.',
+        price: 11.50,
+        canMenu: true,
+        img: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 103,
+        cat: 'smash',
+        badge: 'Création Maison',
+        name: 'Le Truffe &amp; Champignons Grillés',
+        desc: 'Double steak smashé, emmental français et cheddar blanc, champignons de Paris sautés au beurre persillé, mayonnaise maison à l’ail rôti et brisures de truffe d’été.',
+        price: 12.50,
+        canMenu: true,
+        img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 201,
+        cat: 'chicken',
+        badge: 'Ultra Croustillant',
+        name: 'Le Crispy Honey Mustard',
+        desc: 'Haut de cuisse de poulet fermier français mariné 24h au babeurre, panure maison ultra-croustillante, cheddar fondant, salade iceberg croquante et sauce miel-moutarde à l’ancienne.',
+        price: 10.50,
+        canMenu: true,
+        img: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 202,
+        cat: 'chicken',
+        badge: 'Épicé',
+        name: 'Le Nashville Hot Chicken',
+        desc: 'Filet de poulet fermier frit minute, glacé au beurre de piment doux fumé, coleslaw maison croquant, pickles de jalapeños et mayo fraîche aux herbes.',
+        price: 10.90,
+        canMenu: true,
+        img: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 301,
+        cat: 'sides',
+        badge: 'Fait sur place',
+        name: 'Frites Maison au Couteau',
+        desc: 'Pommes de terre Bintje épluchées chaque matin, coupées au couteau et cuites en double bain pour un croustillant incomparable. Fleur de sel.',
+        price: 3.90,
+        canMenu: false,
+        img: 'https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 302,
+        cat: 'sides',
+        badge: 'Cheddar Vrai',
+        name: 'Loaded Fries Cheddar &amp; Bacon',
+        desc: 'Grande portion de frites maison nappées de notre vraie sauce au cheddar maturé fondu à la casserole, éclats de bacon fumé croustillant et ciboulette.',
+        price: 5.90,
+        canMenu: false,
+        img: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 303,
+        cat: 'sides',
+        badge: '100 % Filet',
+        name: 'Tenders de Poulet Fermier (x4)',
+        desc: '4 aiguillettes de filet de poulet français panées minute aux cornflakes, servies avec une sauce maison au choix.',
+        price: 6.90,
+        canMenu: false,
+        img: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 401,
+        cat: 'desserts',
+        badge: 'Cuit ce matin',
+        name: 'Cookie Mi-Cuit Chocolat Noir &amp; Pécan',
+        desc: 'Pâte préparée sur place au beurre de baratte, gros éclats de chocolat noir 70 % et noix de pécan caramélisées. Servi tiède.',
+        price: 3.80,
+        canMenu: false,
+        img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        id: 402,
+        cat: 'desserts',
+        badge: 'Maison',
+        name: 'Citronnade Fraîche Menthe (33 cl)',
+        desc: 'Citrons jaunes de Sicile pressés chaque matin à l’Atelier, feuilles de menthe fraîche et sucre de canne léger (33 cl).',
+        price: 3.50,
+        canMenu: false,
+        img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=700&q=80'
+      }
+    ];
+
+    let activeCat = 'smash';
+    let cart = [];
+    let currentItem = null;
+    let compState = {
+      isMenu: false,
+      sizeExtra: 0,
+      sizeLabel: 'Recette originale',
+      extras: [],
+      sauce: 'Sauce Secrète Fumée',
+      drink: 'Citronnade Maison Menthe (33 cl)'
+    };
+
+    function formatEur(n) {
+      return n.toFixed(2).replace('.', ',') + ' €';
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('ffGrid');
+      const items = CATALOG.filter(i => i.cat === activeCat);
+      grid.innerHTML = items.map(item => `
+        <article class="item-card">
+          <div>
+            <div class="item-photo-wrap">
+              <img src="${item.img}" alt="${item.name}" loading="lazy">
+              <span class="item-badge">${item.badge}</span>
+            </div>
+            <div class="item-body">
+              <div>
+                <div class="item-title-row">
+                  <h3>${item.name}</h3>
+                </div>
+                <p class="item-desc">${item.desc}</p>
+              </div>
+              <div class="item-footer">
+                <div class="price-block">
+                  <strong>${formatEur(item.price)}</strong>
+                  <small>${item.canMenu ? 'Seul • Menu +3,50 €' : 'Portion fraîche'}</small>
+                </div>
+                <button type="button" class="btn-compose" onclick="openComposer(${item.id})">
+                  ${item.canMenu ? 'Composer / Menu' : '+ Ajouter'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function filterFastFood(cat, btn) {
+      activeCat = cat;
+      document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCatalog();
+    }
+
+    function openComposer(itemId) {
+      const item = CATALOG.find(i => i.id === itemId);
+      if (!item) return;
+
+      if (!item.canMenu) {
+        cart.push({
+          uid: Date.now() + Math.random(),
+          name: item.name,
+          details: 'Portion individuelle',
+          unitPrice: item.price,
+          qty: 1
+        });
+        updateCartUI();
+        toggleCartDrawer(true);
+        return;
+      }
+
+      currentItem = item;
+      compState = {
+        isMenu: false,
+        sizeExtra: 0,
+        sizeLabel: 'Recette originale',
+        extras: [],
+        sauce: 'Sauce Secrète Fumée',
+        drink: 'Citronnade Maison Menthe (33 cl)'
+      };
+
+      document.getElementById('compTitle').innerHTML = item.name;
+      document.getElementById('pillSeul').classList.add('selected');
+      document.getElementById('pillMenu').classList.remove('selected');
+      document.getElementById('sizeSimple').classList.add('selected');
+      document.getElementById('sizeDouble').classList.remove('selected');
+      document.getElementById('stepDrinkGroup').style.display = 'none';
+
+      document.querySelectorAll('#extrasContainer .choice-pill').forEach(el => el.classList.remove('selected'));
+      const saucePills = document.querySelectorAll('#saucesContainer .choice-pill');
+      saucePills.forEach((el, idx) => el.classList.toggle('selected', idx === 0));
+      const drinkPills = document.querySelectorAll('#drinksContainer .choice-pill');
+      drinkPills.forEach((el, idx) => el.classList.toggle('selected', idx === 0));
+
+      updateComposerTotal();
+      document.getElementById('composerBackdrop').classList.add('active');
+    }
+
+    function closeComposer() {
+      document.getElementById('composerBackdrop').classList.remove('active');
+    }
+
+    function selectFormula(isMenu) {
+      compState.isMenu = isMenu;
+      document.getElementById('pillSeul').classList.toggle('selected', !isMenu);
+      document.getElementById('pillMenu').classList.toggle('selected', isMenu);
+      document.getElementById('stepDrinkGroup').style.display = isMenu ? 'block' : 'none';
+      updateComposerTotal();
+    }
+
+    function selectSize(extraPrice, label, el) {
+      compState.sizeExtra = extraPrice;
+      compState.sizeLabel = label;
+      document.getElementById('sizeSimple').classList.remove('selected');
+      document.getElementById('sizeDouble').classList.remove('selected');
+      el.classList.add('selected');
+      updateComposerTotal();
+    }
+
+    function toggleExtra(name, price, el) {
+      const idx = compState.extras.findIndex(e => e.name === name);
+      if (idx >= 0) {
+        compState.extras.splice(idx, 1);
+        el.classList.remove('selected');
+      } else {
+        compState.extras.push({ name, price });
+        el.classList.add('selected');
+      }
+      updateComposerTotal();
+    }
+
+    function selectSauce(sauceName, el) {
+      compState.sauce = sauceName;
+      document.querySelectorAll('#saucesContainer .choice-pill').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function selectDrink(drinkName, el) {
+      compState.drink = drinkName;
+      document.querySelectorAll('#drinksContainer .choice-pill').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function getComposerPrice() {
+      if (!currentItem) return 0;
+      const menuAdd = compState.isMenu ? 3.50 : 0;
+      const extrasAdd = compState.extras.reduce((s, e) => s + e.price, 0);
+      return currentItem.price + menuAdd + compState.sizeExtra + extrasAdd;
+    }
+
+    function updateComposerTotal() {
+      document.getElementById('compTotalPrice').textContent = formatEur(getComposerPrice());
+    }
+
+    function confirmComposeItem() {
+      if (!currentItem) return;
+      const parts = [
+        compState.isMenu ? 'Formule MENU (Frites Maison + ' + compState.drink + ')' : 'Burger Seul',
+        compState.sizeLabel,
+        'Sauce : ' + compState.sauce
+      ];
+      if (compState.extras.length > 0) {
+        parts.push('Suppléments : ' + compState.extras.map(e => e.name).join(', '));
+      }
+
+      cart.push({
+        uid: Date.now() + Math.random(),
+        name: currentItem.name,
+        details: parts.join(' • '),
+        unitPrice: getComposerPrice(),
+        qty: 1
+      });
+
+      closeComposer();
+      updateCartUI();
+      toggleCartDrawer(true);
+    }
+
+    function toggleCartDrawer(open) {
+      document.getElementById('cartBackdrop').classList.toggle('active', open);
+      document.getElementById('cartDrawer').classList.toggle('active', open);
+    }
+
+    function changeQty(uid, delta) {
+      const item = cart.find(c => c.uid === uid);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(c => c.uid !== uid);
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const container = document.getElementById('cartItemsContainer');
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      const total = cart.reduce((s, i) => s + (i.unitPrice * i.qty), 0);
+
+      document.getElementById('headerCartCount').textContent = count;
+      document.getElementById('drawerTotal').textContent = formatEur(total);
+      document.getElementById('mobileCartBadge').textContent = count + (count > 1 ? ' articles • ' : ' article • ') + formatEur(total);
+
+      if (cart.length === 0) {
+        container.innerHTML = '<div style="text-align:center; color:var(--muted); margin-top:40px;">Votre sac Click &amp; Collect est vide.<br><small>Cliquez sur un burger pour composer votre menu.</small></div>';
+        return;
+      }
+
+      container.innerHTML = cart.map(item => `
+        <div class="cart-card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+            <strong style="font-size:14.5px; color:var(--ink);">${item.name}</strong>
+            <strong style="color:var(--red); font-size:14px; white-space:nowrap;">${formatEur(item.unitPrice * item.qty)}</strong>
+          </div>
+          <p style="font-size:12px; color:var(--muted); margin:4px 0 10px;">${item.details}</p>
+          <div style="display:flex; justify-content:flex-end; align-items:center; gap:8px;">
+            <button type="button" onclick="changeQty(${item.uid}, -1)" style="width:26px; height:26px; border:1.5px solid var(--ink); background:var(--kraft); border-radius:4px; font-weight:700; cursor:pointer;">-</button>
+            <span style="font-size:13px; font-weight:700;">${item.qty}</span>
+            <button type="button" onclick="changeQty(${item.uid}, 1)" style="width:26px; height:26px; border:1.5px solid var(--ink); background:var(--kraft); border-radius:4px; font-weight:700; cursor:pointer;">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (document.getElementById('ffBotcheck').value) return;
+      if (cart.length === 0) {
+        alert('Ajoutez au moins un article à votre commande.');
+        return;
+      }
+      const name = document.getElementById('custName').value.trim();
+      const slot = document.getElementById('pickupSlot').value;
+      const mode = document.getElementById('orderMode').value;
+      const orderNum = '#SM-' + Math.floor(100 + Math.random() * 899);
+
+      const banner = document.getElementById('orderSuccessBanner');
+      banner.style.display = 'block';
+      banner.textContent = 'Commande ' + orderNum + ' envoyée en cuisine pour ' + name + ' (' + mode + ' — ' + slot + '). Zéro commission intermédiaire !';
+      cart = [];
+      updateCartUI();
+    });
+
+    function updateRoiCalc() {
+      const orders = parseInt(document.getElementById('roiOrders').value, 10);
+      const basket = parseInt(document.getElementById('roiBasket').value, 10);
+      document.getElementById('roiOrdersVal').textContent = orders + ' commandes / jour';
+      document.getElementById('roiBasketVal').textContent = basket + ' €';
+
+      const monthlySaved = Math.round(orders * basket * 30 * 0.30);
+      const yearlySaved = monthlySaved * 12;
+
+      document.getElementById('roiMonthlySaved').textContent = monthlySaved.toLocaleString('fr-FR') + ' € / mois';
+      document.getElementById('roiYearlySaved').textContent = yearlySaved.toLocaleString('fr-FR') + ' € / an';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCatalog();
+      updateCartUI();
+      updateRoiCalc();
+    });
+  </script>
+</body>
+</html>

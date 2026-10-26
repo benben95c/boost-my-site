@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optimiseur de Tournée Clients | BoostMySite</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <style>
+    :root {
+      --bg: #F6F5F2;
+      --card: #FFFFFF;
+      --ink: #18181B;
+      --muted: #64646B;
+      --primary: #1D4ED8;
+      --primary-hover: #1E40AF;
+      --green: #15803D;
+      --green-bg: #DCFCE7;
+      --amber: #B45309;
+      --amber-bg: #FEF3C7;
+      --red: #B91C1C;
+      --border: #E4E4E7;
+      --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+    header {
+      background: var(--ink);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header a {
+      color: #D4D4D8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.1);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    .container {
+      max-width: 1320px;
+      margin: 24px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .container { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .panel h2 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    input[type="text"], input[type="time"], input[type="number"], select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      background: #FAFAFA;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      background: #fff;
+    }
+    textarea {
+      min-height: 125px;
+      resize: vertical;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-outline {
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { background: #F4F4F5; }
+    .btn-sm { padding: 6px 11px; font-size: 12px; border-radius: 6px; }
+
+    /* Liste des clients saisis */
+    .raw-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 290px;
+      overflow-y: auto;
+      margin-top: 12px;
+    }
+    .raw-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .raw-item strong { display: block; color: var(--ink); }
+    .raw-item span { color: var(--muted); font-size: 12px; }
+
+    /* Carte Leaflet */
+    #map {
+      width: 100%;
+      height: 410px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      z-index: 1;
+    }
+
+    /* Résumé de la tournée */
+    .summary-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 680px) {
+      .summary-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+    .stat-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .stat-box span {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 600;
+      display: block;
+    }
+    .stat-box strong {
+      font-size: 20px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* Feuille de route ordonnée */
+    .itinerary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stop-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      transition: border-color 0.15s;
+    }
+    .stop-card.visited {
+      opacity: 0.6;
+      background: #F9FAFB;
+    }
+    @media (max-width: 640px) {
+      .stop-card { grid-template-columns: 36px 1fr; }
+      .stop-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+    }
+    .stop-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stop-num.start { background: var(--ink); }
+    .stop-leg-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--amber-bg);
+      color: var(--amber);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 99px;
+      margin-bottom: 4px;
+    }
+    .stop-eta {
+      display: inline-block;
+      background: var(--green-bg);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 99px;
+      margin-left: 6px;
+    }
+    .stop-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .marker-pin {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1D4ED8;
+      color: #fff;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .marker-pin.start { background: #18181B; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+      Optimiseur de Tournée Clients — Prospection Terrain BoostMySite
+    </h1>
+    <div style="display:flex; gap:10px;">
+      <a href="../index.html">← Retour au site BoostMySite</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Colonne Gauche : Saisie & Paramètres -->
+    <div>
+      <!-- 1. Point de Départ -->
+      <div class="panel">
+        <h2>
+          <span>1. Point de départ</span>
+          <button type="button" class="btn btn-outline btn-sm" onclick="useMyGPS()">📍 Ma position GPS</button>
+        </h2>
+        <label for="startAddress">Adresse de départ (où vous êtes maintenant)</label>
+        <input type="text" id="startAddress" placeholder="Ex : Place de la République, 75011 Paris" value="Place de la République, 75011 Paris">
+
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:12px;">
+          <div>
+            <label for="travelMode">Mode</label>
+            <select id="travelMode">
+              <option value="driving">🚗 Voiture / Scooter</option>
+              <option value="foot">🚶 À pied</option>
+              <option value="bike">🚲 Vélo</option>
+            </select>
+          </div>
+          <div>
+            <label for="startTime">Départ à</label>
+            <input type="time" id="startTime" value="14:00">
+          </div>
+          <div>
+            <label for="dwellMinutes">Temps / client</label>
+            <select id="dwellMinutes">
+              <option value="10">10 min</option>
+              <option value="15" selected>15 min</option>
+              <option value="20">20 min</option>
+              <option value="30">30 min</option>
+            </select>
+          </div>
+        </div>
+        <label style="display:flex; align-items:center; gap:8px; margin-top:10px; cursor:pointer; font-weight:500; color:var(--ink);">
+          <input type="checkbox" id="returnToStart"> Revenir au point de départ à la fin de la tournée
+        </label>
+      </div>
+
+      <!-- 2. Ajout Rapide des Clients -->
+      <div class="panel">
+        <h2>
+          <span>2. Ajouter vos clients à voir</span>
+          <button type="button" class="btn btn-outline btn-sm" onclick="loadSampleProspects()">Charger un exemple</button>
+        </h2>
+
+        <label for="bulkInput">Collez votre liste (1 client par ligne : <em>Nom - Adresse</em> ou juste <em>Adresse</em>)</label>
+        <textarea id="bulkInput" placeholder="Smash King - 64 boulevard Voltaire, 75011 Paris&#10;O'Tacos Charonne - 112 rue de Charonne, 75011 Paris&#10;Burger Artisanal - 28 avenue Parmentier, 75011 Paris&#10;Chicken Spot - 15 rue du Faubourg du Temple, 75010 Paris"></textarea>
+
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <button type="button" class="btn btn-outline" style="flex:1;" onclick="addFromBulk()">
+            + Ajouter ces lignes à la liste
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="clearAllProspects()" title="Vider la liste">
+            Vider
+          </button>
+        </div>
+
+        <!-- Ajout individuel -->
+        <div style="border-top:1px solid var(--border); margin-top:14px; padding-top:12px;">
+          <label>Ou ajouter un commerce manuellement :</label>
+          <div style="display:grid; grid-template-columns:0.9fr 1.1fr auto; gap:6px;">
+            <input type="text" id="singleName" placeholder="Nom (ex: Tacos King)">
+            <input type="text" id="singleAddr" placeholder="Adresse complète + Ville">
+            <button type="button" class="btn btn-outline" onclick="addSingleProspect()">+</button>
+          </div>
+        </div>
+
+        <!-- Liste actuelle -->
+        <div class="raw-list" id="prospectsListContainer"></div>
+
+        <button type="button" class="btn btn-primary" id="btnOptimize" style="width:100%; margin-top:16px; padding:13px; font-size:15px;" onclick="optimizeRoute()">
+          ⚡ Calculer l'ordre le plus rapide
+        </button>
+        <p id="statusMsg" style="font-size:12.5px; color:var(--muted); margin-top:8px; text-align:center;"></p>
+      </div>
+    </div>
+
+    <!-- Colonne Droite : Carte & Ordre Optimisé -->
+    <div>
+      <div class="panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+          <h2 style="margin:0;">3. Votre Feuille de Route Optimisée</h2>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a id="btnFullGoogleMaps" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-sm" style="display:none;">
+              🗺️ Ouvrir toute la tournée dans Google Maps
+            </a>
+            <button type="button" class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Imprimer / PDF</button>
+          </div>
+        </div>
+
+        <div class="summary-bar">
+          <div class="stat-box">
+            <span>Clients à visiter</span>
+            <strong id="statStops">0</strong>
+          </div>
+          <div class="stat-box">
+            <span>Temps de trajet total</span>
+            <strong id="statDriveTime">0 min</strong>
+          </div>
+          <div class="stat-box">
+            <span>Distance totale</span>
+            <strong id="statDistance">0 km</strong>
+          </div>
+          <div class="stat-box">
+            <span>Fin estimée (avec RDV)</span>
+            <strong id="statEndTime">—</strong>
+          </div>
+        </div>
+
+        <div id="map"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Ordre exact de passage (du 1er au dernier client)</h2>
+        <div class="itinerary-list" id="itineraryOutput">
+          <div style="text-align:center; padding:32px 16px; color:var(--muted); font-size:14px;">
+            Ajoutez vos clients à gauche puis cliquez sur <strong>« Calculer l'ordre le plus rapide »</strong> pour obtenir votre feuille de route dans l'ordre optimal.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'bms_route_prospects_v1';
+    let prospects = [];
+    let map, markersLayer, routePolyline;
+
+    function initMap() {
+      map = L.map('map').setView([48.867, 2.363], 13);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap',
+        maxZoom: 19
+      }).addTo(map);
+      markersLayer = L.layerGroup().addTo(map);
+    }
+
+    function saveProspects() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(prospects));
+      } catch (e) {}
+    }
+
+    function loadProspects() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          prospects = JSON.parse(raw);
+        }
+      } catch (e) {
+        prospects = [];
+      }
+      renderRawProspects();
+    }
+
+    function escHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderRawProspects() {
+      const box = document.getElementById('prospectsListContainer');
+      document.getElementById('statStops').textContent = prospects.length;
+      if (prospects.length === 0) {
+        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12.5px; padding:12px;">Aucun client dans la liste pour le moment.</div>';
+        return;
+      }
+      box.innerHTML = prospects.map((p, idx) => `
+        <div class="raw-item">
+          <div>
+            <strong>${escHtml(p.name)}</strong>
+            <span>${escHtml(p.address)}</span>
+          </div>
+          <button type="button" onclick="removeProspect(${idx})" style="background:none; border:none; color:var(--red); font-weight:700; cursor:pointer; font-size:16px;" title="Retirer">&times;</button>
+        </div>
+      `).join('');
+    }
+
+    function parseLine(line) {
+      const cleaned = line.trim();
+      if (!cleaned) return null;
+      const separators = [' - ', ' | ', ' : ', ' — ', ';'];
+      for (const sep of separators) {
+        if (cleaned.includes(sep)) {
+          const parts = cleaned.split(sep);
+          const name = parts.shift().trim();
+          const address = parts.join(sep).trim();
+          return { name: name || address, address: address || name, visited: false, status: 'À voir' };
+        }
+      }
+      return { name: 'Client : ' + cleaned.split(',')[0], address: cleaned, visited: false, status: 'À voir' };
+    }
+
+    function addFromBulk() {
+      const textarea = document.getElementById('bulkInput');
+      const lines = textarea.value.split('\n');
+      let added = 0;
+      lines.forEach(line => {
+        const parsed = parseLine(line);
+        if (parsed) {
+          prospects.push(parsed);
+          added++;
+        }
+      });
+      if (added > 0) {
+        textarea.value = '';
+        saveProspects();
+        renderRawProspects();
+      }
+    }
+
+    function addSingleProspect() {
+      const nameEl = document.getElementById('singleName');
+      const addrEl = document.getElementById('singleAddr');
+      const addr = addrEl.value.trim();
+      if (!addr) return alert('Veuillez saisir l’adresse du client.');
+      const name = nameEl.value.trim() || addr.split(',')[0];
+      prospects.push({ name, address: addr, visited: false, status: 'À voir' });
+      nameEl.value = '';
+      addrEl.value = '';
+      saveProspects();
+      renderRawProspects();
+    }
+
+    function removeProspect(idx) {
+      prospects.splice(idx, 1);
+      saveProspects();
+      renderRawProspects();
+    }
+
+    function clearAllProspects() {
+      prospects = [];
+      saveProspects();
+      renderRawProspects();
+      document.getElementById('itineraryOutput').innerHTML = '';
+      markersLayer.clearLayers();
+      if (routePolyline) map.removeLayer(routePolyline);
+    }
+
+    function loadSampleProspects() {
+      prospects = [
+        { name: 'Smash Lab Voltaire', address: '64 boulevard Voltaire, 75011 Paris', visited: false, status: 'À voir' },
+        { name: 'Braise & Burger Bastille', address: '14 rue de la Roquette, 75011 Paris', visited: false, status: 'À voir' },
+        { name: 'Crispy Street Oberkampf', address: '98 rue Oberkampf, 75011 Paris', visited: false, status: 'À voir' },
+        { name: 'French Tacos Nation', address: '210 boulevard Voltaire, 75011 Paris', visited: false, status: 'À voir' },
+        { name: 'Artisan Burger Goncourt', address: '18 rue du Faubourg du Temple, 75011 Paris', visited: false, status: 'À voir' }
+      ];
+      saveProspects();
+      renderRawProspects();
+      optimizeRoute();
+    }
+
+    function useMyGPS() {
+      if (!navigator.geolocation) {
+        return alert('La géolocalisation n’est pas activée sur ce navigateur.');
+      }
+      const status = document.getElementById('statusMsg');
+      status.textContent = 'Récupération de votre position GPS...';
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        try {
+          const res = await fetch(`https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${latitude}`);
+          const data = await res.json();
+          if (data.features && data.features.length > 0) {
+            document.getElementById('startAddress').value = data.features[0].properties.label;
+          } else {
+            document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+          }
+          status.textContent = 'Position GPS définie comme point de départ.';
+        } catch (e) {
+          document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+          status.textContent = 'Coordonnées GPS définies.';
+        }
+      }, () => {
+        status.textContent = 'Impossible de lire le GPS. Entrez votre adresse de départ manuellement.';
+      });
+    }
+
+    /* Géocodage via API Adresse Data.gouv.fr (Base Adresse Nationale - gratuit & sans clé) */
+    async function geocodeAddress(query) {
+      const gpsMatch = query.match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
+      if (gpsMatch) {
+        return { lat: parseFloat(gpsMatch[1]), lon: parseFloat(gpsMatch[2]), label: query };
+      }
+      const url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=1`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.features && data.features.length > 0) {
+        const feat = data.features[0];
+        return {
+          lon: feat.geometry.coordinates[0],
+          lat: feat.geometry.coordinates[1],
+          label: feat.properties.label
+        };
+      }
+      throw new Error('Adresse introuvable : ' + query);
+    }
+
+    /* Distance Haversine de secours (en mètres) */
+    function haversineMeters(a, b) {
+      const R = 6371000;
+      const toRad = d => d * Math.PI / 180;
+      const dLat = toRad(b.lat - a.lat);
+      const dLon = toRad(b.lon - a.lon);
+      const s = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(s));
+    }
+
+    /* Algorithme TSP : Plus proche voisin + amélioration 2-Opt */
+    function solveTSP(durationsMatrix, returnToStart) {
+      const n = durationsMatrix.length; // index 0 = départ, 1..n-1 = clients
+      const visited = new Array(n).fill(false);
+      visited[0] = true;
+      const order = [0];
+
+      for (let step = 1; step < n; step++) {
+        const last = order[order.length - 1];
+        let bestNext = -1;
+        let bestCost = Infinity;
+        for (let candidate = 1; candidate < n; candidate++) {
+          if (!visited[candidate] && durationsMatrix[last][candidate] < bestCost) {
+            bestCost = durationsMatrix[last][candidate];
+            bestNext = candidate;
+          }
+        }
+        visited[bestNext] = true;
+        order.push(bestNext);
+      }
+
+      if (returnToStart) {
+        order.push(0);
+      }
+
+      function routeCost(seq) {
+        let total = 0;
+        for (let i = 0; i < seq.length - 1; i++) {
+          total += durationsMatrix[seq[i]][seq[i + 1]];
+        }
+        return total;
+      }
+
+      // Optimisation 2-Opt pour éliminer tout croisement
+      const endLimit = returnToStart ? order.length - 2 : order.length - 1;
+      let improved = true;
+      while (improved) {
+        improved = false;
+        for (let i = 1; i < endLimit; i++) {
+          for (let k = i + 1; k <= endLimit; k++) {
+            const candidate = order.slice(0, i)
+              .concat(order.slice(i, k + 1).reverse())
+              .concat(order.slice(k + 1));
+            if (routeCost(candidate) + 0.1 < routeCost(order)) {
+              for (let m = 0; m < order.length; m++) order[m] = candidate[m];
+              improved = true;
+            }
+          }
+        }
+      }
+
+      return order;
+    }
+
+    function addMinutesToTime(timeStr, minsToAdd) {
+      const [hh, mm] = (timeStr || '14:00').split(':').map(Number);
+      const total = hh * 60 + mm + Math.round(minsToAdd);
+      const h = Math.floor((total / 60) % 24);
+      const m = total % 60;
+      return String(h).padStart(2, '0') + 'h' + String(m).padStart(2, '0');
+    }
+
+    async function optimizeRoute() {
+      if (document.getElementById('bulkInput').value.trim()) {
+        addFromBulk();
+      }
+      if (prospects.length === 0) {
+        return alert('Ajoutez d’abord au moins un client à visiter.');
+      }
+      const startAddr = document.getElementById('startAddress').value.trim();
+      if (!startAddr) {
+        return alert('Indiquez votre adresse de départ.');
+      }
+
+      const btn = document.getElementById('btnOptimize');
+      const status = document.getElementById('statusMsg');
+      btn.disabled = true;
+      status.textContent = 'Localisation des adresses en cours...';
+
+      try {
+        const startGeo = await geocodeAddress(startAddr);
+        const nodes = [{
+          isStart: true,
+          name: 'Point de Départ',
+          address: startGeo.label,
+          lat: startGeo.lat,
+          lon: startGeo.lon
+        }];
+
+        for (let i = 0; i < prospects.length; i++) {
+          status.textContent = `Géolocalisation (${i + 1}/${prospects.length}) : ${prospects[i].name}...`;
+          const g = await geocodeAddress(prospects[i].address);
+          prospects[i].lat = g.lat;
+          prospects[i].lon = g.lon;
+          prospects[i].resolvedAddress = g.label;
+          nodes.push({
+            isStart: false,
+            prospectIdx: i,
+            name: prospects[i].name,
+            address: g.label,
+            lat: g.lat,
+            lon: g.lon
+          });
+        }
+
+        status.textContent = 'Calcul du chemin le plus rapide entre tous vos clients...';
+        const mode = document.getElementById('travelMode').value;
+        const speedKmh = mode === 'foot' ? 4.8 : (mode === 'bike' ? 16 : 24);
+        const n = nodes.length;
+        let durations = Array.from({ length: n }, () => new Array(n).fill(0));
+        let distances = Array.from({ length: n }, () => new Array(n).fill(0));
+
+        // Essai table routière OSRM + repli précis
+        try {
+          const coordsStr = nodes.map(pt => `${pt.lon},${pt.lat}`).join(';');
+          const osrmProfile = mode === 'foot' ? 'foot' : (mode === 'bike' ? 'bike' : 'driving');
+          const res = await fetch(`https://router.project-osrm.org/table/v1/${osrmProfile}/${coordsStr}?annotations=duration,distance`);
+          const data = await res.json();
+          if (data.code === 'Ok' && data.durations) {
+            for (let i = 0; i < n; i++) {
+              for (let j = 0; j < n; j++) {
+                const distM = data.distances ? data.distances[i][j] : haversineMeters(nodes[i], nodes[j]) * 1.3;
+                distances[i][j] = distM;
+                // Ajustement réaliste selon le mode choisi
+                if (mode === 'foot') {
+                  durations[i][j] = (distM / 1000) / 4.8 * 3600;
+                } else if (mode === 'bike') {
+                  durations[i][j] = (distM / 1000) / 16 * 3600;
+                } else {
+                  durations[i][j] = data.durations[i][j];
+                }
+              }
+            }
+          } else {
+            throw new Error('Fallback');
+          }
+        } catch (err) {
+          for (let i = 0; i < n; i++) {
+            for (let j = 0; j < n; j++) {
+              if (i === j) continue;
+              const roadMeters = haversineMeters(nodes[i], nodes[j]) * 1.32;
+              distances[i][j] = roadMeters;
+              durations[i][j] = (roadMeters / 1000) / speedKmh * 3600;
+            }
+          }
+        }
+
+        const returnToStart = document.getElementById('returnToStart').checked;
+        const order = solveTSP(durations, returnToStart);
+
+        renderOptimizedResult(nodes, order, durations, distances);
+        status.textContent = 'Tournée optimisée avec succès !';
+      } catch (err) {
+        alert(err.message || 'Erreur lors de la localisation d’une adresse.');
+        status.textContent = 'Vérifiez l’orthographe des adresses.';
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function renderOptimizedResult(nodes, order, durations, distances) {
+      markersLayer.clearLayers();
+      if (routePolyline) map.removeLayer(routePolyline);
+
+      const startTime = document.getElementById('startTime').value || '14:00';
+      const dwellMins = parseInt(document.getElementById('dwellMinutes').value, 10) || 15;
+      const modeIcon = document.getElementById('travelMode').value === 'foot' ? '🚶' : (document.getElementById('travelMode').value === 'bike' ? '🚲' : '🚗');
+
+      let totalDriveSec = 0;
+      let totalDistMeters = 0;
+      let elapsedMinutes = 0;
+      const latlngs = [];
+      const gmapsWaypoints = [];
+
+      const htmlCards = [];
+
+      order.forEach((nodeIdx, stepPos) => {
+        const node = nodes[nodeIdx];
+        latlngs.push([node.lat, node.lon]);
+        gmapsWaypoints.push(encodeURIComponent(node.address));
+
+        if (stepPos === 0) {
+          const icon = L.divIcon({
+            className: '',
+            html: '<div class="marker-pin start">D</div>',
+            iconSize: [28, 28],
+            iconAnchor: [14, 14]
+          });
+          L.marker([node.lat, node.lon], { icon }).bindPopup(`<strong>Départ</strong><br>${escHtml(node.address)}`).addTo(markersLayer);
+
+          htmlCards.push(`
+            <div class="stop-card">
+              <div class="stop-num start">D</div>
+              <div>
+                <span class="stop-eta">Départ à ${startTime.replace(':', 'h')}</span>
+                <strong style="display:block; font-size:15px; margin-top:4px;">Point de départ</strong>
+                <span style="font-size:13px; color:var(--muted);">${escHtml(node.address)}</span>
+              </div>
+              <div></div>
+            </div>
+          `);
+          return;
+        }
+
+        const prevIdx = order[stepPos - 1];
+        const legSec = durations[prevIdx][nodeIdx];
+        const legMeters = distances[prevIdx][nodeIdx];
+        totalDriveSec += legSec;
+        totalDistMeters += legMeters;
+
+        const legMins = Math.max(1, Math.round(legSec / 60));
+        const legKm = (legMeters / 1000).toFixed(1).replace('.', ',');
+        elapsedMinutes += legMins;
+        const arrivalStr = addMinutesToTime(startTime, elapsedMinutes);
+
+        if (node.isStart) {
+          htmlCards.push(`
+            <div class="stop-card">
+              <div class="stop-num start">🏁</div>
+              <div>
+                <span class="stop-leg-pill">${modeIcon} ${legMins} min (${legKm} km) depuis le dernier client</span>
+                <span class="stop-eta">Retour estimé : ${arrivalStr}</span>
+                <strong style="display:block; font-size:15px; margin-top:4px;">Retour au point de départ</strong>
+                <span style="font-size:13px; color:var(--muted);">${escHtml(node.address)}</span>
+              </div>
+              <div></div>
+            </div>
+          `);
+          return;
+        }
+
+        // Marqueur numéroté sur la carte
+        const icon = L.divIcon({
+          className: '',
+          html: `<div class="marker-pin">${stepPos}</div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
+        });
+        L.marker([node.lat, node.lon], { icon })
+          .bindPopup(`<strong>#${stepPos} — ${escHtml(node.name)}</strong><br>${escHtml(node.address)}`)
+          .addTo(markersLayer);
+
+        const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}`;
+        const wazeUrl = `https://waze.com/ul?ll=${node.lat},${node.lon}&navigate=yes`;
+
+        htmlCards.push(`
+          <div class="stop-card" id="stopCard-${stepPos}">
+            <div class="stop-num">${stepPos}</div>
+            <div>
+              <div>
+                <span class="stop-leg-pill">${modeIcon} ${legMins} min • ${legKm} km</span>
+                <span class="stop-eta">Arrivée ~${arrivalStr}</span>
+              </div>
+              <strong style="display:block; font-size:16px; margin-top:4px;">${escHtml(node.name)}</strong>
+              <span style="font-size:13px; color:var(--muted);">${escHtml(node.address)}</span>
+            </div>
+            <div class="stop-actions">
+              <a href="${singleMapsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Google Maps</a>
+              <a href="${wazeUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Waze</a>
+              <label style="display:inline-flex; align-items:center; gap:5px; margin:0; font-size:12.5px; cursor:pointer; color:var(--ink);">
+                <input type="checkbox" onchange="document.getElementById('stopCard-${stepPos}').classList.toggle('visited', this.checked)">
+                Fait
+              </label>
+            </div>
+          </div>
+        `);
+
+        elapsedMinutes += dwellMins;
+      });
+
+      document.getElementById('itineraryOutput').innerHTML = htmlCards.join('');
+
+      // Statistiques globales
+      const totalDriveMins = Math.round(totalDriveSec / 60);
+      document.getElementById('statDriveTime').textContent = totalDriveMins >= 60
+        ? Math.floor(totalDriveMins / 60) + 'h ' + (totalDriveMins % 60) + 'm'
+        : totalDriveMins + ' min';
+      document.getElementById('statDistance').textContent = (totalDistMeters / 1000).toFixed(1).replace('.', ',') + ' km';
+      document.getElementById('statEndTime').textContent = addMinutesToTime(startTime, elapsedMinutes);
+
+      // Tracé sur la carte
+      routePolyline = L.polyline(latlngs, { color: '#1D4ED8', weight: 4, opacity: 0.85 }).addTo(map);
+      map.fitBounds(routePolyline.getBounds(), { padding: [35, 35] });
+
+      // Lien Google Maps multi-étapes complet
+      const fullGmapsBtn = document.getElementById('btnFullGoogleMaps');
+      fullGmapsBtn.href = 'https://www.google.com/maps/dir/' + gmapsWaypoints.join('/');
+      fullGmapsBtn.style.display = 'inline-flex';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      loadProspects();
+    });
+  </script>
+</body>
+</html>

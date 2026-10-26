@@ -3,65 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maison Braise — Bistronomie & Viandes d'Exception</title>
+  <title>Maison Braise — Rôtisserie au Feu de Bois &amp; Bistronomie à Paris 11e</title>
+  <meta name="description" content="Maison Braise Paris : viandes françaises maturées cuites à la braise de chêne, réservation de table en direct et retrait Click &amp; Collect sans intermédiaire.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b0c0f;
-      --card: #13151b;
-      --card-alt: #1a1c24;
-      --terracotta: #ea580c;
-      --terracotta-light: #fb923c;
-      --gold: #f59e0b;
-      --text: #f5f5f7;
-      --muted: #9ca3af;
-      --border: rgba(255, 255, 255, 0.08);
-      --font-serif: 'Playfair Display', serif;
-      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --bg: #F9F6F0;
+      --bg-alt: #F1ECE2;
+      --card: #FFFFFF;
+      --wood-dark: #1E1714;
+      --terracotta: #9E3B22;
+      --terracotta-dark: #7D2B16;
+      --brass: #B08248;
+      --olive: #3B6243;
+      --text: #1F1A17;
+      --muted: #695E56;
+      --border: #E4DDD0;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-sans);
-      line-height: 1.6;
-      padding-bottom: 90px;
+      line-height: 1.65;
+      padding-bottom: 60px;
+      -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
+
+    /* Barre de retour portfolio sobre */
     .demo-bar {
-      background: #111422;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 10px 20px;
+      background: var(--wood-dark);
+      color: #D8CFC4;
+      padding: 10px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 13px;
-      color: #9aa1c4;
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
+    .demo-bar strong { color: #FFF; font-weight: 600; }
     .demo-bar a {
-      background: linear-gradient(120deg, #3d6bff, #8a5cff);
-      color: white;
+      background: #F9F6F0;
+      color: var(--wood-dark);
       padding: 6px 16px;
-      border-radius: 99px;
+      border-radius: 4px;
       font-weight: 600;
       font-size: 12px;
-      transition: opacity 0.2s;
+      transition: background 0.2s;
     }
-    .demo-bar a:hover { opacity: 0.9; }
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-    
+    .demo-bar a:hover { background: #E6DFD2; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
     header {
-      padding: 24px 0;
+      padding: 26px 0;
       border-bottom: 1px solid var(--border);
-      position: relative;
-      z-index: 10;
+      background: var(--bg);
     }
     .nav {
       display: flex;
@@ -72,143 +78,194 @@
     }
     .logo {
       font-family: var(--font-serif);
-      font-size: 26px;
+      font-size: 30px;
       font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.04em;
+      color: var(--wood-dark);
+      letter-spacing: 0.03em;
+      line-height: 1;
     }
-    .logo span { color: var(--terracotta); }
+    .logo span {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-top: 4px;
+      font-weight: 600;
+    }
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       font-size: 14px;
       color: var(--muted);
       align-items: center;
+      font-weight: 500;
     }
-    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover { color: var(--terracotta); }
     .cart-trigger-btn {
-      background: #161a22;
+      background: var(--card);
       border: 1px solid var(--border);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 99px;
+      color: var(--wood-dark);
+      padding: 9px 16px;
+      border-radius: 6px;
       font-size: 13px;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      position: relative;
+      font-family: inherit;
+      transition: border-color 0.2s;
     }
+    .cart-trigger-btn:hover { border-color: var(--terracotta); }
     .cart-badge {
       background: var(--terracotta);
       color: #fff;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .btn-fire {
-      background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+    .btn-primary {
+      background: var(--terracotta);
       color: #fff;
-      font-weight: 700;
+      font-weight: 600;
       padding: 12px 24px;
-      border-radius: 99px;
+      border-radius: 6px;
       border: none;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       font-size: 14px;
-      box-shadow: 0 4px 20px rgba(234, 88, 12, 0.35);
-      transition: transform 0.2s;
+      font-family: inherit;
+      transition: background 0.2s;
     }
-    .btn-fire:hover { transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--terracotta-dark); }
+    .btn-outline {
+      background: transparent;
+      color: var(--wood-dark);
+      border: 1px solid var(--wood-dark);
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--wood-dark); color: #fff; }
 
-    /* Hero with 3D Embers Canvas */
+    /* Hero éditorial */
     .hero {
-      position: relative;
-      padding: 60px 0 40px;
+      padding: 56px 0 40px;
       text-align: center;
-      overflow: hidden;
     }
-    .embers-canvas-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
+    .hero-kicker {
+      display: inline-block;
+      color: var(--terracotta);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 14px;
     }
     .hero h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 5.5vw, 4.4rem);
-      line-height: 1.15;
-      font-weight: 700;
-      margin: 18px 0;
+      font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+      line-height: 1.08;
+      font-weight: 600;
+      color: var(--wood-dark);
+      margin-bottom: 18px;
     }
-    .hero h1 span {
+    .hero h1 em {
       font-style: italic;
-      color: var(--terracotta-light);
+      color: var(--terracotta);
+      font-weight: 500;
     }
     .hero p {
-      max-width: 640px;
-      margin: 0 auto 32px;
+      max-width: 630px;
+      margin: 0 auto 28px;
       color: var(--muted);
-      font-size: 17px;
+      font-size: 16px;
     }
-
-    /* Hero Showcase Image */
     .hero-showcase-img {
-      border-radius: 18px;
+      border-radius: 10px;
       overflow: hidden;
-      max-height: 440px;
-      margin: 30px auto;
+      max-height: 450px;
+      margin: 28px auto;
       border: 1px solid var(--border);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      max-width: 960px;
+      max-width: 980px;
       position: relative;
-      z-index: 2;
     }
     .hero-showcase-img img {
       width: 100%;
-      height: 440px;
+      height: 450px;
       object-fit: cover;
       display: block;
     }
+    .hero-caption-bar {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-caption-bar span strong { color: var(--wood-dark); }
 
-    /* Promo Banner */
-    .promo-banner {
-      background: linear-gradient(90deg, rgba(234, 88, 12, 0.15), rgba(245, 158, 11, 0.08));
-      border: 1px solid rgba(234, 88, 12, 0.3);
-      border-radius: 14px;
-      padding: 18px 24px;
+    /* Bandeau Click & Collect sobre */
+    .cc-banner {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 30px auto 50px;
-      max-width: 860px;
+      margin: 32px auto 48px;
+      max-width: 920px;
       flex-wrap: wrap;
       gap: 16px;
-      position: relative;
-      z-index: 2;
+      text-align: left;
     }
 
-    /* Menu Section */
+    /* Section Carte */
+    .section-head {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .section-head span {
+      color: var(--terracotta);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+    }
+    .section-head h2 {
+      font-family: var(--font-serif);
+      font-size: 38px;
+      font-weight: 600;
+      color: var(--wood-dark);
+      margin-top: 4px;
+    }
     .menu-tabs {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 36px;
+      gap: 10px;
+      margin-bottom: 32px;
       flex-wrap: wrap;
     }
     .menu-tab {
@@ -216,69 +273,86 @@
       border: 1px solid var(--border);
       color: var(--muted);
       padding: 10px 22px;
-      border-radius: 99px;
+      border-radius: 6px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
+      font-family: inherit;
       transition: all 0.2s;
     }
     .menu-tab.active {
-      background: var(--terracotta);
-      color: white;
-      border-color: transparent;
+      background: var(--wood-dark);
+      color: #fff;
+      border-color: var(--wood-dark);
     }
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      margin-bottom: 60px;
+      gap: 22px;
+      margin-bottom: 28px;
     }
     .dish-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 8px;
       padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: border-color 0.2s;
     }
-    .dish-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(234,88,12,0.4);
+    .dish-card:hover { border-color: var(--brass); }
+    .dish-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 8px;
     }
     .dish-info h3 {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--wood-dark);
+    }
+    .dish-origin {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--olive);
+      background: rgba(59, 98, 67, 0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
       margin-bottom: 8px;
     }
     .dish-info p {
       color: var(--muted);
-      font-size: 13.5px;
-      margin-bottom: 16px;
+      font-size: 14px;
+      margin-bottom: 18px;
     }
     .dish-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid var(--border);
     }
     .dish-price {
       font-family: var(--font-serif);
       font-size: 24px;
       font-weight: 700;
-      color: var(--terracotta-light);
+      color: var(--terracotta);
     }
     .btn-add-cart {
-      background: rgba(255,255,255,0.05);
+      background: var(--bg);
       border: 1px solid var(--border);
-      color: #fff;
+      color: var(--wood-dark);
       padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
+      font-family: inherit;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -287,15 +361,32 @@
     .btn-add-cart:hover {
       background: var(--terracotta);
       border-color: var(--terracotta);
+      color: #fff;
     }
 
-    /* Interactive Floorplan / Table Selection Section */
+    /* Encart légal Origine des Viandes & Allergènes */
+    .legal-food-strip {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 56px;
+    }
+
+    /* Sélection de table chaleureuse */
     .floorplan-section {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 10px;
       padding: 36px;
-      margin: 60px 0;
+      margin: 48px 0;
     }
     .floorplan-header {
       display: flex;
@@ -307,94 +398,88 @@
     }
     .floorplan-zone-tabs {
       display: flex;
-      gap: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
     .zone-btn {
-      background: #0b0c0f;
+      background: var(--bg);
       border: 1px solid var(--border);
       color: var(--muted);
       padding: 8px 16px;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
+      font-family: inherit;
     }
     .zone-btn.active {
-      background: rgba(234,88,12,0.15);
-      border-color: var(--terracotta);
-      color: var(--terracotta-light);
+      background: var(--wood-dark);
+      border-color: var(--wood-dark);
+      color: #fff;
     }
     .floorplan-stage {
-      background: #08090b;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 32px;
-      min-height: 360px;
+      border-radius: 8px;
+      padding: 28px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 20px;
-      align-items: center;
-      position: relative;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 16px;
     }
     .table-node {
-      background: #141720;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 14px;
-      text-align: center;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 16px;
+      text-align: left;
       cursor: pointer;
-      transition: all 0.25s;
-      position: relative;
+      transition: all 0.2s;
     }
     .table-node:hover:not(.occupied) {
       border-color: var(--terracotta);
-      transform: scale(1.05);
     }
     .table-node.selected {
       border-color: var(--terracotta);
-      background: rgba(234,88,12,0.18);
-      box-shadow: 0 0 20px rgba(234,88,12,0.4);
+      background: #FDF8F5;
     }
     .table-node.occupied {
-      opacity: 0.35;
+      opacity: 0.48;
       cursor: not-allowed;
-      border-color: rgba(255,255,255,0.05);
+      background: var(--bg-alt);
     }
-    .table-icon {
-      width: 40px;
-      height: 40px;
-      margin: 0 auto 8px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.05);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--terracotta-light);
-    }
-    .table-name { font-weight: 700; font-size: 14px; color: #fff; }
-    .table-capacity { font-size: 11px; color: var(--muted); }
-    .table-status {
-      font-size: 10px;
-      text-transform: uppercase;
-      margin-top: 6px;
+    .table-name {
+      font-family: var(--font-serif);
       font-weight: 700;
-      display: block;
+      font-size: 19px;
+      color: var(--wood-dark);
+      margin-bottom: 2px;
+    }
+    .table-capacity { font-size: 13px; color: var(--muted); }
+    .table-status {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 10px;
+      font-weight: 600;
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
     }
 
-    /* Reservation form */
+    /* Formulaire de Réservation */
     .resa-section {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 40px;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 10px;
       padding: 40px;
       margin: 40px 0;
       align-items: center;
     }
     @media (max-width: 860px) {
-      .resa-section { grid-template-columns: 1fr; }
+      .resa-section { grid-template-columns: 1fr; padding: 28px; }
     }
     .resa-form {
       display: flex;
@@ -402,11 +487,11 @@
       gap: 14px;
     }
     .resa-form input, .resa-form select {
-      background: #090a0d;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: #fff;
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: var(--wood-dark);
       font-family: inherit;
       font-size: 14px;
       outline: none;
@@ -414,13 +499,13 @@
     .resa-form input:focus, .resa-form select:focus {
       border-color: var(--terracotta);
     }
+    .hp-field { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
 
-    /* Slide-out Cart Drawer */
+    /* Panier Click & Collect */
     .cart-drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(4px);
+      background: rgba(30, 23, 20, 0.55);
       z-index: 2000;
       display: none;
     }
@@ -432,13 +517,12 @@
       width: 100%;
       max-width: 420px;
       height: 100%;
-      background: #111319;
+      background: var(--card);
       border-left: 1px solid var(--border);
       z-index: 2001;
       display: flex;
       flex-direction: column;
-      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: -10px 0 40px rgba(0,0,0,0.8);
+      transition: right 0.3s ease;
     }
     .cart-drawer.active { right: 0; }
     .cart-header {
@@ -447,10 +531,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: var(--bg);
     }
     .cart-header h3 {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 24px;
+      color: var(--wood-dark);
     }
     .cart-items {
       flex: 1;
@@ -458,325 +544,326 @@
       padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
     .cart-item-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0a0b0e;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 6px;
       padding: 12px 14px;
     }
     .cart-footer {
       padding: 24px;
       border-top: 1px solid var(--border);
-      background: #0d0f14;
+      background: var(--bg);
     }
     .cart-total-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .cart-total-row strong {
       font-family: var(--font-serif);
-      font-size: 26px;
-      color: var(--terracotta-light);
+      font-size: 28px;
+      color: var(--terracotta);
+    }
+
+    /* Modale Allergènes */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 23, 20, 0.6);
+      z-index: 2100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      max-width: 640px;
+      width: 100%;
+      padding: 32px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    /* Footer Légal */
+    footer {
+      margin-top: 64px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+    .footer-grid h4 {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      color: var(--wood-dark);
+      margin-bottom: 8px;
     }
   </style>
 </head>
 <body>
 
   <div class="demo-bar">
-    <span>Démonstration client en direct : <strong>Maison Braise Paris</strong></span>
-    <a href="../portfolio.html">Retour au portfolio</a>
+    <span>Démonstration Réaliste : <strong>Maison Braise — Bistronomie &amp; Feu de Bois</strong></span>
+    <a href="../portfolio.html">Retour au portfolio BoostMySite</a>
   </div>
 
   <div class="container">
     <header>
       <div class="nav">
-        <div class="logo">MAISON <span>BRAISE</span></div>
+        <a href="#" class="logo">
+          MAISON BRAISE
+          <span>Rôtisserie &amp; Cave à Viandes • Paris XIe</span>
+        </a>
         <nav class="nav-links">
           <a href="#menu">La Carte</a>
-          <a href="#plan-salle">Plan de Salle</a>
-          <a href="#reserver">Réservation</a>
-          <button class="cart-trigger-btn" onclick="toggleCart(true)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            <span>Panier Click & Collect</span>
+          <a href="#plan-salle">Nos Espaces</a>
+          <a href="#reserver">Réserver</a>
+          <button type="button" class="cart-trigger-btn" onclick="toggleCart(true)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span>À Emporter</span>
             <span class="cart-badge" id="cartCountBadge">0</span>
           </button>
         </nav>
-        <a href="#reserver" class="btn-fire">Réserver une table</a>
+        <a href="#reserver" class="btn-primary">Réserver une table</a>
       </div>
     </header>
 
     <section class="hero">
-      <!-- 3D WebGL Embers Canvas -->
-      <canvas class="embers-canvas-bg" id="embersCanvas"></canvas>
+      <span class="hero-kicker">Cuisson au bois de chêne &amp; d'olivier • Élevages Français</span>
+      <h1>La patience de la braise, <br><em>la sincérité du produit.</em></h1>
+      <p>Chaque midi et chaque soir, notre brigade travaille des pièces bouchères maturées sur l'os, rôties devant vous dans notre cheminée ouverte rue de la Roquette.</p>
 
-      <div class="hero-content">
-        <span style="border: 1px solid var(--terracotta); color: var(--terracotta); padding: 5px 16px; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">
-          Cuisson à la braise de chêne & Terroir Français
-        </span>
-        <h1>L'Art de la Flamme, <br><span>la passion du goût.</span></h1>
-        <p>Viandes maturées, smash burgers briochés et sauces maison fumées. Réservez votre table en direct ou commandez en Click & Collect sans commission tierce.</p>
+      <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+        <a href="#reserver" class="btn-primary">Réserver votre table</a>
+        <a href="#menu" class="btn-outline">Découvrir la carte de saison</a>
       </div>
 
       <div class="hero-showcase-img">
-        <img src="project-restaurant.jpg" alt="Maison Braise — Viandes maturées et gastronomie au feu de bois">
+        <img src="project-restaurant.jpg" alt="Salle et cuisine au feu de bois de Maison Braise Paris">
       </div>
 
-      <div class="promo-banner">
+      <div class="hero-caption-bar">
+        <span><strong>Élevages :</strong> Charolais, Aubrac &amp; Volaille Fermière</span>
+        <span><strong>Fumage :</strong> Bûches de chêne sec du Morvan</span>
+        <span><strong>Service :</strong> Mardi au Dimanche (12h00–14h30 / 19h00–23h00)</span>
+      </div>
+
+      <div class="cc-banner">
         <div>
-          <strong style="color:white; display:block; font-size:15px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px; color:var(--terracotta-light);"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            Click & Collect en Direct : 0 % de Commission
+          <strong style="color:var(--wood-dark); display:block; font-size:16px; font-family:var(--font-serif); font-size:20px;">
+            Retrait au Comptoir (Click &amp; Collect sans intermédiaire)
           </strong>
-          <span style="color:var(--muted); font-size:13px;">Bénéficiez de 10% de réduction immédiate avec le code <strong>BRAISE10</strong> à emporter.</span>
+          <span style="color:var(--muted); font-size:13.5px;">Commandez directement sur le site de la Maison : tarifs identiques à l'ardoise et 10 % de remise de bienvenue avec le code <strong>BRAISE10</strong>.</span>
         </div>
-        <button class="btn-fire" style="padding:10px 20px; font-size:13px;" onclick="toggleCart(true)">
-          Ouvrir la commande en ligne
+        <button type="button" class="btn-primary" onclick="toggleCart(true)">
+          Commander à emporter
         </button>
       </div>
     </section>
 
-    <!-- Menu Section -->
-    <section id="menu" style="margin: 40px 0;">
-      <div style="text-align:center; margin-bottom: 24px;">
-        <span style="color:var(--terracotta); font-size:12px; text-transform:uppercase; font-weight:700;">Notre Carte Gastronomique</span>
-        <h2 style="font-family: var(--font-serif); font-size: 34px; margin-top:6px;">Cuisson Braisée au Feu de Bois</h2>
+    <!-- Carte du Restaurant -->
+    <section id="menu" style="margin: 44px 0;">
+      <div class="section-head">
+        <span>Ardoise de Saison</span>
+        <h2>Les Pièces du Grillardin</h2>
       </div>
 
       <div class="menu-tabs">
-        <button class="menu-tab active" onclick="filterMenu('viandes', this)">Viandes d'Exception</button>
-        <button class="menu-tab" onclick="filterMenu('burgers', this)">Smash Burgers Signature</button>
-        <button class="menu-tab" onclick="filterMenu('desserts', this)">Douceurs au Feu de Bois</button>
+        <button type="button" class="menu-tab active" onclick="filterMenu('viandes', this)">Pièces au Feu de Bois</button>
+        <button type="button" class="menu-tab" onclick="filterMenu('burgers', this)">Pain Brioché &amp; Braise</button>
+        <button type="button" class="menu-tab" onclick="filterMenu('desserts', this)">Desserts Pâtissiers</button>
       </div>
 
-      <div class="menu-grid" id="menuGrid">
-        <!-- Rendered by JS -->
+      <div class="menu-grid" id="menuGrid"></div>
+
+      <!-- Conformité légale restauration : Origine des viandes + Allergènes + Prix TTC -->
+      <div class="legal-food-strip">
+        <div>
+          <strong style="color:var(--wood-dark);">Origine des viandes (Décret du 26 janvier 2022) :</strong>
+          Bœuf (Aubrac, Charolais) : <em>Né, élevé et abattu en France</em> • Volaille &amp; Porc fermier : <em>Élevés et abattus en France</em>. Prix nets TTC, service compris.
+        </div>
+        <button type="button" class="btn-outline" style="padding:7px 14px; font-size:12px;" onclick="document.getElementById('allergenModal').classList.add('active')">
+          Consulter le tableau des 14 allergènes
+        </button>
       </div>
     </section>
 
-    <!-- Interactive Restaurant Floorplan Table Selector -->
+    <!-- Choix de Table en Salle -->
     <section class="floorplan-section" id="plan-salle">
       <div class="floorplan-header">
         <div>
-          <span style="color:var(--terracotta); font-size:11px; text-transform:uppercase; font-weight:700;">Plan de Salle Numérique</span>
-          <h2 style="font-family:var(--font-serif); font-size:26px; margin-top:4px;">Choisissez votre Table en Direct</h2>
+          <span style="color:var(--terracotta); font-size:11px; text-transform:uppercase; letter-spacing:0.12em; font-weight:600;">Atmosphères de la Maison</span>
+          <h2 style="font-family:var(--font-serif); font-size:30px; color:var(--wood-dark); margin-top:2px;">Choisissez votre emplacement préféré</h2>
         </div>
         <div class="floorplan-zone-tabs">
-          <button class="zone-btn active" onclick="filterZone('salle', this)">Salle des Braises</button>
-          <button class="zone-btn" onclick="filterZone('verriere', this)">Verrière Intime</button>
-          <button class="zone-btn" onclick="filterZone('terrasse', this)">Terrasse Chauffée</button>
+          <button type="button" class="zone-btn active" onclick="filterZone('salle', this)">Face à la Cheminée</button>
+          <button type="button" class="zone-btn" onclick="filterZone('verriere', this)">Sous la Verrière</button>
+          <button type="button" class="zone-btn" onclick="filterZone('terrasse', this)">Terrasse Cour Intérieure</button>
         </div>
       </div>
 
-      <div class="floorplan-stage" id="floorplanStage">
-        <!-- Injected by JS -->
-      </div>
+      <div class="floorplan-stage" id="floorplanStage"></div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:16px;">
         <div style="display:flex; gap:20px; font-size:13px; color:var(--muted);">
-          <span><strong style="color:var(--terracotta-light);">■</strong> Table sélectionnée</span>
-          <span><strong style="color:#34d399;">■</strong> Disponible</span>
-          <span><strong style="color:#64748b;">■</strong> Occupée pour ce service</span>
+          <span><strong style="color:var(--terracotta);">■</strong> Votre sélection</span>
+          <span><strong style="color:var(--olive);">■</strong> Table libre</span>
+          <span><strong style="color:#A8A096;">■</strong> Déjà réservée</span>
         </div>
-        <div id="selectedTableStatus" style="font-size:14px; font-weight:600; color:#fff;">
-          Table sélectionnée : <strong>Table 3 (Banquette Cuir • 4 personnes)</strong>
+        <div id="selectedTableStatus" style="font-size:14px; font-weight:500; color:var(--wood-dark);">
+          Emplacement retenu : <strong>Table 3 — Banquette Cuir (4 convives)</strong>
         </div>
       </div>
     </section>
 
-    <!-- Table Reservation Form -->
+    <!-- Formulaire de Réservation -->
     <section class="resa-section" id="reserver">
       <div>
-        <span style="color:var(--terracotta); font-weight:700; font-size:12px; text-transform:uppercase;">Réservation Directe & Sans Intermédiaire</span>
-        <h2 style="font-family:var(--font-serif); font-size:36px; margin:12px 0 16px;">Votre Table vous Attend</h2>
-        <p style="color:var(--muted); font-size:15px; margin-bottom:24px;">Du mardi au dimanche, midi et soir. Pour les groupes et privatisations, contactez directement notre maître d'hôtel.</p>
-        
-        <div style="font-size:13px; color:var(--muted); display:flex; flex-direction:column; gap:10px;">
-          <span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px; color:var(--terracotta-light);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            14 rue de la Roquette, 75011 Paris (Bastille)
-          </span>
-          <span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px; color:var(--terracotta-light);"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            01 42 00 00 00 (Service réservation immédiate)
-          </span>
+        <span style="color:var(--terracotta); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.12em;">Carnet de Réservation</span>
+        <h2 style="font-family:var(--font-serif); font-size:38px; color:var(--wood-dark); margin:8px 0 14px;">Réserver votre table</h2>
+        <p style="color:var(--muted); font-size:15px; margin-bottom:24px;">Confirmation immédiate par SMS sans prépaiement pour les tables jusqu'à 6 convives. Pour vos dîners de groupe en cave voûtée, appelez directement notre maître d'hôtel.</p>
+        <div style="font-size:14px; color:var(--wood-dark); display:flex; flex-direction:column; gap:10px;">
+          <span><strong>Adresse :</strong> 14 rue de la Roquette, 75011 Paris (Métro Bastille)</span>
+          <span><strong>Téléphone :</strong> <a href="tel:+33142000000" style="text-decoration:underline;">01 42 00 00 00</a></span>
         </div>
       </div>
 
-      <form class="resa-form" onsubmit="event.preventDefault(); alert('Réservation confirmée instantanément pour la ' + currentTableChoice + ' ! Un SMS de confirmation avec le code d\'accès vous a été envoyé.');">
+      <form class="resa-form" id="resaForm">
+        <div class="hp-field" aria-hidden="true">
+          <input type="text" name="botcheck" id="resaBotcheck" tabindex="-1" autocomplete="off">
+        </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <input type="text" placeholder="Votre nom complet" required>
-          <input type="tel" placeholder="Téléphone mobile" required>
+          <input type="text" id="resaName" placeholder="Nom et prénom" required maxlength="80">
+          <input type="tel" id="resaPhone" placeholder="Téléphone mobile" required maxlength="20">
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
           <input type="date" required id="resaDate">
-          <select required>
-            <option>Service Soir — 19h30</option>
-            <option>Service Soir — 21h30</option>
-            <option>Service Midi — 12h30</option>
+          <select required id="resaService">
+            <option>Dîner — 19h30</option>
+            <option>Dîner — 21h15</option>
+            <option>Déjeuner — 12h30</option>
+            <option>Déjeuner — 13h30</option>
           </select>
         </div>
-        <input type="text" id="resaTableField" value="Table 3 (Banquette Cuir • 4 personnes)" readonly style="background:#13151b; color:var(--terracotta-light); font-weight:600;">
-        <button type="submit" class="btn-fire" style="width:100%; justify-content:center; padding:14px;">Confirmer ma table réservée</button>
+        <input type="text" id="resaTableField" value="Table 3 — Banquette Cuir (4 convives)" readonly style="background:var(--bg-alt); color:var(--terracotta); font-weight:600;">
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:14px;">Confirmer ma réservation</button>
+        <p id="resaConfirmMsg" style="display:none; font-size:13px; color:var(--olive); font-weight:600;"></p>
+        <small style="font-size:11px; color:var(--muted); line-height:1.4;">
+          RGPD : Vos coordonnées sont utilisées uniquement pour gérer votre réservation chez Maison Braise (conservation 12 mois max) et ne sont jamais transmises à des tiers.
+        </small>
       </form>
     </section>
 
+    <!-- Pied de page légal conforme LCEN & DGCCRF -->
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <h4>Maison Braise Paris</h4>
+          <p>SAS Maison Braise au capital de 15 000 € • SIRET : 912 450 812 00018 • RCS Paris B 912 450 812 • TVA : FR 42 912450812.</p>
+          <p style="margin-top:6px;">Licence Restaurant • L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+        </div>
+        <div>
+          <h4>Horaires &amp; Accès</h4>
+          <p>14 rue de la Roquette, 75011 Paris<br>Mardi – Dimanche : 12h00–14h30 &amp; 19h00–23h00<br>Directeur de publication : M. Laurent Vasseur</p>
+        </div>
+        <div>
+          <h4>Médiation &amp; Données (RGPD)</h4>
+          <p>Médiateur de la consommation (Art. L.612-1) : CM2C, 49 rue de Ponthieu, 75008 Paris (cm2c.net).<br>Conformément à l'art. L.221-28 4° du Code de la consommation, le droit de rétractation ne s'applique pas aux plats préparés à emporter.</p>
+        </div>
+      </div>
+      <div style="text-align:center; padding-top:18px; border-top:1px solid var(--border); font-size:12px;">
+        © 2026 Maison Braise Paris — Hébergement : o2switch (Clermont-Ferrand) — Démonstration conçue par <a href="../index.html" style="text-decoration:underline;">BoostMySite</a>
+      </div>
+    </footer>
   </div>
 
-  <!-- Slide-out Cart Drawer (Click & Collect) -->
+  <!-- Tiroir Panier Click & Collect -->
   <div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
   <div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
       <div>
-        <h3>Votre Commande Directe</h3>
-        <small style="color:#34d399; font-weight:600;">Click & Collect Sans Commission</small>
+        <h3>Commande à Emporter</h3>
+        <small style="color:var(--olive); font-weight:600;">Retrait comptoir en 25 min • 0 % commission</small>
       </div>
-      <button onclick="toggleCart(false)" style="background:none; border:none; color:#fff; cursor:pointer;" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <button type="button" onclick="toggleCart(false)" style="background:none; border:none; color:var(--wood-dark); cursor:pointer;" aria-label="Fermer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
 
-    <div class="cart-items" id="cartItemsList">
-      <!-- Items dynamically populated -->
-    </div>
+    <div class="cart-items" id="cartItemsList"></div>
 
     <div class="cart-footer">
       <div style="margin-bottom:14px;">
         <div style="display:flex; gap:8px;">
-          <input type="text" id="promoInput" placeholder="Code promo (ex: BRAISE10)" style="flex:1; background:#07080a; border:1px solid var(--border); border-radius:6px; padding:8px 12px; color:#fff; font-size:13px;">
-          <button class="btn-fire" style="padding:8px 14px; font-size:12px;" onclick="applyPromo()">Appliquer</button>
+          <input type="text" id="promoInput" placeholder="Code remise (ex: BRAISE10)" maxlength="20" style="flex:1; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:8px 12px; color:var(--wood-dark); font-size:13px;">
+          <button type="button" class="btn-outline" style="padding:8px 14px; font-size:12px;" onclick="applyPromo()">Appliquer</button>
         </div>
-        <small id="promoFeedback" style="display:none; color:#34d399; margin-top:4px; font-weight:600;">Code BRAISE10 appliqué (-10%)</small>
+        <small id="promoFeedback" style="display:none; color:var(--olive); margin-top:4px; font-weight:600;">Remise de bienvenue BRAISE10 appliquée (-10 %)</small>
       </div>
 
       <div class="cart-total-row">
         <div>
-          <span style="font-size:12px; color:var(--muted); text-transform:uppercase;">Total à régler</span>
-          <div style="font-size:11px; color:#34d399;">Retrait chaud sous 25 minutes</div>
+          <span style="font-size:12px; color:var(--muted); text-transform:uppercase;">Total TTC à régler</span>
+          <div style="font-size:11px; color:var(--olive);">Préparé à la commande dans nos cuisines</div>
         </div>
         <strong id="cartTotalPrice">0 €</strong>
       </div>
 
-      <button class="btn-fire" style="width:100%; justify-content:center; padding:14px;" onclick="checkoutOrder()">
-        Payer en direct (Apple Pay / CB)
+      <button type="button" class="btn-primary" style="width:100%; justify-content:center; padding:14px;" onclick="checkoutOrder()">
+        Valider ma commande Click &amp; Collect
       </button>
+    </div>
+  </div>
+
+  <!-- Modale des 14 Allergènes (Décret n°2015-447) -->
+  <div class="modal-overlay" id="allergenModal" onclick="if(event.target===this)this.classList.remove('active')">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-family:var(--font-serif); font-size:26px; color:var(--wood-dark);">Information sur les Allergènes (Décret n°2015-447)</h3>
+        <button type="button" onclick="document.getElementById('allergenModal').classList.remove('active')" style="background:none; border:none; font-size:22px; cursor:pointer;">&times;</button>
+      </div>
+      <p style="font-size:13.5px; color:var(--muted); margin-bottom:16px;">
+        Tous nos plats sont cuisinés sur place à partir de produits bruts. Voici les allergènes majeurs présents dans nos recettes :
+      </p>
+      <ul style="font-size:13.5px; color:var(--text); line-height:1.8; padding-left:18px; margin-bottom:20px;">
+        <li><strong>Pièces de bœuf, volaille &amp; porc rôtis :</strong> Aucun allergène majeur dans la viande pure. Beurre maître d'hôtel : <em>Lait</em>.</li>
+        <li><strong>Pains briochés &amp; Burgers de la Maison :</strong> <em>Gluten (blé), Œufs, Lait, Graines de sésame, Moutarde</em> (dans la sauce maison).</li>
+        <li><strong>Purée truffée :</strong> <em>Lait (beurre et crème fermière)</em>.</li>
+        <li><strong>Brioche perdue &amp; Cookie au poêlon :</strong> <em>Gluten (blé), Œufs, Lait, Fruits à coque (noisettes du Piémont), Soja (lécithine chocolat)</em>.</li>
+      </ul>
+      <button type="button" class="btn-primary" onclick="document.getElementById('allergenModal').classList.remove('active')">Fermer</button>
     </div>
   </div>
 
   <script>
     document.getElementById('resaDate').value = new Date().toISOString().split('T')[0];
 
-    /* ---------------- THREE.JS 3D EMBER PARTICLES ---------------- */
-    let emberScene, emberCamera, emberRenderer, emberGeometry, emberPoints;
-    let emberPositions, emberVelocities;
-    let mouseX = 0, mouseY = 0;
-    function createEmberTexture() {
-      const c = document.createElement('canvas');
-      c.width = 64; c.height = 64;
-      const ctx = c.getContext('2d');
-      const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-      g.addColorStop(0, 'rgba(255, 255, 240, 1)');      // Hot white-gold core
-      g.addColorStop(0.2, 'rgba(255, 190, 60, 0.95)');  // Golden fire
-      g.addColorStop(0.45, 'rgba(234, 88, 12, 0.65)');  // Terracotta ember
-      g.addColorStop(0.75, 'rgba(180, 40, 5, 0.2)');    // Deep smoke edge
-      g.addColorStop(1, 'rgba(0, 0, 0, 0)');            // Perfectly feathered border
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, 64, 64);
-      return new THREE.CanvasTexture(c);
-    }
-
-    function initEmbers3D() {
-      const canvas = document.getElementById('embersCanvas');
-      if (!canvas || typeof THREE === 'undefined') return;
-
-      emberScene = new THREE.Scene();
-      emberCamera = new THREE.PerspectiveCamera(55, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-      emberCamera.position.z = 24;
-
-      emberRenderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-      emberRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      emberRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      const COUNT = 160; // refined, elegant count
-      emberPositions = new Float32Array(COUNT * 3);
-      emberVelocities = new Float32Array(COUNT * 3);
-      const emberScales = new Float32Array(COUNT);
-
-      for (let i = 0; i < COUNT; i++) {
-        emberPositions[i * 3] = (Math.random() - 0.5) * 36;
-        emberPositions[i * 3 + 1] = Math.random() * 26 - 13;
-        emberPositions[i * 3 + 2] = (Math.random() - 0.5) * 12;
-
-        emberVelocities[i * 3] = (Math.random() - 0.5) * 0.02;
-        emberVelocities[i * 3 + 1] = Math.random() * 0.035 + 0.015; // gentle natural upward drift
-        emberVelocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
-      }
-
-      emberGeometry = new THREE.BufferGeometry();
-      emberGeometry.setAttribute('position', new THREE.BufferAttribute(emberPositions, 3));
-
-      // Feathered Glowing Texture Material
-      const emberMaterial = new THREE.PointsMaterial({
-        map: createEmberTexture(),
-        size: 1.4,
-        transparent: true,
-        opacity: 0.85,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-
-      emberPoints = new THREE.Points(emberGeometry, emberMaterial);
-      emberScene.add(emberPoints);
-
-      window.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
-        mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
-      });
-
-      window.addEventListener('resize', () => {
-        emberCamera.aspect = canvas.clientWidth / canvas.clientHeight;
-        emberCamera.updateProjectionMatrix();
-        emberRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      });
-
-      let clock = 0;
-      function animateEmbers() {
-        requestAnimationFrame(animateEmbers);
-        clock += 0.02;
-        const positions = emberGeometry.attributes.position.array;
-
-        for (let i = 0; i < COUNT; i++) {
-          // Add subtle organic sinusoidal sway
-          positions[i * 3] += emberVelocities[i * 3] + Math.sin(clock + i) * 0.008 + mouseX * 0.03;
-          positions[i * 3 + 1] += emberVelocities[i * 3 + 1];
-          positions[i * 3 + 2] += emberVelocities[i * 3 + 2] + Math.cos(clock + i) * 0.008;
-
-          // Gentle recycle loop
-          if (positions[i * 3 + 1] > 14) {
-            positions[i * 3 + 1] = -14;
-            positions[i * 3] = (Math.random() - 0.5) * 36;
-          }
-        }
-        emberGeometry.attributes.position.needsUpdate = true;
-        emberRenderer.render(emberScene, emberCamera);
-      }
-      animateEmbers();
-    }
-
-    /* ---------------- MENU & CLICK & COLLECT ENGINE ---------------- */
     const DISHES = [
-      { id: 1, cat: 'viandes', name: 'Côte de Bœuf Maturée (30 jours)', desc: '1kg pour 2 personnes. Fumé au bois de hêtre, fleur de sel de Guérande, frites maison au couteau.', price: 74 },
-      { id: 2, cat: 'viandes', name: 'Picanha d\'Argentine à la Flamme', desc: '300g tranché fin. Sauce chimichurri aux herbes fraîches du jardin et purée truffée.', price: 28 },
-      { id: 3, cat: 'viandes', name: 'Travers de Porc Caramélisés BBQ', desc: 'Cuits 8 heures à basse température. Laqué au miel d\'acacia et piment d\'Espelette.', price: 22 },
-      { id: 4, cat: 'burgers', name: 'Smash Burger Black Angus Signature', desc: 'Double steak smashé croustillant, cheddar affiné 18 mois, oignons caramélisés et bacon fumé.', price: 18 },
-      { id: 5, cat: 'burgers', name: 'Truffle & Raclette Smash', desc: 'Steak maturée, crème de truffe d\'été, raclette au lait cru, pain brioché artisanal.', price: 21 },
-      { id: 6, cat: 'burgers', name: 'Crispy Chicken Braisé Cajún', desc: 'Filet de poulet fermier mariné 24h, panure croustillante aux épices douces et pickles.', price: 17 },
-      { id: 7, cat: 'desserts', name: 'Brioche Perdue Caramélisée au Feu', desc: 'Glace artisanale vanille de Madagascar, caramel au beurre salé de Guérande.', price: 11 },
-      { id: 8, cat: 'desserts', name: 'Cookie Chaud Moelleux & Noisettes', desc: 'Chocolat noir 70% coulant, cuit minute à la poêle en fonte sur la braise.', price: 10 }
+      { id: 1, cat: 'viandes', name: 'Côte de Bœuf Charolaise Maturée 35 Jours', origin: 'Bœuf Origine France', desc: '1 kg pour 2 convives, saisie à la flamme de chêne, fleur de sel de l’Île de Ré, pommes grenailles rôties au jus.', price: 74 },
+      { id: 2, cat: 'viandes', name: 'Faux-Filet d’Aubrac au Sarment de Vigne', origin: 'Bœuf Origine France', desc: 'Pièce de 300 g coupée au billot, échalotes confites au vin rouge et frites maison coupées au couteau.', price: 28 },
+      { id: 3, cat: 'viandes', name: 'Travers de Cochon Fermier Laqué au Miel', origin: 'Porc Fermier France', desc: 'Cuit 7 heures à basse température puis caramélisé sur la braise, miel de châtaignier et piment d’Espelette.', price: 23 },
+      { id: 4, cat: 'burgers', name: 'Le Brioché Braisé d’Aubrac', origin: 'Bœuf Origine France', desc: 'Steak haché minute par notre boucher, tomme de brebis fondante, poitrine fumée au hêtre, oignons confits.', price: 19 },
+      { id: 5, cat: 'burgers', name: 'Le Comté Affiné &amp; Champignons des Bois', origin: 'Bœuf Origine France', desc: 'Bœuf français grillé au feu de bois, Comté 18 mois, poêlée de pleurotes persillées et pain brioché artisanal.', price: 21 },
+      { id: 6, cat: 'burgers', name: 'Volaille Fermière Croustillante aux Herbes', origin: 'Volaille Label Rouge France', desc: 'Filet de poulet fermier mariné au citron confit, sauce tartare maison aux herbes fraîches et pickles.', price: 18 },
+      { id: 7, cat: 'desserts', name: 'Brioche Perdue Dorée devant la Cheminée', origin: 'Pâtisserie Maison', desc: 'Brioche artisanale imbibée à la vanille Bourbon, caramel au beurre demi-sel et crème crue.', price: 11 },
+      { id: 8, cat: 'desserts', name: 'Mi-Cuit Chocolat Noir &amp; Noisettes Torréfiées', origin: 'Pâtisserie Maison', desc: 'Cuit minute dans son poêlon en fonte, chocolat Valrhona 70 % et éclats de noisettes du Piémont.', price: 10 }
     ];
 
     let currentCategory = 'viandes';
@@ -786,21 +873,22 @@
     function renderMenu() {
       const grid = document.getElementById('menuGrid');
       const filtered = DISHES.filter(d => d.cat === currentCategory);
-
       grid.innerHTML = filtered.map(d => `
-        <div class="dish-card">
+        <article class="dish-card">
           <div class="dish-info">
-            <h3>${d.name}</h3>
+            <span class="dish-origin">${d.origin}</span>
+            <div class="dish-top">
+              <h3>${d.name}</h3>
+            </div>
             <p>${d.desc}</p>
           </div>
           <div class="dish-footer">
             <span class="dish-price">${d.price} €</span>
-            <button class="btn-add-cart" onclick="addToCart(${d.id})">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Ajouter au panier
+            <button type="button" class="btn-add-cart" onclick="addToCart(${d.id})">
+              + Ajouter à ma commande
             </button>
           </div>
-        </div>
+        </article>
       `).join('');
     }
 
@@ -818,11 +906,12 @@
 
     function addToCart(dishId) {
       const dish = DISHES.find(d => d.id === dishId);
+      if (!dish) return;
       const existing = cart.find(item => item.id === dishId);
       if (existing) {
         existing.qty++;
       } else {
-        cart.push({ ...dish, qty: 1 });
+        cart.push({ id: dish.id, name: dish.name, price: dish.price, qty: 1 });
       }
       updateCartUI();
       toggleCart(true);
@@ -844,7 +933,7 @@
         promoDiscount = 0.10;
         document.getElementById('promoFeedback').style.display = 'block';
       } else {
-        alert('Code promo invalide. Essayez BRAISE10 pour 10% de remise.');
+        alert('Code non reconnu. Utilisez le code BRAISE10 pour bénéficier de 10 % de remise.');
       }
       updateCartUI();
     }
@@ -858,71 +947,65 @@
       badge.textContent = count;
 
       if (cart.length === 0) {
-        list.innerHTML = `<div style="text-align:center; color:var(--muted); margin-top:40px;">Votre panier est vide.</div>`;
+        list.innerHTML = '<div style="text-align:center; color:var(--muted); margin-top:40px;">Votre panier à emporter est vide.</div>';
         totalDisplay.textContent = '0 €';
         return;
       }
 
-      let subtotal = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-      let total = subtotal * (1 - promoDiscount);
+      const subtotal = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+      const total = subtotal * (1 - promoDiscount);
 
       list.innerHTML = cart.map(i => `
         <div class="cart-item-row">
           <div>
-            <strong style="color:#fff; font-size:14px; display:block;">${i.name}</strong>
-            <small style="color:var(--terracotta-light); font-weight:700;">${i.price} €</small>
+            <strong style="color:var(--wood-dark); font-size:14px; display:block;">${i.name}</strong>
+            <small style="color:var(--terracotta); font-weight:600;">${i.price} € l'unité</small>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
-            <button onclick="updateCartQty(${i.id}, -1)" style="background:#161a22; border:1px solid var(--border); color:#fff; width:26px; height:26px; border-radius:4px; cursor:pointer;">-</button>
-            <span style="font-weight:700; font-size:13px;">${i.qty}</span>
-            <button onclick="updateCartQty(${i.id}, 1)" style="background:#161a22; border:1px solid var(--border); color:#fff; width:26px; height:26px; border-radius:4px; cursor:pointer;">+</button>
+            <button type="button" onclick="updateCartQty(${i.id}, -1)" style="background:var(--card); border:1px solid var(--border); color:var(--wood-dark); width:26px; height:26px; border-radius:4px; cursor:pointer;">-</button>
+            <span style="font-weight:600; font-size:13px;">${i.qty}</span>
+            <button type="button" onclick="updateCartQty(${i.id}, 1)" style="background:var(--card); border:1px solid var(--border); color:var(--wood-dark); width:26px; height:26px; border-radius:4px; cursor:pointer;">+</button>
           </div>
         </div>
       `).join('');
 
-      totalDisplay.textContent = Math.round(total) + ' €';
+      totalDisplay.textContent = total.toFixed(2).replace('.00', '') + ' €';
     }
 
     function checkoutOrder() {
-      if (cart.length === 0) return alert('Votre panier est vide.');
-      alert('Paiement direct validé sans commission intermédiaire ! Votre commande sera prête à être retirée sous 25 minutes.');
+      if (cart.length === 0) return alert('Ajoutez au moins un plat pour commander.');
+      alert('Merci ! Votre commande Click & Collect a été transmise en cuisine sans aucune commission intermédiaire. Retrait au comptoir d’ici 25 minutes.');
       cart = [];
       updateCartUI();
       toggleCart(false);
     }
 
-    /* ---------------- INTERACTIVE TABLE FLOORPLAN ---------------- */
     const TABLES = [
-      { id: 1, name: 'Table 1 (Duo Flamme)', zone: 'salle', seats: '2 pers.', occupied: false },
-      { id: 2, name: 'Table 2 (Vue Braise)', zone: 'salle', seats: '2 pers.', occupied: true },
-      { id: 3, name: 'Table 3 (Banquette Cuir)', zone: 'salle', seats: '4 pers.', occupied: false },
-      { id: 4, name: 'Table 4 (Famille)', zone: 'salle', seats: '4 pers.', occupied: false },
-      { id: 5, name: 'Table 5 (Grande Table Bois)', zone: 'salle', seats: '8 pers.', occupied: false },
-
-      { id: 6, name: 'Table 6 (Verrière Romantique)', zone: 'verriere', seats: '2 pers.', occupied: false },
-      { id: 7, name: 'Table 7 (Verrière Cocon)', zone: 'verriere', seats: '2 pers.', occupied: true },
-      { id: 8, name: 'Table 8 (Verrière Banquette)', zone: 'verriere', seats: '4 pers.', occupied: false },
-
-      { id: 9, name: 'Table 9 (Terrasse Plaid)', zone: 'terrasse', seats: '2 pers.', occupied: false },
-      { id: 10, name: 'Table 10 (Terrasse Braséro)', zone: 'terrasse', seats: '4 pers.', occupied: false }
+      { id: 1, name: 'Table 1 — Duo Cheminée', zone: 'salle', seats: '2 convives', occupied: false },
+      { id: 2, name: 'Table 2 — Près du Billot', zone: 'salle', seats: '2 convives', occupied: true },
+      { id: 3, name: 'Table 3 — Banquette Cuir', zone: 'salle', seats: '4 convives', occupied: false },
+      { id: 4, name: 'Table 4 — Table Ronde Chêne', zone: 'salle', seats: '4 convives', occupied: false },
+      { id: 5, name: 'Table 5 — Grande Table d’Hôtes', zone: 'salle', seats: '8 convives', occupied: false },
+      { id: 6, name: 'Table 6 — Verrière Jardin', zone: 'verriere', seats: '2 convives', occupied: false },
+      { id: 7, name: 'Table 7 — Verrière Centrale', zone: 'verriere', seats: '2 convives', occupied: true },
+      { id: 8, name: 'Table 8 — Banquette Verrière', zone: 'verriere', seats: '4 convives', occupied: false },
+      { id: 9, name: 'Table 9 — Cour Pavée', zone: 'terrasse', seats: '2 convives', occupied: false },
+      { id: 10, name: 'Table 10 — Sous la Treille', zone: 'terrasse', seats: '4 convives', occupied: false }
     ];
 
     let currentZone = 'salle';
-    let currentTableChoice = 'Table 3 (Banquette Cuir • 4 personnes)';
+    let currentTableChoice = 'Table 3 — Banquette Cuir (4 convives)';
 
     function renderFloorplan() {
       const stage = document.getElementById('floorplanStage');
       const filtered = TABLES.filter(t => t.zone === currentZone);
 
       stage.innerHTML = filtered.map(t => `
-        <div class="table-node ${t.occupied ? 'occupied' : ''} ${t.name.includes('Table 3') ? 'selected' : ''}" onclick="selectTable(${t.id}, this)">
-          <div class="table-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg>
-          </div>
-          <div class="table-name">T${t.id}</div>
+        <div class="table-node ${t.occupied ? 'occupied' : ''} ${t.id === 3 ? 'selected' : ''}" onclick="selectTable(${t.id}, this)">
+          <div class="table-name">${t.name}</div>
           <div class="table-capacity">${t.seats}</div>
-          <span class="table-status" style="color: ${t.occupied ? '#64748b' : '#34d399'};">
-            ${t.occupied ? 'Occupée' : 'Disponible'}
+          <span class="table-status" style="background: ${t.occupied ? '#E4DDD0' : 'rgba(59, 98, 67, 0.12)'}; color: ${t.occupied ? '#695E56' : 'var(--olive)'};">
+            ${t.occupied ? 'Déjà réservée' : 'Table libre'}
           </span>
         </div>
       `).join('');
@@ -943,12 +1026,25 @@
       el.classList.add('selected');
 
       currentTableChoice = table.name + ' (' + table.seats + ')';
-      document.getElementById('selectedTableStatus').innerHTML = 'Table sélectionnée : <strong>' + currentTableChoice + '</strong>';
+      const statusEl = document.getElementById('selectedTableStatus');
+      statusEl.textContent = 'Emplacement retenu : ';
+      const strong = document.createElement('strong');
+      strong.textContent = currentTableChoice;
+      statusEl.appendChild(strong);
       document.getElementById('resaTableField').value = currentTableChoice;
     }
 
+    document.getElementById('resaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (document.getElementById('resaBotcheck').value) return;
+      const name = document.getElementById('resaName').value.trim();
+      const service = document.getElementById('resaService').value;
+      const msg = document.getElementById('resaConfirmMsg');
+      msg.style.display = 'block';
+      msg.textContent = 'Merci ' + name + ', votre réservation (' + currentTableChoice + ' — ' + service + ') est bien enregistrée.';
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
-      initEmbers3D();
       renderMenu();
       renderFloorplan();
     });

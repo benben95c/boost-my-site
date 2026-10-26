@@ -65,6 +65,14 @@ const METIERS = [
     ]
   },
   {
+    slug: 'fast-food', nom: 'Fast-Food', desc: 'Click & Collect, composition de menus, 0 % de commission.',
+    points: [
+      ['Zéro commission sur vos habitués', 'Affranchissez-vous des 30 % prélevés par les plateformes en permettant à vos clients de commander en direct sur votre site.'],
+      ['Composition de menu fluide sur mobile', 'Choix Seul ou Menu, taille du burger ou tacos, suppléments, sauces et boisson en quelques secondes comme sur une borne.'],
+      ['Conforme et visible sur Google Maps', 'Affichage légal de l\'origine des viandes et des allergènes inclus, optimisé pour les recherches locales (« smash burger », « tacos », « pizzeria » + ville).']
+    ]
+  },
+  {
     slug: 'coiffeur', nom: 'Coiffeur', desc: 'Salon de beauté, prises de rendez-vous.',
     points: [
       ['Prise de rendez-vous', 'Un agenda en ligne intégré pour réserver sans passer par le téléphone.'],
@@ -95,36 +103,47 @@ const FAQ = [
 
 const PROJECTS = [
   {
+    tag: 'Fast-Food & Click-and-Collect',
+    title: "L'Atelier du Smash Paris",
+    img: 'project-fastfood.jpg',
+    alt: "L'Atelier du Smash, site de commande Click & Collect sans commission pour fast-food et smash burger",
+    short: 'Commande Click & Collect sans commission : configurateur de menu (taille, suppléments, sauces, boissons), traçabilité des viandes et simulateur de marge.',
+    long: "Conception d'un site de commande directe pensé pour les fast-foods, smash burgers et enseignes de street-food artisanale. L'interface permet au client de composer son menu sur téléphone en quelques secondes (formule, suppléments, sauces maison, heure de retrait au comptoir) tout en affranchissant le restaurateur des 30 % de commission des plateformes.",
+    href: 'sites/fastfood-smash.html',
+    cta: 'Tester la démo Fast-Food',
+    external: false
+  },
+  {
+    tag: 'Artisanat & Salle de Bain',
+    title: 'Atelier Apex Rénovation',
+    img: 'project-artisan.jpg',
+    alt: "Atelier Apex Rénovation, site pour artisan salle de bain et rénovation d'intérieur",
+    short: 'Carnet de matériaux 3D (pierre, chêne, laiton), comparateur Avant / Après chantier, chiffrage de travaux en ligne et barème légal transparent.',
+    long: "Site vitrine et outil de chiffrage pour une entreprise artisanale de rénovation de salles de bains et d'appartements à Paris. Présentation claire des compagnons par corps d'état, visualisation 3D des matériaux (travertin, béton ciré, chêne), comparateur Avant/Après et estimateur de budget conforme aux obligations légales du bâtiment.",
+    href: 'sites/artisan-elite.html',
+    cta: 'Tester la démo Artisan',
+    external: false
+  },
+  {
+    tag: 'Bistronomie & Feu de Bois',
+    title: 'Maison Braise Paris',
+    img: 'project-restaurant.jpg',
+    alt: 'Maison Braise, site web de restaurant au feu de bois avec réservation de table et vente à emporter',
+    short: 'Ardoise de saison, choix de sa table en salle ou sous la verrière, réservation directe et retrait au comptoir sans intermédiaire.',
+    long: "Site chaleureux conçu pour une rôtisserie et table bistronomique au feu de bois. Carte de saison avec origine certifiée des viandes françaises, sélection de son emplacement préféré (cheminée, verrière ou cour intérieure), carnet de réservation en direct et commande à emporter.",
+    href: 'sites/restaurant-braise.html',
+    cta: 'Tester la démo Restaurant',
+    external: false
+  },
+  {
     tag: 'Chauffeur Privé & VTC',
     title: 'Prestige Drive Paris',
     img: 'project-chauffeur.jpg',
-    alt: 'Prestige Drive Paris, site vitrine luxe pour chauffeur privé',
-    short: 'Studio 3D interactif avec télémétrie châssis temps réel, radar aéroportuaire de suivi de vol, ambiance sonore VIP et voucher holographique 3D.',
-    long: "Création d'une vitrine numérique haut de gamme pour chauffeur privé et artisan taxi d'exception. L'interface intègre un studio 3D immersif avec télémétrie en direct (0-100 km/h, régime moteur, mode nuit tarmac), un radar de suivi de vol en direct (CDG, Orly), un synthétiseur audio VIP et un pass d'accompagnement holographique 3D.",
+    alt: 'Prestige Drive Paris, site vitrine pour chauffeur privé VTC',
+    short: 'Réservation de transferts gares et aéroports, présentation de la flotte et estimation de course en direct.',
+    long: "Création d'une vitrine dédiée aux chauffeurs privés et artisans VTC pour capter une clientèle directe sur les transferts aéroports (CDG, Orly) et mises à disposition, sans dépendre des applications.",
     href: 'sites/chauffeur-prestige.html',
-    cta: 'Tester la démo en ligne',
-    external: false
-  },
-  {
-    tag: 'Artisanat & BTP',
-    title: 'Apex Rénovation & BTP',
-    img: 'project-artisan.jpg',
-    alt: "Apex Rénovation, site pour artisan du bâtiment et dépannage d'urgence",
-    short: 'Studio 3D BIM avec relevé métrique laser, simulateur d’ambiance lumineuse 24h et radar d’urgence géolocalisé Île-de-France.',
-    long: "Conception d'une plateforme de conversion d'élite pour entreprise générale de bâtiment. La maquette 3D interactive intègre un moteur de métré BIM au laser, un simulateur d'éclairage 24h (jour, crépuscule, spa nuit), un radar d'intervention d'urgence avec positionnement des techniciens en direct et des forfaits transparents agréés assurances.",
-    href: 'sites/artisan-elite.html',
-    cta: 'Tester la démo en ligne',
-    external: false
-  },
-  {
-    tag: 'Bistronomie & Vente Directe',
-    title: 'Maison Braise Paris',
-    img: 'project-restaurant.jpg',
-    alt: 'Maison Braise, site web de restaurant avec réservation et commande directe',
-    short: 'Expérience culinaire immersive avec carte filtrable, widget de réservation de table instantané et commande directe sans commission.',
-    long: "Site vitrine et commercial conçu pour affranchir les restaurateurs des 30% de commission des plateformes tierces. Carte interactive triée par catégorie, module de réservation de table en direct avec confirmation instantanée et promotion de la vente à emporter en Click & Collect.",
-    href: 'sites/restaurant-braise.html',
-    cta: 'Tester la démo en ligne',
+    cta: 'Tester la démo VTC',
     external: false
   },
   {

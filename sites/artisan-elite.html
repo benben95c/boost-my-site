@@ -3,69 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apex Rénovation & Dépannage — Artisan BTP d'Élite Île-de-France</title>
+  <title>Atelier Apex Rénovation — Salles de Bains &amp; Rénovation d'Intérieur à Paris</title>
+  <meta name="description" content="Entreprise artisanale de rénovation de salles de bains, plomberie et agencement intérieur à Paris. Compagnons qualifiés, Garantie Décennale AXA et devis détaillé.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root {
-      --bg: #090c12;
-      --card: #111724;
-      --card-alt: #161e30;
-      --accent: #2563eb;
-      --accent-glow: #3b82f6;
-      --amber: #f59e0b;
-      --green: #10b981;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --border: rgba(255, 255, 255, 0.08);
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --bg: #F6F3EC;
+      --card: #FFFFFF;
+      --card-alt: #EDE7DB;
+      --accent: #8C5A32;
+      --accent-dark: #6E4320;
+      --accent-glow: #8C5A32;
+      --amber: #B46924;
+      --green: #2D5A43;
+      --text: #1E1D1A;
+      --muted: #656057;
+      --border: #DFD9CE;
+      --font-display: 'Newsreader', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: var(--bg);
-      background-image: 
-        linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-        radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 65%);
-      background-size: 36px 36px, 36px 36px, 100% 700px;
       color: var(--text);
       font-family: var(--font-body);
-      line-height: 1.6;
+      line-height: 1.65;
       padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
     .demo-bar {
-      background: #111422;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 10px 20px;
+      background: #1E1D1A;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 13px;
-      color: #9aa1c4;
+      color: #D6D0C4;
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
     }
+    .demo-bar strong { color: #FFF; }
     .demo-bar a {
-      background: linear-gradient(120deg, #3d6bff, #8a5cff);
-      color: white;
+      background: #F6F3EC;
+      color: #1E1D1A;
       padding: 6px 16px;
-      border-radius: 99px;
+      border-radius: 4px;
       font-weight: 600;
       font-size: 12px;
-      transition: opacity 0.2s;
+      transition: background 0.2s;
     }
-    .demo-bar a:hover { opacity: 0.9; }
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .demo-bar a:hover { background: #E5DEC9; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
     
     /* Header */
     header {
-      padding: 20px 0;
+      padding: 24px 0;
       border-bottom: 1px solid var(--border);
     }
     .nav {
@@ -77,95 +75,86 @@
     }
     .logo {
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text);
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+    .logo small {
+      font-family: var(--font-body);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 3px;
     }
     .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34d399;
+      background: rgba(45, 90, 67, 0.09);
+      border: 1px solid rgba(45, 90, 67, 0.25);
+      color: var(--green);
       padding: 6px 14px;
-      border-radius: 99px;
+      border-radius: 6px;
       font-size: 12px;
       font-weight: 600;
     }
     .pulse-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       background: var(--green);
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--green);
-      animation: pulse 2s infinite;
     }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.3); } }
 
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      font-weight: 700;
+      font-weight: 600;
       padding: 12px 24px;
-      border-radius: 8px;
+      border-radius: 6px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       border: none;
       cursor: pointer;
       font-size: 14px;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .btn-primary:hover {
-      background: #1d4ed8;
-      transform: translateY(-2px);
-    }
-    .btn-amber {
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      color: #000;
-      font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-amber:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35);
-    }
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 24px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-size: 14px;
+      font-family: inherit;
       transition: background 0.2s;
     }
-    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+    }
+    .btn-outline {
+      border: 1px solid var(--text);
+      color: var(--text);
+      background: transparent;
+      padding: 12px 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--text); color: #fff; }
 
     /* Hero */
     .hero {
-      padding: 65px 0 45px;
+      padding: 58px 0 42px;
       text-align: center;
       position: relative;
     }
     .hero-cert-bar {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
       margin-bottom: 20px;
@@ -174,37 +163,36 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(37, 99, 235, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      color: #93c5fd;
-      padding: 6px 16px;
-      border-radius: 99px;
-      font-size: 11px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
     }
     .cert-pill.axa {
-      border-color: rgba(16, 185, 129, 0.35);
-      background: rgba(16, 185, 129, 0.08);
-      color: #6ee7b7;
+      border-color: rgba(45, 90, 67, 0.3);
+      background: rgba(45, 90, 67, 0.07);
+      color: var(--green);
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.14;
-      margin: 18px 0 22px;
+      font-size: clamp(2.5rem, 5vw, 4.1rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.12;
+      margin: 14px 0 20px;
+      color: var(--text);
     }
     .hero h1 span {
-      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
     }
     .hero p {
-      max-width: 720px;
-      margin: 0 auto 36px;
+      max-width: 700px;
+      margin: 0 auto 32px;
       color: var(--muted);
       font-size: 17px;
       line-height: 1.7;
@@ -212,9 +200,9 @@
     .hero-actions {
       display: flex;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 44px;
+      margin-bottom: 42px;
     }
 
     /* 4-Card Key Performance Metrics Ribbon */
@@ -222,7 +210,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
-      margin: 36px 0 44px;
+      margin: 32px 0 36px;
     }
     @media (max-width: 880px) {
       .arch-metrics-grid { grid-template-columns: repeat(2, 1fr); }
@@ -231,32 +219,22 @@
       .arch-metrics-grid { grid-template-columns: 1fr; }
     }
     .arch-metric-card {
-      background: linear-gradient(180deg, rgba(17, 23, 36, 0.8) 0%, rgba(9, 12, 18, 0.95) 100%);
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      border-radius: 14px;
-      padding: 18px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 16px;
       text-align: center;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .arch-metric-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(59, 130, 246, 0.45);
     }
     .arch-metric-number {
       font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 700;
-      color: #60a5fa;
-      letter-spacing: -0.01em;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--accent);
       margin-bottom: 4px;
     }
     .arch-metric-label {
-      font-size: 11px;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      color: var(--muted);
       font-weight: 600;
     }
 
@@ -266,9 +244,9 @@
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 18px;
       padding: 22px 24px;
-      background: rgba(17, 23, 36, 0.5);
+      background: var(--card-alt);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 8px;
       margin-bottom: 20px;
     }
     .arch-trust-item {
@@ -278,27 +256,27 @@
       text-align: left;
     }
     .arch-trust-item svg {
-      color: #3b82f6;
+      color: var(--accent);
       flex-shrink: 0;
     }
     .arch-trust-item div strong {
       display: block;
-      color: #f1f5f9;
-      font-size: 13px;
+      color: var(--text);
+      font-size: 13.5px;
     }
     .arch-trust-item div span {
       display: block;
       color: var(--muted);
-      font-size: 11px;
+      font-size: 12px;
     }
 
-    /* 3D Architectural Room Viewer Section - Sketchfab Grade */
+    /* 3D Architectural Room Viewer Section */
     .arch3d-section {
-      background: linear-gradient(180deg, #101622 0%, #080b11 100%);
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 10px;
       padding: 32px;
-      margin: 40px 0 60px;
+      margin: 40px 0 56px;
       position: relative;
     }
     .arch3d-header {
@@ -307,17 +285,19 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .arch3d-header h2 {
       font-family: var(--font-display);
-      font-size: 24px;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
     }
     .arch-mode-toggle {
       display: flex;
-      background: #090c12;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 4px;
       gap: 4px;
       flex-wrap: wrap;
@@ -326,17 +306,17 @@
       background: none;
       border: none;
       color: var(--muted);
-      padding: 8px 16px;
-      border-radius: 6px;
+      padding: 8px 14px;
+      border-radius: 4px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
+      font-family: inherit;
       transition: all 0.2s;
     }
     .arch-mode-btn.active {
-      background: var(--accent);
+      background: var(--text);
       color: #fff;
-      box-shadow: 0 0 12px rgba(37,99,235,0.4);
     }
     .arch-views-bar {
       display: flex;
@@ -346,14 +326,15 @@
       padding-bottom: 4px;
     }
     .arch-view-btn {
-      background: #090c12;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--bg);
+      border: 1px solid var(--border);
       color: var(--muted);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
+      font-family: inherit;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -361,9 +342,9 @@
       white-space: nowrap;
     }
     .arch-view-btn:hover, .arch-view-btn.active {
-      background: rgba(37,99,235,0.15);
+      background: var(--card-alt);
       border-color: var(--accent);
-      color: #93c5fd;
+      color: var(--text);
     }
     .arch-lighting-bar {
       display: flex;
@@ -373,87 +354,35 @@
       flex-wrap: wrap;
     }
     .arch-light-btn {
-      background: #090c12;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--bg);
+      border: 1px solid var(--border);
       color: var(--muted);
-      padding: 5px 12px;
+      padding: 6px 12px;
       border-radius: 6px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
+      font-family: inherit;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.2s;
     }
-    .arch-light-btn:hover {
-      border-color: rgba(255,255,255,0.2);
-      color: #fff;
-    }
     .arch-light-btn.active {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: #f59e0b;
-      color: #fbbf24;
+      background: var(--card-alt);
+      border-color: var(--accent);
+      color: var(--accent-dark);
     }
 
-    /* Interactive Van Dispatch Cards */
-    .van-cards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 16px;
-    }
-    .van-card {
-      background: #06090e;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 12px 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .van-card:hover, .van-card.active {
-      border-color: #3b82f6;
-      background: rgba(37,99,235,0.08);
-      transform: translateX(4px);
-    }
-    .van-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-    .van-status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #10b981;
-      display: inline-block;
-      box-shadow: 0 0 8px #10b981;
-    }
-    .van-eta {
-      font-size: 11px;
-      background: rgba(16,185,129,0.15);
-      color: #34d399;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-weight: 700;
-    }
-    .van-details {
-      font-size: 11px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
     .arch3d-canvas-container {
       width: 100%;
-      height: 520px;
-      border-radius: 14px;
-      background: radial-gradient(circle at center, #131b2c 0%, #06090e 85%);
+      height: 500px;
+      border-radius: 8px;
+      background: #1A1816;
       position: relative;
       overflow: hidden;
       cursor: grab;
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+      border: 1px solid var(--border);
     }
     .arch3d-canvas-container:active { cursor: grabbing; }
     .arch3d-hint {
@@ -461,27 +390,24 @@
       bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(8,11,17,0.85);
-      backdrop-filter: blur(10px);
+      background: rgba(30, 29, 26, 0.88);
       padding: 8px 18px;
-      border-radius: 99px;
-      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
       font-size: 12px;
-      color: #cbd5e1;
+      color: #F6F3EC;
       pointer-events: none;
       display: flex;
       align-items: center;
       gap: 8px;
       z-index: 4;
     }
-    /* Hotspot Interactive Markers */
     .arch-hotspot {
       position: absolute;
       transform: translate(-50%, -50%);
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: #2563eb;
+      background: var(--accent);
       border: 2px solid #ffffff;
       color: #ffffff;
       font-size: 11px;
@@ -490,57 +416,32 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 16px rgba(37,99,235,0.8);
-      transition: transform 0.2s, background 0.2s;
       z-index: 5;
     }
-    .arch-hotspot::after {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 2px solid rgba(59,130,246,0.5);
-      animation: hotspotPulse 2s infinite ease-out;
-    }
-    @keyframes hotspotPulse {
-      0% { transform: scale(0.8); opacity: 1; }
-      100% { transform: scale(1.8); opacity: 0; }
-    }
-    .arch-hotspot:hover {
-      transform: translate(-50%, -50%) scale(1.2);
-      background: #3b82f6;
-    }
-    /* Floating Technical Specification Card */
     .arch-info-card {
       position: absolute;
       top: 18px;
       left: 18px;
       max-width: 320px;
-      background: rgba(9, 12, 18, 0.94);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       padding: 16px 18px;
-      box-shadow: 0 16px 36px rgba(0,0,0,0.7);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
       z-index: 10;
       display: none;
-      animation: archFadeIn 0.25s ease;
-    }
-    @keyframes archFadeIn {
-      from { opacity: 0; transform: translateY(-6px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     .arch-info-card h4 {
-      font-size: 14px;
-      color: #60a5fa;
+      font-size: 15px;
+      color: var(--text);
       margin: 0 0 6px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .arch-info-card p {
-      font-size: 12px;
-      color: #cbd5e1;
+      font-size: 12.5px;
+      color: var(--muted);
       line-height: 1.5;
       margin: 0;
     }
@@ -549,12 +450,10 @@
       border: none;
       color: var(--muted);
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1;
       padding: 0 4px;
     }
-    .arch-info-card .close-card:hover { color: #fff; }
-    /* Technical Metrics Strip */
     .arch3d-specs-strip {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -562,10 +461,10 @@
       margin-top: 16px;
     }
     .arch-spec-box {
-      background: #090c12;
+      background: var(--bg);
       border: 1px solid var(--border);
-      padding: 10px 16px;
-      border-radius: 10px;
+      padding: 12px 16px;
+      border-radius: 6px;
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -577,17 +476,17 @@
       letter-spacing: 0.05em;
     }
     .arch-spec-box strong {
-      font-size: 13px;
-      color: #f1f5f9;
+      font-size: 13.5px;
+      color: var(--text);
     }
 
-    /* Professional Interactive Before / After Comparison Slider */
+    /* Before / After Comparison Slider */
     .ba-section {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 10px;
       padding: 36px;
-      margin: 40px 0 60px;
+      margin: 40px 0 56px;
     }
     .ba-header {
       display: flex;
@@ -599,14 +498,13 @@
     }
     .ba-container {
       position: relative;
-      height: 480px;
-      border-radius: 16px;
+      height: 460px;
+      border-radius: 8px;
       overflow: hidden;
       user-select: none;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.14);
+      border: 1px solid var(--border);
       touch-action: pan-y;
-      background: #090b10;
+      background: #1E1D1A;
       --ba-pos: 50%;
     }
     .ba-layer {
@@ -629,67 +527,51 @@
     }
     .ba-overlay-caption {
       position: absolute;
-      bottom: 24px;
+      bottom: 20px;
       z-index: 3;
       pointer-events: none;
-      max-width: 380px;
-      background: rgba(9, 12, 18, 0.88);
-      backdrop-filter: blur(10px);
+      max-width: 360px;
+      background: rgba(255, 255, 255, 0.94);
       padding: 14px 18px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      border-radius: 6px;
+      border: 1px solid var(--border);
       transition: opacity 0.25s ease;
     }
-    .ba-caption-left {
-      left: 24px;
-    }
-    .ba-caption-right {
-      right: 24px;
-      text-align: right;
-    }
+    .ba-caption-left { left: 20px; }
+    .ba-caption-right { right: 20px; text-align: right; }
     .ba-badge {
       display: inline-block;
-      padding: 5px 12px;
-      border-radius: 6px;
+      padding: 4px 10px;
+      border-radius: 4px;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       margin-bottom: 6px;
     }
-    .ba-badge-after {
-      background: #15803d;
-      color: #fff;
-    }
-    .ba-badge-before {
-      background: #b91c1c;
-      color: #fff;
-    }
+    .ba-badge-after { background: var(--green); color: #fff; }
+    .ba-badge-before { background: #8B2E22; color: #fff; }
     .ba-divider {
       position: absolute;
       top: 0;
       bottom: 0;
       left: var(--ba-pos, 50%);
-      width: 4px;
+      width: 3px;
       background: #ffffff;
-      box-shadow: 0 0 16px rgba(0,0,0,0.9), 0 0 10px #38bdf8;
       z-index: 4;
       transform: translateX(-50%);
       pointer-events: none;
-      will-change: left;
     }
     .ba-handle {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: #090c14;
+      background: var(--text);
       border: 2px solid #ffffff;
-      box-shadow: 0 0 25px rgba(0,0,0,0.9), 0 0 14px rgba(56,189,248,0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -707,13 +589,13 @@
       padding: 0;
     }
 
-    /* Complex BTP Calculator */
+    /* BTP Price Calculator */
     .calculator-section {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 10px;
       padding: 36px;
-      margin: 40px 0 60px;
+      margin: 40px 0 56px;
     }
     .calc-grid {
       display: grid;
@@ -724,82 +606,64 @@
     @media (max-width: 860px) {
       .calc-grid { grid-template-columns: 1fr; }
     }
-    .calc-param-group {
-      margin-bottom: 24px;
-    }
+    .calc-param-group { margin-bottom: 24px; }
     .calc-param-group label {
       display: block;
       font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--muted);
       margin-bottom: 10px;
     }
-    .calc-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .calc-chips { display: flex; flex-wrap: wrap; gap: 10px; }
     .calc-chip {
-      background: #090c12;
+      background: var(--bg);
       border: 1px solid var(--border);
       padding: 10px 18px;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 14px;
       cursor: pointer;
       transition: all 0.2s;
     }
     .calc-chip.active {
-      background: rgba(37,99,235,0.15);
-      border-color: var(--accent);
-      color: #60a5fa;
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
       font-weight: 600;
     }
-    .calc-slider-wrap {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .calc-slider-wrap input[type="range"] {
-      flex: 1;
-      accent-color: var(--accent);
-    }
+    .calc-slider-wrap { display: flex; align-items: center; gap: 16px; }
+    .calc-slider-wrap input[type="range"] { flex: 1; accent-color: var(--accent); }
     .calc-sqm-badge {
-      background: #090c12;
+      background: var(--bg);
       border: 1px solid var(--border);
       padding: 6px 14px;
       border-radius: 6px;
       font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 700;
-      color: #60a5fa;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
       min-width: 80px;
       text-align: center;
     }
-    .calc-options-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .calc-options-list { display: flex; flex-direction: column; gap: 10px; }
     .calc-opt-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #090c12;
+      background: var(--bg);
       border: 1px solid var(--border);
       padding: 12px 16px;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 14px;
     }
     .calc-opt-row input { accent-color: var(--accent); width: 16px; height: 16px; }
 
-    /* Quote summary receipt */
     .quote-summary-card {
-      background: #090c12;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 8px;
       padding: 28px;
       display: flex;
       flex-direction: column;
@@ -827,65 +691,77 @@
     }
     .quote-total-row strong {
       font-family: var(--font-display);
-      font-size: 32px;
-      color: #60a5fa;
+      font-size: 34px;
+      color: var(--accent);
     }
 
-    /* Emergency Dispatch Radar */
-    .radar-section {
-      background: linear-gradient(135deg, #0e1526 0%, #090c12 100%);
-      border: 1px solid rgba(37,99,235,0.25);
-      border-radius: 20px;
-      padding: 32px;
-      margin: 40px 0 60px;
+    /* Section Équipe de Compagnons & Barème Légal (remplace le radar sci-fi) */
+    .craft-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 36px;
+      margin: 40px 0 56px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 32px;
-      align-items: center;
+      align-items: start;
     }
-    @media (max-width: 768px) {
-      .radar-section { grid-template-columns: 1fr; }
+    @media (max-width: 820px) {
+      .craft-section { grid-template-columns: 1fr; }
     }
-    .radar-screen {
-      height: 260px;
-      background: #06090e;
-      border: 1px solid rgba(59,130,246,0.3);
-      border-radius: 14px;
-      position: relative;
-      overflow: hidden;
+    .van-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .van-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .van-card-top {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
     }
-    .radar-circle {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(59,130,246,0.2);
+    .van-eta {
+      font-size: 11px;
+      background: rgba(45, 90, 67, 0.1);
+      color: var(--green);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
     }
-    .radar-sweep {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, rgba(37,99,235,0.4) 0deg, transparent 60deg);
-      animation: sweep 4s linear infinite;
+    .van-details {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.45;
     }
-    @keyframes sweep { to { transform: rotate(360deg); } }
-    .radar-blip {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: #34d399;
-      border-radius: 50%;
-      box-shadow: 0 0 12px #34d399;
+    .bareme-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
     }
+    .bareme-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+    }
+    .bareme-row:last-child { border-bottom: none; }
 
     /* Modal Devis */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(30, 29, 26, 0.65);
       z-index: 2000;
       display: none;
       align-items: center;
@@ -894,13 +770,12 @@
     }
     .modal-overlay.active { display: flex; }
     .modal-box {
-      background: #0f141e;
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 10px;
       padding: 32px;
-      max-width: 650px;
+      max-width: 620px;
       width: 100%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
     }
 
     .sticky-call {
@@ -912,40 +787,48 @@
       display: none;
     }
     .sticky-call a {
-      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      background: var(--accent);
       color: #fff;
       font-weight: 700;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      font-size: 16px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      font-size: 15px;
     }
     @media (max-width: 768px) {
       .sticky-call { display: block; }
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      margin-top: 48px;
+      font-size: 12.5px;
+      color: var(--muted);
     }
   </style>
 </head>
 <body>
 
   <div class="demo-bar">
-    <span>Démonstration client en direct : <strong>Apex Rénovation & BTP</strong></span>
-    <a href="../portfolio.html">Retour au portfolio</a>
+    <span>Démonstration Réaliste : <strong>Atelier Apex Rénovation — Salle de Bain &amp; BTP</strong></span>
+    <a href="../portfolio.html">Retour au portfolio BoostMySite</a>
   </div>
 
   <div class="container">
     <header>
       <div class="nav">
         <div class="logo">
-          <span>APEX RÉNOVATION</span>
+          <span>ATELIER APEX</span>
+          <small>Salles de Bains, Plomberie &amp; Maçonnerie d'Intérieur</small>
         </div>
         <div class="status-badge">
           <span class="pulse-dot"></span>
-          <span>4 Camionnettes d'astreinte actives en Île-de-France</span>
+          <span>Artisans Compagnons • Paris &amp; Petite Couronne</span>
         </div>
-        <a href="tel:+33189000000" class="btn-primary">Appel Direct 24/7 : 01 89 00 00 00</a>
+        <a href="tel:+33189000000" class="btn-primary">Atelier &amp; Urgences : 01 89 00 00 00</a>
       </div>
     </header>
 
@@ -953,218 +836,175 @@
       <div class="hero-cert-bar">
         <div class="cert-pill">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Qualibat RGE N° 84920
+          Certification Qualibat RGE n° 84920
         </div>
         <div class="cert-pill axa">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Garantie Décennale AXA 10 Ans (Police 0847291)
-        </div>
-        <div class="status-badge">
-          <span class="pulse-dot"></span>
-          <span>4 Camionnettes d'astreinte actives en Île-de-France</span>
+          Assurance Décennale AXA 10 Ans (Contrat n° 0847291)
         </div>
       </div>
 
-      <h1>L'Excellence du BTP <br><span>Sans Mauvaise Surprise</span></h1>
-      <p>Rénovation complète d'appartements haussmanniens, conception de salles de bains d'architecte et plomberie d'urgence haut de gamme à Paris. Un devis ferme, transparent et détaillé sous 24h sans aucun dépassement imprévu.</p>
+      <h1>L'Artisanat du Bâtiment, <br><span>le soin du détail durable.</span></h1>
+      <p>Création de salles de bains clés en main, rénovation complète d'appartements anciens et plomberie sanitaire à Paris. Un interlocuteur unique, un chantier protégé chaque soir et un devis détaillé ligne par ligne.</p>
 
       <div class="hero-actions">
-        <a href="#calculateur" class="btn-primary">Calculer mon devis en 30 secondes</a>
-        <a href="#arch3d" class="btn-outline">Visiter la maquette 3D</a>
+        <a href="#calculateur" class="btn-primary">Chiffrer mon projet en ligne</a>
+        <a href="#arch3d" class="btn-outline">Voir les matériaux en 3D</a>
       </div>
 
-      <!-- 4-Card Key Performance Metrics Ribbon -->
       <div class="arch-metrics-grid">
         <div class="arch-metric-card">
-          <div class="arch-metric-number">15 Ans</div>
-          <div class="arch-metric-label">D'Artisanat d'Art à Paris</div>
+          <div class="arch-metric-number">15 ans</div>
+          <div class="arch-metric-label">D'expérience à Paris &amp; IDF</div>
         </div>
         <div class="arch-metric-card">
           <div class="arch-metric-number">450+</div>
-          <div class="arch-metric-label">Chantiers Livrés Clé en Main</div>
+          <div class="arch-metric-label">Salles de bains &amp; appartements livrés</div>
         </div>
         <div class="arch-metric-card">
-          <div class="arch-metric-number">0 €</div>
-          <div class="arch-metric-label">D'Acompte avant Démarrage</div>
+          <div class="arch-metric-number">10 ans</div>
+          <div class="arch-metric-label">Garantie Décennale sur chaque ouvrage</div>
         </div>
         <div class="arch-metric-card">
-          <div class="arch-metric-number">100%</div>
-          <div class="arch-metric-label">Respect Délais Contractuels</div>
+          <div class="arch-metric-number">Sous 48h</div>
+          <div class="arch-metric-label">Visite technique &amp; devis gratuit</div>
         </div>
       </div>
 
-      <!-- 4-Pillar Trust & Guarantees Strip -->
       <div class="arch-trust-grid">
         <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--amber)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <div>
-            <strong>Avis Clients Certifiés</strong>
-            <span>4.9 / 5 sur Google (140+ avis vérifiés)</span>
+            <strong>Avis Clients Vérifiés</strong>
+            <span>4,9 / 5 sur Google (140+ chantiers)</span>
           </div>
         </div>
         <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <div>
-            <strong>Couverture Décennale 10 Ans</strong>
-            <span>Assurance AXA France N° 0847291</span>
+            <strong>Assurance Décennale &amp; RC Pro</strong>
+            <span>AXA France IARD Police n° 0847291</span>
           </div>
         </div>
         <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-glow)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <div>
-            <strong>Intervention en 30 Minutes</strong>
-            <span>Dépannage d'urgence 24h/7j Paris & IDF</span>
+            <strong>Délais Inscrits au Devis</strong>
+            <span>Planning de chantier tenu par écrit</span>
           </div>
         </div>
         <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#60a5fa"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           <div>
-            <strong>Devis Ferme & Plans 3D</strong>
-            <span>Transmis sous 24h, 100% gratuit</span>
+            <strong>Aucune Sous-Traitance Cachée</strong>
+            <span>Nos propres plombiers, carreleurs et électriciens</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3D Architectural Room Viewer -->
+    <!-- Aperçu 3D des Matériaux -->
     <section class="arch3d-section" id="arch3d">
       <div class="arch3d-header">
         <div>
-          <span class="status-badge" style="font-size:11px; margin-bottom:6px;">Maquette 3D Studio BIM / WebGL</span>
-          <h2 id="archTitle">Conception Salle de Bain Haute Couture</h2>
+          <span class="status-badge" style="font-size:11px; margin-bottom:6px;">Carnet d'Agencement &amp; Matériaux</span>
+          <h2 id="archTitle">Projet Type : Salle de Bain en Pierre &amp; Chêne</h2>
         </div>
         <div class="arch-mode-toggle">
-          <button class="arch-mode-btn active" id="btnMarbreNoir" onclick="setArchMaterialStyle('noir', this)">Marbre Noir & Laiton</button>
-          <button class="arch-mode-btn" id="btnMarbreBlanc" onclick="setArchMaterialStyle('blanc', this)">Calacatta Blanc & Or</button>
-          <button class="arch-mode-btn" id="btnBetonLoft" onclick="setArchMaterialStyle('beton', this)">Béton Ciré & Chêne</button>
-          <button class="arch-mode-btn" id="btnBlueprint" onclick="setArchMaterialStyle('blueprint', this)">Réseau Technique BTP</button>
+          <button class="arch-mode-btn active" id="btnMarbreNoir" onclick="setArchMaterialStyle('noir', this)">Ardoise &amp; Laiton</button>
+          <button class="arch-mode-btn" id="btnMarbreBlanc" onclick="setArchMaterialStyle('blanc', this)">Travertin Clair &amp; Laiton</button>
+          <button class="arch-mode-btn" id="btnBetonLoft" onclick="setArchMaterialStyle('beton', this)">Béton Ciré &amp; Chêne</button>
+          <button class="arch-mode-btn" id="btnBlueprint" onclick="setArchMaterialStyle('blueprint', this)">Réseaux Plomberie</button>
         </div>
       </div>
 
-      <!-- Camera Presets Views Toolbar -->
       <div class="arch-views-bar">
-        <button class="arch-view-btn active" id="vbtn-global" onclick="setArchCameraView('global', this)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          Vue d'Ensemble 3D
-        </button>
-        <button class="arch-view-btn" id="vbtn-shower" onclick="setArchCameraView('shower', this)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-          Douche Italienne XXL
-        </button>
-        <button class="arch-view-btn" id="vbtn-tub" onclick="setArchCameraView('tub', this)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18v5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-5z"/><line x1="6" y1="12" x2="6" y2="6"/></svg>
-          Bain Îlot & Robinetterie
-        </button>
-        <button class="arch-view-btn" id="vbtn-vanity" onclick="setArchCameraView('vanity', this)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="4"/></svg>
-          Meuble Vasque & Miroir LED
-        </button>
-        <button class="arch-view-btn" id="vbtn-top" onclick="setArchCameraView('top', this)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          Plan de Coupe BTP Axo
-        </button>
-        <button class="arch-view-btn" id="btnToggleBim" onclick="toggleBimDimensions(this)" style="margin-left:auto; border-color:rgba(59,130,246,0.4); color:#60a5fa;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="6" x2="2" y2="18"/><line x1="22" y1="6" x2="22" y2="18"/><circle cx="12" cy="12" r="2"/></svg>
-          Cotes & Métré BIM (3D)
-        </button>
+        <button class="arch-view-btn active" id="vbtn-global" onclick="setArchCameraView('global', this)">Vue d'ensemble</button>
+        <button class="arch-view-btn" id="vbtn-shower" onclick="setArchCameraView('shower', this)">Douche à l'italienne</button>
+        <button class="arch-view-btn" id="vbtn-tub" onclick="setArchCameraView('tub', this)">Baignoire îlot</button>
+        <button class="arch-view-btn" id="vbtn-vanity" onclick="setArchCameraView('vanity', this)">Meuble vasque chêne</button>
+        <button class="arch-view-btn" id="vbtn-top" onclick="setArchCameraView('top', this)">Plan de dessus</button>
+        <button class="arch-view-btn" id="btnToggleBim" onclick="toggleBimDimensions(this)" style="margin-left:auto;">Afficher les cotes (métré)</button>
       </div>
 
-      <!-- Real-Time Ambience Lighting Simulation Bar -->
       <div class="arch-lighting-bar">
-        <span style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); font-weight:700;">Simulateur d'Éclairage 24h :</span>
-        <button class="arch-light-btn active" id="lbtn-day" onclick="setArchLightingAmbience('day', this)">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          Matinée (5500K)
-        </button>
-        <button class="arch-light-btn" id="lbtn-sunset" onclick="setArchLightingAmbience('sunset', this)">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>
-          Crépuscule Doré (3200K)
-        </button>
-        <button class="arch-light-btn" id="lbtn-night" onclick="setArchLightingAmbience('night', this)">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          Ambiance Spa Nuit (LED 2400K)
-        </button>
+        <span style="font-size:12px; color:var(--muted); font-weight:600;">Lumière dans la pièce :</span>
+        <button class="arch-light-btn active" id="lbtn-day" onclick="setArchLightingAmbience('day', this)">Lumière du jour</button>
+        <button class="arch-light-btn" id="lbtn-sunset" onclick="setArchLightingAmbience('sunset', this)">Fin d'après-midi</button>
+        <button class="arch-light-btn" id="lbtn-night" onclick="setArchLightingAmbience('night', this)">Éclairage indirect soir</button>
       </div>
 
       <div class="arch3d-canvas-container" id="arch3dCanvas">
-        <!-- Floating Detail Card -->
         <div class="arch-info-card" id="archInfoCard">
           <h4>
             <span id="cardTitle">Douche à l'Italienne</span>
             <button class="close-card" onclick="closeArchInfoCard()">&times;</button>
           </h4>
-          <p id="cardText">Système d'étanchéité liquide sous carrelage (SPEC certifié CSTB). Receveur maçonné sans ressaut, caniveau de sol inox brossé et ciel de pluie encastré 40x40 cm.</p>
+          <p id="cardText">Système d'étanchéité liquide sous carrelage (SPEC certifié CSTB). Receveur maçonné de plain-pied, caniveau inox brossé et robinetterie encastrée.</p>
         </div>
 
-        <!-- Interactive 3D Hotspots (Projected onto canvas) -->
         <div class="arch-hotspot" id="hs-shower" onclick="triggerHotspot('shower')" title="Douche à l'italienne">1</div>
-        <div class="arch-hotspot" id="hs-tub" onclick="triggerHotspot('tub')" title="Baignoire îlot haute couture">2</div>
-        <div class="arch-hotspot" id="hs-vanity" onclick="triggerHotspot('vanity')" title="Meuble vasque suspendu">3</div>
-        <div class="arch-hotspot" id="hs-niche" onclick="triggerHotspot('niche')" title="Niche murale & LED">4</div>
+        <div class="arch-hotspot" id="hs-tub" onclick="triggerHotspot('tub')" title="Baignoire îlot">2</div>
+        <div class="arch-hotspot" id="hs-vanity" onclick="triggerHotspot('vanity')" title="Meuble vasque">3</div>
+        <div class="arch-hotspot" id="hs-niche" onclick="triggerHotspot('niche')" title="Finitions murales">4</div>
 
         <div class="arch3d-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24L21 8"/><polyline points="21 3 21 8 16 8"/></svg>
-          Glissez pour pivoter à 360° • Molette pour zoomer • Cliquez sur les puces numérotées
+          Glissez pour tourner autour de la pièce • Cliquez sur les repères 1 à 4 pour lire le descriptif technique
         </div>
       </div>
 
-      <!-- Technical Metrics Strip -->
       <div class="arch3d-specs-strip">
         <div class="arch-spec-box">
-          <span>Surface Totale</span>
-          <strong>14.5 m² Carrelée XXL</strong>
+          <span>Surface du projet</span>
+          <strong>14,5 m² au sol</strong>
         </div>
         <div class="arch-spec-box">
-          <span>Étanchéité Sous Chape</span>
-          <strong>SPEC Certifié CSTB 10 ans</strong>
+          <span>Étanchéité sous carrelage</span>
+          <strong>Natte &amp; résine SPEC (CSTB)</strong>
         </div>
         <div class="arch-spec-box">
-          <span>Réseau Plomberie</span>
-          <strong>Multicouche Sertie Sans Soudure</strong>
+          <span>Alimentation eau</span>
+          <strong>Cuivre &amp; multicouche serti</strong>
         </div>
         <div class="arch-spec-box">
-          <span>Conformité BTP</span>
-          <strong>DTU 60.1 & NF C 15-100</strong>
+          <span>Normes respectées</span>
+          <strong>DTU 60.1 &amp; NF C 15-100</strong>
         </div>
       </div>
     </section>
 
-    <!-- Before / After Slider -->
+    <!-- Comparateur Avant / Après -->
     <section class="ba-section">
       <div class="ba-header">
         <div>
-          <span class="status-badge" style="font-size:11px;">Cas Réel Client • Chantier Livré</span>
-          <h2 style="font-family: var(--font-display); font-size: 26px; margin-top:6px;">Comparateur Avant / Après Rénovation</h2>
-          <p style="color: var(--muted); font-size: 14px;">Appartement haussmannien Paris 16e — Métamorphose d'une salle d'eau vétuste en suite parentale marbre & laiton</p>
+          <span class="status-badge" style="font-size:11px;">Chantier Réalisé • Paris 16e</span>
+          <h2 style="font-family: var(--font-display); font-size: 28px; margin-top:6px;">Avant / Après Rénovation Complète</h2>
+          <p style="color: var(--muted); font-size: 14.5px;">Dépose intégrale d'une ancienne salle de bain des années 1970, reprise de la plomberie encastrée et pose de grès cérame grand format.</p>
         </div>
-        <span style="font-size: 13px; color: var(--accent-glow); font-weight: 600; display:inline-flex; align-items:center; gap:8px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8L22 12L18 16M6 8L2 12L6 16M2 12H22"/></svg>
-          Glissez le curseur pour comparer
+        <span style="font-size: 13px; color: var(--accent); font-weight: 600;">
+          ↔ Glissez le curseur central pour comparer
         </span>
       </div>
 
       <div class="ba-container" id="baContainer">
-        <!-- Before Layer (Full Width Background) -->
         <div class="ba-layer ba-layer-before">
           <img src="artisan-before.jpg" alt="Salle de bain vétuste avant travaux" class="ba-photo">
           <div class="ba-overlay-caption ba-caption-right" id="capBefore">
-            <span class="ba-badge ba-badge-before">Avant Rénovation</span>
-            <strong style="display:block; font-size:14px; color:#fff; margin-bottom:2px;">Vétusté & Fuites Encastrées</strong>
-            <p style="font-size:12px; color:var(--muted); margin:0;">Faïence 1970 ébréchée, tuyauteries cuivre apparentes et infiltrations de plancher.</p>
+            <span class="ba-badge ba-badge-before">État Initial</span>
+            <strong style="display:block; font-size:14px; color:var(--text); margin-bottom:2px;">Faïence ancienne &amp; tuyauterie apparente</strong>
+            <p style="font-size:12px; color:var(--muted); margin:0;">Joints poreux, baignoire sabot peu accessible et réseau plomberie hors d'âge.</p>
           </div>
         </div>
 
-        <!-- After Layer (Clipped to Slider Position) -->
         <div class="ba-layer ba-layer-after" id="afterBox">
-          <img src="project-artisan.jpg" alt="Salle de bain luxe après travaux Apex" class="ba-photo">
+          <img src="project-artisan.jpg" alt="Salle de bain rénovée par Atelier Apex" class="ba-photo">
           <div class="ba-overlay-caption ba-caption-left" id="capAfter">
-            <span class="ba-badge ba-badge-after">Après Intervention Apex</span>
-            <strong style="display:block; font-size:14px; color:#fff; margin-bottom:2px;">Finition Haute Distinction</strong>
-            <p style="font-size:12px; color:#cbd5e1; margin:0;">Marbre italien Calacatta pleine hauteur, douche italienne zéro ressaut & robinetterie encastrée.</p>
+            <span class="ba-badge ba-badge-after">Chantier Livré</span>
+            <strong style="display:block; font-size:14px; color:var(--text); margin-bottom:2px;">Pierre claire, chêne &amp; robinetterie laiton</strong>
+            <p style="font-size:12px; color:var(--muted); margin:0;">Douche de plain-pied étanche, éclairage chaud indirect et garantie décennale 10 ans.</p>
           </div>
         </div>
 
-        <!-- Visual Divider Line and Handle -->
         <div class="ba-divider" id="baDivider">
           <div class="ba-handle">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -1173,97 +1013,94 @@
           </div>
         </div>
 
-        <!-- Interactive Range Input Overlay -->
-        <input type="range" min="0" max="100" value="50" class="ba-range-input" id="baRangeInput" oninput="slideBA(this.value)">
+        <input type="range" min="0" max="100" value="50" class="ba-range-input" id="baRangeInput" oninput="slideBA(this.value)" aria-label="Comparer avant et après travaux">
       </div>
     </section>
 
-    <!-- Complex BTP Price Calculator -->
+    <!-- Estimateur de Travaux -->
     <section class="calculator-section" id="calculateur">
       <div style="text-align:center;">
-        <span class="status-badge" style="font-size:11px;">Configurateur Numérique</span>
-        <h2 style="font-family:var(--font-display); font-size:32px; margin-top:8px;">Estimez votre Chantier en Direct</h2>
-        <p style="color:var(--muted); max-width:540px; margin:8px auto 0;">Prix réels basés sur la grille officielle BTP 2026. Aucun dépassement de budget garanti par contrat.</p>
+        <span class="status-badge" style="font-size:11px;">Chiffrage Transparent</span>
+        <h2 style="font-family:var(--font-display); font-size:32px; margin-top:8px;">Estimez l'enveloppe de vos travaux</h2>
+        <p style="color:var(--muted); max-width:560px; margin:8px auto 0;">Estimation indicative basée sur nos tarifs artisans 2026 (fournitures et pose comprises, TVA réduite à 10 % pour les logements de plus de 2 ans).</p>
       </div>
 
       <div class="calc-grid">
-        <!-- Left: Form Parameters -->
         <div>
           <div class="calc-param-group">
-            <label>1. Type de Projet</label>
+            <label>1. Nature des travaux</label>
             <div class="calc-chips">
               <span class="calc-chip active" onclick="setCalcProject('sdb', 1200, this)">Salle de bain complète</span>
-              <span class="calc-chip" onclick="setCalcProject('cuisine', 1050, this)">Cuisine équipée</span>
-              <span class="calc-chip" onclick="setCalcProject('total', 950, this)">Rénovation complète</span>
-              <span class="calc-chip" onclick="setCalcProject('plomb', 750, this)">Plomberie & Chauffage</span>
+              <span class="calc-chip" onclick="setCalcProject('cuisine', 1050, this)">Cuisine sur mesure</span>
+              <span class="calc-chip" onclick="setCalcProject('total', 950, this)">Rénovation d'appartement</span>
+              <span class="calc-chip" onclick="setCalcProject('plomb', 750, this)">Plomberie &amp; Sanitaire</span>
             </div>
           </div>
 
           <div class="calc-param-group">
-            <label>2. Surface du Chantier : <span id="sqmLabel" style="color:#60a5fa; font-weight:700;">18 m²</span></label>
+            <label>2. Surface concernée : <span id="sqmLabel" style="color:var(--accent); font-weight:700;">18 m²</span></label>
             <div class="calc-slider-wrap">
-              <input type="range" min="8" max="120" value="18" id="sqmSlider" oninput="updateSqm(this.value)">
+              <input type="range" min="6" max="120" value="18" id="sqmSlider" oninput="updateSqm(this.value)">
               <div class="calc-sqm-badge" id="sqmBadge">18 m²</div>
             </div>
           </div>
 
           <div class="calc-param-group">
-            <label>3. Niveau de Finitions & Matériaux</label>
+            <label>3. Gamme de matériaux</label>
             <div class="calc-chips">
-              <span class="calc-chip" onclick="setFinishes('standard', 1.0, this)">Standard Pro (Grès cérame)</span>
-              <span class="calc-chip active" onclick="setFinishes('elegance', 1.25, this)">Élégance (Grand format & LED)</span>
-              <span class="calc-chip" onclick="setFinishes('haute', 1.6, this)">Marbre & Haute Couture</span>
+              <span class="calc-chip" onclick="setFinishes('standard', 1.0, this)">Essentiel (Grès cérame classique)</span>
+              <span class="calc-chip active" onclick="setFinishes('elegance', 1.25, this)">Sur Mesure (Grands formats &amp; Chêne)</span>
+              <span class="calc-chip" onclick="setFinishes('haute', 1.6, this)">Pierre Naturelle &amp; Laiton</span>
             </div>
           </div>
 
           <div class="calc-param-group">
-            <label>4. Prestations Techniques Additionnelles</label>
+            <label>4. Travaux préparatoires</label>
             <div class="calc-options-list">
               <label class="calc-opt-row">
-                <span>Dépose, évacuation et recyclage des anciens sanitaires</span>
+                <span>Dépose complète et mise en déchetterie agréée</span>
                 <input type="checkbox" id="optDemolition" checked onchange="calcBtpQuote()">
               </label>
               <label class="calc-opt-row">
-                <span>Mise aux normes électriques complète NF C 15-100</span>
+                <span>Mise en sécurité électrique NF C 15-100 (volumes d'eau)</span>
                 <input type="checkbox" id="optElectric" checked onchange="calcBtpQuote()">
               </label>
               <label class="calc-opt-row">
-                <span>Système d'étanchéité liquide sous carrelage (SPEC)</span>
+                <span>Étanchéité liquide sous carrelage (SPEC)</span>
                 <input type="checkbox" id="optWaterproof" checked onchange="calcBtpQuote()">
               </label>
             </div>
           </div>
         </div>
 
-        <!-- Right: Real-time Itemized Receipt -->
         <div class="quote-summary-card">
           <div>
-            <div style="font-family:var(--font-display); font-size:18px; font-weight:700; color:#fff;">Estimation Détaillée du Chantier</div>
-            <div style="font-size:12px; color:var(--muted); margin-top:2px;">Norme NF DTU • Garantie Décennale AXA</div>
+            <div style="font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--text);">Récapitulatif Estimatif</div>
+            <div style="font-size:12.5px; color:var(--muted); margin-top:2px;">Devis définitif gratuit après visite sur place</div>
 
             <div class="quote-lines">
               <div class="quote-line">
-                <span>Fournitures & Matériaux HT</span>
-                <strong id="lineMaterials" style="color:#fff;">11 250 €</strong>
+                <span>Fournitures &amp; matériaux HT</span>
+                <strong id="lineMaterials" style="color:var(--text);">11 250 €</strong>
               </div>
               <div class="quote-line">
-                <span>Main d'œuvre qualifiée HT</span>
-                <strong id="lineLabor" style="color:#fff;">10 400 €</strong>
+                <span>Main-d'œuvre compagnons HT</span>
+                <strong id="lineLabor" style="color:var(--text);">10 400 €</strong>
               </div>
               <div class="quote-line">
-                <span>Options techniques sélectionnées</span>
-                <strong id="lineOptions" style="color:#fff;">2 100 €</strong>
+                <span>Préparation &amp; normes HT</span>
+                <strong id="lineOptions" style="color:var(--text);">2 100 €</strong>
               </div>
               <div class="quote-line">
-                <span>TVA réduite BTP (10%)</span>
-                <strong id="lineTva" style="color:#fff;">2 375 €</strong>
+                <span>TVA réduite rénovation (10 %)</span>
+                <strong id="lineTva" style="color:var(--text);">2 375 €</strong>
               </div>
             </div>
 
             <div class="quote-total-row">
               <div>
-                <span style="font-size:12px; text-transform:uppercase; color:var(--muted);">Total TTC estimé</span>
-                <div style="font-size:11px; color:#34d399;">Paiement échelonné 30/40/30</div>
+                <span style="font-size:12px; text-transform:uppercase; color:var(--muted);">Budget TTC estimé</span>
+                <div style="font-size:11.5px; color:var(--green); font-weight:600;">Règlement à l'avancement des travaux</div>
               </div>
               <strong id="totalBtpDisplay">26 125 €</strong>
             </div>
@@ -1271,73 +1108,91 @@
 
           <div>
             <button class="btn-primary" style="width:100%; justify-content:center; padding:14px; font-size:15px;" onclick="openQuoteModal()">
-              Télécharger le devis détaillé en PDF
+              Recevoir ou imprimer cette estimation
             </button>
-            <div style="text-align:center; font-size:11px; color:var(--muted); margin-top:8px;">
-              Validité 30 jours • Visite technique de confirmation offerte
+            <div style="text-align:center; font-size:11.5px; color:var(--muted); margin-top:8px;">
+              Visite technique sur place gratuite et sans engagement
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Radar Section -->
-    <section class="radar-section">
+    <!-- Équipe d'Artisans & Barème Officiel de Dépannage (Conforme Arrêté du 24 janvier 2017) -->
+    <section class="craft-section">
       <div>
-        <span class="status-badge">Télémétrie d'Intervention en Direct</span>
-        <h2 style="font-family:var(--font-display); font-size:28px; margin:12px 0 14px;">Interventions d'Urgence Île-de-France</h2>
-        <p style="color:var(--muted); font-size:15px; margin-bottom:20px;">Nos véhicules équipés sillonnent Paris et la petite couronne pour répondre aux fuites d'eau majeures et pannes de courant en moins de 30 minutes.</p>
+        <span class="status-badge">Équipe Salariée de l'Atelier</span>
+        <h2 style="font-family:var(--font-display); font-size:28px; margin:10px 0 12px;">Nos Chefs d'Équipe par Corps d'État</h2>
+        <p style="color:var(--muted); font-size:15px; margin-bottom:18px;">Chaque chantier est suivi par un compagnon référent qui reste votre interlocuteur du premier jour jusqu'à la remise des clés.</p>
         <div class="van-cards-list">
-          <div class="van-card active" onclick="selectRadarVan(1, this)">
+          <div class="van-card">
             <div class="van-card-top">
-              <span class="van-status-dot"></span>
-              <strong>Camionnette 1 — Paris 8e & Triangle d'Or</strong>
-              <span class="van-eta">Arrivée ~12 min</span>
+              <strong>Marc Delmas — Compagnon Plombier-Chauffagiste</strong>
+              <span class="van-eta">18 ans de métier</span>
             </div>
-            <div class="van-details">Technicien Référent : Marc D. (Compagnon Plombier) • Équipements : Caméra d'inspection Fluke, furet hydrocureur Rems & poste à braser cuivre</div>
+            <div class="van-details">Spécialiste réseaux cuivre et multicouche, recherche de fuite non destructive et création de douches maçonnées.</div>
           </div>
-
-          <div class="van-card" onclick="selectRadarVan(2, this)">
+          <div class="van-card">
             <div class="van-card-top">
-              <span class="van-status-dot"></span>
-              <strong>Camionnette 2 — Neuilly-sur-Seine & Paris 16e</strong>
-              <span class="van-eta">Disponible • Immédiat</span>
+              <strong>Karim Benali — Maître Électricien (Qualifelec)</strong>
+              <span class="van-eta">14 ans de métier</span>
             </div>
-            <div class="van-details">Technicien Référent : Karim B. (Électricien Haute Sécurité NF C 15-100) • Diagnostic court-circuit & tableau électrique Schneider</div>
+            <div class="van-details">Tableaux électriques Schneider/Legrand, mise aux normes NF C 15-100 des pièces d'eau et éclairage architectural.</div>
           </div>
-
-          <div class="van-card" onclick="selectRadarVan(3, this)">
+          <div class="van-card">
             <div class="van-card-top">
-              <span class="van-status-dot" style="background:#f59e0b; box-shadow:0 0 8px #f59e0b;"></span>
-              <strong>Camionnette 3 — Paris 11e / Bastille & Marais</strong>
-              <span class="van-eta" style="color:#f59e0b; background:rgba(245,158,11,0.15);">En intervention</span>
+              <strong>Lucas Moreau — Carreleur-Mosaïste &amp; Étanchéiste</strong>
+              <span class="van-eta">12 ans de métier</span>
             </div>
-            <div class="van-details">Remplacement chauffe-eau thermodynamique Atlantic & robinetterie encastrée Grohe</div>
-          </div>
-
-          <div class="van-card" onclick="selectRadarVan(4, this)">
-            <div class="van-card-top">
-              <span class="van-status-dot"></span>
-              <strong>Camionnette 4 — Boulogne-Billancourt & Issy</strong>
-              <span class="van-eta">Disponible • Immédiat</span>
-            </div>
-            <div class="van-details">Technicien Référent : Lucas M. (Artisan Plaquiste & Carrelage Grand Format CSTB) • Assèchement dégât des eaux</div>
+            <div class="van-details">Pose de pierre naturelle (travertin, marbre), grès cérame grand format et application de résines d'étanchéité SPEC.</div>
           </div>
         </div>
       </div>
 
-      <div class="radar-screen">
-        <div class="radar-circle" style="width:70px; height:70px;"></div>
-        <div class="radar-circle" style="width:150px; height:150px;"></div>
-        <div class="radar-circle" style="width:230px; height:230px;"></div>
-        <div class="radar-sweep"></div>
-        <!-- Blips -->
-        <div class="radar-blip active" id="rblip-1" style="top:35%; left:45%; transform:scale(1.4);" title="Camionnette 1"></div>
-        <div class="radar-blip" id="rblip-2" style="top:60%; left:30%;" title="Camionnette 2"></div>
-        <div class="radar-blip" id="rblip-3" style="top:50%; left:65%; background:#f59e0b; box-shadow:0 0 10px #f59e0b;" title="Camionnette 3"></div>
-        <div class="radar-blip" id="rblip-4" style="top:25%; left:35%;" title="Camionnette 4"></div>
+      <div class="bareme-box">
+        <span style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-weight:700;">Information Précontractuelle (Arrêté du 24/01/2017)</span>
+        <h3 style="font-family:var(--font-display); font-size:22px; margin:6px 0 14px;">Barème des Interventions de Dépannage</h3>
+        <div class="bareme-row">
+          <span>Déplacement Paris &amp; Petite Couronne (lun–ven)</span>
+          <strong>45 € TTC</strong>
+        </div>
+        <div class="bareme-row">
+          <span>Taux horaire main-d'œuvre plomberie / électricité</span>
+          <strong>75 € TTC / h</strong>
+        </div>
+        <div class="bareme-row">
+          <span>Majoration soir (après 20h) &amp; week-end</span>
+          <strong>+ 50 %</strong>
+        </div>
+        <div class="bareme-row">
+          <span>Établissement du devis écrit avant travaux</span>
+          <strong style="color:var(--green);">100 % Gratuit</strong>
+        </div>
+        <p style="font-size:12px; color:var(--muted); margin-top:14px; line-height:1.5;">
+          Aucun travail n'est engagé sans signature préalable d'un devis détaillé. Garantie décennale AXA France IARD n° 0847291 couvrant la France métropolitaine.
+        </p>
       </div>
     </section>
+
+    <!-- Pied de page légal BTP -->
+    <footer>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:24px; margin-bottom:20px;">
+        <div>
+          <strong style="color:var(--text); display:block; margin-bottom:4px;">Atelier Apex Rénovation SARL</strong>
+          Capital social : 25 000 € • SIRET : 842 910 384 00021 • RCS Paris B 842 910 384 • RM Paris • TVA : FR 19 842910384.<br>
+          Siège : 48 avenue Mozart, 75016 Paris. Gérant : M. Marc Delmas.
+        </div>
+        <div>
+          <strong style="color:var(--text); display:block; margin-bottom:4px;">Assurances Obligatoires (Loi Spinetta)</strong>
+          Assurance Responsabilité Civile Professionnelle et Décennale : AXA France IARD (313 Terrasses de l'Arche, 92727 Nanterre) — Contrat n° 0847291. Zone : France métropolitaine.
+        </div>
+        <div>
+          <strong style="color:var(--text); display:block; margin-bottom:4px;">Médiation &amp; RGPD</strong>
+          Médiateur de la consommation (Art. L.612-1) : CM2C, 49 rue de Ponthieu, 75008 Paris.<br>
+          Hébergeur : o2switch, Chemin des Pardiaux, 63000 Clermont-Ferrand (04 44 44 60 40).
+        </div>
+      </div>
+    </footer>
 
   </div>
 
@@ -1346,17 +1201,17 @@
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:16px;">
         <div>
-          <h3 style="font-family:var(--font-display); font-size:20px;">Devis Prévisionnel BTP n° DEV-2026-084</h3>
-          <small style="color:var(--muted);">Émis par Apex Rénovation Île-de-France</small>
+          <h3 style="font-family:var(--font-display); font-size:22px;">Estimation Prévisionnelle n° DEV-2026-084</h3>
+          <small style="color:var(--muted);">Atelier Apex Rénovation — Paris &amp; Île-de-France</small>
         </div>
-        <button onclick="closeQuoteModal()" style="background:none; border:none; color:#fff; cursor:pointer;" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <button onclick="closeQuoteModal()" style="background:none; border:none; color:var(--text); cursor:pointer;" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       </div>
-      <p style="font-size:14px; color:var(--muted); margin-bottom:16px;">
-        Votre devis détaillé pour <strong><span id="modalProjectName">Salle de bain</span> (<span id="modalSqm">18 m²</span>)</strong> a été calculé. Le montant TTC s'élève à <strong><span id="modalTotal">26 125 €</span></strong>.
+      <p style="font-size:14.5px; color:var(--muted); margin-bottom:20px;">
+        Votre estimation pour <strong><span id="modalProjectName">Salle de bain complète</span> (<span id="modalSqm">18 m²</span>)</strong> s'élève à <strong><span id="modalTotal">26 125 €</span> TTC</strong>.
       </p>
-      <div style="display:flex; gap:12px;">
-        <button class="btn-primary" style="flex:1; justify-content:center;" onclick="window.print()">Imprimer / Sauvegarder PDF</button>
-        <button class="btn-outline" style="flex:1; justify-content:center;" onclick="alert('Visite technique confirmée ! Un chef de chantier vous contactera.'); closeQuoteModal();">Valider avec un chef de chantier</button>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:1; justify-content:center;" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+        <button class="btn-outline" style="flex:1; justify-content:center;" onclick="alert('Demande enregistrée ! Marc Delmas vous recontacte sous 24h pour convenir de la visite technique gratuite.'); closeQuoteModal();">Demander une visite gratuite</button>
       </div>
     </div>
   </div>
@@ -1364,7 +1219,7 @@
   <div class="sticky-call">
     <a href="tel:+33189000000">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Urgence Dépannage (01 89 00 00 00)
+      Appeler l'Atelier (01 89 00 00 00)
     </a>
   </div>
 
