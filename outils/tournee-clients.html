@@ -817,10 +817,11 @@
       <h1>Maps Tournée</h1>
     </div>
     <div class="top-actions">
+      <a href="devis-express.html" class="btn btn-blue btn-xs">📄 Devis Express</a>
       <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset(true)">
         🔄 Pontoise / Cergy
       </button>
-      <a href="../index.html" class="btn btn-outline btn-xs">← BoostMySite</a>
+      <a href="../index.html" class="btn btn-outline btn-xs">← Site</a>
     </div>
   </header>
 
@@ -992,8 +993,8 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'bms_route_prospects_v3';
-    const DONE_STORAGE_KEY = 'bms_route_done_v3';
+    const STORAGE_KEY = 'bms_route_prospects_v4';
+    const DONE_STORAGE_KEY = 'bms_route_done_v4';
     let prospects = [];
     let doneAddresses = {};
     let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine, userLocationMarker;
@@ -1198,24 +1199,150 @@
     function loadPontoisePreset(autoRun = true) {
       document.getElementById('startAddress').value = '15 Rue des Écuries, 95300 Pontoise';
       prospects = [
-        { name: 'Mail de la Cavalerie', address: 'Mail de la Cavalerie, 95300 Pontoise' },
-        { name: 'Massage Pontoise', address: '31 Place Notre Dame, 95300 Pontoise' },
-        { name: 'Commerce 11 Rue de Rouen', address: '11 Rue de Rouen, 95300 Pontoise' },
-        { name: 'Commerce 18 Rue de Rouen', address: '18 Rue de Rouen, 95300 Pontoise' },
-        { name: '26 Rue Sere-Depoin', address: '26 Rue Sere-Depoin, 95300 Pontoise' },
-        { name: '75 Rue Pierre Butin', address: '75 Rue Pierre Butin, 95300 Pontoise' },
-        { name: '35 Rue de Gisors', address: '35 Rue de Gisors, 95300 Pontoise' },
-        { name: 'CocciMarket Pontoise', address: 'Rue des Pâtis, 95300 Pontoise' },
-        { name: '40 Rue du Général Leclerc', address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône' },
-        { name: '9 Av. du Général de Gaulle', address: '9 Avenue du Général de Gaulle, 95310 Saint-Ouen-l\'Aumône' },
-        { name: '16 Place des Cerclades', address: '16 Place des Cerclades, 95000 Cergy' },
-        { name: '3 Rue des Italiens', address: '3 Rue des Italiens, 95000 Cergy' },
-        { name: '10 Avenue Bernard Hirsch', address: '10 Avenue Bernard Hirsch, 95000 Cergy' },
-        { name: '20 Avenue Bernard Hirsch', address: '20 Avenue Bernard Hirsch, 95000 Cergy' },
-        { name: 'Mercure Cergy-Pontoise', address: '3 Rue des Chênes Émeraude, 95000 Cergy' },
-        { name: 'Rue des Linandes Beiges', address: 'Rue des Linandes Beiges, 95000 Cergy' },
-        { name: 'ZAC des Bellevues', address: 'Rue des Bellevues, 95610 Éragny' },
-        { name: 'Zone Commerciale de l\'Oseraie', address: 'Chemin du Poirier Charles Guérin, 95520 Osny' }
+        {
+          name: 'Pepper Smash (& Brasserie Paris Pontoise)',
+          address: '18 Mail de la Cavalerie, 95300 Pontoise',
+          phone: '01 30 32 79 28',
+          pitch: '❌ 0 site web (uniquement UberEats/Deliveroo à 30%). Montrer Click & Collect WhatsApp 990€.',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Institut MEI LI (Massage & Bien-être)',
+          address: '31 Place Notre Dame, 95300 Pontoise',
+          phone: '06 05 94 16 33',
+          pitch: '❌ 0 site web (que PagesJaunes). Proposer vitrine zen + tarifs & RDV WhatsApp (490€).',
+          demo: '../sites/artisan-elite.html',
+          pack: 'starter'
+        },
+        {
+          name: 'Be\'Sushi / L\'Atelier du Sushi',
+          address: '11 Rue de Rouen, 95300 Pontoise',
+          phone: '01 30 31 90 74',
+          pitch: '❌ Pas de site actif + confusion Google avec ancienne crêperie. Proposer carte + Click & Collect (990€).',
+          demo: '../sites/restaurant-braise.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Chicken Drive Pontoise (Burgers & Poulet)',
+          address: '18 Rue de Rouen, 95300 Pontoise',
+          phone: '07 59 70 40 28',
+          pitch: '❌ 0 site web (juste un 07 + UberEats). Proposer site commande retrait Drive sans attente (490€/990€).',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Cabinets Thérapeutes (Outrebon / Follet)',
+          address: '26 Rue Sere-Depoin, 95300 Pontoise',
+          phone: '01 34 22 18 84',
+          pitch: '❌ 0 site web (uniquement PagesJaunes). Proposer page vitrine professionnelle & prise de RDV (490€).',
+          demo: '../sites/artisan-elite.html',
+          pack: 'starter'
+        },
+        {
+          name: 'Barlou Burger / Miss Kebab La Parilla',
+          address: '75 Rue Pierre Butin, 95300 Pontoise',
+          phone: '06 68 89 05 95',
+          pitch: '❌ 0 site officiel + 3 noms mélangés sur Google. Proposer site clair + menu Click & Collect (490€/990€).',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'starter'
+        },
+        {
+          name: 'O\'Twist Fast-Food',
+          address: '35 Rue de Gisors, 95300 Pontoise',
+          phone: '09 81 12 91 70',
+          pitch: '❌ 0 site internet (axe très passant). Proposer carte mobile + commande rapide (490€).',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'starter'
+        },
+        {
+          name: 'Créa Parquets (32 Rue des Pâtis) & CocciMarket',
+          address: '32 Rue des Pâtis, 95300 Pontoise',
+          phone: '06 04 52 38 09',
+          pitch: '❌ Artisan parqueteur sans site (juste un 06) ! 1 seul chantier signé rembourse 3x le site (990€).',
+          demo: '../sites/artisan-elite.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Restaurant L\'Italien (ex Pepper-Grill)',
+          address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône',
+          phone: '01 84 24 12 12',
+          pitch: '🔥 URGENT : 0 site et Google affiche encore l\'ancien resto fermé "Pepper-Grill" ! Proposer Pro 990€.',
+          demo: '../sites/restaurant-braise.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Bamako Market & Relais Colis',
+          address: '9 Avenue du Général de Gaulle, 95310 Saint-Ouen-l\'Aumône',
+          phone: '09 55 82 79 89',
+          pitch: '❌ 0 site web alors que des centaines de clients passent pour les colis. Proposer vitrine 490€.',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'starter'
+        },
+        {
+          name: 'Chicken Street Cergy (Face Université)',
+          address: '16 Place des Cerclades, 95000 Cergy',
+          phone: '06 68 45 93 51',
+          pitch: 'Géré localement en 06 face à la fac : proposer page commande directe étudiants hors UberEats.',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Restaurant MG / Adiza (Grillades Turques)',
+          address: '3 Rue des Italiens, 95000 Cergy',
+          phone: '06 61 29 13 51',
+          pitch: '❌ Très fréquenté mais 0 site web (que UberEats). Proposer carte + pré-commande midi (490€/990€).',
+          demo: '../sites/restaurant-braise.html',
+          pack: 'starter'
+        },
+        {
+          name: 'Brasserie Le Cergy & Spice N Grill',
+          address: '10 Avenue Bernard Hirsch, 95000 Cergy',
+          phone: '01 34 24 23 31',
+          pitch: '❌ Entre ESSEC et Préfecture : Le Cergy n\'a aucun site web pour capter les pauses déj (490€/990€).',
+          demo: '../sites/restaurant-braise.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Le Cezam Fast-Food (QG Étudiants ESSEC)',
+          address: '20 Avenue Bernard Hirsch, 95000 Cergy',
+          phone: '01 34 24 01 35',
+          pitch: '🔥 QG de l\'ESSEC mais 0 site web (que Instagram) ! Proposer Click & Collect WhatsApp (990€) pour éviter la queue entre 2 cours.',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Le Bosphore & Printemps d\'Asie (Face Mercure)',
+          address: '3 Rue des Chênes Émeraude, 95000 Cergy',
+          phone: '01 30 73 40 40',
+          pitch: '❌ Juste en face de l\'Hôtel Mercure mais aucun vrai site pour capter les clients de l\'hôtel le soir (990€).',
+          demo: '../sites/restaurant-braise.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Full Pizza & Orient Primeurs',
+          address: '5 Rue des Linandes Beiges, 95000 Cergy',
+          phone: '01 30 31 25 26',
+          pitch: '❌ Pizzeria de quartier sans aucun site internet ! Proposer carte pizzas + commande directe (490€).',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'starter'
+        },
+        {
+          name: 'Salons des Bellevues & Resto Acadie',
+          address: 'Rue des Bellevues, 95610 Éragny',
+          phone: '01 30 30 52 68',
+          pitch: 'ZAC des Bellevues : proposer refonte moderne pour réservation de salles & repas d\'entreprises (990€).',
+          demo: '../sites/restaurant-braise.html',
+          pack: 'pro'
+        },
+        {
+          name: 'Le Chalet d\'Oz, L\'Érable & Le Shanghai (Oseraie)',
+          address: '24 Chemin du Poirier Charles Guérin, 95520 Osny',
+          phone: '07 51 34 86 57',
+          pitch: '🔥 4 restos sur le même parking (Chalet d\'Oz Grillades, L\'Érable Poutines, Le Shanghai, New Saïgon) et AUCUN n\'a de site !',
+          demo: '../sites/fastfood-smash.html',
+          pack: 'pro'
+        }
       ];
       saveProspects();
       renderRawProspects();
@@ -1419,6 +1546,10 @@
             name: prospects[i].name,
             address: g.label,
             rawAddress: prospects[i].address,
+            phone: prospects[i].phone || '',
+            pitch: prospects[i].pitch || '',
+            demo: prospects[i].demo || '../sites/fastfood-smash.html',
+            pack: prospects[i].pack || 'pro',
             lat: g.lat,
             lon: g.lon
           });
@@ -1564,6 +1695,14 @@
 
         const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}`;
         const wazeUrl = `https://waze.com/ul?ll=${node.lat},${node.lon}&navigate=yes`;
+        const demoUrl = node.demo || '../sites/fastfood-smash.html';
+        const devisUrl = `devis-express.html?client=${encodeURIComponent(node.name)}&address=${encodeURIComponent(node.address)}&phone=${encodeURIComponent(node.phone || '')}&pack=${encodeURIComponent(node.pack || 'pro')}`;
+        const pitchHtml = node.pitch
+          ? `<div style="font-size:11.5px; color:#9A3412; background:#FFF7ED; border:1px solid #FED7AA; border-radius:7px; padding:5px 8px; margin-top:5px; line-height:1.35;">${escHtml(node.pitch)}</div>`
+          : '';
+        const phoneHtml = node.phone
+          ? `<span style="font-size:11.5px; font-weight:700; color:var(--ink);"> • 📞 ${escHtml(node.phone)}</span>`
+          : '';
 
         // Card in full Timeline list
         htmlCards.push(`
@@ -1572,12 +1711,14 @@
             <div>
               <div class="leg-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}</div>
               <strong style="display:block; font-size:14px; color:var(--ink);">${escHtml(node.name)}</strong>
-              <span style="font-size:12px; color:var(--muted); display:block;">${escHtml(node.address)}</span>
+              <span style="font-size:12px; color:var(--muted); display:block;">${escHtml(node.address)}${phoneHtml}</span>
+              ${pitchHtml}
               <div class="stop-actions" onclick="event.stopPropagation();">
                 <a href="${singleMapsUrl}" target="_blank" class="btn btn-blue btn-xs">🗺️ Go Maps</a>
-                <a href="${wazeUrl}" target="_blank" class="btn btn-outline btn-xs">🚗 Waze</a>
+                <a href="${demoUrl}" target="_blank" class="btn btn-outline btn-xs">🖥️ Démo</a>
+                <a href="${devisUrl}" class="btn btn-outline btn-xs">📄 Devis</a>
                 <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
-                  ${isDone ? '✅ Fait' : '☐ Marquer fait'}
+                  ${isDone ? '✅ Fait' : '☐ Fait'}
                 </button>
               </div>
             </div>
@@ -1590,14 +1731,16 @@
             <div class="msc-top">
               <div class="msc-num" id="mscNum-${stepPos}">${isDone ? '✓' : stepPos}</div>
               <div class="msc-info">
-                <div class="msc-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}</div>
+                <div class="msc-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}${phoneHtml}</div>
                 <div class="msc-title">${escHtml(node.name)}</div>
                 <div class="msc-addr">${escHtml(node.address)}</div>
+                ${node.pitch ? `<div style="font-size:11px; color:#9A3412; background:#FFF7ED; padding:3px 6px; border-radius:5px; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escHtml(node.pitch)}</div>` : ''}
               </div>
             </div>
-            <div class="msc-actions" onclick="event.stopPropagation();">
-              <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">🗺️ Go Maps</a>
-              <a href="${wazeUrl}" target="_blank" class="msc-btn">🚗 Waze</a>
+            <div class="msc-actions" style="grid-template-columns: 1.1fr 0.9fr 0.9fr 0.85fr;" onclick="event.stopPropagation();">
+              <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">🗺️ Maps</a>
+              <a href="${demoUrl}" target="_blank" class="msc-btn">🖥️ Démo</a>
+              <a href="${devisUrl}" class="msc-btn">📄 Devis</a>
               <button type="button" class="msc-btn done-btn ${isDone ? 'is-done' : ''}" id="mscDoneBtn-${stepPos}" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
                 ${isDone ? '✓ Fait' : '✅ Fait'}
               </button>
