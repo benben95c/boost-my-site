@@ -3,2523 +3,835 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atelier Apex Rénovation — Salles de Bains &amp; Rénovation d'Intérieur à Paris</title>
-  <meta name="description" content="Entreprise artisanale de rénovation de salles de bains, plomberie et agencement intérieur à Paris. Compagnons qualifiés, Garantie Décennale AXA et devis détaillé.">
+  <title>MAISON VALMONT — Architecture d'Intérieur & Salles de Bain sur Mesure</title>
+  <meta name="description" content="Conception et rénovation clé en main de salles de bain et pièces d'eau à Paris. Pierres naturelles, menuiserie sur mesure et garantie décennale.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root {
-      --bg: #F6F3EC;
+      --bg: #F6F3EE;
+      --surface: #EFEAE1;
       --card: #FFFFFF;
-      --card-alt: #EDE7DB;
-      --accent: #8C5A32;
-      --accent-dark: #6E4320;
-      --accent-glow: #8C5A32;
-      --amber: #B46924;
-      --green: #2D5A43;
-      --text: #1E1D1A;
-      --muted: #656057;
-      --border: #DFD9CE;
-      --font-display: 'Newsreader', Georgia, serif;
-      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      line-height: 1.65;
-      padding-bottom: 90px;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    .demo-bar {
-      background: #1E1D1A;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 10px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      color: #D6D0C4;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .demo-bar strong { color: #FFF; }
-    .demo-bar a {
-      background: #F6F3EC;
-      color: #1E1D1A;
-      padding: 6px 16px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 12px;
-      transition: background 0.2s;
-    }
-    .demo-bar a:hover { background: #E5DEC9; }
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-    
-    /* Header */
-    header {
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .logo {
-      font-family: var(--font-display);
-      font-size: 26px;
-      font-weight: 600;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
-    }
-    .logo small {
-      font-family: var(--font-body);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      font-weight: 600;
-      margin-top: 3px;
-    }
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(45, 90, 67, 0.09);
-      border: 1px solid rgba(45, 90, 67, 0.25);
-      color: var(--green);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--green);
-      border-radius: 50%;
+      --ink: #1A1917;
+      --ink-muted: #6C665E;
+      --bronze: #8C6D46;
+      --border: #E0D9CD;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-family: inherit;
-      transition: background 0.2s;
-    }
-    .btn-primary:hover {
-      background: var(--accent-dark);
-    }
-    .btn-outline {
-      border: 1px solid var(--text);
-      color: var(--text);
-      background: transparent;
-      padding: 12px 24px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-    .btn-outline:hover { background: var(--text); color: #fff; }
-
-    /* Hero */
-    .hero {
-      padding: 58px 0 42px;
-      text-align: center;
-      position: relative;
-    }
-    .hero-cert-bar {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .cert-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .cert-pill.axa {
-      border-color: rgba(45, 90, 67, 0.3);
-      background: rgba(45, 90, 67, 0.07);
-      color: var(--green);
-    }
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 4.1rem);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      line-height: 1.12;
-      margin: 14px 0 20px;
-      color: var(--text);
-    }
-    .hero h1 span {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent);
-    }
-    .hero p {
-      max-width: 700px;
-      margin: 0 auto 32px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-    }
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 42px;
-    }
-
-    /* 4-Card Key Performance Metrics Ribbon */
-    .arch-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 32px 0 36px;
-    }
-    @media (max-width: 880px) {
-      .arch-metrics-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .arch-metrics-grid { grid-template-columns: 1fr; }
-    }
-    .arch-metric-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px 16px;
-      text-align: center;
-    }
-    .arch-metric-number {
-      font-family: var(--font-display);
-      font-size: 32px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-    .arch-metric-label {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    /* 4-Pillar Trust & Guarantees Strip */
-    .arch-trust-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      padding: 22px 24px;
-      background: var(--card-alt);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-    .arch-trust-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-align: left;
-    }
-    .arch-trust-item svg {
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .arch-trust-item div strong {
-      display: block;
-      color: var(--text);
-      font-size: 13.5px;
-    }
-    .arch-trust-item div span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    /* 3D Architectural Room Viewer Section */
-    .arch3d-section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 32px;
-      margin: 40px 0 56px;
-      position: relative;
-    }
-    .arch3d-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-    .arch3d-header h2 {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .arch-mode-toggle {
-      display: flex;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4px;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-    .arch-mode-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      padding: 8px 14px;
-      border-radius: 4px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-    .arch-mode-btn.active {
-      background: var(--text);
-      color: #fff;
-    }
-    .arch-views-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-    .arch-view-btn {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 7px 14px;
-      border-radius: 6px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .arch-view-btn:hover, .arch-view-btn.active {
-      background: var(--card-alt);
-      border-color: var(--accent);
-      color: var(--text);
-    }
-    .arch-lighting-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-    .arch-light-btn {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .arch-light-btn.active {
-      background: var(--card-alt);
-      border-color: var(--accent);
-      color: var(--accent-dark);
-    }
-
-    .arch3d-canvas-container {
-      width: 100%;
-      height: 500px;
-      border-radius: 8px;
-      background: #1A1816;
-      position: relative;
-      overflow: hidden;
-      cursor: grab;
-      border: 1px solid var(--border);
-    }
-    .arch3d-canvas-container:active { cursor: grabbing; }
-    .arch3d-hint {
-      position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(30, 29, 26, 0.88);
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-size: 12px;
-      color: #F6F3EC;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      z-index: 4;
-    }
-    .arch-hotspot {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: 2px solid #ffffff;
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 5;
-    }
-    .arch-info-card {
-      position: absolute;
-      top: 18px;
-      left: 18px;
-      max-width: 320px;
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px 18px;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-      z-index: 10;
-      display: none;
-    }
-    .arch-info-card h4 {
-      font-size: 15px;
-      color: var(--text);
-      margin: 0 0 6px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .arch-info-card p {
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 0;
-    }
-    .arch-info-card .close-card {
-      background: none;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 18px;
-      line-height: 1;
-      padding: 0 4px;
-    }
-    .arch3d-specs-strip {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 16px;
-    }
-    .arch-spec-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 12px 16px;
-      border-radius: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .arch-spec-box span {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .arch-spec-box strong {
-      font-size: 13.5px;
-      color: var(--text);
-    }
-
-    /* Before / After Comparison Slider */
-    .ba-section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 36px;
-      margin: 40px 0 56px;
-    }
-    .ba-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .ba-container {
-      position: relative;
-      height: 460px;
-      border-radius: 8px;
-      overflow: hidden;
-      user-select: none;
-      border: 1px solid var(--border);
-      touch-action: pan-y;
-      background: #1E1D1A;
-      --ba-pos: 50%;
-    }
-    .ba-layer {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .ba-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      pointer-events: none;
-    }
-    .ba-layer-after {
-      z-index: 2;
-      clip-path: inset(0 calc(100% - var(--ba-pos, 50%)) 0 0);
-      will-change: clip-path;
-    }
-    .ba-overlay-caption {
-      position: absolute;
-      bottom: 20px;
-      z-index: 3;
-      pointer-events: none;
-      max-width: 360px;
-      background: rgba(255, 255, 255, 0.94);
-      padding: 14px 18px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      transition: opacity 0.25s ease;
-    }
-    .ba-caption-left { left: 20px; }
-    .ba-caption-right { right: 20px; text-align: right; }
-    .ba-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-    .ba-badge-after { background: var(--green); color: #fff; }
-    .ba-badge-before { background: #8B2E22; color: #fff; }
-    .ba-divider {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: var(--ba-pos, 50%);
-      width: 3px;
-      background: #ffffff;
-      z-index: 4;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-    .ba-handle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--text);
-      border: 2px solid #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
-    .ba-range-input {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: ew-resize;
-      z-index: 5;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    /* BTP Price Calculator */
-    .calculator-section {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(246, 243, 238, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-bar {
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--bronze);
+    }
+
+    .btn-header {
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-header:hover {
+      background: var(--bronze);
+    }
+
+    /* HERO — PLUM LIVING / BOCKLIP ARCHITECTURAL SPLIT */
+    .hero {
+      padding: 88px 0 96px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--bronze);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.9rem, 4.8vw, 4.4rem);
+      font-weight: 500;
+      line-height: 1.04;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--bronze);
+    }
+
+    .hero-lead {
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      margin-bottom: 36px;
+      max-width: 460px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 32px;
+      font-size: 0.86rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--bronze);
+    }
+
+    .link-underline {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 3px;
+    }
+
+    .hero-photo {
+      aspect-ratio: 4 / 3.3;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* CREDENTIALS BAR (3 CLEAN ITEMS) */
+    .credentials {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cred-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .cred-item strong {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+
+    .cred-item span {
+      font-size: 0.84rem;
+      color: var(--ink-muted);
+    }
+
+    /* BEFORE / AFTER TRANSFORMATION */
+    .section {
+      padding: 104px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+      font-weight: 500;
+      line-height: 1.08;
+    }
+
+    .section-head p {
+      color: var(--ink-muted);
+      max-width: 440px;
+      font-size: 0.96rem;
+    }
+
+    .ba-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 8.5;
+      overflow: hidden;
+      user-select: none;
+      background: #1A1917;
+    }
+
+    .ba-wrapper img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .ba-before {
+      clip-path: inset(0 50% 0 0);
+      filter: grayscale(0.85) contrast(1.05) brightness(0.82);
+    }
+
+    .ba-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: #fff;
+      cursor: ew-resize;
+      z-index: 10;
+    }
+
+    .ba-knob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .ba-label {
+      position: absolute;
+      bottom: 24px;
+      padding: 8px 16px;
+      background: rgba(26, 25, 23, 0.78);
+      color: #fff;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 5;
+    }
+
+    .ba-label.left { left: 24px; }
+    .ba-label.right { right: 24px; }
+
+    /* 3D MATERIAL STUDIO */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .canvas-box {
+      width: 100%;
+      height: 480px;
+      background: #E8E2D7;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .canvas-hint {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.88);
+      padding: 6px 12px;
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+      pointer-events: none;
+    }
+
+    .swatch-group {
+      margin-bottom: 28px;
+    }
+
+    .swatch-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-muted);
+      margin-bottom: 12px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .swatch-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .swatch-btn {
+      padding: 13px 16px;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 36px;
-      margin: 40px 0 56px;
-    }
-    .calc-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 36px;
-      margin-top: 28px;
-    }
-    @media (max-width: 860px) {
-      .calc-grid { grid-template-columns: 1fr; }
-    }
-    .calc-param-group { margin-bottom: 24px; }
-    .calc-param-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-    .calc-chips { display: flex; flex-wrap: wrap; gap: 10px; }
-    .calc-chip {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-size: 14px;
+      text-align: left;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
-    .calc-chip.active {
-      background: var(--text);
-      border-color: var(--text);
-      color: #fff;
-      font-weight: 600;
-    }
-    .calc-slider-wrap { display: flex; align-items: center; gap: 16px; }
-    .calc-slider-wrap input[type="range"] { flex: 1; accent-color: var(--accent); }
-    .calc-sqm-badge {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--accent);
-      min-width: 80px;
-      text-align: center;
-    }
-    .calc-options-list { display: flex; flex-direction: column; gap: 10px; }
-    .calc-opt-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 12px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .calc-opt-row input { accent-color: var(--accent); width: 16px; height: 16px; }
 
-    .quote-summary-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .swatch-btn.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
     }
-    .quote-lines {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 20px 0;
+
+    /* BUDGET ESTIMATOR */
+    .estimator-section {
+      padding: 104px 0;
+      background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
     }
-    .quote-line {
+
+    .est-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .est-card {
+      background: var(--card);
+      padding: 44px;
+      border: 1px solid var(--border);
+    }
+
+    .range-row {
+      margin-bottom: 28px;
+    }
+
+    .range-header {
       display: flex;
       justify-content: space-between;
-      font-size: 14px;
-      color: var(--muted);
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
-    .quote-total-row {
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--ink);
+    }
+
+    .est-result {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 24px;
-    }
-    .quote-total-row strong {
-      font-family: var(--font-display);
-      font-size: 34px;
-      color: var(--accent);
     }
 
-    /* Section Équipe de Compagnons & Barème Légal (remplace le radar sci-fi) */
-    .craft-section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 36px;
-      margin: 40px 0 56px;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 32px;
-      align-items: start;
-    }
-    @media (max-width: 820px) {
-      .craft-section { grid-template-columns: 1fr; }
-    }
-    .van-cards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
-    }
-    .van-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 16px;
-    }
-    .van-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-    .van-eta {
-      font-size: 11px;
-      background: rgba(45, 90, 67, 0.1);
-      color: var(--green);
-      padding: 3px 8px;
-      border-radius: 4px;
+    .est-price {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
       font-weight: 600;
     }
-    .van-details {
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.45;
+
+    /* FOOTER */
+    footer {
+      padding: 64px 0 48px;
+      font-size: 0.84rem;
+      color: var(--ink-muted);
     }
-    .bareme-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 24px;
-    }
-    .bareme-row {
+
+    .footer-top {
       display: flex;
       justify-content: space-between;
-      padding: 10px 0;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding-bottom: 32px;
       border-bottom: 1px solid var(--border);
-      font-size: 13.5px;
-    }
-    .bareme-row:last-child { border-bottom: none; }
-
-    /* Modal Devis */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(30, 29, 26, 0.65);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.active { display: flex; }
-    .modal-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 32px;
-      max-width: 620px;
-      width: 100%;
     }
 
-    .sticky-call {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      right: 20px;
-      z-index: 100;
-      display: none;
-    }
-    .sticky-call a {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
+    .footer-links {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      font-size: 15px;
+      gap: 28px;
+      flex-wrap: wrap;
     }
-    @media (max-width: 768px) {
-      .sticky-call { display: block; }
+
+    .footer-links a {
+      color: var(--ink-muted);
+      text-decoration: none;
     }
-    footer {
-      border-top: 1px solid var(--border);
-      padding-top: 32px;
-      margin-top: 48px;
-      font-size: 12.5px;
-      color: var(--muted);
+
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .studio-grid,
+      .est-grid,
+      .cred-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .ba-wrapper {
+        aspect-ratio: 16 / 11;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="demo-bar">
-    <span>Démonstration Réaliste : <strong>Atelier Apex Rénovation — Salle de Bain &amp; BTP</strong></span>
-    <a href="../portfolio.html">Retour au portfolio BoostMySite</a>
-  </div>
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand">Maison Valmont</a>
+      <ul class="nav-links">
+        <li><a href="#realisations">Avant / Après</a></li>
+        <li><a href="#materiaux">Matériauthèque 3D</a></li>
+        <li><a href="#estimation">Estimation</a></li>
+      </ul>
+      <a href="#estimation" class="btn-header">Étude & Devis</a>
+    </div>
+  </header>
 
-  <div class="container">
-    <header>
-      <div class="nav">
-        <div class="logo">
-          <span>ATELIER APEX</span>
-          <small>Salles de Bains, Plomberie &amp; Maçonnerie d'Intérieur</small>
-        </div>
-        <div class="status-badge">
-          <span class="pulse-dot"></span>
-          <span>Artisans Compagnons • Paris &amp; Petite Couronne</span>
-        </div>
-        <a href="tel:+33189000000" class="btn-primary">Atelier &amp; Urgences : 01 89 00 00 00</a>
-      </div>
-    </header>
-
+  <main>
+    <!-- HERO -->
     <section class="hero">
-      <div class="hero-cert-bar">
-        <div class="cert-pill">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Certification Qualibat RGE n° 84920
-        </div>
-        <div class="cert-pill axa">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Assurance Décennale AXA 10 Ans (Contrat n° 0847291)
-        </div>
-      </div>
-
-      <h1>L'Artisanat du Bâtiment, <br><span>le soin du détail durable.</span></h1>
-      <p>Création de salles de bains clés en main, rénovation complète d'appartements anciens et plomberie sanitaire à Paris. Un interlocuteur unique, un chantier protégé chaque soir et un devis détaillé ligne par ligne.</p>
-
-      <div class="hero-actions">
-        <a href="#calculateur" class="btn-primary">Chiffrer mon projet en ligne</a>
-        <a href="#arch3d" class="btn-outline">Voir les matériaux en 3D</a>
-      </div>
-
-      <div class="arch-metrics-grid">
-        <div class="arch-metric-card">
-          <div class="arch-metric-number">15 ans</div>
-          <div class="arch-metric-label">D'expérience à Paris &amp; IDF</div>
-        </div>
-        <div class="arch-metric-card">
-          <div class="arch-metric-number">450+</div>
-          <div class="arch-metric-label">Salles de bains &amp; appartements livrés</div>
-        </div>
-        <div class="arch-metric-card">
-          <div class="arch-metric-number">10 ans</div>
-          <div class="arch-metric-label">Garantie Décennale sur chaque ouvrage</div>
-        </div>
-        <div class="arch-metric-card">
-          <div class="arch-metric-number">Sous 48h</div>
-          <div class="arch-metric-label">Visite technique &amp; devis gratuit</div>
-        </div>
-      </div>
-
-      <div class="arch-trust-grid">
-        <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <div>
-            <strong>Avis Clients Vérifiés</strong>
-            <span>4,9 / 5 sur Google (140+ chantiers)</span>
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Architecture d'Intérieur — Paris & Ouest Parisien</p>
+          <h1>La pierre, l'eau<br><em>et la juste mesure.</em></h1>
+          <p class="hero-lead">
+            Nous dessinons et réalisons des salles de bain monolithiques en travertin, marbre et chêne massif. Un interlocuteur unique, de l'esquisse à la remise des clés.
+          </p>
+          <div class="hero-actions">
+            <a href="#estimation" class="btn-primary">Estimer mon projet</a>
+            <a href="#materiaux" class="link-underline">Explorer la matériauthèque 3D</a>
           </div>
         </div>
-        <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <div>
-            <strong>Assurance Décennale &amp; RC Pro</strong>
-            <span>AXA France IARD Police n° 0847291</span>
-          </div>
+        <div class="hero-photo">
+          <img src="project-sdb.jpg" alt="Salle de bain en travertin Maison Valmont" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=85'">
         </div>
-        <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div>
-            <strong>Délais Inscrits au Devis</strong>
-            <span>Planning de chantier tenu par écrit</span>
-          </div>
+      </div>
+    </section>
+
+    <!-- 3 MINIMAL CREDENTIALS -->
+    <section class="credentials">
+      <div class="container cred-grid">
+        <div class="cred-item">
+          <strong>Garantie Décennale AXA</strong>
+          <span>Étanchéité SPEC, plomberie encastrée et maçonnerie assurées 10 ans.</span>
         </div>
-        <div class="arch-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <div class="cred-item">
+          <strong>Délai Contractuel Fixe</strong>
+          <span>Livraison clé en main en 3 à 5 semaines avec pénalités de retard écrites.</span>
+        </div>
+        <div class="cred-item">
+          <strong>Façonnage sur Mesure</strong>
+          <span>Vasques taillées dans la masse et robinetterie en laiton brossé.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE / AFTER -->
+    <section class="section" id="realisations">
+      <div class="container">
+        <div class="section-head">
           <div>
-            <strong>Aucune Sous-Traitance Cachée</strong>
-            <span>Nos propres plombiers, carreleurs et électriciens</span>
+            <p class="eyebrow">Transformation</p>
+            <h2>Du bâti brut à l'espace minéral</h2>
+          </div>
+          <p>Faites glisser le curseur pour comparer l'état initial du chantier et la réception finale (Appartement Haussmannien, Paris 8e).</p>
+        </div>
+
+        <div class="ba-wrapper" id="baSlider">
+          <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=85" alt="Après rénovation">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=80" class="ba-before" id="baBeforeImg" alt="Avant rénovation">
+          <span class="ba-label left">État initial</span>
+          <span class="ba-label right">Livraison Valmont</span>
+          <div class="ba-handle" id="baHandle">
+            <div class="ba-knob">↔</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Aperçu 3D des Matériaux -->
-    <section class="arch3d-section" id="arch3d">
-      <div class="arch3d-header">
-        <div>
-          <span class="status-badge" style="font-size:11px; margin-bottom:6px;">Carnet d'Agencement &amp; Matériaux</span>
-          <h2 id="archTitle">Projet Type : Salle de Bain en Pierre &amp; Chêne</h2>
-        </div>
-        <div class="arch-mode-toggle">
-          <button class="arch-mode-btn active" id="btnMarbreNoir" onclick="setArchMaterialStyle('noir', this)">Ardoise &amp; Laiton</button>
-          <button class="arch-mode-btn" id="btnMarbreBlanc" onclick="setArchMaterialStyle('blanc', this)">Travertin Clair &amp; Laiton</button>
-          <button class="arch-mode-btn" id="btnBetonLoft" onclick="setArchMaterialStyle('beton', this)">Béton Ciré &amp; Chêne</button>
-          <button class="arch-mode-btn" id="btnBlueprint" onclick="setArchMaterialStyle('blueprint', this)">Réseaux Plomberie</button>
-        </div>
-      </div>
-
-      <div class="arch-views-bar">
-        <button class="arch-view-btn active" id="vbtn-global" onclick="setArchCameraView('global', this)">Vue d'ensemble</button>
-        <button class="arch-view-btn" id="vbtn-shower" onclick="setArchCameraView('shower', this)">Douche à l'italienne</button>
-        <button class="arch-view-btn" id="vbtn-tub" onclick="setArchCameraView('tub', this)">Baignoire îlot</button>
-        <button class="arch-view-btn" id="vbtn-vanity" onclick="setArchCameraView('vanity', this)">Meuble vasque chêne</button>
-        <button class="arch-view-btn" id="vbtn-top" onclick="setArchCameraView('top', this)">Plan de dessus</button>
-        <button class="arch-view-btn" id="btnToggleBim" onclick="toggleBimDimensions(this)" style="margin-left:auto;">Afficher les cotes (métré)</button>
-      </div>
-
-      <div class="arch-lighting-bar">
-        <span style="font-size:12px; color:var(--muted); font-weight:600;">Lumière dans la pièce :</span>
-        <button class="arch-light-btn active" id="lbtn-day" onclick="setArchLightingAmbience('day', this)">Lumière du jour</button>
-        <button class="arch-light-btn" id="lbtn-sunset" onclick="setArchLightingAmbience('sunset', this)">Fin d'après-midi</button>
-        <button class="arch-light-btn" id="lbtn-night" onclick="setArchLightingAmbience('night', this)">Éclairage indirect soir</button>
-      </div>
-
-      <div class="arch3d-canvas-container" id="arch3dCanvas">
-        <div class="arch-info-card" id="archInfoCard">
-          <h4>
-            <span id="cardTitle">Douche à l'Italienne</span>
-            <button class="close-card" onclick="closeArchInfoCard()">&times;</button>
-          </h4>
-          <p id="cardText">Système d'étanchéité liquide sous carrelage (SPEC certifié CSTB). Receveur maçonné de plain-pied, caniveau inox brossé et robinetterie encastrée.</p>
-        </div>
-
-        <div class="arch-hotspot" id="hs-shower" onclick="triggerHotspot('shower')" title="Douche à l'italienne">1</div>
-        <div class="arch-hotspot" id="hs-tub" onclick="triggerHotspot('tub')" title="Baignoire îlot">2</div>
-        <div class="arch-hotspot" id="hs-vanity" onclick="triggerHotspot('vanity')" title="Meuble vasque">3</div>
-        <div class="arch-hotspot" id="hs-niche" onclick="triggerHotspot('niche')" title="Finitions murales">4</div>
-
-        <div class="arch3d-hint">
-          Glissez pour tourner autour de la pièce • Cliquez sur les repères 1 à 4 pour lire le descriptif technique
-        </div>
-      </div>
-
-      <div class="arch3d-specs-strip">
-        <div class="arch-spec-box">
-          <span>Surface du projet</span>
-          <strong>14,5 m² au sol</strong>
-        </div>
-        <div class="arch-spec-box">
-          <span>Étanchéité sous carrelage</span>
-          <strong>Natte &amp; résine SPEC (CSTB)</strong>
-        </div>
-        <div class="arch-spec-box">
-          <span>Alimentation eau</span>
-          <strong>Cuivre &amp; multicouche serti</strong>
-        </div>
-        <div class="arch-spec-box">
-          <span>Normes respectées</span>
-          <strong>DTU 60.1 &amp; NF C 15-100</strong>
-        </div>
-      </div>
-    </section>
-
-    <!-- Comparateur Avant / Après -->
-    <section class="ba-section">
-      <div class="ba-header">
-        <div>
-          <span class="status-badge" style="font-size:11px;">Chantier Réalisé • Paris 16e</span>
-          <h2 style="font-family: var(--font-display); font-size: 28px; margin-top:6px;">Avant / Après Rénovation Complète</h2>
-          <p style="color: var(--muted); font-size: 14.5px;">Dépose intégrale d'une ancienne salle de bain des années 1970, reprise de la plomberie encastrée et pose de grès cérame grand format.</p>
-        </div>
-        <span style="font-size: 13px; color: var(--accent); font-weight: 600;">
-          ↔ Glissez le curseur central pour comparer
-        </span>
-      </div>
-
-      <div class="ba-container" id="baContainer">
-        <div class="ba-layer ba-layer-before">
-          <img src="artisan-before.jpg" alt="Salle de bain vétuste avant travaux" class="ba-photo">
-          <div class="ba-overlay-caption ba-caption-right" id="capBefore">
-            <span class="ba-badge ba-badge-before">État Initial</span>
-            <strong style="display:block; font-size:14px; color:var(--text); margin-bottom:2px;">Faïence ancienne &amp; tuyauterie apparente</strong>
-            <p style="font-size:12px; color:var(--muted); margin:0;">Joints poreux, baignoire sabot peu accessible et réseau plomberie hors d'âge.</p>
-          </div>
-        </div>
-
-        <div class="ba-layer ba-layer-after" id="afterBox">
-          <img src="project-artisan.jpg" alt="Salle de bain rénovée par Atelier Apex" class="ba-photo">
-          <div class="ba-overlay-caption ba-caption-left" id="capAfter">
-            <span class="ba-badge ba-badge-after">Chantier Livré</span>
-            <strong style="display:block; font-size:14px; color:var(--text); margin-bottom:2px;">Pierre claire, chêne &amp; robinetterie laiton</strong>
-            <p style="font-size:12px; color:var(--muted); margin:0;">Douche de plain-pied étanche, éclairage chaud indirect et garantie décennale 10 ans.</p>
-          </div>
-        </div>
-
-        <div class="ba-divider" id="baDivider">
-          <div class="ba-handle">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M7 16l-4-4 4-4M17 8l4 4-4 4"/>
-            </svg>
-          </div>
-        </div>
-
-        <input type="range" min="0" max="100" value="50" class="ba-range-input" id="baRangeInput" oninput="slideBA(this.value)" aria-label="Comparer avant et après travaux">
-      </div>
-    </section>
-
-    <!-- Estimateur de Travaux -->
-    <section class="calculator-section" id="calculateur">
-      <div style="text-align:center;">
-        <span class="status-badge" style="font-size:11px;">Chiffrage Transparent</span>
-        <h2 style="font-family:var(--font-display); font-size:32px; margin-top:8px;">Estimez l'enveloppe de vos travaux</h2>
-        <p style="color:var(--muted); max-width:560px; margin:8px auto 0;">Estimation indicative basée sur nos tarifs artisans 2026 (fournitures et pose comprises, TVA réduite à 10 % pour les logements de plus de 2 ans).</p>
-      </div>
-
-      <div class="calc-grid">
-        <div>
-          <div class="calc-param-group">
-            <label>1. Nature des travaux</label>
-            <div class="calc-chips">
-              <span class="calc-chip active" onclick="setCalcProject('sdb', 1200, this)">Salle de bain complète</span>
-              <span class="calc-chip" onclick="setCalcProject('cuisine', 1050, this)">Cuisine sur mesure</span>
-              <span class="calc-chip" onclick="setCalcProject('total', 950, this)">Rénovation d'appartement</span>
-              <span class="calc-chip" onclick="setCalcProject('plomb', 750, this)">Plomberie &amp; Sanitaire</span>
-            </div>
-          </div>
-
-          <div class="calc-param-group">
-            <label>2. Surface concernée : <span id="sqmLabel" style="color:var(--accent); font-weight:700;">18 m²</span></label>
-            <div class="calc-slider-wrap">
-              <input type="range" min="6" max="120" value="18" id="sqmSlider" oninput="updateSqm(this.value)">
-              <div class="calc-sqm-badge" id="sqmBadge">18 m²</div>
-            </div>
-          </div>
-
-          <div class="calc-param-group">
-            <label>3. Gamme de matériaux</label>
-            <div class="calc-chips">
-              <span class="calc-chip" onclick="setFinishes('standard', 1.0, this)">Essentiel (Grès cérame classique)</span>
-              <span class="calc-chip active" onclick="setFinishes('elegance', 1.25, this)">Sur Mesure (Grands formats &amp; Chêne)</span>
-              <span class="calc-chip" onclick="setFinishes('haute', 1.6, this)">Pierre Naturelle &amp; Laiton</span>
-            </div>
-          </div>
-
-          <div class="calc-param-group">
-            <label>4. Travaux préparatoires</label>
-            <div class="calc-options-list">
-              <label class="calc-opt-row">
-                <span>Dépose complète et mise en déchetterie agréée</span>
-                <input type="checkbox" id="optDemolition" checked onchange="calcBtpQuote()">
-              </label>
-              <label class="calc-opt-row">
-                <span>Mise en sécurité électrique NF C 15-100 (volumes d'eau)</span>
-                <input type="checkbox" id="optElectric" checked onchange="calcBtpQuote()">
-              </label>
-              <label class="calc-opt-row">
-                <span>Étanchéité liquide sous carrelage (SPEC)</span>
-                <input type="checkbox" id="optWaterproof" checked onchange="calcBtpQuote()">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="quote-summary-card">
+    <!-- 3D MATERIAL CONFIGURATOR -->
+    <section class="section" id="materiaux">
+      <div class="container">
+        <div class="section-head">
           <div>
-            <div style="font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--text);">Récapitulatif Estimatif</div>
-            <div style="font-size:12.5px; color:var(--muted); margin-top:2px;">Devis définitif gratuit après visite sur place</div>
+            <p class="eyebrow">Matériauthèque Interactive</p>
+            <h2>Composez vos finitions en 3D</h2>
+          </div>
+          <p>Manipulez la scène à la souris et testez nos harmonies de pierres naturelles et d'essences de bois.</p>
+        </div>
 
-            <div class="quote-lines">
-              <div class="quote-line">
-                <span>Fournitures &amp; matériaux HT</span>
-                <strong id="lineMaterials" style="color:var(--text);">11 250 €</strong>
-              </div>
-              <div class="quote-line">
-                <span>Main-d'œuvre compagnons HT</span>
-                <strong id="lineLabor" style="color:var(--text);">10 400 €</strong>
-              </div>
-              <div class="quote-line">
-                <span>Préparation &amp; normes HT</span>
-                <strong id="lineOptions" style="color:var(--text);">2 100 €</strong>
-              </div>
-              <div class="quote-line">
-                <span>TVA réduite rénovation (10 %)</span>
-                <strong id="lineTva" style="color:var(--text);">2 375 €</strong>
-              </div>
-            </div>
-
-            <div class="quote-total-row">
-              <div>
-                <span style="font-size:12px; text-transform:uppercase; color:var(--muted);">Budget TTC estimé</span>
-                <div style="font-size:11.5px; color:var(--green); font-weight:600;">Règlement à l'avancement des travaux</div>
-              </div>
-              <strong id="totalBtpDisplay">26 125 €</strong>
-            </div>
+        <div class="studio-grid">
+          <div class="canvas-box" id="threeContainer">
+            <div class="canvas-hint">Maintenez le clic pour pivoter la vue 3D</div>
           </div>
 
           <div>
-            <button class="btn-primary" style="width:100%; justify-content:center; padding:14px; font-size:15px;" onclick="openQuoteModal()">
-              Recevoir ou imprimer cette estimation
-            </button>
-            <div style="text-align:center; font-size:11.5px; color:var(--muted); margin-top:8px;">
-              Visite technique sur place gratuite et sans engagement
+            <div class="swatch-group">
+              <span class="swatch-label">1. Revêtement mural & sol</span>
+              <div class="swatch-row">
+                <button class="swatch-btn active" onclick="setStone('#E5DEC9', this)">Travertin Romain</button>
+                <button class="swatch-btn" onclick="setStone('#D8D6D0', this)">Marbre de Carrare</button>
+                <button class="swatch-btn" onclick="setStone('#3B3A37', this)">Ardoise d'Angers</button>
+                <button class="swatch-btn" onclick="setStone('#C8B9A6', this)">Pierre de Bourgogne</button>
+              </div>
+            </div>
+
+            <div class="swatch-group">
+              <span class="swatch-label">2. Meuble vasque</span>
+              <div class="swatch-row">
+                <button class="swatch-btn active" onclick="setWood('#6E4F35', this)">Noyer Américain</button>
+                <button class="swatch-btn" onclick="setWood('#B89768', this)">Chêne Clair Brossé</button>
+                <button class="swatch-btn" onclick="setWood('#242220', this)">Frêne Noirci</button>
+                <button class="swatch-btn" onclick="setWood('#DED8CE', this)">Laque Argile Mate</button>
+              </div>
+            </div>
+
+            <div class="swatch-group">
+              <span class="swatch-label">3. Atmosphère lumineuse</span>
+              <div class="swatch-row">
+                <button class="swatch-btn active" onclick="setLight('day', this)">Lumière du jour</button>
+                <button class="swatch-btn" onclick="setLight('warm', this)">Soirée tamisée (2700K)</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Équipe d'Artisans & Barème Officiel de Dépannage (Conforme Arrêté du 24 janvier 2017) -->
-    <section class="craft-section">
-      <div>
-        <span class="status-badge">Équipe Salariée de l'Atelier</span>
-        <h2 style="font-family:var(--font-display); font-size:28px; margin:10px 0 12px;">Nos Chefs d'Équipe par Corps d'État</h2>
-        <p style="color:var(--muted); font-size:15px; margin-bottom:18px;">Chaque chantier est suivi par un compagnon référent qui reste votre interlocuteur du premier jour jusqu'à la remise des clés.</p>
-        <div class="van-cards-list">
-          <div class="van-card">
-            <div class="van-card-top">
-              <strong>Marc Delmas — Compagnon Plombier-Chauffagiste</strong>
-              <span class="van-eta">18 ans de métier</span>
-            </div>
-            <div class="van-details">Spécialiste réseaux cuivre et multicouche, recherche de fuite non destructive et création de douches maçonnées.</div>
-          </div>
-          <div class="van-card">
-            <div class="van-card-top">
-              <strong>Karim Benali — Maître Électricien (Qualifelec)</strong>
-              <span class="van-eta">14 ans de métier</span>
-            </div>
-            <div class="van-details">Tableaux électriques Schneider/Legrand, mise aux normes NF C 15-100 des pièces d'eau et éclairage architectural.</div>
-          </div>
-          <div class="van-card">
-            <div class="van-card-top">
-              <strong>Lucas Moreau — Carreleur-Mosaïste &amp; Étanchéiste</strong>
-              <span class="van-eta">12 ans de métier</span>
-            </div>
-            <div class="van-details">Pose de pierre naturelle (travertin, marbre), grès cérame grand format et application de résines d'étanchéité SPEC.</div>
-          </div>
+    <!-- ESTIMATOR -->
+    <section class="estimator-section" id="estimation">
+      <div class="container est-grid">
+        <div>
+          <p class="eyebrow">Chiffrage Transparent</p>
+          <h2 style="font-family:var(--font-serif); font-size:clamp(2.2rem,3.6vw,3.2rem); font-weight:500; line-height:1.1; margin-bottom:20px;">
+            Estimez l'enveloppe de votre projet
+          </h2>
+          <p style="color:var(--ink-muted); margin-bottom:28px; max-width:440px;">
+            Obtenez une première fourchette budgétaire incluant la dépose complète, la reprise des réseaux d'eau, l'étanchéité sous carrelage et la pose de nos matériaux.
+          </p>
+          <p style="font-size:0.88rem; color:var(--ink);">
+            <strong>Visite technique offerte</strong> sous 48h à Paris, Neuilly, Boulogne, Saint-Cloud et Versailles.
+          </p>
         </div>
-      </div>
 
-      <div class="bareme-box">
-        <span style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-weight:700;">Information Précontractuelle (Arrêté du 24/01/2017)</span>
-        <h3 style="font-family:var(--font-display); font-size:22px; margin:6px 0 14px;">Barème des Interventions de Dépannage</h3>
-        <div class="bareme-row">
-          <span>Déplacement Paris &amp; Petite Couronne (lun–ven)</span>
-          <strong>45 € TTC</strong>
+        <div class="est-card">
+          <div class="range-row">
+            <div class="range-header">
+              <span>Surface de la pièce d'eau</span>
+              <strong id="surfLabel">7 m²</strong>
+            </div>
+            <input type="range" min="3" max="20" value="7" id="surfInput" oninput="updateEstimate()">
+          </div>
+
+          <div class="swatch-group">
+            <span class="swatch-label">Niveau de finition</span>
+            <div class="swatch-row">
+              <button type="button" class="swatch-btn active" id="lvl1" onclick="setFinishLevel(1950, 'lvl1')">Grès Cérame & Chêne</button>
+              <button type="button" class="swatch-btn" id="lvl2" onclick="setFinishLevel(2650, 'lvl2')">Pierre Naturelle & Laiton</button>
+            </div>
+          </div>
+
+          <div class="est-result">
+            <div>
+              <span class="swatch-label" style="margin-bottom:4px;">Budget clé en main estimé</span>
+              <span style="font-size:0.8rem; color:var(--ink-muted);">TVA 10% rénovation incluse</span>
+            </div>
+            <div class="est-price" id="priceOutput">13 650 €</div>
+          </div>
+
+          <button class="btn-primary" style="width:100%; margin-top:28px;" onclick="alert('Demande transmise à notre architecte d\'intérieur. Nous vous recontactons sous 24h.')">
+            Demander une visite conseil
+          </button>
         </div>
-        <div class="bareme-row">
-          <span>Taux horaire main-d'œuvre plomberie / électricité</span>
-          <strong>75 € TTC / h</strong>
-        </div>
-        <div class="bareme-row">
-          <span>Majoration soir (après 20h) &amp; week-end</span>
-          <strong>+ 50 %</strong>
-        </div>
-        <div class="bareme-row">
-          <span>Établissement du devis écrit avant travaux</span>
-          <strong style="color:var(--green);">100 % Gratuit</strong>
-        </div>
-        <p style="font-size:12px; color:var(--muted); margin-top:14px; line-height:1.5;">
-          Aucun travail n'est engagé sans signature préalable d'un devis détaillé. Garantie décennale AXA France IARD n° 0847291 couvrant la France métropolitaine.
-        </p>
       </div>
     </section>
+  </main>
 
-    <!-- Pied de page légal BTP -->
-    <footer>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:24px; margin-bottom:20px;">
-        <div>
-          <strong style="color:var(--text); display:block; margin-bottom:4px;">Atelier Apex Rénovation SARL</strong>
-          Capital social : 25 000 € • SIRET : 842 910 384 00021 • RCS Paris B 842 910 384 • RM Paris • TVA : FR 19 842910384.<br>
-          Siège : 48 avenue Mozart, 75016 Paris. Gérant : M. Marc Delmas.
-        </div>
-        <div>
-          <strong style="color:var(--text); display:block; margin-bottom:4px;">Assurances Obligatoires (Loi Spinetta)</strong>
-          Assurance Responsabilité Civile Professionnelle et Décennale : AXA France IARD (313 Terrasses de l'Arche, 92727 Nanterre) — Contrat n° 0847291. Zone : France métropolitaine.
-        </div>
-        <div>
-          <strong style="color:var(--text); display:block; margin-bottom:4px;">Médiation &amp; RGPD</strong>
-          Médiateur de la consommation (Art. L.612-1) : CM2C, 49 rue de Ponthieu, 75008 Paris.<br>
-          Hébergeur : o2switch, Chemin des Pardiaux, 63000 Clermont-Ferrand (04 44 44 60 40).
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <span class="brand">Maison Valmont</span>
+        <div class="footer-links">
+          <a href="#realisations">Réalisations</a>
+          <a href="#materiaux">Matériauthèque</a>
+          <a href="#estimation">Chiffrage</a>
+          <a href="../index.html">← Retour au portfolio BoostMySite</a>
         </div>
       </div>
-    </footer>
-
-  </div>
-
-  <!-- Devis Modal -->
-  <div class="modal-overlay" id="quoteModal">
-    <div class="modal-box">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:16px;">
-        <div>
-          <h3 style="font-family:var(--font-display); font-size:22px;">Estimation Prévisionnelle n° DEV-2026-084</h3>
-          <small style="color:var(--muted);">Atelier Apex Rénovation — Paris &amp; Île-de-France</small>
-        </div>
-        <button onclick="closeQuoteModal()" style="background:none; border:none; color:var(--text); cursor:pointer;" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-      </div>
-      <p style="font-size:14.5px; color:var(--muted); margin-bottom:20px;">
-        Votre estimation pour <strong><span id="modalProjectName">Salle de bain complète</span> (<span id="modalSqm">18 m²</span>)</strong> s'élève à <strong><span id="modalTotal">26 125 €</span> TTC</strong>.
-      </p>
-      <div style="display:flex; gap:12px; flex-wrap:wrap;">
-        <button class="btn-primary" style="flex:1; justify-content:center;" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
-        <button class="btn-outline" style="flex:1; justify-content:center;" onclick="alert('Demande enregistrée ! Marc Delmas vous recontacte sous 24h pour convenir de la visite technique gratuite.'); closeQuoteModal();">Demander une visite gratuite</button>
+      <div class="footer-bottom">
+        <span>© 2026 Maison Valmont Architecture SAS — SIRET 849 201 774 00021 — Garantie Décennale AXA n°10498211</span>
+        <span>Certification RGE Qualibat • Conformité RGPD & Loi LCEN</span>
       </div>
     </div>
-  </div>
-
-  <div class="sticky-call">
-    <a href="tel:+33189000000">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Appeler l'Atelier (01 89 00 00 00)
-    </a>
-  </div>
+  </footer>
 
   <script>
-    function slideBA(val) {
-      const container = document.getElementById('baContainer');
-      if (container) {
-        container.style.setProperty('--ba-pos', val + '%');
-      }
-      const capAfter = document.getElementById('capAfter');
-      const capBefore = document.getElementById('capBefore');
-      if (capAfter) {
-        capAfter.style.opacity = val < 16 ? '0' : '1';
-      }
-      if (capBefore) {
-        capBefore.style.opacity = val > 84 ? '0' : '1';
-      }
+    // BEFORE / AFTER SLIDER
+    const slider = document.getElementById('baSlider');
+    const beforeImg = document.getElementById('baBeforeImg');
+    const handle = document.getElementById('baHandle');
+    let dragging = false;
+
+    function moveSlider(clientX) {
+      const rect = slider.getBoundingClientRect();
+      let pos = ((clientX - rect.left) / rect.width) * 100;
+      pos = Math.max(5, Math.min(95, pos));
+      beforeImg.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
+      handle.style.left = `${pos}%`;
     }
 
-    /* Calculator Logic */
-    let projectRatePerM2 = 1200;
-    let finishMultiplier = 1.25;
-    let surfaceM2 = 18;
-    let projectName = 'Salle de bain complète';
+    slider.addEventListener('mousedown', (e) => { dragging = true; moveSlider(e.clientX); });
+    window.addEventListener('mousemove', (e) => { if (dragging) moveSlider(e.clientX); });
+    window.addEventListener('mouseup', () => { dragging = false; });
+    slider.addEventListener('touchstart', (e) => { dragging = true; moveSlider(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchmove', (e) => { if (dragging) moveSlider(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchend', () => { dragging = false; });
 
-    function setCalcProject(type, rate, el) {
-      document.querySelectorAll('.calc-chips .calc-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      projectRatePerM2 = rate;
-      projectName = el.textContent;
-      calcBtpQuote();
+    // ESTIMATOR
+    let ratePerSqm = 1950;
+    function setFinishLevel(rate, btnId) {
+      ratePerSqm = rate;
+      document.getElementById('lvl1').classList.toggle('active', btnId === 'lvl1');
+      document.getElementById('lvl2').classList.toggle('active', btnId === 'lvl2');
+      updateEstimate();
+    }
+    function updateEstimate() {
+      const surf = parseInt(document.getElementById('surfInput').value, 10);
+      document.getElementById('surfLabel').textContent = surf + ' m²';
+      const total = surf * ratePerSqm;
+      document.getElementById('priceOutput').textContent = total.toLocaleString('fr-FR') + ' €';
     }
 
-    function setFinishes(type, mult, el) {
-      el.parentElement.querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      finishMultiplier = mult;
-      calcBtpQuote();
-    }
-
-    function updateSqm(val) {
-      surfaceM2 = parseInt(val, 10);
-      document.getElementById('sqmLabel').textContent = surfaceM2 + ' m²';
-      document.getElementById('sqmBadge').textContent = surfaceM2 + ' m²';
-      calcBtpQuote();
-    }
-
-    function calcBtpQuote() {
-      const baseCost = surfaceM2 * projectRatePerM2 * finishMultiplier;
-      let materialsHT = Math.round(baseCost * 0.52);
-      let laborHT = Math.round(baseCost * 0.48);
-
-      let optionsCost = 0;
-      if (document.getElementById('optDemolition').checked) optionsCost += 650;
-      if (document.getElementById('optElectric').checked) optionsCost += 1200;
-      if (document.getElementById('optWaterproof').checked) optionsCost += 450;
-
-      const subtotalHT = materialsHT + laborHT + optionsCost;
-      const tva = Math.round(subtotalHT * 0.10);
-      const totalTTC = subtotalHT + tva;
-
-      document.getElementById('lineMaterials').textContent = materialsHT.toLocaleString('fr-FR') + ' €';
-      document.getElementById('lineLabor').textContent = laborHT.toLocaleString('fr-FR') + ' €';
-      document.getElementById('lineOptions').textContent = optionsCost.toLocaleString('fr-FR') + ' €';
-      document.getElementById('lineTva').textContent = tva.toLocaleString('fr-FR') + ' €';
-      document.getElementById('totalBtpDisplay').textContent = totalTTC.toLocaleString('fr-FR') + ' €';
-
-      document.getElementById('modalProjectName').textContent = projectName;
-      document.getElementById('modalSqm').textContent = surfaceM2 + ' m²';
-      document.getElementById('modalTotal').textContent = totalTTC.toLocaleString('fr-FR') + ' €';
-    }
-
-    function openQuoteModal() {
-      document.getElementById('quoteModal').classList.add('active');
-    }
-    function closeQuoteModal() {
-      document.getElementById('quoteModal').classList.remove('active');
-    }
-
-    /* ---------------- THREE.JS SKETCHFAB-GRADE ARCHITECTURAL 3D MAQUETTE ---------------- */
-    let archScene, archCamera, archRenderer, archRoomGroup, archPipesGroup, archDimensionsGroup;
-    let archDragging = false, archPrevX = 0, archPrevY = 0;
-    let archRotY = 0.65, archRotX = 0.28, archZoom = 6.4;
-    let archLights = {};
-    let archMaterials = {};
-    let archTextures = {};
-    let camTargetPos = { x: 4.2, y: 3.2, z: 4.8 };
-    let camLookTarget = { x: 0, y: 0.45, z: 0 };
-    let currentLook = { x: 0, y: 0.45, z: 0 };
-    let activeCamPreset = 'global';
-    let isBlueprintMode = false;
-
-    // 3D Hotspot world coordinates
-    const hotspots3D = {
-      shower: { pos: new THREE.Vector3(-1.3, 1.4, -1.3), el: 'hs-shower', title: "1. Douche à l'Italienne XXL", text: "Système d'étanchéité liquide sous carrelage (SPEC certifié CSTB). Receveur de plain-pied sans ressaut, caniveau de sol inox brossé et ciel de pluie 40x40 cm." },
-      tub: { pos: new THREE.Vector3(0.65, 0.55, 0.45), el: 'hs-tub', title: "2. Baignoire Îlot Haute Couture", text: "Résine minérale monobloc haute résistance thermique. Robinetterie mitigeur sur pied en laiton brossé encastrée sous chape désolidarisée." },
-      vanity: { pos: new THREE.Vector3(-0.7, 1.3, -1.8), el: 'hs-vanity', title: "3. Meuble Vasque & Miroir LED", text: "Plan marbre massif biseauté, caisson suspendu en chêne cannelé à tiroirs amortis. Grand miroir capsule rétro-éclairé 2700K anti-buée." },
-      niche: { pos: new THREE.Vector3(1.35, 1.35, -2.12), el: 'hs-niche', title: "4. Tableau d'Art Contemporain & Dorure à la Feuille", text: "Œuvre originale sur mesure avec rehauts à la feuille d'or 24 carats, encadrement flottant en laiton brossé et applique muséale CRI 98. Harmonie parfaite avec le marbre Calacatta." }
-    };
-
-    /* Procedural PBR Texture Generators (0 KB network overhead, zero black screen) */
-    function createProceduralMarble(baseHex, veinHex, goldHex) {
-      const c = document.createElement('canvas');
-      c.width = 1024; c.height = 1024;
-      const ctx = c.getContext('2d');
-
-      ctx.fillStyle = baseHex;
-      ctx.fillRect(0, 0, 1024, 1024);
-
-      // Soft cloudy base modulation
-      const grad = ctx.createRadialGradient(512, 512, 100, 512, 512, 700);
-      grad.addColorStop(0, 'rgba(255,255,255,0.06)');
-      grad.addColorStop(1, 'rgba(0,0,0,0.08)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1024, 1024);
-
-      // Natural Veining random walks
-      function drawVein(startX, startY, strokeColor, width, branches) {
-        ctx.strokeStyle = strokeColor;
-        ctx.lineWidth = width;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        let x = startX, y = startY;
-        ctx.moveTo(x, y);
-        for (let i = 0; i < 28; i++) {
-          const cx = x + (Math.random() - 0.4) * 65;
-          const cy = y + Math.random() * 50;
-          x = cx + (Math.random() - 0.4) * 65;
-          y = cy + Math.random() * 50;
-          ctx.quadraticCurveTo(cx, cy, x, y);
-          if (branches && Math.random() > 0.6) {
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            const bx = x + (Math.random() - 0.5) * 80;
-            const by = y + Math.random() * 70;
-            ctx.quadraticCurveTo(x + 20, y + 20, bx, by);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-          }
-        }
-        ctx.stroke();
-      }
-
-      for (let i = 0; i < 8; i++) {
-        drawVein(Math.random() * 1024, -50, veinHex, 2.5 + Math.random() * 2, true);
-      }
-      if (goldHex) {
-        for (let i = 0; i < 5; i++) {
-          drawVein(Math.random() * 1024, -50, goldHex, 1.2, false);
-        }
-      }
-
-      const tex = new THREE.CanvasTexture(c);
-      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      tex.magFilter = THREE.LinearFilter;
-      return tex;
-    }
-
-    function createProceduralWoodSlats(woodHex, shadowHex) {
-      const c = document.createElement('canvas');
-      c.width = 512; c.height = 512;
-      const ctx = c.getContext('2d');
-
-      ctx.fillStyle = shadowHex;
-      ctx.fillRect(0, 0, 512, 512);
-
-      const slatWidth = 24;
-      const gap = 8;
-      for (let x = 0; x < 512; x += slatWidth + gap) {
-        ctx.fillStyle = woodHex;
-        ctx.fillRect(x, 0, slatWidth, 512);
-        // Wood grain lines
-        ctx.fillStyle = 'rgba(0,0,0,0.12)';
-        for (let j = 0; j < 4; j++) {
-          ctx.fillRect(x + Math.random() * slatWidth, 0, 1.5, 512);
-        }
-      }
-
-      const tex = new THREE.CanvasTexture(c);
-      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      tex.magFilter = THREE.LinearFilter;
-      return tex;
-    }
-
-    function createTileGridTexture(tileHex, groutHex) {
-      const c = document.createElement('canvas');
-      c.width = 512; c.height = 512;
-      const ctx = c.getContext('2d');
-
-      ctx.fillStyle = groutHex;
-      ctx.fillRect(0, 0, 512, 512);
-
-      const tw = 252, th = 124, gap = 4;
-      for (let y = 0; y < 512; y += th + gap) {
-        const offset = (Math.floor(y / (th + gap)) % 2) * (tw / 2);
-        for (let x = -tw; x < 512 + tw; x += tw + gap) {
-          ctx.fillStyle = tileHex;
-          ctx.fillRect(x + offset, y, tw, th);
-          // subtle bevel
-          ctx.fillStyle = 'rgba(255,255,255,0.05)';
-          ctx.fillRect(x + offset, y, tw, 2);
-          ctx.fillStyle = 'rgba(0,0,0,0.15)';
-          ctx.fillRect(x + offset, y + th - 2, tw, 2);
-        }
-      }
-
-      const tex = new THREE.CanvasTexture(c);
-      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      tex.magFilter = THREE.LinearFilter;
-      return tex;
-    }
-
-    // Architectural Studio Environment Reflection Map Generator
-    function createArchEnvMap() {
-      const c = document.createElement('canvas');
-      c.width = 1024; c.height = 512;
-      const ctx = c.getContext('2d');
-
-      // Gradient room envelope
-      const bg = ctx.createLinearGradient(0, 0, 0, 512);
-      bg.addColorStop(0, '#10141f');
-      bg.addColorStop(0.3, '#1c2436');
-      bg.addColorStop(0.5, '#2a354c');
-      bg.addColorStop(0.7, '#182030');
-      bg.addColorStop(1, '#090c12');
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, 1024, 512);
-
-      // Loft daylight window reflection
-      const windowGlow = ctx.createLinearGradient(120, 140, 320, 340);
-      windowGlow.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-      windowGlow.addColorStop(0.5, 'rgba(220, 240, 255, 0.6)');
-      windowGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = windowGlow;
-      ctx.fillRect(80, 100, 260, 240);
-
-      // Warm cove interior spotlight reflection
-      const cove = ctx.createRadialGradient(720, 160, 20, 720, 160, 240);
-      cove.addColorStop(0, 'rgba(255, 220, 160, 0.9)');
-      cove.addColorStop(0.5, 'rgba(212, 175, 55, 0.4)');
-      cove.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = cove;
-      ctx.fillRect(520, 60, 400, 220);
-
-      const tex = new THREE.CanvasTexture(c);
-      tex.mapping = THREE.EquirectangularReflectionMapping;
-      return tex;
-    }
-
-    // Fine Art Contemporary Gallery Artwork Generator (Tableau d'Art Haute Couture)
-    function createProceduralArtwork(theme) {
-      const c = document.createElement('canvas');
-      c.width = 768; c.height = 1152;
-      const ctx = c.getContext('2d');
-
-      if (theme === 'blanc') {
-        // Luxury Venetian chalk-white & alabaster plaster canvas
-        ctx.fillStyle = '#faf8f5';
-        ctx.fillRect(0, 0, 768, 1152);
-
-        // Fine art paper tooth & organic plaster texture
-        ctx.fillStyle = 'rgba(212, 175, 55, 0.025)';
-        for (let i = 0; i < 9000; i++) {
-          ctx.fillRect(Math.random() * 768, Math.random() * 1152, 1.5, 1.5);
-        }
-
-        // Radiant champagne / soft gold mineral wash
-        const wash = ctx.createRadialGradient(384, 480, 60, 384, 480, 480);
-        wash.addColorStop(0, 'rgba(245, 230, 200, 0.75)');
-        wash.addColorStop(0.5, 'rgba(250, 243, 230, 0.45)');
-        wash.addColorStop(1, 'rgba(250, 248, 245, 0)');
-        ctx.fillStyle = wash;
-        ctx.fillRect(0, 0, 768, 1152);
-
-        // 24-Carat Radiant Liquid Gold Leaf Gradient
-        const goldGrad = ctx.createLinearGradient(160, 180, 620, 880);
-        goldGrad.addColorStop(0, '#fef08a');
-        goldGrad.addColorStop(0.25, '#d4af37');
-        goldGrad.addColorStop(0.55, '#f5d77f');
-        goldGrad.addColorStop(0.85, '#aa820a');
-        goldGrad.addColorStop(1, '#fde047');
-
-        // Master Fluid Arc in 24k Gold Leaf
-        ctx.lineWidth = 32;
-        ctx.strokeStyle = goldGrad;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.arc(384, 460, 230, 0.12 * Math.PI, 1.38 * Math.PI);
-        ctx.stroke();
-
-        // Harmonious secondary gold ribbon wave
-        ctx.lineWidth = 18;
-        ctx.beginPath();
-        ctx.moveTo(180, 780);
-        ctx.bezierCurveTo(240, 490, 520, 420, 580, 230);
-        ctx.stroke();
-
-        // Delicate champagne gold counter-curve
-        ctx.strokeStyle = 'rgba(212, 175, 55, 0.65)';
-        ctx.lineWidth = 8;
-        ctx.beginPath();
-        ctx.moveTo(240, 840);
-        ctx.bezierCurveTo(340, 640, 480, 580, 520, 380);
-        ctx.stroke();
-
-        // 24k Gold Concentric Focal Embellishment
-        ctx.fillStyle = goldGrad;
-        ctx.beginPath();
-        ctx.arc(460, 340, 28, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.strokeStyle = goldGrad;
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.arc(460, 340, 44, 0, Math.PI * 2);
-        ctx.stroke();
-
-        // Gold leaf flecks and micro-relief particles
-        for (let i = 0; i < 60; i++) {
-          const gx = 320 + (Math.random() - 0.5) * 320;
-          const gy = 520 + (Math.random() - 0.5) * 440;
-          ctx.fillStyle = goldGrad;
-          ctx.beginPath();
-          ctx.arc(gx, gy, 1.5 + Math.random() * 5.5, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        // Minimalist gold leaf artist hallmark at bottom right
-        ctx.fillStyle = goldGrad;
-        ctx.fillRect(660, 1040, 32, 38);
-        ctx.fillStyle = '#0a0d14';
-        ctx.font = 'bold 11px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('APEX', 676, 1064);
-
-        // Hairline gold leaf gallery framing border
-        ctx.strokeStyle = 'rgba(212, 175, 55, 0.55)';
-        ctx.lineWidth = 2.5;
-        ctx.strokeRect(36, 36, 768 - 72, 1152 - 72);
-      } else if (theme === 'noir') {
-        // Deep obsidian Nero Marquina canvas
-        ctx.fillStyle = '#0b0d13';
-        ctx.fillRect(0, 0, 768, 1152);
-
-        // Subtle dark slate textured background
-        const grad = ctx.createRadialGradient(384, 576, 50, 384, 576, 500);
-        grad.addColorStop(0, '#1c2230');
-        grad.addColorStop(1, '#0b0d13');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, 768, 1152);
-
-        const goldGrad = ctx.createLinearGradient(150, 200, 600, 900);
-        goldGrad.addColorStop(0, '#fef08a');
-        goldGrad.addColorStop(0.4, '#d4af37');
-        goldGrad.addColorStop(0.8, '#854d0e');
-        goldGrad.addColorStop(1, '#fde047');
-
-        // Dynamic gold leaf strokes
-        ctx.strokeStyle = goldGrad;
-        ctx.lineWidth = 42;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(180, 840);
-        ctx.bezierCurveTo(280, 480, 520, 400, 580, 240);
-        ctx.stroke();
-
-        ctx.lineWidth = 16;
-        ctx.beginPath();
-        ctx.moveTo(250, 880);
-        ctx.bezierCurveTo(380, 620, 490, 520, 520, 380);
-        ctx.stroke();
-
-        // Splatters
-        for (let i = 0; i < 50; i++) {
-          const gx = 360 + (Math.random() - 0.5) * 320;
-          const gy = 540 + (Math.random() - 0.5) * 400;
-          ctx.fillStyle = goldGrad;
-          ctx.beginPath();
-          ctx.arc(gx, gy, 2 + Math.random() * 5, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        // Gold border
-        ctx.strokeStyle = 'rgba(212, 175, 55, 0.4)';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(36, 36, 768 - 72, 1152 - 72);
-      } else {
-        // Béton ciré / chêne: Minimalist Architectural Bauhaus
-        ctx.fillStyle = '#222834';
-        ctx.fillRect(0, 0, 768, 1152);
-
-        ctx.fillStyle = '#2d3748';
-        ctx.beginPath();
-        ctx.arc(384, 520, 220, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.strokeStyle = '#f8fafc';
-        ctx.lineWidth = 14;
-        ctx.beginPath();
-        ctx.moveTo(240, 760);
-        ctx.lineTo(540, 360);
-        ctx.stroke();
-
-        ctx.strokeStyle = '#d4af37';
-        ctx.lineWidth = 4;
-        ctx.strokeRect(60, 60, 768 - 120, 1152 - 120);
-      }
-
-      const tex = new THREE.CanvasTexture(c);
-      tex.generateMipmaps = true;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      tex.magFilter = THREE.LinearFilter;
-      return tex;
-    }
-
-    function initArch3D() {
-      const container = document.getElementById('arch3dCanvas');
+    // MINIMAL ARCHITECTURAL 3D SCENE
+    let wallMat, woodMat, ambientLight, spotLight;
+    (function init3D() {
+      const container = document.getElementById('threeContainer');
       if (!container || typeof THREE === 'undefined') return;
 
-      archScene = new THREE.Scene();
-      archCamera = new THREE.PerspectiveCamera(36, container.clientWidth / container.clientHeight, 0.1, 100);
-      archCamera.position.set(camTargetPos.x, camTargetPos.y, camTargetPos.z);
-      archCamera.lookAt(camLookTarget.x, camLookTarget.y, camLookTarget.z);
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xE8E2D7);
 
-      archRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      archRenderer.setSize(container.clientWidth, container.clientHeight);
-      archRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      archRenderer.shadowMap.enabled = true;
-      archRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      archRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-      archRenderer.toneMappingExposure = 1.15;
-      container.appendChild(archRenderer.domElement);
+      const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.set(4.2, 3.1, 5.2);
+      camera.lookAt(0, 0.8, 0);
 
-      archScene.environment = createArchEnvMap();
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
 
-      // Studio Lighting Suite
-      const ambLight = new THREE.AmbientLight(0xfff7ee, 0.95);
-      archScene.add(ambLight);
-      archLights.amb = ambLight;
+      ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+      scene.add(ambientLight);
 
-      const sunLight = new THREE.DirectionalLight(0xfffaed, 1.8);
-      sunLight.position.set(5.5, 7.0, 4.0);
-      sunLight.castShadow = true;
-      sunLight.shadow.mapSize.width = 2048;
-      sunLight.shadow.mapSize.height = 2048;
-      sunLight.shadow.camera.near = 1;
-      sunLight.shadow.camera.far = 18;
-      sunLight.shadow.camera.left = -3.5;
-      sunLight.shadow.camera.right = 3.5;
-      sunLight.shadow.camera.top = 3.5;
-      sunLight.shadow.camera.bottom = -3.5;
-      sunLight.shadow.radius = 2.0;
-      sunLight.shadow.bias = 0.0002;
-      sunLight.shadow.normalBias = 0.02;
-      archScene.add(sunLight);
-      archLights.sun = sunLight;
+      spotLight = new THREE.DirectionalLight(0xfff6e5, 0.9);
+      spotLight.position.set(5, 8, 6);
+      spotLight.castShadow = true;
+      scene.add(spotLight);
 
-      // Soft window daylight bounce
-      const windowLight = new THREE.DirectionalLight(0xdbeafe, 1.2);
-      windowLight.position.set(-3.8, 2.2, 0.8);
-      windowLight.target.position.set(0, 1.0, 0.2);
-      archScene.add(windowLight);
-      archScene.add(windowLight.target);
-      archLights.window = windowLight;
+      const group = new THREE.Group();
+      scene.add(group);
 
-      // Warm Cove & Mirror Glow Lights
-      const coveLight = new THREE.PointLight(0xffe2b0, 1.6, 6);
-      coveLight.position.set(-0.7, 2.4, -2.0);
-      archScene.add(coveLight);
-      archLights.cove = coveLight;
+      wallMat = new THREE.MeshStandardMaterial({ color: 0xE5DEC9, roughness: 0.55 });
+      woodMat = new THREE.MeshStandardMaterial({ color: 0x6E4F35, roughness: 0.45 });
+      const porcelainMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.15 });
+      const brassMat = new THREE.MeshStandardMaterial({ color: 0xB5945B, metalness: 0.8, roughness: 0.25 });
 
-      const nicheLight = new THREE.PointLight(0xd4af37, 1.4, 4);
-      nicheLight.position.set(1.35, 1.3, -1.9);
-      archScene.add(nicheLight);
-      archLights.niche = nicheLight;
-
-      // Master Architectural Group
-      archRoomGroup = new THREE.Group();
-      archScene.add(archRoomGroup);
-
-      // Technical Pipes Group (CAD BTP Blueprint mode)
-      archPipesGroup = new THREE.Group();
-      archPipesGroup.visible = false;
-      archRoomGroup.add(archPipesGroup);
-
-      // Build Textures & High-Definition Environment Reflection Map
-      archTextures.envMap = createArchEnvMap();
-      archScene.environment = archTextures.envMap;
-
-      archTextures.marbleNoir = createProceduralMarble('#12151c', 'rgba(255,255,255,0.22)', 'rgba(212,175,55,0.45)');
-      archTextures.marbleBlanc = createProceduralMarble('#f8fafc', 'rgba(100,116,139,0.3)', 'rgba(212,175,55,0.25)');
-      archTextures.woodSlats = createProceduralWoodSlats('#5c4431', '#1e140d');
-      archTextures.woodSlatsLight = createProceduralWoodSlats('#a17a56', '#2d1f14');
-      archTextures.floorTiles = createTileGridTexture('#161a22', '#090b0e');
-      archTextures.artworkNoir = createProceduralArtwork('noir');
-      archTextures.artworkBlanc = createProceduralArtwork('blanc');
-      archTextures.artworkBeton = createProceduralArtwork('beton');
-
-      // PBR Materials Suite
-      archMaterials = {
-        plinthMat: new THREE.MeshStandardMaterial({ color: 0x0a0c10, roughness: 0.8, metalness: 0.2 }),
-        floorMat: new THREE.MeshStandardMaterial({ map: archTextures.marbleNoir, roughness: 0.22, metalness: 0.15 }),
-        showerFloorMat: new THREE.MeshStandardMaterial({ color: 0x181c24, roughness: 0.55 }),
-        wallShowerMat: new THREE.MeshStandardMaterial({ map: archTextures.marbleNoir, roughness: 0.25 }),
-        wallMainMat: new THREE.MeshStandardMaterial({ color: 0x1e2430, roughness: 0.7 }),
-        slatsMat: new THREE.MeshStandardMaterial({ map: archTextures.woodSlats, roughness: 0.5 }),
-        tubMat: new THREE.MeshStandardMaterial({ color: 0x111317, roughness: 0.2, metalness: 0.15 }),
-        tubInnerMat: new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.15 }),
-        tubRimMat: new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.95, roughness: 0.18 }),
-        fixturesMat: new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.95, roughness: 0.18 }),
-        glassMat: new THREE.MeshStandardMaterial({ color: 0xbcd8f5, transparent: true, opacity: 0.35, roughness: 0.05 }),
-        mirrorGlassMat: new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.98, roughness: 0.04, envMap: archTextures.envMap, envMapIntensity: 2.2 }),
-        mirrorHaloMat: new THREE.MeshBasicMaterial({ color: 0xffedd5 }),
-        vanityWoodMat: new THREE.MeshStandardMaterial({ map: archTextures.woodSlats, roughness: 0.55 }),
-        vanityTopMat: new THREE.MeshStandardMaterial({ map: archTextures.marbleBlanc, roughness: 0.2 }),
-        basinMat: new THREE.MeshStandardMaterial({ color: 0x101318, roughness: 0.25 }),
-        radiatorMat: new THREE.MeshStandardMaterial({ color: 0x111317, metalness: 0.7, roughness: 0.3 }),
-        towelMat: new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.9 }),
-        artworkMat: new THREE.MeshStandardMaterial({ map: archTextures.artworkNoir, roughness: 0.38, metalness: 0.15 }),
-        // Technical Blueprint Conduits
-        pipeHotMat: new THREE.MeshBasicMaterial({ color: 0xef4444 }),
-        pipeColdMat: new THREE.MeshBasicMaterial({ color: 0x3b82f6 }),
-        pipeDrainMat: new THREE.MeshBasicMaterial({ color: 0x10b981 }),
-        pipeElecMat: new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
-      };
-
-      // 1. ARCHITECTURAL PLINTH & FLOOR
-      const plinth = new THREE.Mesh(new THREE.BoxGeometry(4.7, 0.14, 4.7), archMaterials.plinthMat);
-      plinth.position.y = -0.07;
-      archRoomGroup.add(plinth);
-
-      // Gold Brass Edge Strip on Plinth
-      const plinthTrim = new THREE.Mesh(new THREE.BoxGeometry(4.72, 0.02, 4.72), archMaterials.fixturesMat);
-      plinthTrim.position.y = -0.01;
-      archRoomGroup.add(plinthTrim);
-
-      // Luxury Marble Tile Floor
-      const floor = new THREE.Mesh(new THREE.BoxGeometry(4.5, 0.04, 4.5), archMaterials.floorMat);
-      floor.position.y = 0.02;
+      // Floor & Walls
+      const floor = new THREE.Mesh(new THREE.BoxGeometry(4, 0.15, 3.4), wallMat);
       floor.receiveShadow = true;
-      archRoomGroup.add(floor);
-
-      // Flush Walk-In Shower Tray Area (Receveur zéro ressaut)
-      const showerTray = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.045, 1.6), archMaterials.showerFloorMat);
-      showerTray.position.set(-1.35, 0.022, -1.35);
-      showerTray.receiveShadow = true;
-      archRoomGroup.add(showerTray);
-
-      // Brushed Brass Shower Linear Drain (Caniveau de sol)
-      const linearDrain = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.01, 1.1), archMaterials.fixturesMat);
-      linearDrain.position.set(-2.0, 0.046, -1.35);
-      archRoomGroup.add(linearDrain);
-
-      // 2. WALLS & CEILING SOFFIT
-      // Back Wall - Continuous Master Marble Wall (Unified Shower + Vanity Suite without texture cuts)
-      const wallBackMaster = new THREE.Mesh(new THREE.BoxGeometry(3.3, 2.8, 0.1), archMaterials.wallShowerMat);
-      wallBackMaster.position.set(-0.60, 1.4, -2.25);
-      wallBackMaster.receiveShadow = true;
-      archRoomGroup.add(wallBackMaster);
-
-      // Brushed Brass Architectural Transition Inlay between Marble & Wood Slats
-      const wallInlay = new THREE.Mesh(new THREE.BoxGeometry(0.018, 2.8, 0.125), archMaterials.fixturesMat);
-      wallInlay.position.set(1.05, 1.4, -2.24);
-      archRoomGroup.add(wallInlay);
-
-      // Back Wall - Right Acoustic Fluted Wood Slat Wall
-      const wallBackSlats = new THREE.Mesh(new THREE.BoxGeometry(1.2, 2.8, 0.12), archMaterials.slatsMat);
-      wallBackSlats.position.set(1.65, 1.4, -2.24);
-      wallBackSlats.receiveShadow = true;
-      archRoomGroup.add(wallBackSlats);
-
-      // Left Wall with Atelier Crittall Window
-      const wallLeft = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2.8, 4.5), archMaterials.wallMainMat);
-      wallLeft.position.set(-2.25, 1.4, 0);
-      wallLeft.receiveShadow = true;
-      archRoomGroup.add(wallLeft);
-
-      // Parisian Atelier Crittall Window (Crisp satin daylight panel, zero shadow artifacts)
-      const winFrame = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.8, 1.4), archMaterials.fixturesMat);
-      winFrame.position.set(-2.16, 1.6, 0.8);
-      winFrame.castShadow = false;
-      winFrame.receiveShadow = false;
-      archRoomGroup.add(winFrame);
-
-      const winMullionH = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.025, 1.38), archMaterials.fixturesMat);
-      winMullionH.position.set(-2.16, 1.6, 0.8);
-      archRoomGroup.add(winMullionH);
-
-      const winMullionV = new THREE.Mesh(new THREE.BoxGeometry(0.045, 1.78, 0.025), archMaterials.fixturesMat);
-      winMullionV.position.set(-2.16, 1.6, 0.8);
-      archRoomGroup.add(winMullionV);
-
-      const winGlassMat = new THREE.MeshBasicMaterial({ color: 0xf4f7fa });
-      const winGlass = new THREE.Mesh(new THREE.BoxGeometry(0.015, 1.74, 1.34), winGlassMat);
-      winGlass.position.set(-2.17, 1.6, 0.8);
-      archRoomGroup.add(winGlass);
-
-      // Suspended Ceiling Soffit Beam with Cove Light
-      const ceilingBeam = new THREE.Mesh(new THREE.BoxGeometry(4.5, 0.22, 0.7), archMaterials.wallMainMat);
-      ceilingBeam.position.set(0, 2.7, -1.9);
-      archRoomGroup.add(ceilingBeam);
-
-      const coveLedStrip = new THREE.Mesh(new THREE.BoxGeometry(4.3, 0.03, 0.04), archMaterials.mirrorHaloMat);
-      coveLedStrip.position.set(0, 2.58, -1.55);
-      archRoomGroup.add(coveLedStrip);
-
-      // 3 Recessed Ceiling Micro-Downlights
-      [-1.35, 0, 1.35].forEach(x => {
-        const spotRing = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.02, 16), archMaterials.fixturesMat);
-        spotRing.position.set(x, 2.58, -1.8);
-        archRoomGroup.add(spotRing);
-      });
-
-      // ==========================================
-      // CONTEMPORARY FINE ART GALLERY CANVAS & PICTURE LIGHT (Tableau d'Art Haute Couture)
-      // ==========================================
-      const artworkGroup = new THREE.Group();
-      artworkGroup.position.set(1.35, 1.35, -2.17);
-
-      // 1. Shadowbox Backplate
-      const artBacking = new THREE.Mesh(
-        new THREE.BoxGeometry(0.86, 1.36, 0.015),
-        new THREE.MeshStandardMaterial({ color: 0x0a0c10, roughness: 0.9 })
-      );
-      artworkGroup.add(artBacking);
-
-      // 2. Fine Art Canvas (Dynamic High-End PBR Texture with Gold Leaf & Calligraphy)
-      const canvasEdgeMat = new THREE.MeshStandardMaterial({ color: 0x181a20, roughness: 0.8 });
-      const canvasMaterials = [
-        canvasEdgeMat, // +X right
-        canvasEdgeMat, // -X left
-        canvasEdgeMat, // +Y top
-        canvasEdgeMat, // -Y bottom
-        archMaterials.artworkMat, // +Z front face (PBR Artwork)
-        canvasEdgeMat  // -Z back
-      ];
-      const canvasMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(0.78, 1.28, 0.025),
-        canvasMaterials
-      );
-      canvasMesh.position.z = 0.015;
-      canvasMesh.castShadow = true;
-      canvasMesh.receiveShadow = true;
-      artworkGroup.add(canvasMesh);
-
-      // 3. Ultra-Slim Brushed Brass Floating Shadow Frame (4 Precision Rails)
-      const frameMat = archMaterials.fixturesMat;
-      const fThick = 0.018; // 1.8cm frame profile
-      const fDepth = 0.04;  // 4cm depth proud of canvas
-
-      // Top rail
-      const fTop = new THREE.Mesh(new THREE.BoxGeometry(0.86, fThick, fDepth), frameMat);
-      fTop.position.set(0, 0.68 - fThick / 2, 0.02);
-      artworkGroup.add(fTop);
-
-      // Bottom rail
-      const fBottom = new THREE.Mesh(new THREE.BoxGeometry(0.86, fThick, fDepth), frameMat);
-      fBottom.position.set(0, -0.68 + fThick / 2, 0.02);
-      artworkGroup.add(fBottom);
-
-      // Left rail
-      const fLeft = new THREE.Mesh(new THREE.BoxGeometry(fThick, 1.36 - fThick * 2, fDepth), frameMat);
-      fLeft.position.set(-0.43 + fThick / 2, 0, 0.02);
-      artworkGroup.add(fLeft);
-
-      // Right rail
-      const fRight = new THREE.Mesh(new THREE.BoxGeometry(fThick, 1.36 - fThick * 2, fDepth), frameMat);
-      fRight.position.set(0.43 - fThick / 2, 0, 0.02);
-      artworkGroup.add(fRight);
-
-      // 4. Designer Museum Picture Light (Applique de tableau dorée en laiton)
-      const picLightGroup = new THREE.Group();
-      picLightGroup.position.set(0, 0.74, 0.02);
-
-      // Wall mounting plate
-      const picMount = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.04, 0.02), frameMat);
-      picLightGroup.add(picMount);
-
-      // Dual forward brass extension stems
-      [-0.14, 0.14].forEach(sx => {
-        const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.14, 8), frameMat);
-        stem.rotation.x = Math.PI / 2;
-        stem.position.set(sx, 0.01, 0.07);
-        picLightGroup.add(stem);
-      });
-
-      // Cylindrical Picture Light Bar (46 cm long)
-      const lightBar = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.48, 16), frameMat);
-      lightBar.rotation.z = Math.PI / 2;
-      lightBar.position.set(0, 0.01, 0.14);
-      picLightGroup.add(lightBar);
-
-      // Downward LED emitter strip
-      const ledStrip = new THREE.Mesh(
-        new THREE.BoxGeometry(0.44, 0.006, 0.008),
-        new THREE.MeshBasicMaterial({ color: 0xfff4db })
-      );
-      ledStrip.position.set(0, 0.01 - 0.012, 0.14);
-      picLightGroup.add(ledStrip);
-
-      // Soft warm museum downlight washing the artwork
-      const artSpot = new THREE.PointLight(0xffecd0, 0.95, 1.8, 1.8);
-      artSpot.position.set(0, -0.05, 0.16);
-      picLightGroup.add(artSpot);
-
-      artworkGroup.add(picLightGroup);
-      archRoomGroup.add(artworkGroup);
-
-      // 3. FREESTANDING SCULPTED LUXURY BATHTUB (Baignoire Îlot Double Dosseret)
-      const tubGroup = new THREE.Group();
-      tubGroup.position.set(0.65, 0.32, 0.45);
-
-      const tubOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.60, 0.62, 48), archMaterials.tubMat);
-      tubOuter.scale.set(1.48, 1.0, 0.88);
-      tubOuter.castShadow = true;
-      tubGroup.add(tubOuter);
-
-      const tubInner = new THREE.Mesh(new THREE.CylinderGeometry(0.74, 0.54, 0.60, 48), archMaterials.tubInnerMat);
-      tubInner.scale.set(1.44, 1.0, 0.84);
-      tubInner.position.y = 0.03;
-      tubGroup.add(tubInner);
-
-      const tubRim = new THREE.Mesh(new THREE.TorusGeometry(0.76, 0.026, 16, 48), archMaterials.tubRimMat);
-      tubRim.rotation.x = Math.PI / 2;
-      tubRim.scale.set(1.48, 0.88, 1);
-      tubRim.position.y = 0.31;
-      tubGroup.add(tubRim);
-
-      // Water Shimmer
-      const water = new THREE.Mesh(new THREE.CylinderGeometry(0.70, 0.52, 0.02, 32), new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.05, metalness: 0.8, transparent: true, opacity: 0.65 }));
-      water.scale.set(1.42, 1, 0.82);
-      water.position.y = 0.20;
-      tubGroup.add(water);
-
-      // Chrome Drain Stopper
-      const drainStopper = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.015, 16), archMaterials.tubRimMat);
-      drainStopper.position.y = -0.27;
-      tubGroup.add(drainStopper);
-
-      archRoomGroup.add(tubGroup);
-
-      // Freestanding Floor-Mounted Mixer Column (Mitigeur sur pied)
-      const faucetGroup = new THREE.Group();
-      faucetGroup.position.set(0.65, 0, 1.18);
-
-      const fBase = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.03, 20), archMaterials.fixturesMat);
-      fBase.position.y = 0.015;
-      faucetGroup.add(fBase);
-
-      const fColumn = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.95, 16), archMaterials.fixturesMat);
-      fColumn.position.y = 0.49;
-      fColumn.castShadow = true;
-      faucetGroup.add(fColumn);
-
-      // Curved Spout
-      const fSpout = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.28, 12), archMaterials.fixturesMat);
-      fSpout.rotation.x = Math.PI / 2.3;
-      fSpout.position.set(0, 0.95, -0.12);
-      faucetGroup.add(fSpout);
-
-      // Joystick lever
-      const fLever = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.12, 8), archMaterials.fixturesMat);
-      fLever.rotation.z = Math.PI / 3;
-      fLever.position.set(0.05, 0.88, 0);
-      faucetGroup.add(fLever);
-
-      // Handheld Shower Wand & Spiral Hose
-      const wand = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.22, 12), archMaterials.fixturesMat);
-      wand.position.set(-0.06, 0.82, 0.04);
-      faucetGroup.add(wand);
-
-      archRoomGroup.add(faucetGroup);
-
-      // 4. WALK-IN ITALIAN SHOWER (Douche à l'Italienne)
-      const glassScreen = new THREE.Mesh(new THREE.BoxGeometry(0.025, 2.35, 1.55), archMaterials.glassMat);
-      glassScreen.position.set(-0.55, 1.18, -1.35);
-      archRoomGroup.add(glassScreen);
-
-      // Minimalist Brass Profile & Wall Stabilization Bar
-      const glassTrimBottom = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.03, 1.55), archMaterials.fixturesMat);
-      glassTrimBottom.position.set(-0.55, 0.04, -1.35);
-      archRoomGroup.add(glassTrimBottom);
-
-      const stabBar = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.85, 12), archMaterials.fixturesMat);
-      stabBar.rotation.x = Math.PI / 2;
-      stabBar.position.set(-0.55, 2.30, -1.78);
-      archRoomGroup.add(stabBar);
-
-      // Overhead XXL Rainfall Shower Head (40x40 cm)
-      const rainArm = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.45, 12), archMaterials.fixturesMat);
-      rainArm.position.set(-1.45, 2.50, -1.45);
-      archRoomGroup.add(rainArm);
-
-      const rainPlate = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.02, 0.42), archMaterials.fixturesMat);
-      rainPlate.position.set(-1.45, 2.27, -1.45);
-      rainPlate.castShadow = true;
-      archRoomGroup.add(rainPlate);
-
-      // Thermostatic Wall Mixer with Dual Knobs
-      const mixerPlate = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.35, 0.02), archMaterials.fixturesMat);
-      mixerPlate.position.set(-1.45, 1.15, -2.19);
-      archRoomGroup.add(mixerPlate);
-
-      [-0.08, 0.08].forEach(y => {
-        const knob = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 16), archMaterials.fixturesMat);
-        knob.rotation.x = Math.PI / 2;
-        knob.position.set(-1.45, 1.15 + y, -2.17);
-        archRoomGroup.add(knob);
-      });
-
-      // Hand shower slider rail
-      const sliderRail = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.85, 12), archMaterials.fixturesMat);
-      sliderRail.position.set(-1.85, 1.35, -2.18);
-      archRoomGroup.add(sliderRail);
-
-      // 5. DESIGNER SUSPENDED VANITY UNIT & CAPSULE MIRROR
-      const vanityGroup = new THREE.Group();
-      vanityGroup.position.set(-0.7, 0.78, -1.85);
-
-      // Ribbed Wood Fluted Base
-      const vanityCabinet = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.42, 0.54), archMaterials.vanityWoodMat);
-      vanityCabinet.castShadow = true;
-      vanityGroup.add(vanityCabinet);
-
-      // Beveled Marble Countertop
-      const vanityTop = new THREE.Mesh(new THREE.BoxGeometry(1.46, 0.06, 0.56), archMaterials.vanityTopMat);
-      vanityTop.position.y = 0.24;
-      vanityTop.castShadow = true;
-      vanityGroup.add(vanityTop);
-
-      // Matte Vessel Basin (Vasque à poser)
-      const basin = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.18, 0.14, 32), archMaterials.basinMat);
-      basin.position.set(0, 0.34, 0);
-      basin.castShadow = true;
-      vanityGroup.add(basin);
-
-      // Gooseneck Vessel Faucet
-      const vFaucetStem = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.36, 12), archMaterials.fixturesMat);
-      vFaucetStem.position.set(0, 0.42, -0.18);
-      vanityGroup.add(vFaucetStem);
-
-      const vFaucetSpout = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.02, 0.16), archMaterials.fixturesMat);
-      vFaucetSpout.position.set(0, 0.59, -0.10);
-      vanityGroup.add(vFaucetSpout);
-
-      // Lower Open Shelf with Rolled Spa Towels
-      const vShelf = new THREE.Mesh(new THREE.BoxGeometry(1.36, 0.03, 0.46), archMaterials.vanityWoodMat);
-      vShelf.position.y = -0.38;
-      vanityGroup.add(vShelf);
-
-      for (let i = 0; i < 3; i++) {
-        const rolledTowel = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.28, 16), archMaterials.towelMat);
-        rolledTowel.rotation.z = Math.PI / 2;
-        rolledTowel.position.set(-0.28 + i * 0.18, -0.32, 0);
-        vanityGroup.add(rolledTowel);
-      }
-
-      archRoomGroup.add(vanityGroup);
-
-      // Capsule Backlit LED Mirror
-      const mirrorGroup = new THREE.Group();
-      mirrorGroup.position.set(-0.7, 1.68, -2.16);
-
-      const mirrorHalo = new THREE.Mesh(new THREE.BoxGeometry(1.12, 1.05, 0.02), archMaterials.mirrorHaloMat);
-      mirrorGroup.add(mirrorHalo);
-
-      const mirrorFrame = new THREE.Mesh(new THREE.BoxGeometry(1.04, 0.96, 0.03), archMaterials.fixturesMat);
-      mirrorFrame.position.z = 0.02;
-      mirrorGroup.add(mirrorFrame);
-
-      const mirrorFace = new THREE.Mesh(new THREE.BoxGeometry(0.98, 0.90, 0.035), archMaterials.mirrorGlassMat);
-      mirrorFace.position.z = 0.03;
-      mirrorGroup.add(mirrorFace);
-
-      archRoomGroup.add(mirrorGroup);
-
-      // 6. DESIGNER VERTICAL RADIATOR & TOWEL WARMER
-      const radGroup = new THREE.Group();
-      radGroup.position.set(-2.20, 1.35, -0.4);
-
-      // Vertical Collector Pipes
-      [-0.18, 0.18].forEach(z => {
-        const vert = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 1.8, 12), archMaterials.radiatorMat);
-        vert.position.set(0, 0, z);
-        radGroup.add(vert);
-      });
-
-      // 12 Horizontal Rails
-      for (let r = 0; r < 12; r++) {
-        const rail = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.025, 0.38), archMaterials.radiatorMat);
-        rail.position.set(0, -0.75 + r * 0.13, 0);
-        radGroup.add(rail);
-      }
-
-      // Draped White Towel
-      const drapedTowel = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.45, 0.32), archMaterials.towelMat);
-      drapedTowel.position.set(0.02, 0.05, 0);
-      radGroup.add(drapedTowel);
-
-      archRoomGroup.add(radGroup);
-
-      // 7. BTP TECHNICAL PIPE NETWORK (Blueprint mode)
-      // Red Hot Water (ECS Ø16)
-      const hotPipe1 = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 3.4, 8), archMaterials.pipeHotMat);
-      hotPipe1.position.set(-0.7, 0.18, -2.15);
-      hotPipe1.rotation.z = Math.PI / 2;
-      archPipesGroup.add(hotPipe1);
-
-      // Blue Cold Water (EF Ø16)
-      const coldPipe1 = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 3.4, 8), archMaterials.pipeColdMat);
-      coldPipe1.position.set(-0.7, 0.26, -2.15);
-      coldPipe1.rotation.z = Math.PI / 2;
-      archPipesGroup.add(coldPipe1);
-
-      // Green Drainage (Évacuation PVC Ø100 & Ø40)
-      const drainPipe1 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 3.6, 12), archMaterials.pipeDrainMat);
-      drainPipe1.position.set(-0.5, 0.06, -2.10);
-      drainPipe1.rotation.z = Math.PI / 2;
-      archPipesGroup.add(drainPipe1);
-
-      // Electrical Conduit (NF C 15-100)
-      const elecConduit = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 2.2, 8), archMaterials.pipeElecMat);
-      elecConduit.position.set(-0.7, 1.6, -2.18);
-      archPipesGroup.add(elecConduit);
-
-      // 8. 3D TECHNICAL BIM MEASUREMENTS GROUP (Cotes & Métré BIM en direct)
-      archDimensionsGroup = new THREE.Group();
-      archDimensionsGroup.visible = false;
-      archRoomGroup.add(archDimensionsGroup);
-
-      function createDimLine(start, end, labelText, offsetDir) {
-        const dimG = new THREE.Group();
-        const mat = new THREE.LineBasicMaterial({ color: 0x38bdf8 });
-        const geom = new THREE.BufferGeometry().setFromPoints([start, end]);
-        const line = new THREE.Line(geom, mat);
-        dimG.add(line);
-
-        // Arrow endpoints
-        [start, end].forEach(p => {
-          const tick = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.04), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
-          tick.position.copy(p);
-          dimG.add(tick);
-        });
-
-        // Crisp Canvas Sprite Label
-        const canvas = document.createElement('canvas');
-        canvas.width = 320; canvas.height = 72;
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = 'rgba(9, 12, 18, 0.90)';
-        ctx.fillRect(0, 0, 320, 72);
-        ctx.strokeStyle = '#38bdf8';
-        ctx.lineWidth = 3;
-        ctx.strokeRect(3, 3, 314, 66);
-        ctx.fillStyle = '#f8fafc';
-        ctx.font = 'bold 22px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(labelText, 160, 36);
-
-        const tex = new THREE.CanvasTexture(canvas);
-        const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true });
-        const sprite = new THREE.Sprite(spriteMat);
-        sprite.scale.set(0.75, 0.17, 1);
-        const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
-        if (offsetDir) mid.add(offsetDir);
-        sprite.position.copy(mid);
-        dimG.add(sprite);
-
-        archDimensionsGroup.add(dimG);
-      }
-
-      createDimLine(new THREE.Vector3(-2.25, 0.08, 2.25), new THREE.Vector3(2.25, 0.08, 2.25), "L: 4.50 m (Largeur Totale)", new THREE.Vector3(0, 0.15, 0.20));
-      createDimLine(new THREE.Vector3(-2.28, 0.04, 2.25), new THREE.Vector3(-2.28, 2.80, 2.25), "H: 2.80 m (Sous Plafond)", new THREE.Vector3(-0.25, 0, 0));
-      createDimLine(new THREE.Vector3(-2.15, 0.08, -0.55), new THREE.Vector3(-0.55, 0.08, -0.55), "Douche: 1.60 x 1.60 m", new THREE.Vector3(0, 0.12, 0.20));
-      createDimLine(new THREE.Vector3(-1.43, 1.12, -1.85), new THREE.Vector3(0.03, 1.12, -1.85), "Vasque: 1.46 m", new THREE.Vector3(0, 0.16, 0));
-
-      // Orbit Interaction with Mouse & Touch
-      container.addEventListener('mousedown', (e) => {
-        archDragging = true;
-        archPrevX = e.clientX;
-        archPrevY = e.clientY;
-      });
-      window.addEventListener('mouseup', () => { archDragging = false; });
+      group.add(floor);
+
+      const backWall = new THREE.Mesh(new THREE.BoxGeometry(4, 2.8, 0.15), wallMat);
+      backWall.position.set(0, 1.4, -1.62);
+      backWall.receiveShadow = true;
+      group.add(backWall);
+
+      const sideWall = new THREE.Mesh(new THREE.BoxGeometry(0.15, 2.8, 3.4), wallMat);
+      sideWall.position.set(-1.92, 1.4, 0);
+      group.add(sideWall);
+
+      // Floating Vanity
+      const vanity = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.45, 0.75), woodMat);
+      vanity.position.set(0.2, 0.85, -1.15);
+      vanity.castShadow = true;
+      group.add(vanity);
+
+      // Basin
+      const basin = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.22, 0.18, 32), porcelainMat);
+      basin.position.set(0.2, 1.16, -1.15);
+      group.add(basin);
+
+      // Mirror with brass rim
+      const mirrorRim = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.04, 48), brassMat);
+      mirrorRim.rotation.x = Math.PI / 2;
+      mirrorRim.position.set(0.2, 1.9, -1.52);
+      group.add(mirrorRim);
+
+      // Monolithic bathtub
+      const tub = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.55, 0.62, 36), porcelainMat);
+      tub.scale.set(1.35, 1, 0.85);
+      tub.position.set(-0.75, 0.38, 0.45);
+      tub.castShadow = true;
+      group.add(tub);
+
+      let isDown = false, prevX = 0;
+      container.addEventListener('mousedown', (e) => { isDown = true; prevX = e.clientX; });
+      window.addEventListener('mouseup', () => { isDown = false; });
       window.addEventListener('mousemove', (e) => {
-        if (!archDragging) return;
-        const dx = e.clientX - archPrevX;
-        const dy = e.clientY - archPrevY;
-        archPrevX = e.clientX;
-        archPrevY = e.clientY;
-        archRotY += dx * 0.007;
-        archRotX = Math.max(0.05, Math.min(1.2, archRotX + dy * 0.005));
+        if (!isDown) return;
+        group.rotation.y += (e.clientX - prevX) * 0.007;
+        group.rotation.y = Math.max(-0.6, Math.min(0.8, group.rotation.y));
+        prevX = e.clientX;
       });
 
-      container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        archZoom = Math.max(3.5, Math.min(11.0, archZoom + e.deltaY * 0.005));
-      }, { passive: false });
+      function animate() {
+        requestAnimationFrame(animate);
+        if (!isDown) group.rotation.y += 0.0012;
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
 
-      container.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-          archDragging = true;
-          archPrevX = e.touches[0].clientX;
-          archPrevY = e.touches[0].clientY;
-        }
-      }, { passive: true });
-      window.addEventListener('touchend', () => { archDragging = false; });
-      window.addEventListener('touchmove', (e) => {
-        if (!archDragging || e.touches.length !== 1) return;
-        const dx = e.touches[0].clientX - archPrevX;
-        const dy = e.touches[0].clientY - archPrevY;
-        archPrevX = e.touches[0].clientX;
-        archPrevY = e.touches[0].clientY;
-        archRotY += dx * 0.007;
-        archRotX = Math.max(0.05, Math.min(1.2, archRotX + dy * 0.005));
-      }, { passive: true });
-
-      window.addEventListener('resize', () => {
-        archCamera.aspect = container.clientWidth / container.clientHeight;
-        archCamera.updateProjectionMatrix();
-        archRenderer.setSize(container.clientWidth, container.clientHeight);
-      });
-
-      animateArchStudio();
+    function setStone(hex, btn) {
+      if (wallMat) wallMat.color.set(hex);
+      btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
     }
 
-    // Camera Views Presets
-    function setArchCameraView(preset, btn) {
-      document.querySelectorAll('.arch-view-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      activeCamPreset = preset;
+    function setWood(hex, btn) {
+      if (woodMat) woodMat.color.set(hex);
+      btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
 
-      if (preset === 'global') {
-        camTargetPos = { x: 4.2, y: 3.2, z: 4.8 };
-        camLookTarget = { x: 0, y: 0.45, z: 0 };
-        archRotY = 0.65; archRotX = 0.28; archZoom = 6.4;
-      } else if (preset === 'shower') {
-        camTargetPos = { x: -0.2, y: 1.8, z: 1.2 };
-        camLookTarget = { x: -1.35, y: 1.2, z: -1.35 };
-        archRotY = 0.2; archRotX = 0.15; archZoom = 3.6;
-      } else if (preset === 'tub') {
-        camTargetPos = { x: 2.4, y: 1.6, z: 2.4 };
-        camLookTarget = { x: 0.65, y: 0.4, z: 0.45 };
-        archRotY = 0.9; archRotX = 0.22; archZoom = 4.0;
-      } else if (preset === 'vanity') {
-        camTargetPos = { x: -0.7, y: 1.6, z: 0.5 };
-        camLookTarget = { x: -0.7, y: 1.2, z: -1.85 };
-        archRotY = 0.0; archRotX = 0.12; archZoom = 3.4;
-      } else if (preset === 'top') {
-        camTargetPos = { x: 0.01, y: 7.0, z: 0.01 };
-        camLookTarget = { x: 0, y: 0, z: 0 };
-        archRotY = 0.0; archRotX = 1.35; archZoom = 7.0;
+    function setLight(mode, btn) {
+      btn.parentElement.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (!ambientLight || !spotLight) return;
+      if (mode === 'warm') {
+        ambientLight.intensity = 0.42;
+        spotLight.color.setHex(0xffb86c);
+        spotLight.intensity = 1.15;
+      } else {
+        ambientLight.intensity = 0.75;
+        spotLight.color.setHex(0xfff6e5);
+        spotLight.intensity = 0.9;
       }
     }
-
-    // Material Style Switcher
-    function setArchMaterialStyle(style, btn) {
-      document.querySelectorAll('.arch-mode-toggle .arch-mode-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
-      isBlueprintMode = (style === 'blueprint');
-      archPipesGroup.visible = isBlueprintMode;
-
-      const allMats = Object.values(archMaterials).filter(m => m && m.isMaterial);
-      allMats.forEach(m => {
-        if (m !== archMaterials.pipeHotMat && m !== archMaterials.pipeColdMat && m !== archMaterials.pipeDrainMat && m !== archMaterials.pipeElecMat) {
-          m.wireframe = isBlueprintMode;
-        }
-      });
-
-      if (isBlueprintMode) {
-        allMats.forEach(m => {
-          if (m !== archMaterials.pipeHotMat && m !== archMaterials.pipeColdMat && m !== archMaterials.pipeDrainMat && m !== archMaterials.pipeElecMat && m.color) {
-            m.color.set(0x38bdf8);
-          }
-        });
-        archLights.amb.intensity = 1.8;
-        return;
-      }
-
-      if (style === 'noir') {
-        archMaterials.floorMat.map = archTextures.marbleNoir;
-        archMaterials.floorMat.needsUpdate = true;
-        archMaterials.wallShowerMat.map = archTextures.marbleNoir;
-        archMaterials.wallShowerMat.needsUpdate = true;
-        archMaterials.wallMainMat.color.set(0x1e2430);
-        archMaterials.slatsMat.map = archTextures.woodSlats;
-        archMaterials.slatsMat.needsUpdate = true;
-        archMaterials.tubMat.color.set(0x111317);
-        archMaterials.tubInnerMat.color.set(0xf8fafc);
-        archMaterials.tubRimMat.color.set(0xd4af37);
-        archMaterials.fixturesMat.color.set(0xd4af37);
-        archMaterials.vanityTopMat.map = archTextures.marbleBlanc;
-        archMaterials.vanityTopMat.needsUpdate = true;
-        archMaterials.basinMat.color.set(0x101318);
-        archMaterials.radiatorMat.color.set(0x111317);
-        if (archMaterials.artworkMat) {
-          archMaterials.artworkMat.color.set(0xffffff);
-          archMaterials.artworkMat.map = archTextures.artworkNoir;
-          archMaterials.artworkMat.needsUpdate = true;
-        }
-        archLights.amb.color.set(0xfff7ee);
-        archLights.sun.color.set(0xfffaed);
-      } else if (style === 'blanc') {
-        archMaterials.floorMat.map = archTextures.marbleBlanc;
-        archMaterials.floorMat.needsUpdate = true;
-        archMaterials.wallShowerMat.map = archTextures.marbleBlanc;
-        archMaterials.wallShowerMat.needsUpdate = true;
-        archMaterials.wallMainMat.color.set(0xe8eef5);
-        archMaterials.slatsMat.map = archTextures.woodSlatsLight;
-        archMaterials.slatsMat.needsUpdate = true;
-        archMaterials.tubMat.color.set(0xffffff);
-        archMaterials.tubInnerMat.color.set(0xffffff);
-        archMaterials.tubRimMat.color.set(0xd4af37);
-        archMaterials.fixturesMat.color.set(0xd4af37);
-        archMaterials.vanityTopMat.map = archTextures.marbleNoir;
-        archMaterials.vanityTopMat.needsUpdate = true;
-        archMaterials.basinMat.color.set(0xffffff);
-        archMaterials.radiatorMat.color.set(0xd4af37);
-        if (archMaterials.artworkMat) {
-          archMaterials.artworkMat.color.set(0xffffff);
-          archMaterials.artworkMat.map = archTextures.artworkBlanc;
-          archMaterials.artworkMat.needsUpdate = true;
-        }
-        archLights.amb.color.set(0xffffff);
-        archLights.sun.color.set(0xffffff);
-      } else if (style === 'beton') {
-        archMaterials.floorMat.map = archTextures.floorTiles;
-        archMaterials.floorMat.needsUpdate = true;
-        archMaterials.wallShowerMat.map = archTextures.floorTiles;
-        archMaterials.wallShowerMat.needsUpdate = true;
-        archMaterials.wallMainMat.color.set(0x333b47);
-        archMaterials.slatsMat.map = archTextures.woodSlats;
-        archMaterials.slatsMat.needsUpdate = true;
-        archMaterials.tubMat.color.set(0x222630);
-        archMaterials.tubInnerMat.color.set(0x282e3a);
-        archMaterials.tubRimMat.color.set(0x111111);
-        archMaterials.fixturesMat.color.set(0x111111); // Matte Black
-        archMaterials.vanityTopMat.map = archTextures.floorTiles;
-        archMaterials.vanityTopMat.needsUpdate = true;
-        archMaterials.basinMat.color.set(0x222630);
-        archMaterials.radiatorMat.color.set(0x111111);
-        if (archMaterials.artworkMat) {
-          archMaterials.artworkMat.color.set(0xffffff);
-          archMaterials.artworkMat.map = archTextures.artworkBeton;
-          archMaterials.artworkMat.needsUpdate = true;
-        }
-        archLights.amb.color.set(0xffedd5);
-        archLights.sun.color.set(0xffedd5);
-      }
-    }
-
-    // Hotspot Trigger & Info Card
-    function triggerHotspot(key) {
-      const data = hotspots3D[key];
-      if (!data) return;
-      const card = document.getElementById('archInfoCard');
-      document.getElementById('cardTitle').textContent = data.title;
-      document.getElementById('cardText').textContent = data.text;
-      card.style.display = 'block';
-
-      // Focus camera on feature
-      if (key === 'shower') setArchCameraView('shower', document.getElementById('vbtn-shower'));
-      else if (key === 'tub') setArchCameraView('tub', document.getElementById('vbtn-tub'));
-      else if (key === 'vanity') setArchCameraView('vanity', document.getElementById('vbtn-vanity'));
-      else if (key === 'niche') setArchCameraView('global', document.getElementById('vbtn-global'));
-    }
-
-    function closeArchInfoCard() {
-      const card = document.getElementById('archInfoCard');
-      if (card) card.style.display = 'none';
-    }
-
-    // Toggle 3D Technical BIM Measurement Lines
-    function toggleBimDimensions(btn) {
-      if (!archDimensionsGroup) return;
-      archDimensionsGroup.visible = !archDimensionsGroup.visible;
-      if (btn) btn.classList.toggle('active', archDimensionsGroup.visible);
-    }
-
-    // Interactive 24-Hour Lighting Ambience Simulator
-    function setArchLightingAmbience(mode, btn) {
-      document.querySelectorAll('.arch-light-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
-      if (!archLights.sun || !archLights.amb || !archLights.window) return;
-
-      if (mode === 'day') {
-        archLights.sun.intensity = 1.8;
-        archLights.sun.color.set(0xfffaed);
-        archLights.amb.intensity = 0.95;
-        archLights.amb.color.set(0xfff7ee);
-        archLights.window.intensity = 1.2;
-        archLights.window.color.set(0xdbeafe);
-        if (archLights.cove) archLights.cove.intensity = 0.8;
-        if (archLights.niche) archLights.niche.intensity = 0.9;
-        archRenderer.toneMappingExposure = 1.15;
-      } else if (mode === 'sunset') {
-        archLights.sun.intensity = 2.2;
-        archLights.sun.color.set(0xffa726);
-        archLights.amb.intensity = 0.75;
-        archLights.amb.color.set(0xffd180);
-        archLights.window.intensity = 0.8;
-        archLights.window.color.set(0xff9800);
-        if (archLights.cove) archLights.cove.intensity = 1.8;
-        if (archLights.niche) archLights.niche.intensity = 1.8;
-        archRenderer.toneMappingExposure = 1.25;
-      } else if (mode === 'night') {
-        archLights.sun.intensity = 0.18;
-        archLights.sun.color.set(0x1e3a8a);
-        archLights.amb.intensity = 0.30;
-        archLights.amb.color.set(0x0f172a);
-        archLights.window.intensity = 0.25;
-        archLights.window.color.set(0x1e293b);
-        if (archLights.cove) archLights.cove.intensity = 3.2;
-        if (archLights.niche) archLights.niche.intensity = 3.0;
-        archRenderer.toneMappingExposure = 1.45;
-      }
-    }
-
-    // Interactive Van Dispatch Radar Selection
-    function selectRadarVan(vanId, el) {
-      document.querySelectorAll('.van-card').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.radar-blip').forEach(b => {
-        b.classList.remove('active');
-        b.style.transform = 'scale(1)';
-      });
-      if (el) el.classList.add('active');
-      const blip = document.getElementById('rblip-' + vanId);
-      if (blip) {
-        blip.classList.add('active');
-        blip.style.transform = 'scale(1.5)';
-      }
-    }
-
-    // Update 3D Hotspot Screen Coordinates
-    function updateHotspotsScreen() {
-      const container = document.getElementById('arch3dCanvas');
-      if (!container || !archCamera) return;
-
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-
-      Object.entries(hotspots3D).forEach(([key, data]) => {
-        const el = document.getElementById(data.el);
-        if (!el) return;
-
-        const v = data.pos.clone();
-        if (archRoomGroup) v.applyMatrix4(archRoomGroup.matrixWorld);
-        v.project(archCamera);
-
-        // Check if point is in front of camera
-        if (v.z < 1) {
-          const x = (v.x * 0.5 + 0.5) * w;
-          const y = (-v.y * 0.5 + 0.5) * h;
-          el.style.left = x + 'px';
-          el.style.top = y + 'px';
-          el.style.display = 'flex';
-        } else {
-          el.style.display = 'none';
-        }
-      });
-    }
-
-    function animateArchStudio() {
-      requestAnimationFrame(animateArchStudio);
-
-      if (!archDragging && activeCamPreset === 'global') {
-        archRotY += 0.0012;
-      }
-
-      // Smooth Orbit Camera Calculation
-      const targetCamX = camLookTarget.x + Math.sin(archRotY) * Math.cos(archRotX) * archZoom;
-      const targetCamY = camLookTarget.y + Math.sin(archRotX) * archZoom;
-      const targetCamZ = camLookTarget.z + Math.cos(archRotY) * Math.cos(archRotX) * archZoom;
-
-      archCamera.position.x += (targetCamX - archCamera.position.x) * 0.08;
-      archCamera.position.y += (targetCamY - archCamera.position.y) * 0.08;
-      archCamera.position.z += (targetCamZ - archCamera.position.z) * 0.08;
-
-      currentLook.x += (camLookTarget.x - currentLook.x) * 0.08;
-      currentLook.y += (camLookTarget.y - currentLook.y) * 0.08;
-      currentLook.z += (camLookTarget.z - currentLook.z) * 0.08;
-      archCamera.lookAt(currentLook.x, currentLook.y, currentLook.z);
-
-      archRenderer.render(archScene, archCamera);
-      updateHotspotsScreen();
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      initArch3D();
-      calcBtpQuote();
-    });
   </script>
 </body>
 </html>

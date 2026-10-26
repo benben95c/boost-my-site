@@ -3,2402 +3,673 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prestige Drive Paris — Chauffeur Privé & Taxi Haut de Gamme</title>
+  <title>Maison Chabé &amp; Prestige — Chauffeur Privé &amp; Grande Remise à Paris</title>
+  <meta name="description" content="Service de chauffeur privé et grande remise à Paris. Transferts aéroports CDG, Orly, Le Bourget au forfait fixe et mise à disposition à l'heure.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07080a;
-      --bg-card: #0f1116;
-      --bg-card-alt: #141720;
-      --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
-      --text: #f5f5f7;
-      --text-muted: #8e929b;
-      --border: rgba(212, 175, 55, 0.18);
-      --font-display: 'Cinzel', serif;
-      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --bg: #F6F4F0;
+      --surface: #FFFFFF;
+      --surface-alt: #EDE9E1;
+      --ink: #141413;
+      --muted: #6E6A63;
+      --taupe: #8C7A65;
+      --border: #E2DDD3;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--ink);
       font-family: var(--font-sans);
       line-height: 1.6;
-      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
+
+    /* Barre discrète de retour au portfolio */
     .demo-bar {
-      background: #111422;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 10px 20px;
+      background: var(--ink);
+      color: #A8A29E;
+      padding: 8px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 13px;
-      color: #9aa1c4;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
+      font-size: 12px;
     }
     .demo-bar a {
-      background: linear-gradient(120deg, #3d6bff, #8a5cff);
-      color: white;
-      padding: 6px 16px;
-      border-radius: 99px;
-      font-weight: 600;
-      font-size: 12px;
-      transition: opacity 0.2s;
+      color: #fff;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 1px;
     }
-    .demo-bar a:hover { opacity: 0.9; }
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+    }
+
+    /* Navigation épurée façon Wheely / Blacklane */
     header {
-      padding: 24px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
     }
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
     }
-    .logo {
-      font-family: var(--font-display);
-      font-size: 22px;
-      letter-spacing: 0.12em;
-      color: var(--gold-light);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .badge-gold {
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 5px 14px;
-      border-radius: 99px;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 26px;
       font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .btn-gold {
-      background: var(--gold-gradient);
-      color: #000;
-      font-weight: 700;
-      padding: 13px 26px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
-    }
-    .btn-outline {
-      border: 1px solid rgba(255,255,255,0.2);
-      color: var(--text);
-      padding: 13px 26px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-    .btn-outline:hover { background: rgba(255,255,255,0.05); }
-
-    /* Hero */
-    .hero {
-      padding: 70px 0 45px;
-      text-align: center;
-      position: relative;
-    }
-    .hero-badge-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 22px;
-    }
-    .live-dispatch-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(212, 175, 55, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      color: var(--gold-light);
-      padding: 6px 16px;
-      border-radius: 99px;
-      font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      font-weight: 600;
     }
-    .pulse-gold {
-      width: 8px;
-      height: 8px;
-      background: #d4af37;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #d4af37;
-      animation: pulseGold 2s infinite;
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      font-size: 14px;
+      color: var(--muted);
     }
-    @keyframes pulseGold {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(1.35); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-phone {
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .nav-phone:hover {
+      background: var(--ink);
+      color: #fff;
+    }
+    @media (max-width: 820px) {
+      .nav-links { display: none; }
+    }
+
+    /* Hero Spacieux avec Module de Réservation Intégré */
+    .hero {
+      padding: 84px 0 96px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 72px;
+      align-items: center;
+    }
+    @media (max-width: 960px) {
+      .hero { padding: 48px 0 64px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    }
+    .hero-eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--taupe);
+      margin-bottom: 20px;
+      display: block;
+      font-weight: 500;
     }
     .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      margin: 18px 0 22px;
-      font-weight: 600;
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 4.8vw, 4.4rem);
+      font-weight: 500;
+      line-height: 1.08;
+      margin-bottom: 24px;
+      color: var(--ink);
     }
-    .hero h1 span {
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
     }
     .hero p {
-      max-width: 740px;
-      margin: 0 auto 36px;
-      color: #b3b7c2;
       font-size: 17px;
+      color: var(--muted);
+      max-width: 480px;
       line-height: 1.7;
+      margin-bottom: 40px;
     }
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 46px;
-    }
-
-    /* 4-Card Luxury Key Figures Ribbon */
-    .hero-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 36px 0 44px;
-    }
-    @media (max-width: 880px) {
-      .hero-metrics-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .hero-metrics-grid { grid-template-columns: 1fr; }
-    }
-    .metric-card {
-      background: linear-gradient(135deg, rgba(20, 24, 34, 0.75) 0%, rgba(10, 12, 16, 0.95) 100%);
-      border: 1px solid rgba(212, 175, 55, 0.22);
-      border-radius: 14px;
-      padding: 18px 16px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .metric-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(212, 175, 55, 0.45);
-    }
-    .metric-number {
-      font-family: var(--font-display);
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--gold-light);
-      letter-spacing: 0.02em;
-      margin-bottom: 4px;
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .metric-label {
-      font-size: 11px;
-      color: #9aa0ae;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-    }
-
-    /* Luxury Palace Trust Strip */
-    .palace-trust-strip {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      padding: 22px 26px;
-      background: rgba(15, 17, 23, 0.6);
-      border-top: 1px solid rgba(212, 175, 55, 0.15);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-      border-radius: 12px;
-      margin-bottom: 20px;
-    }
-    .palace-trust-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-align: left;
-    }
-    .palace-trust-item svg {
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-    .palace-trust-item div strong {
-      display: block;
-      color: #f1f5f9;
-      font-size: 13px;
-      letter-spacing: 0.01em;
-    }
-    .palace-trust-item div span {
-      display: block;
-      color: var(--text-muted);
-      font-size: 11px;
-    }
-
-    /* Fleet Cards Enhancements */
-    .fleet-badge-floating {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: rgba(10, 12, 16, 0.88);
-      border: 1px solid var(--gold);
-      color: var(--gold-light);
-      padding: 4px 12px;
-      border-radius: 99px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      backdrop-filter: blur(8px);
-    }
-    .fleet-specs-row {
-      display: flex;
-      gap: 12px;
-      margin: 12px 0 14px;
-      font-size: 12px;
-      color: #cbd5e1;
-      flex-wrap: wrap;
-    }
-    .fleet-specs-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.04);
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    /* 3D Showroom Section */
-    .showroom-section {
-      background: linear-gradient(180deg, rgba(15,17,22,0.8) 0%, rgba(7,8,10,0.95) 100%);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      margin: 40px 0 60px;
-      position: relative;
-      overflow: hidden;
-    }
-    .showroom-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .showroom-header h2 {
-      font-family: var(--font-display);
-      font-size: 24px;
-      color: var(--gold-light);
-    }
-    .showroom-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .arch-mode-btn {
-      background: #0d1017;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: var(--text-muted);
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .arch-mode-btn:hover {
-      border-color: var(--gold);
-      color: #fff;
-    }
-    .arch-mode-btn.active {
-      background: var(--gold);
-      border-color: var(--gold-light);
-      color: #000;
-      font-weight: 700;
-      box-shadow: 0 0 15px rgba(212,175,55,0.3);
-    }
-    .color-btn {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3);
-      cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .color-btn:hover, .color-btn.active {
-      transform: scale(1.2);
-      border-color: var(--gold);
-    }
-    .canvas-container {
+    .hero-photo {
       width: 100%;
-      height: 420px;
-      border-radius: 14px;
-      background: radial-gradient(circle at center, #151821 0%, #07080a 75%);
-      position: relative;
-      overflow: hidden;
-      cursor: grab;
-    }
-    .canvas-container:active { cursor: grabbing; }
-    @keyframes carSpin {
-      to { transform: rotate(360deg); }
-    }
-    .showroom-hint {
-      position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      padding: 6px 16px;
-      border-radius: 99px;
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 12px;
-      color: var(--text-muted);
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .showroom-specs {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 24px;
-    }
-    .spec-item {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 14px 18px;
-    }
-    .spec-item small {
+      height: 300px;
+      object-fit: cover;
+      border-radius: 6px;
       display: block;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-    .spec-item strong {
-      font-size: 15px;
-      color: #fff;
     }
 
-    /* Complex Booking Engine Wizard */
-    .booking-engine {
-      background: var(--bg-card);
+    /* Widget de Réservation (Style Blacklane / Wheely) */
+    .booking-card {
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      margin: 40px auto;
-      max-width: 980px;
-    }
-    .booking-steps {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      margin-bottom: 36px;
-    }
-    .booking-steps::before {
-      content: "";
-      position: absolute;
-      top: 18px;
-      left: 10%;
-      right: 10%;
-      height: 2px;
-      background: rgba(255,255,255,0.1);
-      z-index: 1;
-    }
-    .step-node {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    .step-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #0c0e14;
-      border: 2px solid rgba(255,255,255,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #fff;
-      transition: all 0.3s;
-    }
-    .step-node.active .step-circle {
-      background: var(--gold);
-      border-color: var(--gold-light);
-      color: #000;
-      box-shadow: 0 0 15px rgba(212,175,55,0.4);
-    }
-    .step-node.active span { color: var(--gold-light); font-weight: 600; }
-
-    .wizard-tab-content { display: none; }
-    .wizard-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-    .sim-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-    .sim-field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      text-align: left;
-    }
-    .sim-field label {
-      font-size: 12px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    .sim-field input, .sim-field select {
-      background: #090b0f;
-      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 8px;
-      padding: 12px 14px;
-      color: #fff;
+      padding: 36px;
+      box-shadow: 0 20px 50px rgba(20, 20, 19, 0.05);
+    }
+    .booking-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    .booking-tab {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 12px 0;
       font-family: inherit;
       font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .sim-field input:focus, .sim-field select:focus {
-      border-color: var(--gold);
-    }
-
-    /* Flight Tracker Box */
-    .flight-tracker-box {
-      background: rgba(212,175,55,0.04);
-      border: 1px dashed rgba(212,175,55,0.25);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin: 18px 0 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .flight-pills {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .flight-pill {
-      background: #090b0f;
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      color: var(--gold-light);
+      font-weight: 500;
+      color: var(--muted);
       cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
     }
-    .flight-pill:hover { border-color: var(--gold); }
-    .flight-status-result {
-      background: #0b0e14;
-      border: 1px solid rgba(212,175,55,0.3);
-      border-radius: 12px;
-      padding: 16px 20px;
-      font-size: 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    .booking-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
     }
-    .status-badge-green {
-      background: rgba(16,185,129,0.15);
-      color: #34d399;
-      border: 1px solid rgba(16,185,129,0.3);
-      padding: 3px 10px;
-      border-radius: 99px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .field-group {
+      margin-bottom: 18px;
     }
-    .flight-radar-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 8px;
-      padding: 12px 14px;
-    }
-    .flight-radar-item small {
+    .field-group label {
       display: block;
-      font-size: 10px;
+      font-size: 11.5px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-    }
-    .flight-radar-item strong {
-      font-size: 13px;
-      color: #f1f5f9;
-    }
-
-    /* Vehicle selection cards */
-    .veh-options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin: 24px 0;
-    }
-    .veh-option-card {
-      background: #090b0f;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-    }
-    .veh-option-card.selected {
-      border-color: var(--gold);
-      background: rgba(212,175,55,0.05);
-    }
-    .veh-option-card h4 {
-      font-family: var(--font-display);
-      font-size: 16px;
+      color: var(--muted);
       margin-bottom: 6px;
+      font-weight: 500;
     }
-    .veh-price-tag {
-      font-family: var(--font-display);
-      font-size: 24px;
-      color: var(--gold-light);
-      font-weight: 700;
-      margin: 10px 0;
-    }
-
-    /* VIP Options */
-    .vip-options-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 24px 0;
-    }
-    .vip-option-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #090b0f;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 14px 18px;
-      cursor: pointer;
-      transition: border-color 0.2s;
-    }
-    .vip-option-row:hover { border-color: rgba(212,175,55,0.4); }
-    .vip-option-row input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--gold);
-    }
-
-    /* Digital Boarding Pass with 3D Holographic Tilt */
-    .boarding-pass-wrapper {
-      perspective: 1200px;
-    }
-    .boarding-pass {
-      background: linear-gradient(135deg, #11141c 0%, #0a0c10 100%);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 30px;
-      position: relative;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-      margin-top: 24px;
-      transform-style: preserve-3d;
-      transition: transform 0.12s ease-out, box-shadow 0.2s ease, border-color 0.2s;
-      overflow: hidden;
-    }
-    .boarding-pass::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212,175,55,0.20) 0%, transparent 65%);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: 1;
-    }
-    .boarding-pass:hover::before {
-      opacity: 1;
-    }
-    .boarding-pass:hover {
-      border-color: rgba(212,175,55,0.5);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(212,175,55,0.18);
-    }
-    .boarding-pass > * {
-      position: relative;
-      z-index: 2;
-    }
-    .bp-header {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px dashed rgba(255,255,255,0.15);
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-    }
-    .bp-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 18px;
-    }
-    .bp-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 24px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    /* Trust & Fleet */
-    .trust-bar {
-      display: flex;
-      justify-content: center;
-      gap: 36px;
-      margin: 50px 0;
-      flex-wrap: wrap;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .trust-item strong { color: #fff; }
-
-    .fleet-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
-      margin-top: 40px;
-    }
-    .fleet-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-    .fleet-card:hover { transform: translateY(-4px); border-color: var(--border); }
-    .fleet-img {
-      height: 230px;
-      background: #14171f;
-      overflow: hidden;
-    }
-    .fleet-img img {
+    .field-group select,
+    .field-group input {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      padding: 13px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14.5px;
+      color: var(--ink);
+      outline: none;
     }
-    .fleet-body {
-      padding: 24px;
-      text-align: left;
+    .field-group select:focus,
+    .field-group input:focus {
+      border-color: var(--ink);
     }
-    .fleet-body h3 {
-      font-family: var(--font-display);
-      font-size: 20px;
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .fare-preview {
+      background: var(--surface-alt);
+      padding: 18px 20px;
+      border-radius: 4px;
+      margin: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .fare-preview span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .fare-preview strong {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .btn-book {
+      width: 100%;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: 16px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-book:hover { opacity: 0.88; }
+    .hp-field { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+
+    /* Section Piliers Minimaliste (3 colonnes aérées sans boîtes) */
+    .pillars {
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 56px;
+    }
+    @media (max-width: 820px) {
+      .pillars-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    .pillar-item span {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--taupe);
+      display: block;
       margin-bottom: 8px;
     }
-    .amenities {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 16px 0;
+    .pillar-item h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
     }
-    .amenity {
-      background: #08090b;
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 6px 12px;
-      border-radius: 99px;
-      font-size: 12px;
-      color: var(--text-muted);
+    .pillar-item p {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.65;
     }
 
-    .sticky-call {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      right: 20px;
-      z-index: 100;
-      display: none;
+    /* La Flotte (Présentation éditoriale spacieuse) */
+    .fleet-section {
+      padding: 110px 0;
     }
-    .sticky-call a {
-      background: var(--gold-gradient);
-      color: #000;
-      font-weight: 700;
+    .section-header {
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+    .section-header span {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--taupe);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: 42px;
+      font-weight: 500;
+      line-height: 1.12;
+    }
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+    }
+    @media (max-width: 920px) {
+      .fleet-grid { grid-template-columns: 1fr; }
+    }
+    .vehicle-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      font-size: 16px;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    @media (max-width: 768px) {
-      .sticky-call { display: block; }
+    .vehicle-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+    .vehicle-body {
+      padding: 28px;
+    }
+    .vehicle-body h3 {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .vehicle-meta {
+      font-size: 13px;
+      color: var(--taupe);
+      margin-bottom: 14px;
+    }
+    .vehicle-body p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .vehicle-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .vehicle-foot button {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* Forfaits Aéroports & Gares (Tableau épuré) */
+    .rates-section {
+      padding: 96px 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .rates-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .rates-layout { grid-template-columns: 1fr; gap: 36px; }
+    }
+    .rate-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .rate-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .rate-table td {
+      padding: 20px 0;
+      font-size: 15px;
+    }
+    .rate-table td:last-child {
+      text-align: right;
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 64px 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
     }
   </style>
 </head>
 <body>
 
   <div class="demo-bar">
-    <span>Démonstration client en direct : <strong>Prestige Drive Paris</strong></span>
-    <a href="../portfolio.html">Retour au portfolio</a>
+    <span>Démonstration BoostMySite — Chauffeur Privé &amp; Grande Remise</span>
+    <a href="../portfolio.html">← Retour au portfolio</a>
   </div>
 
-  <div class="container">
-    <header>
-      <div class="nav">
-        <div class="logo">
-          <span>PRESTIGE DRIVE</span>
-        </div>
-        <span class="badge-gold">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Service VIP Paris & Île-de-France
-        </span>
-        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-          <button id="btnAudioFx" class="btn-outline" style="padding: 9px 16px; font-size: 12px; border-radius: 99px; border-color: rgba(212,175,55,0.4);" onclick="toggleAudioFX()">
-            <svg id="audioIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px; vertical-align:middle; color:var(--gold);"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-            <span id="audioStatusText">Ambiance Sonore VIP (Active)</span>
-          </button>
-          <a href="tel:+33667226790" class="btn-gold" style="padding: 10px 20px; font-size: 13px;">06 67 22 67 90</a>
-        </div>
-      </div>
-    </header>
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">Prestige Drive</a>
+      <nav class="nav-links">
+        <a href="#flotte">La Flotte</a>
+        <a href="#forfaits">Forfaits Aéroports</a>
+        <a href="#engagements">Engagements</a>
+      </nav>
+      <a href="tel:+33140000000" class="nav-phone">01 40 00 00 00</a>
+    </div>
+  </header>
 
+  <main>
+    <!-- Hero aéré avec calculateur immédiat -->
     <section class="hero">
-      <div class="hero-badge-row">
-        <div class="live-dispatch-badge">
-          <span class="pulse-gold"></span>
-          <span>42 Chauffeurs VIP en Service • Prise en charge &lt; 15 min</span>
-        </div>
-        <span class="badge-gold">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Maison de Grande Remise • Agrément Préfecture de Police Paris
-        </span>
-      </div>
-
-      <h1>L'Art du Déplacement <br><span>De Haute Distinction</span></h1>
-      <p>Service officiel de chauffeur privé pour personnalités, délégations diplomatiques et dirigeants d'affaires. Transferts d'aéroports CDG, Orly et Le Bourget en tarif fixe forfaitaire garanti, sans aucune majoration liée aux embouteillages.</p>
-      
-      <div class="hero-actions">
-        <a href="#simulateur" class="btn-gold">Calculer mon tarif & réserver</a>
-        <a href="#showroom" class="btn-outline">Découvrir la flotte 3D</a>
-      </div>
-
-      <!-- 4-Card Luxury Key Figures Ribbon -->
-      <div class="hero-metrics-grid">
-        <div class="metric-card">
-          <div class="metric-number">15 000+</div>
-          <div class="metric-label">Missions VIP Réalisées</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-number">99.9%</div>
-          <div class="metric-label">Ponctualité Immédiate</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-number">100%</div>
-          <div class="metric-label">Flotte Mercedes-Benz Hybride & V8</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-number">5.0 / 5</div>
-          <div class="metric-label">Note d'Excellence Palace</div>
-        </div>
-      </div>
-
-      <!-- Luxury Palace Trust Strip -->
-      <div class="palace-trust-strip">
-        <div class="palace-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <div>
-            <strong>Accueil Nominatif VIP</strong>
-            <span>Pancarte tablette en sortie de douane ou quai TGV</span>
-          </div>
-        </div>
-        <div class="palace-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <div>
-            <strong>Chauffeurs d'Élite Bilingues</strong>
-            <span>Formés au protocole diplomatique et discret</span>
-          </div>
-        </div>
-        <div class="palace-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-          <div>
-            <strong>Attention & Confort Palace</strong>
-            <span>Eaux fraîches, serviettes Oshibori & Wi-Fi 5G</span>
-          </div>
-        </div>
-        <div class="palace-trust-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div>
-            <strong>Tarifs Forfaitaires Fixes</strong>
-            <span>Zéro majoration embouteillages ou météo</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3D Vehicle Showroom -->
-    <section class="showroom-section" id="showroom">
-      <div class="showroom-header">
+      <div class="container hero-grid">
         <div>
-          <span class="badge-gold">Studio 3D Interactif • Flotte VTC Prestige</span>
-          <h2 style="margin-top:6px;" id="carShowroomTitle">Mercedes-Benz AMG GT 63 S — Limousine Prestige</h2>
+          <span class="hero-eyebrow">Maison de Grande Remise • Paris</span>
+          <h1>Votre chauffeur privé, <em>à l'heure exacte.</em></h1>
+          <p>Transferts vers Roissy CDG, Orly, Le Bourget et mises à disposition à l'heure. Tarif forfaitaire fixé à l'avance, quelle que soit la densité du trafic.</p>
+          <img src="project-chauffeur.jpg" alt="Berline Mercedes-Benz avec chauffeur privé à Paris" class="hero-photo">
         </div>
-        <div class="showroom-controls">
-          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-            <button class="arch-mode-btn active" id="btnModLimousine" onclick="selectShowroomVehicle('limousine', this)">Mercedes Limousine</button>
-            <button class="arch-mode-btn" id="btnModVan" onclick="selectShowroomVehicle('van', this)">Mercedes Classe V</button>
-            <button class="arch-mode-btn" id="btnModBerline" onclick="selectShowroomVehicle('berline', this)">Mercedes Berline</button>
-            <button class="arch-mode-btn" id="btnModSuv" onclick="selectShowroomVehicle('suv', this)">Mercedes SUV G-Class</button>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <span style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Teinte :</span>
-            <button class="color-btn active" style="background:#090a0e" title="Noir Obsidienne Métallisé" onclick="setCarColor('#090a0e', this)"></button>
-            <button class="color-btn" style="background:#4a505b" title="Gris Sélénite" onclick="setCarColor('#4a505b', this)"></button>
-            <button class="color-btn" style="background:#121d38" title="Bleu Nautique Profond" onclick="setCarColor('#121d38', this)"></button>
-            <button class="color-btn" style="background:#e8ecf2" title="Blanc Diamant Nacré" onclick="setCarColor('#e8ecf2', this)"></button>
-          </div>
-          <button class="btn-outline" style="padding:6px 14px; font-size:12px;" onclick="toggleCarHeadlights()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
-            Phares LED
-          </button>
-          <button class="btn-outline" id="btnNightMode" style="padding:6px 14px; font-size:12px;" onclick="toggleNightRunwayMode(this)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            Mode Nuit VIP
-          </button>
-        </div>
-      </div>
 
-      <div class="canvas-container" id="car3dCanvas" style="height: 480px; border: 1px solid rgba(212,175,55,0.25); box-shadow: 0 20px 60px rgba(0,0,0,0.85); border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 50% 40%, #151a26 0%, #07080a 75%); position: relative;">
-        <!-- Live Cockpit Telemetry HUD -->
-        <div id="cockpitHud" style="position:absolute; top:18px; left:18px; z-index:10; background:rgba(10, 13, 20, 0.82); backdrop-filter:blur(10px); border:1px solid rgba(212,175,55,0.3); border-radius:12px; padding:12px 16px; pointer-events:auto; display:flex; flex-direction:column; gap:8px; box-shadow:0 8px 32px rgba(0,0,0,0.6); min-width:210px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-weight:700; display:flex; align-items:center; gap:6px;">
-              <span style="width:6px; height:6px; border-radius:50%; background:#22c55e; box-shadow:0 0 8px #22c55e; display:inline-block;"></span>
-              Télémétrie Châssis
-            </span>
-            <span style="font-size:10px; font-family:monospace; color:#94a3b8;" id="hudDriveMode">4MATIC+ ACTIVE</span>
+        <div class="booking-card" id="reserver">
+          <div class="booking-tabs">
+            <button type="button" class="booking-tab active" onclick="switchMode('transfert', this)">Transfert Forfaitaire</button>
+            <button type="button" class="booking-tab" onclick="switchMode('heure', this)">Mise à disposition</button>
           </div>
-          <div style="display:flex; align-items:baseline; justify-content:space-between;">
-            <span style="font-size:11px; color:#94a3b8;">0-100 km/h :</span>
-            <span style="font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--gold-light);" id="hudAccel">3.2 s</span>
-          </div>
-          <div style="display:flex; align-items:baseline; justify-content:space-between;">
-            <span style="font-size:11px; color:#94a3b8;">Puissance :</span>
-            <span style="font-family:monospace; font-size:13px; font-weight:700; color:#fff;" id="hudPower">639 ch • 900 Nm</span>
-          </div>
-          <div style="margin-top:2px;">
-            <div style="display:flex; justify-content:space-between; font-size:9px; color:#64748b; margin-bottom:3px; text-transform:uppercase;">
-              <span>Régime Moteur</span>
-              <span id="hudRpmVal" style="color:#d4af37; font-family:monospace;">1 250 tr/min</span>
+
+          <form id="chauffeurForm">
+            <div class="hp-field" aria-hidden="true">
+              <input type="text" id="vtcBot" tabindex="-1" autocomplete="off">
             </div>
-            <div style="height:4px; width:100%; background:rgba(255,255,255,0.1); border-radius:2px; overflow:hidden;">
-              <div id="hudRpmBar" style="height:100%; width:32%; background:linear-gradient(90deg, #38bdf8, #d4af37); transition:width 0.4s ease;"></div>
+
+            <div class="field-group" id="routeGroup">
+              <label for="routeSelect">Trajet</label>
+              <select id="routeSelect" onchange="calculateFare()">
+                <option value="85">Paris Rive Droite / Rive Gauche ↔ Aéroport Roissy CDG</option>
+                <option value="70">Paris Rive Droite / Rive Gauche ↔ Aéroport d'Orly</option>
+                <option value="95">Paris ↔ Aéroport du Bourget (Aviation d'affaires)</option>
+                <option value="60">Transfert Gares Parisiennes (Gare de Lyon, Nord, Montparnasse)</option>
+              </select>
             </div>
-          </div>
-        </div>
 
-        <div id="carLoadingOverlay" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(7,8,10,0.82); backdrop-filter:blur(8px); z-index:15; transition:opacity 0.3s; pointer-events:none; opacity:0;">
-          <div style="width:36px; height:36px; border:2px solid rgba(212,175,55,0.2); border-top-color:#d4af37; border-radius:50%; animation:carSpin 0.7s linear infinite;"></div>
-          <span style="margin-top:12px; font-size:11px; color:#d4af37; letter-spacing:1px; text-transform:uppercase; font-weight:600;">Chargement Maquette Studio 3D...</span>
-        </div>
-        <div class="showroom-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24L21 8"/><polyline points="21 3 21 8 16 8"/></svg>
-          Glissez pour inspecter à 360° • Zoom à la molette
-        </div>
-      </div>
+            <div class="field-group" id="hoursGroup" style="display:none;">
+              <label for="hoursSelect">Durée de mise à disposition</label>
+              <select id="hoursSelect" onchange="calculateFare()">
+                <option value="240">Demi-journée — 3 heures (Paris &amp; Proche Couronne)</option>
+                <option value="450">Journée — 6 heures (Séminaire, Roadshow financier)</option>
+                <option value="720">Soirée &amp; Événement — 10 heures</option>
+              </select>
+            </div>
 
-      <div class="showroom-specs" id="showroomSpecs">
-        <div class="spec-item">
-          <small>Gamme</small>
-          <strong id="specCat">Grand Tourisme VIP & Transferts Longue Distance</strong>
-        </div>
-        <div class="spec-item">
-          <small>Capacité</small>
-          <strong id="specCap">3 Passagers VIP • 3 Grands Bagages</strong>
-        </div>
-        <div class="spec-item">
-          <small>Confort VIP</small>
-          <strong id="specComfort">Pack Chauffeur étendu, sièges massants ventilés, double vitrage acoustique & audio Burmester 3D</strong>
-        </div>
-        <div class="spec-item">
-          <small>Motorisation</small>
-          <strong id="specMotor">V8 Biturbo 639 ch • 0 à 100 km/h en 3.2s • Transmission 4MATIC+</strong>
+            <div class="field-group">
+              <label for="vehicleSelect">Catégorie de véhicule</label>
+              <select id="vehicleSelect" onchange="calculateFare()">
+                <option value="1">Berline Affaires — Mercedes-Benz Classe E (1 à 3 passagers)</option>
+                <option value="1.35">Van Salon — Mercedes-Benz Classe V (jusqu'à 7 passagers)</option>
+                <option value="1.65">Première Classe — Mercedes-Benz Classe S Limousine</option>
+              </select>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="pickupDate">Date</label>
+                <input type="date" id="pickupDate" required>
+              </div>
+              <div class="field-group">
+                <label for="pickupTime">Heure de prise en charge</label>
+                <input type="time" id="pickupTime" value="09:00" required>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="clientName">Nom du passager</label>
+                <input type="text" id="clientName" placeholder="M. / Mme" required maxlength="80">
+              </div>
+              <div class="field-group">
+                <label for="flightNum">N° de vol / train (optionnel)</label>
+                <input type="text" id="flightNum" placeholder="Ex : AF 1240" maxlength="20">
+              </div>
+            </div>
+
+            <div class="fare-preview">
+              <span>Tarif fixe tout compris (TVA 10 % incluse)</span>
+              <strong id="fareAmount">85 €</strong>
+            </div>
+
+            <button type="submit" class="btn-book">Réserver ce chauffeur</button>
+            <p id="vtcConfirm" style="display:none; margin-top:14px; font-size:13px; color:#2D5A43; font-weight:500;"></p>
+          </form>
         </div>
       </div>
     </section>
 
-    <!-- Complex Booking Wizard -->
-    <section class="booking-engine" id="simulateur">
-      <div style="text-align:center; margin-bottom: 28px;">
-        <span class="badge-gold">Réservation Instantanée</span>
-        <h2 style="font-family:var(--font-display); font-size:28px; margin-top:8px;">Calculateur de Tarif & Bon de Course</h2>
-      </div>
-
-      <div class="booking-steps">
-        <div class="step-node active" id="nodeStep1">
-          <div class="step-circle">1</div>
-          <span>Trajet</span>
+    <!-- 3 Piliers sobres -->
+    <section class="pillars" id="engagements">
+      <div class="container pillars-grid">
+        <div class="pillar-item">
+          <span>01</span>
+          <h3>Attente en sortie de bagages incluse</h3>
+          <p>Nous suivons l'état de votre vol en temps réel. En cas de retard aérien, votre chauffeur ajuste son arrivée sans frais supplémentaires et vous accueille avec une pancarte nominative.</p>
         </div>
-        <div class="step-node" id="nodeStep2">
-          <div class="step-circle">2</div>
-          <span>Véhicule & Options</span>
+        <div class="pillar-item">
+          <span>02</span>
+          <h3>Tarif connu avant le départ</h3>
+          <p>Contrairement aux applications ou aux compteurs horokilométriques, le montant affiché lors de votre réservation reste strictement identique à l'arrivée.</p>
         </div>
-        <div class="step-node" id="nodeStep3">
-          <div class="step-circle">3</div>
-          <span>Voucher Confirmé</span>
+        <div class="pillar-item">
+          <span>03</span>
+          <h3>Chauffeurs de carrière bilingues</h3>
+          <p>Costume sombre, discrétion absolue et parfaite maîtrise des itinéraires parisiens. Facturation mensuelle disponible pour les cabinets et entreprises.</p>
         </div>
       </div>
-
-      <!-- Step 1: Trajet -->
-      <div class="wizard-tab-content active" id="tabStep1">
-        <div class="sim-grid">
-          <div class="sim-field">
-            <label>Adresse de prise en charge</label>
-            <input type="text" id="simDep" value="Paris Centre (Champs-Élysées)">
-          </div>
-          <div class="sim-field">
-            <label>Destination / Forfait Aéroport</label>
-            <select id="simDest" onchange="updateBookingEstimate()">
-              <option value="65" data-dist="22 km" data-dur="35 min" data-dest="Aéroport Paris-Orly (ORY)">Aéroport Paris-Orly (Forfait Fixe 65 €)</option>
-              <option value="85" data-dist="32 km" data-dur="45 min" data-dest="Aéroport Paris-CDG (CDG)" selected>Aéroport Paris-CDG (Forfait Fixe 85 €)</option>
-              <option value="145" data-dist="85 km" data-dur="1h15" data-dest="Aéroport Paris-Beauvais (BVA)">Aéroport Paris-Beauvais (145 €)</option>
-              <option value="55" data-dist="12 km" data-dur="25 min" data-dest="Gare de Lyon / Gare du Nord">Gare Parisienne (55 €)</option>
-              <option value="120" data-dist="45 km" data-dur="50 min" data-dest="Palais de Versailles VIP">Château de Versailles VIP (120 €)</option>
-            </select>
-          </div>
-          <div class="sim-field">
-            <label>Date et heure de rendez-vous</label>
-            <input type="datetime-local" id="simTime">
-          </div>
-          <div class="sim-field">
-            <label>Nombre de passagers</label>
-            <select id="simPass">
-              <option value="1">1 à 2 passagers (2 valises)</option>
-              <option value="3">3 à 4 passagers (4 valises)</option>
-              <option value="7">5 à 7 passagers (Van Classe V)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Live Flight Radar Tracker -->
-        <div class="flight-tracker-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <label style="font-size:12px; text-transform:uppercase; letter-spacing:0.05em; font-weight:700; color:var(--gold-light);">
-              Suivi de Vol en Temps Réel (Option Gratuite)
-            </label>
-            <span style="font-size:11px; color:var(--text-muted);">Votre chauffeur ajuste son arrivée en cas d'avance ou de retard du vol</span>
-          </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <input type="text" id="flightInput" placeholder="Ex: AF 1234, EK 073, DL 262" style="background:#080a0e; border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:8px 12px; color:#fff; font-size:13px; width:220px;">
-            <button class="btn-outline" style="padding:8px 16px; font-size:12px;" onclick="checkFlightStatus()">Vérifier le vol</button>
-            <div class="flight-pills">
-              <span class="flight-pill" onclick="fillFlight('AF 1234')">AF 1234 (CDG 2E)</span>
-              <span class="flight-pill" onclick="fillFlight('EK 073')">EK 073 (CDG 1)</span>
-              <span class="flight-pill" onclick="fillFlight('BA 304')">BA 304 (Orly 1)</span>
-              <span class="flight-pill" onclick="fillFlight('DL 262')">DL 262 (CDG 2E)</span>
-            </div>
-          </div>
-          <div id="flightResult" class="flight-status-result" style="display:none;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-              <div style="display:flex; align-items:center; gap:8px;">
-                <span class="status-badge-green" id="flightBadge">
-                  <span style="width:6px; height:6px; border-radius:50%; background:#34d399; box-shadow:0 0 6px #34d399; display:inline-block;"></span>
-                  VOL CONFIRMÉ
-                </span>
-                <strong style="color:#fff; font-size:14px;" id="flightName">Air France AF 1234</strong>
-              </div>
-              <span style="font-size:11px; color:var(--gold-light);" id="flightAircraft">Boeing 777-300ER • Cabine La Première</span>
-            </div>
-
-            <div class="flight-radar-grid">
-              <div class="flight-radar-item">
-                <small>Itinéraire Aérien</small>
-                <strong id="flightRoute">New York JFK ➔ Paris-CDG</strong>
-              </div>
-              <div class="flight-radar-item">
-                <small>Statut Télémesure</small>
-                <strong id="flightLiveStatus" style="color:#34d399;">En approche finale • À l'heure</strong>
-              </div>
-              <div class="flight-radar-item">
-                <small>Débarquement</small>
-                <strong id="flightGate">Terminal 2E • Porte K32</strong>
-              </div>
-              <div class="flight-radar-item">
-                <small>Livraison Bagages</small>
-                <strong id="flightCarousel">Tapis 14 (SkyPriority)</strong>
-              </div>
-            </div>
-
-            <div style="display:flex; align-items:center; gap:10px; font-size:12px; color:#cbd5e1; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:8px; padding:10px 14px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold); flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span id="flightDriverMessage">Votre chauffeur Karim M. est stationné au Parking Pro VIP Terminal 2E et se positionne Porte 14 avec tablette nominative tactile.</span>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#080a0e; border:1px solid rgba(212,175,55,0.25); border-radius:12px; padding:18px 24px; flex-wrap:wrap; gap:16px;">
-          <div>
-            <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase;">Estimation du trajet</span>
-            <div style="font-size:15px; color:#fff; margin-top:2px;">
-              Distance : <strong id="estDist">32 km</strong> • Durée estimée : <strong id="estDur">45 min</strong>
-            </div>
-          </div>
-          <div style="display:flex; align-items:center; gap:20px;">
-            <div style="text-align:right;">
-              <small style="font-size:11px; color:var(--text-muted); text-transform:uppercase; display:block;">Tarif fixe garanti</small>
-              <strong style="font-family:var(--font-display); font-size:28px; color:var(--gold-light);" id="step1Price">85 €</strong>
-            </div>
-            <button class="btn-gold" onclick="goToStep(2)">Suivant : Choix du véhicule</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 2: Véhicule & Options -->
-      <div class="wizard-tab-content" id="tabStep2">
-        <h3 style="font-family:var(--font-display); font-size:20px; margin-bottom:12px;">Sélectionnez votre gamme</h3>
-        
-        <div class="veh-options">
-          <div class="veh-option-card selected" id="cardVeh1" onclick="selectVeh('berline', 0, this)">
-            <span class="badge-gold" style="font-size:10px;">Recommandé</span>
-            <h4 style="margin-top:8px;">Mercedes Classe S Limousine</h4>
-            <p style="font-size:13px; color:var(--text-muted);">Le summum de l'élégance parisienne, cuir nappa, silence total.</p>
-            <div class="veh-price-tag" id="vehPrice1">85 €</div>
-            <span style="font-size:12px; color:var(--gold-light);">Sélectionné</span>
-          </div>
-
-          <div class="veh-option-card" id="cardVeh2" onclick="selectVeh('classe-e', -15, this)">
-            <span style="border:1px solid rgba(255,255,255,0.2); padding:3px 8px; border-radius:99px; font-size:10px; color:var(--text-muted); text-transform:uppercase;">Affaires</span>
-            <h4 style="margin-top:8px;">Mercedes-Benz Classe E Berline</h4>
-            <p style="font-size:13px; color:var(--text-muted);">Berline d'affaires sobre et feutrée, confort acoustique optimal.</p>
-            <div class="veh-price-tag" id="vehPrice2">70 €</div>
-            <span style="font-size:12px; color:var(--text-muted);">Choisir ce modèle</span>
-          </div>
-
-          <div class="veh-option-card" id="cardVeh3" onclick="selectVeh('van', 35, this)">
-            <span style="border:1px solid rgba(255,255,255,0.2); padding:3px 8px; border-radius:99px; font-size:10px; color:var(--text-muted); text-transform:uppercase;">Groupe VIP</span>
-            <h4 style="margin-top:8px;">Mercedes-Benz Classe V Extra-Long</h4>
-            <p style="font-size:13px; color:var(--text-muted);">Salon roulant 7 places, table de travail, 8 bagages.</p>
-            <div class="veh-price-tag" id="vehPrice3">120 €</div>
-            <span style="font-size:12px; color:var(--text-muted);">Choisir ce modèle</span>
-          </div>
-        </div>
-
-        <h3 style="font-family:var(--font-display); font-size:18px; margin:24px 0 12px;">Options d'accueil exclusives</h3>
-        <div class="vip-options-list">
-          <label class="vip-option-row">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <input type="checkbox" id="optChampagne" onchange="calcTotal()">
-              <div>
-                <strong>Bouteille de Champagne Brut millésimé au frais</strong>
-                <div style="font-size:12px; color:var(--text-muted);">Servi dans des flûtes en cristal à votre montée à bord.</div>
-              </div>
-            </div>
-            <strong style="color:var(--gold-light);">+ 75 €</strong>
-          </label>
-
-          <label class="vip-option-row">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <input type="checkbox" id="optTablet" checked onchange="calcTotal()">
-              <div>
-                <strong>Accueil personnalisé sur tablette tactile à la porte</strong>
-                <div style="font-size:12px; color:var(--text-muted);">Nom ou logo de votre société affiché dès votre sortie de douane.</div>
-              </div>
-            </div>
-            <strong style="color:var(--gold-light);">Inclus</strong>
-          </label>
-
-          <label class="vip-option-row">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <input type="checkbox" id="optBaby" onchange="calcTotal()">
-              <div>
-                <strong>Siège bébé / Rehausseur homologué ISOFIX</strong>
-                <div style="font-size:12px; color:var(--text-muted);">Désinfecté et installé avant votre prise en charge.</div>
-              </div>
-            </div>
-            <strong style="color:var(--gold-light);">+ 15 €</strong>
-          </label>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:28px;">
-          <button class="btn-outline" onclick="goToStep(1)">Retour au trajet</button>
-          <div style="display:flex; align-items:center; gap:20px;">
-            <div style="text-align:right;">
-              <small style="font-size:11px; color:var(--text-muted); text-transform:uppercase; display:block;">Total tout inclus</small>
-              <strong style="font-family:var(--font-display); font-size:30px; color:var(--gold-light);" id="step2Total">85 €</strong>
-            </div>
-            <button class="btn-gold" onclick="generateVoucher()">Confirmer & Générer mon pass</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 3: Voucher Numérique Confirmé -->
-      <div class="wizard-tab-content" id="tabStep3">
-        <div style="text-align:center; margin-bottom:20px;">
-          <span class="status-badge-green" style="padding:6px 16px; font-size:13px;">RÉSERVATION ENREGISTRÉE AVEC SUCCÈS</span>
-          <h3 style="font-family:var(--font-display); font-size:24px; margin-top:10px;">Votre Pass d'Accompagnement VIP</h3>
-        </div>
-
-        <div class="boarding-pass-wrapper">
-        <div class="boarding-pass" id="boardingPassCard">
-          <div class="bp-header">
-            <div>
-              <div style="font-family:var(--font-display); font-size:20px; color:var(--gold-light);">PRESTIGE DRIVE PARIS</div>
-              <div style="font-size:12px; color:var(--text-muted);">Licence Chauffeur VTC n° EVTC-075-2024-X</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted);">Dossier de réservation</div>
-              <div style="font-family:monospace; font-size:18px; color:var(--gold); font-weight:700;" id="bpCode">VIP-75-9842</div>
-            </div>
-          </div>
-
-          <div class="bp-grid">
-            <div>
-              <small style="color:var(--text-muted); font-size:11px; text-transform:uppercase; display:block;">Prise en charge</small>
-              <strong id="bpDep">Paris Centre</strong>
-            </div>
-            <div>
-              <small style="color:var(--text-muted); font-size:11px; text-transform:uppercase; display:block;">Destination</small>
-              <strong id="bpDest">Aéroport Paris-CDG</strong>
-            </div>
-            <div>
-              <small style="color:var(--text-muted); font-size:11px; text-transform:uppercase; display:block;">Date & Heure</small>
-              <strong id="bpDate">Aujourd'hui</strong>
-            </div>
-            <div>
-              <small style="color:var(--text-muted); font-size:11px; text-transform:uppercase; display:block;">Véhicule</small>
-              <strong id="bpVeh">Mercedes Classe S Limousine</strong>
-            </div>
-            <div>
-              <small style="color:var(--text-muted); font-size:11px; text-transform:uppercase; display:block;">Chauffeur Attitré</small>
-              <strong style="color:var(--gold-light);">Artisan Référent Parisien</strong>
-            </div>
-            <div>
-              <small style="color:var(--text-muted); font-size:11px; text-transform:uppercase; display:block;">Tarif Total Fixé</small>
-              <strong style="font-family:var(--font-display); font-size:22px; color:var(--gold-light);" id="bpPrice">85 €</strong>
-            </div>
-          </div>
-
-          <div class="bp-footer">
-            <div style="display:flex; align-items:center; gap:16px;">
-              <!-- Embedded SVG QR code -->
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="background:#fff; color:#000; padding:4px; border-radius:6px;">
-                <rect x="2" y="2" width="6" height="6"/><rect x="16" y="2" width="6" height="6"/><rect x="2" y="16" width="6" height="6"/>
-                <path d="M10 2h4M10 6h4M10 10h4M2 10h4M16 10h4M10 14h4M10 18h4M10 22h4M18 14v4M18 22h4M22 18h-4"/>
-              </svg>
-              <div style="font-size:12px; color:var(--text-muted);">
-                Ce voucher électronique garantit votre véhicule et votre tarif fixe sans majoration d'embouteillage.
-              </div>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn-outline" style="padding:10px 18px; font-size:13px;" onclick="window.print()">Imprimer le Voucher</button>
-              <button class="btn-outline" style="padding:10px 18px; font-size:13px;" onclick="alert('SMS de confirmation envoyé avec le numéro direct de votre chauffeur !')">Recevoir par SMS</button>
-              <button class="btn-gold" style="padding:10px 18px; font-size:13px;" onclick="openWhatsAppDispatch()">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                WhatsApp Conciergerie
-              </button>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div style="text-align:center; margin-top:24px;">
-          <button class="btn-outline" style="font-size:12px;" onclick="goToStep(1)">Modifier la simulation</button>
-        </div>
-      </div>
-
     </section>
 
-    <!-- Trust bar -->
-    <div class="trust-bar">
-      <div class="trust-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        <span>Avis clients vérifiés : <strong>5.0 / 5 (120+ avis)</strong></span>
+    <!-- La Flotte -->
+    <section class="fleet-section" id="flotte">
+      <div class="container">
+        <div class="section-header">
+          <span>Véhicules récents non siglés</span>
+          <h2>Une flotte pensée pour le calme et le travail.</h2>
+        </div>
+
+        <div class="fleet-grid">
+          <article class="vehicle-card">
+            <img src="vehicle-classe-e.jpg" alt="Mercedes-Benz Classe E Berline Affaires" loading="lazy">
+            <div class="vehicle-body">
+              <h3>Berline Affaires</h3>
+              <div class="vehicle-meta">Mercedes-Benz Classe E Hybride • 3 passagers • 2 valises</div>
+              <p>Sellerie cuir noir, climatisation individuelle, bouteilles d'eau en verre et chargeurs rapides à l'arrière.</p>
+              <div class="vehicle-foot">
+                <span>Dès <strong>70 €</strong></span>
+                <button type="button" onclick="chooseVehicle('1')">Sélectionner</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="vehicle-card">
+            <img src="vehicle-classe-v.jpg" alt="Mercedes-Benz Classe V Salon Mobile" loading="lazy">
+            <div class="vehicle-body">
+              <h3>Van Salon Extra-Long</h3>
+              <div class="vehicle-meta">Mercedes-Benz Classe V • 7 passagers • 7 valises</div>
+              <p>Configuration salon face-à-face avec table centrale escamotable, idéale pour les délégations et départs en famille.</p>
+              <div class="vehicle-foot">
+                <span>Dès <strong>95 €</strong></span>
+                <button type="button" onclick="chooseVehicle('1.35')">Sélectionner</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="vehicle-card">
+            <img src="vehicle-honda.jpg" alt="Berline Première Classe" loading="lazy">
+            <div class="vehicle-body">
+              <h3>Première Classe</h3>
+              <div class="vehicle-meta">Mercedes-Benz Classe S Limousine • 3 passagers</div>
+              <p>Sièges arrière inclinables à empattement long, vitrage acoustique feuilleté et confort de roulement supérieur.</p>
+              <div class="vehicle-foot">
+                <span>Dès <strong>115 €</strong></span>
+                <button type="button" onclick="chooseVehicle('1.65')">Sélectionner</button>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
-      <div class="trust-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span>Chauffeur <strong>agréé préfecture & assurance pro</strong></span>
+    </section>
+
+    <!-- Grille des Forfaits Aéroports -->
+    <section class="rates-section" id="forfaits">
+      <div class="container rates-layout">
+        <div class="section-header" style="margin-bottom:0;">
+          <span>Transparence tarifaire</span>
+          <h2>Forfaits fixes aéroports &amp; gares.</h2>
+          <p style="color:var(--muted); font-size:15px; margin-top:16px;">
+            Tous nos tarifs incluent l'accueil personnalisé avec pancarte au terminal, jusqu'à 60 minutes d'attente après l'atterrissage et les péages.
+          </p>
+        </div>
+
+        <table class="rate-table">
+          <tbody>
+            <tr>
+              <td>Paris ↔ Aéroport Paris-Charles de Gaulle (CDG)</td>
+              <td>85 €</td>
+            </tr>
+            <tr>
+              <td>Paris ↔ Aéroport de Paris-Orly (ORY)</td>
+              <td>70 €</td>
+            </tr>
+            <tr>
+              <td>Paris ↔ Aéroport de Paris-Le Bourget</td>
+              <td>95 €</td>
+            </tr>
+            <tr>
+              <td>Accueil Gares Parisiennes (Quai de train)</td>
+              <td>60 €</td>
+            </tr>
+            <tr>
+              <td>Mise à disposition chauffeur (Paris intra-muros)</td>
+              <td>80 € / h</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="trust-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span>Ponctualité <strong>garantie</strong></span>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>
+        <strong style="color:var(--ink);">Prestige Drive Paris SAS</strong> — Licence VTC Ministère des Transports n° EVTC075240812.<br>
+        SIRET : 892 410 552 00019 • Assurance RC Circulation &amp; Transport de personnes à titre onéreux : Allianz IARD.
+      </div>
+      <div>
+        Médiateur de la consommation (Art. L.612-1) : MTV Travel (mtv.travel) • RGPD : données conservées uniquement pour la facturation.<br>
+        Site de démonstration réalisé par <a href="../index.html" style="text-decoration:underline; color:var(--ink);">BoostMySite</a>.
       </div>
     </div>
-
-    <!-- Real Fleet Showcase -->
-    <section style="margin: 60px 0;">
-      <h2 style="font-family: var(--font-display); font-size: 32px; text-align: center; margin-bottom: 12px;">Notre Flotte de Prestige Réelle</h2>
-      <p style="text-align: center; color: var(--text-muted); max-width: 500px; margin: 0 auto 40px;">Des véhicules récents, hybrides, nettoyés et désinfectés avant chaque prise en charge.</p>
-
-      <div class="fleet-grid">
-        <!-- Card 1: Mercedes Classe S -->
-        <div class="fleet-card" style="position:relative;">
-          <span class="fleet-badge-floating">Palace & Cérémonies VIP</span>
-          <div class="fleet-img">
-            <img src="project-chauffeur.jpg" alt="Mercedes-Benz Classe S Berline Première Classe">
-          </div>
-          <div class="fleet-body">
-            <h3>Mercedes-Benz Classe S Première Classe</h3>
-            <p style="color: var(--text-muted); font-size: 14px;">Le fleuron mondial du raffinement. Confort feutré, insonorisation acoustique double vitrage et espace aux jambes princier.</p>
-            <div class="fleet-specs-row">
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                3 Passagers VIP
-              </span>
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                3 Grands Bagages
-              </span>
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-                Wi-Fi 5G & Audio 3D
-              </span>
-            </div>
-            <div class="amenities">
-              <span class="amenity">Sièges massants & ventilés</span>
-              <span class="amenity">Discrétion diplomatique</span>
-              <span class="amenity">Champagne au frais</span>
-              <span class="amenity">Bouteilles Evian</span>
-            </div>
-            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 11px;" onclick="selectVehFromFleet('berline')">Réserver la Classe S</a>
-          </div>
-        </div>
-
-        <!-- Card 2: Mercedes Classe V -->
-        <div class="fleet-card" style="position:relative;">
-          <span class="fleet-badge-floating">Délégations & Groupes VIP</span>
-          <div class="fleet-img">
-            <img src="vehicle-classe-v.jpg" alt="Mercedes-Benz Classe V Extra-Long Salon VIP">
-          </div>
-          <div class="fleet-body">
-            <h3>Mercedes-Benz Classe V Extra-Long Salon VIP</h3>
-            <p style="color: var(--text-muted); font-size: 14px;">Le véritable jet privé de la route. Salon vis-à-vis en cuir nappa avec table centrale pour réunions itinérantes et familles.</p>
-            <div class="fleet-specs-row">
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                7 Passagers VIP
-              </span>
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                8 Bagages Soute
-              </span>
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                Prises 220V & USB-C
-              </span>
-            </div>
-            <div class="amenities">
-              <span class="amenity">Salon conférence 7 places</span>
-              <span class="amenity">Vitrage teinté anti-regard</span>
-              <span class="amenity">Climatisation tri-zone</span>
-              <span class="amenity">Table amovible</span>
-            </div>
-            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 11px;" onclick="selectVehFromFleet('van')">Réserver le Van Classe V</a>
-          </div>
-        </div>
-
-        <!-- Card 3: Mercedes Classe E -->
-        <div class="fleet-card" style="position:relative;">
-          <span class="fleet-badge-floating">Navettes Aéroports & Corporate</span>
-          <div class="fleet-img">
-            <img src="vehicle-classe-e.jpg" alt="Mercedes-Benz Classe E Berline Affaires">
-          </div>
-          <div class="fleet-body">
-            <h3>Mercedes-Benz Classe E Berline Affaires</h3>
-            <p style="color: var(--text-muted); font-size: 14px;">La référence du voyage d'affaires à Paris. Ligne aérodynamique, confort acoustique exemplaire et suspension feutrée.</p>
-            <div class="fleet-specs-row">
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                3 Passagers
-              </span>
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                3 Valises
-              </span>
-              <span class="fleet-specs-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
-                Hybride Silencieux
-              </span>
-            </div>
-            <div class="amenities">
-              <span class="amenity">Chargeurs induction & USB-C</span>
-              <span class="amenity">Wi-Fi haut débit</span>
-              <span class="amenity">Bouteilles d'eau fraîches</span>
-              <span class="amenity">Presse du jour</span>
-            </div>
-            <a href="#simulateur" class="btn-gold" style="width: 100%; justify-content: center; padding: 11px;" onclick="selectVehFromFleet('classe-e')">Réserver la Classe E</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <div class="sticky-call">
-    <a href="tel:+33667226790">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Appeler le Chauffeur (06 67 22 67 90)
-    </a>
-  </div>
+  </footer>
 
   <script>
-    // Set default date
-    const now = new Date();
-    now.setHours(now.getHours() + 2);
-    document.getElementById('simTime').value = now.toISOString().slice(0, 16);
+    document.getElementById('pickupDate').value = new Date().toISOString().split('T')[0];
+    let bookingMode = 'transfert';
 
-    let baseRate = 85;
-    let vehModifier = 0;
-    let selectedVehName = 'Mercedes Classe S Limousine';
-
-    function updateBookingEstimate() {
-      const sel = document.getElementById('simDest');
-      const opt = sel.options[sel.selectedIndex];
-      baseRate = parseInt(opt.value, 10);
-      document.getElementById('estDist').textContent = opt.dataset.dist;
-      document.getElementById('estDur').textContent = opt.dataset.dur;
-      document.getElementById('step1Price').textContent = baseRate + ' €';
-
-      document.getElementById('vehPrice1').textContent = baseRate + ' €';
-      document.getElementById('vehPrice2').textContent = Math.max(45, baseRate - 15) + ' €';
-      document.getElementById('vehPrice3').textContent = (baseRate + 35) + ' €';
-
-      calcTotal();
+    function switchMode(mode, btn) {
+      bookingMode = mode;
+      document.querySelectorAll('.booking-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('routeGroup').style.display = mode === 'transfert' ? 'block' : 'none';
+      document.getElementById('hoursGroup').style.display = mode === 'heure' ? 'block' : 'none';
+      calculateFare();
     }
 
-    function selectVeh(type, mod, el) {
-      document.querySelectorAll('.veh-option-card').forEach(c => c.classList.remove('selected'));
-      if (el) el.classList.add('selected');
-      vehModifier = mod;
-      if (type === 'berline') selectedVehName = 'Mercedes Classe S Limousine';
-      else if (type === 'classe-e' || type === 'suv') selectedVehName = 'Mercedes-Benz Classe E Berline';
-      else selectedVehName = 'Mercedes-Benz Classe V Extra-Long';
-      calcTotal();
+    function calculateFare() {
+      const base = bookingMode === 'transfert'
+        ? parseFloat(document.getElementById('routeSelect').value)
+        : parseFloat(document.getElementById('hoursSelect').value);
+      const mult = parseFloat(document.getElementById('vehicleSelect').value);
+      const total = Math.round(base * mult / 5) * 5;
+      document.getElementById('fareAmount').textContent = total + ' €';
     }
 
-    function selectVehFromFleet(type) {
-      goToStep(2);
-      if (type === 'berline') {
-        const el = document.getElementById('cardVeh1');
-        selectVeh('berline', 0, el);
-      } else if (type === 'van') {
-        const el = document.getElementById('cardVeh3');
-        selectVeh('van', 35, el);
-      } else {
-        const el = document.getElementById('cardVeh2');
-        selectVeh('classe-e', -15, el);
-      }
+    function chooseVehicle(multVal) {
+      document.getElementById('vehicleSelect').value = multVal;
+      calculateFare();
+      document.getElementById('reserver').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function calcTotal() {
-      let total = baseRate + vehModifier;
-      if (document.getElementById('optChampagne').checked) total += 75;
-      if (document.getElementById('optBaby').checked) total += 15;
-      document.getElementById('step2Total').textContent = total + ' €';
-      return total;
-    }
-
-    /* ---------------- VIP WEB AUDIO ENGINE (SYNTHÉTISÉ EN DIRECT SANS FICHIER EXTERNE) ---------------- */
-    let audioCtx = null;
-    let soundEnabled = true;
-
-    function initAudio() {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) {
-          audioCtx = new AudioContext();
-        }
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-    }
-
-    function playLuxuryChime() {
-      if (!soundEnabled) return;
-      try {
-        initAudio();
-        if (!audioCtx) return;
-        const now = audioCtx.currentTime;
-        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now + i * 0.04);
-          gain.gain.setValueAtTime(0.001, now + i * 0.04);
-          gain.gain.exponentialRampToValueAtTime(0.08 / (i + 1), now + i * 0.04 + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.04 + 0.65);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(now + i * 0.04);
-          osc.stop(now + i * 0.04 + 0.70);
-        });
-      } catch (e) {}
-    }
-
-    function playEngineRumble(type) {
-      if (!soundEnabled) return;
-      try {
-        initAudio();
-        if (!audioCtx) return;
-        const now = audioCtx.currentTime;
-        const baseFreq = (type === 'limousine' || type === 'suv') ? 56 : 42;
-        const osc = audioCtx.createOscillator();
-        const subOsc = audioCtx.createOscillator();
-        const filter = audioCtx.createBiquadFilter();
-        const gain = audioCtx.createGain();
-
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(baseFreq * 2.2, now);
-        osc.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.6);
-
-        subOsc.type = 'sine';
-        subOsc.frequency.setValueAtTime(baseFreq, now);
-
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(280, now);
-        filter.frequency.exponentialRampToValueAtTime(130, now + 0.6);
-
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.linearRampToValueAtTime(0.12, now + 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
-
-        osc.connect(filter);
-        subOsc.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start(now);
-        subOsc.start(now);
-        osc.stop(now + 0.7);
-        subOsc.stop(now + 0.7);
-      } catch (e) {}
-    }
-
-    function playRelayClick() {
-      if (!soundEnabled) return;
-      try {
-        initAudio();
-        if (!audioCtx) return;
-        const now = audioCtx.currentTime;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1100, now);
-        osc.frequency.exponentialRampToValueAtTime(350, now + 0.03);
-        gain.gain.setValueAtTime(0.07, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.04);
-      } catch (e) {}
-    }
-
-    function toggleAudioFX() {
-      soundEnabled = !soundEnabled;
-      const status = document.getElementById('audioStatusText');
-      if (status) status.textContent = soundEnabled ? 'Ambiance Sonore VIP (Active)' : 'Ambiance Sonore (Muette)';
-      if (soundEnabled) {
-        playLuxuryChime();
-      }
-    }
-
-    function goToStep(step) {
-      playLuxuryChime();
-      document.querySelectorAll('.wizard-tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.step-node').forEach(n => n.classList.remove('active'));
-
-      document.getElementById('tabStep' + step).classList.add('active');
-      for (let i = 1; i <= step; i++) {
-        document.getElementById('nodeStep' + i).classList.add('active');
-      }
-    }
-
-    /* ---------------- REAL-TIME PARIS AIRPORTS FLIGHT RADAR DATABASE ---------------- */
-    const FLIGHT_DATABASE = {
-      'AF 1234': {
-        airline: 'Air France AF 1234',
-        aircraft: 'Boeing 777-300ER • Cabine La Première',
-        route: 'New York JFK ➔ Paris-CDG Terminal 2E',
-        status: 'EN APPROCHE FINALE • À L\'HEURE',
-        statusColor: '#34d399',
-        gate: 'Terminal 2E • Porte K32',
-        carousel: 'Tapis Bagages n° 14 (SkyPriority)',
-        driverMsg: 'Votre chauffeur Karim M. est stationné au Parking Pro VIP Terminal 2E et se positionne Porte 14 avec tablette nominative tactile.'
-      },
-      'EK 073': {
-        airline: 'Emirates EK 073',
-        aircraft: 'Airbus A380-800 • First Class Suite',
-        route: 'Dubaï DXB ➔ Paris-CDG Terminal 1',
-        status: 'ATTERRI (AVANCE DE 12 MIN)',
-        statusColor: '#34d399',
-        gate: 'Terminal 1 • Porte B12',
-        carousel: 'Tapis Bagages n° 4',
-        driverMsg: 'Votre chauffeur Pierre D. vous attend dès la sortie de douane Terminal 1 avec tablette lumineuse Prestige Drive.'
-      },
-      'BA 304': {
-        airline: 'British Airways BA 304',
-        aircraft: 'Airbus A320neo • Club Europe',
-        route: 'Londres Heathrow LHR ➔ Paris-Orly 1',
-        status: 'VOL EN ROUTE • À L\'HEURE',
-        statusColor: '#38bdf8',
-        gate: 'Orly 1 • Hall 1 Porte 10A',
-        carousel: 'Tapis Bagages n° 2',
-        driverMsg: 'Votre chauffeur est positionné au Parking Pro Orly 1, pancarte nominative prête.'
-      },
-      'DL 262': {
-        airline: 'Delta Air Lines DL 262',
-        aircraft: 'Airbus A350-900 • Delta One Suite',
-        route: 'Atlanta ATL ➔ Paris-CDG Terminal 2E',
-        status: 'VOL EN ROUTE • À L\'HEURE',
-        statusColor: '#38bdf8',
-        gate: 'Terminal 2E • Hall M Porte M44',
-        carousel: 'Tapis Bagages n° 18',
-        driverMsg: 'Chauffeur d\'astreinte prévenu, synchronisation automatique de l\'heure de sortie des bagages.'
-      }
-    };
-
-    function fillFlight(code) {
-      document.getElementById('flightInput').value = code;
-      checkFlightStatus();
-    }
-
-    function checkFlightStatus() {
-      playLuxuryChime();
-      const val = document.getElementById('flightInput').value.trim().toUpperCase();
-      const res = document.getElementById('flightResult');
-      if (!val) return;
-
-      const flight = FLIGHT_DATABASE[val] || {
-        airline: 'Vol ' + val,
-        aircraft: 'Vol International Régulier Long-Courrier',
-        route: 'Provenance Extérieure ➔ Paris Aéroports (CDG / Orly)',
-        status: 'VOL CONFIRMÉ • CHAUFFEUR ASSIGNÉ',
-        statusColor: '#34d399',
-        gate: 'Terminal Confirmé à l\'atterrissage',
-        carousel: 'Distribution bagages prioritaire',
-        driverMsg: 'Votre chauffeur suit le statut ADS-B du vol en direct et ajuste sa présence sans aucun frais d\'attente.'
-      };
-
-      res.style.display = 'flex';
-      document.getElementById('flightName').textContent = flight.airline;
-      document.getElementById('flightAircraft').textContent = flight.aircraft;
-      document.getElementById('flightRoute').textContent = flight.route;
-      const statusEl = document.getElementById('flightLiveStatus');
-      statusEl.textContent = flight.status;
-      statusEl.style.color = flight.statusColor;
-      document.getElementById('flightGate').textContent = flight.gate;
-      document.getElementById('flightCarousel').textContent = flight.carousel;
-      document.getElementById('flightDriverMessage').textContent = flight.driverMsg;
-    }
-
-    function openWhatsAppDispatch() {
-      const code = document.getElementById('bpCode').textContent;
-      const dep = document.getElementById('bpDep').textContent;
-      const dest = document.getElementById('bpDest').textContent;
-      const date = document.getElementById('bpDate').textContent;
-      const veh = document.getElementById('bpVeh').textContent;
-      const price = document.getElementById('bpPrice').textContent;
-      const msg = `Bonjour Prestige Drive Paris,\nJe confirme ma réservation VIP n° ${code} :\n- Prise en charge : ${dep}\n- Destination : ${dest}\n- Date/Heure : ${date}\n- Véhicule : ${veh}\n- Tarif forfaitaire garanti : ${price}\nMerci de me confirmer la prise en charge immédiate.`;
-      const url = `https://wa.me/33667226790?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
-    }
-
-    function generateVoucher() {
-      playLuxuryChime();
-      const total = calcTotal();
-      const sel = document.getElementById('simDest');
-      const destText = sel.options[sel.selectedIndex].dataset.dest;
-      const depText = document.getElementById('simDep').value || 'Paris Centre';
-      const timeVal = document.getElementById('simTime').value;
-
-      const randomCode = 'VIP-75-' + Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('bpCode').textContent = randomCode;
-      document.getElementById('bpDep').textContent = depText;
-      document.getElementById('bpDest').textContent = destText;
-      document.getElementById('bpVeh').textContent = selectedVehName;
-      document.getElementById('bpPrice').textContent = total + ' €';
-
-      if (timeVal) {
-        const d = new Date(timeVal);
-        document.getElementById('bpDate').textContent = d.toLocaleDateString('fr-FR', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
-      }
-
-      goToStep(3);
-    }
-
-    /* ---------------- THREE.JS HIGH-POLY AUTOMOTIVE SHOWROOM (GLTF / PBR) ---------------- */
-    let carScene, carCamera, carRenderer, carTurntable, activeCarGroup;
-    let currentVehType = 'limousine';
-    let currentColorHex = '#090a0e';
-    let carLightsOn = true;
-    let isNightRunwayMode = false;
-    let headlightSpots = [], headlightMeshes = [];
-    let isCarDragging = false, prevCarMouseX = 0;
-    let targetCarRotY = -0.65, currentCarRotY = -0.65;
-    let carZoomDist = 5.2;
-
-    const carCache = {};
-    let carGLTFLoader = null;
-
-    const VEHICLE_CATALOG = {
-      limousine: {
-        id: 'limousine',
-        name: 'Mercedes-Benz AMG GT 63 S — Limousine Prestige',
-        url: 'models/gt63s.glb',
-        cat: 'Grand Tourisme VIP & Transferts Longue Distance',
-        cap: '3 Passagers VIP • 3 Grands Bagages',
-        comfort: 'Pack Chauffeur étendu, sièges massants ventilés, double vitrage acoustique & audio Burmester 3D',
-        motor: 'V8 Biturbo 639 ch • 0 à 100 km/h en 3.2s • Transmission 4MATIC+',
-        targetDim: 4.8,
-        rotCorrection: 0,
-        accel: '3.2 s',
-        power: '639 ch • 900 Nm',
-        driveMode: 'AMG 4MATIC+ / RACE',
-        rpmVal: '1 250 tr/min',
-        rpmPct: '32%'
-      },
-      van: {
-        id: 'van',
-        name: 'Mercedes-Benz Classe V & Sprinter VIP — Salon Mobile',
-        url: 'models/van.glb',
-        cat: 'Van Première Classe • Délégations, VIP & Salons Privés',
-        cap: '7 à 8 Passagers VIP • 8 Bagages Volumineux',
-        comfort: 'Configuration salon face-à-face, table centrale escamotable, prises 220V/USB & Wi-Fi 5G',
-        motor: 'Diesel 300d 237 ch 9G-Tronic • Suspension pneumatique AIRMATIC ultra-feutrée',
-        targetDim: 5.1,
-        rotCorrection: 0,
-        accel: '7.8 s',
-        power: '237 ch • 500 Nm',
-        driveMode: 'AIRMATIC SALON VIP',
-        rpmVal: '900 tr/min',
-        rpmPct: '22%'
-      },
-      berline: {
-        id: 'berline',
-        name: 'Mercedes-Benz Classe E / C — Berline Affaires',
-        url: 'models/c63.glb',
-        cat: 'Affaires, Événements & Transferts Aéroports Roissy/Orly',
-        cap: '3 Passagers • 3 Bagages',
-        comfort: 'Sellerie cuir noir grainé, climatisation tri-zone Thermotronic, rafraîchissements & presse',
-        motor: 'Hybride 313 ch • Conduite souple silencieuse zéro émission en ville',
-        targetDim: 4.65,
-        rotCorrection: 0,
-        accel: '5.4 s',
-        power: '313 ch • 550 Nm',
-        driveMode: 'HYBRID EV / CONFORT',
-        rpmVal: '800 tr/min',
-        rpmPct: '20%'
-      },
-      suv: {
-        id: 'suv',
-        name: 'Mercedes-Benz Classe G 63 AMG — Escorte & Prestige',
-        url: 'models/g_class.glb',
-        cat: 'Prestige VIP, Événements Privés & Sécurité Rapprochée',
-        cap: '4 Passagers VIP • 4 Bagages',
-        comfort: 'Sellerie cuir designo, vitres teintées anti-regards 95%, marchepieds rétractables',
-        motor: 'V8 Biturbo 585 ch • Présence statutaire exceptionnelle & sécurité absolue',
-        targetDim: 4.75,
-        rotCorrection: -Math.PI / 2,
-        accel: '4.5 s',
-        power: '585 ch • 850 Nm',
-        driveMode: 'V8 BITURBO ESCORTE',
-        rpmVal: '1 400 tr/min',
-        rpmPct: '38%'
-      }
-    };
-
-    // Procedural Studio Reflection Map Generator
-    function createStudioEnvMap() {
-      const c = document.createElement('canvas');
-      c.width = 1024; c.height = 512;
-      const ctx = c.getContext('2d');
-
-      const bg = ctx.createLinearGradient(0, 0, 0, 512);
-      bg.addColorStop(0, '#0a0d14');
-      bg.addColorStop(0.35, '#131826');
-      bg.addColorStop(0.5, '#1d263a');
-      bg.addColorStop(0.65, '#131826');
-      bg.addColorStop(1, '#05070a');
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, 1024, 512);
-
-      // Overhead softbox
-      const softbox = ctx.createRadialGradient(512, 110, 20, 512, 110, 320);
-      softbox.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-      softbox.addColorStop(0.4, 'rgba(230, 240, 255, 0.65)');
-      softbox.addColorStop(0.8, 'rgba(160, 190, 240, 0.2)');
-      softbox.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = softbox;
-      ctx.fillRect(160, 20, 704, 200);
-
-      // Left strip light
-      const leftGrad = ctx.createLinearGradient(60, 0, 130, 0);
-      leftGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      leftGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.9)');
-      leftGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      ctx.fillStyle = leftGrad;
-      ctx.fillRect(60, 130, 70, 240);
-
-      // Right gold strip light
-      const rightGrad = ctx.createLinearGradient(890, 0, 960, 0);
-      rightGrad.addColorStop(0, 'rgba(212, 175, 55, 0)');
-      rightGrad.addColorStop(0.5, 'rgba(245, 215, 125, 0.85)');
-      rightGrad.addColorStop(1, 'rgba(212, 175, 55, 0)');
-      ctx.fillStyle = rightGrad;
-      ctx.fillRect(890, 130, 70, 240);
-
-      const tex = new THREE.CanvasTexture(c);
-      tex.mapping = THREE.EquirectangularReflectionMapping;
-      return tex;
-    }
-
-    function initCar3D() {
-      const container = document.getElementById('car3dCanvas');
-      if (!container || typeof THREE === 'undefined') return;
-
-      carScene = new THREE.Scene();
-
-      carCamera = new THREE.PerspectiveCamera(34, container.clientWidth / container.clientHeight, 0.1, 100);
-      updateCarCamera();
-
-      carRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      carRenderer.setSize(container.clientWidth, container.clientHeight);
-      carRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      carRenderer.shadowMap.enabled = true;
-      carRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      carRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-      carRenderer.toneMappingExposure = 1.15;
-      container.appendChild(carRenderer.domElement);
-
-      carScene.environment = createStudioEnvMap();
-
-      // Studio 3-Point Lighting
-      const amb = new THREE.AmbientLight(0xffffff, 0.85);
-      carScene.add(amb);
-
-      const keyLight = new THREE.DirectionalLight(0xfff8ee, 1.8);
-      keyLight.position.set(4.5, 6.5, 4.0);
-      keyLight.castShadow = true;
-      keyLight.shadow.mapSize.width = 1024;
-      keyLight.shadow.mapSize.height = 1024;
-      keyLight.shadow.bias = -0.0005;
-      carScene.add(keyLight);
-
-      const overheadLight = new THREE.DirectionalLight(0xe5eeff, 1.2);
-      overheadLight.position.set(0, 8, 0);
-      carScene.add(overheadLight);
-
-      const rimLight = new THREE.DirectionalLight(0xd4af37, 1.2);
-      rimLight.position.set(-5, 4.5, -4);
-      carScene.add(rimLight);
-
-      // Turntable
-      carTurntable = new THREE.Group();
-      carScene.add(carTurntable);
-
-      const turntableMat = new THREE.MeshStandardMaterial({
-        color: 0x090b10,
-        metalness: 0.35,
-        roughness: 0.22
-      });
-      const disc = new THREE.Mesh(new THREE.CylinderGeometry(3.3, 3.35, 0.08, 64), turntableMat);
-      disc.position.y = -0.42;
-      disc.receiveShadow = true;
-      carTurntable.add(disc);
-
-      const ledRing = new THREE.Mesh(
-        new THREE.TorusGeometry(3.32, 0.02, 16, 64),
-        new THREE.MeshBasicMaterial({ color: 0xd4af37 })
-      );
-      ledRing.rotation.x = Math.PI / 2;
-      ledRing.position.y = -0.38;
-      carTurntable.add(ledRing);
-
-      const shadowMat = new THREE.ShadowMaterial({ opacity: 0.55 });
-      const shadowPlane = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), shadowMat);
-      shadowPlane.rotation.x = -Math.PI / 2;
-      shadowPlane.position.y = -0.419;
-      shadowPlane.receiveShadow = true;
-      carTurntable.add(shadowPlane);
-
-      // Build Initial Vehicle (Mercedes Limousine)
-      buildSelectedVehicle('limousine');
-
-      // Mouse & Touch Orbit Controls
-      container.addEventListener('mousedown', (e) => {
-        isCarDragging = true;
-        prevCarMouseX = e.clientX;
-      });
-      window.addEventListener('mouseup', () => { isCarDragging = false; });
-      window.addEventListener('mousemove', (e) => {
-        if (!isCarDragging) return;
-        const delta = e.clientX - prevCarMouseX;
-        prevCarMouseX = e.clientX;
-        targetCarRotY += delta * 0.007;
-      });
-
-      container.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-          isCarDragging = true;
-          prevCarMouseX = e.touches[0].clientX;
-        }
-      }, { passive: true });
-      window.addEventListener('touchend', () => { isCarDragging = false; });
-      window.addEventListener('touchmove', (e) => {
-        if (!isCarDragging || e.touches.length !== 1) return;
-        const delta = e.touches[0].clientX - prevCarMouseX;
-        prevCarMouseX = e.touches[0].clientX;
-        targetCarRotY += delta * 0.007;
-      }, { passive: true });
-
-      container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        carZoomDist = Math.max(3.8, Math.min(7.2, carZoomDist + e.deltaY * 0.005));
-        updateCarCamera();
-      }, { passive: false });
-
-      window.addEventListener('resize', () => {
-        carCamera.aspect = container.clientWidth / container.clientHeight;
-        carCamera.updateProjectionMatrix();
-        carRenderer.setSize(container.clientWidth, container.clientHeight);
-      });
-
-      animateCarStudio();
-    }
-
-    function updateCarCamera() {
-      const angle = 0.72;
-      carCamera.position.set(
-        Math.cos(angle) * carZoomDist * 0.65,
-        1.25,
-        Math.sin(angle) * carZoomDist * 0.75
-      );
-      carCamera.lookAt(0, 0.12, 0);
-    }
-
-    function showCarLoader(show) {
-      const el = document.getElementById('carLoadingOverlay');
-      if (el) el.style.opacity = show ? '1' : '0';
-    }
-
-    function initCarLoaders() {
-      if (carGLTFLoader) return;
-      carGLTFLoader = new THREE.GLTFLoader();
-      if (typeof THREE.DRACOLoader !== 'undefined') {
-        const dracoLoader = new THREE.DRACOLoader();
-        dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
-        carGLTFLoader.setDRACOLoader(dracoLoader);
-      }
-    }
-
-    // Vehicle Builder with High-Poly GLTF Loader & Dynamic Turntable Fitting
-    function buildSelectedVehicle(type) {
-      const config = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.limousine;
-      initCarLoaders();
-
-      // Clear existing car group
-      if (activeCarGroup) {
-        carTurntable.remove(activeCarGroup);
-        activeCarGroup = null;
-      }
-      headlightSpots = [];
-      headlightMeshes = [];
-
-      // Check cache first for instant 0ms switching
-      if (carCache[type]) {
-        mountCarModel(carCache[type].clone(true), config);
-        return;
-      }
-
-      showCarLoader(true);
-      carGLTFLoader.load(
-        config.url,
-        (gltf) => {
-          showCarLoader(false);
-          const rawScene = gltf.scene;
-
-          // Apply orientation correction first if model faces sideways
-          if (config.rotCorrection) {
-            rawScene.rotation.y = config.rotCorrection;
-          }
-
-          // Step 1: Update matrix world to measure true bounding box
-          rawScene.updateMatrixWorld(true);
-          const rawBbox = new THREE.Box3().setFromObject(rawScene);
-          const rawSize = new THREE.Vector3();
-          rawBbox.getSize(rawSize);
-
-          // Step 2: Scale proportionally to fit 6.6m turntable
-          const maxDim = Math.max(rawSize.x, rawSize.z);
-          const targetDim = config.targetDim || 4.7;
-          const scale = targetDim / maxDim;
-          rawScene.scale.set(scale, scale, scale);
-
-          // Step 3: Update matrix world with scale applied
-          rawScene.updateMatrixWorld(true);
-
-          // Step 4: Measure scaled bounding box
-          const scaledBbox = new THREE.Box3().setFromObject(rawScene);
-          const scaledCenter = new THREE.Vector3();
-          scaledBbox.getCenter(scaledCenter);
-
-          // Step 5: Center horizontally (X and Z) so the car revolves perfectly on its physical center of gravity
-          rawScene.position.x -= scaledCenter.x;
-          rawScene.position.z -= scaledCenter.z;
-
-          // Step 6: Flush tire contact on turntable floor (y = -0.38)
-          rawScene.position.y -= (scaledBbox.min.y - (-0.38));
-
-          carCache[type] = rawScene;
-          mountCarModel(rawScene.clone(true), config);
-        },
-        undefined,
-        (error) => {
-          console.error("Erreur de chargement du modèle 3D:", error);
-          showCarLoader(false);
-        }
-      );
-    }
-
-    function mountCarModel(model, config) {
-      activeCarGroup = new THREE.Group();
-      activeCarGroup.add(model);
-
-      // Traversal for double-sided geometry, tinted glass, alloy rims & OLED headlights
-      model.traverse(child => {
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-
-          // CRITICAL FIX: Ensure double-sided rendering on all vehicle meshes
-          // Automotive models mirror right/left wheels with negative scale matrices (scale.x = -1).
-          // Standard FrontSide culls inverted faces, causing wheels/tires on one side to disappear!
-          if (child.material) {
-            if (Array.isArray(child.material)) {
-              child.material.forEach(m => {
-                m.side = THREE.DoubleSide;
-                m.depthWrite = true;
-              });
-            } else {
-              child.material.side = THREE.DoubleSide;
-              child.material.depthWrite = true;
-            }
-          }
-
-          const mName = (child.material && child.material.name ? child.material.name : '').toLowerCase();
-          const nodeName = (child.name || '').toLowerCase();
-
-          // 1. Realistic Tinted Automotive Glass
-          if (mName.includes('glass') || mName.includes('window') || mName.includes('windshield') || mName.includes('cristales') || mName.includes('vitre') || nodeName.includes('windshield') || nodeName.includes('window') || nodeName.includes('vitre') || mName === 'ftc_glass_met') {
-            // Keep headlight glass separate so it can glow
-            if (!mName.includes('headlight') && !mName.includes('lights') && !nodeName.includes('headlight') && !mName.includes('phare')) {
-              child.material = new THREE.MeshPhysicalMaterial({
-                color: 0x0a101d,
-                metalness: 0.1,
-                roughness: 0.05,
-                transparent: true,
-                opacity: 0.35,
-                envMapIntensity: 2.5,
-                side: THREE.DoubleSide
-              });
-              child.castShadow = false;
-              child.receiveShadow = true;
-            }
-          }
-
-          // 2. Realistic Diamond-Cut Alloy Rims & Metallic Trim
-          if (mName === 'metal_gray' || mName === 'aluminum' || mName === 'chrome' || mName === 'chrome 2' || mName === 'rims' || mName === 'rims 2' || (mName.includes('wheel') && !mName.includes('tyre') && !mName.includes('tire')) || (mName.includes('rim') && !mName.includes('tyre') && !mName.includes('tire')) || mName === 'silver') {
-            child.material = new THREE.MeshStandardMaterial({
-              color: (mName.includes('chrome') || mName === 'aluminum') ? 0xd0d5dd : 0x242832,
-              metalness: 0.94,
-              roughness: (mName.includes('chrome')) ? 0.08 : 0.22,
-              envMapIntensity: 2.2,
-              side: THREE.DoubleSide
-            });
-          }
-
-          // 3. Realistic Deep Matte Rubber Tires (DoubleSide strictly enforced for both sides)
-          if (mName.includes('tire') || mName.includes('tyre') || mName === 'rubber' || nodeName.includes('tire') || nodeName.includes('tyre') || mName === 'black_mt') {
-            child.material = new THREE.MeshStandardMaterial({
-              color: 0x121418,
-              metalness: 0.04,
-              roughness: 0.88,
-              side: THREE.DoubleSide
-            });
-          }
-
-          // 4. Detect Headlights / OLED DRL meshes
-          const isHeadlight = nodeName.includes('headlight') ||
-                              mName.includes('headlight') ||
-                              nodeName.includes('drl') ||
-                              mName.includes('drl') ||
-                              nodeName.includes('phare') ||
-                              mName.includes('phare') ||
-                              mName === 'incendence_mt' ||
-                              mName === 'front drl' ||
-                              mName.includes('lighta') ||
-                              mName === 'mmat_lights1' ||
-                              (mName.includes('light') && !mName.includes('tail') && !mName.includes('rear') && !mName.includes('red'));
-
-          if (isHeadlight) {
-            if (child.material) {
-              child.material = child.material.clone();
-              child.material.emissive = new THREE.Color(0xdbeafe);
-              child.material.emissiveIntensity = carLightsOn ? 2.8 : 0;
-              child.material.toneMapped = false;
-              child.material.side = THREE.DoubleSide;
-            }
-            headlightMeshes.push(child);
-          }
-        }
-      });
-
-      // Front OLED Matrix Lighting: Wide, soft feathered floor illumination (NO harsh triangular cone!)
-      const spotLeft = new THREE.SpotLight(0xdbeafe, 1.8, 14, Math.PI / 3.2, 0.92, 1.2);
-      spotLeft.position.set(0.65, 0.35, 1.8);
-      const targetL = new THREE.Object3D();
-      targetL.position.set(1.1, -0.42, 5.0);
-      carScene.add(targetL);
-      spotLeft.target = targetL;
-      activeCarGroup.add(spotLeft);
-      headlightSpots.push(spotLeft);
-
-      const spotRight = new THREE.SpotLight(0xdbeafe, 1.8, 14, Math.PI / 3.2, 0.92, 1.2);
-      spotRight.position.set(-0.65, 0.35, 1.8);
-      const targetR = new THREE.Object3D();
-      targetR.position.set(-1.1, -0.42, 5.0);
-      carScene.add(targetR);
-      spotRight.target = targetR;
-      activeCarGroup.add(spotRight);
-      headlightSpots.push(spotRight);
-
-      // Soft forward ambient headlight glow directly in front of bumper
-      const frontGlow = new THREE.PointLight(0xdbeafe, carLightsOn ? 1.4 : 0, 3.8, 2);
-      frontGlow.position.set(0, 0.40, 2.2);
-      activeCarGroup.add(frontGlow);
-      headlightSpots.push(frontGlow);
-
-      // Apply initial headlights state
-      updateHeadlightsState();
-
-      carTurntable.add(activeCarGroup);
-
-      // Apply active paint color immediately
-      applyPaintColor(currentColorHex);
-    }
-
-    function updateHeadlightsState() {
-      headlightSpots.forEach(s => {
-        if (s.isSpotLight) s.intensity = carLightsOn ? 1.8 : 0;
-        else if (s.isPointLight) s.intensity = carLightsOn ? 1.4 : 0;
-      });
-      headlightMeshes.forEach(m => {
-        if (m.material && m.material.emissive) {
-          m.material.emissive.set(carLightsOn ? 0xdbeafe : 0x000000);
-          m.material.emissiveIntensity = carLightsOn ? 2.8 : 0;
-        }
-      });
-    }
-
-    function applyPaintColor(hex) {
-      if (!activeCarGroup) return;
-      activeCarGroup.traverse(child => {
-        if (child.isMesh && child.material) {
-          const mat = child.material;
-          const mName = (mat.name || '').toLowerCase();
-          const nodeName = (child.name || '').toLowerCase();
-
-          // Strictly filter out non-body elements
-          const isNonPaint = mName.includes('glass') ||
-                             mName.includes('window') ||
-                             mName.includes('windshield') ||
-                             mName.includes('cristales') ||
-                             mName.includes('vitre') ||
-                             mName.includes('autre') ||
-                             mName.includes('chassis') ||
-                             mName.includes('interrieur') ||
-                             mName.includes('interieur') ||
-                             (mName.includes('material') && !mName.includes('paint')) ||
-                             mName.includes('wheel') ||
-                             mName.includes('tyre') ||
-                             mName.includes('tire') ||
-                             mName.includes('rim') ||
-                             mName.includes('rotor') ||
-                             mName.includes('brake') ||
-                             mName.includes('caliper') ||
-                             mName.includes('disc') ||
-                             mName.includes('rubber') ||
-                             mName.includes('metal_gray') ||
-                             mName.includes('chrome') ||
-                             mName.includes('interior') ||
-                             mName.includes('leather') ||
-                             mName.includes('carpet') ||
-                             mName.includes('plastic') ||
-                             mName.includes('badge') ||
-                             mName.includes('license') ||
-                             mName.includes('logo') ||
-                             mName.includes('silver') ||
-                             mName.includes('light') ||
-                             mName.includes('phare') ||
-                             mName.includes('drl') ||
-                             mName.includes('tail') ||
-                             mName.includes('grid') ||
-                             mName.includes('exhaust') ||
-                             mName.includes('carbon') ||
-                             nodeName.includes('wheel') ||
-                             nodeName.includes('tire') ||
-                             nodeName.includes('tyre') ||
-                             nodeName.includes('rim') ||
-                             nodeName.includes('brake') ||
-                             nodeName.includes('glass') ||
-                             nodeName.includes('vitre') ||
-                             nodeName.includes('phare') ||
-                             nodeName.includes('autre') ||
-                             nodeName.includes('cylinder') ||
-                             nodeName.includes('windshield') ||
-                             nodeName.includes('interior') ||
-                             nodeName.includes('steering');
-
-          if (isNonPaint) return;
-
-          // Target genuine car paint body materials:
-          // gt63s: "Carpaint"
-          // van: "Carrosserie", "Carrosserie_5"
-          // c63: "MercedesBenz_C63AMGEdition507_2014Paint_Material1"
-          // g_class: "MMAT_CarPaint_010"
-          const isPaint = mName.includes('carpaint') ||
-                          mName.includes('paint') ||
-                          mName.includes('carrosserie') ||
-                          mName === 'body_mt' ||
-                          mName.includes('carroceria') ||
-                          mName.includes('body_color') ||
-                          mName.includes('coat');
-
-          if (isPaint && mat.color) {
-            mat.color.set(hex);
-            mat.roughness = 0.16;
-            mat.metalness = 0.88;
-            mat.clearcoat = 1.0;
-            mat.clearcoatRoughness = 0.04;
-            mat.side = THREE.DoubleSide;
-            mat.needsUpdate = true;
-          }
-        }
-      });
-    }
-
-    function updateTelemetryHUD(cfg) {
-      if (!cfg) return;
-      const accel = document.getElementById('hudAccel');
-      const power = document.getElementById('hudPower');
-      const drive = document.getElementById('hudDriveMode');
-      const rpmVal = document.getElementById('hudRpmVal');
-      const rpmBar = document.getElementById('hudRpmBar');
-
-      if (accel) accel.textContent = cfg.accel || '3.2 s';
-      if (power) power.textContent = cfg.power || '639 ch • 900 Nm';
-      if (drive) drive.textContent = cfg.driveMode || '4MATIC+ ACTIVE';
-      if (rpmVal) rpmVal.textContent = cfg.rpmVal || '1 250 tr/min';
-      if (rpmBar) rpmBar.style.width = cfg.rpmPct || '32%';
-    }
-
-    function toggleNightRunwayMode(btn) {
-      isNightRunwayMode = !isNightRunwayMode;
-      if (btn) btn.classList.toggle('active', isNightRunwayMode);
-      playRelayClick();
-
-      if (!carScene) return;
-
-      if (isNightRunwayMode) {
-        if (!carLightsOn) {
-          carLightsOn = true;
-          updateHeadlightsState();
-        }
-        carScene.traverse(child => {
-          if (child.isAmbientLight) child.intensity = 0.22;
-          if (child.isDirectionalLight) {
-            if (child.position.y > 6 && child.position.x > 0) {
-              child.intensity = 0.40;
-              child.color.set(0x94a3b8);
-            } else if (child.position.y > 7) {
-              child.intensity = 0.20;
-            } else {
-              child.intensity = 1.6;
-              child.color.set(0xd4af37);
-            }
-          }
-        });
-
-        if (carTurntable && carTurntable.children[0]) {
-          carTurntable.children[0].material.color.set(0x06080d);
-          carTurntable.children[0].material.roughness = 0.10;
-          carTurntable.children[0].material.metalness = 0.88;
-        }
-        carRenderer.toneMappingExposure = 1.35;
-      } else {
-        carScene.traverse(child => {
-          if (child.isAmbientLight) child.intensity = 0.85;
-          if (child.isDirectionalLight) {
-            if (child.position.y > 6 && child.position.x > 0) {
-              child.intensity = 1.8;
-              child.color.set(0xfff8ee);
-            } else if (child.position.y > 7) {
-              child.intensity = 1.2;
-            } else {
-              child.intensity = 1.2;
-              child.color.set(0xd4af37);
-            }
-          }
-        });
-        if (carTurntable && carTurntable.children[0]) {
-          carTurntable.children[0].material.color.set(0x090b10);
-          carTurntable.children[0].material.roughness = 0.22;
-          carTurntable.children[0].material.metalness = 0.35;
-        }
-        carRenderer.toneMappingExposure = 1.15;
-      }
-    }
-
-    function selectShowroomVehicle(type, btn) {
-      document.querySelectorAll('.showroom-controls .arch-mode-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
-      currentVehType = type;
-      buildSelectedVehicle(type);
-      playEngineRumble(type);
-
-      const cfg = VEHICLE_CATALOG[type] || VEHICLE_CATALOG.limousine;
-      const titleEl = document.getElementById('carShowroomTitle');
-      const catEl = document.getElementById('specCat');
-      const capEl = document.getElementById('specCap');
-      const comEl = document.getElementById('specComfort');
-      const motEl = document.getElementById('specMotor');
-
-      if (titleEl) titleEl.textContent = cfg.name;
-      if (catEl) catEl.textContent = cfg.cat;
-      if (capEl) capEl.textContent = cfg.cap;
-      if (comEl) comEl.textContent = cfg.comfort;
-      if (motEl) motEl.textContent = cfg.motor;
-
-      updateTelemetryHUD(cfg);
-    }
-
-    function setCarColor(hex, btn) {
-      currentColorHex = hex;
-      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      applyPaintColor(hex);
-      playLuxuryChime();
-    }
-
-    function toggleCarHeadlights() {
-      carLightsOn = !carLightsOn;
-      updateHeadlightsState();
-      playRelayClick();
-    }
-
-    function initBoardingPassTilt() {
-      const card = document.getElementById('boardingPassCard');
-      if (!card) return;
-
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotX = ((y - centerY) / centerY) * -8;
-        const rotY = ((x - centerX) / centerX) * 8;
-        card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      });
-    }
-
-    function animateCarStudio() {
-      requestAnimationFrame(animateCarStudio);
-      if (!isCarDragging) {
-        targetCarRotY += 0.0016;
-      }
-      currentCarRotY += (targetCarRotY - currentCarRotY) * 0.08;
-      if (carTurntable) {
-        carTurntable.rotation.y = currentCarRotY;
-      }
-      carRenderer.render(carScene, carCamera);
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      initCar3D();
-      updateBookingEstimate();
-      updateTelemetryHUD(VEHICLE_CATALOG.limousine);
-      initBoardingPassTilt();
+    document.getElementById('chauffeurForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (document.getElementById('vtcBot').value) return;
+      const name = document.getElementById('clientName').value.trim();
+      const fare = document.getElementById('fareAmount').textContent;
+      const msg = document.getElementById('vtcConfirm');
+      msg.style.display = 'block';
+      msg.textContent = 'Confirmation envoyée pour ' + name + ' (Forfait garanti : ' + fare + '). Votre chauffeur vous contactera par SMS 30 minutes avant la prise en charge.';
     });
   </script>
 </body>

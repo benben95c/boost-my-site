@@ -23,12 +23,27 @@ Tu es un Directeur Artistique spécialisé dans l'identité de marque pour comme
      - *Restaurant Braise* : "Cuisson au bois de chêne et de hêtre", "Pièces maturées sur l'os", "Cuisine de saison", "Accueil en salle ou sous la verrière".
      - *Artisan BTP* : "Compagnons plombiers et carreleurs", "Étanchéité sous carrelage garantie 10 ans", "Devis détaillé ligne par ligne", "Chantier protégé et nettoyé chaque soir".
 
-## 2. Applique une Palette de Couleurs Matérielle & Naturelle
-- **Fast-Food Artisanal** : Papier Kraft Crème (`#FBF7F0`), Blanc Chaud (`#FFFFFF`), Noir Fonte (`#1A1615`), Rouge Ketchup/Paprika (`#C92A2A`), Jaune Cheddar (`#E69500`).
-- **Restaurant au Feu de Bois** : Parchemin/Lin (`#FAF6F0`), Bois Brûlé (`#1C1613`), Terre Cuite (`#A63A22`), Laiton Brossé (`#C59B6D`), Vert Olive (`#3F6244`).
-- **Artisan BTP & Salle de Bain** : Pierre Travertin (`#F6F3EC`), Blanc Pur (`#FFFFFF`), Anthracite (`#1E1D1A`), Bronze/Chêne (`#8C5A32`), Vert Forêt (`#2D5A43`).
+## 2. Règle Anti-Compact : Espace, Respiration & Grands Sites de Référence
+Un site généré par IA se reconnaît immédiatement parce qu'il est **trop compact**, rempli de badges en pilules (`border-radius: 999px`), de boîtes de statistiques inventées (`42 CHAUFFEURS VIP`, `99.8% SATISFACTION`) et de pavés de texte trop longs.
+Applique systématiquement les standards des grands studios parisiens :
+1. **Zéro accumulation de badges/pilules** : Pas de rangées de 3 ou 4 tags au-dessus du titre `<h1>`. Un simple sous-titre éditorial (`eyebrow` en petites capitales espacées) suffit.
+2. **Respiration verticale généreuse** : `padding: 96px 0` à `110px 0` entre chaque grande section. Laisse au moins 35 % d'espace vide (`whitespace`) autour des photos et des textes.
+3. **Textes courts et percutants** :
+   - Phrase d'accroche du Hero : **2 lignes maximum** (`max-width: 480px`).
+   - Description d'un plat ou d'un produit : **1 seule phrase d'ingrédients bruts** (jamais un paragraphe de 4 lignes).
+4. **Inspire-toi des vrais leaders du secteur** :
+   - **Fast-Food / Smash Burger** : *Junk Burger*, *Blend Paris*, *Shake Shack* (fond crème chaud `#FAF6F0`, typographie `Fraunces` très forte, grandes photos produits, choix Solo ou Menu en 1 clic).
+   - **Restaurant / Bistronomie / Braise** : *Septime Paris*, *Big Mamma* (carte présentée sur 2 colonnes épurées comme un vrai menu papier, sans cartes e-commerce lourdes).
+   - **Chauffeur Privé / VTC** : *Wheely*, *Blacklane*, *Chabé* (Quiet Luxury : albâtre `#F6F4F0` et obsidienne `#141413`, zéro or criard, module de réservation intégré dès le Hero, grille de forfaits aéroports sobre).
+   - **Architecture & Rénovation Salle de Bain** : *Plum Living*, *Bocklip* (esthétique minérale travertin & laiton brossé, Hero fendu 2 colonnes épuré, comparateur Avant/Après plein cadre).
+
+## 3. Applique une Palette de Couleurs Matérielle & Naturelle
+- **Fast-Food Artisanal** : Papier Kraft Crème (`#FAF6F0`), Blanc Chaud (`#FFFFFF`), Noir Fonte (`#181512`), Rouge Ketchup/Paprika (`#C8281E`).
+- **Restaurant au Feu de Bois** : Parchemin/Lin (`#F7F4EE`), Bois Brûlé (`#1C1917`), Terre Cuite (`#9E3B24`).
+- **Artisan BTP & Salle de Bain** : Pierre Travertin (`#F6F3EE`), Blanc Pur (`#FFFFFF`), Anthracite (`#1A1917`), Bronze Brossé (`#8C6D46`).
+- **Chauffeur Privé & Conciergerie** : Albâtre (`#F6F4F0`), Obsidienne (`#141413`), Bronze Sourd (`#8C6D46`).
 
 ---
 
 ### Action à réaliser :
-Transforme le fichier cible pour qu'un client humain ait immédiatement l'impression de visiter le site d'un vrai commerçant ou artisan passionné, photographié et rédigé par un studio créatif parisien haut de gamme.
+Transforme le fichier cible pour qu'un client humain ait immédiatement l'impression de visiter le site d'une grande maison ou d'un commerçant parisien de référence, aéré, visuel et sans aucun tic d'IA.
