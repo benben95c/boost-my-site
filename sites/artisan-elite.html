@@ -770,16 +770,15 @@
       const ctx = c.getContext('2d');
 
       const grad = ctx.createLinearGradient(0, 0, 0, 256);
-      grad.addColorStop(0.0, '#FFFDF9');
-      grad.addColorStop(0.45, '#EFE9DD');
-      grad.addColorStop(0.55, '#D5CBB8');
-      grad.addColorStop(1.0, '#8E8270');
+      grad.addColorStop(0.0, '#FFF8EB');
+      grad.addColorStop(0.45, '#D8C7AE');
+      grad.addColorStop(0.55, '#9E8B72');
+      grad.addColorStop(1.0, '#4A3F33');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 512, 256);
 
-      // Softbox studio highlights for realistic metal & glass specular reflections
-      ctx.fillStyle = '#FFFFFF';
-      ctx.globalAlpha = 0.85;
+      ctx.fillStyle = '#FFFDF8';
+      ctx.globalAlpha = 0.9;
       ctx.fillRect(60, 24, 140, 55);
       ctx.fillRect(310, 32, 120, 48);
 
@@ -799,20 +798,20 @@
       const ctx = c.getContext('2d');
 
       const g = ctx.createLinearGradient(0, 0, 512, 512);
-      g.addColorStop(0.0, '#F5F2EB');
-      g.addColorStop(0.35, '#DDE2E6');
-      g.addColorStop(0.52, '#FFFFFF');
-      g.addColorStop(0.72, '#C8D0D8');
-      g.addColorStop(1.0, '#E9E4DA');
+      g.addColorStop(0.0, '#C7D0D8');
+      g.addColorStop(0.35, '#9BA8B4');
+      g.addColorStop(0.52, '#E6ECF0');
+      g.addColorStop(0.72, '#7D8B98');
+      g.addColorStop(1.0, '#B4BFC8');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, 512, 512);
 
-      // Subtle architectural reflection lines
-      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      // Diagonal glass specular reflection band
+      ctx.fillStyle = 'rgba(255,255,255,0.45)';
       ctx.beginPath();
-      ctx.moveTo(90, 0);
+      ctx.moveTo(95, 0);
       ctx.lineTo(185, 0);
-      ctx.lineTo(60, 512);
+      ctx.lineTo(55, 512);
       ctx.lineTo(0, 512);
       ctx.closePath();
       ctx.fill();
@@ -825,10 +824,10 @@
       c.width = 256;
       c.height = 256;
       const ctx = c.getContext('2d');
-      const g = ctx.createRadialGradient(128, 128, 18, 128, 128, 120);
-      g.addColorStop(0.0, 'rgba(20, 18, 15, 0.42)');
-      g.addColorStop(0.55, 'rgba(20, 18, 15, 0.16)');
-      g.addColorStop(1.0, 'rgba(20, 18, 15, 0.0)');
+      const g = ctx.createRadialGradient(128, 128, 16, 128, 128, 122);
+      g.addColorStop(0.0, 'rgba(18, 14, 10, 0.62)');
+      g.addColorStop(0.55, 'rgba(18, 14, 10, 0.26)');
+      g.addColorStop(1.0, 'rgba(18, 14, 10, 0.0)');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, 256, 256);
       return new THREE.CanvasTexture(c);
@@ -840,46 +839,56 @@
       canvas.height = 1024;
       const ctx = canvas.getContext('2d');
 
+      // Deep, warm, natural mineral pigments (zero pale washout)
       const palettes = {
-        travertin: { bg: '#D8CCB8', vein1: '#BEA98E', vein2: '#EAE2D3', grout: '#9E8F78', mode: 'travertine' },
-        carrare:   { bg: '#ECEBE6', vein1: '#9FA5AE', vein2: '#CFD3D8', grout: '#B4B6B0', mode: 'marble' },
-        ardoise:   { bg: '#2C2F33', vein1: '#43484E', vein2: '#1E2023', grout: '#181A1C', mode: 'slate' },
-        bourgogne: { bg: '#CBB89D', vein1: '#AE9676', vein2: '#DFD1BC', grout: '#968164', mode: 'limestone' }
+        travertin: { bg: '#C6AF8E', vein1: '#9A7E5B', vein2: '#DFCFB6', pore: '#7D6344', grout: '#6E583D', mode: 'travertine' },
+        carrare:   { bg: '#DEDAD2', vein1: '#787E87', vein2: '#AEB3BA', pore: '#5E646D', grout: '#7D7B76', mode: 'marble' },
+        ardoise:   { bg: '#26292C', vein1: '#3C4147', vein2: '#181A1D', pore: '#111315', grout: '#121315', mode: 'slate' },
+        bourgogne: { bg: '#B59B78', vein1: '#8C714E', vein2: '#CEBA9C', pore: '#735B3C', grout: '#695336', mode: 'limestone' }
       };
       const p = palettes[preset] || palettes.travertin;
 
       ctx.fillStyle = p.bg;
       ctx.fillRect(0, 0, 1024, 1024);
 
-      // Natural stone strata & mineral veining
-      for (let i = 0; i < 320; i++) {
-        ctx.strokeStyle = i % 2 === 0 ? p.vein1 : p.vein2;
-        ctx.globalAlpha = 0.25 + (i % 5) * 0.05;
-        ctx.lineWidth = p.mode === 'marble' ? (1.2 + (i % 4) * 1.1) : (2.0 + (i % 5));
+      // Organic color variations per tile slab
+      for (let tx = 0; tx < 4; tx++) {
+        for (let ty = 0; ty < 4; ty++) {
+          ctx.fillStyle = (tx + ty) % 2 === 0 ? p.vein1 : p.vein2;
+          ctx.globalAlpha = 0.08;
+          ctx.fillRect(tx * 256, ty * 256, 256, 256);
+        }
+      }
+
+      // Rich natural mineral strata & veining
+      for (let i = 0; i < 420; i++) {
+        ctx.strokeStyle = i % 3 === 0 ? p.pore : (i % 2 === 0 ? p.vein1 : p.vein2);
+        ctx.globalAlpha = 0.32 + (i % 5) * 0.06;
+        ctx.lineWidth = p.mode === 'marble' ? (1.4 + (i % 4) * 1.3) : (2.2 + (i % 5) * 1.1);
         ctx.beginPath();
         let x = (i * 67) % 1024;
         let y = (i * 89) % 1024;
         ctx.moveTo(x, y);
         for (let s = 0; s < 6; s++) {
-          x += p.mode === 'travertine' ? 75 : (Math.sin(i * 0.7 + s) * 65);
-          y += p.mode === 'travertine' ? (Math.cos(i + s) * 8) : 48;
+          x += p.mode === 'travertine' ? 85 : (Math.sin(i * 0.7 + s) * 65);
+          y += p.mode === 'travertine' ? (Math.cos(i + s) * 7) : 52;
           ctx.lineTo(x, y);
         }
         ctx.stroke();
       }
 
-      // Subtle mineral pores
-      for (let d = 0; d < 900; d++) {
-        ctx.fillStyle = d % 2 === 0 ? p.vein1 : p.vein2;
-        ctx.globalAlpha = 0.14;
-        ctx.fillRect((d * 97) % 1024, (d * 53) % 1024, 3, 2);
+      // Travertine natural cavities & mineral grain
+      for (let d = 0; d < 1400; d++) {
+        ctx.fillStyle = d % 3 === 0 ? p.pore : p.vein1;
+        ctx.globalAlpha = 0.24;
+        ctx.fillRect((d * 97) % 1024, (d * 53) % 1024, p.mode === 'travertine' ? 9 : 4, 2);
       }
 
-      // Large-format architectural slab joints (Calepinage)
-      ctx.globalAlpha = 0.85;
+      // Crisp architectural slab joints (Calepinage grand format)
+      ctx.globalAlpha = 0.9;
       ctx.strokeStyle = p.grout;
-      ctx.lineWidth = 3;
-      const stepX = isFloor ? 256 : 256;
+      ctx.lineWidth = 4;
+      const stepX = 256;
       const stepY = isFloor ? 256 : 170;
       for (let gx = stepX; gx < 1024; gx += stepX) {
         ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, 1024); ctx.stroke();
@@ -902,30 +911,30 @@
       const ctx = canvas.getContext('2d');
 
       const woods = {
-        noyer:  { bg: '#5A3C26', fiber: '#3E2717', highlight: '#724E33' },
-        chene:  { bg: '#BA986C', fiber: '#9B7A50', highlight: '#CEAF84' },
-        frene:  { bg: '#232220', fiber: '#141312', highlight: '#363431' },
-        argile: { bg: '#D8D1C5', fiber: '#C8C0B2', highlight: '#E5DFD5' }
+        noyer:  { bg: '#472B18', fiber: '#2B170A', highlight: '#633E24' },
+        chene:  { bg: '#9E794C', fiber: '#7A5932', highlight: '#B89364' },
+        frene:  { bg: '#1C1B19', fiber: '#0E0D0C', highlight: '#2E2C29' },
+        argile: { bg: '#A89E90', fiber: '#8F8577', highlight: '#BDB4A6' }
       };
       const w = woods[preset] || woods.noyer;
 
       ctx.fillStyle = w.bg;
       ctx.fillRect(0, 0, 512, 512);
 
-      for (let i = 0; i < 280; i++) {
+      for (let i = 0; i < 340; i++) {
         ctx.fillStyle = i % 3 === 0 ? w.highlight : w.fiber;
-        ctx.globalAlpha = preset === 'argile' ? 0.12 : 0.28;
+        ctx.globalAlpha = preset === 'argile' ? 0.18 : 0.42;
         const x = (i * 17) % 512;
-        ctx.fillRect(x, 0, 2 + (i % 3), 512);
+        ctx.fillRect(x, 0, 2 + (i % 4), 512);
       }
 
       return new THREE.CanvasTexture(canvas);
     }
 
-    // ARCHITECTURAL 3D BATHROOM MAQUETTE (STUDIO PBR ENGINE)
+    // ARCHITECTURAL 3D BATHROOM MAQUETTE (NATURAL WARM CONTRAST ENGINE)
     let wallMat, floorMat, woodMat, metalMat, ambientLight, sunLight, mirrorHaloLight, nicheLight, pendantLight;
-    let camTargetPos = { x: 3.85, y: 2.35, z: 4.35 };
-    let camLookTarget = { x: 0.0, y: 1.05, z: -0.25 };
+    let camTargetPos = { x: 3.75, y: 2.25, z: 4.2 };
+    let camLookTarget = { x: -0.05, y: 1.02, z: -0.25 };
     let roomGroup;
 
     (function init3D() {
@@ -933,7 +942,8 @@
       if (!container || typeof THREE === 'undefined') return;
 
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xE5DFD3);
+      // Warm dark architectural studio backdrop so the sunlit stone room stands out naturally
+      scene.background = new THREE.Color(0x23201D);
 
       const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 100);
       camera.position.set(camTargetPos.x, camTargetPos.y, camTargetPos.z);
@@ -943,83 +953,88 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 0.92;
-      renderer.outputEncoding = THREE.sRGBEncoding;
       container.appendChild(renderer.domElement);
 
-      // Studio HDRI Environment Map so brass gleams gold & mirrors never turn black
-      scene.environment = createStudioEnvMap(renderer);
+      // Studio EnvMap applied ONLY to metallic/mirror materials (prevents milky white washout on stone & wood!)
+      const studioEnv = createStudioEnvMap(renderer);
 
-      // Balanced Studio Lighting (No White Clipping)
-      ambientLight = new THREE.AmbientLight(0xFFFDF9, 0.42);
+      // Warm, natural architectural lighting with real shadow contrast
+      ambientLight = new THREE.AmbientLight(0xFFF6E8, 0.46);
       scene.add(ambientLight);
 
-      const hemiLight = new THREE.HemisphereLight(0xFFFDF8, 0xC9BFA9, 0.32);
+      const hemiLight = new THREE.HemisphereLight(0xFFEED6, 0x5C4E3E, 0.28);
       scene.add(hemiLight);
 
-      sunLight = new THREE.DirectionalLight(0xFFF5E4, 0.68);
-      sunLight.position.set(4.2, 6.8, 5.0);
+      sunLight = new THREE.DirectionalLight(0xFFEBC8, 0.88);
+      sunLight.position.set(4.5, 6.5, 4.8);
       sunLight.castShadow = true;
       sunLight.shadow.mapSize.width = 2048;
       sunLight.shadow.mapSize.height = 2048;
-      sunLight.shadow.bias = -0.0005;
+      sunLight.shadow.camera.near = 0.5;
+      sunLight.shadow.camera.far = 16;
+      sunLight.shadow.camera.left = -3.5;
+      sunLight.shadow.camera.right = 3.5;
+      sunLight.shadow.camera.top = 3.5;
+      sunLight.shadow.camera.bottom = -3.5;
+      sunLight.shadow.bias = -0.0008;
       scene.add(sunLight);
 
-      mirrorHaloLight = new THREE.PointLight(0xFFCC84, 0.65, 3.4);
-      mirrorHaloLight.position.set(0.75, 1.95, -1.35);
+      mirrorHaloLight = new THREE.PointLight(0xFFB85C, 0.72, 3.2);
+      mirrorHaloLight.position.set(0.75, 1.95, -1.32);
       scene.add(mirrorHaloLight);
 
-      nicheLight = new THREE.PointLight(0xFFCF8C, 0.55, 2.2);
+      nicheLight = new THREE.PointLight(0xFFBA60, 0.65, 2.2);
       nicheLight.position.set(-1.42, 1.62, -1.52);
       scene.add(nicheLight);
 
-      pendantLight = new THREE.PointLight(0xFFE0B2, 0.45, 3.0);
+      pendantLight = new THREE.PointLight(0xFFCA7A, 0.5, 2.8);
       pendantLight.position.set(1.75, 2.05, -1.25);
       scene.add(pendantLight);
 
       roomGroup = new THREE.Group();
       scene.add(roomGroup);
 
-      // Core Materials
+      // Core Materials (True deep natural pigments)
       const wallTex = createStoneTexture('travertin', false);
       const flrTex = createStoneTexture('travertin', true);
-      wallMat = new THREE.MeshStandardMaterial({ map: wallTex, bumpMap: wallTex, bumpScale: 0.008, roughness: 0.52, metalness: 0.04 });
-      floorMat = new THREE.MeshStandardMaterial({ map: flrTex, bumpMap: flrTex, bumpScale: 0.006, roughness: 0.46, metalness: 0.05 });
+      wallMat = new THREE.MeshStandardMaterial({ map: wallTex, bumpMap: wallTex, bumpScale: 0.015, roughness: 0.68, metalness: 0.02 });
+      floorMat = new THREE.MeshStandardMaterial({ map: flrTex, bumpMap: flrTex, bumpScale: 0.012, roughness: 0.58, metalness: 0.04 });
 
       const woodTex = createWoodTexture('noyer');
-      woodMat = new THREE.MeshStandardMaterial({ map: woodTex, bumpMap: woodTex, bumpScale: 0.005, roughness: 0.44, metalness: 0.05 });
+      woodMat = new THREE.MeshStandardMaterial({ map: woodTex, bumpMap: woodTex, bumpScale: 0.008, roughness: 0.52, metalness: 0.04 });
 
-      // True warm Brushed Brass (Laiton Brossé)
       metalMat = new THREE.MeshStandardMaterial({
-        color: 0xD4AF6A,
-        emissive: 0x33240D,
-        emissiveIntensity: 0.16,
-        metalness: 0.82,
-        roughness: 0.24
+        color: 0xC89D54,
+        envMap: studioEnv,
+        envMapIntensity: 1.25,
+        metalness: 0.85,
+        roughness: 0.22
       });
 
-      const porcelainMat = new THREE.MeshStandardMaterial({ color: 0xFBF9F5, roughness: 0.14, metalness: 0.03 });
-      const innerShadowPorcelainMat = new THREE.MeshStandardMaterial({ color: 0xE5E1D8, roughness: 0.22 });
-      const counterMarbleMat = new THREE.MeshStandardMaterial({ color: 0xF4F1EA, roughness: 0.16, metalness: 0.04 });
-      const waterMat = new THREE.MeshStandardMaterial({ color: 0x9AD0CD, roughness: 0.06, metalness: 0.15, transparent: true, opacity: 0.86 });
+      const porcelainMat = new THREE.MeshStandardMaterial({ color: 0xF3EFE8, roughness: 0.22, metalness: 0.02 });
+      const innerShadowPorcelainMat = new THREE.MeshStandardMaterial({ color: 0xCFC8BC, roughness: 0.35 });
+      const counterMarbleMat = new THREE.MeshStandardMaterial({ color: 0xEAE4D8, roughness: 0.25, metalness: 0.03 });
+      const waterMat = new THREE.MeshStandardMaterial({ color: 0x6BA8A4, envMap: studioEnv, roughness: 0.08, metalness: 0.15, transparent: true, opacity: 0.84 });
       const mirrorGlassMat = new THREE.MeshStandardMaterial({
         map: createMirrorReflectionTexture(),
-        color: 0xFFFFFF,
-        metalness: 0.35,
-        roughness: 0.06
+        envMap: studioEnv,
+        envMapIntensity: 0.9,
+        color: 0xDCE3E8,
+        metalness: 0.65,
+        roughness: 0.08
       });
-      const haloEmissiveMat = new THREE.MeshBasicMaterial({ color: 0xFFE4B5 });
+      const haloEmissiveMat = new THREE.MeshBasicMaterial({ color: 0xFFD28E });
       const showerGlassMat = new THREE.MeshStandardMaterial({
-        color: 0xEDF5F7,
+        color: 0xD8E6EA,
+        envMap: studioEnv,
         transparent: true,
-        opacity: 0.28,
-        roughness: 0.05,
-        metalness: 0.25
+        opacity: 0.26,
+        roughness: 0.06,
+        metalness: 0.3
       });
       const aoMat = new THREE.MeshBasicMaterial({ map: createAOShadowTexture(), transparent: true, depthWrite: false });
 
-      // 1. ARCHITECTURAL SHELL (WALLS, FLOOR, RECESSED SHOWER ZONE, CORNICE)
+      // 1. ARCHITECTURAL SHELL (WALLS, FLOOR, FEATURE PANEL, PLINTHS)
       const floor = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.18, 3.8), floorMat);
       floor.position.set(0, -0.09, 0);
       floor.receiveShadow = true;
@@ -1027,21 +1042,23 @@
 
       const backWall = new THREE.Mesh(new THREE.BoxGeometry(4.6, 3.0, 0.18), wallMat);
       backWall.position.set(0, 1.5, -1.82);
+      backWall.castShadow = true;
       backWall.receiveShadow = true;
       roomGroup.add(backWall);
 
       const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.18, 3.0, 3.8), wallMat);
       leftWall.position.set(-2.22, 1.5, 0);
+      leftWall.castShadow = true;
       leftWall.receiveShadow = true;
       roomGroup.add(leftWall);
 
-      // Architectural feature stone relief panel behind the vanity
-      const featurePanel = new THREE.Mesh(new THREE.BoxGeometry(2.35, 2.98, 0.04), wallMat);
+      // Architectural relief stone panel behind vanity
+      const featurePanel = new THREE.Mesh(new THREE.BoxGeometry(2.35, 2.98, 0.045), wallMat);
       featurePanel.position.set(0.75, 1.49, -1.72);
+      featurePanel.castShadow = true;
       featurePanel.receiveShadow = true;
       roomGroup.add(featurePanel);
 
-      // Brass shadow-gap baseboard plinth
       const plinthBack = new THREE.Mesh(new THREE.BoxGeometry(4.44, 0.06, 0.025), metalMat);
       plinthBack.position.set(0.08, 0.03, -1.72);
       roomGroup.add(plinthBack);
@@ -1055,8 +1072,7 @@
       vanityGroup.position.set(0.75, 0.78, -1.32);
       roomGroup.add(vanityGroup);
 
-      // Soft AO contact shadow on the floor below the floating vanity
-      const vanityAO = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.1), aoMat);
+      const vanityAO = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 1.2), aoMat);
       vanityAO.rotation.x = -Math.PI / 2;
       vanityAO.position.set(0.75, 0.003, -1.32);
       roomGroup.add(vanityAO);
@@ -1066,10 +1082,10 @@
       vanityBody.receiveShadow = true;
       vanityGroup.add(vanityBody);
 
-      // Lower open architectural wood shelf + folded white spa towels
       const lowerShelf = new THREE.Mesh(new THREE.BoxGeometry(2.08, 0.04, 0.68), woodMat);
       lowerShelf.position.set(0, -0.38, 0);
       lowerShelf.castShadow = true;
+      lowerShelf.receiveShadow = true;
       vanityGroup.add(lowerShelf);
 
       [-0.45, 0.45].forEach(tx => {
@@ -1079,7 +1095,6 @@
         vanityGroup.add(towelStack);
       });
 
-      // 28 Vertical 3D Fluted Wood Slats (Façade tasseaux)
       for (let i = 0; i < 28; i++) {
         const slat = new THREE.Mesh(new THREE.BoxGeometry(0.048, 0.40, 0.024), woodMat);
         slat.position.set(-0.99 + i * 0.073, 0, 0.365);
@@ -1087,7 +1102,6 @@
         vanityGroup.add(slat);
       }
 
-      // Brass horizontal inlay & Marble Countertop
       const brassStrip = new THREE.Mesh(new THREE.BoxGeometry(2.13, 0.016, 0.74), metalMat);
       brassStrip.position.set(0, 0.08, 0.01);
       vanityGroup.add(brassStrip);
@@ -1095,9 +1109,9 @@
       const countertop = new THREE.Mesh(new THREE.BoxGeometry(2.16, 0.055, 0.76), counterMarbleMat);
       countertop.position.set(0, 0.235, 0);
       countertop.castShadow = true;
+      countertop.receiveShadow = true;
       vanityGroup.add(countertop);
 
-      // Double Sculpted Hollow Vessel Basins + Wall-Mounted Brass Mixers
       [-0.54, 0.54].forEach((offsetX) => {
         const basinOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.19, 0.15, 40), porcelainMat);
         basinOuter.position.set(offsetX, 0.335, 0.02);
@@ -1116,7 +1130,6 @@
         drain.position.set(offsetX, 0.408, 0.02);
         vanityGroup.add(drain);
 
-        // Wall-mounted backplate, curved spout & control handle
         const escutcheon = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.065, 0.02), metalMat);
         escutcheon.position.set(offsetX, 0.55, -0.37);
         vanityGroup.add(escutcheon);
@@ -1136,34 +1149,30 @@
         vanityGroup.add(knob);
       });
 
-      // 3. TWIN VERTICAL ARCHITECTURAL CAPSULE MIRRORS + ALABASTER PENDANT LIGHTS
+      // 3. TWIN VERTICAL ARCHITECTURAL CAPSULE MIRRORS + PENDANT LIGHTS
       [0.21, 1.29].forEach((mx) => {
         const mGroup = new THREE.Group();
         mGroup.position.set(mx, 1.94, -1.68);
         roomGroup.add(mGroup);
 
-        // Warm LED Backlight Halo
-        const halo = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.015, 48), haloEmissiveMat);
+        const halo = new THREE.Mesh(new THREE.CylinderGeometry(0.355, 0.355, 0.015, 48), haloEmissiveMat);
         halo.scale.set(1.0, 1, 1.55);
         halo.rotation.x = Math.PI / 2;
         halo.position.z = -0.015;
         mGroup.add(halo);
 
-        // Brushed Brass Capsule Rim
-        const frame = new THREE.Mesh(new THREE.CylinderGeometry(0.335, 0.335, 0.035, 48), metalMat);
+        const frame = new THREE.Mesh(new THREE.CylinderGeometry(0.335, 0.335, 0.038, 48), metalMat);
         frame.scale.set(1.0, 1, 1.55);
         frame.rotation.x = Math.PI / 2;
         mGroup.add(frame);
 
-        // Bright Silvered Mirror Glass Surface
-        const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.315, 0.315, 0.04, 48), mirrorGlassMat);
+        const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.312, 0.312, 0.042, 48), mirrorGlassMat);
         glass.scale.set(1.0, 1, 1.53);
         glass.rotation.x = Math.PI / 2;
         glass.position.z = 0.004;
         mGroup.add(glass);
       });
 
-      // Hanging Designer Pendant Lamps (brass stem + glowing alabaster globe)
       [1.76, -0.22].forEach((px, idx) => {
         const stemLen = idx === 0 ? 0.95 : 0.82;
         const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, stemLen, 12), metalMat);
@@ -1174,24 +1183,22 @@
         socket.position.set(px, 3.0 - stemLen, -1.35);
         roomGroup.add(socket);
 
-        const globe = new THREE.Mesh(new THREE.SphereGeometry(0.085, 24, 24), haloEmissiveMat);
-        globe.position.set(px, 3.0 - stemLen - 0.08, -1.35);
+        const globe = new THREE.Mesh(new THREE.SphereGeometry(0.08, 24, 24), haloEmissiveMat);
+        globe.position.set(px, 3.0 - stemLen - 0.075, -1.35);
         roomGroup.add(globe);
       });
 
-      // 4. WALK-IN ITALIAN SHOWER (DOUCHE À L'ITALIENNE, CANIVEAU LAITON, NICHE & PAROI)
-      // Linear brass floor drain
+      // 4. WALK-IN ITALIAN SHOWER
       const linearDrain = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.01, 0.06), metalMat);
       linearDrain.position.set(-1.42, 0.005, -1.48);
       roomGroup.add(linearDrain);
 
-      // Teak duckboard mat (Caillebotis en bois)
-      const bathMat = new THREE.Mesh(new THREE.BoxGeometry(0.78, 0.022, 0.52), woodMat);
-      bathMat.position.set(-1.38, 0.011, -0.55);
+      const bathMat = new THREE.Mesh(new THREE.BoxGeometry(0.78, 0.025, 0.52), woodMat);
+      bathMat.position.set(-1.38, 0.012, -0.55);
       bathMat.castShadow = true;
+      bathMat.receiveShadow = true;
       roomGroup.add(bathMat);
 
-      // Recessed Backlit Niche + 3 Apothecary Bottles
       const nicheFrame = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.36, 0.06), metalMat);
       nicheFrame.position.set(-1.38, 1.58, -1.72);
       roomGroup.add(nicheFrame);
@@ -1200,14 +1207,13 @@
       nicheBack.position.set(-1.38, 1.58, -1.73);
       roomGroup.add(nicheBack);
 
-      const amberGlassMat = new THREE.MeshStandardMaterial({ color: 0x7A4419, roughness: 0.15, metalness: 0.1 });
+      const amberGlassMat = new THREE.MeshStandardMaterial({ color: 0x6B3710, roughness: 0.18, metalness: 0.1 });
       [-1.54, -1.41, -1.26].forEach((bx, bIdx) => {
         const bottle = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, bIdx === 1 ? 0.13 : 0.11, 16), amberGlassMat);
         bottle.position.set(bx, 1.49, -1.70);
         roomGroup.add(bottle);
       });
 
-      // Overhead Rain Shower & Wall Thermostatic Mixer
       const showerArm = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.58, 16), metalMat);
       showerArm.rotation.z = Math.PI / 2;
       showerArm.position.set(-1.86, 2.56, -1.02);
@@ -1215,13 +1221,13 @@
 
       const showerHead = new THREE.Mesh(new THREE.CylinderGeometry(0.23, 0.23, 0.022, 36), metalMat);
       showerHead.position.set(-1.58, 2.54, -1.02);
+      showerHead.castShadow = true;
       roomGroup.add(showerHead);
 
       const showerMixerPlate = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.22, 0.12), metalMat);
       showerMixerPlate.position.set(-2.12, 1.25, -1.02);
       roomGroup.add(showerMixerPlate);
 
-      // Architectural Glass Partition with Slim Perimeter Frame
       const glassPane = new THREE.Mesh(new THREE.BoxGeometry(0.025, 2.58, 1.58), showerGlassMat);
       glassPane.position.set(-0.68, 1.29, -0.96);
       roomGroup.add(glassPane);
@@ -1238,19 +1244,17 @@
       glassProfileEdge.position.set(-0.68, 1.29, -0.17);
       roomGroup.add(glassProfileEdge);
 
-      // 5. SCULPTED HOLLOW FREESTANDING BATHTUB (BAIGNOIRE ÎLOT CREUSÉE + PONT DE BAIN)
+      // 5. SCULPTED HOLLOW FREESTANDING BATHTUB
       const tubGroup = new THREE.Group();
-      tubGroup.position.set(-0.88, 0.0, 0.86);
+      tubGroup.position.set(-0.88, 0.0, 0.82);
       tubGroup.rotation.y = 0.24;
       roomGroup.add(tubGroup);
 
-      // Soft AO contact shadow underneath the bathtub
-      const tubAO = new THREE.Mesh(new THREE.PlaneGeometry(2.25, 1.35), aoMat);
+      const tubAO = new THREE.Mesh(new THREE.PlaneGeometry(2.35, 1.45), aoMat);
       tubAO.rotation.x = -Math.PI / 2;
       tubAO.position.set(0, 0.004, 0);
       tubGroup.add(tubAO);
 
-      // Outer sculpted oval body
       const tubOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.66, 0.53, 0.58, 56), porcelainMat);
       tubOuter.scale.set(1.44, 1, 0.84);
       tubOuter.position.y = 0.29;
@@ -1258,33 +1262,25 @@
       tubOuter.receiveShadow = true;
       tubGroup.add(tubOuter);
 
-      // Inner dark-warm recessed cavity to create a realistic thin rim
       const tubInnerWall = new THREE.Mesh(new THREE.CylinderGeometry(0.61, 0.49, 0.14, 52), innerShadowPorcelainMat);
       tubInnerWall.scale.set(1.40, 1, 0.80);
       tubInnerWall.position.y = 0.525;
       tubGroup.add(tubInnerWall);
 
-      // Serene water surface inside the tub
       const tubWater = new THREE.Mesh(new THREE.CylinderGeometry(0.59, 0.48, 0.03, 52), waterMat);
       tubWater.scale.set(1.38, 1, 0.78);
       tubWater.position.y = 0.545;
       tubGroup.add(tubWater);
 
-      // Wooden bath caddy + spa candle + folded towel
       const bathTray = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.025, 1.12), woodMat);
       bathTray.position.set(0.14, 0.59, 0);
       bathTray.castShadow = true;
       tubGroup.add(bathTray);
 
-      const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.08, 20), porcelainMat);
+      const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.08, 20), amberGlassMat);
       candle.position.set(0.14, 0.64, -0.18);
       tubGroup.add(candle);
 
-      const soapBar = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.025, 0.13), counterMarbleMat);
-      soapBar.position.set(0.14, 0.615, 0.16);
-      tubGroup.add(soapBar);
-
-      // Floor-standing brass swan-neck faucet + hand shower
       const standBase = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.02, 24), metalMat);
       standBase.position.set(-0.78, 0.01, -0.42);
       tubGroup.add(standBase);
@@ -1299,7 +1295,7 @@
       standSpout.rotation.y = -0.45;
       tubGroup.add(standSpout);
 
-      // 6. ARCHITECTURAL HEATED TOWEL RAIL + MEDITERRANEAN PLANT IN STONE PLANTER
+      // 6. HEATED TOWEL RAIL + SCULPTED WOODEN ARCHITECTURAL STOOL IN FOREGROUND
       const railGroup = new THREE.Group();
       railGroup.position.set(-2.11, 1.48, 0.78);
       roomGroup.add(railGroup);
@@ -1316,33 +1312,39 @@
         railGroup.add(rung);
       }
 
-      // Ceramic Architectural Planter + Olive Foliage in foreground right
-      const planterGroup = new THREE.Group();
-      planterGroup.position.set(1.78, 0.0, 0.85);
-      roomGroup.add(planterGroup);
+      // Sculpted Monolithic Wood & Stone Bench/Stool with Linen Towel & Amber Diffuser
+      const stoolGroup = new THREE.Group();
+      stoolGroup.position.set(1.52, 0.0, 0.78);
+      stoolGroup.rotation.y = -0.35;
+      roomGroup.add(stoolGroup);
 
-      const planterAO = new THREE.Mesh(new THREE.PlaneGeometry(0.85, 0.85), aoMat);
-      planterAO.rotation.x = -Math.PI / 2;
-      planterAO.position.y = 0.004;
-      planterGroup.add(planterAO);
+      const stoolAO = new THREE.Mesh(new THREE.PlaneGeometry(0.95, 0.95), aoMat);
+      stoolAO.rotation.x = -Math.PI / 2;
+      stoolAO.position.y = 0.004;
+      stoolGroup.add(stoolAO);
 
-      const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.18, 0.46, 32), counterMarbleMat);
-      pot.position.y = 0.23;
-      pot.castShadow = true;
-      planterGroup.add(pot);
+      const stoolTop = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.045, 0.38), woodMat);
+      stoolTop.position.y = 0.42;
+      stoolTop.castShadow = true;
+      stoolTop.receiveShadow = true;
+      stoolGroup.add(stoolTop);
 
-      const foliageMat = new THREE.MeshStandardMaterial({ color: 0x4E6146, roughness: 0.65 });
-      const stemWood = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.025, 0.55, 12), woodMat);
-      stemWood.position.y = 0.58;
-      planterGroup.add(stemWood);
-
-      [[0, 0.92, 0, 0.24], [-0.14, 0.82, 0.08, 0.18], [0.15, 0.85, -0.06, 0.19], [0.05, 1.05, 0.08, 0.17]].forEach(([fx, fy, fz, fr]) => {
-        const leafCluster = new THREE.Mesh(new THREE.SphereGeometry(fr, 20, 20), foliageMat);
-        leafCluster.scale.set(1.15, 0.85, 1.05);
-        leafCluster.position.set(fx, fy, fz);
-        leafCluster.castShadow = true;
-        planterGroup.add(leafCluster);
+      [-0.21, 0.21].forEach(lx => {
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.40, 0.36), woodMat);
+        leg.position.set(lx, 0.20, 0);
+        leg.castShadow = true;
+        stoolGroup.add(leg);
       });
+
+      const foldedLinen = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.06, 0.26), porcelainMat);
+      foldedLinen.position.set(-0.1, 0.47, 0);
+      foldedLinen.castShadow = true;
+      stoolGroup.add(foldedLinen);
+
+      const diffuserBottle = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 0.13, 20), amberGlassMat);
+      diffuserBottle.position.set(0.14, 0.505, 0.02);
+      diffuserBottle.castShadow = true;
+      stoolGroup.add(diffuserBottle);
 
       // Mouse Orbit & Wheel Zoom
       let isDraggingScene = false, prevX = 0, prevY = 0;
@@ -1432,17 +1434,13 @@
       btn.classList.add('active');
       if (!metalMat) return;
       if (preset === 'black') {
-        metalMat.color.setHex(0x222222);
-        metalMat.emissive.setHex(0x000000);
-        metalMat.emissiveIntensity = 0;
-        metalMat.metalness = 0.5;
-        metalMat.roughness = 0.38;
+        metalMat.color.setHex(0x1E1D1B);
+        metalMat.metalness = 0.55;
+        metalMat.roughness = 0.36;
       } else {
-        metalMat.color.setHex(0xD4AF6A);
-        metalMat.emissive.setHex(0x33240D);
-        metalMat.emissiveIntensity = 0.16;
-        metalMat.metalness = 0.82;
-        metalMat.roughness = 0.24;
+        metalMat.color.setHex(0xC89D54);
+        metalMat.metalness = 0.85;
+        metalMat.roughness = 0.22;
       }
     }
 
@@ -1451,19 +1449,19 @@
       btn.classList.add('active');
       if (!ambientLight || !sunLight) return;
       if (mode === 'warm') {
-        ambientLight.intensity = 0.28;
-        sunLight.color.setHex(0xFFB366);
-        sunLight.intensity = 0.45;
-        if (mirrorHaloLight) mirrorHaloLight.intensity = 1.25;
-        if (nicheLight) nicheLight.intensity = 1.1;
-        if (pendantLight) pendantLight.intensity = 0.95;
+        ambientLight.intensity = 0.26;
+        sunLight.color.setHex(0xFFA84D);
+        sunLight.intensity = 0.48;
+        if (mirrorHaloLight) mirrorHaloLight.intensity = 1.35;
+        if (nicheLight) nicheLight.intensity = 1.15;
+        if (pendantLight) pendantLight.intensity = 1.05;
       } else {
-        ambientLight.intensity = 0.42;
-        sunLight.color.setHex(0xFFF5E4);
-        sunLight.intensity = 0.68;
-        if (mirrorHaloLight) mirrorHaloLight.intensity = 0.65;
-        if (nicheLight) nicheLight.intensity = 0.55;
-        if (pendantLight) pendantLight.intensity = 0.45;
+        ambientLight.intensity = 0.46;
+        sunLight.color.setHex(0xFFEBC8);
+        sunLight.intensity = 0.88;
+        if (mirrorHaloLight) mirrorHaloLight.intensity = 0.72;
+        if (nicheLight) nicheLight.intensity = 0.65;
+        if (pendantLight) pendantLight.intensity = 0.5;
       }
     }
 
@@ -1477,8 +1475,8 @@
         camTargetPos = { x: 1.75, y: 1.78, z: 2.65 };
         camLookTarget = { x: -1.05, y: 0.85, z: 0.1 };
       } else {
-        camTargetPos = { x: 3.85, y: 2.35, z: 4.35 };
-        camLookTarget = { x: 0.0, y: 1.05, z: -0.25 };
+        camTargetPos = { x: 3.75, y: 2.25, z: 4.2 };
+        camLookTarget = { x: -0.05, y: 1.02, z: -0.25 };
       }
     }
   </script>
