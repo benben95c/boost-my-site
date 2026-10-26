@@ -3,24 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Éditeur de Devis & Bon de Commande — BoostMySite</title>
+  <title>Bon de Commande — BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F3F4F6;
+      --bg: #F7F7F5;
       --surface: #FFFFFF;
-      --ink: #111827;
-      --ink-secondary: #374151;
-      --muted: #6B7280;
-      --border: #E5E7EB;
-      --border-strong: #D1D5DB;
-      --accent: #111827;
-      --blue: #1D4ED8;
+      --ink: #111111;
+      --muted: #666666;
+      --border: #E5E5E0;
       --green: #15803D;
-      --green-soft: #DCFCE7;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -34,596 +29,329 @@
       font-family: var(--font);
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.45;
-      font-size: 13.5px;
-      padding-bottom: 60px;
+      line-height: 1.5;
+      padding: 24px 16px 60px;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* TOP BAR */
-    .topbar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .brand-title {
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-
-    .topbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 13px;
-      border-radius: 6px;
-      font-family: var(--font);
-      font-size: 12.5px;
-      font-weight: 600;
-      border: 1px solid var(--border-strong);
-      background: var(--surface);
-      color: var(--ink);
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background 0.12s, border-color 0.12s;
-    }
-
-    .btn:hover {
-      background: #F9FAFB;
-    }
-
-    .btn-primary {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-
-    .btn-primary:hover {
-      background: #1F2937;
-    }
-
-    .btn-whatsapp {
-      background: var(--green);
-      color: #fff;
-      border-color: var(--green);
-    }
-
-    .btn-whatsapp:hover {
-      background: #166534;
-    }
-
-    /* LAYOUT */
-    .workspace {
-      max-width: 1280px;
-      margin: 20px auto;
-      padding: 0 16px;
-      display: grid;
-      grid-template-columns: 460px 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    /* CONFIGURATOR PANEL (LEFT) */
-    .config-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .config-section {
-      padding: 16px 18px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .config-section:last-child {
-      border-bottom: none;
-    }
-
-    .sec-head {
-      font-size: 11.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-      margin-bottom: 12px;
+    .top-nav {
+      max-width: 680px;
+      margin: 0 auto 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .field {
-      margin-bottom: 10px;
-    }
-
-    .field:last-child {
-      margin-bottom: 0;
-    }
-
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink-secondary);
-      margin-bottom: 4px;
-    }
-
-    input[type="text"],
-    input[type="tel"],
-    input[type="email"],
-    input[type="number"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid var(--border-strong);
-      border-radius: 6px;
-      font-family: var(--font);
+    .back-link {
       font-size: 13px;
-      color: var(--ink);
-      background: #fff;
-      outline: none;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--ink);
-    }
-
-    /* BASE PACK BUTTONS */
-    .pack-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .pack-btn {
-      border: 1.5px solid var(--border-strong);
-      border-radius: 7px;
-      padding: 10px 8px;
-      background: #fff;
-      cursor: pointer;
-      text-align: center;
-      font-family: var(--font);
-      transition: all 0.12s;
-    }
-
-    .pack-btn strong {
-      display: block;
-      font-size: 12.5px;
-      color: var(--ink);
-    }
-
-    .pack-btn span {
-      display: block;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--ink);
-      margin-top: 2px;
-    }
-
-    .pack-btn small {
-      display: block;
-      font-size: 10.5px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .pack-btn.active {
-      border-color: var(--ink);
-      background: #F3F4F6;
-      box-shadow: inset 0 0 0 1px var(--ink);
-    }
-
-    /* MODULE CHECKBOX ROWS */
-    .module-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .mod-item {
-      display: grid;
-      grid-template-columns: 18px 1fr auto;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      cursor: pointer;
-      background: #FAFAFA;
-      transition: background 0.12s, border-color 0.12s;
-    }
-
-    .mod-item:hover {
-      background: #F3F4F6;
-    }
-
-    .mod-item input[type="checkbox"] {
-      width: 15px;
-      height: 15px;
-      accent-color: var(--ink);
-      cursor: pointer;
-    }
-
-    .mod-title {
-      font-size: 12.5px;
       font-weight: 600;
-      color: var(--ink);
-      display: block;
-    }
-
-    .mod-sub {
-      font-size: 11px;
       color: var(--muted);
-      display: block;
+      text-decoration: none;
     }
 
-    .mod-price {
-      font-size: 12px;
-      font-weight: 700;
+    .back-link:hover {
       color: var(--ink);
-      white-space: nowrap;
     }
 
-    .mod-price.free {
-      color: var(--green);
-      background: var(--green-soft);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-    }
-
-    /* OFFICIAL QUOTE DOCUMENT (RIGHT) */
-    .doc-wrapper {
+    /* FEUILLE UNIQUE CENTRÉE ET ÉPURÉE */
+    .sheet {
+      max-width: 680px;
+      margin: 0 auto;
       background: var(--surface);
-      border: 1px solid var(--border-strong);
-      border-radius: 10px;
-      padding: 36px 40px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 36px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
     }
 
-    .doc-header {
+    .sheet-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 24px;
       padding-bottom: 24px;
-      border-bottom: 2px solid var(--ink);
-      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
     }
 
-    .issuer-name {
+    .brand-name {
       font-size: 18px;
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 4px;
     }
 
-    .issuer-meta {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .doc-badge-box {
-      text-align: right;
-    }
-
-    .doc-type {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      text-transform: uppercase;
-    }
-
-    .doc-ref {
+    .brand-sub {
       font-size: 12.5px;
-      font-weight: 600;
-      color: var(--ink-secondary);
+      color: var(--muted);
       margin-top: 2px;
     }
 
-    .doc-dates {
-      font-size: 11.5px;
+    .doc-meta {
+      text-align: right;
+      font-size: 12.5px;
       color: var(--muted);
-      margin-top: 4px;
     }
 
-    /* PARTIES ROW */
-    .parties-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-
-    .party-box {
-      background: #F9FAFB;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 12px 14px;
-    }
-
-    .party-label {
-      font-size: 10.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-
-    .party-name {
-      font-size: 14px;
-      font-weight: 700;
+    .doc-meta strong {
       color: var(--ink);
+      display: block;
+      font-size: 14px;
     }
 
-    .party-details {
-      font-size: 12px;
-      color: var(--ink-secondary);
-      margin-top: 2px;
-      line-height: 1.45;
+    /* ÉTAPES SIMPLES */
+    .step-block {
+      margin-bottom: 28px;
     }
 
-    /* TABLE OF PRESTATIONS */
-    .quote-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 24px;
-    }
-
-    .quote-table th {
-      text-align: left;
+    .step-label {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       color: var(--muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .quick-select {
+      width: 100%;
       padding: 10px 12px;
-      background: #F9FAFB;
-      border-top: 1px solid var(--border-strong);
-      border-bottom: 1px solid var(--border-strong);
-    }
-
-    .quote-table th.col-price,
-    .quote-table td.col-price {
-      text-align: right;
-      white-space: nowrap;
-      width: 130px;
-    }
-
-    .quote-table td {
-      padding: 12px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-
-    .item-title {
-      font-weight: 700;
-      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 13.5px;
+      background: #FAFAFA;
       color: var(--ink);
-      margin-bottom: 3px;
+      margin-bottom: 10px;
+      outline: none;
     }
 
-    .item-desc {
+    .client-inputs {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 10px;
+    }
+
+    .input-clean {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .input-clean:focus {
+      border-color: var(--ink);
+    }
+
+    /* 4 OFFRES CLAIRES EN 1 CLIC */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .offer-card {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+
+    .offer-card:hover {
+      border-color: #999;
+    }
+
+    .offer-card.active {
+      border-color: var(--ink);
+      background: #F9F9F8;
+      box-shadow: inset 0 0 0 1px var(--ink);
+    }
+
+    .offer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .offer-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .offer-price {
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .offer-desc {
       font-size: 12px;
       color: var(--muted);
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
-    /* SUMMARY & PAYMENT SCHEDULE */
-    .summary-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 24px;
-      align-items: start;
+    /* RÉCAPITULATIF CLAIR */
+    .summary-box {
+      background: #F9F9F8;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
       margin-bottom: 24px;
     }
 
-    .schedule-box {
-      background: #F9FAFB;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 14px;
-      font-size: 12px;
-    }
-
-    .schedule-box h4 {
-      font-size: 11.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-
-    .schedule-line {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
-      color: var(--ink-secondary);
-    }
-
-    .schedule-line strong {
-      color: var(--ink);
-      white-space: nowrap;
-    }
-
-    .totals-box {
-      border: 1px solid var(--border-strong);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .tot-line {
-      display: flex;
-      justify-content: space-between;
-      padding: 9px 14px;
-      font-size: 12.5px;
+    .included-list {
+      list-style: none;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
 
-    .tot-line.final {
-      background: var(--ink);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 800;
-      border-bottom: none;
-      padding: 12px 14px;
+    .included-list li {
+      font-size: 13.5px;
+      padding: 4px 0;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .tot-line span:last-child {
-      white-space: nowrap;
+    .included-list li::before {
+      content: "✓";
       font-weight: 700;
+      color: var(--green);
     }
 
-    /* SIGNATURE BLOCK */
-    .acceptance-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-    }
-
-    .sig-box {
-      border: 1px solid var(--border-strong);
-      border-radius: 6px;
-      padding: 10px 12px;
-      background: #FAFAFA;
-    }
-
-    .sig-header {
+    .price-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ink-secondary);
+      font-size: 14px;
+      padding: 5px 0;
+    }
+
+    .price-edit-input {
+      width: 100px;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 800;
+      text-align: right;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .deposit-highlight {
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    /* SIGNATURE */
+    .sig-section {
+      margin-bottom: 24px;
+    }
+
+    .sig-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 6px;
+    }
+
+    .sig-clear {
+      background: none;
+      border: none;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      text-decoration: underline;
     }
 
     .sig-canvas {
       width: 100%;
-      height: 96px;
-      background: #fff;
-      border: 1px dashed var(--border-strong);
-      border-radius: 4px;
+      height: 110px;
+      border: 1px dashed #BDBDB5;
+      border-radius: 10px;
+      background: #FCFBF9;
       touch-action: none;
       cursor: crosshair;
       display: block;
     }
 
-    .doc-footer-legal {
-      margin-top: 20px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      font-size: 10.5px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
+    /* BOUTONS D'ACTION */
+    .actions-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 10px;
     }
 
-    /* SAVED QUOTES BAR */
-    .saved-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      max-height: 150px;
-      overflow-y: auto;
-    }
-
-    .saved-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 10px;
-      background: #F9FAFB;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 12px;
+    .btn-action {
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
       cursor: pointer;
+      text-align: center;
     }
 
-    .saved-row:hover {
-      border-color: var(--ink);
+    .btn-wa {
+      background: var(--green);
+      color: #fff;
     }
 
-    @media (max-width: 980px) {
-      .workspace {
-        grid-template-columns: 1fr;
+    .btn-pdf {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .sheet {
+        padding: 22px 18px;
       }
-      .doc-wrapper {
-        padding: 20px 16px;
-      }
-      .parties-row,
-      .summary-grid,
-      .acceptance-grid {
+      .offers-grid,
+      .client-inputs,
+      .actions-row {
         grid-template-columns: 1fr;
-        gap: 14px;
       }
     }
 
     @media print {
-      .topbar,
-      .config-panel,
-      .clear-sig-link {
-        display: none !important;
-      }
       body {
         background: #fff;
         padding: 0;
       }
-      .workspace {
-        display: block;
-        margin: 0;
+      .top-nav,
+      .quick-select,
+      .offers-grid,
+      .step-offer-select-label,
+      .sig-clear,
+      .actions-row {
+        display: none !important;
+      }
+      .sheet {
+        border: none;
+        box-shadow: none;
         padding: 0;
         max-width: 100%;
       }
-      .doc-wrapper {
+      .input-clean,
+      .price-edit-input {
         border: none;
-        box-shadow: none;
         padding: 0;
       }
     }
@@ -631,746 +359,247 @@
 </head>
 <body>
 
-  <!-- BARRE D'OUTILS INTERNE -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <a href="../index.html" class="brand-title">BoostMySite — Éditeur de Devis</a>
-      <a href="tournee-clients.html" class="btn">← Carte Tournée</a>
-      <a href="../portfolio.html" class="btn" target="_blank">Démos</a>
-    </div>
-    <div class="topbar-actions">
-      <button type="button" class="btn" onclick="saveCurrentQuote()">Sauvegarder</button>
-      <button type="button" class="btn" onclick="resetNewQuote()">Nouveau devis</button>
-      <button type="button" class="btn" onclick="sendEmailQuote()">Envoyer par Email</button>
-      <button type="button" class="btn btn-whatsapp" onclick="sendWhatsAppQuote()">Envoyer sur WhatsApp</button>
-      <button type="button" class="btn btn-primary" onclick="window.print()">Enregistrer en PDF / Imprimer</button>
-    </div>
-  </header>
-
-  <div class="workspace">
-    <!-- ==========================================
-         COLONNE GAUCHE : PARAMÉTRAGE DU DEVIS
-         ========================================== -->
-    <aside class="config-panel">
-      <!-- 1. SÉLECTION CLIENT -->
-      <div class="config-section">
-        <div class="sec-head">
-          <span>1. Client & Établissement</span>
-        </div>
-        <div class="field">
-          <label for="presetClientSelect">Sélection rapide (Tournée Pontoise / Cergy)</label>
-          <select id="presetClientSelect" onchange="applyPresetClient(this.value)">
-            <option value="">— Saisie libre ou choisir un commerce de la tournée —</option>
-          </select>
-        </div>
-        <div class="grid-2">
-          <div class="field">
-            <label for="inShop">Enseigne / Nom commercial</label>
-            <input type="text" id="inShop" placeholder="Ex: Pepper Smash" oninput="updateQuote()">
-          </div>
-          <div class="field">
-            <label for="inManager">Responsable / Gérant</label>
-            <input type="text" id="inManager" placeholder="Ex: M. Bensaid" oninput="updateQuote()">
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="field">
-            <label for="inPhone">Téléphone</label>
-            <input type="tel" id="inPhone" placeholder="Ex: 01 30 32 79 28" oninput="updateQuote()">
-          </div>
-          <div class="field">
-            <label for="inEmail">Email ou SIRET (optionnel)</label>
-            <input type="text" id="inEmail" placeholder="contact@commerce.fr" oninput="updateQuote()">
-          </div>
-        </div>
-        <div class="field">
-          <label for="inAddress">Adresse complète</label>
-          <input type="text" id="inAddress" placeholder="Ex: 18 Mail de la Cavalerie, 95300 Pontoise" oninput="updateQuote()">
-        </div>
-      </div>
-
-      <!-- 2. FORMULE DE BASE -->
-      <div class="config-section">
-        <div class="sec-head">
-          <span>2. Formule de base</span>
-        </div>
-        <div class="pack-cards">
-          <button type="button" class="pack-btn" id="btnPack-starter" onclick="selectBasePack('starter')">
-            <strong>Starter</strong>
-            <span>490 €</span>
-            <small>Vitrine 1 page</small>
-          </button>
-          <button type="button" class="pack-btn active" id="btnPack-pro" onclick="selectBasePack('pro')">
-            <strong>Pack Pro</strong>
-            <span>990 €</span>
-            <small>Complet 5 pages</small>
-          </button>
-          <button type="button" class="pack-btn" id="btnPack-custom" onclick="selectBasePack('custom')">
-            <strong>Sur Mesure</strong>
-            <span>2 500 €</span>
-            <small>Plateforme</small>
-          </button>
-        </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="inCustomBasePrice">Prix de base ajusté (€)</label>
-            <input type="number" id="inCustomBasePrice" value="990" step="10" oninput="updateQuote()">
-          </div>
-          <div class="field">
-            <label for="inDelivery">Délai de livraison</label>
-            <select id="inDelivery" onchange="updateQuote()">
-              <option value="48 à 72 heures">48 à 72 heures</option>
-              <option value="5 à 7 jours ouvrés" selected>5 à 7 jours ouvrés</option>
-              <option value="10 à 14 jours ouvrés">10 à 14 jours ouvrés</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. OPTIONS CLICK & COLLECT ET RESTAURATION -->
-      <div class="config-section">
-        <div class="sec-head">
-          <span>3. Modules Click & Collect / Restauration</span>
-        </div>
-        <div class="module-list">
-          <label class="mod-item">
-            <input type="checkbox" id="mod_cc_wa" checked onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Click & Collect — Retrait Comptoir & Ticket WhatsApp</span>
-              <span class="mod-sub">Choix menu, formules, suppléments, sauces, créneau horaire et envoi direct en caisse</span>
-            </div>
-            <span class="mod-price" id="priceLabel_cc_wa">Inclus</span>
-          </label>
-
-          <label class="mod-item">
-            <input type="checkbox" id="mod_cc_cb" onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Paiement en ligne CB / Apple Pay / Google Pay</span>
-              <span class="mod-sub">Encaissement sécurisé Stripe directement sur le compte bancaire de l'établissement</span>
-            </div>
-            <span class="mod-price" id="priceLabel_cc_cb">+ 390 €</span>
-          </label>
-
-          <label class="mod-item">
-            <input type="checkbox" id="mod_cc_kds" onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Écran de réception des commandes en cuisine</span>
-              <span class="mod-sub">Interface tablette/caisse avec alerte sonore et suivi « En préparation / Prêt »</span>
-            </div>
-            <span class="mod-price" id="priceLabel_cc_kds">+ 290 €</span>
-          </label>
-
-          <label class="mod-item">
-            <input type="checkbox" id="mod_cc_qr" checked onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Pack QR Codes Comptoir, Tables & Vitrine</span>
-              <span class="mod-sub">Accès direct à la carte et commande sans attente depuis le téléphone du client</span>
-            </div>
-            <span class="mod-price free">Offert</span>
-          </label>
-
-          <label class="mod-item">
-            <input type="checkbox" id="mod_resa" onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Module de Réservation de table / Prise de RDV</span>
-              <span class="mod-sub">Sélection du nombre de couverts ou du créneau avec confirmation instantanée</span>
-            </div>
-            <span class="mod-price">Inclus</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 4. MODULES ARTISANS, VISIBILITÉ & REMISE -->
-      <div class="config-section">
-        <div class="sec-head">
-          <span>4. Visibilité Google, Photos & Conditions</span>
-        </div>
-        <div class="module-list" style="margin-bottom:12px;">
-          <label class="mod-item">
-            <input type="checkbox" id="mod_gmb" checked onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Optimisation fiche Google Maps (Google Business)</span>
-              <span class="mod-sub">Paramétrage complet, horaires, catégories et lien de commande directe</span>
-            </div>
-            <span class="mod-price free">Offert</span>
-          </label>
-
-          <label class="mod-item">
-            <input type="checkbox" id="mod_photos" checked onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Prise de vue & Intégration photos des produits</span>
-              <span class="mod-sub">Détourage, calibrage et mise en valeur de la carte ou des réalisations</span>
-            </div>
-            <span class="mod-price free">Offert</span>
-          </label>
-
-          <label class="mod-item">
-            <input type="checkbox" id="mod_devis_calc" onchange="updateQuote()">
-            <div>
-              <span class="mod-title">Simulateur de chiffrage / Devis en ligne (Artisan/VTC)</span>
-              <span class="mod-sub">Estimation budgétaire interactive sur le site + galerie Avant / Après</span>
-            </div>
-            <span class="mod-price">Inclus</span>
-          </label>
-        </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="inDiscount">Remise commerciale (€)</label>
-            <input type="number" id="inDiscount" value="0" min="0" step="10" oninput="updateQuote()">
-          </div>
-          <div class="field">
-            <label for="inDepositRule">Modalité de règlement</label>
-            <select id="inDepositRule" onchange="updateQuote()">
-              <option value="50" selected>50 % commande / 50 % livraison</option>
-              <option value="30">30 % commande / 70 % livraison</option>
-              <option value="3x">Paiement en 3 fois sans frais</option>
-              <option value="100">100 % à la commande</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid-2" style="margin-top:8px;">
-          <div class="field">
-            <label for="inMaint">Forfait suivi & mises à jour</label>
-            <select id="inMaint" onchange="updateQuote()">
-              <option value="0" selected>Sans abonnement mensuel</option>
-              <option value="39">Suivi Standard — 39 € / mois</option>
-              <option value="49">Suivi Illimité — 49 € / mois</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="inNotes">Note particulière (optionnel)</label>
-            <input type="text" id="inNotes" placeholder="Ex: Nom de domaine .fr inclus" oninput="updateQuote()">
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. HISTORIQUE DES DEVIS ENREGISTRÉS -->
-      <div class="config-section">
-        <div class="sec-head">
-          <span>5. Devis enregistrés sur cet appareil</span>
-        </div>
-        <div class="saved-list" id="savedQuotesContainer"></div>
-      </div>
-    </aside>
-
-    <!-- ==========================================
-         COLONNE DROITE : DOCUMENT OFFICIEL A4
-         ========================================== -->
-    <main class="doc-wrapper">
-      <div class="doc-header">
-        <div>
-          <div class="issuer-name">BOOST MY SITE</div>
-          <div class="issuer-meta">
-            Brahim Ben Said — Conception de sites web & solutions digitales<br>
-            Tél : 06 98 72 72 47 • Email : brahim.bensaid.pro75@gmail.com<br>
-            Site : https://boost-my-site.com
-          </div>
-        </div>
-        <div class="doc-badge-box">
-          <div class="doc-type">Devis / Bon de commande</div>
-          <div class="doc-ref" id="outQuoteRef">Réf. : BMS-2026-001</div>
-          <div class="doc-dates">
-            Date d'émission : <span id="outDateEmit"></span><br>
-            Validité de l'offre : 30 jours
-          </div>
-        </div>
-      </div>
-
-      <div class="parties-row">
-        <div class="party-box">
-          <div class="party-label">Prestataire</div>
-          <div class="party-name">BoostMySite</div>
-          <div class="party-details">
-            Interlocuteur : Brahim Ben Said<br>
-            Hébergement haute disponibilité & sécurité SSL inclus<br>
-            Cession complète du code source et du nom de domaine à la livraison
-          </div>
-        </div>
-        <div class="party-box">
-          <div class="party-label">Client bénéficiaire</div>
-          <div class="party-name" id="outClientShop">Établissement à compléter</div>
-          <div class="party-details" id="outClientDetails">
-            Adresse et coordonnées du client
-          </div>
-        </div>
-      </div>
-
-      <!-- TABLEAU DES PRESTATIONS -->
-      <table class="quote-table">
-        <thead>
-          <tr>
-            <th>Désignation des prestations</th>
-            <th class="col-price">Montant</th>
-          </tr>
-        </thead>
-        <tbody id="outTableBody"></tbody>
-      </table>
-
-      <!-- ÉCHÉANCIER ET TOTAUX -->
-      <div class="summary-grid">
-        <div class="schedule-box">
-          <h4>Conditions et échéancier de règlement</h4>
-          <div id="outScheduleLines"></div>
-          <div id="outMaintNotice" style="margin-top:8px; padding-top:8px; border-top:1px solid var(--border); color:var(--muted); display:none;"></div>
-          <div id="outCustomNote" style="margin-top:6px; font-weight:600; color:var(--ink);"></div>
-        </div>
-
-        <div class="totals-box">
-          <div class="tot-line">
-            <span>Sous-total prestations</span>
-            <span id="outSubtotal">990,00 €</span>
-          </div>
-          <div class="tot-line" id="outDiscountRow" style="display:none; color:var(--green);">
-            <span>Remise commerciale accordée</span>
-            <span id="outDiscountVal">- 0,00 €</span>
-          </div>
-          <div class="tot-line final">
-            <span>Total Net à Payer</span>
-            <span id="outGrandTotal">990,00 €</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- SIGNATURES -->
-      <div class="acceptance-grid">
-        <div class="sig-box">
-          <div class="sig-header">
-            <span>Pour BoostMySite (Engagement de délai)</span>
-            <span>Signé électroniquement</span>
-          </div>
-          <div style="height:96px; display:flex; flex-direction:column; justify-content:center; padding-left:8px; color:var(--ink-secondary); font-size:12px;">
-            <strong style="font-family:Georgia, serif; font-size:17px; font-style:italic; color:var(--ink);">Brahim Ben Said</strong>
-            <span style="font-size:11px; color:var(--muted); margin-top:4px;">Délai contractuel garanti : <strong id="outDeliveryGuarantee">5 à 7 jours ouvrés</strong></span>
-          </div>
-        </div>
-
-        <div class="sig-box">
-          <div class="sig-header">
-            <span>Bon pour accord — Signature du Client :</span>
-            <button type="button" class="clear-sig-link" style="background:none; border:none; color:var(--blue); font-size:11px; font-weight:600; cursor:pointer;" onclick="clearSig()">Effacer</button>
-          </div>
-          <canvas id="sigCanvas" class="sig-canvas"></canvas>
-        </div>
-      </div>
-
-      <div class="doc-footer-legal">
-        <span>BoostMySite — Création de sites internet sur mesure et solutions Click & Collect sans commission</span>
-        <span>Conformité RGPD & Loi LCEN • Aucun frais caché ni commission sur vos ventes</span>
-      </div>
-    </main>
+  <div class="top-nav">
+    <a href="tournee-clients.html" class="back-link">← Retour à la carte de tournée</a>
+    <a href="../index.html" class="back-link">Site BoostMySite</a>
   </div>
 
+  <main class="sheet">
+    <!-- EN-TÊTE -->
+    <div class="sheet-header">
+      <div>
+        <div class="brand-name">BoostMySite</div>
+        <div class="brand-sub">Brahim Ben Said • 06 98 72 72 47</div>
+      </div>
+      <div class="doc-meta">
+        <strong id="docRef">Devis #BMS-2026</strong>
+        <span id="docDate"></span>
+      </div>
+    </div>
+
+    <!-- 1. LE CLIENT -->
+    <div class="step-block">
+      <span class="step-label">1. Client</span>
+      <select id="presetSelect" class="quick-select" onchange="pickPreset(this.value)">
+        <option value="">Choisir un commerce de la tournée (ou taper ci-dessous)...</option>
+      </select>
+      <div class="client-inputs">
+        <input type="text" id="clientName" class="input-clean" placeholder="Nom du commerce (ex : Pepper Smash)">
+        <input type="tel" id="clientPhone" class="input-clean" placeholder="Téléphone WhatsApp (ex : 06...)">
+      </div>
+      <input type="text" id="clientAddress" class="input-clean" style="margin-top:8px;" placeholder="Adresse (optionnel)">
+    </div>
+
+    <!-- 2. LA FORMULE EN 1 CLIC -->
+    <div class="step-block">
+      <span class="step-label step-offer-select-label">2. Formule choisie</span>
+      <div class="offers-grid">
+        <button type="button" class="offer-card" id="card-starter" onclick="selectOffer('starter')">
+          <div class="offer-top">
+            <span class="offer-title">Site Vitrine</span>
+            <span class="offer-price">490 €</span>
+          </div>
+          <p class="offer-desc">1 page complète (carte, photos, horaires, appel direct & Google Maps).</p>
+        </button>
+
+        <button type="button" class="offer-card active" id="card-pro" onclick="selectOffer('pro')">
+          <div class="offer-top">
+            <span class="offer-title">Click & Collect Comptoir</span>
+            <span class="offer-price">990 €</span>
+          </div>
+          <p class="offer-desc">Site complet + commande reçue sur WhatsApp Caisse & paiement au comptoir.</p>
+        </button>
+
+        <button type="button" class="offer-card" id="card-cb" onclick="selectOffer('cb')">
+          <div class="offer-top">
+            <span class="offer-title">Click & Collect CB en ligne</span>
+            <span class="offer-price">1 490 €</span>
+          </div>
+          <p class="offer-desc">Site complet + paiement Carte Bancaire / Apple Pay + écran suivi en cuisine.</p>
+        </button>
+
+        <button type="button" class="offer-card" id="card-custom" onclick="selectOffer('custom')">
+          <div class="offer-top">
+            <span class="offer-title">Sur Mesure</span>
+            <span class="offer-price">2 500 €</span>
+          </div>
+          <p class="offer-desc">Plateforme complète personnalisée (calculateur de devis, 3D, outils métier).</p>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. RÉCAPITULATIF & PRIX -->
+    <div class="summary-box">
+      <span class="step-label" id="summaryOfferTitle" style="color:var(--ink); font-size:13px; margin-bottom:8px;">
+        Formule Click & Collect Comptoir
+      </span>
+      <ul class="included-list" id="includedList"></ul>
+
+      <div class="price-row">
+        <span>Prix total clé en main (modifiable si remise)</span>
+        <div>
+          <input type="number" id="customPriceInput" class="price-edit-input" value="990" step="10" oninput="recalcDeposit()"> €
+        </div>
+      </div>
+      <div class="price-row" style="color:var(--muted); font-size:13px;">
+        <span>Solde à régler uniquement à la livraison (50 %)</span>
+        <span id="balanceDisplay">495 €</span>
+      </div>
+      <div class="deposit-highlight">
+        <span>Acompte au démarrage (50 %)</span>
+        <span id="depositDisplay">495 €</span>
+      </div>
+    </div>
+
+    <!-- 4. SIGNATURE -->
+    <div class="sig-section">
+      <div class="sig-head">
+        <span class="step-label" style="margin:0;">Bon pour accord — Signature du client</span>
+        <button type="button" class="sig-clear" onclick="clearSig()">Effacer</button>
+      </div>
+      <canvas id="sigCanvas" class="sig-canvas"></canvas>
+    </div>
+
+    <!-- 5. ENVOYER -->
+    <div class="actions-row">
+      <button type="button" class="btn-action btn-wa" onclick="sendWhatsApp()">
+        Envoyer sur WhatsApp
+      </button>
+      <button type="button" class="btn-action btn-pdf" onclick="window.print()">
+        Enregistrer en PDF
+      </button>
+    </div>
+  </main>
+
   <script>
-    const PRESET_PROSPECTS = [
-      { name: 'Pepper Smash', address: '18 Mail de la Cavalerie, 95300 Pontoise', phone: '01 30 32 79 28', pack: 'pro', cc_wa: true, resa: false },
-      { name: 'Brasserie Paris Pontoise', address: '18 Mail de la Cavalerie, 95300 Pontoise', phone: '09 55 13 19 28', pack: 'pro', cc_wa: false, resa: true },
-      { name: 'Institut MEI LI', address: '31 Place Notre Dame, 95300 Pontoise', phone: '06 05 94 16 33', pack: 'starter', cc_wa: false, resa: true },
-      { name: 'Be\'Sushi Pontoise', address: '11 Rue de Rouen, 95300 Pontoise', phone: '01 30 31 90 74', pack: 'pro', cc_wa: true, resa: true },
-      { name: 'Chicken Drive Pontoise', address: '18 Rue de Rouen, 95300 Pontoise', phone: '07 59 70 40 28', pack: 'pro', cc_wa: true, resa: false },
-      { name: 'Cabinet Véronique Outrebon', address: '26 Rue Sere-Depoin, 95300 Pontoise', phone: '01 34 22 18 84', pack: 'starter', cc_wa: false, resa: true },
-      { name: 'Barlou Burger / Miss Kebab', address: '75 Rue Pierre Butin, 95300 Pontoise', phone: '06 68 89 05 95', pack: 'starter', cc_wa: true, resa: false },
-      { name: 'O\'Twist Fast-Food', address: '35 Rue de Gisors, 95300 Pontoise', phone: '09 81 12 91 70', pack: 'starter', cc_wa: true, resa: false },
-      { name: 'Créa Parquets', address: '32 Rue des Pâtis, 95300 Pontoise', phone: '06 04 52 38 09', pack: 'pro', cc_wa: false, resa: false, devis_calc: true },
-      { name: 'Restaurant L\'Italien', address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône', phone: '01 84 24 12 12', pack: 'pro', cc_wa: true, resa: true },
-      { name: 'Bamako Market', address: '9 Avenue du Général de Gaulle, 95310 Saint-Ouen-l\'Aumône', phone: '09 55 82 79 89', pack: 'starter', cc_wa: false, resa: false },
-      { name: 'Chicken Street Cergy', address: '16 Place des Cerclades, 95000 Cergy', phone: '06 68 45 93 51', pack: 'pro', cc_wa: true, resa: false },
-      { name: 'Restaurant MG / Adiza', address: '3 Rue des Italiens, 95000 Cergy', phone: '06 61 29 13 51', pack: 'starter', cc_wa: true, resa: false },
-      { name: 'Brasserie Le Cergy', address: '10 Avenue Bernard Hirsch, 95000 Cergy', phone: '01 34 24 23 31', pack: 'pro', cc_wa: false, resa: true },
-      { name: 'Le Cezam (ESSEC)', address: '20 Avenue Bernard Hirsch, 95000 Cergy', phone: '01 34 24 01 35', pack: 'pro', cc_wa: true, resa: false },
-      { name: 'Restaurant Le Bosphore', address: 'Parvis de la Préfecture, 95000 Cergy', phone: '01 30 73 40 40', pack: 'pro', cc_wa: true, resa: true },
-      { name: 'Full Pizza Cergy', address: '5 Rue des Linandes Beiges, 95000 Cergy', phone: '01 30 31 25 26', pack: 'starter', cc_wa: true, resa: false },
-      { name: 'Le Chalet d\'Oz (Osny)', address: 'Zone de l\'Oseraie, 95520 Osny', phone: '07 51 34 86 57', pack: 'pro', cc_wa: true, resa: false },
-      { name: 'Restaurant L\'Érable (Osny)', address: '24 Chemin du Poirier Charles Guérin, 95520 Osny', phone: '09 71 55 37 05', pack: 'pro', cc_wa: true, resa: false },
-      { name: 'Restaurant Le Shanghai (Osny)', address: '2 Chemin du Poirier Charles Guérin, 95520 Osny', phone: '01 30 32 88 88', pack: 'pro', cc_wa: true, resa: true }
+    const PRESETS = [
+      { name: 'Pepper Smash', address: '18 Mail de la Cavalerie, 95300 Pontoise', phone: '01 30 32 79 28', offer: 'pro' },
+      { name: 'Institut MEI LI', address: '31 Place Notre Dame, 95300 Pontoise', phone: '06 05 94 16 33', offer: 'starter' },
+      { name: 'Be\'Sushi Pontoise', address: '11 Rue de Rouen, 95300 Pontoise', phone: '01 30 31 90 74', offer: 'pro' },
+      { name: 'Chicken Drive Pontoise', address: '18 Rue de Rouen, 95300 Pontoise', phone: '07 59 70 40 28', offer: 'pro' },
+      { name: 'Cabinet Véronique Outrebon', address: '26 Rue Sere-Depoin, 95300 Pontoise', phone: '01 34 22 18 84', offer: 'starter' },
+      { name: 'Barlou Burger / Miss Kebab', address: '75 Rue Pierre Butin, 95300 Pontoise', phone: '06 68 89 05 95', offer: 'starter' },
+      { name: 'O\'Twist Fast-Food', address: '35 Rue de Gisors, 95300 Pontoise', phone: '09 81 12 91 70', offer: 'starter' },
+      { name: 'Créa Parquets', address: '32 Rue des Pâtis, 95300 Pontoise', phone: '06 04 52 38 09', offer: 'pro' },
+      { name: 'Restaurant L\'Italien', address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône', phone: '01 84 24 12 12', offer: 'pro' },
+      { name: 'Bamako Market', address: '9 Avenue du Général de Gaulle, 95310 Saint-Ouen-l\'Aumône', phone: '09 55 82 79 89', offer: 'starter' },
+      { name: 'Chicken Street Cergy', address: '16 Place des Cerclades, 95000 Cergy', phone: '06 68 45 93 51', offer: 'pro' },
+      { name: 'Restaurant MG / Adiza', address: '3 Rue des Italiens, 95000 Cergy', phone: '06 61 29 13 51', offer: 'starter' },
+      { name: 'Brasserie Le Cergy', address: '10 Avenue Bernard Hirsch, 95000 Cergy', phone: '01 34 24 23 31', offer: 'pro' },
+      { name: 'Le Cezam (ESSEC)', address: '20 Avenue Bernard Hirsch, 95000 Cergy', phone: '01 34 24 01 35', offer: 'pro' },
+      { name: 'Restaurant Le Bosphore', address: 'Parvis de la Préfecture, 95000 Cergy', phone: '01 30 73 40 40', offer: 'pro' },
+      { name: 'Full Pizza Cergy', address: '5 Rue des Linandes Beiges, 95000 Cergy', phone: '01 30 31 25 26', offer: 'starter' },
+      { name: 'Le Chalet d\'Oz (Osny)', address: 'Zone de l\'Oseraie, 95520 Osny', phone: '07 51 34 86 57', offer: 'pro' },
+      { name: 'Restaurant L\'Érable (Osny)', address: '24 Chemin du Poirier Charles Guérin, 95520 Osny', phone: '09 71 55 37 05', offer: 'pro' },
+      { name: 'Restaurant Le Shanghai (Osny)', address: '2 Chemin du Poirier Charles Guérin, 95520 Osny', phone: '01 30 32 88 88', offer: 'pro' }
     ];
 
-    const BASE_PACKS = {
+    const OFFERS = {
       starter: {
-        title: 'Forfait Starter — Site Vitrine Professionnel (1 Page)',
-        defaultPrice: 490,
-        defaultDelivery: '48 à 72 heures',
-        desc: 'Conception sur mesure d’une page complète adaptée mobile/tablette/ordinateur : présentation de l’établissement, carte ou prestations, galerie photos, horaires d’ouverture, bouton d’appel direct et intégration Google Maps.'
+        title: 'Forfait Site Vitrine (Livraison sous 72h)',
+        price: 490,
+        items: [
+          'Site complet sur téléphone et ordinateur (présentation, carte/tarifs, horaires)',
+          'Photos de vos produits et de votre établissement incluses',
+          'Bouton d’appel direct et liaison avec votre fiche Google Maps',
+          'Mise en ligne et hébergement rapide inclus (0 abonnement obligatoire)'
+        ]
       },
       pro: {
-        title: 'Forfait Pro — Site Complet Multi-Pages & Référencement Local',
-        defaultPrice: 990,
-        defaultDelivery: '5 à 7 jours ouvrés',
-        desc: 'Développement sur mesure jusqu’à 5 pages (Accueil, Carte ou Services détaillés, Galerie, Avis clients, Contact & Accès), optimisation du référencement local Google (SEO), nom de domaine et hébergement haute vitesse inclus.'
+        title: 'Forfait Site Complet + Click & Collect Comptoir (Livraison 5-7 jours)',
+        price: 990,
+        items: [
+          'Site complet sur mesure jusqu’à 5 pages + référencement Google local',
+          'Module Click & Collect : le client choisit son menu et son heure de retrait',
+          'Réception directe des commandes sur le WhatsApp de la caisse + paiement au comptoir',
+          'Photos sur place, QR Codes comptoir/tables et fiche Google Maps inclus'
+        ]
+      },
+      cb: {
+        title: 'Forfait Click & Collect + Paiement CB en ligne (Livraison 7-10 jours)',
+        price: 1490,
+        items: [
+          'Site complet sur mesure + commande en ligne sans aucune commission (0 %)',
+          'Paiement direct par Carte Bancaire, Apple Pay et Google Pay sur votre compte',
+          'Écran de réception des commandes en cuisine avec alerte sonore',
+          'Photos sur place, QR Codes comptoir/tables et fiche Google Maps inclus'
+        ]
       },
       custom: {
-        title: 'Forfait Sur Mesure — Plateforme Complète & Flux Automatisés',
-        defaultPrice: 2500,
-        defaultDelivery: '10 à 14 jours ouvrés',
-        desc: 'Architecture digitale complète développée sur mesure incluant parcours client personnalisé, gestion avancée des commandes ou des devis, base de données sécurisée et formation à l’outil.'
+        title: 'Forfait Sur Mesure (Livraison 10-14 jours)',
+        price: 2500,
+        items: [
+          'Création complète sur mesure selon votre cahier des charges',
+          'Calculateur de devis automatique, paiement en ligne ou configurateur 3D',
+          'Optimisation complète pour Google et accompagnement dédié'
+        ]
       }
     };
 
-    let currentPack = 'pro';
-    let currentRef = 'BMS-' + new Date().getFullYear() + '-' + Math.floor(100 + Math.random() * 900);
-    const SAVED_QUOTES_KEY = 'bms_saved_quotes_v1';
+    let currentOfferKey = 'pro';
+    const refCode = 'BMS-' + Math.floor(1000 + Math.random() * 9000);
 
-    function formatEur(num) {
-      return Number(num).toFixed(2).replace('.', ',') + ' €';
-    }
-
-    function esc(s) {
-      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
-    function populatePresetDropdown() {
-      const sel = document.getElementById('presetClientSelect');
-      PRESET_PROSPECTS.forEach((p, idx) => {
-        const opt = document.createElement('option');
-        opt.value = String(idx);
-        opt.textContent = `${p.name} — ${p.address}`;
-        sel.appendChild(opt);
+    function selectOffer(key) {
+      currentOfferKey = key;
+      ['starter', 'pro', 'cb', 'custom'].forEach(k => {
+        document.getElementById('card-' + k).classList.toggle('active', k === key);
       });
+      const o = OFFERS[key];
+      document.getElementById('summaryOfferTitle').textContent = o.title;
+      document.getElementById('includedList').innerHTML = o.items.map(i => `<li>${i}</li>`).join('');
+      document.getElementById('customPriceInput').value = o.price;
+      recalcDeposit();
     }
 
-    function applyPresetClient(idxStr) {
+    function recalcDeposit() {
+      const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
+      const half = Math.round(total / 2);
+      document.getElementById('depositDisplay').textContent = half + ' €';
+      document.getElementById('balanceDisplay').textContent = (total - half) + ' €';
+    }
+
+    function pickPreset(idxStr) {
       if (idxStr === '') return;
-      const p = PRESET_PROSPECTS[parseInt(idxStr, 10)];
+      const p = PRESETS[parseInt(idxStr, 10)];
       if (!p) return;
-      document.getElementById('inShop').value = p.name;
-      document.getElementById('inAddress').value = p.address;
-      document.getElementById('inPhone').value = p.phone || '';
-      document.getElementById('mod_cc_wa').checked = Boolean(p.cc_wa);
-      document.getElementById('mod_resa').checked = Boolean(p.resa);
-      document.getElementById('mod_devis_calc').checked = Boolean(p.devis_calc);
-      selectBasePack(p.pack || 'pro');
+      document.getElementById('clientName').value = p.name;
+      document.getElementById('clientPhone').value = p.phone;
+      document.getElementById('clientAddress').value = p.address;
+      selectOffer(p.offer);
     }
 
-    function selectBasePack(packKey) {
-      currentPack = packKey;
-      ['starter', 'pro', 'custom'].forEach(k => {
-        document.getElementById('btnPack-' + k).classList.toggle('active', k === packKey);
-      });
-      const cfg = BASE_PACKS[packKey];
-      document.getElementById('inCustomBasePrice').value = cfg.defaultPrice;
-      document.getElementById('inDelivery').value = cfg.defaultDelivery;
+    function sendWhatsApp() {
+      const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
+      const addr = document.getElementById('clientAddress').value.trim();
+      const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
+      const half = Math.round(total / 2);
+      const o = OFFERS[currentOfferKey];
 
-      // En Sur Mesure, CB et écran cuisine sont inclus par défaut
-      if (packKey === 'custom') {
-        document.getElementById('mod_cc_cb').checked = true;
-        document.getElementById('mod_cc_kds').checked = true;
-      }
-      updateQuote();
-    }
-
-    function computeQuoteData() {
-      const baseCfg = BASE_PACKS[currentPack];
-      const basePrice = Math.max(0, parseFloat(document.getElementById('inCustomBasePrice').value) || 0);
-      const delivery = document.getElementById('inDelivery').value;
-
-      // Tarification dynamique des modules Click & Collect selon la formule choisie
-      const ccWaExtra = currentPack === 'starter' ? 190 : 0;
-      const ccCbExtra = currentPack === 'custom' ? 0 : 390;
-      const ccKdsExtra = currentPack === 'custom' ? 0 : 290;
-
-      document.getElementById('priceLabel_cc_wa').textContent = ccWaExtra === 0 ? 'Inclus' : `+ ${ccWaExtra} €`;
-      document.getElementById('priceLabel_cc_cb').textContent = ccCbExtra === 0 ? 'Inclus' : `+ ${ccCbExtra} €`;
-      document.getElementById('priceLabel_cc_kds').textContent = ccKdsExtra === 0 ? 'Inclus' : `+ ${ccKdsExtra} €`;
-
-      const rows = [
-        {
-          title: baseCfg.title,
-          desc: baseCfg.desc,
-          priceText: formatEur(basePrice),
-          amount: basePrice
-        }
-      ];
-
-      if (document.getElementById('mod_cc_wa').checked) {
-        rows.push({
-          title: 'Module Click & Collect — Pré-commande en ligne & Réception WhatsApp Caisse',
-          desc: 'Sélection des produits, formules (solo ou menu), accompagnements, boissons, sauces et créneau de retrait. Envoi instantané du ticket formaté en caisse et règlement au comptoir (0 % de commission).',
-          priceText: ccWaExtra === 0 ? 'Inclus' : formatEur(ccWaExtra),
-          amount: ccWaExtra
-        });
-      }
-
-      if (document.getElementById('mod_cc_cb').checked) {
-        rows.push({
-          title: 'Module Paiement en ligne Carte Bancaire, Apple Pay & Google Pay',
-          desc: 'Intégration du terminal de paiement sécurisé Stripe relié directement au compte bancaire de l’établissement, avec confirmation automatique de commande.',
-          priceText: ccCbExtra === 0 ? 'Inclus' : formatEur(ccCbExtra),
-          amount: ccCbExtra
-        });
-      }
-
-      if (document.getElementById('mod_cc_kds').checked) {
-        rows.push({
-          title: 'Interface Écran Cuisine & Suivi des Commandes en Temps Réel',
-          desc: 'Tableau de bord pour tablette/caisse avec alerte sonore à chaque nouvelle commande, gestion des statuts (En préparation / Prêt) et mise en rupture en 1 clic.',
-          priceText: ccKdsExtra === 0 ? 'Inclus' : formatEur(ccKdsExtra),
-          amount: ccKdsExtra
-        });
-      }
-
-      if (document.getElementById('mod_cc_qr').checked) {
-        rows.push({
-          title: 'Pack QR Codes Comptoir, Tables & Vitrine',
-          desc: 'Génération des QR Codes haute définition pointant vers la carte interactive pour permettre aux clients sur place de commander sans attente.',
-          priceText: 'Offert',
-          amount: 0
-        });
-      }
-
-      if (document.getElementById('mod_resa').checked) {
-        rows.push({
-          title: 'Module de Réservation de Table / Prise de Rendez-vous en ligne',
-          desc: 'Formulaire dédié permettant au client de choisir sa date, son horaire et le nombre de personnes avec réception directe par le responsable.',
-          priceText: 'Inclus',
-          amount: 0
-        });
-      }
-
-      if (document.getElementById('mod_devis_calc').checked) {
-        rows.push({
-          title: 'Simulateur de Chiffrage en ligne & Comparateur Avant / Après',
-          desc: 'Outil interactif permettant aux clients d’estimer leur budget en ligne selon leurs critères et de visualiser vos réalisations.',
-          priceText: 'Inclus',
-          amount: 0
-        });
-      }
-
-      if (document.getElementById('mod_gmb').checked) {
-        rows.push({
-          title: 'Optimisation de la fiche Google Maps (Google Business Profile)',
-          desc: 'Liaison directe du site web avec votre fiche Google Maps locale pour maximiser les appels et les demandes d’itinéraire.',
-          priceText: 'Offert',
-          amount: 0
-        });
-      }
-
-      if (document.getElementById('mod_photos').checked) {
-        rows.push({
-          title: 'Prise de vue sur place & Optimisation visuelle des produits',
-          desc: 'Intégration soignée et calibrage des photographies de vos produits, plats ou réalisations.',
-          priceText: 'Offert',
-          amount: 0
-        });
-      }
-
-      const subtotal = rows.reduce((sum, r) => sum + r.amount, 0);
-      const discount = Math.min(subtotal, Math.max(0, parseFloat(document.getElementById('inDiscount').value) || 0));
-      const grandTotal = Math.max(0, subtotal - discount);
-
-      return {
-        shop: document.getElementById('inShop').value.trim() || 'Établissement à compléter',
-        manager: document.getElementById('inManager').value.trim(),
-        phone: document.getElementById('inPhone').value.trim(),
-        email: document.getElementById('inEmail').value.trim(),
-        address: document.getElementById('inAddress').value.trim(),
-        delivery,
-        rows,
-        subtotal,
-        discount,
-        grandTotal,
-        depositRule: document.getElementById('inDepositRule').value,
-        maint: parseInt(document.getElementById('inMaint').value, 10) || 0,
-        notes: document.getElementById('inNotes').value.trim()
-      };
-    }
-
-    function updateQuote() {
-      const d = computeQuoteData();
-
-      document.getElementById('outQuoteRef').textContent = 'Réf. : ' + currentRef;
-      document.getElementById('outClientShop').textContent = d.shop;
-
-      const detailsParts = [];
-      if (d.manager) detailsParts.push('À l’attention de : ' + esc(d.manager));
-      if (d.address) detailsParts.push(esc(d.address));
-      const contactLine = [d.phone ? 'Tél : ' + esc(d.phone) : '', d.email ? esc(d.email) : ''].filter(Boolean).join(' • ');
-      if (contactLine) detailsParts.push(contactLine);
-      document.getElementById('outClientDetails').innerHTML = detailsParts.length ? detailsParts.join('<br>') : 'Coordonnées du client';
-
-      // Render table rows
-      document.getElementById('outTableBody').innerHTML = d.rows.map(r => `
-        <tr>
-          <td>
-            <div class="item-title">${esc(r.title)}</div>
-            <div class="item-desc">${esc(r.desc)}</div>
-          </td>
-          <td class="col-price" style="font-weight:700; color:${r.priceText === 'Offert' ? 'var(--green)' : 'var(--ink)'};">${esc(r.priceText)}</td>
-        </tr>
-      `).join('');
-
-      document.getElementById('outSubtotal').textContent = formatEur(d.subtotal);
-      const discRow = document.getElementById('outDiscountRow');
-      if (d.discount > 0) {
-        discRow.style.display = 'flex';
-        document.getElementById('outDiscountVal').textContent = '- ' + formatEur(d.discount);
-      } else {
-        discRow.style.display = 'none';
-      }
-      document.getElementById('outGrandTotal').textContent = formatEur(d.grandTotal);
-      document.getElementById('outDeliveryGuarantee').textContent = d.delivery;
-
-      // Échéancier
-      const schedEl = document.getElementById('outScheduleLines');
-      if (d.depositRule === '50') {
-        const half = d.grandTotal / 2;
-        schedEl.innerHTML = `
-          <div class="schedule-line"><span>Acompte à la commande (50 %)</span><strong>${formatEur(half)}</strong></div>
-          <div class="schedule-line"><span>Solde à la mise en ligne après validation (50 %)</span><strong>${formatEur(half)}</strong></div>
-        `;
-      } else if (d.depositRule === '30') {
-        const dep = d.grandTotal * 0.3;
-        const bal = d.grandTotal - dep;
-        schedEl.innerHTML = `
-          <div class="schedule-line"><span>Acompte à la commande (30 %)</span><strong>${formatEur(dep)}</strong></div>
-          <div class="schedule-line"><span>Solde à la mise en ligne après validation (70 %)</span><strong>${formatEur(bal)}</strong></div>
-        `;
-      } else if (d.depositRule === '3x') {
-        const third = d.grandTotal / 3;
-        schedEl.innerHTML = `
-          <div class="schedule-line"><span>1er versement à la commande (1/3)</span><strong>${formatEur(third)}</strong></div>
-          <div class="schedule-line"><span>2e versement à la livraison (1/3)</span><strong>${formatEur(third)}</strong></div>
-          <div class="schedule-line"><span>3e versement à J+30 (1/3)</span><strong>${formatEur(third)}</strong></div>
-        `;
-      } else {
-        schedEl.innerHTML = `
-          <div class="schedule-line"><span>Règlement comptant à la commande</span><strong>${formatEur(d.grandTotal)}</strong></div>
-        `;
-      }
-
-      const maintEl = document.getElementById('outMaintNotice');
-      if (d.maint > 0) {
-        maintEl.style.display = 'block';
-        maintEl.textContent = `Forfait suivi & mises à jour (modifications de carte, tarifs, photos) : ${d.maint},00 € / mois sans engagement de durée.`;
-      } else {
-        maintEl.style.display = 'none';
-      }
-
-      document.getElementById('outCustomNote').textContent = d.notes ? 'Note : ' + d.notes : '';
-    }
-
-    function buildPlainSummary() {
-      const d = computeQuoteData();
       const lines = [
-        `DEVIS BOOST MY SITE (${currentRef})`,
-        `Établissement : ${d.shop}`,
-        d.address ? `Adresse : ${d.address}` : '',
+        `BON DE COMMANDE BOOST MY SITE (${refCode})`,
+        `Établissement : ${shop}`,
+        addr ? `Adresse : ${addr}` : '',
         ``,
-        `DÉTAIL DES PRESTATIONS :`,
-        ...d.rows.map(r => `- ${r.title} : ${r.priceText}`),
-        d.discount > 0 ? `- Remise commerciale : -${formatEur(d.discount)}` : '',
+        `${o.title}`,
+        ...o.items.map(i => `• ${i}`),
         ``,
-        `TOTAL NET : ${formatEur(d.grandTotal)}`,
-        `Délai de livraison : ${d.delivery}`,
-        d.depositRule === '50' ? `Règlement : 50 % à la commande (${formatEur(d.grandTotal / 2)}) / 50 % à la livraison (${formatEur(d.grandTotal / 2)})` : '',
-        d.maint > 0 ? `Option suivi & mises à jour : ${d.maint} €/mois (sans engagement)` : '',
-        d.notes ? `Note : ${d.notes}` : '',
+        `Prix total clé en main : ${total} €`,
+        `• Acompte au démarrage (50 %) : ${half} €`,
+        `• Solde à la livraison après validation (50 %) : ${total - half} €`,
         ``,
-        `Brahim Ben Said — BoostMySite`,
-        `Tél : 06 98 72 72 47 — https://boost-my-site.com`
-      ].filter(Boolean);
-      return lines.join('\n');
-    }
+        `Brahim Ben Said — 06 98 72 72 47`,
+        `https://boost-my-site.com`
+      ].filter(Boolean).join('\n');
 
-    function sendWhatsAppQuote() {
-      const d = computeQuoteData();
-      let phone = d.phone.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
+      let phone = document.getElementById('clientPhone').value.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
       if (phone.startsWith('0')) phone = '33' + phone.slice(1);
-      const text = encodeURIComponent(buildPlainSummary());
-      const url = phone ? `https://wa.me/${phone}?text=${text}` : `https://wa.me/?text=${text}`;
+      const url = phone
+        ? `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`
+        : `https://wa.me/?text=${encodeURIComponent(lines)}`;
       window.open(url, '_blank');
     }
 
-    function sendEmailQuote() {
-      const d = computeQuoteData();
-      const mailto = `mailto:${encodeURIComponent(d.email || '')}?subject=${encodeURIComponent('Devis Site Internet BoostMySite — ' + d.shop)}&body=${encodeURIComponent(buildPlainSummary())}`;
-      window.location.href = mailto;
-    }
-
-    /* SAUVEGARDE LOCALE DES DEVIS */
-    function saveCurrentQuote() {
-      const d = computeQuoteData();
-      let list = [];
-      try { list = JSON.parse(localStorage.getItem(SAVED_QUOTES_KEY) || '[]'); } catch (e) {}
-      const entry = {
-        ref: currentRef,
-        date: new Date().toLocaleDateString('fr-FR'),
-        shop: d.shop,
-        manager: d.manager,
-        phone: d.phone,
-        email: d.email,
-        address: d.address,
-        pack: currentPack,
-        basePrice: document.getElementById('inCustomBasePrice').value,
-        discount: document.getElementById('inDiscount').value,
-        total: d.grandTotal,
-        cc_wa: document.getElementById('mod_cc_wa').checked,
-        cc_cb: document.getElementById('mod_cc_cb').checked,
-        cc_kds: document.getElementById('mod_cc_kds').checked,
-        resa: document.getElementById('mod_resa').checked
-      };
-      list = [entry, ...list.filter(x => x.ref !== currentRef)].slice(0, 25);
-      try { localStorage.setItem(SAVED_QUOTES_KEY, JSON.stringify(list)); } catch (e) {}
-      renderSavedQuotes();
-      alert('Devis ' + currentRef + ' sauvegardé sur cet appareil.');
-    }
-
-    function renderSavedQuotes() {
-      const box = document.getElementById('savedQuotesContainer');
-      let list = [];
-      try { list = JSON.parse(localStorage.getItem(SAVED_QUOTES_KEY) || '[]'); } catch (e) {}
-      if (!list.length) {
-        box.innerHTML = '<div style="font-size:11.5px; color:var(--muted);">Aucun devis enregistré pour le moment.</div>';
-        return;
-      }
-      box.innerHTML = list.map((q, idx) => `
-        <div class="saved-row" onclick="loadSavedQuote(${idx})">
-          <div>
-            <strong>${esc(q.shop)}</strong>
-            <span style="color:var(--muted); margin-left:6px;">${esc(q.ref)} (${esc(q.date)})</span>
-          </div>
-          <strong>${formatEur(q.total)}</strong>
-        </div>
-      `).join('');
-    }
-
-    function loadSavedQuote(idx) {
-      let list = [];
-      try { list = JSON.parse(localStorage.getItem(SAVED_QUOTES_KEY) || '[]'); } catch (e) {}
-      const q = list[idx];
-      if (!q) return;
-      currentRef = q.ref;
-      document.getElementById('inShop').value = q.shop || '';
-      document.getElementById('inManager').value = q.manager || '';
-      document.getElementById('inPhone').value = q.phone || '';
-      document.getElementById('inEmail').value = q.email || '';
-      document.getElementById('inAddress').value = q.address || '';
-      selectBasePack(q.pack || 'pro');
-      document.getElementById('inCustomBasePrice').value = q.basePrice || 990;
-      document.getElementById('inDiscount').value = q.discount || 0;
-      document.getElementById('mod_cc_wa').checked = Boolean(q.cc_wa);
-      document.getElementById('mod_cc_cb').checked = Boolean(q.cc_cb);
-      document.getElementById('mod_cc_kds').checked = Boolean(q.cc_kds);
-      document.getElementById('mod_resa').checked = Boolean(q.resa);
-      updateQuote();
-    }
-
-    function resetNewQuote() {
-      currentRef = 'BMS-' + new Date().getFullYear() + '-' + Math.floor(100 + Math.random() * 900);
-      document.getElementById('presetClientSelect').value = '';
-      document.getElementById('inShop').value = '';
-      document.getElementById('inManager').value = '';
-      document.getElementById('inPhone').value = '';
-      document.getElementById('inEmail').value = '';
-      document.getElementById('inAddress').value = '';
-      document.getElementById('inDiscount').value = '0';
-      document.getElementById('inNotes').value = '';
-      clearSig();
-      selectBasePack('pro');
-    }
-
-    /* SIGNATURE TACTILE & SOURIS */
+    // SIGNATURE
     const canvas = document.getElementById('sigCanvas');
     const ctx = canvas.getContext('2d');
     let drawing = false;
@@ -1382,22 +611,22 @@
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
       ctx.lineWidth = 2;
       ctx.lineCap = 'round';
-      ctx.strokeStyle = '#111827';
+      ctx.strokeStyle = '#111111';
     }
 
-    function pt(e) {
+    function getPt(e) {
       const rect = canvas.getBoundingClientRect();
       const cx = e.touches ? e.touches[0].clientX : e.clientX;
       const cy = e.touches ? e.touches[0].clientY : e.clientY;
       return { x: cx - rect.left, y: cy - rect.top };
     }
 
-    canvas.addEventListener('mousedown', e => { drawing = true; const p = pt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
-    canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = pt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+    canvas.addEventListener('mousedown', e => { drawing = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+    canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
     window.addEventListener('mouseup', () => { drawing = false; });
 
-    canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = pt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
-    canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = pt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+    canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
     window.addEventListener('touchend', () => { drawing = false; });
 
     function clearSig() {
@@ -1405,19 +634,28 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('outDateEmit').textContent = new Date().toLocaleDateString('fr-FR');
-      populatePresetDropdown();
+      document.getElementById('docRef').textContent = 'Devis #' + refCode;
+      document.getElementById('docDate').textContent = new Date().toLocaleDateString('fr-FR');
+
+      const sel = document.getElementById('presetSelect');
+      PRESETS.forEach((p, idx) => {
+        const opt = document.createElement('option');
+        opt.value = String(idx);
+        opt.textContent = `${p.name} (${p.address})`;
+        sel.appendChild(opt);
+      });
+
       initCanvas();
-      renderSavedQuotes();
 
       const params = new URLSearchParams(window.location.search);
-      if (params.get('client')) document.getElementById('inShop').value = params.get('client');
-      if (params.get('address')) document.getElementById('inAddress').value = params.get('address');
-      if (params.get('phone')) document.getElementById('inPhone').value = params.get('phone');
-      if (params.get('pack') && BASE_PACKS[params.get('pack')]) {
-        selectBasePack(params.get('pack'));
+      if (params.get('client')) document.getElementById('clientName').value = params.get('client');
+      if (params.get('phone')) document.getElementById('clientPhone').value = params.get('phone');
+      if (params.get('address')) document.getElementById('clientAddress').value = params.get('address');
+      const packParam = params.get('pack');
+      if (packParam && OFFERS[packParam]) {
+        selectOffer(packParam);
       } else {
-        updateQuote();
+        selectOffer('pro');
       }
     });
   </script>
