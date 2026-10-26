@@ -2,268 +2,279 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bon de Commande — BoostMySite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Devis Express — BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F7F7F5;
+      --bg: #F8FAFC;
       --surface: #FFFFFF;
-      --ink: #111111;
-      --muted: #666666;
-      --border: #E5E5E0;
-      --green: #15803D;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --green: #16A34A;
+      --gblue: #1A73E8;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       font-family: var(--font);
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.5;
-      padding: 24px 16px 60px;
+      line-height: 1.45;
+      padding-bottom: calc(96px + var(--safe-bottom));
       -webkit-font-smoothing: antialiased;
     }
 
-    .top-nav {
-      max-width: 680px;
-      margin: 0 auto 16px;
+    /* TOP APP SWITCHER BAR (IDENTICAL TO MAP) */
+    header {
+      height: 48px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 12px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      gap: 8px;
     }
 
-    .back-link {
-      font-size: 13px;
-      font-weight: 600;
+    .app-switch {
+      display: inline-flex;
+      background: #F1F5F9;
+      padding: 3px;
+      border-radius: 8px;
+      gap: 2px;
+    }
+
+    .app-switch a {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 6px;
       color: var(--muted);
+    }
+
+    .app-switch a.active {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+
+    .btn-top {
+      padding: 6px 10px;
+      border-radius: 7px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
       text-decoration: none;
     }
 
-    .back-link:hover {
-      color: var(--ink);
-    }
-
-    /* FEUILLE UNIQUE CENTRÉE ET ÉPURÉE */
+    /* MAIN SHEET */
     .sheet {
-      max-width: 680px;
-      margin: 0 auto;
+      max-width: 600px;
+      margin: 12px auto 0;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 36px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+      padding: 18px 16px;
     }
 
     .sheet-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      padding-bottom: 24px;
+      align-items: center;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 28px;
+      margin-bottom: 14px;
     }
 
     .brand-name {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: -0.02em;
     }
 
     .brand-sub {
-      font-size: 12.5px;
+      font-size: 11.5px;
       color: var(--muted);
-      margin-top: 2px;
     }
 
     .doc-meta {
       text-align: right;
-      font-size: 12.5px;
+      font-size: 11.5px;
       color: var(--muted);
     }
 
     .doc-meta strong {
       color: var(--ink);
       display: block;
-      font-size: 14px;
+      font-size: 12.5px;
     }
 
-    /* ÉTAPES SIMPLES */
     .step-block {
-      margin-bottom: 28px;
+      margin-bottom: 16px;
     }
 
     .step-label {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 7px;
       display: block;
     }
 
-    .quick-select {
+    /* 16PX FONT PREVENTS SAFARI AUTO-ZOOM ON IPHONE */
+    select,
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"] {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 9px;
       font-family: var(--font);
-      font-size: 13.5px;
-      background: #FAFAFA;
+      font-size: 16px;
       color: var(--ink);
-      margin-bottom: 10px;
+      background: #fff;
       outline: none;
     }
 
-    .client-inputs {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 10px;
+    select {
+      background: #F8FAFC;
+      margin-bottom: 8px;
     }
 
-    .input-clean {
-      width: 100%;
-      padding: 11px 13px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-family: var(--font);
-      font-size: 14px;
-      color: var(--ink);
-      outline: none;
-    }
-
-    .input-clean:focus {
+    input:focus, select:focus {
       border-color: var(--ink);
     }
 
-    /* 4 OFFRES CLAIRES EN 1 CLIC */
+    .client-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 8px;
+    }
+
+    /* 2x2 COMPACT OFFER BUTTONS (FITS ON ONE SCREEN ON MOBILE) */
     .offers-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
 
     .offer-card {
       border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 11px 12px;
       background: #fff;
       cursor: pointer;
       text-align: left;
-      transition: all 0.15s;
-    }
-
-    .offer-card:hover {
-      border-color: #999;
+      font-family: var(--font);
     }
 
     .offer-card.active {
       border-color: var(--ink);
-      background: #F9F9F8;
+      background: #F8FAFC;
       box-shadow: inset 0 0 0 1px var(--ink);
-    }
-
-    .offer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 4px;
-    }
-
-    .offer-title {
-      font-weight: 700;
-      font-size: 14px;
     }
 
     .offer-price {
       font-weight: 800;
-      font-size: 15px;
+      font-size: 16px;
+      color: var(--ink);
+      display: block;
+    }
+
+    .offer-title {
+      font-weight: 700;
+      font-size: 12.5px;
+      color: var(--ink);
+      display: block;
+      margin-top: 2px;
     }
 
     .offer-desc {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.3;
+      margin-top: 3px;
     }
 
-    /* RÉCAPITULATIF CLAIR */
+    /* SUMMARY BOX */
     .summary-box {
-      background: #F9F9F8;
+      background: #F8FAFC;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 24px;
+      padding: 13px 14px;
+      margin-bottom: 16px;
     }
 
     .included-list {
       list-style: none;
-      margin-bottom: 18px;
-      padding-bottom: 16px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
     }
 
     .included-list li {
-      font-size: 13.5px;
-      padding: 4px 0;
-      color: var(--ink);
+      font-size: 12.5px;
+      padding: 3px 0;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      align-items: flex-start;
+      gap: 6px;
     }
 
     .included-list li::before {
       content: "✓";
-      font-weight: 700;
+      font-weight: 800;
       color: var(--green);
+      flex-shrink: 0;
     }
 
     .price-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 14px;
-      padding: 5px 0;
+      font-size: 13px;
+      padding: 4px 0;
+    }
+
+    .price-edit-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 800;
     }
 
     .price-edit-input {
-      width: 100px;
-      padding: 5px 8px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-family: var(--font);
-      font-size: 15px;
+      width: 88px !important;
+      padding: 5px 8px !important;
+      font-size: 16px !important;
       font-weight: 800;
       text-align: right;
-      color: var(--ink);
-      background: #fff;
-    }
-
-    .deposit-highlight {
-      margin-top: 10px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 16px;
-      font-weight: 800;
     }
 
     /* SIGNATURE */
-    .sig-section {
-      margin-bottom: 24px;
-    }
-
     .sig-head {
       display: flex;
       justify-content: space-between;
@@ -276,14 +287,14 @@
       border: none;
       font-size: 12px;
       color: var(--muted);
-      cursor: pointer;
       text-decoration: underline;
+      cursor: pointer;
     }
 
     .sig-canvas {
       width: 100%;
-      height: 110px;
-      border: 1px dashed #BDBDB5;
+      height: 100px;
+      border: 1.5px dashed #CBD5E1;
       border-radius: 10px;
       background: #FCFBF9;
       touch-action: none;
@@ -291,22 +302,55 @@
       display: block;
     }
 
-    /* BOUTONS D'ACTION */
-    .actions-row {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
+    /* STICKY BOTTOM BAR FOR THUMB CLOSING ON PHONE */
+    .sticky-bottom-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 10px 14px calc(10px + var(--safe-bottom));
+      z-index: 50;
+      box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.08);
+    }
+
+    .sticky-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 10px;
     }
 
+    .sticky-totals strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .sticky-totals span {
+      display: block;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .sticky-btns {
+      display: flex;
+      gap: 8px;
+    }
+
     .btn-action {
-      padding: 14px 18px;
-      border-radius: 10px;
+      padding: 11px 15px;
+      border-radius: 9px;
       font-family: var(--font);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       border: none;
       cursor: pointer;
-      text-align: center;
+      white-space: nowrap;
     }
 
     .btn-wa {
@@ -319,53 +363,55 @@
       color: #fff;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 480px) {
       .sheet {
-        padding: 22px 18px;
+        margin: 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
       }
-      .offers-grid,
-      .client-inputs,
-      .actions-row {
+      .client-grid {
         grid-template-columns: 1fr;
       }
     }
 
     @media print {
+      header,
+      #presetSelect,
+      .offers-grid,
+      .step-offer-select-label,
+      .sig-clear,
+      .sticky-bottom-bar {
+        display: none !important;
+      }
       body {
         background: #fff;
         padding: 0;
       }
-      .top-nav,
-      .quick-select,
-      .offers-grid,
-      .step-offer-select-label,
-      .sig-clear,
-      .actions-row {
-        display: none !important;
-      }
       .sheet {
         border: none;
-        box-shadow: none;
-        padding: 0;
         max-width: 100%;
-      }
-      .input-clean,
-      .price-edit-input {
-        border: none;
         padding: 0;
+      }
+      input {
+        border: none !important;
+        padding: 0 !important;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="top-nav">
-    <a href="tournee-clients.html" class="back-link">← Retour à la carte de tournée</a>
-    <a href="../index.html" class="back-link">Site BoostMySite</a>
-  </div>
+  <!-- BARRE HAUTE : SWITCH 1-CLIC CARTE / DEVIS -->
+  <header>
+    <div class="app-switch">
+      <a href="tournee-clients.html">📍 Carte Tournée</a>
+      <a href="devis-express.html" class="active">📄 Devis Express</a>
+    </div>
+    <a href="../portfolio.html" class="btn-top">Démos</a>
+  </header>
 
   <main class="sheet">
-    <!-- EN-TÊTE -->
     <div class="sheet-header">
       <div>
         <div class="brand-name">BoostMySite</div>
@@ -377,99 +423,91 @@
       </div>
     </div>
 
-    <!-- 1. LE CLIENT -->
+    <!-- 1. CLIENT -->
     <div class="step-block">
       <span class="step-label">1. Client</span>
-      <select id="presetSelect" class="quick-select" onchange="pickPreset(this.value)">
-        <option value="">Choisir un commerce de la tournée (ou taper ci-dessous)...</option>
+      <select id="presetSelect" onchange="pickPreset(this.value)">
+        <option value="">Choisir un commerce de la tournée...</option>
       </select>
-      <div class="client-inputs">
-        <input type="text" id="clientName" class="input-clean" placeholder="Nom du commerce (ex : Pepper Smash)">
-        <input type="tel" id="clientPhone" class="input-clean" placeholder="Téléphone WhatsApp (ex : 06...)">
+      <div class="client-grid">
+        <input type="text" id="clientName" placeholder="Nom du commerce">
+        <input type="tel" id="clientPhone" placeholder="Téléphone (06 / 01...)">
       </div>
-      <input type="text" id="clientAddress" class="input-clean" style="margin-top:8px;" placeholder="Adresse (optionnel)">
+      <input type="text" id="clientAddress" style="margin-top:8px;" placeholder="Adresse (optionnel)">
     </div>
 
-    <!-- 2. LA FORMULE EN 1 CLIC -->
+    <!-- 2. FORMULE (GRILLE 2x2 COMPACTE SUR MOBILE) -->
     <div class="step-block">
-      <span class="step-label step-offer-select-label">2. Formule choisie</span>
+      <span class="step-label step-offer-select-label">2. Formule</span>
       <div class="offers-grid">
         <button type="button" class="offer-card" id="card-starter" onclick="selectOffer('starter')">
-          <div class="offer-top">
-            <span class="offer-title">Site Vitrine</span>
-            <span class="offer-price">490 €</span>
-          </div>
-          <p class="offer-desc">1 page complète (carte, photos, horaires, appel direct & Google Maps).</p>
+          <span class="offer-price">490 €</span>
+          <span class="offer-title">Site Vitrine</span>
+          <p class="offer-desc">1 page, photos, horaires & Google Maps</p>
         </button>
 
         <button type="button" class="offer-card active" id="card-pro" onclick="selectOffer('pro')">
-          <div class="offer-top">
-            <span class="offer-title">Click & Collect Comptoir</span>
-            <span class="offer-price">990 €</span>
-          </div>
-          <p class="offer-desc">Site complet + commande reçue sur WhatsApp Caisse & paiement au comptoir.</p>
+          <span class="offer-price">990 €</span>
+          <span class="offer-title">Click & Collect Comptoir</span>
+          <p class="offer-desc">Site 5 pages + commande WhatsApp</p>
         </button>
 
         <button type="button" class="offer-card" id="card-cb" onclick="selectOffer('cb')">
-          <div class="offer-top">
-            <span class="offer-title">Click & Collect CB en ligne</span>
-            <span class="offer-price">1 490 €</span>
-          </div>
-          <p class="offer-desc">Site complet + paiement Carte Bancaire / Apple Pay + écran suivi en cuisine.</p>
+          <span class="offer-price">1 490 €</span>
+          <span class="offer-title">Click & Collect + CB</span>
+          <p class="offer-desc">Paiement CB / Apple Pay + écran cuisine</p>
         </button>
 
         <button type="button" class="offer-card" id="card-custom" onclick="selectOffer('custom')">
-          <div class="offer-top">
-            <span class="offer-title">Sur Mesure</span>
-            <span class="offer-price">2 500 €</span>
-          </div>
-          <p class="offer-desc">Plateforme complète personnalisée (calculateur de devis, 3D, outils métier).</p>
+          <span class="offer-price">2 500 €</span>
+          <span class="offer-title">Sur Mesure</span>
+          <p class="offer-desc">Plateforme complète, devis ou 3D</p>
         </button>
       </div>
     </div>
 
-    <!-- 3. RÉCAPITULATIF & PRIX -->
+    <!-- 3. INCLUS & PRIX -->
     <div class="summary-box">
-      <span class="step-label" id="summaryOfferTitle" style="color:var(--ink); font-size:13px; margin-bottom:8px;">
-        Formule Click & Collect Comptoir
+      <span class="step-label" id="summaryOfferTitle" style="color:var(--ink); font-size:12px;">
+        Forfait Site Complet + Click & Collect Comptoir
       </span>
       <ul class="included-list" id="includedList"></ul>
 
       <div class="price-row">
-        <span>Prix total clé en main (modifiable si remise)</span>
-        <div>
+        <span>Prix convenu (modifiable)</span>
+        <div class="price-edit-wrap">
           <input type="number" id="customPriceInput" class="price-edit-input" value="990" step="10" oninput="recalcDeposit()"> €
         </div>
       </div>
-      <div class="price-row" style="color:var(--muted); font-size:13px;">
-        <span>Solde à régler uniquement à la livraison (50 %)</span>
-        <span id="balanceDisplay">495 €</span>
-      </div>
-      <div class="deposit-highlight">
-        <span>Acompte au démarrage (50 %)</span>
-        <span id="depositDisplay">495 €</span>
+      <div class="price-row" style="color:var(--muted); font-size:12px;">
+        <span>Acompte 50 % au démarrage / 50 % à la livraison</span>
+        <strong id="depositInline" style="color:var(--ink);">495 € + 495 €</strong>
       </div>
     </div>
 
     <!-- 4. SIGNATURE -->
-    <div class="sig-section">
+    <div>
       <div class="sig-head">
-        <span class="step-label" style="margin:0;">Bon pour accord — Signature du client</span>
+        <span class="step-label" style="margin:0;">Bon pour accord — Signature au doigt</span>
         <button type="button" class="sig-clear" onclick="clearSig()">Effacer</button>
       </div>
       <canvas id="sigCanvas" class="sig-canvas"></canvas>
     </div>
-
-    <!-- 5. ENVOYER -->
-    <div class="actions-row">
-      <button type="button" class="btn-action btn-wa" onclick="sendWhatsApp()">
-        Envoyer sur WhatsApp
-      </button>
-      <button type="button" class="btn-action btn-pdf" onclick="window.print()">
-        Enregistrer en PDF
-      </button>
-    </div>
   </main>
+
+  <!-- BARRE BASSE FIXE POUR ENVOYER D'UNE MAIN SUR TÉLÉPHONE -->
+  <div class="sticky-bottom-bar">
+    <div class="sticky-inner">
+      <div class="sticky-totals">
+        <strong id="stickyTotalText">Total : 990 €</strong>
+        <span id="stickyDepositText">Acompte 50 % : 495 €</span>
+      </div>
+      <div class="sticky-btns">
+        <button type="button" class="btn-action btn-wa" onclick="sendWhatsApp()">📲 WhatsApp</button>
+        <button type="button" class="btn-action btn-pdf" onclick="window.print()">📄 PDF</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const PRESETS = [
@@ -510,8 +548,8 @@
         price: 990,
         items: [
           'Site complet sur mesure jusqu’à 5 pages + référencement Google local',
-          'Module Click & Collect : le client choisit son menu et son heure de retrait',
-          'Réception directe des commandes sur le WhatsApp de la caisse + paiement au comptoir',
+          'Module Click & Collect : choix du menu, suppléments, sauces et heure de retrait',
+          'Réception directe des commandes sur WhatsApp Caisse + paiement au comptoir',
           'Photos sur place, QR Codes comptoir/tables et fiche Google Maps inclus'
         ]
       },
@@ -554,8 +592,10 @@
     function recalcDeposit() {
       const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
       const half = Math.round(total / 2);
-      document.getElementById('depositDisplay').textContent = half + ' €';
-      document.getElementById('balanceDisplay').textContent = (total - half) + ' €';
+      const rest = total - half;
+      document.getElementById('depositInline').textContent = `${half} € + ${rest} €`;
+      document.getElementById('stickyTotalText').textContent = `Total : ${total} €`;
+      document.getElementById('stickyDepositText').textContent = `Acompte 50 % : ${half} €`;
     }
 
     function pickPreset(idxStr) {
@@ -599,7 +639,6 @@
       window.open(url, '_blank');
     }
 
-    // SIGNATURE
     const canvas = document.getElementById('sigCanvas');
     const ctx = canvas.getContext('2d');
     let drawing = false;
@@ -611,7 +650,7 @@
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
       ctx.lineWidth = 2;
       ctx.lineCap = 'round';
-      ctx.strokeStyle = '#111111';
+      ctx.strokeStyle = '#0F172A';
     }
 
     function getPt(e) {

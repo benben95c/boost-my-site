@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Maps Prospection — Optimiseur de Tournée BoostMySite</title>
+  <title>Maps Tournée — BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <style>
@@ -19,14 +19,13 @@
       --ink: #0F172A;
       --muted: #64748B;
       --gblue: #1A73E8;
-      --gblue-hover: #1557B0;
+      --gblue-dark: #1557B0;
       --green: #16A34A;
       --green-bg: #DCFCE7;
-      --amber: #D97706;
-      --amber-bg: #FEF3C7;
       --red: #DC2626;
       --border: #E2E8F0;
-      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
@@ -46,6 +45,7 @@
       width: 100%;
       overflow: hidden;
       overscroll-behavior: none;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
@@ -53,72 +53,85 @@
       flex-direction: column;
     }
 
-    /* TOP BAR (DESKTOP) */
+    /* TOP APP SWITCHER BAR */
     header {
-      height: 56px;
+      height: 48px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 0 18px;
+      padding: 0 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 30;
+      z-index: 40;
       flex-shrink: 0;
-    }
-
-    .brand-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--gblue);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-
-    header h1 {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
       gap: 8px;
     }
 
-    /* MAIN SPLIT WORKSPACE */
+    .app-switch {
+      display: inline-flex;
+      background: #F1F5F9;
+      padding: 3px;
+      border-radius: 8px;
+      gap: 2px;
+    }
+
+    .app-switch a {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+
+    .app-switch a.active {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-top {
+      padding: 6px 10px;
+      border-radius: 7px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* MAIN WORKSPACE */
     .workspace {
       flex: 1;
       display: grid;
-      grid-template-columns: 430px 1fr;
+      grid-template-columns: 420px 1fr;
       overflow: hidden;
       position: relative;
-      height: calc(100dvh - 56px);
+      height: calc(100dvh - 48px);
     }
 
-    /* LEFT SIDEBAR (DESKTOP) / BOTTOM SHEET (MOBILE) */
+    /* SIDEBAR / MOBILE SHEET */
     .sidebar {
       background: var(--surface);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      z-index: 25;
+      z-index: 30;
+    }
+
+    .sheet-mobile-header {
+      display: none;
     }
 
     .tabs {
@@ -132,33 +145,28 @@
     }
 
     .tab-btn {
-      padding: 10px 12px;
+      padding: 9px 10px;
       border: none;
       background: transparent;
       font-family: var(--font);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--muted);
-      border-radius: 7px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
     }
 
     .tab-btn.active {
       background: var(--surface);
       color: var(--gblue);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
 
     .tab-pane {
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 16px;
+      padding: 14px;
       display: none;
     }
 
@@ -166,26 +174,25 @@
       display: block;
     }
 
-    /* FORM ELEMENTS */
+    /* FORM ELEMENTS (16PX FONT SIZE PREVENTS SAFARI IOS ZOOM) */
     .section-box {
       background: #F8FAFC;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 14px;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
     }
 
     .section-title {
-      font-size: 11.5px;
-      font-weight: 800;
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
     }
 
     label {
@@ -193,32 +200,28 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--ink);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
-    input[type="text"], input[type="time"], select, textarea {
+    input[type="text"],
+    input[type="time"],
+    select,
+    textarea {
       width: 100%;
-      padding: 10px 12px;
+      padding: 10px 11px;
       border: 1px solid var(--border);
       border-radius: 8px;
       font-family: var(--font);
-      font-size: 14px;
+      font-size: 16px;
       color: var(--ink);
       background: #fff;
       outline: none;
-      transition: border-color 0.15s;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--gblue);
-      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
     }
 
     textarea {
-      min-height: 100px;
+      min-height: 90px;
       resize: vertical;
-      line-height: 1.45;
-      font-size: 13px;
+      line-height: 1.4;
     }
 
     .btn {
@@ -227,34 +230,25 @@
       justify-content: center;
       gap: 6px;
       padding: 10px 14px;
-      border-radius: 9px;
+      border-radius: 8px;
       font-family: var(--font);
       font-size: 13px;
       font-weight: 700;
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.15s;
       white-space: nowrap;
     }
 
     .btn-blue { background: var(--gblue); color: #fff; }
-    .btn-blue:hover { background: var(--gblue-hover); }
-    .btn-green { background: var(--green); color: #fff; }
-    .btn-outline {
-      background: #fff;
-      color: var(--ink);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { background: #F1F5F9; }
-    .btn-xs { padding: 6px 10px; font-size: 12px; border-radius: 7px; }
+    .btn-outline { background: #fff; color: var(--ink); border: 1px solid var(--border); }
+    .btn-xs { padding: 7px 10px; font-size: 12px; border-radius: 7px; }
 
-    /* PROSPECT PILLS LIST */
     .client-list {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      max-height: 240px;
+      max-height: 220px;
       overflow-y: auto;
       margin-top: 10px;
     }
@@ -266,51 +260,41 @@
       gap: 8px;
       background: #fff;
       border: 1px solid var(--border);
-      padding: 8px 11px;
+      padding: 8px 10px;
       border-radius: 8px;
       font-size: 12.5px;
     }
 
     .client-row strong {
       display: block;
-      color: var(--ink);
       font-size: 12.5px;
     }
 
     .client-row span {
       color: var(--muted);
-      font-size: 11.5px;
+      font-size: 11px;
     }
 
-    /* STICKY BOTTOM CTA IN SIDEBAR */
     .sidebar-footer {
-      padding: 12px 16px;
+      padding: 12px 14px;
       border-top: 1px solid var(--border);
       background: var(--surface);
       flex-shrink: 0;
     }
 
-    .btn-optimize-main {
-      width: 100%;
-      padding: 13px;
-      font-size: 14px;
-      border-radius: 10px;
-      box-shadow: 0 4px 14px rgba(26, 115, 232, 0.25);
-    }
-
-    /* STATS STRIP IN RESULTS */
+    /* STATS STRIP */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 6px;
       margin-bottom: 12px;
     }
 
     .stat-card {
       background: #F8FAFC;
       border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 9px 6px;
+      border-radius: 8px;
+      padding: 8px 4px;
       text-align: center;
     }
 
@@ -322,73 +306,60 @@
     }
 
     .stat-card strong {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      color: var(--ink);
     }
 
-    /* TIMELINE STOPS */
+    /* TIMELINE LIST */
     .timeline {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding-bottom: 20px;
+      gap: 8px;
+      padding-bottom: 24px;
     }
 
     .stop-item {
       background: #fff;
       border: 1.5px solid var(--border);
-      border-radius: 11px;
-      padding: 12px;
+      border-radius: 10px;
+      padding: 11px;
       display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 11px;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
       cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .stop-item:hover, .stop-item.active {
-      border-color: var(--gblue);
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.12);
     }
 
     .stop-item.done {
-      opacity: 0.58;
+      opacity: 0.6;
       background: #F0FDF4;
-      border-color: #BBF7D0;
+      border-color: #86EFAC;
     }
 
     .badge-num {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: var(--gblue);
       color: #fff;
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12.5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
     }
 
-    .stop-item.done .badge-num {
-      background: var(--green);
-    }
-
+    .stop-item.done .badge-num { background: var(--green); }
     .badge-num.start { background: var(--ink); }
 
     .leg-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      display: inline-block;
       font-size: 11px;
       font-weight: 700;
       color: var(--gblue);
       background: #EFF6FF;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 99px;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .stop-actions {
@@ -396,7 +367,6 @@
       gap: 6px;
       margin-top: 8px;
       flex-wrap: wrap;
-      align-items: center;
     }
 
     /* MAP AREA */
@@ -413,17 +383,17 @@
       z-index: 1;
     }
 
-    /* FLOATING TOP PILL ON MAP (MOBILE SUMMARY) */
+    /* FLOATING TOP PILL ON MAP */
     .mobile-map-top-bar {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      right: 12px;
+      top: 10px;
+      left: 10px;
+      right: 10px;
       z-index: 500;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       pointer-events: none;
     }
 
@@ -432,104 +402,60 @@
     }
 
     .tour-summary-pill {
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.92);
       backdrop-filter: blur(8px);
       color: #fff;
-      padding: 8px 13px;
+      padding: 7px 12px;
       border-radius: 99px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      gap: 6px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.2);
     }
 
     .tour-summary-pill .dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #4ADE80;
     }
 
-    .map-switcher {
-      background: var(--surface);
-      padding: 4px;
-      border-radius: 99px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+    .map-right-controls {
       display: flex;
-      gap: 2px;
-      border: 1px solid var(--border);
+      gap: 6px;
+      align-items: center;
     }
 
-    .layer-btn {
-      padding: 6px 11px;
-      border: none;
-      background: transparent;
-      font-family: var(--font);
-      font-size: 11.5px;
+    .circle-map-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
       font-weight: 700;
-      border-radius: 99px;
-      cursor: pointer;
-      color: var(--muted);
-    }
-
-    .layer-btn.active {
-      background: var(--ink);
-      color: #fff;
-    }
-
-    /* FLOATING GPS LOCATE BUTTON ON MAP */
-    .btn-locate-me {
-      position: absolute;
-      right: 14px;
-      bottom: 196px;
-      z-index: 500;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #fff;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      cursor: pointer;
-      color: var(--gblue);
-    }
-
-    .btn-fit-route {
-      position: absolute;
-      right: 14px;
-      bottom: 248px;
-      z-index: 500;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #fff;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
       cursor: pointer;
       color: var(--ink);
     }
 
-    /* GOOGLE MAPS STYLE SWIPEABLE STOP CAROUSEL AT BOTTOM OF MAP */
+    /* BOTTOM SWIPEABLE STOP CARDS ON MAP */
     .map-cards-strip {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 14px;
+      bottom: 10px;
       z-index: 500;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding: 4px 16px 8px;
+      padding: 4px 12px 6px;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
@@ -539,19 +465,16 @@
     }
 
     .map-stop-card {
-      flex: 0 0 min(350px, 86vw);
+      flex: 0 0 min(380px, calc(100vw - 24px));
       scroll-snap-align: center;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
+      background: #FFFFFF;
       border: 1.5px solid var(--border);
-      border-radius: 16px;
-      padding: 14px 15px;
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.22);
+      border-radius: 14px;
+      padding: 12px 13px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.22);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      transition: border-color 0.15s, transform 0.15s;
+      gap: 8px;
     }
 
     .map-stop-card.active-card {
@@ -563,6 +486,31 @@
       border-color: #86EFAC;
     }
 
+    .msc-header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gblue);
+    }
+
+    .msc-step-arrows {
+      display: flex;
+      gap: 4px;
+    }
+
+    .msc-arrow-btn {
+      border: 1px solid var(--border);
+      background: #F8FAFC;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     .msc-top {
       display: flex;
       align-items: flex-start;
@@ -570,17 +518,18 @@
     }
 
     .msc-num {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: var(--gblue);
       color: #fff;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
     .map-stop-card.done-card .msc-num {
@@ -592,57 +541,79 @@
       min-width: 0;
     }
 
-    .msc-meta {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--gblue);
-      margin-bottom: 2px;
-    }
-
     .msc-title {
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--ink);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.25;
     }
 
     .msc-addr {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--muted);
+      margin-top: 1px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .msc-actions {
+    .msc-pitch {
+      font-size: 11.5px;
+      color: #9A3412;
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      padding: 5px 8px;
+      border-radius: 7px;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* TWO CLEAN ROWS OF THUMB BUTTONS ON MOBILE CARD */
+    .msc-actions-primary {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 6px;
+    }
+
+    .msc-actions-secondary {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 6px;
     }
 
     .msc-btn {
-      padding: 9px 10px;
-      border-radius: 10px;
+      min-height: 38px;
+      padding: 7px 8px;
+      border-radius: 8px;
       font-family: var(--font);
       font-size: 12px;
       font-weight: 700;
       border: 1px solid var(--border);
-      background: #fff;
+      background: #F8FAFC;
       color: var(--ink);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .msc-btn.primary {
       background: var(--gblue);
       color: #fff;
       border-color: var(--gblue);
+      font-size: 12.5px;
+    }
+
+    .msc-btn.done-btn {
+      background: #fff;
+      border-color: var(--border);
+      font-size: 12.5px;
     }
 
     .msc-btn.done-btn.is-done {
@@ -651,32 +622,24 @@
       border-color: var(--green);
     }
 
-    /* CUSTOM GOOGLE-STYLE MAP PINS */
+    /* MAP PINS */
     .g-pin {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: var(--gblue);
       color: #fff;
-      border: 2.5px solid #fff;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s, background 0.2s;
     }
 
-    .g-pin.done-pin {
-      background: var(--green);
-    }
-
-    .g-pin.start {
-      background: #0F172A;
-      width: 34px;
-      height: 34px;
-    }
+    .g-pin.done-pin { background: var(--green); }
+    .g-pin.start { background: #0F172A; width: 32px; height: 32px; }
 
     .gps-user-dot {
       width: 18px;
@@ -687,57 +650,21 @@
       box-shadow: 0 0 0 6px rgba(26, 115, 232, 0.28);
     }
 
-    /* MOBILE BOTTOM NAVIGATION BAR (HIDDEN ON DESKTOP) */
     .mobile-bottom-nav {
       display: none;
     }
 
-    /* QR CODE MODAL FOR IPHONE */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(3px);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-backdrop.open { display: flex; }
-
-    .modal-box {
-      background: #fff;
-      border-radius: 16px;
-      max-width: 420px;
-      width: 100%;
-      padding: 24px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-    }
-
     /* ==========================================================
-       MOBILE FULL-SCREEN GOOGLE MAPS ERGONOMICS (<= 920px)
+       MOBILE VIEWPORT (< 920px)
        ========================================================== */
     @media (max-width: 920px) {
-      header {
-        height: 48px;
-        padding: 0 12px;
-      }
-
-      header h1 {
-        font-size: 13.5px;
-      }
-
       .workspace {
         display: block;
         position: relative;
         width: 100%;
-        height: calc(100dvh - 48px - 58px - var(--safe-bottom));
+        height: calc(100dvh - 48px - 54px - var(--safe-bottom));
       }
 
-      /* Map always fills 100% of screen on mobile */
       .map-Area {
         position: absolute;
         inset: 0;
@@ -746,11 +673,11 @@
         z-index: 1;
       }
 
-      .leaflet-control-zoom {
+      .leaflet-control-zoom,
+      .leaflet-control-attribution {
         display: none !important;
       }
 
-      /* Sidebar becomes a slide-up sheet over the map when "Liste" or "Adresses" is selected */
       .sidebar {
         position: absolute;
         inset: 0;
@@ -759,21 +686,33 @@
         z-index: 600;
         border-right: none;
         transform: translateY(105%);
-        transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+        transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       .sidebar.mobile-sheet-open {
         transform: translateY(0);
       }
 
-      /* Hide desktop tabs inside sidebar on mobile since mobile has bottom nav bar */
       .sidebar .tabs {
         display: none;
       }
 
-      /* Mobile bottom tab bar */
+      .sheet-mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+        flex-shrink: 0;
+      }
+
+      .sheet-mobile-header strong {
+        font-size: 14px;
+      }
+
       .mobile-bottom-nav {
-        height: calc(58px + var(--safe-bottom));
+        height: calc(54px + var(--safe-bottom));
         padding-bottom: var(--safe-bottom);
         background: var(--surface);
         border-top: 1px solid var(--border);
@@ -794,12 +733,12 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 3px;
+        gap: 2px;
         cursor: pointer;
       }
 
       .m-nav-btn .m-icon {
-        font-size: 17px;
+        font-size: 16px;
         line-height: 1;
       }
 
@@ -811,37 +750,40 @@
 </head>
 <body>
 
+  <!-- BARRE HAUTE : SWITCH 1-CLIC ENTRE CARTE ET DEVIS -->
   <header>
-    <div class="brand-left">
-      <div class="brand-icon">📍</div>
-      <h1>Maps Tournée</h1>
+    <div class="app-switch">
+      <a href="tournee-clients.html" class="active">📍 Carte Tournée</a>
+      <a href="devis-express.html">📄 Devis Express</a>
     </div>
-    <div class="top-actions">
-      <a href="devis-express.html" class="btn btn-blue btn-xs">📄 Devis Express</a>
-      <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset(true)">
-        🔄 Pontoise / Cergy
-      </button>
-      <a href="../index.html" class="btn btn-outline btn-xs">← Site</a>
+    <div class="top-right">
+      <button type="button" class="btn-top" onclick="loadPontoisePreset(true)">↺ Pontoise</button>
+      <a href="../portfolio.html" class="btn-top">Démos</a>
     </div>
   </header>
 
   <div class="workspace">
-    <!-- SIDEBAR (LEFT ON DESKTOP, SLIDE-UP SHEET ON MOBILE) -->
+    <!-- SIDEBAR (GAUCHE SUR PC, TIROIR SUR MOBILE) -->
     <aside class="sidebar" id="mainSidebar">
+      <div class="sheet-mobile-header">
+        <strong id="mobileSheetTitle">Feuille de route</strong>
+        <button type="button" class="btn-top" onclick="switchMobileMode('map')">✕ Voir la carte</button>
+      </div>
+
       <div class="tabs">
         <button type="button" class="tab-btn active" id="tabBtnRoute" onclick="switchView('route')">
           1. Ordre Optimisé (<span id="doneProgressBadge">0/0</span>)
         </button>
         <button type="button" class="tab-btn" id="tabBtnSetup" onclick="switchView('setup')">
-          2. Adresses & Départ (<span id="countBadge">0</span>)
+          2. Adresses (<span id="countBadge">0</span>)
         </button>
       </div>
 
-      <!-- TAB : OPTIMIZED ROUTE LIST -->
+      <!-- ONGLET 1 : LISTE OPTIMISÉE -->
       <div class="tab-pane active" id="paneRoute">
         <div class="stats-grid">
           <div class="stat-card">
-            <span>Trajet pur</span>
+            <span>Trajet</span>
             <strong id="statDriveTime">—</strong>
           </div>
           <div class="stat-card">
@@ -849,50 +791,41 @@
             <strong id="statDistance">—</strong>
           </div>
           <div class="stat-card">
-            <span>Fin estimée</span>
+            <span>Fin RDV</span>
             <strong id="statEndTime">—</strong>
           </div>
         </div>
 
-        <!-- BOUTONS EXPORT GOOGLE MAPS / IPHONE -->
-        <div id="exportBox" style="display:none; margin-bottom:14px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:12px;">
-          <div style="font-size:12px; font-weight:700; color:#1E3A8A; margin-bottom:8px;">
-            📲 Lancer toute la tournée dans l'app Google Maps :
+        <div id="exportBox" style="display:none; margin-bottom:12px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:10px;">
+          <div style="font-size:11.5px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
+            Ouvrir l'itinéraire complet dans Google Maps :
           </div>
-          <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;"></div>
+          <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px;"></div>
           <div style="display:flex; gap:6px;">
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="openQRModal()">
-              📱 QR Code iPhone
-            </button>
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="copyFirstGmapsLink()">
-              🔗 Copier lien
-            </button>
-            <button type="button" class="btn btn-outline btn-xs" onclick="resetDoneStatus()">
-              ↺ Réinitialiser
-            </button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="copyFirstGmapsLink()">Copier le lien</button>
+            <button type="button" class="btn btn-outline btn-xs" onclick="resetDoneStatus()">Réinitialiser</button>
           </div>
         </div>
 
         <div class="timeline" id="itineraryOutput"></div>
       </div>
 
-      <!-- TAB : SETUP / ADDRESSES -->
+      <!-- ONGLET 2 : ADRESSES & DÉPART -->
       <div class="tab-pane" id="paneSetup">
         <div class="section-box">
           <div class="section-title">
-            <span>Départ & Mode de transport</span>
+            <span>Point de départ</span>
             <button type="button" class="btn btn-outline btn-xs" onclick="useMyGPS()">📍 Mon GPS</button>
           </div>
-          <label for="startAddress">Adresse de départ</label>
-          <input type="text" id="startAddress" value="15 Rue des Écuries, 95300 Pontoise" placeholder="Ex: 15 Rue des Écuries, 95300 Pontoise">
+          <input type="text" id="startAddress" value="15 Rue des Écuries, 95300 Pontoise" placeholder="Adresse de départ">
 
-          <div style="display:grid; grid-template-columns:1.2fr 0.9fr 0.9fr; gap:8px; margin-top:10px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-top:8px;">
             <div>
-              <label for="travelMode">Transport</label>
+              <label for="travelMode">Mode</label>
               <select id="travelMode" onchange="optimizeRoute()">
-                <option value="driving" selected>🚗 Voiture</option>
-                <option value="foot">🚶 À pied</option>
-                <option value="bike">🚲 Vélo</option>
+                <option value="driving" selected>Voiture</option>
+                <option value="foot">À pied</option>
+                <option value="bike">Vélo</option>
               </select>
             </div>
             <div>
@@ -900,70 +833,63 @@
               <input type="time" id="startTime" value="14:00" onchange="optimizeRoute()">
             </div>
             <div>
-              <label for="dwellMinutes">Temps/RDV</label>
+              <label for="dwellMinutes">RDV</label>
               <select id="dwellMinutes" onchange="optimizeRoute()">
                 <option value="10">10 min</option>
                 <option value="15" selected>15 min</option>
                 <option value="20">20 min</option>
-                <option value="30">30 min</option>
               </select>
             </div>
           </div>
 
-          <label style="display:flex; align-items:center; gap:7px; margin-top:10px; cursor:pointer; font-weight:500;">
-            <input type="checkbox" id="returnToStart" onchange="optimizeRoute()"> Revenir au point de départ à la fin
+          <label style="display:flex; align-items:center; gap:7px; margin-top:8px; cursor:pointer; font-weight:500;">
+            <input type="checkbox" id="returnToStart" onchange="optimizeRoute()"> Boucler vers le départ à la fin
           </label>
         </div>
 
         <div class="section-box">
           <div class="section-title">
-            <span>Ajouter des clients ou lien Google Maps</span>
-            <button type="button" class="btn btn-outline btn-xs" onclick="clearAllProspects()">Tout vider</button>
+            <span>Ajouter des adresses ou lien Maps</span>
+            <button type="button" class="btn btn-outline btn-xs" onclick="clearAllProspects()">Vider</button>
           </div>
-          <textarea id="bulkInput" placeholder="Collez ici :&#10;• Soit une liste d'adresses (1 par ligne)&#10;• Soit un lien Google Maps complet (https://www.google.com/maps/dir/...)"></textarea>
+          <textarea id="bulkInput" placeholder="1 adresse par ligne ou lien Google Maps complet..."></textarea>
           <button type="button" class="btn btn-outline" style="width:100%; margin-top:8px;" onclick="addFromBulk()">
-            + Ajouter à la tournée
+            + Ajouter à la liste
           </button>
 
           <div class="client-list" id="prospectsListContainer"></div>
         </div>
       </div>
 
-      <!-- STICKY FOOTER BUTTON -->
       <div class="sidebar-footer">
-        <button type="button" class="btn btn-blue btn-optimize-main" id="btnOptimize" onclick="optimizeRoute()">
-          ⚡ Optimiser l'itinéraire et voir sur la carte
+        <button type="button" class="btn btn-blue" style="width:100%; padding:13px;" id="btnOptimize" onclick="optimizeRoute()">
+          ⚡ Recalculer l'itinéraire
         </button>
-        <div id="statusMsg" style="font-size:11.5px; color:var(--muted); text-align:center; margin-top:5px;"></div>
+        <div id="statusMsg" style="font-size:11px; color:var(--muted); text-align:center; margin-top:4px;"></div>
       </div>
     </aside>
 
-    <!-- FULL-SCREEN GOOGLE MAP + FLOATING CONTROLS + BOTTOM SWIPEABLE CARDS -->
+    <!-- CARTE PLEIN ÉCRAN + FICHES EN BAS -->
     <main class="map-Area">
-      <!-- TOP PILL + LAYER SWITCHER -->
       <div class="mobile-map-top-bar">
-        <div class="tour-summary-pill" id="mapTopSummaryPill">
+        <div class="tour-summary-pill">
           <span class="dot"></span>
-          <span id="mapPillText">Calcul de la tournée...</span>
+          <span id="mapPillText">Chargement...</span>
         </div>
-        <div class="map-switcher">
-          <button type="button" class="layer-btn active" onclick="setMapLayer('roadmap', this)">Plan</button>
-          <button type="button" class="layer-btn" onclick="setMapLayer('hybrid', this)">Satellite</button>
+        <div class="map-right-controls">
+          <button type="button" class="circle-map-btn" title="Vue globale" onclick="fitEntireRoute()">🗺️</button>
+          <button type="button" class="circle-map-btn" title="Ma position GPS" onclick="locateUserOnMap()">🎯</button>
+          <button type="button" class="circle-map-btn" title="Satellite / Plan" onclick="toggleSatellite(this)">🛰️</button>
         </div>
       </div>
 
-      <!-- FLOATING ACTION BUTTONS ON RIGHT OF MAP -->
-      <button type="button" class="btn-fit-route" title="Voir toute la tournée" onclick="fitEntireRoute()">🗺️</button>
-      <button type="button" class="btn-locate-me" title="Me localiser en direct sur la carte" onclick="locateUserOnMap()">🎯</button>
-
-      <!-- SWIPEABLE BOTTOM STOP CARDS (GOOGLE MAPS STYLE) -->
       <div class="map-cards-strip" id="mapCardsStrip"></div>
 
       <div id="map"></div>
     </main>
   </div>
 
-  <!-- MOBILE BOTTOM NAVIGATION BAR (3 TABS: CARTE / LISTE / ADRESSES) -->
+  <!-- BARRE BASSE MOBILE -->
   <nav class="mobile-bottom-nav">
     <button type="button" class="m-nav-btn active" id="mNavMap" onclick="switchMobileMode('map')">
       <span class="m-icon">🗺️</span>
@@ -974,23 +900,10 @@
       <span>Liste (<span id="mNavCount">0</span>)</span>
     </button>
     <button type="button" class="m-nav-btn" id="mNavSetup" onclick="switchMobileMode('setup')">
-      <span class="m-icon">➕</span>
-      <span>Adresses & Départ</span>
+      <span class="m-icon">⚙️</span>
+      <span>Adresses</span>
     </button>
   </nav>
-
-  <!-- MODAL QR CODE IPHONE -->
-  <div class="modal-backdrop" id="qrModal" onclick="if(event.target===this) closeQRModal()">
-    <div class="modal-box">
-      <h3 style="font-size:17px; font-weight:800; margin-bottom:6px;">Ouvrir sur votre iPhone</h3>
-      <p style="font-size:12.5px; color:var(--muted); margin-bottom:16px;">
-        Scannez ce QR Code avec l'appareil photo de votre iPhone pour ouvrir la tournée triée dans Google Maps.
-      </p>
-      <img id="qrImage" src="" alt="QR Code Google Maps" style="width:210px; height:210px; border:1px solid var(--border); border-radius:12px; padding:8px; margin-bottom:14px;">
-      <div id="qrSegmentSelector" style="display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin-bottom:14px;"></div>
-      <button type="button" class="btn btn-outline" style="width:100%;" onclick="closeQRModal()">Fermer</button>
-    </div>
-  </div>
 
   <script>
     const STORAGE_KEY = 'bms_route_prospects_v4';
@@ -998,31 +911,22 @@
     let prospects = [];
     let doneAddresses = {};
     let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine, userLocationMarker;
+    let isSatellite = false;
     let mapMarkerRefs = [];
     let currentOrderedNodes = [];
     let generatedGmapsUrls = [];
     let isProgrammaticScroll = false;
 
     const TILE_LAYERS = {
-      roadmap: {
-        url: 'https://mt1.google.com/vt/lyrs=m&hl=fr&x={x}&y={y}&z={z}',
-        attr: '© Google Maps'
-      },
-      hybrid: {
-        url: 'https://mt1.google.com/vt/lyrs=y&hl=fr&x={x}&y={y}&z={z}',
-        attr: '© Google Maps Satellite'
-      }
+      roadmap: 'https://mt1.google.com/vt/lyrs=m&hl=fr&x={x}&y={y}&z={z}',
+      hybrid: 'https://mt1.google.com/vt/lyrs=y&hl=fr&x={x}&y={y}&z={z}'
     };
 
     function initMap() {
       map = L.map('map', { zoomControl: true }).setView([49.0509, 2.1008], 13);
-      currentTileLayer = L.tileLayer(TILE_LAYERS.roadmap.url, {
-        attribution: TILE_LAYERS.roadmap.attr,
-        maxZoom: 20
-      }).addTo(map);
+      currentTileLayer = L.tileLayer(TILE_LAYERS.roadmap, { maxZoom: 20 }).addTo(map);
       markersLayer = L.layerGroup().addTo(map);
 
-      // Sync horizontal card swipe with map camera!
       const strip = document.getElementById('mapCardsStrip');
       let scrollTimer = null;
       strip.addEventListener('scroll', () => {
@@ -1032,33 +936,28 @@
           const cards = Array.from(strip.querySelectorAll('.map-stop-card'));
           if (!cards.length) return;
           const stripCenter = strip.scrollLeft + strip.clientWidth / 2;
-          let closestCard = null;
+          let closest = null;
           let minDelta = Infinity;
           cards.forEach(c => {
             const cCenter = c.offsetLeft + c.offsetWidth / 2;
             const d = Math.abs(cCenter - stripCenter);
-            if (d < minDelta) {
-              minDelta = d;
-              closestCard = c;
-            }
+            if (d < minDelta) { minDelta = d; closest = c; }
           });
-          if (closestCard) {
-            const stepPos = parseInt(closestCard.dataset.step, 10);
-            highlightActiveCardAndPin(stepPos, false);
+          if (closest) {
+            highlightActiveCardAndPin(parseInt(closest.dataset.step, 10), true);
           }
         }, 120);
       }, { passive: true });
     }
 
-    function setMapLayer(type, btn) {
-      document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    function toggleSatellite(btn) {
+      isSatellite = !isSatellite;
       if (currentTileLayer) map.removeLayer(currentTileLayer);
-      const cfg = TILE_LAYERS[type] || TILE_LAYERS.roadmap;
-      currentTileLayer = L.tileLayer(cfg.url, { attribution: cfg.attr, maxZoom: 20 }).addTo(map);
+      currentTileLayer = L.tileLayer(isSatellite ? TILE_LAYERS.hybrid : TILE_LAYERS.roadmap, { maxZoom: 20 }).addTo(map);
+      btn.style.background = isSatellite ? '#0F172A' : '#FFFFFF';
+      btn.style.color = isSatellite ? '#FFFFFF' : '#0F172A';
     }
 
-    /* Desktop tab switch */
     function switchView(tab) {
       document.getElementById('tabBtnRoute').classList.toggle('active', tab === 'route');
       document.getElementById('tabBtnSetup').classList.toggle('active', tab === 'setup');
@@ -1066,7 +965,6 @@
       document.getElementById('paneSetup').classList.toggle('active', tab === 'setup');
     }
 
-    /* Mobile bottom nav switch (Carte plein écran vs Liste vs Adresses) */
     function switchMobileMode(mode) {
       document.getElementById('mNavMap').classList.toggle('active', mode === 'map');
       document.getElementById('mNavList').classList.toggle('active', mode === 'route');
@@ -1077,13 +975,16 @@
         sidebar.classList.remove('mobile-sheet-open');
         setTimeout(() => map.invalidateSize(), 200);
       } else {
+        document.getElementById('mobileSheetTitle').textContent = mode === 'route'
+          ? 'Liste complète de la tournée'
+          : 'Gérer les adresses & départ';
         switchView(mode);
         sidebar.classList.add('mobile-sheet-open');
       }
     }
 
     function escHtml(s) {
-      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     function saveProspects() {
@@ -1115,7 +1016,7 @@
       document.getElementById('countBadge').textContent = prospects.length;
       document.getElementById('mNavCount').textContent = prospects.length;
       if (prospects.length === 0) {
-        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12px; padding:12px;">Aucun arrêt dans la liste.</div>';
+        box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12px; padding:12px;">Aucun arrêt.</div>';
         return;
       }
       box.innerHTML = prospects.map((p, idx) => `
@@ -1124,7 +1025,7 @@
             <strong>${idx + 1}. ${escHtml(p.name)}</strong>
             <span>${escHtml(p.address)}</span>
           </div>
-          <button type="button" onclick="removeProspect(${idx})" style="background:none;border:none;color:var(--red);font-weight:800;cursor:pointer;font-size:16px;">×</button>
+          <button type="button" onclick="removeProspect(${idx})" style="background:none;border:none;color:var(--red);font-weight:800;cursor:pointer;font-size:18px;padding:0 4px;">×</button>
         </div>
       `).join('');
     }
@@ -1154,12 +1055,10 @@
         } catch (e) {}
       }
 
-      const lines = rawText.split('\n');
-      lines.forEach(line => {
+      rawText.split('\n').forEach(line => {
         let cleaned = line.trim().replace(/^Client\s*:\s*/i, '');
         if (!cleaned) return;
-        const seps = [' - ', ' | ', ' — ', ';'];
-        for (const sep of seps) {
+        for (const sep of [' - ', ' | ', ' — ', ';']) {
           if (cleaned.includes(sep)) {
             const p = cleaned.split(sep);
             const name = p.shift().trim();
@@ -1203,15 +1102,15 @@
           name: 'Pepper Smash (& Brasserie Paris Pontoise)',
           address: '18 Mail de la Cavalerie, 95300 Pontoise',
           phone: '01 30 32 79 28',
-          pitch: '❌ 0 site web (uniquement UberEats/Deliveroo à 30%). Montrer Click & Collect WhatsApp 990€.',
+          pitch: '0 site web (paye 30% à UberEats/Deliveroo). Montrer Click & Collect WhatsApp 990 €.',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro'
         },
         {
-          name: 'Institut MEI LI (Massage & Bien-être)',
+          name: 'Institut MEI LI (Massage)',
           address: '31 Place Notre Dame, 95300 Pontoise',
           phone: '06 05 94 16 33',
-          pitch: '❌ 0 site web (que PagesJaunes). Proposer vitrine zen + tarifs & RDV WhatsApp (490€).',
+          pitch: '0 site web (que PagesJaunes). Proposer vitrine + tarifs & RDV WhatsApp (490 €).',
           demo: '../sites/artisan-elite.html',
           pack: 'starter'
         },
@@ -1219,15 +1118,15 @@
           name: 'Be\'Sushi / L\'Atelier du Sushi',
           address: '11 Rue de Rouen, 95300 Pontoise',
           phone: '01 30 31 90 74',
-          pitch: '❌ Pas de site actif + confusion Google avec ancienne crêperie. Proposer carte + Click & Collect (990€).',
+          pitch: 'Pas de site actif + confusion Google avec ancienne crêperie. Proposer Click & Collect (990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro'
         },
         {
-          name: 'Chicken Drive Pontoise (Burgers & Poulet)',
+          name: 'Chicken Drive Pontoise',
           address: '18 Rue de Rouen, 95300 Pontoise',
           phone: '07 59 70 40 28',
-          pitch: '❌ 0 site web (juste un 07 + UberEats). Proposer site commande retrait Drive sans attente (490€/990€).',
+          pitch: '0 site web (juste un 07 + UberEats). Proposer retrait Drive sans attente (490 € / 990 €).',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro'
         },
@@ -1235,15 +1134,15 @@
           name: 'Cabinets Thérapeutes (Outrebon / Follet)',
           address: '26 Rue Sere-Depoin, 95300 Pontoise',
           phone: '01 34 22 18 84',
-          pitch: '❌ 0 site web (uniquement PagesJaunes). Proposer page vitrine professionnelle & prise de RDV (490€).',
+          pitch: '0 site web (que PagesJaunes). Proposer page vitrine professionnelle & RDV (490 €).',
           demo: '../sites/artisan-elite.html',
           pack: 'starter'
         },
         {
-          name: 'Barlou Burger / Miss Kebab La Parilla',
+          name: 'Barlou Burger / Miss Kebab',
           address: '75 Rue Pierre Butin, 95300 Pontoise',
           phone: '06 68 89 05 95',
-          pitch: '❌ 0 site officiel + 3 noms mélangés sur Google. Proposer site clair + menu Click & Collect (490€/990€).',
+          pitch: '0 site officiel + 3 noms mélangés sur Google. Proposer site clair + menu (490 € / 990 €).',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter'
         },
@@ -1251,15 +1150,15 @@
           name: 'O\'Twist Fast-Food',
           address: '35 Rue de Gisors, 95300 Pontoise',
           phone: '09 81 12 91 70',
-          pitch: '❌ 0 site internet (axe très passant). Proposer carte mobile + commande rapide (490€).',
+          pitch: '0 site internet sur un axe très passant. Proposer carte mobile + commande (490 €).',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter'
         },
         {
-          name: 'Créa Parquets (32 Rue des Pâtis) & CocciMarket',
+          name: 'Créa Parquets & CocciMarket',
           address: '32 Rue des Pâtis, 95300 Pontoise',
           phone: '06 04 52 38 09',
-          pitch: '❌ Artisan parqueteur sans site (juste un 06) ! 1 seul chantier signé rembourse 3x le site (990€).',
+          pitch: 'Artisan parqueteur sans site (juste un 06) : 1 seul chantier signé rembourse 3x le site (990 €).',
           demo: '../sites/artisan-elite.html',
           pack: 'pro'
         },
@@ -1267,7 +1166,7 @@
           name: 'Restaurant L\'Italien (ex Pepper-Grill)',
           address: '40 Rue du Général Leclerc, 95310 Saint-Ouen-l\'Aumône',
           phone: '01 84 24 12 12',
-          pitch: '🔥 URGENT : 0 site et Google affiche encore l\'ancien resto fermé "Pepper-Grill" ! Proposer Pro 990€.',
+          pitch: 'URGENT : 0 site et Google affiche encore l\'ancien resto fermé "Pepper-Grill" ! Proposer Pro 990 €.',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro'
         },
@@ -1275,23 +1174,23 @@
           name: 'Bamako Market & Relais Colis',
           address: '9 Avenue du Général de Gaulle, 95310 Saint-Ouen-l\'Aumône',
           phone: '09 55 82 79 89',
-          pitch: '❌ 0 site web alors que des centaines de clients passent pour les colis. Proposer vitrine 490€.',
+          pitch: '0 site web alors que des centaines de clients passent pour les colis. Proposer vitrine 490 €.',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter'
         },
         {
-          name: 'Chicken Street Cergy (Face Université)',
+          name: 'Chicken Street Cergy (Face Fac)',
           address: '16 Place des Cerclades, 95000 Cergy',
           phone: '06 68 45 93 51',
-          pitch: 'Géré localement en 06 face à la fac : proposer page commande directe étudiants hors UberEats.',
+          pitch: 'Géré localement en 06 face à l\'université : proposer commande directe étudiants hors UberEats.',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro'
         },
         {
-          name: 'Restaurant MG / Adiza (Grillades Turques)',
+          name: 'Restaurant MG / Adiza (Grillades)',
           address: '3 Rue des Italiens, 95000 Cergy',
           phone: '06 61 29 13 51',
-          pitch: '❌ Très fréquenté mais 0 site web (que UberEats). Proposer carte + pré-commande midi (490€/990€).',
+          pitch: 'Très fréquenté mais 0 site web (que UberEats). Proposer carte + pré-commande midi (490 € / 990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'starter'
         },
@@ -1299,23 +1198,23 @@
           name: 'Brasserie Le Cergy & Spice N Grill',
           address: '10 Avenue Bernard Hirsch, 95000 Cergy',
           phone: '01 34 24 23 31',
-          pitch: '❌ Entre ESSEC et Préfecture : Le Cergy n\'a aucun site web pour capter les pauses déj (490€/990€).',
+          pitch: 'Entre ESSEC et Préfecture : Le Cergy n\'a aucun site web pour capter les pauses déj (490 € / 990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro'
         },
         {
-          name: 'Le Cezam Fast-Food (QG Étudiants ESSEC)',
+          name: 'Le Cezam Fast-Food (QG ESSEC)',
           address: '20 Avenue Bernard Hirsch, 95000 Cergy',
           phone: '01 34 24 01 35',
-          pitch: '🔥 QG de l\'ESSEC mais 0 site web (que Instagram) ! Proposer Click & Collect WhatsApp (990€) pour éviter la queue entre 2 cours.',
+          pitch: 'QG de l\'ESSEC mais 0 site web (que Instagram) ! Proposer Click & Collect 990 € pour éviter la queue.',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro'
         },
         {
-          name: 'Le Bosphore & Printemps d\'Asie (Face Mercure)',
+          name: 'Le Bosphore & Printemps d\'Asie',
           address: '3 Rue des Chênes Émeraude, 95000 Cergy',
           phone: '01 30 73 40 40',
-          pitch: '❌ Juste en face de l\'Hôtel Mercure mais aucun vrai site pour capter les clients de l\'hôtel le soir (990€).',
+          pitch: 'Face à l\'Hôtel Mercure mais aucun vrai site pour capter les clients de l\'hôtel le soir (990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro'
         },
@@ -1323,7 +1222,7 @@
           name: 'Full Pizza & Orient Primeurs',
           address: '5 Rue des Linandes Beiges, 95000 Cergy',
           phone: '01 30 31 25 26',
-          pitch: '❌ Pizzeria de quartier sans aucun site internet ! Proposer carte pizzas + commande directe (490€).',
+          pitch: 'Pizzeria de quartier sans aucun site internet ! Proposer carte pizzas + commande directe (490 €).',
           demo: '../sites/fastfood-smash.html',
           pack: 'starter'
         },
@@ -1331,15 +1230,15 @@
           name: 'Salons des Bellevues & Resto Acadie',
           address: 'Rue des Bellevues, 95610 Éragny',
           phone: '01 30 30 52 68',
-          pitch: 'ZAC des Bellevues : proposer refonte moderne pour réservation de salles & repas d\'entreprises (990€).',
+          pitch: 'ZAC des Bellevues : proposer refonte moderne pour réservation de salles & repas PME (990 €).',
           demo: '../sites/restaurant-braise.html',
           pack: 'pro'
         },
         {
-          name: 'Le Chalet d\'Oz, L\'Érable & Le Shanghai (Oseraie)',
+          name: 'Le Chalet d\'Oz, L\'Érable & Le Shanghai',
           address: '24 Chemin du Poirier Charles Guérin, 95520 Osny',
           phone: '07 51 34 86 57',
-          pitch: '🔥 4 restos sur le même parking (Chalet d\'Oz Grillades, L\'Érable Poutines, Le Shanghai, New Saïgon) et AUCUN n\'a de site !',
+          pitch: '4 restos sur le même parking (Chalet d\'Oz, L\'Érable, Le Shanghai, New Saïgon) et AUCUN n\'a de site !',
           demo: '../sites/fastfood-smash.html',
           pack: 'pro'
         }
@@ -1350,7 +1249,7 @@
     }
 
     function locateUserOnMap() {
-      if (!navigator.geolocation) return alert('Géolocalisation non disponible sur cet appareil.');
+      if (!navigator.geolocation) return alert('Géolocalisation non disponible.');
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
         if (userLocationMarker) map.removeLayer(userLocationMarker);
@@ -1360,36 +1259,29 @@
           iconSize: [18, 18],
           iconAnchor: [9, 9]
         });
-        userLocationMarker = L.marker([latitude, longitude], { icon })
-          .bindPopup('<strong>Votre position actuelle</strong>')
-          .addTo(map);
-        map.flyTo([latitude, longitude], 16, { duration: 0.7 });
+        userLocationMarker = L.marker([latitude, longitude], { icon }).addTo(map);
+        map.flyTo([latitude, longitude], 16, { duration: 0.6 });
       }, () => {
-        alert('Autorisez la localisation GPS dans votre navigateur pour vous voir sur la carte.');
+        alert('Activez la localisation GPS pour vous voir sur la carte.');
       }, { enableHighAccuracy: true });
     }
 
     function fitEntireRoute() {
       if (routeMainLine) {
-        map.fitBounds(routeMainLine.getBounds(), { padding: [45, 45] });
+        map.fitBounds(routeMainLine.getBounds(), { padding: [35, 35] });
       }
     }
 
     function useMyGPS() {
       if (!navigator.geolocation) return alert('Géolocalisation non disponible.');
-      const status = document.getElementById('statusMsg');
-      status.textContent = 'Lecture du GPS...';
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude, longitude } = pos.coords;
         try {
           const res = await fetch(`https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${latitude}`);
           const data = await res.json();
-          if (data.features && data.features.length > 0) {
-            document.getElementById('startAddress').value = data.features[0].properties.label;
-          } else {
-            document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
-          }
-          status.textContent = 'Départ mis à jour sur votre position GPS.';
+          document.getElementById('startAddress').value = (data.features && data.features[0])
+            ? data.features[0].properties.label
+            : `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
           optimizeRoute();
         } catch (e) {
           document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
@@ -1416,11 +1308,8 @@
 
       const candidates = [cleanQuery];
       if (cleanQuery.includes(',')) {
-        const afterFirstComma = cleanQuery.split(',').slice(1).join(',').trim();
-        if (afterFirstComma.length > 5) candidates.push(afterFirstComma);
-      }
-      if (biasGeo && biasGeo.city && !/\b\d{5}\b/.test(cleanQuery)) {
-        candidates.push(`${cleanQuery} ${biasGeo.postcode || ''} ${biasGeo.city}`);
+        const afterComma = cleanQuery.split(',').slice(1).join(',').trim();
+        if (afterComma.length > 5) candidates.push(afterComma);
       }
 
       let bestMatch = null;
@@ -1428,9 +1317,7 @@
 
       for (const q of candidates) {
         let url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(q)}&limit=5`;
-        if (biasGeo && biasGeo.lat && biasGeo.lon) {
-          url += `&lat=${biasGeo.lat}&lon=${biasGeo.lon}`;
-        }
+        if (biasGeo && biasGeo.lat && biasGeo.lon) url += `&lat=${biasGeo.lat}&lon=${biasGeo.lon}`;
         try {
           const res = await fetch(url);
           const data = await res.json();
@@ -1439,22 +1326,16 @@
               const pt = {
                 lon: feat.geometry.coordinates[0],
                 lat: feat.geometry.coordinates[1],
-                label: feat.properties.label,
-                city: feat.properties.city,
-                postcode: feat.properties.postcode
+                label: feat.properties.label
               };
               if (!biasGeo) return pt;
               const d = haversineMeters(biasGeo, pt);
-              if (d < bestDist) {
-                bestDist = d;
-                bestMatch = pt;
-              }
+              if (d < bestDist) { bestDist = d; bestMatch = pt; }
               if (d < 25000) return pt;
             }
           }
         } catch (e) {}
       }
-
       if (bestMatch) return bestMatch;
       throw new Error('Adresse introuvable : ' + rawQuery);
     }
@@ -1478,7 +1359,6 @@
         visited[bestNext] = true;
         order.push(bestNext);
       }
-
       if (returnToStart) order.push(0);
 
       function routeCost(seq) {
@@ -1525,27 +1405,25 @@
       const status = document.getElementById('statusMsg');
       const pillText = document.getElementById('mapPillText');
       btn.disabled = true;
-      status.textContent = 'Localisation des arrêts...';
-      pillText.textContent = 'Optimisation en cours...';
+      pillText.textContent = 'Calcul de la tournée...';
 
       try {
         const startGeo = await geocodeSmart(startAddr, null);
         const nodes = [{
           isStart: true,
-          name: 'Point de départ',
+          name: 'Départ',
           address: startGeo.label,
           lat: startGeo.lat,
           lon: startGeo.lon
         }];
 
         for (let i = 0; i < prospects.length; i++) {
-          status.textContent = `Localisation (${i + 1}/${prospects.length}) : ${prospects[i].name}...`;
+          status.textContent = `Localisation (${i + 1}/${prospects.length})...`;
           const g = await geocodeSmart(prospects[i].address, startGeo);
           nodes.push({
             isStart: false,
             name: prospects[i].name,
             address: g.label,
-            rawAddress: prospects[i].address,
             phone: prospects[i].phone || '',
             pitch: prospects[i].pitch || '',
             demo: prospects[i].demo || '../sites/fastfood-smash.html',
@@ -1570,15 +1448,13 @@
               for (let j = 0; j < n; j++) {
                 const distM = data.distances[i][j] ?? (haversineMeters(nodes[i], nodes[j]) * 1.28);
                 distances[i][j] = distM;
-                if (mode === 'driving' && data.durations && data.durations[i][j]) {
-                  durations[i][j] = data.durations[i][j];
-                } else {
-                  durations[i][j] = (distM / 1000) / speedKmh * 3600;
-                }
+                durations[i][j] = (mode === 'driving' && data.durations && data.durations[i][j])
+                  ? data.durations[i][j]
+                  : (distM / 1000) / speedKmh * 3600;
               }
             }
           } else {
-            throw new Error('OSRM Fallback');
+            throw new Error('Fallback');
           }
         } catch (e) {
           for (let i = 0; i < n; i++) {
@@ -1596,13 +1472,10 @@
 
         await renderOptimizedMapAndList(nodes, order, durations, distances);
         switchView('route');
-        if (window.innerWidth <= 920) {
-          switchMobileMode('map');
-        }
-        status.textContent = `Tournée optimisée (${prospects.length} arrêts) !`;
+        if (window.innerWidth <= 920) switchMobileMode('map');
+        status.textContent = '';
       } catch (err) {
-        alert(err.message || 'Erreur lors de la localisation.');
-        status.textContent = 'Vérifiez vos adresses.';
+        alert(err.message || 'Erreur de localisation.');
       } finally {
         btn.disabled = false;
       }
@@ -1617,7 +1490,6 @@
       const startTime = document.getElementById('startTime').value || '14:00';
       const dwellMins = parseInt(document.getElementById('dwellMinutes').value, 10) || 15;
       const mode = document.getElementById('travelMode').value;
-      const modeIcon = mode === 'foot' ? '🚶' : (mode === 'bike' ? '🚲' : '🚗');
       const gmapsTravelMode = mode === 'foot' ? 'walking' : (mode === 'bike' ? 'bicycling' : 'driving');
 
       let totalDriveSec = 0;
@@ -1625,6 +1497,7 @@
       let elapsedMinutes = 0;
       const orderedNodes = order.map(idx => nodes[idx]);
       currentOrderedNodes = orderedNodes;
+      const totalClientStops = prospects.length;
 
       const htmlCards = [];
       const bottomStripCards = [];
@@ -1634,21 +1507,20 @@
           const icon = L.divIcon({
             className: '',
             html: '<div class="g-pin start">D</div>',
-            iconSize: [34, 34],
-            iconAnchor: [17, 17]
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
           });
-          const m = L.marker([node.lat, node.lon], { icon })
+          mapMarkerRefs[0] = L.marker([node.lat, node.lon], { icon })
             .bindPopup(`<strong>Départ (${startTime.replace(':','h')})</strong><br>${escHtml(node.address)}`)
             .addTo(markersLayer);
-          mapMarkerRefs[0] = m;
 
           htmlCards.push(`
             <div class="stop-item" onclick="selectStopFromList(0)">
               <div class="badge-num start">D</div>
               <div>
-                <div class="leg-meta">Départ à ${startTime.replace(':', 'h')}</div>
-                <strong style="display:block; font-size:13.5px;">Point de départ</strong>
-                <span style="font-size:12px; color:var(--muted);">${escHtml(node.address)}</span>
+                <span class="leg-meta">Départ à ${startTime.replace(':', 'h')}</span>
+                <strong style="display:block; font-size:13px;">Point de départ</strong>
+                <span style="font-size:11.5px; color:var(--muted);">${escHtml(node.address)}</span>
               </div>
             </div>
           `);
@@ -1667,83 +1539,73 @@
         elapsedMinutes += legMins;
         const arrivalStr = addMinutesToTime(startTime, elapsedMinutes);
 
-        if (node.isStart) {
-          htmlCards.push(`
-            <div class="stop-item" onclick="selectStopFromList(0)">
-              <div class="badge-num start">🏁</div>
-              <div>
-                <div class="leg-meta">${modeIcon} ${legMins} min (${legKm} km) • Retour ${arrivalStr}</div>
-                <strong style="display:block; font-size:13.5px;">Retour au départ</strong>
-                <span style="font-size:12px; color:var(--muted);">${escHtml(node.address)}</span>
-              </div>
-            </div>
-          `);
-          return;
-        }
+        if (node.isStart) return;
 
         const isDone = Boolean(doneAddresses[node.address]);
         const icon = L.divIcon({
           className: '',
           html: `<div class="g-pin ${isDone ? 'done-pin' : ''}" id="mapPin-${stepPos}">${isDone ? '✓' : stepPos}</div>`,
-          iconSize: [30, 30],
-          iconAnchor: [15, 15]
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
         });
-        const m = L.marker([node.lat, node.lon], { icon })
+        mapMarkerRefs[stepPos] = L.marker([node.lat, node.lon], { icon })
           .on('click', () => scrollStripToStep(stepPos))
           .addTo(markersLayer);
-        mapMarkerRefs[stepPos] = m;
 
         const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}`;
-        const wazeUrl = `https://waze.com/ul?ll=${node.lat},${node.lon}&navigate=yes`;
         const demoUrl = node.demo || '../sites/fastfood-smash.html';
         const devisUrl = `devis-express.html?client=${encodeURIComponent(node.name)}&address=${encodeURIComponent(node.address)}&phone=${encodeURIComponent(node.phone || '')}&pack=${encodeURIComponent(node.pack || 'pro')}`;
-        const pitchHtml = node.pitch
-          ? `<div style="font-size:11.5px; color:#9A3412; background:#FFF7ED; border:1px solid #FED7AA; border-radius:7px; padding:5px 8px; margin-top:5px; line-height:1.35;">${escHtml(node.pitch)}</div>`
-          : '';
-        const phoneHtml = node.phone
-          ? `<span style="font-size:11.5px; font-weight:700; color:var(--ink);"> • 📞 ${escHtml(node.phone)}</span>`
-          : '';
+        const cleanTel = (node.phone || '').replace(/\s+/g, '');
 
-        // Card in full Timeline list
+        // Fiche dans l'onglet Liste
         htmlCards.push(`
           <div class="stop-item ${isDone ? 'done' : ''}" id="stopCard-${stepPos}" onclick="selectStopFromList(${stepPos})">
             <div class="badge-num" id="listBadge-${stepPos}">${isDone ? '✓' : stepPos}</div>
             <div>
-              <div class="leg-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}</div>
-              <strong style="display:block; font-size:14px; color:var(--ink);">${escHtml(node.name)}</strong>
-              <span style="font-size:12px; color:var(--muted); display:block;">${escHtml(node.address)}${phoneHtml}</span>
-              ${pitchHtml}
+              <span class="leg-meta">${legMins} min (${legKm} km) • ${arrivalStr}</span>
+              <strong style="display:block; font-size:13.5px;">${escHtml(node.name)}</strong>
+              <span style="font-size:11.5px; color:var(--muted); display:block;">${escHtml(node.address)}</span>
+              ${node.pitch ? `<div style="font-size:11.5px; color:#9A3412; background:#FFF7ED; padding:5px 7px; border-radius:6px; margin-top:4px;">${escHtml(node.pitch)}</div>` : ''}
               <div class="stop-actions" onclick="event.stopPropagation();">
-                <a href="${singleMapsUrl}" target="_blank" class="btn btn-blue btn-xs">🗺️ Go Maps</a>
+                <a href="${singleMapsUrl}" target="_blank" class="btn btn-blue btn-xs">🗺️ Y aller</a>
                 <a href="${demoUrl}" target="_blank" class="btn btn-outline btn-xs">🖥️ Démo</a>
                 <a href="${devisUrl}" class="btn btn-outline btn-xs">📄 Devis</a>
                 <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
-                  ${isDone ? '✅ Fait' : '☐ Fait'}
+                  ${isDone ? '✓ Fait' : 'Fait'}
                 </button>
               </div>
             </div>
           </div>
         `);
 
-        // Card in Google Maps bottom swipeable carousel
+        // Fiche en bas de la carte (optimisée téléphone 2 rangées de boutons)
         bottomStripCards.push(`
-          <div class="map-stop-card ${stepPos === 1 ? 'active-card' : ''} ${isDone ? 'done-card' : ''}" id="mscCard-${stepPos}" data-step="${stepPos}" onclick="highlightActiveCardAndPin(${stepPos}, true)">
-            <div class="msc-top">
-              <div class="msc-num" id="mscNum-${stepPos}">${isDone ? '✓' : stepPos}</div>
-              <div class="msc-info">
-                <div class="msc-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}${phoneHtml}</div>
-                <div class="msc-title">${escHtml(node.name)}</div>
-                <div class="msc-addr">${escHtml(node.address)}</div>
-                ${node.pitch ? `<div style="font-size:11px; color:#9A3412; background:#FFF7ED; padding:3px 6px; border-radius:5px; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escHtml(node.pitch)}</div>` : ''}
+          <div class="map-stop-card ${stepPos === 1 ? 'active-card' : ''} ${isDone ? 'done-card' : ''}" id="mscCard-${stepPos}" data-step="${stepPos}">
+            <div class="msc-header-nav">
+              <span>Arrêt ${stepPos}/${totalClientStops} • ${legMins} min (${legKm} km) • ${arrivalStr}</span>
+              <div class="msc-step-arrows">
+                <button type="button" class="msc-arrow-btn" onclick="scrollStripToStep(${Math.max(1, stepPos - 1)})">←</button>
+                <button type="button" class="msc-arrow-btn" onclick="scrollStripToStep(${Math.min(totalClientStops, stepPos + 1)})">→</button>
               </div>
             </div>
-            <div class="msc-actions" style="grid-template-columns: 1.1fr 0.9fr 0.9fr 0.85fr;" onclick="event.stopPropagation();">
-              <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">🗺️ Maps</a>
+            <div class="msc-top" onclick="highlightActiveCardAndPin(${stepPos}, true)">
+              <div class="msc-num" id="mscNum-${stepPos}">${isDone ? '✓' : stepPos}</div>
+              <div class="msc-info">
+                <div class="msc-title">${escHtml(node.name)}</div>
+                <div class="msc-addr">${escHtml(node.address)}</div>
+              </div>
+            </div>
+            ${node.pitch ? `<div class="msc-pitch">${escHtml(node.pitch)}</div>` : ''}
+            <div class="msc-actions-primary">
+              <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">🗺️ Lancer GPS Maps</a>
+              <button type="button" class="msc-btn done-btn ${isDone ? 'is-done' : ''}" id="mscDoneBtn-${stepPos}" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
+                ${isDone ? '✓ Terminé' : '✅ Fait (Suivant →)'}
+              </button>
+            </div>
+            <div class="msc-actions-secondary">
               <a href="${demoUrl}" target="_blank" class="msc-btn">🖥️ Démo</a>
               <a href="${devisUrl}" class="msc-btn">📄 Devis</a>
-              <button type="button" class="msc-btn done-btn ${isDone ? 'is-done' : ''}" id="mscDoneBtn-${stepPos}" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
-                ${isDone ? '✓ Fait' : '✅ Fait'}
-              </button>
+              ${cleanTel ? `<a href="tel:${cleanTel}" class="msc-btn">📞 Appeler</a>` : `<a href="https://waze.com/ul?ll=${node.lat},${node.lon}&navigate=yes" target="_blank" class="msc-btn">🚗 Waze</a>`}
             </div>
           </div>
         `);
@@ -1759,11 +1621,10 @@
         ? `${Math.floor(totalMins / 60)}h${String(totalMins % 60).padStart(2, '0')}`
         : `${totalMins} min`;
       const distFormatted = (totalDistMeters / 1000).toFixed(1).replace('.', ',') + ' km';
-      const endFormatted = addMinutesToTime(startTime, elapsedMinutes);
 
       document.getElementById('statDriveTime').textContent = timeFormatted;
       document.getElementById('statDistance').textContent = distFormatted;
-      document.getElementById('statEndTime').textContent = endFormatted;
+      document.getElementById('statEndTime').textContent = addMinutesToTime(startTime, elapsedMinutes);
       updateDoneCounters();
 
       let drawnGeometry = null;
@@ -1776,13 +1637,11 @@
         }
       } catch (e) {}
 
-      if (!drawnGeometry) {
-        drawnGeometry = orderedNodes.map(pt => [pt.lat, pt.lon]);
-      }
+      if (!drawnGeometry) drawnGeometry = orderedNodes.map(pt => [pt.lat, pt.lon]);
 
-      routeShadowLine = L.polyline(drawnGeometry, { color: '#FFFFFF', weight: 8, opacity: 0.9 }).addTo(map);
-      routeMainLine = L.polyline(drawnGeometry, { color: '#1A73E8', weight: 5, opacity: 0.95 }).addTo(map);
-      map.fitBounds(routeMainLine.getBounds(), { padding: [45, 45] });
+      routeShadowLine = L.polyline(drawnGeometry, { color: '#FFFFFF', weight: 7, opacity: 0.9 }).addTo(map);
+      routeMainLine = L.polyline(drawnGeometry, { color: '#1A73E8', weight: 4.5, opacity: 0.95 }).addTo(map);
+      map.fitBounds(routeMainLine.getBounds(), { padding: [35, 35] });
 
       buildGoogleMapsExportLinks(orderedNodes);
     }
@@ -1801,14 +1660,10 @@
 
     function toggleStopDone(stepPos, address) {
       const nowDone = !doneAddresses[address];
-      if (nowDone) {
-        doneAddresses[address] = true;
-      } else {
-        delete doneAddresses[address];
-      }
+      if (nowDone) doneAddresses[address] = true;
+      else delete doneAddresses[address];
       saveProspects();
 
-      // Update UI elements for this stop
       const stopCard = document.getElementById(`stopCard-${stepPos}`);
       const listBadge = document.getElementById(`listBadge-${stepPos}`);
       const mscCard = document.getElementById(`mscCard-${stepPos}`);
@@ -1822,7 +1677,7 @@
       if (mscNum) mscNum.textContent = nowDone ? '✓' : stepPos;
       if (mscDoneBtn) {
         mscDoneBtn.classList.toggle('is-done', nowDone);
-        mscDoneBtn.textContent = nowDone ? '✓ Fait' : '✅ Fait';
+        mscDoneBtn.textContent = nowDone ? '✓ Terminé' : '✅ Fait (Suivant →)';
       }
       if (mapPin) {
         mapPin.classList.toggle('done-pin', nowDone);
@@ -1831,11 +1686,8 @@
 
       updateDoneCounters();
 
-      // Auto-advance to the next stop card if marked done!
       if (nowDone && document.getElementById(`mscCard-${stepPos + 1}`)) {
-        setTimeout(() => {
-          scrollStripToStep(stepPos + 1);
-        }, 250);
+        setTimeout(() => scrollStripToStep(stepPos + 1), 220);
       }
     }
 
@@ -1846,9 +1698,7 @@
     }
 
     function selectStopFromList(stepPos) {
-      if (window.innerWidth <= 920) {
-        switchMobileMode('map');
-      }
+      if (window.innerWidth <= 920) switchMobileMode('map');
       if (stepPos === 0) {
         const m = mapMarkerRefs[0];
         if (m) map.flyTo(m.getLatLng(), 16, { duration: 0.5 });
@@ -1876,7 +1726,7 @@
 
       const m = mapMarkerRefs[stepPos];
       if (m && flyMap) {
-        map.flyTo(m.getLatLng(), 16, { duration: 0.5 });
+        map.flyTo(m.getLatLng(), 16, { duration: 0.45 });
       }
     }
 
@@ -1887,8 +1737,7 @@
       generatedGmapsUrls = [];
 
       const allWaypoints = orderedNodes.map(n => encodeURIComponent(n.address)).join('/');
-      const fullUrl = `https://www.google.com/maps/dir/${allWaypoints}`;
-      generatedGmapsUrls.push({ label: 'Toute la tournée', url: fullUrl });
+      generatedGmapsUrls.push({ label: 'Toute la tournée', url: `https://www.google.com/maps/dir/${allWaypoints}` });
 
       if (orderedNodes.length > 10) {
         const chunkSize = 9;
@@ -1896,10 +1745,8 @@
         for (let i = 0; i < orderedNodes.length - 1; i += chunkSize) {
           const slice = orderedNodes.slice(i, i + chunkSize + 1);
           const url = 'https://www.google.com/maps/dir/' + slice.map(n => encodeURIComponent(n.address)).join('/');
-          const startIdx = i === 0 ? 1 : i;
-          const endIdx = Math.min(i + chunkSize, orderedNodes.length - 1);
           generatedGmapsUrls.push({
-            label: `Partie ${partNum} (Arrêts ${startIdx}-${endIdx})`,
+            label: `Partie ${partNum} (${i === 0 ? 1 : i}-${Math.min(i + chunkSize, orderedNodes.length - 1)})`,
             url
           });
           partNum++;
@@ -1913,31 +1760,10 @@
       `).join('');
     }
 
-    function openQRModal(urlIdx = 0) {
-      if (generatedGmapsUrls.length === 0) return;
-      const chosen = generatedGmapsUrls[urlIdx] || generatedGmapsUrls[0];
-      document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(chosen.url)}`;
-      const sel = document.getElementById('qrSegmentSelector');
-      if (generatedGmapsUrls.length > 1) {
-        sel.innerHTML = generatedGmapsUrls.map((g, i) => `
-          <button type="button" class="btn ${i === urlIdx ? 'btn-blue' : 'btn-outline'} btn-xs" onclick="openQRModal(${i})">
-            ${g.label}
-          </button>
-        `).join('');
-      } else {
-        sel.innerHTML = '';
-      }
-      document.getElementById('qrModal').classList.add('open');
-    }
-
-    function closeQRModal() {
-      document.getElementById('qrModal').classList.remove('open');
-    }
-
     function copyFirstGmapsLink() {
       if (generatedGmapsUrls.length === 0) return;
       navigator.clipboard.writeText(generatedGmapsUrls[0].url);
-      alert('Lien Google Maps optimisé copié !');
+      alert('Lien Google Maps copié !');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
