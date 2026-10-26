@@ -1269,7 +1269,7 @@
           <h3 class="modal-title">Votre retrait</h3>
           <button class="modal-close" onclick="toggleCart(false)">×</button>
         </div>
-        <label class="opt-label" for="pickupSlot">Créneau Click & Collect</label>
+        <label class="opt-label" for="pickupSlot">1. Créneau Click & Collect</label>
         <select id="pickupSlot" class="pickup-slot">
           <option>Dès que prêt (~10 minutes)</option>
           <option>Dans 20 minutes</option>
@@ -1277,19 +1277,42 @@
           <option>Ce soir — 19h30</option>
           <option>Ce soir — 20h00</option>
         </select>
+
+        <span class="opt-label">2. Mode de règlement</span>
+        <div class="opt-choices" style="margin-bottom:8px;">
+          <button type="button" class="opt-choice selected" id="payCounterBtn" onclick="selectPaymentMode('counter')">
+            <strong>Au comptoir</strong>
+            <span>Ticket WhatsApp caisse</span>
+          </button>
+          <button type="button" class="opt-choice" id="payOnlineBtn" onclick="selectPaymentMode('online')">
+            <strong>CB / Apple Pay</strong>
+            <span>Paiement en ligne</span>
+          </button>
+        </div>
       </div>
       <div class="drawer-items" id="cartItemsList">
         <p style="color:var(--ink-muted); font-size:0.9rem;">Votre panier est vide.</p>
       </div>
       <div>
-        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-bottom:14px;">
           <span>Total TTC</span>
           <span id="cartTotalDisplay">0,00 €</span>
         </div>
-        <button class="btn-primary" style="width:100%;" onclick="submitOrder()">
-          Valider le Click & Collect
+        <button class="btn-primary" id="submitOrderBtn" style="width:100%;" onclick="submitOrder()">
+          Envoyer la pré-commande (Paiement comptoir)
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL TICKET DE COMMANDE CONFIRMÉ -->
+  <div class="modal-backdrop" id="receiptModal">
+    <div class="modal-card" style="max-width:460px;">
+      <div class="modal-top">
+        <h3 class="modal-title" id="receiptTitle">Commande envoyée</h3>
+        <button class="modal-close" onclick="closeReceiptModal()">×</button>
+      </div>
+      <div id="receiptBody" style="font-size:0.92rem; line-height:1.55; color:var(--ink);"></div>
     </div>
   </div>
 
@@ -1401,17 +1424,87 @@
       renderCart();
     }
 
+    let paymentMode = 'counter';
+
+    function selectPaymentMode(mode) {
+      paymentMode = mode;
+      document.getElementById('payCounterBtn').classList.toggle('selected', mode === 'counter');
+      document.getElementById('payOnlineBtn').classList.toggle('selected', mode === 'online');
+      const btn = document.getElementById('submitOrderBtn');
+      if (btn) {
+        btn.textContent = mode === 'counter'
+          ? 'Envoyer la pré-commande (Paiement comptoir)'
+          : 'Payer en ligne par CB / Apple Pay';
+      }
+    }
+
     function toggleCart(open) {
       document.getElementById('cartDrawer').classList.toggle('open', open);
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('receiptModal').classList.remove('open');
     }
 
     function submitOrder() {
       if (cart.length === 0) return;
       const slot = document.getElementById('pickupSlot').value;
-      alert('Commande Click & Collect confirmée (#BNG-' + Math.floor(100 + Math.random() * 900) + ') pour le créneau : ' + slot);
+      const orderNum = '#BNG-' + Math.floor(100 + Math.random() * 900);
+      const total = cart.reduce((acc, it) => acc + it.price, 0);
+      const totalStr = total.toFixed(2).replace('.', ',') + ' €';
+      const linesHtml = cart.map(it => `<li style="margin-bottom:4px;">1x ${it.label} — <strong>${it.price.toFixed(2).replace('.', ',')} €</strong></li>`).join('');
+
+      const waLines = [
+        `🍔 *NOUVELLE COMMANDE ${orderNum}*`,
+        `⏰ Retrait : ${slot}`,
+        `💳 Règlement : Paiement au comptoir`,
+        ``,
+        ...cart.map(it => `• 1x ${it.label} (${it.price.toFixed(2).replace('.', ',')} €)`),
+        ``,
+        `*TOTAL TTC : ${totalStr}*`
+      ].join('\n');
+      const waUrl = `https://wa.me/33698727247?text=${encodeURIComponent(waLines)}`;
+
+      const titleEl = document.getElementById('receiptTitle');
+      const bodyEl = document.getElementById('receiptBody');
+
+      if (paymentMode === 'counter') {
+        titleEl.textContent = `Pré-commande ${orderNum} prête`;
+        bodyEl.innerHTML = `
+          <div style="background:var(--surface-warm); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:16px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; color:var(--red); margin-bottom:6px;">Mode 1 : Pré-commande & Paiement au comptoir</div>
+            <p style="font-size:0.86rem; color:var(--ink-muted); margin-bottom:10px;">Le ticket récapitulatif est prêt à être transmis sur le WhatsApp de la caisse. Vous réglez directement en récupérant votre commande.</p>
+            <ul style="padding-left:18px; margin-bottom:10px; font-size:0.88rem;">${linesHtml}</ul>
+            <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border); padding-top:8px; font-weight:800;">
+              <span>Total à régler au comptoir (${slot})</span>
+              <span>${totalStr}</span>
+            </div>
+          </div>
+          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width:100%; background:#16A34A; margin-bottom:8px; text-align:center;">
+            📲 Envoyer le ticket sur WhatsApp Caisse
+          </a>
+          <button type="button" class="cat-btn" style="width:100%;" onclick="closeReceiptModal()">Fermer</button>
+        `;
+      } else {
+        titleEl.textContent = `Paiement validé (${orderNum})`;
+        bodyEl.innerHTML = `
+          <div style="background:var(--surface-warm); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:16px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; color:#16A34A; margin-bottom:6px;">✓ Mode 2 : CB / Apple Pay accepté — Envoyé en cuisine</div>
+            <p style="font-size:0.86rem; color:var(--ink-muted); margin-bottom:10px;">Votre commande a été payée en ligne et s'affiche directement sur l'écran cuisine du restaurant.</p>
+            <ul style="padding-left:18px; margin-bottom:10px; font-size:0.88rem;">${linesHtml}</ul>
+            <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border); padding-top:8px; font-weight:800;">
+              <span>Total payé (${slot})</span>
+              <span>${totalStr}</span>
+            </div>
+          </div>
+          <button type="button" class="btn-primary" style="width:100%;" onclick="closeReceiptModal()">Parfait, merci !</button>
+        `;
+      }
+
       cart = [];
       renderCart();
       toggleCart(false);
+      document.getElementById('receiptModal').classList.add('open');
     }
   </script>
 </body>
