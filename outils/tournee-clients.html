@@ -2,9 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Maps Prospection — Optimiseur de Tournée BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,81 +27,98 @@
       --red: #DC2626;
       --border: #E2E8F0;
       --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    body {
+    html, body {
       font-family: var(--font);
       color: var(--ink);
       background: var(--bg);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+      height: 100%;
+      height: 100dvh;
+      width: 100%;
       overflow: hidden;
+      overscroll-behavior: none;
     }
 
-    /* TOP BAR */
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP BAR (DESKTOP) */
     header {
-      height: 58px;
+      height: 56px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 0 20px;
+      padding: 0 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 20;
+      z-index: 30;
       flex-shrink: 0;
     }
 
     .brand-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .brand-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
       background: var(--gblue);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 16px;
+      font-size: 15px;
+      flex-shrink: 0;
     }
 
     header h1 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .top-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* MAIN SPLIT WORKSPACE (GOOGLE MAPS LAYOUT) */
+    /* MAIN SPLIT WORKSPACE */
     .workspace {
       flex: 1;
       display: grid;
-      grid-template-columns: 440px 1fr;
+      grid-template-columns: 430px 1fr;
       overflow: hidden;
       position: relative;
+      height: calc(100dvh - 56px);
     }
 
-    /* LEFT SIDEBAR */
+    /* LEFT SIDEBAR (DESKTOP) / BOTTOM SHEET (MOBILE) */
     .sidebar {
       background: var(--surface);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      z-index: 10;
+      z-index: 25;
     }
 
     .tabs {
@@ -138,7 +157,8 @@
     .tab-pane {
       flex: 1;
       overflow-y: auto;
-      padding: 18px;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px;
       display: none;
     }
 
@@ -156,7 +176,7 @@
     }
 
     .section-title {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -165,6 +185,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
     }
 
     label {
@@ -181,7 +202,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       font-family: var(--font);
-      font-size: 13.5px;
+      font-size: 14px;
       color: var(--ink);
       background: #fff;
       outline: none;
@@ -194,19 +215,19 @@
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 100px;
       resize: vertical;
       line-height: 1.45;
-      font-size: 12.5px;
+      font-size: 13px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      padding: 10px 15px;
-      border-radius: 8px;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 9px;
       font-family: var(--font);
       font-size: 13px;
       font-weight: 700;
@@ -214,26 +235,26 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.15s;
+      white-space: nowrap;
     }
 
     .btn-blue { background: var(--gblue); color: #fff; }
     .btn-blue:hover { background: var(--gblue-hover); }
     .btn-green { background: var(--green); color: #fff; }
-    .btn-green:hover { filter: brightness(0.95); }
     .btn-outline {
       background: #fff;
       color: var(--ink);
       border: 1px solid var(--border);
     }
     .btn-outline:hover { background: #F1F5F9; }
-    .btn-xs { padding: 5px 10px; font-size: 11.5px; border-radius: 6px; }
+    .btn-xs { padding: 6px 10px; font-size: 12px; border-radius: 7px; }
 
     /* PROSPECT PILLS LIST */
     .client-list {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      max-height: 220px;
+      max-height: 240px;
       overflow-y: auto;
       margin-top: 10px;
     }
@@ -263,7 +284,7 @@
 
     /* STICKY BOTTOM CTA IN SIDEBAR */
     .sidebar-footer {
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-top: 1px solid var(--border);
       background: var(--surface);
       flex-shrink: 0;
@@ -271,8 +292,8 @@
 
     .btn-optimize-main {
       width: 100%;
-      padding: 14px;
-      font-size: 14.5px;
+      padding: 13px;
+      font-size: 14px;
       border-radius: 10px;
       box-shadow: 0 4px 14px rgba(26, 115, 232, 0.25);
     }
@@ -282,26 +303,26 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .stat-card {
       background: #F8FAFC;
       border: 1px solid var(--border);
       border-radius: 9px;
-      padding: 10px;
+      padding: 9px 6px;
       text-align: center;
     }
 
     .stat-card span {
       display: block;
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--muted);
       font-weight: 600;
     }
 
     .stat-card strong {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--ink);
     }
@@ -311,12 +332,13 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      padding-bottom: 20px;
     }
 
     .stop-item {
       background: #fff;
       border: 1.5px solid var(--border);
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 12px;
       display: grid;
       grid-template-columns: 32px 1fr;
@@ -327,12 +349,13 @@
 
     .stop-item:hover, .stop-item.active {
       border-color: var(--gblue);
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.12);
     }
 
     .stop-item.done {
-      opacity: 0.52;
-      background: #F8FAFC;
+      opacity: 0.58;
+      background: #F0FDF4;
+      border-color: #BBF7D0;
     }
 
     .badge-num {
@@ -346,6 +369,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stop-item.done .badge-num {
+      background: var(--green);
     }
 
     .badge-num.start { background: var(--ink); }
@@ -354,7 +382,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--gblue);
       background: #EFF6FF;
@@ -368,6 +396,7 @@
       gap: 6px;
       margin-top: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     /* MAP AREA */
@@ -375,6 +404,7 @@
       position: relative;
       width: 100%;
       height: 100%;
+      overflow: hidden;
     }
 
     #map {
@@ -383,29 +413,63 @@
       z-index: 1;
     }
 
-    /* FLOATING MAP CONTROLS */
-    .map-switcher {
+    /* FLOATING TOP PILL ON MAP (MOBILE SUMMARY) */
+    .mobile-map-top-bar {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 12px;
+      left: 12px;
+      right: 12px;
       z-index: 500;
-      background: var(--surface);
-      padding: 5px;
-      border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
       display: flex;
-      gap: 4px;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .mobile-map-top-bar > * {
+      pointer-events: auto;
+    }
+
+    .tour-summary-pill {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      padding: 8px 13px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    .tour-summary-pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ADE80;
+    }
+
+    .map-switcher {
+      background: var(--surface);
+      padding: 4px;
+      border-radius: 99px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+      display: flex;
+      gap: 2px;
       border: 1px solid var(--border);
     }
 
     .layer-btn {
-      padding: 7px 12px;
+      padding: 6px 11px;
       border: none;
       background: transparent;
       font-family: var(--font);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
-      border-radius: 7px;
+      border-radius: 99px;
       cursor: pointer;
       color: var(--muted);
     }
@@ -413,6 +477,178 @@
     .layer-btn.active {
       background: var(--ink);
       color: #fff;
+    }
+
+    /* FLOATING GPS LOCATE BUTTON ON MAP */
+    .btn-locate-me {
+      position: absolute;
+      right: 14px;
+      bottom: 196px;
+      z-index: 500;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--gblue);
+    }
+
+    .btn-fit-route {
+      position: absolute;
+      right: 14px;
+      bottom: 248px;
+      z-index: 500;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    /* GOOGLE MAPS STYLE SWIPEABLE STOP CAROUSEL AT BOTTOM OF MAP */
+    .map-cards-strip {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 14px;
+      z-index: 500;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 4px 16px 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .map-cards-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .map-stop-card {
+      flex: 0 0 min(350px, 86vw);
+      scroll-snap-align: center;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 15px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.22);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .map-stop-card.active-card {
+      border-color: var(--gblue);
+    }
+
+    .map-stop-card.done-card {
+      background: #F0FDF4;
+      border-color: #86EFAC;
+    }
+
+    .msc-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .msc-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--gblue);
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .map-stop-card.done-card .msc-num {
+      background: var(--green);
+    }
+
+    .msc-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .msc-meta {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gblue);
+      margin-bottom: 2px;
+    }
+
+    .msc-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .msc-addr {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .msc-actions {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 6px;
+    }
+
+    .msc-btn {
+      padding: 9px 10px;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .msc-btn.primary {
+      background: var(--gblue);
+      color: #fff;
+      border-color: var(--gblue);
+    }
+
+    .msc-btn.done-btn.is-done {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
     }
 
     /* CUSTOM GOOGLE-STYLE MAP PINS */
@@ -429,6 +665,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .g-pin.done-pin {
+      background: var(--green);
     }
 
     .g-pin.start {
@@ -437,13 +678,27 @@
       height: 34px;
     }
 
+    .gps-user-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #1A73E8;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 6px rgba(26, 115, 232, 0.28);
+    }
+
+    /* MOBILE BOTTOM NAVIGATION BAR (HIDDEN ON DESKTOP) */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
     /* QR CODE MODAL FOR IPHONE */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       background: rgba(15, 23, 42, 0.55);
       backdrop-filter: blur(3px);
-      z-index: 1000;
+      z-index: 2000;
       display: none;
       align-items: center;
       justify-content: center;
@@ -462,10 +717,95 @@
       box-shadow: 0 20px 50px rgba(0,0,0,0.25);
     }
 
-    @media (max-width: 960px) {
-      body { overflow: auto; height: auto; }
-      .workspace { grid-template-columns: 1fr; height: auto; }
-      .map-Area { height: 460px; }
+    /* ==========================================================
+       MOBILE FULL-SCREEN GOOGLE MAPS ERGONOMICS (<= 920px)
+       ========================================================== */
+    @media (max-width: 920px) {
+      header {
+        height: 48px;
+        padding: 0 12px;
+      }
+
+      header h1 {
+        font-size: 13.5px;
+      }
+
+      .workspace {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: calc(100dvh - 48px - 58px - var(--safe-bottom));
+      }
+
+      /* Map always fills 100% of screen on mobile */
+      .map-Area {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .leaflet-control-zoom {
+        display: none !important;
+      }
+
+      /* Sidebar becomes a slide-up sheet over the map when "Liste" or "Adresses" is selected */
+      .sidebar {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 600;
+        border-right: none;
+        transform: translateY(105%);
+        transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .sidebar.mobile-sheet-open {
+        transform: translateY(0);
+      }
+
+      /* Hide desktop tabs inside sidebar on mobile since mobile has bottom nav bar */
+      .sidebar .tabs {
+        display: none;
+      }
+
+      /* Mobile bottom tab bar */
+      .mobile-bottom-nav {
+        height: calc(58px + var(--safe-bottom));
+        padding-bottom: var(--safe-bottom);
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        z-index: 700;
+        flex-shrink: 0;
+      }
+
+      .m-nav-btn {
+        border: none;
+        background: transparent;
+        font-family: var(--font);
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        cursor: pointer;
+      }
+
+      .m-nav-btn .m-icon {
+        font-size: 17px;
+        line-height: 1;
+      }
+
+      .m-nav-btn.active {
+        color: var(--gblue);
+      }
     }
   </style>
 </head>
@@ -474,57 +814,93 @@
   <header>
     <div class="brand-left">
       <div class="brand-icon">📍</div>
-      <div>
-        <h1>Maps Prospection — Optimiseur de Tournée</h1>
-      </div>
+      <h1>Maps Tournée</h1>
     </div>
     <div class="top-actions">
-      <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset()">
-        📍 Charger ma tournée Pontoise / Cergy
+      <button type="button" class="btn btn-outline btn-xs" onclick="loadPontoisePreset(true)">
+        🔄 Pontoise / Cergy
       </button>
-      <a href="../index.html" class="btn btn-outline btn-xs">← Site BoostMySite</a>
+      <a href="../index.html" class="btn btn-outline btn-xs">← BoostMySite</a>
     </div>
   </header>
 
   <div class="workspace">
-    <!-- LEFT SIDEBAR -->
-    <aside class="sidebar">
+    <!-- SIDEBAR (LEFT ON DESKTOP, SLIDE-UP SHEET ON MOBILE) -->
+    <aside class="sidebar" id="mainSidebar">
       <div class="tabs">
-        <button type="button" class="tab-btn active" id="tabBtnSetup" onclick="switchTab('setup')">
-          1. Adresses (<span id="countBadge">0</span>)
+        <button type="button" class="tab-btn active" id="tabBtnRoute" onclick="switchView('route')">
+          1. Ordre Optimisé (<span id="doneProgressBadge">0/0</span>)
         </button>
-        <button type="button" class="tab-btn" id="tabBtnRoute" onclick="switchTab('route')">
-          2. Ordre Optimisé
+        <button type="button" class="tab-btn" id="tabBtnSetup" onclick="switchView('setup')">
+          2. Adresses & Départ (<span id="countBadge">0</span>)
         </button>
       </div>
 
-      <!-- TAB 1 : SETUP -->
-      <div class="tab-pane active" id="paneSetup">
-        <!-- POINT DE DEPART -->
+      <!-- TAB : OPTIMIZED ROUTE LIST -->
+      <div class="tab-pane active" id="paneRoute">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span>Trajet pur</span>
+            <strong id="statDriveTime">—</strong>
+          </div>
+          <div class="stat-card">
+            <span>Distance</span>
+            <strong id="statDistance">—</strong>
+          </div>
+          <div class="stat-card">
+            <span>Fin estimée</span>
+            <strong id="statEndTime">—</strong>
+          </div>
+        </div>
+
+        <!-- BOUTONS EXPORT GOOGLE MAPS / IPHONE -->
+        <div id="exportBox" style="display:none; margin-bottom:14px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:12px;">
+          <div style="font-size:12px; font-weight:700; color:#1E3A8A; margin-bottom:8px;">
+            📲 Lancer toute la tournée dans l'app Google Maps :
+          </div>
+          <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;"></div>
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="openQRModal()">
+              📱 QR Code iPhone
+            </button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="copyFirstGmapsLink()">
+              🔗 Copier lien
+            </button>
+            <button type="button" class="btn btn-outline btn-xs" onclick="resetDoneStatus()">
+              ↺ Réinitialiser
+            </button>
+          </div>
+        </div>
+
+        <div class="timeline" id="itineraryOutput"></div>
+      </div>
+
+      <!-- TAB : SETUP / ADDRESSES -->
+      <div class="tab-pane" id="paneSetup">
         <div class="section-box">
           <div class="section-title">
             <span>Départ & Mode de transport</span>
             <button type="button" class="btn btn-outline btn-xs" onclick="useMyGPS()">📍 Mon GPS</button>
           </div>
-          <label for="startAddress">Adresse de départ (et zone de recherche prioritaire)</label>
+          <label for="startAddress">Adresse de départ</label>
           <input type="text" id="startAddress" value="15 Rue des Écuries, 95300 Pontoise" placeholder="Ex: 15 Rue des Écuries, 95300 Pontoise">
 
           <div style="display:grid; grid-template-columns:1.2fr 0.9fr 0.9fr; gap:8px; margin-top:10px;">
             <div>
-              <label for="travelMode">Mode</label>
-              <select id="travelMode">
-                <option value="driving" selected>🚗 Voiture / Scooter</option>
+              <label for="travelMode">Transport</label>
+              <select id="travelMode" onchange="optimizeRoute()">
+                <option value="driving" selected>🚗 Voiture</option>
                 <option value="foot">🚶 À pied</option>
                 <option value="bike">🚲 Vélo</option>
               </select>
             </div>
             <div>
               <label for="startTime">Départ</label>
-              <input type="time" id="startTime" value="14:00">
+              <input type="time" id="startTime" value="14:00" onchange="optimizeRoute()">
             </div>
             <div>
-              <label for="dwellMinutes">RDV / client</label>
-              <select id="dwellMinutes">
+              <label for="dwellMinutes">Temps/RDV</label>
+              <select id="dwellMinutes" onchange="optimizeRoute()">
                 <option value="10">10 min</option>
                 <option value="15" selected>15 min</option>
                 <option value="20">20 min</option>
@@ -534,91 +910,80 @@
           </div>
 
           <label style="display:flex; align-items:center; gap:7px; margin-top:10px; cursor:pointer; font-weight:500;">
-            <input type="checkbox" id="returnToStart"> Boucler vers le point de départ à la fin
+            <input type="checkbox" id="returnToStart" onchange="optimizeRoute()"> Revenir au point de départ à la fin
           </label>
         </div>
 
-        <!-- AJOUT RAPIDE OU LIEN GOOGLE MAPS -->
         <div class="section-box">
           <div class="section-title">
-            <span>Ajouter des clients ou coller un lien Google Maps</span>
+            <span>Ajouter des clients ou lien Google Maps</span>
             <button type="button" class="btn btn-outline btn-xs" onclick="clearAllProspects()">Tout vider</button>
           </div>
-          <textarea id="bulkInput" placeholder="Collez ici :&#10;• Soit une liste d'adresses (1 par ligne)&#10;• Soit directement le lien complet d'un itinéraire Google Maps (https://www.google.com/maps/dir/...)"></textarea>
+          <textarea id="bulkInput" placeholder="Collez ici :&#10;• Soit une liste d'adresses (1 par ligne)&#10;• Soit un lien Google Maps complet (https://www.google.com/maps/dir/...)"></textarea>
           <button type="button" class="btn btn-outline" style="width:100%; margin-top:8px;" onclick="addFromBulk()">
-            + Ajouter à la liste ci-dessous
+            + Ajouter à la tournée
           </button>
 
           <div class="client-list" id="prospectsListContainer"></div>
         </div>
       </div>
 
-      <!-- TAB 2 : OPTIMIZED ROUTE -->
-      <div class="tab-pane" id="paneRoute">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span>Trajet pur</span>
-            <strong id="statDriveTime">—</strong>
-          </div>
-          <div class="stat-card">
-            <span>Distance réelle</span>
-            <strong id="statDistance">—</strong>
-          </div>
-          <div class="stat-card">
-            <span>Fin avec RDV</span>
-            <strong id="statEndTime">—</strong>
-          </div>
-        </div>
-
-        <!-- BOUTONS EXPORT GOOGLE MAPS / IPHONE -->
-        <div id="exportBox" style="display:none; margin-bottom:14px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:12px;">
-          <div style="font-size:12px; font-weight:700; color:#1E3A8A; margin-bottom:8px;">
-            📲 Envoyer l'itinéraire trié sur votre téléphone :
-          </div>
-          <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;"></div>
-          <div style="display:flex; gap:6px;">
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="openQRModal()">
-              📱 QR Code vers iPhone
-            </button>
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;" onclick="copyFirstGmapsLink()">
-              🔗 Copier le lien Maps
-            </button>
-          </div>
-        </div>
-
-        <div class="timeline" id="itineraryOutput">
-          <div style="text-align:center; padding:32px 12px; color:var(--muted); font-size:13px;">
-            Cliquez sur le bouton bleu <strong>« Optimiser l'itinéraire »</strong> en bas pour trier vos arrêts dans l'ordre le plus rapide.
-          </div>
-        </div>
-      </div>
-
       <!-- STICKY FOOTER BUTTON -->
       <div class="sidebar-footer">
         <button type="button" class="btn btn-blue btn-optimize-main" id="btnOptimize" onclick="optimizeRoute()">
-          ⚡ Optimiser l'itinéraire sur Google Maps
+          ⚡ Optimiser l'itinéraire et voir sur la carte
         </button>
-        <div id="statusMsg" style="font-size:11.5px; color:var(--muted); text-align:center; margin-top:6px;"></div>
+        <div id="statusMsg" style="font-size:11.5px; color:var(--muted); text-align:center; margin-top:5px;"></div>
       </div>
     </aside>
 
-    <!-- RIGHT : REAL GOOGLE MAP -->
+    <!-- FULL-SCREEN GOOGLE MAP + FLOATING CONTROLS + BOTTOM SWIPEABLE CARDS -->
     <main class="map-Area">
-      <div class="map-switcher">
-        <button type="button" class="layer-btn active" onclick="setMapLayer('roadmap', this)">Plan Google</button>
-        <button type="button" class="layer-btn" onclick="setMapLayer('hybrid', this)">Satellite</button>
-        <button type="button" class="layer-btn" onclick="setMapLayer('osm', this)">OpenStreetMap</button>
+      <!-- TOP PILL + LAYER SWITCHER -->
+      <div class="mobile-map-top-bar">
+        <div class="tour-summary-pill" id="mapTopSummaryPill">
+          <span class="dot"></span>
+          <span id="mapPillText">Calcul de la tournée...</span>
+        </div>
+        <div class="map-switcher">
+          <button type="button" class="layer-btn active" onclick="setMapLayer('roadmap', this)">Plan</button>
+          <button type="button" class="layer-btn" onclick="setMapLayer('hybrid', this)">Satellite</button>
+        </div>
       </div>
+
+      <!-- FLOATING ACTION BUTTONS ON RIGHT OF MAP -->
+      <button type="button" class="btn-fit-route" title="Voir toute la tournée" onclick="fitEntireRoute()">🗺️</button>
+      <button type="button" class="btn-locate-me" title="Me localiser en direct sur la carte" onclick="locateUserOnMap()">🎯</button>
+
+      <!-- SWIPEABLE BOTTOM STOP CARDS (GOOGLE MAPS STYLE) -->
+      <div class="map-cards-strip" id="mapCardsStrip"></div>
+
       <div id="map"></div>
     </main>
   </div>
 
+  <!-- MOBILE BOTTOM NAVIGATION BAR (3 TABS: CARTE / LISTE / ADRESSES) -->
+  <nav class="mobile-bottom-nav">
+    <button type="button" class="m-nav-btn active" id="mNavMap" onclick="switchMobileMode('map')">
+      <span class="m-icon">🗺️</span>
+      <span>Carte & Fiches</span>
+    </button>
+    <button type="button" class="m-nav-btn" id="mNavList" onclick="switchMobileMode('route')">
+      <span class="m-icon">📋</span>
+      <span>Liste (<span id="mNavCount">0</span>)</span>
+    </button>
+    <button type="button" class="m-nav-btn" id="mNavSetup" onclick="switchMobileMode('setup')">
+      <span class="m-icon">➕</span>
+      <span>Adresses & Départ</span>
+    </button>
+  </nav>
+
   <!-- MODAL QR CODE IPHONE -->
   <div class="modal-backdrop" id="qrModal" onclick="if(event.target===this) closeQRModal()">
     <div class="modal-box">
-      <h3 style="font-size:17px; font-weight:800; margin-bottom:6px;">Envoyer vers votre iPhone</h3>
+      <h3 style="font-size:17px; font-weight:800; margin-bottom:6px;">Ouvrir sur votre iPhone</h3>
       <p style="font-size:12.5px; color:var(--muted); margin-bottom:16px;">
-        Ouvrez l'appareil photo de votre iPhone et visez ce QR Code pour lancer la navigation Google Maps dans l'ordre exact optimisé.
+        Scannez ce QR Code avec l'appareil photo de votre iPhone pour ouvrir la tournée triée dans Google Maps.
       </p>
       <img id="qrImage" src="" alt="QR Code Google Maps" style="width:210px; height:210px; border:1px solid var(--border); border-radius:12px; padding:8px; margin-bottom:14px;">
       <div id="qrSegmentSelector" style="display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin-bottom:14px;"></div>
@@ -627,11 +992,15 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'bms_route_prospects_v2';
+    const STORAGE_KEY = 'bms_route_prospects_v3';
+    const DONE_STORAGE_KEY = 'bms_route_done_v3';
     let prospects = [];
-    let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine;
+    let doneAddresses = {};
+    let map, currentTileLayer, markersLayer, routeShadowLine, routeMainLine, userLocationMarker;
     let mapMarkerRefs = [];
+    let currentOrderedNodes = [];
     let generatedGmapsUrls = [];
+    let isProgrammaticScroll = false;
 
     const TILE_LAYERS = {
       roadmap: {
@@ -641,10 +1010,6 @@
       hybrid: {
         url: 'https://mt1.google.com/vt/lyrs=y&hl=fr&x={x}&y={y}&z={z}',
         attr: '© Google Maps Satellite'
-      },
-      osm: {
-        url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attr: '© OpenStreetMap'
       }
     };
 
@@ -655,6 +1020,33 @@
         maxZoom: 20
       }).addTo(map);
       markersLayer = L.layerGroup().addTo(map);
+
+      // Sync horizontal card swipe with map camera!
+      const strip = document.getElementById('mapCardsStrip');
+      let scrollTimer = null;
+      strip.addEventListener('scroll', () => {
+        if (isProgrammaticScroll) return;
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          const cards = Array.from(strip.querySelectorAll('.map-stop-card'));
+          if (!cards.length) return;
+          const stripCenter = strip.scrollLeft + strip.clientWidth / 2;
+          let closestCard = null;
+          let minDelta = Infinity;
+          cards.forEach(c => {
+            const cCenter = c.offsetLeft + c.offsetWidth / 2;
+            const d = Math.abs(cCenter - stripCenter);
+            if (d < minDelta) {
+              minDelta = d;
+              closestCard = c;
+            }
+          });
+          if (closestCard) {
+            const stepPos = parseInt(closestCard.dataset.step, 10);
+            highlightActiveCardAndPin(stepPos, false);
+          }
+        }, 120);
+      }, { passive: true });
     }
 
     function setMapLayer(type, btn) {
@@ -665,11 +1057,28 @@
       currentTileLayer = L.tileLayer(cfg.url, { attribution: cfg.attr, maxZoom: 20 }).addTo(map);
     }
 
-    function switchTab(tab) {
-      document.getElementById('tabBtnSetup').classList.toggle('active', tab === 'setup');
+    /* Desktop tab switch */
+    function switchView(tab) {
       document.getElementById('tabBtnRoute').classList.toggle('active', tab === 'route');
-      document.getElementById('paneSetup').classList.toggle('active', tab === 'setup');
+      document.getElementById('tabBtnSetup').classList.toggle('active', tab === 'setup');
       document.getElementById('paneRoute').classList.toggle('active', tab === 'route');
+      document.getElementById('paneSetup').classList.toggle('active', tab === 'setup');
+    }
+
+    /* Mobile bottom nav switch (Carte plein écran vs Liste vs Adresses) */
+    function switchMobileMode(mode) {
+      document.getElementById('mNavMap').classList.toggle('active', mode === 'map');
+      document.getElementById('mNavList').classList.toggle('active', mode === 'route');
+      document.getElementById('mNavSetup').classList.toggle('active', mode === 'setup');
+
+      const sidebar = document.getElementById('mainSidebar');
+      if (mode === 'map') {
+        sidebar.classList.remove('mobile-sheet-open');
+        setTimeout(() => map.invalidateSize(), 200);
+      } else {
+        switchView(mode);
+        sidebar.classList.add('mobile-sheet-open');
+      }
     }
 
     function escHtml(s) {
@@ -677,16 +1086,22 @@
     }
 
     function saveProspects() {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prospects)); } catch (e) {}
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(prospects));
+        localStorage.setItem(DONE_STORAGE_KEY, JSON.stringify(doneAddresses));
+      } catch (e) {}
     }
 
     function loadProspects() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          prospects = JSON.parse(raw);
-        }
-      } catch (e) { prospects = []; }
+        if (raw) prospects = JSON.parse(raw);
+        const rawDone = localStorage.getItem(DONE_STORAGE_KEY);
+        if (rawDone) doneAddresses = JSON.parse(rawDone) || {};
+      } catch (e) {
+        prospects = [];
+        doneAddresses = {};
+      }
       if (!prospects || prospects.length === 0) {
         loadPontoisePreset(false);
       } else {
@@ -697,6 +1112,7 @@
     function renderRawProspects() {
       const box = document.getElementById('prospectsListContainer');
       document.getElementById('countBadge').textContent = prospects.length;
+      document.getElementById('mNavCount').textContent = prospects.length;
       if (prospects.length === 0) {
         box.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:12px; padding:12px;">Aucun arrêt dans la liste.</div>';
         return;
@@ -712,13 +1128,11 @@
       `).join('');
     }
 
-    /* Supporte soit un lien Google Maps (https://www.google.com/maps/dir/...), soit des lignes de texte */
     function addFromBulk() {
       const textarea = document.getElementById('bulkInput');
       const rawText = textarea.value.trim();
       if (!rawText) return;
 
-      // Cas 1 : Lien Google Maps complet collé !
       if (rawText.includes('google.com/maps/dir/') || rawText.includes('google.fr/maps/dir/')) {
         try {
           const afterDir = rawText.split('/maps/dir/')[1].split('?')[0];
@@ -739,7 +1153,6 @@
         } catch (e) {}
       }
 
-      // Cas 2 : Liste classique (1 adresse par ligne)
       const lines = rawText.split('\n');
       lines.forEach(line => {
         let cleaned = line.trim().replace(/^Client\s*:\s*/i, '');
@@ -760,6 +1173,7 @@
       textarea.value = '';
       saveProspects();
       renderRawProspects();
+      optimizeRoute();
     }
 
     function removeProspect(idx) {
@@ -770,16 +1184,17 @@
 
     function clearAllProspects() {
       prospects = [];
+      doneAddresses = {};
       saveProspects();
       renderRawProspects();
       markersLayer.clearLayers();
       if (routeShadowLine) map.removeLayer(routeShadowLine);
       if (routeMainLine) map.removeLayer(routeMainLine);
       document.getElementById('itineraryOutput').innerHTML = '';
+      document.getElementById('mapCardsStrip').innerHTML = '';
       document.getElementById('exportBox').style.display = 'none';
     }
 
-    /* Ta vraie tournée Pontoise / Cergy / St-Ouen-l'Aumône / Osny pré-chargée */
     function loadPontoisePreset(autoRun = true) {
       document.getElementById('startAddress').value = '15 Rue des Écuries, 95300 Pontoise';
       prospects = [
@@ -807,6 +1222,32 @@
       if (autoRun) optimizeRoute();
     }
 
+    function locateUserOnMap() {
+      if (!navigator.geolocation) return alert('Géolocalisation non disponible sur cet appareil.');
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude, longitude } = pos.coords;
+        if (userLocationMarker) map.removeLayer(userLocationMarker);
+        const icon = L.divIcon({
+          className: '',
+          html: '<div class="gps-user-dot"></div>',
+          iconSize: [18, 18],
+          iconAnchor: [9, 9]
+        });
+        userLocationMarker = L.marker([latitude, longitude], { icon })
+          .bindPopup('<strong>Votre position actuelle</strong>')
+          .addTo(map);
+        map.flyTo([latitude, longitude], 16, { duration: 0.7 });
+      }, () => {
+        alert('Autorisez la localisation GPS dans votre navigateur pour vous voir sur la carte.');
+      }, { enableHighAccuracy: true });
+    }
+
+    function fitEntireRoute() {
+      if (routeMainLine) {
+        map.fitBounds(routeMainLine.getBounds(), { padding: [45, 45] });
+      }
+    }
+
     function useMyGPS() {
       if (!navigator.geolocation) return alert('Géolocalisation non disponible.');
       const status = document.getElementById('statusMsg');
@@ -822,8 +1263,10 @@
             document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
           }
           status.textContent = 'Départ mis à jour sur votre position GPS.';
+          optimizeRoute();
         } catch (e) {
           document.getElementById('startAddress').value = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+          optimizeRoute();
         }
       });
     }
@@ -837,7 +1280,6 @@
       return 2 * R * Math.asin(Math.sqrt(s));
     }
 
-    /* Géocodage intelligent verrouillé autour de la zone de départ (évite les erreurs à 500 km !) */
     async function geocodeSmart(rawQuery, biasGeo = null) {
       const cleanQuery = rawQuery.replace(/^Client\s*:\s*/i, '').trim();
       const gpsMatch = cleanQuery.match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
@@ -845,7 +1287,6 @@
         return { lat: parseFloat(gpsMatch[1]), lon: parseFloat(gpsMatch[2]), label: cleanQuery };
       }
 
-      // Construction des variantes de recherche (adresse complète, puis après la virgule si nom de boutique devant)
       const candidates = [cleanQuery];
       if (cleanQuery.includes(',')) {
         const afterFirstComma = cleanQuery.split(',').slice(1).join(',').trim();
@@ -881,7 +1322,7 @@
                 bestDist = d;
                 bestMatch = pt;
               }
-              if (d < 25000) return pt; // Moins de 25 km du départ = validé immédiatement !
+              if (d < 25000) return pt;
             }
           }
         } catch (e) {}
@@ -891,7 +1332,6 @@
       throw new Error('Adresse introuvable : ' + rawQuery);
     }
 
-    /* TSP : Plus proche voisin + optimisation 2-Opt complète */
     function solveTSP(matrix, returnToStart) {
       const n = matrix.length;
       const visited = new Array(n).fill(false);
@@ -948,23 +1388,24 @@
     async function optimizeRoute() {
       if (document.getElementById('bulkInput').value.trim()) {
         addFromBulk();
+        return;
       }
-      if (prospects.length === 0) {
-        return alert('Ajoutez d’abord vos clients dans l’onglet 1.');
-      }
+      if (prospects.length === 0) return;
       const startAddr = document.getElementById('startAddress').value.trim();
-      if (!startAddr) return alert('Indiquez votre adresse de départ.');
+      if (!startAddr) return;
 
       const btn = document.getElementById('btnOptimize');
       const status = document.getElementById('statusMsg');
+      const pillText = document.getElementById('mapPillText');
       btn.disabled = true;
-      status.textContent = 'Localisation du point de départ...';
+      status.textContent = 'Localisation des arrêts...';
+      pillText.textContent = 'Optimisation en cours...';
 
       try {
         const startGeo = await geocodeSmart(startAddr, null);
         const nodes = [{
           isStart: true,
-          name: 'Départ',
+          name: 'Point de départ',
           address: startGeo.label,
           lat: startGeo.lat,
           lon: startGeo.lon
@@ -977,12 +1418,12 @@
             isStart: false,
             name: prospects[i].name,
             address: g.label,
+            rawAddress: prospects[i].address,
             lat: g.lat,
             lon: g.lon
           });
         }
 
-        status.textContent = 'Calcul du meilleur ordre de passage...';
         const mode = document.getElementById('travelMode').value;
         const speedKmh = mode === 'foot' ? 4.8 : (mode === 'bike' ? 16.5 : 28);
         const n = nodes.length;
@@ -1023,8 +1464,11 @@
         const order = solveTSP(durations, returnToStart);
 
         await renderOptimizedMapAndList(nodes, order, durations, distances);
-        switchTab('route');
-        status.textContent = `Tournée optimisée (${prospects.length} arrêts triés) !`;
+        switchView('route');
+        if (window.innerWidth <= 920) {
+          switchMobileMode('map');
+        }
+        status.textContent = `Tournée optimisée (${prospects.length} arrêts) !`;
       } catch (err) {
         alert(err.message || 'Erreur lors de la localisation.');
         status.textContent = 'Vérifiez vos adresses.';
@@ -1049,7 +1493,10 @@
       let totalDistMeters = 0;
       let elapsedMinutes = 0;
       const orderedNodes = order.map(idx => nodes[idx]);
+      currentOrderedNodes = orderedNodes;
+
       const htmlCards = [];
+      const bottomStripCards = [];
 
       orderedNodes.forEach((node, stepPos) => {
         if (stepPos === 0) {
@@ -1060,12 +1507,12 @@
             iconAnchor: [17, 17]
           });
           const m = L.marker([node.lat, node.lon], { icon })
-            .bindPopup(`<strong>Point de départ (${startTime.replace(':','h')})</strong><br>${escHtml(node.address)}`)
+            .bindPopup(`<strong>Départ (${startTime.replace(':','h')})</strong><br>${escHtml(node.address)}`)
             .addTo(markersLayer);
-          mapMarkerRefs.push(m);
+          mapMarkerRefs[0] = m;
 
           htmlCards.push(`
-            <div class="stop-item" onclick="focusMarker(0)">
+            <div class="stop-item" onclick="selectStopFromList(0)">
               <div class="badge-num start">D</div>
               <div>
                 <div class="leg-meta">Départ à ${startTime.replace(':', 'h')}</div>
@@ -1091,11 +1538,11 @@
 
         if (node.isStart) {
           htmlCards.push(`
-            <div class="stop-item" onclick="focusMarker(0)">
+            <div class="stop-item" onclick="selectStopFromList(0)">
               <div class="badge-num start">🏁</div>
               <div>
                 <div class="leg-meta">${modeIcon} ${legMins} min (${legKm} km) • Retour ${arrivalStr}</div>
-                <strong style="display:block; font-size:13.5px;">Retour au point de départ</strong>
+                <strong style="display:block; font-size:13.5px;">Retour au départ</strong>
                 <span style="font-size:12px; color:var(--muted);">${escHtml(node.address)}</span>
               </div>
             </div>
@@ -1103,40 +1550,57 @@
           return;
         }
 
+        const isDone = Boolean(doneAddresses[node.address]);
         const icon = L.divIcon({
           className: '',
-          html: `<div class="g-pin">${stepPos}</div>`,
+          html: `<div class="g-pin ${isDone ? 'done-pin' : ''}" id="mapPin-${stepPos}">${isDone ? '✓' : stepPos}</div>`,
           iconSize: [30, 30],
           iconAnchor: [15, 15]
         });
         const m = L.marker([node.lat, node.lon], { icon })
-          .bindPopup(`
-            <div style="font-family:sans-serif; min-width:180px;">
-              <strong style="font-size:14px;">Arrêt #${stepPos} — ${escHtml(node.name)}</strong>
-              <p style="font-size:12px; color:#555; margin:4px 0 8px;">${escHtml(node.address)}</p>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}" target="_blank" style="display:inline-block; background:#1A73E8; color:#fff; text-decoration:none; padding:5px 10px; border-radius:6px; font-size:12px; font-weight:700;">Y aller sur Google Maps</a>
-            </div>
-          `)
+          .on('click', () => scrollStripToStep(stepPos))
           .addTo(markersLayer);
-        mapMarkerRefs.push(m);
+        mapMarkerRefs[stepPos] = m;
 
         const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}`;
         const wazeUrl = `https://waze.com/ul?ll=${node.lat},${node.lon}&navigate=yes`;
 
+        // Card in full Timeline list
         htmlCards.push(`
-          <div class="stop-item" id="stopCard-${stepPos}" onclick="focusMarker(${stepPos})">
-            <div class="badge-num">${stepPos}</div>
+          <div class="stop-item ${isDone ? 'done' : ''}" id="stopCard-${stepPos}" onclick="selectStopFromList(${stepPos})">
+            <div class="badge-num" id="listBadge-${stepPos}">${isDone ? '✓' : stepPos}</div>
             <div>
               <div class="leg-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}</div>
               <strong style="display:block; font-size:14px; color:var(--ink);">${escHtml(node.name)}</strong>
               <span style="font-size:12px; color:var(--muted); display:block;">${escHtml(node.address)}</span>
               <div class="stop-actions" onclick="event.stopPropagation();">
-                <a href="${singleMapsUrl}" target="_blank" class="btn btn-outline btn-xs">🗺️ Google Maps</a>
+                <a href="${singleMapsUrl}" target="_blank" class="btn btn-blue btn-xs">🗺️ Go Maps</a>
                 <a href="${wazeUrl}" target="_blank" class="btn btn-outline btn-xs">🚗 Waze</a>
-                <label style="display:inline-flex; align-items:center; gap:4px; font-size:11.5px; cursor:pointer; margin-left:auto;">
-                  <input type="checkbox" onchange="document.getElementById('stopCard-${stepPos}').classList.toggle('done', this.checked)"> Fait
-                </label>
+                <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
+                  ${isDone ? '✅ Fait' : '☐ Marquer fait'}
+                </button>
               </div>
+            </div>
+          </div>
+        `);
+
+        // Card in Google Maps bottom swipeable carousel
+        bottomStripCards.push(`
+          <div class="map-stop-card ${stepPos === 1 ? 'active-card' : ''} ${isDone ? 'done-card' : ''}" id="mscCard-${stepPos}" data-step="${stepPos}" onclick="highlightActiveCardAndPin(${stepPos}, true)">
+            <div class="msc-top">
+              <div class="msc-num" id="mscNum-${stepPos}">${isDone ? '✓' : stepPos}</div>
+              <div class="msc-info">
+                <div class="msc-meta">${modeIcon} ${legMins} min (${legKm} km) • Arrivée ${arrivalStr}</div>
+                <div class="msc-title">${escHtml(node.name)}</div>
+                <div class="msc-addr">${escHtml(node.address)}</div>
+              </div>
+            </div>
+            <div class="msc-actions" onclick="event.stopPropagation();">
+              <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">🗺️ Go Maps</a>
+              <a href="${wazeUrl}" target="_blank" class="msc-btn">🚗 Waze</a>
+              <button type="button" class="msc-btn done-btn ${isDone ? 'is-done' : ''}" id="mscDoneBtn-${stepPos}" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
+                ${isDone ? '✓ Fait' : '✅ Fait'}
+              </button>
             </div>
           </div>
         `);
@@ -1145,16 +1609,20 @@
       });
 
       document.getElementById('itineraryOutput').innerHTML = htmlCards.join('');
+      document.getElementById('mapCardsStrip').innerHTML = bottomStripCards.join('');
 
-      // Mise à jour des compteurs
       const totalMins = Math.round(totalDriveSec / 60);
-      document.getElementById('statDriveTime').textContent = totalMins >= 60
-        ? `${Math.floor(totalMins / 60)}h ${String(totalMins % 60).padStart(2, '0')}m`
+      const timeFormatted = totalMins >= 60
+        ? `${Math.floor(totalMins / 60)}h${String(totalMins % 60).padStart(2, '0')}`
         : `${totalMins} min`;
-      document.getElementById('statDistance').textContent = (totalDistMeters / 1000).toFixed(1).replace('.', ',') + ' km';
-      document.getElementById('statEndTime').textContent = addMinutesToTime(startTime, elapsedMinutes);
+      const distFormatted = (totalDistMeters / 1000).toFixed(1).replace('.', ',') + ' km';
+      const endFormatted = addMinutesToTime(startTime, elapsedMinutes);
 
-      // Tracé routier réel rue par rue via OSRM Route GeoJSON
+      document.getElementById('statDriveTime').textContent = timeFormatted;
+      document.getElementById('statDistance').textContent = distFormatted;
+      document.getElementById('statEndTime').textContent = endFormatted;
+      updateDoneCounters();
+
       let drawnGeometry = null;
       try {
         const coordsStr = orderedNodes.map(pt => `${pt.lon},${pt.lat}`).join(';');
@@ -1169,20 +1637,103 @@
         drawnGeometry = orderedNodes.map(pt => [pt.lat, pt.lon]);
       }
 
-      // Double ligne façon Google Maps (bordure blanche + cœur bleu Google #1A73E8)
       routeShadowLine = L.polyline(drawnGeometry, { color: '#FFFFFF', weight: 8, opacity: 0.9 }).addTo(map);
       routeMainLine = L.polyline(drawnGeometry, { color: '#1A73E8', weight: 5, opacity: 0.95 }).addTo(map);
       map.fitBounds(routeMainLine.getBounds(), { padding: [45, 45] });
 
-      // Génération des liens Google Maps (découpés par tranches de 10 arrêts max pour compatibilité iPhone Google Maps)
       buildGoogleMapsExportLinks(orderedNodes);
     }
 
-    function focusMarker(stepPos) {
+    function updateDoneCounters() {
+      const totalStops = prospects.length;
+      let doneCount = 0;
+      currentOrderedNodes.forEach(n => {
+        if (!n.isStart && doneAddresses[n.address]) doneCount++;
+      });
+      document.getElementById('doneProgressBadge').textContent = `${doneCount}/${totalStops}`;
+      const distTxt = document.getElementById('statDistance').textContent;
+      const driveTxt = document.getElementById('statDriveTime').textContent;
+      document.getElementById('mapPillText').textContent = `${doneCount}/${totalStops} faits • ${driveTxt} (${distTxt})`;
+    }
+
+    function toggleStopDone(stepPos, address) {
+      const nowDone = !doneAddresses[address];
+      if (nowDone) {
+        doneAddresses[address] = true;
+      } else {
+        delete doneAddresses[address];
+      }
+      saveProspects();
+
+      // Update UI elements for this stop
+      const stopCard = document.getElementById(`stopCard-${stepPos}`);
+      const listBadge = document.getElementById(`listBadge-${stepPos}`);
+      const mscCard = document.getElementById(`mscCard-${stepPos}`);
+      const mscNum = document.getElementById(`mscNum-${stepPos}`);
+      const mscDoneBtn = document.getElementById(`mscDoneBtn-${stepPos}`);
+      const mapPin = document.getElementById(`mapPin-${stepPos}`);
+
+      if (stopCard) stopCard.classList.toggle('done', nowDone);
+      if (listBadge) listBadge.textContent = nowDone ? '✓' : stepPos;
+      if (mscCard) mscCard.classList.toggle('done-card', nowDone);
+      if (mscNum) mscNum.textContent = nowDone ? '✓' : stepPos;
+      if (mscDoneBtn) {
+        mscDoneBtn.classList.toggle('is-done', nowDone);
+        mscDoneBtn.textContent = nowDone ? '✓ Fait' : '✅ Fait';
+      }
+      if (mapPin) {
+        mapPin.classList.toggle('done-pin', nowDone);
+        mapPin.textContent = nowDone ? '✓' : stepPos;
+      }
+
+      updateDoneCounters();
+
+      // Auto-advance to the next stop card if marked done!
+      if (nowDone && document.getElementById(`mscCard-${stepPos + 1}`)) {
+        setTimeout(() => {
+          scrollStripToStep(stepPos + 1);
+        }, 250);
+      }
+    }
+
+    function resetDoneStatus() {
+      doneAddresses = {};
+      saveProspects();
+      optimizeRoute();
+    }
+
+    function selectStopFromList(stepPos) {
+      if (window.innerWidth <= 920) {
+        switchMobileMode('map');
+      }
+      if (stepPos === 0) {
+        const m = mapMarkerRefs[0];
+        if (m) map.flyTo(m.getLatLng(), 16, { duration: 0.5 });
+      } else {
+        scrollStripToStep(stepPos);
+      }
+    }
+
+    function scrollStripToStep(stepPos) {
+      const card = document.getElementById(`mscCard-${stepPos}`);
+      const strip = document.getElementById('mapCardsStrip');
+      if (card && strip) {
+        isProgrammaticScroll = true;
+        const targetLeft = card.offsetLeft - (strip.clientWidth - card.offsetWidth) / 2;
+        strip.scrollTo({ left: targetLeft, behavior: 'smooth' });
+        setTimeout(() => { isProgrammaticScroll = false; }, 450);
+      }
+      highlightActiveCardAndPin(stepPos, true);
+    }
+
+    function highlightActiveCardAndPin(stepPos, flyMap = true) {
+      document.querySelectorAll('.map-stop-card').forEach(c => c.classList.remove('active-card'));
+      const activeCard = document.getElementById(`mscCard-${stepPos}`);
+      if (activeCard) activeCard.classList.add('active-card');
+
       const m = mapMarkerRefs[stepPos];
-      if (m) {
-        map.setView(m.getLatLng(), 16, { animate: true });
-        m.openPopup();
+      if (m && flyMap) {
+        map.flyTo(m.getLatLng(), 16, { duration: 0.5 });
       }
     }
 
@@ -1192,12 +1743,10 @@
       exportBox.style.display = 'block';
       generatedGmapsUrls = [];
 
-      // Lien global (pour ordinateur)
       const allWaypoints = orderedNodes.map(n => encodeURIComponent(n.address)).join('/');
       const fullUrl = `https://www.google.com/maps/dir/${allWaypoints}`;
       generatedGmapsUrls.push({ label: 'Toute la tournée', url: fullUrl });
 
-      // Si > 10 points, découpage par tranches de 9 stops pour l'application mobile Google Maps
       if (orderedNodes.length > 10) {
         const chunkSize = 9;
         let partNum = 1;
@@ -1207,7 +1756,7 @@
           const startIdx = i === 0 ? 1 : i;
           const endIdx = Math.min(i + chunkSize, orderedNodes.length - 1);
           generatedGmapsUrls.push({
-            label: `Partie ${partNum} (Arrêts ${startIdx} à ${endIdx})`,
+            label: `Partie ${partNum} (Arrêts ${startIdx}-${endIdx})`,
             url
           });
           partNum++;
@@ -1245,7 +1794,7 @@
     function copyFirstGmapsLink() {
       if (generatedGmapsUrls.length === 0) return;
       navigator.clipboard.writeText(generatedGmapsUrls[0].url);
-      alert('Lien Google Maps optimisé copié dans le presse-papiers !');
+      alert('Lien Google Maps optimisé copié !');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
