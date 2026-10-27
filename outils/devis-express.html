@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>BMS Pro — Devis Express</title>
   <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="theme-color" content="#0F172A">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,9 +19,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- jsPDF officiel avec intégrité SHA-384 & module devis partagé -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
-  <script src="/assets/devis-pdf.js"></script>
-  <script src="/assets/qrcode.min.js"></script>
-  <script src="/assets/payment-config.js"></script>
+  <script src="/assets/payment-config.js?v=20261027_05"></script>
+  <script src="/assets/qrcode.min.js?v=20261027_05"></script>
+  <script src="/assets/devis-pdf.js?v=20261027_05"></script>
   <style>
     :root {
       --bg: #F8FAFC;
@@ -97,6 +100,21 @@
       background: #FFFFFF;
       color: #111827;
       text-decoration: none;
+    }
+
+    .v-badge {
+      font-size: 11px;
+      font-weight: 800;
+      color: #15803D;
+      background: #DCFCE7;
+      border: 1px solid #86EFAC;
+      padding: 4px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      letter-spacing: 0.02em;
     }
 
     .pin-lock-screen {
@@ -767,7 +785,10 @@
       <a href="tournee-clients.html">Carte</a>
       <a href="devis-express.html" class="active">Devis</a>
     </div>
-    <a href="../portfolio.html" class="btn-top">Démos</a>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span class="v-badge" onclick="window.location.reload(true)" title="Appuyer pour forcer l'actualisation">v3.0 Revolut ⚡</span>
+      <a href="../portfolio.html" class="btn-top">Démos</a>
+    </div>
   </header>
 
   <div id="pdfAutoBanner" class="pdf-auto-banner">
@@ -1139,6 +1160,12 @@
 
     /* GÉNÈRE LE DOCUMENT PDF VIA LE MODULE PARTAGÉ BMSDevis (BLOC ACOMPTE 50 % + EPC-QR + SIGNATURE) */
     function generatePDFDocument(quoteUrl) {
+      if (!window.BMSDevis || typeof window.BMSDevis.generate !== 'function') {
+        alert("Actualisation de l'application en cours...");
+        window.location.reload(true);
+        return null;
+      }
+
       const shop = cleanPdfText(document.getElementById('clientName').value.trim() || 'Votre établissement');
       const addr = cleanPdfText(document.getElementById('clientAddress').value.trim());
       const phone = cleanPdfText(document.getElementById('clientPhone').value.trim());

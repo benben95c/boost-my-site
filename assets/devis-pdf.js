@@ -364,5 +364,11 @@
     return doc;
   }
 
-  window.BMSDevis = Object.freeze({ OFFERS, cleanPdfText, getQuoteFilename, generate });
+  window.BMSDevis = Object.freeze({
+    version: '20261027_05',
+    OFFERS,
+    cleanPdfText,
+    getQuoteFilename,
+    generate
+  });
 })();

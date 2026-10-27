@@ -30,21 +30,27 @@
       "source": "/outils/(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
-        { "key": "Cache-Control", "value": "private, no-cache, no-store, must-revalidate" }
+        { "key": "Cache-Control", "value": "private, no-cache, no-store, must-revalidate, max-age=0" }
       ]
     },
     {
       "source": "/team/(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
-        { "key": "Cache-Control", "value": "private, no-cache, no-store, must-revalidate" }
+        { "key": "Cache-Control", "value": "private, no-cache, no-store, must-revalidate, max-age=0" }
       ]
     },
     {
       "source": "/devis.html",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
-        { "key": "Cache-Control", "value": "private, no-cache, no-store, must-revalidate" }
+        { "key": "Cache-Control", "value": "private, no-cache, no-store, must-revalidate, max-age=0" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" }
       ]
     }
   ]
