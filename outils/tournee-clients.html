@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Tournée — BoostMySite</title>
   <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="theme-color" content="#FFFFFF">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -674,6 +677,8 @@
       flex-direction: column;
       gap: 10px;
       box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .scanner-head {
@@ -755,6 +760,79 @@
       align-items: center;
       gap: 8px;
     }
+
+    /* FICHE VISITE TERRAIN (STATUT + NOTE + RAPPEL + DEVIS) */
+    .visit-line { margin-top: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 11.5px; }
+    .visit-line:empty { display: none; }
+    .visit-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;
+      border: 1px solid transparent; white-space: nowrap;
+    }
+    .visit-pill.st-a_voir   { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
+    .visit-pill.st-interesse{ background: #FFF7ED; color: #C2410C; border-color: #FED7AA; }
+    .visit-pill.st-rappeler { background: #F5F3FF; color: #6D28D9; border-color: #DDD6FE; }
+    .visit-pill.st-refus    { background: #F3F4F6; color: #4B5563; border-color: #E5E7EB; }
+    .visit-pill.st-signe    { background: #F0FDF4; color: #15803D; border-color: #BBF7D0; }
+    .visit-note-preview {
+      color: var(--muted); font-style: italic; overflow: hidden; text-overflow: ellipsis;
+      white-space: nowrap; max-width: 100%; flex: 1 1 140px; min-width: 0;
+    }
+
+    .v-badge {
+      font-size: 11px;
+      font-weight: 800;
+      color: #15803D;
+      background: #DCFCE7;
+      border: 1px solid #86EFAC;
+      padding: 4px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .visit-status-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; width: 100%; min-width: 0; box-sizing: border-box; }
+    .visit-status-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+      min-height: 52px; padding: 4px 1px; border-radius: 9px;
+      border: 1.5px solid var(--border); background: var(--surface); color: var(--ink);
+      font-family: var(--font); font-size: 10px; font-weight: 700; cursor: pointer; line-height: 1.1; text-align: center;
+      overflow: hidden; width: 100%; min-width: 0; box-sizing: border-box;
+    }
+    .visit-status-btn .vs-ico { font-size: 16px; line-height: 1; flex-shrink: 0; }
+    .visit-status-btn span:last-child {
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; display: block;
+    }
+    .visit-status-btn.active.st-a_voir    { border-color: #2563EB; background: #EFF6FF; color: #1D4ED8; }
+    .visit-status-btn.active.st-interesse { border-color: #EA580C; background: #FFF7ED; color: #C2410C; }
+    .visit-status-btn.active.st-rappeler  { border-color: #7C3AED; background: #F5F3FF; color: #6D28D9; }
+    .visit-status-btn.active.st-refus     { border-color: #6B7280; background: #F3F4F6; color: #374151; }
+    .visit-status-btn.active.st-signe     { border-color: #16A34A; background: #F0FDF4; color: #15803D; }
+
+    .visit-quick-notes { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .visit-quick-notes::-webkit-scrollbar { display: none; }
+    .visit-quick-chip {
+      flex-shrink: 0; padding: 5px 9px; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--bg); font-family: var(--font); font-size: 11.5px; font-weight: 600; color: var(--ink); cursor: pointer;
+    }
+    .visit-sheet-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .visit-sheet-actions .btn { justify-content: center; text-align: center; padding: 11px 8px; font-size: 13px; text-decoration: none; }
+    .btn-green-solid { background: var(--green); color: #fff; border-color: var(--green); }
+    .visit-history { font-size: 11px; color: var(--muted); }
+
+    /* Couleur des pins selon le statut de visite */
+    .g-pin.st-interesse { background: #EA580C; }
+    .g-pin.st-rappeler  { background: #7C3AED; }
+    .g-pin.st-refus     { background: #9CA3AF; }
+    .g-pin.st-signe     { background: var(--green); box-shadow: 0 0 0 3px rgba(22,163,74,0.3), 0 2px 5px rgba(0,0,0,0.3); }
+
+    .msc-btn.visit-btn.st-interesse { background: #FFF7ED; color: #C2410C; border-color: #FED7AA; }
+    .msc-btn.visit-btn.st-rappeler  { background: #F5F3FF; color: #6D28D9; border-color: #DDD6FE; }
+    .msc-btn.visit-btn.st-refus     { background: #F3F4F6; color: #4B5563; border-color: #E5E7EB; }
+    .msc-btn.visit-btn.st-signe     { background: var(--green); color: #fff; border-color: var(--green); }
 
     /* MAP PINS */
     .g-pin {
@@ -1050,8 +1128,21 @@
       }
 
       .scanner-sheet {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
         border-radius: 16px 16px 0 0;
-        padding-bottom: calc(14px + var(--safe-bottom));
+        max-height: 90dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        padding: 14px 12px calc(24px + var(--safe-bottom));
+      }
+
+      .scanner-sheet > * {
+        min-width: 0;
+        max-width: 100%;
       }
 
       .mobile-bottom-nav {
@@ -1136,6 +1227,7 @@
           <a href="tournee-clients.html" class="active">Carte</a>
           <a href="devis-express.html">Devis</a>
         </div>
+        <span class="v-badge" onclick="window.location.reload(true)" title="Forcer l'actualisation">v3.0 Terrain 🗺️</span>
 
         <!-- INDICATEUR DE PRIORITÉ DISCRET SUR PC -->
         <div class="priority-inline-bar" onclick="focusTopCashTarget()" title="Cliquer pour centrer sur cette cible">
@@ -1205,6 +1297,8 @@
             <strong id="statDistance">—</strong>
           </div>
         </div>
+
+        <div id="visitSummaryBar" style="display:none; flex-wrap:wrap; gap:5px; margin-bottom:10px;"></div>
 
         <div id="exportBox" style="display:none; margin-bottom:10px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:10px;">
           <div id="gmapsSegmentsContainer" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:6px;"></div>
@@ -1342,6 +1436,45 @@
         <button type="button" class="btn btn-outline" onclick="applyScannedProspects(false)">
           Ajouter à la liste
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FICHE VISITE TERRAIN -->
+  <div class="scanner-modal-backdrop" id="visitSheetBackdrop" onclick="if(event.target===this) closeVisitSheet()">
+    <div class="scanner-sheet" style="overflow-y:auto;">
+      <div class="scanner-head">
+        <div style="min-width:0;">
+          <strong style="font-size:15px; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="visitSheetTitle">Commerce</strong>
+          <div style="font-size:11.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="visitSheetAddr"></div>
+        </div>
+        <button type="button" class="btn btn-outline btn-xs" onclick="closeVisitSheet()">Fermer</button>
+      </div>
+
+      <div>
+        <label style="margin-bottom:6px; display:block;">Résultat du passage</label>
+        <div class="visit-status-grid" id="visitStatusGrid"></div>
+      </div>
+
+      <div id="visitRecallBox" style="display:none;">
+        <label for="visitRecallAt">Rappeler / repasser le</label>
+        <input type="datetime-local" id="visitRecallAt">
+      </div>
+
+      <div>
+        <label for="visitNote">Note rapide (gérant, objection, horaires…)</label>
+        <div class="visit-quick-notes" id="visitQuickNotes" style="margin-bottom:6px;"></div>
+        <textarea id="visitNote" rows="3" placeholder="Ex : Gérant absent, repasser après 15h. Intéressé par le Click & Collect." style="min-height:72px;"></textarea>
+        <div class="visit-history" id="visitHistory"></div>
+      </div>
+
+      <div class="visit-sheet-actions">
+        <a href="#" class="btn btn-outline" id="visitCallBtn">📞 Appeler</a>
+        <a href="#" class="btn btn-outline" id="visitDemoBtn" target="_blank" rel="noopener noreferrer">👁 Démo</a>
+      </div>
+      <div class="visit-sheet-actions" style="padding-top:8px; border-top:1px solid var(--border);">
+        <button type="button" class="btn btn-blue" onclick="saveVisitSheet(false)">Enregistrer</button>
+        <button type="button" class="btn btn-green-solid" onclick="saveVisitSheet(true)">📄 Créer le devis</button>
       </div>
     </div>
   </div>
@@ -2695,9 +2828,11 @@
         const isTopCash = (!isDone && stepPos === topCashStepPos);
         const ev = node.liveEval || evaluateRealTimeProspectPriority(node, nodes[0]);
 
+        const visit = getVisit(node.address);
+        const visitSt = visit ? visit.s : 'a_voir';
         const icon = L.divIcon({
           className: '',
-          html: `<div class="g-pin ${isDone ? 'done-pin' : (isTopCash ? 'cash-king-pin' : '')}" id="mapPin-${stepPos}">${isDone ? '✓' : stepPos}</div>`,
+          html: `<div class="g-pin ${visitSt !== 'a_voir' ? 'st-' + visitSt : (isDone ? 'done-pin' : (isTopCash ? 'cash-king-pin' : ''))}" id="mapPin-${stepPos}">${pinLabelFor(stepPos, visitSt, isDone)}</div>`,
           iconSize: isTopCash ? [30, 30] : [26, 26],
           iconAnchor: isTopCash ? [15, 15] : [13, 13]
         });
@@ -2707,7 +2842,7 @@
 
         const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}`;
         const demoUrl = node.demo || '../sites/fastfood-smash.html';
-        const devisUrl = `devis-express.html?client=${encodeURIComponent(node.name)}&address=${encodeURIComponent(node.address)}&phone=${encodeURIComponent(node.phone || '')}&pack=${encodeURIComponent(node.pack || 'pro')}&price=${encodeURIComponent(ev.potentialEur)}`;
+        const devisUrl = buildDevisUrlForNode(node, ev);
         const cleanTel = (node.phone || '').replace(/\s+/g, '');
 
         const shortStatusLabel = ev.franchiseStatus === 'indep'
@@ -2743,14 +2878,13 @@
               <strong style="display:block; font-size:13.5px;">${escHtml(node.name)}</strong>
               <div class="stop-meta-line">${escHtml(node.address)} · ${legMins} min (${legKm} km) · ${arrivalStr}</div>
               ${statusLineHtml}
+              <div class="visit-line" id="visitLine-${stepPos}">${visitLineHtml(node.address)}</div>
               ${node.pitch ? `<div class="stop-note">${escHtml(node.pitch)}</div>` : ''}
               <div class="stop-actions" onclick="event.stopPropagation();">
                 <a href="${singleMapsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-blue btn-xs">Itinéraire</a>
+                <button type="button" class="btn btn-outline btn-xs" style="font-weight:700;" onclick="openVisitSheet(${stepPos})">📝 Fiche visite</button>
                 <a href="${demoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-xs">Démo</a>
                 <a href="${devisUrl}" class="btn btn-outline btn-xs">Devis</a>
-                <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
-                  ${isDone ? 'Fait ✓' : 'Marquer fait'}
-                </button>
                 <button type="button" class="btn btn-danger btn-xs" onclick="removeProspectByStep(${stepPos})">
                   Retirer
                 </button>
@@ -2774,10 +2908,11 @@
               <div class="msc-addr">${escHtml(node.address)}</div>
             </div>
             ${mobileStatusLineHtml}
+            <div class="visit-line" id="mscVisitLine-${stepPos}">${visitLineHtml(node.address)}</div>
             <div class="msc-actions-row">
               <a href="${singleMapsUrl}" target="_blank" rel="noopener noreferrer" class="msc-btn primary">Itinéraire</a>
-              <button type="button" class="msc-btn ${isDone ? 'is-done' : ''}" id="mscDoneBtn-${stepPos}" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
-                ${isDone ? 'Fait ✓' : 'Fait'}
+              <button type="button" class="msc-btn visit-btn ${visitSt !== 'a_voir' ? 'st-' + visitSt : ''}" id="mscVisitBtn-${stepPos}" onclick="openVisitSheet(${stepPos})">
+                ${visitBtnLabel(visitSt)}
               </button>
               <a href="${demoUrl}" target="_blank" rel="noopener noreferrer" class="msc-btn">Démo</a>
               <a href="${devisUrl}" class="msc-btn">Devis</a>
@@ -2801,6 +2936,7 @@
       document.getElementById('statDriveTime').textContent = timeFormatted;
       document.getElementById('statDistance').textContent = distFormatted;
       updateDoneCounters();
+      updateVisitSummary();
       refreshLiveCashDetector();
 
       let drawnGeometry = null;
@@ -2890,6 +3026,204 @@
       document.getElementById('doneProgressBadge').textContent = `${doneCount}/${totalStops}`;
       document.getElementById('mNavCount').textContent = `${doneCount}/${totalStops}`;
       document.getElementById('statTotalCash').textContent = remainingCash.toLocaleString('fr-FR') + ' €';
+    }
+
+    /* ================= FICHE VISITE TERRAIN ================= */
+    const VISIT_STORAGE_KEY = 'bms_visit_status_v1';
+    const VISIT_STATUSES = [
+      { key: 'a_voir',    label: 'À voir',    ico: '•',  pin: null },
+      { key: 'interesse', label: 'Intéressé', ico: '🔥', pin: '!' },
+      { key: 'rappeler',  label: 'Rappeler',  ico: '⏰', pin: '↻' },
+      { key: 'refus',     label: 'Refus',     ico: '✕',  pin: '✕' },
+      { key: 'signe',     label: 'Signé',     ico: '✅', pin: '€' }
+    ];
+    const VISIT_QUICK_NOTES = ['Gérant absent', 'Repasser après le rush', 'A déjà un site', 'Veut le Click & Collect', 'Trop cher', 'Envoyer la démo WhatsApp'];
+    let visitData = {};
+    let visitSheetStep = null;
+    let visitSheetStatus = 'a_voir';
+
+    try { visitData = JSON.parse(localStorage.getItem(VISIT_STORAGE_KEY) || '{}') || {}; } catch (e) { visitData = {}; }
+
+    function saveVisitData() {
+      try { localStorage.setItem(VISIT_STORAGE_KEY, JSON.stringify(visitData)); } catch (e) {}
+    }
+
+    function getVisit(address) {
+      return visitData[address] || null;
+    }
+
+    function visitMeta(key) {
+      return VISIT_STATUSES.find(s => s.key === key) || VISIT_STATUSES[0];
+    }
+
+    function pinLabelFor(stepPos, st, isDone) {
+      const m = visitMeta(st);
+      if (m.pin) return m.pin;
+      return isDone ? '✓' : stepPos;
+    }
+
+    function visitBtnLabel(st) {
+      if (!st || st === 'a_voir') return '📝 Visite';
+      const m = visitMeta(st);
+      return `${m.ico} ${m.label}`;
+    }
+
+    function formatRecall(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d)) return '';
+      return d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }) + ' ' +
+        d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+    }
+
+    function visitLineHtml(address) {
+      const v = getVisit(address);
+      if (!v || (v.s === 'a_voir' && !v.note)) return '';
+      const m = visitMeta(v.s);
+      const recall = v.s === 'rappeler' && v.recall ? ` · ${escHtml(formatRecall(v.recall))}` : '';
+      return `<span class="visit-pill st-${m.key}">${m.ico} ${m.label}${recall}</span>` +
+        (v.note ? `<span class="visit-note-preview">« ${escHtml(v.note)} »</span>` : '');
+    }
+
+    function buildDevisUrlForNode(node, ev) {
+      ev = ev || node.liveEval || {};
+      const q = new URLSearchParams({
+        client: node.name || '',
+        address: node.address || '',
+        phone: node.phone || '',
+        pack: node.pack || 'pro',
+        price: String(ev.potentialEur || 990)
+      });
+      return `devis-express.html?${q.toString()}`;
+    }
+
+    function renderVisitStatusGrid() {
+      document.getElementById('visitStatusGrid').innerHTML = VISIT_STATUSES.map(s => `
+        <button type="button" class="visit-status-btn st-${s.key} ${s.key === visitSheetStatus ? 'active' : ''}" onclick="pickVisitStatus('${s.key}')">
+          <span class="vs-ico">${s.ico}</span><span>${s.label}</span>
+        </button>`).join('');
+      document.getElementById('visitRecallBox').style.display = visitSheetStatus === 'rappeler' ? 'block' : 'none';
+    }
+
+    function pickVisitStatus(key) {
+      visitSheetStatus = key;
+      if (key === 'rappeler' && !document.getElementById('visitRecallAt').value) {
+        const d = new Date(Date.now() + 24 * 3600 * 1000);
+        d.setHours(15, 0, 0, 0);
+        const pad = n => String(n).padStart(2, '0');
+        document.getElementById('visitRecallAt').value = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T15:00`;
+      }
+      renderVisitStatusGrid();
+    }
+
+    function addQuickNote(txt) {
+      const ta = document.getElementById('visitNote');
+      ta.value = ta.value.trim() ? `${ta.value.trim()} · ${txt}` : txt;
+    }
+
+    function openVisitSheet(stepPos) {
+      const node = currentOrderedNodes && currentOrderedNodes[stepPos];
+      if (!node) return;
+      visitSheetStep = stepPos;
+      const v = getVisit(node.address) || {};
+      visitSheetStatus = v.s || 'a_voir';
+
+      document.getElementById('visitSheetTitle').textContent = `${stepPos}. ${node.name}`;
+      document.getElementById('visitSheetAddr').textContent = node.address;
+      document.getElementById('visitNote').value = v.note || '';
+      document.getElementById('visitRecallAt').value = v.recall || '';
+      document.getElementById('visitHistory').textContent = v.ts
+        ? `Dernière mise à jour : ${new Date(v.ts).toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`
+        : '';
+      document.getElementById('visitQuickNotes').innerHTML = VISIT_QUICK_NOTES
+        .map(t => `<button type="button" class="visit-quick-chip" onclick="addQuickNote('${t.replace(/'/g, "\\'")}')">${escHtml(t)}</button>`).join('');
+
+      const callBtn = document.getElementById('visitCallBtn');
+      const tel = (node.phone || '').replace(/[^0-9+]/g, '');
+      if (tel) {
+        callBtn.href = `tel:${tel}`;
+        callBtn.style.opacity = '1';
+        callBtn.style.pointerEvents = 'auto';
+      } else {
+        callBtn.removeAttribute('href');
+        callBtn.style.opacity = '0.45';
+        callBtn.style.pointerEvents = 'none';
+      }
+      document.getElementById('visitDemoBtn').href = node.demo || '../sites/fastfood-smash.html';
+
+      renderVisitStatusGrid();
+      document.getElementById('visitSheetBackdrop').classList.add('open');
+    }
+
+    function closeVisitSheet() {
+      document.getElementById('visitSheetBackdrop').classList.remove('open');
+      visitSheetStep = null;
+    }
+
+    function saveVisitSheet(goToDevis) {
+      const stepPos = visitSheetStep;
+      const node = currentOrderedNodes && currentOrderedNodes[stepPos];
+      if (!node) return closeVisitSheet();
+
+      const note = document.getElementById('visitNote').value.trim().slice(0, 500);
+      const recall = visitSheetStatus === 'rappeler' ? document.getElementById('visitRecallAt').value : '';
+      // Si on crée un devis depuis "À voir", on passe automatiquement en "Intéressé"
+      if (goToDevis && visitSheetStatus === 'a_voir') visitSheetStatus = 'interesse';
+
+      if (visitSheetStatus === 'a_voir' && !note) {
+        delete visitData[node.address];
+      } else {
+        visitData[node.address] = { s: visitSheetStatus, note, recall, ts: Date.now() };
+      }
+      saveVisitData();
+
+      // Un passage qualifié (autre que "À voir") compte comme visite faite
+      const shouldBeDone = visitSheetStatus !== 'a_voir';
+      if (shouldBeDone !== Boolean(doneAddresses[node.address])) {
+        toggleStopDone(stepPos, node.address);
+      }
+      updateVisitUI(stepPos, node);
+      updateVisitSummary();
+
+      const devisUrl = buildDevisUrlForNode(node);
+      closeVisitSheet();
+      if (goToDevis) window.location.href = devisUrl;
+    }
+
+    function updateVisitUI(stepPos, node) {
+      const v = getVisit(node.address);
+      const st = v ? v.s : 'a_voir';
+      const isDone = Boolean(doneAddresses[node.address]);
+      const line1 = document.getElementById(`visitLine-${stepPos}`);
+      const line2 = document.getElementById(`mscVisitLine-${stepPos}`);
+      if (line1) line1.innerHTML = visitLineHtml(node.address);
+      if (line2) line2.innerHTML = visitLineHtml(node.address);
+
+      const btn = document.getElementById(`mscVisitBtn-${stepPos}`);
+      if (btn) {
+        btn.className = `msc-btn visit-btn ${st !== 'a_voir' ? 'st-' + st : ''}`;
+        btn.textContent = visitBtnLabel(st);
+      }
+      const pin = document.getElementById(`mapPin-${stepPos}`);
+      if (pin) {
+        pin.className = `g-pin ${st !== 'a_voir' ? 'st-' + st : (isDone ? 'done-pin' : '')}`;
+        pin.textContent = pinLabelFor(stepPos, st, isDone);
+      }
+    }
+
+    function updateVisitSummary() {
+      const el = document.getElementById('visitSummaryBar');
+      if (!el || !currentOrderedNodes) return;
+      const counts = { interesse: 0, rappeler: 0, refus: 0, signe: 0 };
+      currentOrderedNodes.forEach(n => {
+        if (n.isStart) return;
+        const v = getVisit(n.address);
+        if (v && counts[v.s] !== undefined) counts[v.s]++;
+      });
+      const total = counts.interesse + counts.rappeler + counts.refus + counts.signe;
+      el.style.display = total ? 'flex' : 'none';
+      el.innerHTML = VISIT_STATUSES.filter(s => s.key !== 'a_voir')
+        .map(s => `<span class="visit-pill st-${s.key}">${s.ico} ${counts[s.key]} ${s.label}</span>`).join('');
     }
 
     function toggleStopDone(stepPos, address) {
@@ -3005,6 +3339,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       checkDevAuth();
+      renderVisitStatusGrid();
       initMap();
       loadProspects();
       if (prospects.length > 0) {
