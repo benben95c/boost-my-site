@@ -386,13 +386,83 @@
 
     .sig-canvas {
       width: 100%;
-      height: 100px;
+      height: 75px;
       border: 1.5px dashed #CBD5E1;
       border-radius: 10px;
       background: #FCFBF9;
       touch-action: none;
       cursor: crosshair;
       display: block;
+    }
+
+    /* ENCAISSEMENT ACOMPTE DANS LA PAGE */
+    .field-deposit-card {
+      background: #F0FDF4;
+      border: 1.5px solid #86EFAC;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .field-dp-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .field-dp-badge {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #15803D;
+      background: #DCFCE7;
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .field-dp-sum {
+      font-size: 19px;
+      font-weight: 800;
+      color: #14532D;
+      white-space: nowrap;
+    }
+
+    .field-dp-btns {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn-field-dp {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-field-dp-qr {
+      background: #15803D;
+      color: #fff;
+    }
+
+    .btn-field-dp-cb {
+      background: #FFFFFF;
+      color: #111827;
+      border: 1px solid #D1D5DB;
     }
 
     /* STICKY BOTTOM BAR FOR THUMB CLOSING ON PHONE */
@@ -782,6 +852,27 @@
       </div>
     </div>
 
+    <!-- ENCAISSEMENT ACOMPTE (50 %) -->
+    <div class="field-deposit-card">
+      <div class="field-dp-head">
+        <div>
+          <span class="field-dp-badge">⚡ Règlement de l'Acompte (50 %)</span>
+          <div style="font-size:12px; color:#166534; margin-top:2px;">Bloquez le démarrage du chantier immédiatement</div>
+        </div>
+        <strong class="field-dp-sum" id="fieldDpSum">495 €</strong>
+      </div>
+      <div class="field-dp-btns">
+        <button type="button" class="btn-field-dp btn-field-dp-qr" onclick="openFieldDepositModal()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          QR Virement Instantané
+        </button>
+        <button type="button" class="btn-field-dp btn-field-dp-cb" onclick="fieldPayByCard()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Carte / Apple Pay
+        </button>
+      </div>
+    </div>
+
     <!-- 4. SIGNATURE -->
     <div>
       <div class="sig-head">
@@ -972,6 +1063,8 @@
       const half = Math.round(total / 2);
       const rest = total - half;
       document.getElementById('depositInline').textContent = `${half} € + ${rest} €`;
+      const fieldDpSumEl = document.getElementById('fieldDpSum');
+      if (fieldDpSumEl) fieldDpSumEl.textContent = `${half} €`;
       document.getElementById('stickyTotalText').textContent = `Total : ${total} €`;
       document.getElementById('stickyDepositText').textContent = `Acompte 50 % : ${half} €`;
     }
@@ -1031,189 +1124,30 @@
       return `${window.location.origin}/devis.html?${q.toString()}`;
     }
 
-    /* GÉNÈRE UN VRAI DOCUMENT PDF A4 PRO AVEC JSPDF (+ SIGNATURE CLIENT) */
-    function generatePDFDocument() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
+    /* GÉNÈRE LE DOCUMENT PDF VIA LE MODULE PARTAGÉ BMSDevis (BLOC ACOMPTE 50 % + EPC-QR + SIGNATURE) */
+    function generatePDFDocument(quoteUrl) {
       const shop = cleanPdfText(document.getElementById('clientName').value.trim() || 'Votre établissement');
       const addr = cleanPdfText(document.getElementById('clientAddress').value.trim());
       const phone = cleanPdfText(document.getElementById('clientPhone').value.trim());
       const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
-      const half = Math.round(total / 2);
-      const rest = total - half;
-      const o = OFFERS[currentOfferKey];
       const dateStr = cleanPdfText(document.getElementById('docDate').textContent || new Date().toLocaleDateString('fr-FR'));
 
-      // 1. EN-TÊTE BOOST MY SITE
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(20);
-      doc.setTextColor(15, 23, 42);
-      doc.text('BoostMySite', 16, 22);
-
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9.5);
-      doc.setTextColor(100, 116, 139);
-      doc.text('Creation de sites web & Click & Collect pour commercants', 16, 28);
-      doc.text('Brahim Ben Said  |  06 98 72 72 47  |  https://boost-my-site.com', 16, 33.5);
-
-      // Bloc Réf Devis à droite
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(13);
-      doc.setTextColor(15, 23, 42);
-      doc.text('DEVIS / BON DE COMMANDE', 194, 21, { align: 'right' });
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(10);
-      doc.setTextColor(22, 163, 74);
-      doc.text(`Ref : #${cleanPdfText(refCode)}`, 194, 27.5, { align: 'right' });
-
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9.5);
-      doc.setTextColor(100, 116, 139);
-      doc.text(`Date : ${dateStr}`, 194, 33, { align: 'right' });
-
-      // Ligne séparatrice
-      doc.setDrawColor(226, 232, 240);
-      doc.setLineWidth(0.4);
-      doc.line(16, 39, 194, 39);
-
-      // 2. ENCADRÉ CLIENT
-      doc.setFillColor(248, 250, 252);
-      doc.setDrawColor(226, 232, 240);
-      doc.roundedRect(16, 45, 178, 28, 3, 3, 'FD');
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(8.5);
-      doc.setTextColor(100, 116, 139);
-      doc.text('ETABLISSEMENT / CLIENT', 22, 52);
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(13);
-      doc.setTextColor(15, 23, 42);
-      doc.text(shop, 22, 59.5);
-
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9.5);
-      doc.setTextColor(71, 85, 105);
-      const clientDetails = [addr, phone ? `Tel : ${phone}` : ''].filter(Boolean).join('   |   ') || 'Pontoise / Cergy-Pontoise (95)';
-      doc.text(clientDetails, 22, 66.5);
-
-      // 3. TABLEAU DE LA PRESTATION
-      doc.setFillColor(15, 23, 42);
-      doc.roundedRect(16, 81, 178, 10, 2, 2, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9.5);
-      doc.setTextColor(255, 255, 255);
-      doc.text('DETAIL DE LA PRESTATION CLE EN MAIN', 22, 87.3);
-      doc.text('MONTANT', 188, 87.3, { align: 'right' });
-
-      // Cadre contenu prestation
-      doc.setFillColor(255, 255, 255);
-      doc.setDrawColor(226, 232, 240);
-      doc.rect(16, 91, 178, 66, 'FD');
-
-      // Titre de l'offre + Prix
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(11.5);
-      doc.setTextColor(15, 23, 42);
-      doc.text(cleanPdfText(o.title), 22, 100);
-      doc.setFontSize(13);
-      doc.text(`${total} EUR`, 188, 100, { align: 'right' });
-
-      doc.setDrawColor(241, 245, 249);
-      doc.line(22, 104, 188, 104);
-
-      // Liste des éléments inclus avec coches vertes vectorielles
-      let yPos = 112;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10);
-      doc.setTextColor(51, 65, 85);
-
-      o.items.forEach(item => {
-        // Coche verte vectorielle
-        doc.setDrawColor(22, 163, 74);
-        doc.setLineWidth(0.7);
-        doc.line(22.5, yPos - 1.5, 23.8, yPos - 0.2);
-        doc.line(23.8, yPos - 0.2, 26.2, yPos - 3.2);
-
-        const wrapped = doc.splitTextToSize(cleanPdfText(item), 156);
-        doc.text(wrapped, 29, yPos);
-        yPos += wrapped.length * 5.5 + 3.5;
-      });
-
-      // 4. RÉCAPITULATIF FINANCIER & MODALITÉS DE RÈGLEMENT
-      doc.setFillColor(248, 250, 252);
-      doc.setDrawColor(203, 213, 225);
-      doc.setLineWidth(0.4);
-      doc.roundedRect(16, 164, 178, 36, 3, 3, 'FD');
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(12.5);
-      doc.setTextColor(15, 23, 42);
-      doc.text('PRIX TOTAL CLE EN MAIN', 22, 174);
-      doc.setFontSize(15);
-      doc.text(`${total} EUR`, 188, 174, { align: 'right' });
-
-      doc.setDrawColor(226, 232, 240);
-      doc.line(22, 178, 188, 178);
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(10);
-      doc.setTextColor(22, 163, 74);
-      doc.text('1. Acompte de 50 % au demarrage du projet :', 22, 186);
-      doc.text(`${half} EUR`, 188, 186, { align: 'right' });
-
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10);
-      doc.setTextColor(71, 85, 105);
-      doc.text('2. Solde de 50 % a la livraison (apres validation du site) :', 22, 193.5);
-      doc.text(`${rest} EUR`, 188, 193.5, { align: 'right' });
-
-      // 5. GARANTIES & CADRE SIGNATURE ("BON POUR ACCORD")
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9.5);
-      doc.setTextColor(15, 23, 42);
-      doc.text('ENGAGEMENTS BOOST MY SITE :', 16, 212);
-
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(100, 116, 139);
-      doc.text('- Aucun abonnement obligatoire : vous etes 100 % proprietaire de votre site.', 16, 218.5);
-      doc.text('- Livraison cle en main : nous nous occupons des textes, photos et mise en ligne.', 16, 224);
-      doc.text('- Option maintenance & modifications illimitees (facultatif) : 39 EUR / mois.', 16, 229.5);
-
-      // Cadre signature à droite
-      doc.setFillColor(252, 251, 249);
-      doc.setDrawColor(203, 213, 225);
-      doc.roundedRect(114, 206, 80, 44, 3, 3, 'FD');
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9);
-      doc.setTextColor(15, 23, 42);
-      doc.text('BON POUR ACCORD & SIGNATURE :', 119, 213);
-
+      let sigDataUrl = null;
       if (hasSignature) {
-        try {
-          const sigDataUrl = canvas.toDataURL('image/png');
-          doc.addImage(sigDataUrl, 'PNG', 118, 216, 72, 28);
-        } catch (e) {}
-      } else {
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8);
-        doc.setTextColor(148, 163, 184);
-        doc.text('(Signature client ou validation WhatsApp)', 119, 230);
+        try { sigDataUrl = canvas.toDataURL('image/png'); } catch (e) {}
       }
 
-      // Pied de page
-      doc.setDrawColor(226, 232, 240);
-      doc.line(16, 274, 194, 274);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
-      doc.setTextColor(148, 163, 184);
-      doc.text('BoostMySite - Brahim Ben Said - Tel : 06 98 72 72 47 - https://boost-my-site.com', 105, 281, { align: 'center' });
-
-      return doc;
+      return window.BMSDevis.generate({
+        shop: shop,
+        address: addr,
+        phone: phone,
+        total: total,
+        offerKey: currentOfferKey,
+        refCode: refCode,
+        dateStr: dateStr,
+        signatureDataUrl: sigDataUrl,
+        quoteUrl: quoteUrl
+      });
     }
 
     function buildWhatsAppMessageText(quoteLink) {
@@ -1320,10 +1254,11 @@
       window.open(url, '_blank', 'noopener,noreferrer');
     }
 
-    function downloadPDF() {
+    async function downloadPDF() {
       const shop = document.getElementById('clientName').value.trim() || 'Client';
       const filename = getQuoteFilename(shop);
-      const doc = generatePDFDocument();
+      const signedUrl = await getSignedQuoteUrl();
+      const doc = generatePDFDocument(signedUrl);
       doc.save(filename);
       showToast('📄 Devis PDF téléchargé : ' + filename);
     }
@@ -1331,9 +1266,9 @@
     async function openDirectWhatsAppChat() {
       const shop = document.getElementById('clientName').value.trim() || 'Client';
       const filename = getQuoteFilename(shop);
-      const doc = generatePDFDocument();
-      doc.save(filename);
       const signedUrl = await getSignedQuoteUrl();
+      const doc = generatePDFDocument(signedUrl);
+      doc.save(filename);
       const lines = buildWhatsAppMessageText(signedUrl);
       let phone = document.getElementById('clientPhone').value.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
       if (phone.startsWith('0')) phone = '33' + phone.slice(1);
@@ -1349,8 +1284,8 @@
       const signedUrl = await getSignedQuoteUrl();
       const lines = buildWhatsAppMessageText(signedUrl);
 
-      // 1. Génère le vrai fichier PDF
-      const doc = generatePDFDocument();
+      // 1. Génère le vrai fichier PDF avec QR code paiement & signature
+      const doc = generatePDFDocument(signedUrl);
       const pdfBlob = doc.output('blob');
       const pdfFile = new File([pdfBlob], filename, { type: 'application/pdf' });
 
