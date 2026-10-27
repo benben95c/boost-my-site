@@ -14,8 +14,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
   <style>
     :root {
       --bg: #F9FAFB;
@@ -1860,7 +1860,12 @@
     }
 
     function escHtml(s) {
-      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      return String(s || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     function saveProspects() {
@@ -2740,8 +2745,8 @@
               ${statusLineHtml}
               ${node.pitch ? `<div class="stop-note">${escHtml(node.pitch)}</div>` : ''}
               <div class="stop-actions" onclick="event.stopPropagation();">
-                <a href="${singleMapsUrl}" target="_blank" class="btn btn-blue btn-xs">Itinéraire</a>
-                <a href="${demoUrl}" target="_blank" class="btn btn-outline btn-xs">Démo</a>
+                <a href="${singleMapsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-blue btn-xs">Itinéraire</a>
+                <a href="${demoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-xs">Démo</a>
                 <a href="${devisUrl}" class="btn btn-outline btn-xs">Devis</a>
                 <button type="button" class="btn btn-outline btn-xs" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
                   ${isDone ? 'Fait ✓' : 'Marquer fait'}
@@ -2770,11 +2775,11 @@
             </div>
             ${mobileStatusLineHtml}
             <div class="msc-actions-row">
-              <a href="${singleMapsUrl}" target="_blank" class="msc-btn primary">Itinéraire</a>
+              <a href="${singleMapsUrl}" target="_blank" rel="noopener noreferrer" class="msc-btn primary">Itinéraire</a>
               <button type="button" class="msc-btn ${isDone ? 'is-done' : ''}" id="mscDoneBtn-${stepPos}" onclick="toggleStopDone(${stepPos}, '${escHtml(node.address).replace(/'/g, "\\'")}')">
                 ${isDone ? 'Fait ✓' : 'Fait'}
               </button>
-              <a href="${demoUrl}" target="_blank" class="msc-btn">Démo</a>
+              <a href="${demoUrl}" target="_blank" rel="noopener noreferrer" class="msc-btn">Démo</a>
               <a href="${devisUrl}" class="msc-btn">Devis</a>
             </div>
           </div>

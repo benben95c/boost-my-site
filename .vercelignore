@@ -1,0 +1,15 @@
+# Fichiers de développement et données internes BoostMySite (non servis sur Vercel)
+.vercel
+.git
+.gitignore
+.DS_Store
+CLAUDE.md
+.claude/
+build.js
+tarifs_boostmysite.csv
+tarifs_boostmysite.xlsx
+Carte de Visite Luxe - BoostMySite.pdf
+carte_visite_impression.html
+taxi-bensaid/
+*.bak
+*.tmp

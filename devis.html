@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Votre Devis — BoostMySite</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- jsPDF officiel avec intégrité SHA-384 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
+  <script src="/assets/devis-pdf.js"></script>
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --green: #16A34A;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+      padding: 16px 12px calc(90px + var(--safe-bottom));
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sheet {
+      max-width: 620px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 20px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    }
+
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .doc-meta {
+      text-align: right;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .doc-meta strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13.5px;
+    }
+
+    .client-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+    }
+
+    .client-card-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .client-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .client-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .offer-box {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 18px;
+      background: #FFFFFF;
+    }
+
+    .offer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+
+    .offer-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .offer-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .included-list {
+      list-style: none;
+      margin-bottom: 14px;
+    }
+
+    .included-list li {
+      font-size: 12.5px;
+      padding: 4px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      color: #334155;
+    }
+
+    .included-list li::before {
+      content: "✓";
+      font-weight: 800;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .payment-terms {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .payment-row strong {
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .sig-section {
+      margin-top: 16px;
+    }
+
+    .sig-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .sig-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .sig-clear {
+      background: none;
+      border: none;
+      font-size: 11.5px;
+      color: var(--muted);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .sig-canvas {
+      width: 100%;
+      height: 110px;
+      border: 1.5px dashed #CBD5E1;
+      border-radius: 10px;
+      background: #FCFBF9;
+      touch-action: none;
+      cursor: crosshair;
+      display: block;
+    }
+
+    .sig-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    /* BARRE FIXE EN BAS DE PAGE */
+    .sticky-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 10px 14px calc(10px + var(--safe-bottom));
+      z-index: 50;
+      box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.08);
+    }
+
+    .sticky-inner {
+      max-width: 620px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .sticky-total strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .sticky-total span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .sticky-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-act {
+      padding: 10px 13px;
+      border-radius: 9px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-pdf {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .btn-wa {
+      background: var(--green);
+      color: #fff;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 8px 6px calc(90px + var(--safe-bottom));
+      }
+      .sheet {
+        border-radius: 10px;
+        padding: 16px 14px;
+      }
+      .btn-act {
+        padding: 9px 11px;
+        font-size: 11.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="sheet">
+    <div class="sheet-header">
+      <div>
+        <div class="brand-name">BoostMySite</div>
+        <div class="brand-sub">Brahim Ben Said • 06 98 72 72 47</div>
+      </div>
+      <div class="doc-meta">
+        <strong id="quoteRef">Devis #BMS</strong>
+        <span id="quoteDate"></span>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="client-card-label">Établissement & Client</div>
+      <div class="client-name" id="quoteClientName">Votre établissement</div>
+      <div class="client-meta" id="quoteClientMeta">Pontoise & Val d'Oise</div>
+    </div>
+
+    <div class="offer-box">
+      <div class="offer-header">
+        <span class="offer-title" id="quoteOfferTitle">Forfait Clé en Main</span>
+        <span class="offer-price" id="quoteOfferPrice">990 €</span>
+      </div>
+      <ul class="included-list" id="quoteIncludedList"></ul>
+    </div>
+
+    <div class="payment-terms">
+      <div class="payment-row">
+        <span>Montant total clé en main</span>
+        <strong id="quoteTotalBottom">990 €</strong>
+      </div>
+      <div class="payment-row">
+        <span>1. Acompte au démarrage (50 %)</span>
+        <strong id="quoteDepositBottom">495 €</strong>
+      </div>
+      <div class="payment-row">
+        <span>2. Solde à la livraison après validation (50 %)</span>
+        <strong id="quoteBalanceBottom">495 €</strong>
+      </div>
+    </div>
+
+    <div class="sig-section">
+      <div class="sig-head">
+        <span class="sig-label">Bon pour accord — Signature au doigt ou souris</span>
+        <button type="button" class="sig-clear" onclick="clearSignature()">Effacer</button>
+      </div>
+      <canvas id="sigCanvas" class="sig-canvas"></canvas>
+      <div class="sig-note">Votre signature est automatiquement intégrée au document PDF officiel.</div>
+    </div>
+  </main>
+
+  <div class="sticky-bar">
+    <div class="sticky-inner">
+      <div class="sticky-total">
+        <strong id="stickyTotalText">Total : 990 €</strong>
+        <span id="stickyDepositText">Acompte 50 % : 495 €</span>
+      </div>
+      <div class="sticky-actions">
+        <button type="button" class="btn-act btn-pdf" onclick="downloadClientPDF()">
+          Télécharger PDF
+        </button>
+        <button type="button" class="btn-act btn-wa" onclick="sendWhatsAppConfirmation()">
+          Valider sur WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let quoteData = {
+      ref: 'BMS',
+      client: 'Votre établissement',
+      address: '',
+      phone: '',
+      pack: 'pro',
+      price: 990,
+      date: new Date().toLocaleDateString('fr-FR')
+    };
+    let hasSig = false;
+
+    function esc(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    const canvas = document.getElementById('sigCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    function initCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      ctx.lineWidth = 2.2;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#0F172A';
+    }
+
+    function getPt(e) {
+      const rect = canvas.getBoundingClientRect();
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: cx - rect.left, y: cy - rect.top };
+    }
+
+    canvas.addEventListener('mousedown', e => { isDrawing = true; hasSig = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+    canvas.addEventListener('mousemove', e => { if (!isDrawing) return; const p = getPt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+    window.addEventListener('mouseup', () => { isDrawing = false; });
+
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); isDrawing = true; hasSig = true; const p = getPt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+    canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!isDrawing) return; const p = getPt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+    window.addEventListener('touchend', () => { isDrawing = false; });
+
+    function clearSignature() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hasSig = false;
+    }
+
+    function downloadClientPDF() {
+      if (!window.BMSDevis) return;
+      let sigDataUrl = null;
+      if (hasSig) {
+        try { sigDataUrl = canvas.toDataURL('image/png'); } catch (e) {}
+      }
+      const doc = window.BMSDevis.generate({
+        shop: quoteData.client,
+        address: quoteData.address,
+        phone: quoteData.phone,
+        total: quoteData.price,
+        offerKey: quoteData.pack,
+        refCode: quoteData.ref,
+        dateStr: quoteData.date,
+        signatureDataUrl: sigDataUrl
+      });
+      const filename = window.BMSDevis.getQuoteFilename(quoteData.client);
+      doc.save(filename);
+    }
+
+    function sendWhatsAppConfirmation() {
+      const text = [
+        `Bonjour Brahim,`,
+        `J'ai bien pris connaissance du devis *#${quoteData.ref}* pour *${quoteData.client}* (${quoteData.price} €).`,
+        hasSig ? `Je l'ai signé électroniquement.` : `Je confirme mon accord pour lancer le projet !`
+      ].join('\n');
+      const url = `https://wa.me/33698727247?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('ref')) quoteData.ref = p.get('ref').replace(/[^a-zA-Z0-9-]/g, '');
+      if (p.get('client')) quoteData.client = p.get('client');
+      if (p.get('address')) quoteData.address = p.get('address');
+      if (p.get('phone')) quoteData.phone = p.get('phone');
+      if (p.get('pack') && window.BMSDevis && window.BMSDevis.OFFERS[p.get('pack')]) quoteData.pack = p.get('pack');
+      if (p.get('price')) {
+        const pr = Math.max(0, parseInt(p.get('price'), 10));
+        if (Number.isFinite(pr)) quoteData.price = pr;
+      }
+
+      document.getElementById('quoteRef').textContent = 'Devis #' + quoteData.ref;
+      document.getElementById('quoteDate').textContent = quoteData.date;
+      document.getElementById('quoteClientName').textContent = quoteData.client;
+
+      const metaParts = [quoteData.address, quoteData.phone ? 'Tél : ' + quoteData.phone : ''].filter(Boolean);
+      document.getElementById('quoteClientMeta').textContent = metaParts.length > 0 ? metaParts.join(' • ') : "Pontoise / Cergy-Pontoise (95)";
+
+      const offer = (window.BMSDevis && window.BMSDevis.OFFERS[quoteData.pack]) || { title: 'Forfait Site Clé en Main', items: [] };
+      document.getElementById('quoteOfferTitle').textContent = offer.title;
+      document.getElementById('quoteOfferPrice').textContent = quoteData.price.toLocaleString('fr-FR') + ' €';
+
+      const listEl = document.getElementById('quoteIncludedList');
+      listEl.innerHTML = (offer.items || []).map(it => `<li>${esc(it)}</li>`).join('');
+
+      const half = Math.round(quoteData.price / 2);
+      const rest = quoteData.price - half;
+
+      document.getElementById('quoteTotalBottom').textContent = quoteData.price.toLocaleString('fr-FR') + ' €';
+      document.getElementById('quoteDepositBottom').textContent = half.toLocaleString('fr-FR') + ' €';
+      document.getElementById('quoteBalanceBottom').textContent = rest.toLocaleString('fr-FR') + ' €';
+      document.getElementById('stickyTotalText').textContent = `Total : ${quoteData.price.toLocaleString('fr-FR')} €`;
+      document.getElementById('stickyDepositText').textContent = `Acompte 50 % : ${half.toLocaleString('fr-FR')} €`;
+
+      initCanvas();
+      window.addEventListener('resize', initCanvas);
+    });
+  </script>
+</body>
+</html>

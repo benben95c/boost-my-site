@@ -1395,6 +1395,15 @@
       toggleCart(true);
     }
 
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function renderCart() {
       document.getElementById('cartCount').textContent = cart.length;
       const list = document.getElementById('cartItemsList');
@@ -1409,7 +1418,7 @@
         return `
           <div class="drawer-item">
             <div>
-              <div class="drawer-item-title">${item.label}</div>
+              <div class="drawer-item-title">${escapeHtml(item.label)}</div>
               <div class="drawer-item-sub">${item.price.toFixed(2).replace('.', ',')} €</div>
             </div>
             <button onclick="removeItem(${idx})" style="background:none;border:none;color:var(--red);cursor:pointer;font-weight:700;">Retirer</button>
@@ -1452,7 +1461,8 @@
       const orderNum = '#BNG-' + Math.floor(100 + Math.random() * 900);
       const total = cart.reduce((acc, it) => acc + it.price, 0);
       const totalStr = total.toFixed(2).replace('.', ',') + ' €';
-      const linesHtml = cart.map(it => `<li style="margin-bottom:4px;">1x ${it.label} — <strong>${it.price.toFixed(2).replace('.', ',')} €</strong></li>`).join('');
+      const slotSafe = escapeHtml(slot);
+      const linesHtml = cart.map(it => `<li style="margin-bottom:4px;">1x ${escapeHtml(it.label)} — <strong>${it.price.toFixed(2).replace('.', ',')} €</strong></li>`).join('');
 
       const waLines = [
         `🍔 *NOUVELLE COMMANDE ${orderNum}*`,
@@ -1476,7 +1486,7 @@
             <p style="font-size:0.86rem; color:var(--ink-muted); margin-bottom:10px;">Le ticket récapitulatif est prêt à être transmis sur le WhatsApp de la caisse. Vous réglez directement en récupérant votre commande.</p>
             <ul style="padding-left:18px; margin-bottom:10px; font-size:0.88rem;">${linesHtml}</ul>
             <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border); padding-top:8px; font-weight:800;">
-              <span>Total à régler au comptoir (${slot})</span>
+              <span>Total à régler au comptoir (${slotSafe})</span>
               <span>${totalStr}</span>
             </div>
           </div>
@@ -1493,7 +1503,7 @@
             <p style="font-size:0.86rem; color:var(--ink-muted); margin-bottom:10px;">Votre commande a été payée en ligne et s'affiche directement sur l'écran cuisine du restaurant.</p>
             <ul style="padding-left:18px; margin-bottom:10px; font-size:0.88rem;">${linesHtml}</ul>
             <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border); padding-top:8px; font-weight:800;">
-              <span>Total payé (${slot})</span>
+              <span>Total payé (${slotSafe})</span>
               <span>${totalStr}</span>
             </div>
           </div>

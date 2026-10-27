@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
 
+# Private & internal paths
+Disallow: /outils/
+Disallow: /team/
+Disallow: /api/
+Disallow: /devis.html
+
 # Sitemap
 Sitemap: https://boost-my-site.com/sitemap.xml
-
-# Disallow admin or private paths (future use)
-Disallow: /api/

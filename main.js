@@ -64,31 +64,76 @@
     });
   });
 
-  /* Formulaire de contact */
+  /* Formulaire de contact sécurisé (validation stricte, anti-spam honeypot, anti-flood) */
   var form = d.querySelector('form[data-contact]');
   if (form) {
     var status = form.querySelector('.form-status');
     var btn = form.querySelector('button[type="submit"]');
+    var isSubmitting = false;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (form.querySelector('.hp input').checked) return;
+      if (isSubmitting) return;
+
+      var hp = form.querySelector('.hp input');
+      if (hp && hp.checked) return;
+
+      var name = (form.elements.name ? form.elements.name.value : '').trim().slice(0, 100);
+      var email = (form.elements.email ? form.elements.email.value : '').trim().slice(0, 120);
+      var msg = (form.elements.message ? form.elements.message.value : '').trim().slice(0, 3000);
+
+      if (!name || name.length < 2) {
+        status.className = 'form-status err';
+        status.textContent = 'Veuillez renseigner votre nom.';
+        return;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        status.className = 'form-status err';
+        status.textContent = 'Veuillez saisir une adresse email valide.';
+        return;
+      }
+      if (!msg || msg.length < 5) {
+        status.className = 'form-status err';
+        status.textContent = 'Votre message est trop court.';
+        return;
+      }
+
+      isSubmitting = true;
       var label = btn.textContent;
-      btn.disabled = true; btn.textContent = 'Envoi en cours...';
-      status.className = 'form-status'; status.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours...';
+      status.className = 'form-status';
+      status.textContent = '';
+
       var data = new FormData();
       data.append('access_key', '04b21b20-e74c-4086-981e-e7c6585a54d6');
       data.append('subject', 'Nouveau message depuis boost-my-site.com');
-      data.append('name', form.elements.name.value);
-      data.append('email', form.elements.email.value);
-      data.append('message', form.elements.message.value);
+      data.append('name', name);
+      data.append('email', email);
+      data.append('message', msg);
+
       fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
         .then(function (res) { return res.json().then(function (j) { return { ok: res.ok && j.success !== false }; }); })
         .then(function (r) {
-          if (r.ok) { status.className = 'form-status ok'; status.textContent = 'Message envoyé. Je vous réponds rapidement.'; form.reset(); }
-          else { status.className = 'form-status err'; status.textContent = "L'envoi a échoué. Réessayez ou écrivez-moi par email."; }
+          if (r.ok) {
+            status.className = 'form-status ok';
+            status.textContent = 'Message envoyé. Je vous réponds rapidement.';
+            form.reset();
+          } else {
+            status.className = 'form-status err';
+            status.textContent = "L'envoi a échoué. Réessayez ou écrivez-moi directement par email.";
+          }
         })
-        .catch(function () { status.className = 'form-status err'; status.textContent = 'Erreur réseau. Réessayez dans un instant.'; })
-        .then(function () { btn.disabled = false; btn.textContent = label; });
+        .catch(function () {
+          status.className = 'form-status err';
+          status.textContent = 'Erreur réseau. Réessayez dans un instant.';
+        })
+        .then(function () {
+          setTimeout(function () {
+            btn.disabled = false;
+            btn.textContent = label;
+            isSubmitting = false;
+          }, 1500);
+        });
     });
   }
 

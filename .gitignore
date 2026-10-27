@@ -1,3 +1,6 @@
 .vercel
 .DS_Store
 taxi-bensaid/
+.env*
+*.tmp
+*.bak

@@ -14,8 +14,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- jsPDF pour générer un vrai fichier PDF instantané à envoyer sur WhatsApp -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- jsPDF officiel avec intégrité SHA-384 & module devis partagé -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
+  <script src="/assets/devis-pdf.js"></script>
   <style>
     :root {
       --bg: #F8FAFC;
@@ -784,13 +785,33 @@
       return `Devis-BoostMySite-${slug}.pdf`;
     }
 
-    function buildDirectPdfUrl() {
+    async function getSignedQuoteUrl() {
       const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
       const addr = document.getElementById('clientAddress').value.trim();
       const phone = document.getElementById('clientPhone').value.trim();
       const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
+
+      try {
+        const res = await fetch('/api/sign-devis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ref: refCode,
+            client: shop,
+            address: addr,
+            phone: phone,
+            pack: currentOfferKey,
+            price: total
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.url) return data.url;
+        }
+      } catch (e) {}
+
+      // Fallback direct sur /devis.html si l'API n'est pas appelée en local
       const q = new URLSearchParams({
-        pdf: '1',
         ref: refCode,
         client: shop,
         address: addr,
@@ -798,7 +819,7 @@
         pack: currentOfferKey,
         price: String(total)
       });
-      return `https://boost-my-site.com/outils/devis-express.html?${q.toString()}`;
+      return `${window.location.origin}/devis.html?${q.toString()}`;
     }
 
     /* GÉNÈRE UN VRAI DOCUMENT PDF A4 PRO AVEC JSPDF (+ SIGNATURE CLIENT) */
@@ -986,13 +1007,13 @@
       return doc;
     }
 
-    function buildWhatsAppMessageText() {
+    function buildWhatsAppMessageText(quoteLink) {
       const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
       const addr = document.getElementById('clientAddress').value.trim();
       const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
       const half = Math.round(total / 2);
       const o = OFFERS[currentOfferKey];
-      const pdfLink = buildDirectPdfUrl();
+      const link = quoteLink || `${window.location.origin}/devis.html?ref=${refCode}&client=${encodeURIComponent(shop)}&pack=${currentOfferKey}&price=${total}`;
 
       return [
         `📄 *DEVIS BOOST MY SITE (${refCode})*`,
@@ -1006,8 +1027,8 @@
         `• Acompte au démarrage (50 %) : ${half} €`,
         `• Solde à la livraison après validation (50 %) : ${total - half} €`,
         ``,
-        `📥 *Télécharger le Devis PDF officiel :*`,
-        pdfLink,
+        `📥 *Consulter et signer votre Devis en ligne :*`,
+        link,
         ``,
         `Brahim Ben Said — 06 98 72 72 47`
       ].filter(Boolean).join('\n');
@@ -1021,24 +1042,26 @@
       showToast('📄 Devis PDF téléchargé : ' + filename);
     }
 
-    function openDirectWhatsAppChat() {
+    async function openDirectWhatsAppChat() {
       const shop = document.getElementById('clientName').value.trim() || 'Client';
       const filename = getQuoteFilename(shop);
       const doc = generatePDFDocument();
       doc.save(filename);
-      const lines = buildWhatsAppMessageText();
+      const signedUrl = await getSignedQuoteUrl();
+      const lines = buildWhatsAppMessageText(signedUrl);
       let phone = document.getElementById('clientPhone').value.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
       if (phone.startsWith('0')) phone = '33' + phone.slice(1);
       const url = phone
         ? `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`
         : `https://wa.me/?text=${encodeURIComponent(lines)}`;
-      window.open(url, '_blank');
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
 
     async function sendWhatsAppWithPDF() {
       const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
       const filename = getQuoteFilename(shop);
-      const lines = buildWhatsAppMessageText();
+      const signedUrl = await getSignedQuoteUrl();
+      const lines = buildWhatsAppMessageText(signedUrl);
 
       // 1. Génère le vrai fichier PDF
       const doc = generatePDFDocument();
@@ -1144,20 +1167,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      const isClientPdfDownload = params.get('pdf') === '1';
 
-      // Si c'est un client qui clique sur son lien PDF WhatsApp : on déverrouille juste son devis mais on cache tous les outils internes !
-      if (isClientPdfDownload) {
-        document.getElementById('pinLockScreen').classList.add('unlocked');
-        document.getElementById('internalHeader').style.display = 'none';
-        document.getElementById('presetSelect').style.display = 'none';
-      } else {
-        try {
-          if (localStorage.getItem(DEV_PIN_STORAGE_KEY) === REQUIRED_PIN) {
-            document.getElementById('pinLockScreen').classList.add('unlocked');
-          }
-        } catch (e) {}
-      }
+      try {
+        if (localStorage.getItem(DEV_PIN_STORAGE_KEY) === REQUIRED_PIN) {
+          document.getElementById('pinLockScreen').classList.add('unlocked');
+        }
+      } catch (e) {}
 
       if (params.get('ref')) {
         refCode = params.get('ref');
@@ -1189,12 +1204,7 @@
         recalcDeposit();
       }
 
-      if (isClientPdfDownload) {
-        document.getElementById('pdfAutoBanner').classList.add('show');
-        setTimeout(() => {
-          downloadPDF();
-        }, 350);
-      }
+
     });
   </script>
 </body>
