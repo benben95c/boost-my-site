@@ -1,14 +1,14 @@
 {
-  "name": "boostmysite",
   "version": 2,
   "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [
-    {
-      "source": "/(CLAUDE\\.md|build\\.js|tarifs_boostmysite\\.(xlsx|csv)|carte_visite_impression\\.html|\\.claude/(.*))",
-      "destination": "/",
-      "permanent": false
-    }
+    { "source": "/CLAUDE.md", "destination": "/", "permanent": false },
+    { "source": "/build.js", "destination": "/", "permanent": false },
+    { "source": "/tarifs_boostmysite.xlsx", "destination": "/", "permanent": false },
+    { "source": "/tarifs_boostmysite.csv", "destination": "/", "permanent": false },
+    { "source": "/carte_visite_impression.html", "destination": "/", "permanent": false },
+    { "source": "/.claude/:path*", "destination": "/", "permanent": false }
   ],
   "headers": [
     {
