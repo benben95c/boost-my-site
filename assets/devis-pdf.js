@@ -86,7 +86,7 @@
   }
 
   /**
-   * data = { shop, address, phone, total, offerKey, refCode, dateStr, signatureDataUrl, quoteUrl }
+   * data = { shop, address, phone, total, offerKey, refCode, dateStr, signatureDataUrl, quoteUrl, customItems, options }
    */
   function generate(data) {
     data = data || {};
@@ -103,6 +103,31 @@
     const dateStr = cleanPdfText(data.dateStr || new Date().toLocaleDateString('fr-FR'));
     const refCode = String(data.refCode || 'BMS');
 
+    // Parse options & customItems
+    let customItems = [];
+    if (Array.isArray(data.customItems)) {
+      customItems = data.customItems
+        .filter(it => it && typeof it.title === 'string' && it.title.trim())
+        .map(it => ({
+          title: cleanPdfText(it.title),
+          price: Math.max(0, Math.round(Number(it.price) || 0))
+        }))
+        .filter(it => it.price > 0);
+    } else if (typeof data.options === 'string' && data.options.trim()) {
+      try {
+        const parsed = JSON.parse(data.options);
+        if (Array.isArray(parsed)) {
+          customItems = parsed
+            .filter(it => it && typeof it.title === 'string' && it.title.trim())
+            .map(it => ({
+              title: cleanPdfText(it.title),
+              price: Math.max(0, Math.round(Number(it.price) || 0))
+            }))
+            .filter(it => it.price > 0);
+        }
+      } catch (e) {}
+    }
+
     const cfg = (window.BMSPayment && window.BMSPayment.getConfig)
       ? window.BMSPayment.getConfig()
       : {
@@ -115,7 +140,16 @@
 
     let payLink = data.quoteUrl;
     if (!payLink && typeof window !== 'undefined' && window.location) {
-      payLink = `${window.location.origin}/devis.html?ref=${encodeURIComponent(refCode)}&client=${encodeURIComponent(shop)}&pack=${encodeURIComponent(data.offerKey || 'pro')}&price=${total}`;
+      const q = new URLSearchParams({
+        ref: refCode,
+        client: shop,
+        pack: data.offerKey || 'pro',
+        price: String(total)
+      });
+      if (customItems.length > 0) {
+        q.set('options', JSON.stringify(customItems));
+      }
+      payLink = `${window.location.origin}/devis.html?${q.toString()}`;
     }
     if (!payLink) payLink = 'https://boost-my-site.com';
 
@@ -190,131 +224,210 @@
     doc.text('DETAIL DE LA PRESTATION CLE EN MAIN', 22, 82);
     doc.text('MONTANT', 188, 82, { align: 'right' });
 
+    // Calcul dynamique de la hauteur pour que tout rentre sur 1 page A4
+    const hasOptions = customItems.length > 0;
+    const baseLineH = hasOptions ? 4.5 : 5.0;
+    const baseGapH = hasOptions ? 2.2 : 3.0;
+
+    let simY = 104;
+    o.items.forEach(item => {
+      const lines = doc.splitTextToSize(cleanPdfText(item), 156).length;
+      simY += lines * baseLineH + baseGapH;
+    });
+    if (hasOptions) {
+      simY += 4 + 5;
+      customItems.forEach(ci => {
+        const lines = doc.splitTextToSize(cleanPdfText(ci.title), 125).length;
+        simY += Math.max(5, lines * 4.2 + 1.2);
+      });
+    }
+
+    const s3Height = Math.max(66, Math.min(84, (simY - 85) + 3));
+
     // Cadre contenu prestation
     doc.setFillColor(255, 255, 255);
     doc.setDrawColor(226, 232, 240);
-    doc.rect(16, 85, 178, 67, 'FD');
+    doc.rect(16, 85, 178, s3Height, 'FD');
 
-    // Titre de l'offre + Prix
+    // Titre de l'offre + Prix du pack de base
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
+    doc.setFontSize(10.5);
     doc.setTextColor(15, 23, 42);
-    doc.text(cleanPdfText(o.title), 22, 94);
-    doc.setFontSize(12.5);
-    doc.text(`${total} EUR`, 188, 94, { align: 'right' });
+    doc.text(cleanPdfText(o.title), 22, 93.5);
+    doc.setFontSize(12);
+    if (hasOptions) {
+      doc.text(`${o.price} EUR`, 188, 93.5, { align: 'right' });
+    } else {
+      doc.text(`${total} EUR`, 188, 93.5, { align: 'right' });
+    }
 
     doc.setDrawColor(241, 245, 249);
-    doc.line(22, 98, 188, 98);
+    doc.line(22, 97.5, 188, 97.5);
 
-    // Liste des éléments inclus avec coches vertes vectorielles
-    let yPos = 105;
+    // Liste des éléments inclus avec coches vertes
+    let yPos = 104;
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9.5);
+    doc.setFontSize(9.2);
     doc.setTextColor(51, 65, 85);
 
     o.items.forEach(item => {
       doc.setDrawColor(22, 163, 74);
-      doc.setLineWidth(0.7);
+      doc.setLineWidth(0.65);
       doc.line(22.5, yPos - 1.5, 23.8, yPos - 0.2);
       doc.line(23.8, yPos - 0.2, 26.2, yPos - 3.2);
 
       const wrapped = doc.splitTextToSize(cleanPdfText(item), 156);
       doc.text(wrapped, 29, yPos);
-      yPos += wrapped.length * 5 + 3;
+      yPos += wrapped.length * baseLineH + baseGapH;
     });
+
+    // Options et demandes spécifiques ajoutées
+    if (hasOptions) {
+      yPos += 1;
+      doc.setDrawColor(241, 245, 249);
+      doc.setLineWidth(0.4);
+      doc.line(22, yPos, 188, yPos);
+      yPos += 4.5;
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.setTextColor(22, 163, 74);
+      doc.text('+ OPTIONS & DEMANDES PARTICULIERES :', 22, yPos);
+      yPos += 5.2;
+
+      customItems.forEach(ci => {
+        // Badge vert (+)
+        doc.setFillColor(240, 253, 244);
+        doc.setDrawColor(187, 247, 208);
+        doc.roundedRect(22, yPos - 3.2, 4, 4, 0.8, 0.8, 'FD');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(21, 128, 61);
+        doc.text('+', 24, yPos - 0.3, { align: 'center' });
+
+        // Libellé de l'option
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(30, 41, 59);
+        const wrapped = doc.splitTextToSize(cleanPdfText(ci.title), 125);
+        doc.text(wrapped, 28, yPos);
+
+        // Prix de l'option
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.setTextColor(22, 163, 74);
+        doc.text(`+ ${ci.price} EUR`, 188, yPos, { align: 'right' });
+
+        yPos += Math.max(5, wrapped.length * 4.2 + 1.2);
+      });
+    }
+
+    // Positions relatives pour garantir un document 100 % 1 seule page A4
+    const s4Top = Math.min(160, 85 + s3Height + 3.5);
+    const s4Height = 26;
+
+    const s5Top = s4Top + s4Height + 3.5;
+    const s5Height = 44;
+
+    const s6Top = s5Top + s5Height + 4;
+    const s6Height = 28;
 
     // 4. RÉCAPITULATIF FINANCIER & MODALITÉS DE RÈGLEMENT
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
     doc.setLineWidth(0.4);
-    doc.roundedRect(16, 156, 178, 28, 2, 2, 'FD');
+    doc.roundedRect(16, s4Top, 178, s4Height, 2, 2, 'FD');
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11.5);
+    doc.setFontSize(11);
     doc.setTextColor(15, 23, 42);
-    doc.text('PRIX TOTAL CLE EN MAIN', 22, 164.5);
-    doc.setFontSize(14);
-    doc.text(`${total} EUR`, 188, 164.5, { align: 'right' });
+    if (hasOptions) {
+      doc.text('PRIX TOTAL CLE EN MAIN (Pack + Options) :', 22, s4Top + 7.5);
+    } else {
+      doc.text('PRIX TOTAL CLE EN MAIN', 22, s4Top + 7.5);
+    }
+    doc.setFontSize(13.5);
+    doc.text(`${total} EUR`, 188, s4Top + 7.5, { align: 'right' });
 
     doc.setDrawColor(226, 232, 240);
-    doc.line(22, 168, 188, 168);
+    doc.line(22, s4Top + 10.5, 188, s4Top + 10.5);
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9.5);
+    doc.setFontSize(9.2);
     doc.setTextColor(22, 163, 74);
-    doc.text('1. Acompte de 50 % au demarrage du projet :', 22, 175);
-    doc.text(`${half} EUR`, 188, 175, { align: 'right' });
+    doc.text('1. Acompte de 50 % au demarrage du projet :', 22, s4Top + 16.5);
+    doc.text(`${half} EUR`, 188, s4Top + 16.5, { align: 'right' });
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
+    doc.setFontSize(8.8);
     doc.setTextColor(71, 85, 105);
-    doc.text('2. Solde de 50 % a la livraison (apres validation du site) :', 22, 180.5);
-    doc.text(`${rest} EUR`, 188, 180.5, { align: 'right' });
+    doc.text('2. Solde de 50 % a la livraison (apres validation du site) :', 22, s4Top + 21.8);
+    doc.text(`${rest} EUR`, 188, s4Top + 21.8, { align: 'right' });
 
     // 5. BLOC REGLEMENT SECURISE DE L'ACOMPTE 50 %
     doc.setFillColor(240, 253, 244);
     doc.setDrawColor(187, 247, 208);
-    doc.roundedRect(16, 188, 178, 46, 2.5, 2.5, 'FD');
+    doc.roundedRect(16, s5Top, 178, s5Height, 2.5, 2.5, 'FD');
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
     doc.setTextColor(21, 128, 61);
-    doc.text('REGLEMENT DE L\'ACOMPTE (50 %) :', 22, 195);
+    doc.text('REGLEMENT DE L\'ACOMPTE (50 %) :', 22, s5Top + 7);
     doc.setFontSize(11.5);
-    doc.text(`${half} EUR`, 140, 195, { align: 'right' });
+    doc.text(`${half} EUR`, 140, s5Top + 7, { align: 'right' });
 
     doc.setDrawColor(220, 252, 231);
-    doc.line(22, 198, 140, 198);
+    doc.line(22, s5Top + 9.5, 140, s5Top + 9.5);
 
     // Option 1 : Virement SEPA
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.2);
     doc.setTextColor(15, 23, 42);
-    doc.text('Option 1 : Virement Instantane SEPA (pre-rempli par scan ou IBAN) :', 22, 203.5);
+    doc.text('Option 1 : Virement Instantane SEPA (pre-rempli par scan ou IBAN) :', 22, s5Top + 14.5);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.6);
     doc.setTextColor(71, 85, 105);
-    doc.text('IBAN :', 24, 208.5);
+    doc.text('IBAN :', 24, s5Top + 19.5);
 
     doc.setFont('courier', 'bold');
     doc.setFontSize(8.2);
     doc.setTextColor(15, 23, 42);
-    doc.text(cfg.iban, 34, 208.5);
+    doc.text(cfg.iban, 34, s5Top + 19.5);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.4);
     doc.setTextColor(71, 85, 105);
-    doc.text(`BIC : ${cfg.bic}   |   Beneficiaire : ${cfg.beneficiary}`, 24, 213.5);
-    doc.text(`Motif a indiquer : DEVIS ${cleanPdfText(refCode)} ${shop.slice(0, 18)}`, 24, 218);
+    doc.text(`BIC : ${cfg.bic}   |   Beneficiaire : ${cfg.beneficiary}`, 24, s5Top + 24.5);
+    doc.text(`Motif a indiquer : DEVIS ${cleanPdfText(refCode)} ${shop.slice(0, 18)}`, 24, s5Top + 28.8);
 
     // Option 2 : CB / En ligne
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.2);
     doc.setTextColor(15, 23, 42);
-    doc.text('Option 2 : Paiement Carte Bancaire / Apple Pay en ligne :', 22, 224);
+    doc.text('Option 2 : Paiement Carte Bancaire / Apple Pay en ligne :', 22, s5Top + 34.5);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.4);
     doc.setTextColor(22, 163, 74);
-    doc.textWithLink('-> Cliquez ici pour regler l\'acompte en ligne en 1 clic', 24, 229, { url: payLink });
+    doc.textWithLink('-> Cliquez ici pour regler l\'acompte en ligne en 1 clic', 24, s5Top + 39.5, { url: payLink });
 
     // QR Code encadré à droite
     if (qrDataUrl) {
       doc.setFillColor(255, 255, 255);
       doc.setDrawColor(187, 247, 208);
-      doc.roundedRect(147, 192, 41, 39, 2, 2, 'FD');
+      doc.roundedRect(147, s5Top + 3.5, 41, 37, 2, 2, 'FD');
       try {
-        doc.addImage(qrDataUrl, 'PNG', 154, 194.5, 27, 27);
+        doc.addImage(qrDataUrl, 'PNG', 154, s5Top + 5.5, 26, 26);
       } catch (e) {}
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(6.8);
       doc.setTextColor(21, 128, 61);
-      doc.text('SCAN APPLI BANCAIRE', 167.5, 224, { align: 'center' });
+      doc.text('SCAN APPLI BANCAIRE', 167.5, s5Top + 33.2, { align: 'center' });
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(6);
       doc.setTextColor(100, 116, 139);
-      doc.text(`Virement ${half} EUR pre-rempli`, 167.5, 227.5, { align: 'center' });
+      doc.text(`Virement ${half} EUR pre-rempli`, 167.5, s5Top + 36.5, { align: 'center' });
     }
 
     // 6. GARANTIES & CADRE SIGNATURE ("BON POUR ACCORD")
@@ -322,35 +435,35 @@
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.5);
     doc.setTextColor(15, 23, 42);
-    doc.text('ENGAGEMENTS BOOST MY SITE :', 16, 243.5);
+    doc.text('ENGAGEMENTS BOOST MY SITE :', 16, s6Top + 4.5);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.6);
     doc.setTextColor(100, 116, 139);
-    doc.text('- 100 % proprietaire de votre site web (aucun abonnement obligatoire)', 16, 248.5);
-    doc.text('- Livraison cle en main : design, redaction, photos et Google Maps', 16, 253.5);
-    doc.text('- Suivi et modifications incluses avec support direct 7j/7', 16, 258.5);
-    doc.text('- Option maintenance illimitee (facultative) : 39 EUR / mois', 16, 263.5);
+    doc.text('- 100 % proprietaire de votre site web (aucun abonnement obligatoire)', 16, s6Top + 9.5);
+    doc.text('- Livraison cle en main : design, redaction, photos et Google Maps', 16, s6Top + 14.5);
+    doc.text('- Suivi et modifications incluses avec support direct 7j/7', 16, s6Top + 19.5);
+    doc.text('- Option maintenance illimitee (facultative) : 39 EUR / mois', 16, s6Top + 24.5);
 
     // Droite : Cadre signature élégant et proportionné
     doc.setFillColor(252, 251, 249);
     doc.setDrawColor(203, 213, 225);
-    doc.roundedRect(124, 239, 70, 28, 2, 2, 'FD');
+    doc.roundedRect(124, s6Top, 70, s6Height, 2, 2, 'FD');
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(15, 23, 42);
-    doc.text('BON POUR ACCORD & SIGNATURE :', 128, 244.5);
+    doc.text('BON POUR ACCORD & SIGNATURE :', 128, s6Top + 5.5);
 
     if (data.signatureDataUrl) {
       try {
-        doc.addImage(data.signatureDataUrl, 'PNG', 126, 246.5, 66, 19);
+        doc.addImage(data.signatureDataUrl, 'PNG', 126, s6Top + 7.5, 66, 19);
       } catch (e) {}
     } else {
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7.5);
       doc.setTextColor(148, 163, 184);
-      doc.text('(Signature au doigt ou validation WhatsApp)', 128, 256);
+      doc.text('(Signature au doigt ou validation WhatsApp)', 128, s6Top + 17);
     }
 
     // 7. PIED DE PAGE
@@ -365,7 +478,7 @@
   }
 
   window.BMSDevis = Object.freeze({
-    version: '20261027_05',
+    version: '20261027_06',
     OFFERS,
     cleanPdfText,
     getQuoteFilename,

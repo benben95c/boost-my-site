@@ -224,7 +224,7 @@ function handleLogout() {
   });
 }
 
-const DEVIS_FIELDS = ['ref', 'client', 'address', 'phone', 'pack', 'price', 't'];
+const DEVIS_FIELDS = ['ref', 'client', 'address', 'phone', 'pack', 'price', 't', 'options'];
 const ALLOWED_PACKS = ['starter', 'pro', 'cb', 'custom'];
 
 function devisCanonical(values) {
@@ -237,6 +237,21 @@ function cleanDevisInput(body) {
   const pack = ALLOWED_PACKS.includes(body.pack) ? body.pack : 'pro';
   const price = Math.round(Number(body.price));
   if (!Number.isFinite(price) || price < 0 || price > 100000) return null;
+
+  let options = '';
+  if (typeof body.options === 'string') {
+    options = str(body.options, 1200);
+  } else if (Array.isArray(body.customItems)) {
+    try {
+      const clean = body.customItems
+        .filter(it => it && typeof it.title === 'string' && it.title.trim())
+        .map(it => ({ title: str(it.title, 80), price: Math.max(0, Math.round(Number(it.price) || 0)) }))
+        .filter(it => it.price > 0)
+        .slice(0, 10);
+      options = clean.length > 0 ? JSON.stringify(clean) : '';
+    } catch (e) {}
+  }
+
   return {
     ref,
     client: str(body.client, 120),
@@ -245,6 +260,7 @@ function cleanDevisInput(body) {
     pack,
     price: String(price),
     t: String(Math.floor(Date.now() / 1000)),
+    options,
   };
 }
 

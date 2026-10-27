@@ -15,9 +15,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- jsPDF officiel avec intégrité SHA-384 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
-  <script src="/assets/payment-config.js?v=20261027_05"></script>
-  <script src="/assets/qrcode.min.js?v=20261027_05"></script>
-  <script src="/assets/devis-pdf.js?v=20261027_05"></script>
+  <script src="/assets/payment-config.js?v=20261027_06"></script>
+  <script src="/assets/qrcode.min.js?v=20261027_06"></script>
+  <script src="/assets/devis-pdf.js?v=20261027_06"></script>
   <style>
     :root {
       --bg: #F8FAFC;
@@ -169,6 +169,61 @@
       font-weight: 800;
       color: var(--green);
       flex-shrink: 0;
+    }
+
+    .custom-client-box {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .custom-client-head {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .custom-client-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .custom-client-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .custom-client-title {
+      font-weight: 700;
+      color: #166534;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .custom-client-price {
+      font-weight: 800;
+      color: #15803D;
+      background: #DCFCE7;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      white-space: nowrap;
     }
 
     .payment-terms {
@@ -556,6 +611,13 @@
         <span class="offer-price" id="quoteOfferPrice">990 €</span>
       </div>
       <ul class="included-list" id="quoteIncludedList"></ul>
+      <div id="quoteCustomBlock" class="custom-client-box" style="display:none;">
+        <div class="custom-client-head">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Demandes spécifiques & Options incluses :
+        </div>
+        <ul id="quoteCustomList" class="custom-client-list"></ul>
+      </div>
     </div>
 
     <div class="payment-terms">
@@ -694,7 +756,8 @@
       phone: '',
       pack: 'pro',
       price: 990,
-      date: new Date().toLocaleDateString('fr-FR')
+      date: new Date().toLocaleDateString('fr-FR'),
+      customItems: []
     };
     let hasSig = false;
 
@@ -752,16 +815,20 @@
         refCode: quoteData.ref,
         dateStr: quoteData.date,
         signatureDataUrl: sigDataUrl,
-        quoteUrl: window.location.href
+        quoteUrl: window.location.href,
+        customItems: quoteData.customItems
       });
       const filename = window.BMSDevis.getQuoteFilename(quoteData.client);
       doc.save(filename);
     }
 
     function sendWhatsAppConfirmation() {
+      const optsText = (quoteData.customItems && quoteData.customItems.length > 0)
+        ? ` (comprenant ${quoteData.customItems.length} option(s) sur-mesure)`
+        : '';
       const text = [
         `Bonjour Brahim,`,
-        `J'ai bien pris connaissance du devis *#${quoteData.ref}* pour *${quoteData.client}* (${quoteData.price} €).`,
+        `J'ai bien pris connaissance du devis *#${quoteData.ref}* pour *${quoteData.client}* (${quoteData.price} €)${optsText}.`,
         hasSig ? `Je l'ai signé électroniquement.` : `Je confirme mon accord pour lancer le projet !`
       ].join('\n');
       const url = `https://wa.me/33698727247?text=${encodeURIComponent(text)}`;
@@ -854,6 +921,17 @@
         const pr = Math.max(0, parseInt(p.get('price'), 10));
         if (Number.isFinite(pr)) quoteData.price = pr;
       }
+      if (p.get('options')) {
+        try {
+          const parsed = JSON.parse(p.get('options'));
+          if (Array.isArray(parsed)) {
+            quoteData.customItems = parsed
+              .filter(it => it && typeof it.title === 'string' && it.title.trim())
+              .map(it => ({ title: it.title.trim(), price: Math.max(0, Math.round(Number(it.price) || 0)) }))
+              .filter(it => it.price > 0);
+          }
+        } catch (e) {}
+      }
 
       document.getElementById('quoteRef').textContent = 'Devis #' + quoteData.ref;
       document.getElementById('quoteDate').textContent = quoteData.date;
@@ -868,6 +946,25 @@
 
       const listEl = document.getElementById('quoteIncludedList');
       listEl.innerHTML = (offer.items || []).map(it => `<li>${esc(it)}</li>`).join('');
+
+      const customBlockEl = document.getElementById('quoteCustomBlock');
+      const customListEl = document.getElementById('quoteCustomList');
+      if (customBlockEl && customListEl) {
+        if (quoteData.customItems && quoteData.customItems.length > 0) {
+          customBlockEl.style.display = 'block';
+          customListEl.innerHTML = quoteData.customItems.map(ci => `
+            <li class="custom-client-item">
+              <span class="custom-client-title">
+                <span style="color:#16A34A; font-weight:800;">+</span>
+                ${esc(ci.title)}
+              </span>
+              <strong class="custom-client-price">+ ${ci.price.toLocaleString('fr-FR')} €</strong>
+            </li>
+          `).join('');
+        } else {
+          customBlockEl.style.display = 'none';
+        }
+      }
 
       const half = Math.round(quoteData.price / 2);
       const rest = quoteData.price - half;

@@ -19,9 +19,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- jsPDF officiel avec intégrité SHA-384 & module devis partagé -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
-  <script src="/assets/payment-config.js?v=20261027_05"></script>
-  <script src="/assets/qrcode.min.js?v=20261027_05"></script>
-  <script src="/assets/devis-pdf.js?v=20261027_05"></script>
+  <script src="/assets/payment-config.js?v=20261027_06"></script>
+  <script src="/assets/qrcode.min.js?v=20261027_06"></script>
+  <script src="/assets/devis-pdf.js?v=20261027_06"></script>
   <style>
     :root {
       --bg: #F8FAFC;
@@ -383,6 +383,233 @@
       font-size: 16px !important;
       font-weight: 800;
       text-align: right;
+    }
+
+    /* DEMANDES SPÉCIFIQUES & OPTIONS MANUELLES */
+    .custom-section {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+    }
+
+    .custom-section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .custom-section-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0F172A;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .custom-section-title svg {
+      color: var(--green);
+    }
+
+    .custom-section-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      background: #F1F5F9;
+      padding: 2px 7px;
+      border-radius: 12px;
+    }
+
+    .custom-items-container {
+      margin-bottom: 8px;
+    }
+
+    .custom-empty-hint {
+      font-size: 11px;
+      color: #94A3B8;
+      font-style: italic;
+      padding: 4px 0 6px 0;
+    }
+
+    .custom-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 6px;
+      padding: 6px 10px;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    .custom-item-row-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .custom-item-row-left strong {
+      color: #166534;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .custom-item-row-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .custom-item-badge {
+      font-weight: 800;
+      font-size: 12px;
+      color: #15803D;
+      background: #DCFCE7;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .custom-item-del-btn {
+      background: none;
+      border: none;
+      color: #94A3B8;
+      cursor: pointer;
+      padding: 2px 5px;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 1;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .custom-item-del-btn:hover {
+      color: #DC2626;
+      background: #FEE2E2;
+    }
+
+    .custom-input-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .custom-inp-title {
+      flex: 1;
+      min-width: 0;
+      padding: 7px 9px !important;
+      font-size: 12px !important;
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      border-radius: 6px !important;
+    }
+
+    .custom-inp-title:focus {
+      border-color: var(--green) !important;
+      outline: none;
+    }
+
+    .custom-price-wrap {
+      position: relative;
+      width: 78px;
+      flex-shrink: 0;
+    }
+
+    .custom-inp-price {
+      width: 100% !important;
+      padding: 7px 18px 7px 7px !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      text-align: right;
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      border-radius: 6px !important;
+    }
+
+    .custom-inp-price:focus {
+      border-color: var(--green) !important;
+      outline: none;
+    }
+
+    .custom-euro {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .btn-add-custom {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--green);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .btn-add-custom:hover {
+      background: #15803D;
+    }
+
+    .custom-suggestions-head {
+      font-size: 10.5px;
+      color: #64748B;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .custom-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .chip-add-btn {
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .chip-add-btn:hover {
+      background: #E2E8F0;
+      border-color: #CBD5E1;
+      color: #0F172A;
+    }
+
+    .chip-add-btn:active {
+      transform: scale(0.97);
     }
 
     /* SIGNATURE */
@@ -786,7 +1013,7 @@
       <a href="devis-express.html" class="active">Devis</a>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
-      <span class="v-badge" onclick="window.location.reload(true)" title="Appuyer pour forcer l'actualisation">v3.0 Revolut ⚡</span>
+      <span class="v-badge" onclick="window.location.reload(true)" title="Appuyer pour forcer l'actualisation">v3.1 Devis Sur-Mesure ⚡</span>
       <a href="../portfolio.html" class="btn-top">Démos</a>
     </div>
   </header>
@@ -861,11 +1088,55 @@
       </span>
       <ul class="included-list" id="includedList"></ul>
 
+      <!-- DEMANDES SPÉCIFIQUES & OPTIONS MANUELLES -->
+      <div class="custom-section">
+        <div class="custom-section-head">
+          <span class="custom-section-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Demandes spécifiques & Options (+ €)
+          </span>
+          <span class="custom-section-count" id="customCountBadge">0 option</span>
+        </div>
+
+        <!-- Liste des options ajoutées -->
+        <div id="customItemsContainer" class="custom-items-container">
+          <div class="custom-empty-hint">Aucune option spécifique. Cliquez sur une suggestion ou saisissez ci-dessous.</div>
+        </div>
+
+        <!-- Saisie manuelle d'une option sur-mesure -->
+        <div class="custom-input-bar">
+          <input type="text" id="manualOptionTitle" class="custom-inp-title" placeholder="Demande spécifique (ex: Borne tactile, Vidéo drone...)" onkeydown="if(event.key==='Enter'){event.preventDefault();handleAddManualOption();}" />
+          <div class="custom-price-wrap">
+            <input type="number" id="manualOptionPrice" class="custom-inp-price" placeholder="Prix" step="10" min="0" onkeydown="if(event.key==='Enter'){event.preventDefault();handleAddManualOption();}" />
+            <span class="custom-euro">€</span>
+          </div>
+          <button type="button" class="btn-add-custom" onclick="handleAddManualOption()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ajouter
+          </button>
+        </div>
+
+        <!-- Suggestions 1-clic fréquentes -->
+        <div class="custom-suggestions-head">Suggestions rapides terrain (cliquez pour ajouter) :</div>
+        <div class="custom-chips-grid">
+          <button type="button" class="chip-add-btn" onclick="quickAddOption('Borne de commande tactile sur place', 400)">+ Borne commande (400 €)</button>
+          <button type="button" class="chip-add-btn" onclick="quickAddOption('Vidéo drone 4K & reportage photos pro', 250)">+ Vidéo drone (250 €)</button>
+          <button type="button" class="chip-add-btn" onclick="quickAddOption('Module réservation de table en direct', 150)">+ Réservation table (150 €)</button>
+          <button type="button" class="chip-add-btn" onclick="quickAddOption('Booster Référencement Google Maps Local', 190)">+ SEO Google Maps (190 €)</button>
+          <button type="button" class="chip-add-btn" onclick="quickAddOption('Module multilingue Anglais / Arabe', 200)">+ Multilingue EN/AR (200 €)</button>
+          <button type="button" class="chip-add-btn" onclick="quickAddOption('Lot 10 Menus QR plastifiés + Chevalets', 90)">+ Menus QR (90 €)</button>
+        </div>
+      </div>
+
       <div class="price-row">
         <span>Prix convenu (modifiable)</span>
         <div class="price-edit-wrap">
           <input type="number" id="customPriceInput" class="price-edit-input" value="990" step="10" oninput="recalcDeposit()"> €
         </div>
+      </div>
+      <div id="optionsBreakdownRow" class="price-row" style="display:none; color:#166534; font-size:11.5px; font-weight:600; padding:2px 0;">
+        <span>Détail calculé :</span>
+        <span id="optionsBreakdownText">Pack 990 € + 0 €</span>
       </div>
       <div class="price-row" style="color:var(--muted); font-size:12px;">
         <span>Acompte 50 % au démarrage / 50 % à la livraison</span>
@@ -1065,6 +1336,95 @@
     let currentOfferKey = 'pro';
     let refCode = 'BMS-' + Math.floor(1000 + Math.random() * 9000);
     let hasSignature = false;
+    let customItems = []; // [{ title: string, price: number }]
+
+    function esc(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function getCustomItemsTotal() {
+      return customItems.reduce((acc, it) => acc + (Number(it.price) || 0), 0);
+    }
+
+    function renderCustomItems() {
+      const container = document.getElementById('customItemsContainer');
+      const countBadge = document.getElementById('customCountBadge');
+      const count = customItems.length;
+
+      if (countBadge) {
+        countBadge.textContent = count === 0 ? '0 option' : `${count} option${count > 1 ? 's' : ''}`;
+      }
+
+      if (count === 0) {
+        container.innerHTML = '<div class="custom-empty-hint">Aucune option spécifique. Cliquez sur une suggestion ou saisissez ci-dessous.</div>';
+        return;
+      }
+
+      container.innerHTML = customItems.map((item, idx) => `
+        <div class="custom-item-row">
+          <div class="custom-item-row-left">
+            <span style="color:#16A34A; font-weight:800; font-size:13px;">+</span>
+            <strong>${esc(item.title)}</strong>
+          </div>
+          <div class="custom-item-row-right">
+            <span class="custom-item-badge">+ ${Number(item.price).toLocaleString('fr-FR')} €</span>
+            <button type="button" class="custom-item-del-btn" onclick="removeCustomItem(${idx})" title="Supprimer cette option">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addCustomItem(title, price) {
+      const cleanTitle = String(title || '').trim();
+      const numPrice = Math.max(0, Math.round(Number(price) || 0));
+      if (!cleanTitle) {
+        alert('Veuillez préciser le libellé de l\'option ou de la demande spécifique.');
+        return;
+      }
+      if (!numPrice || numPrice <= 0) {
+        alert('Veuillez indiquer un montant valable en euros (€).');
+        return;
+      }
+      customItems.push({ title: cleanTitle, price: numPrice });
+      const basePrice = (OFFERS[currentOfferKey] && OFFERS[currentOfferKey].price) || 990;
+      document.getElementById('customPriceInput').value = basePrice + getCustomItemsTotal();
+      renderCustomItems();
+      recalcDeposit();
+      showToast(`+ ${numPrice} € : ${cleanTitle}`);
+    }
+
+    function removeCustomItem(idx) {
+      if (idx < 0 || idx >= customItems.length) return;
+      const removed = customItems.splice(idx, 1)[0];
+      const basePrice = (OFFERS[currentOfferKey] && OFFERS[currentOfferKey].price) || 990;
+      document.getElementById('customPriceInput').value = basePrice + getCustomItemsTotal();
+      renderCustomItems();
+      recalcDeposit();
+      if (removed) showToast(`Option retirée : ${removed.title}`);
+    }
+
+    function quickAddOption(title, price) {
+      addCustomItem(title, price);
+    }
+
+    function handleAddManualOption() {
+      const titleInput = document.getElementById('manualOptionTitle');
+      const priceInput = document.getElementById('manualOptionPrice');
+      const t = titleInput.value.trim();
+      const p = priceInput.value.trim();
+      if (!t) {
+        titleInput.focus();
+        return;
+      }
+      if (!p) {
+        priceInput.focus();
+        return;
+      }
+      addCustomItem(t, p);
+      titleInput.value = '';
+      priceInput.value = '';
+      titleInput.focus();
+    }
 
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -1088,7 +1448,7 @@
       const o = OFFERS[key];
       document.getElementById('summaryOfferTitle').textContent = o.title;
       document.getElementById('includedList').innerHTML = o.items.map(i => `<li>${i}</li>`).join('');
-      document.getElementById('customPriceInput').value = o.price;
+      document.getElementById('customPriceInput').value = o.price + getCustomItemsTotal();
       recalcDeposit();
     }
 
@@ -1101,6 +1461,20 @@
       if (fieldDpSumEl) fieldDpSumEl.textContent = `${half} €`;
       document.getElementById('stickyTotalText').textContent = `Total : ${total} €`;
       document.getElementById('stickyDepositText').textContent = `Acompte 50 % : ${half} €`;
+
+      // Détail pack + options si des options sont ajoutées
+      const breakdownRow = document.getElementById('optionsBreakdownRow');
+      const breakdownText = document.getElementById('optionsBreakdownText');
+      if (breakdownRow && breakdownText) {
+        const optsTotal = getCustomItemsTotal();
+        if (customItems.length > 0) {
+          const base = (OFFERS[currentOfferKey] && OFFERS[currentOfferKey].price) || 0;
+          breakdownRow.style.display = 'flex';
+          breakdownText.textContent = `Pack ${base} € + ${customItems.length} option${customItems.length > 1 ? 's' : ''} (${optsTotal} €) = ${total} €`;
+        } else {
+          breakdownRow.style.display = 'none';
+        }
+      }
     }
 
     function pickPreset(idxStr) {
@@ -1137,7 +1511,8 @@
             address: addr,
             phone: phone,
             pack: currentOfferKey,
-            price: total
+            price: total,
+            customItems: customItems
           })
         });
         if (res.ok) {
@@ -1155,6 +1530,9 @@
         pack: currentOfferKey,
         price: String(total)
       });
+      if (customItems.length > 0) {
+        q.set('options', JSON.stringify(customItems));
+      }
       return `${window.location.origin}/devis.html?${q.toString()}`;
     }
 
@@ -1186,7 +1564,8 @@
         refCode: refCode,
         dateStr: dateStr,
         signatureDataUrl: sigDataUrl,
-        quoteUrl: quoteUrl
+        quoteUrl: quoteUrl,
+        customItems: customItems
       });
     }
 
@@ -1198,6 +1577,14 @@
       const o = OFFERS[currentOfferKey];
       const link = quoteLink || `${window.location.origin}/devis.html?ref=${refCode}&client=${encodeURIComponent(shop)}&pack=${currentOfferKey}&price=${total}`;
 
+      const optionsLines = customItems.length > 0
+        ? [
+            ``,
+            `➕ *Demandes spécifiques & Options incluses :*`,
+            ...customItems.map(ci => `• ${ci.title} : + ${ci.price} €`)
+          ]
+        : [];
+
       return [
         `📄 *DEVIS BOOST MY SITE (${refCode})*`,
         `Établissement : *${shop}*`,
@@ -1205,6 +1592,7 @@
         ``,
         `*${o.title}*`,
         ...o.items.map(i => `✓ ${i}`),
+        ...optionsLines,
         ``,
         `*Prix total clé en main : ${total} €*`,
         `• Acompte au démarrage (50 %) : ${half} €`,
@@ -1464,8 +1852,25 @@
       } else {
         selectOffer('pro');
       }
+      if (params.get('options')) {
+        try {
+          const parsed = JSON.parse(params.get('options'));
+          if (Array.isArray(parsed)) {
+            customItems = parsed
+              .filter(it => it && typeof it.title === 'string' && it.title.trim())
+              .map(it => ({ title: it.title.trim(), price: Math.max(0, Math.round(Number(it.price) || 0)) }))
+              .filter(it => it.price > 0);
+            renderCustomItems();
+          }
+        } catch (e) {}
+      }
+
       if (params.get('price')) {
         document.getElementById('customPriceInput').value = params.get('price');
+        recalcDeposit();
+      } else if (customItems.length > 0) {
+        const base = (OFFERS[currentOfferKey] && OFFERS[currentOfferKey].price) || 990;
+        document.getElementById('customPriceInput').value = base + getCustomItemsTotal();
         recalcDeposit();
       }
 
