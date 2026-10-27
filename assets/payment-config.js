@@ -5,9 +5,10 @@
   'use strict';
 
   const DEFAULT_CONFIG = {
-    beneficiary: 'Brahim Ben Said — BoostMySite',
-    iban: 'FR76 1751 5900 0008 1234 5678 901', // Remplacez par votre IBAN pro (Revolut, BNP, BoursoBank, Qonto...)
-    bic: 'REVOFRP2',                           // Remplacez par votre BIC
+    beneficiary: 'Brahim Bensaid',
+    iban: 'FR76 2823 3000 0117 1939 3893 095',
+    bic: 'REVOFRP2',
+    bankName: 'Revolut Bank UAB (Paris)',
     phone: '06 98 72 72 47',
     stripeLinks: {
       starter: 'https://buy.stripe.com/test_starter_245', // Lien Stripe Acompte Starter (245 €)
@@ -20,7 +21,14 @@
   function getConfig() {
     try {
       const saved = localStorage.getItem('bms_payment_config');
-      if (saved) return Object.assign({}, DEFAULT_CONFIG, JSON.parse(saved));
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.iban && parsed.iban.includes('1751')) {
+          localStorage.removeItem('bms_payment_config');
+        } else {
+          return Object.assign({}, DEFAULT_CONFIG, parsed);
+        }
+      }
     } catch (e) {}
     return DEFAULT_CONFIG;
   }

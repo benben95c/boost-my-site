@@ -932,7 +932,7 @@
         <div class="field-bank-row">
           <div style="min-width:0; flex:1;">
             <div class="field-bank-label">IBAN</div>
-            <div class="field-bank-val" id="fieldModalIban" style="font-size:11px;">FR76 1751 5900 0008 1234 5678 901</div>
+            <div class="field-bank-val" id="fieldModalIban" style="font-size:11px;">FR76 2823 3000 0117 1939 3893 095</div>
           </div>
           <button type="button" class="btn-field-copy" onclick="copyFieldBank('fieldModalIban', this)">Copier</button>
         </div>
@@ -942,6 +942,19 @@
             <div class="field-bank-val" id="fieldModalBic">REVOFRP2</div>
           </div>
           <button type="button" class="btn-field-copy" onclick="copyFieldBank('fieldModalBic', this)">Copier</button>
+        </div>
+        <div class="field-bank-row">
+          <div>
+            <div class="field-bank-label">Bénéficiaire</div>
+            <div class="field-bank-val" id="fieldModalBeneficiary">Brahim Bensaid</div>
+          </div>
+          <button type="button" class="btn-field-copy" onclick="copyFieldBank('fieldModalBeneficiary', this)">Copier</button>
+        </div>
+        <div class="field-bank-row">
+          <div>
+            <div class="field-bank-label">Banque</div>
+            <div class="field-bank-val" id="fieldModalBank" style="font-size:11px;">Revolut Bank UAB</div>
+          </div>
         </div>
         <div class="field-bank-row">
           <div style="min-width:0; flex:1;">
@@ -1186,14 +1199,18 @@
       const half = Math.round(total / 2);
       const shop = document.getElementById('clientName').value.trim() || 'Commerce';
       const cfg = window.BMSPayment ? window.BMSPayment.getConfig() : {
-        iban: 'FR76 1751 5900 0008 1234 5678 901',
+        iban: 'FR76 2823 3000 0117 1939 3893 095',
         bic: 'REVOFRP2',
-        beneficiary: 'Brahim Ben Said — BoostMySite'
+        beneficiary: 'Brahim Bensaid'
       };
 
       document.getElementById('fieldModalAmount').textContent = half.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €';
       document.getElementById('fieldModalIban').textContent = cfg.iban;
       document.getElementById('fieldModalBic').textContent = cfg.bic;
+      const bEl = document.getElementById('fieldModalBeneficiary');
+      if (bEl) bEl.textContent = cfg.beneficiary;
+      const bkEl = document.getElementById('fieldModalBank');
+      if (bkEl && cfg.bankName) bkEl.textContent = cfg.bankName;
       document.getElementById('fieldModalRef').textContent = `DEVIS ${refCode} ${shop}`.slice(0, 35);
 
       const qrContainer = document.getElementById('fieldQrCodeContainer');

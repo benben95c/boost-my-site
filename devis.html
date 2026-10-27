@@ -644,7 +644,7 @@
         <div class="bank-field">
           <div style="min-width:0; flex:1;">
             <div class="bank-field-label">IBAN</div>
-            <div class="bank-field-val" id="bankModalIban" style="font-size:11.5px;">FR76 1751 5900 0008 1234 5678 901</div>
+            <div class="bank-field-val" id="bankModalIban" style="font-size:11.5px;">FR76 2823 3000 0117 1939 3893 095</div>
           </div>
           <button type="button" class="btn-copy" onclick="copyBankField('bankModalIban', this)">Copier</button>
         </div>
@@ -658,9 +658,15 @@
         <div class="bank-field">
           <div>
             <div class="bank-field-label">Bénéficiaire</div>
-            <div class="bank-field-val" id="bankModalBeneficiary">Brahim Ben Said — BoostMySite</div>
+            <div class="bank-field-val" id="bankModalBeneficiary">Brahim Bensaid</div>
           </div>
           <button type="button" class="btn-copy" onclick="copyBankField('bankModalBeneficiary', this)">Copier</button>
+        </div>
+        <div class="bank-field">
+          <div>
+            <div class="bank-field-label">Banque</div>
+            <div class="bank-field-val" id="bankModalBankName" style="font-size:11px;">Revolut Bank UAB</div>
+          </div>
         </div>
         <div class="bank-field">
           <div style="min-width:0; flex:1;">
@@ -763,15 +769,17 @@
     function openDepositModal() {
       const half = Math.round(quoteData.price / 2);
       const cfg = window.BMSPayment ? window.BMSPayment.getConfig() : {
-        iban: 'FR76 1751 5900 0008 1234 5678 901',
+        iban: 'FR76 2823 3000 0117 1939 3893 095',
         bic: 'REVOFRP2',
-        beneficiary: 'Brahim Ben Said — BoostMySite'
+        beneficiary: 'Brahim Bensaid'
       };
 
       document.getElementById('bankModalAmount').textContent = half.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €';
       document.getElementById('bankModalIban').textContent = cfg.iban;
       document.getElementById('bankModalBic').textContent = cfg.bic;
       document.getElementById('bankModalBeneficiary').textContent = cfg.beneficiary;
+      const bankEl = document.getElementById('bankModalBankName');
+      if (bankEl && cfg.bankName) bankEl.textContent = cfg.bankName;
       document.getElementById('bankModalReference').textContent = `DEVIS ${quoteData.ref} ${quoteData.client}`.slice(0, 35);
 
       const qrContainer = document.getElementById('qrCodeContainer');

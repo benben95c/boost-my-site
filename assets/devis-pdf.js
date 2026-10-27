@@ -106,9 +106,10 @@
     const cfg = (window.BMSPayment && window.BMSPayment.getConfig)
       ? window.BMSPayment.getConfig()
       : {
-          beneficiary: 'Brahim Ben Said — BoostMySite',
-          iban: 'FR76 1751 5900 0008 1234 5678 901',
+          beneficiary: 'Brahim Bensaid',
+          iban: 'FR76 2823 3000 0117 1939 3893 095',
           bic: 'REVOFRP2',
+          bankName: 'Revolut Bank UAB (Paris)',
           phone: '06 98 72 72 47'
         };
 
