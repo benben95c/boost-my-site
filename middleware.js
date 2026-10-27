@@ -30,6 +30,19 @@ function passThrough() {
   return new Response(null, { headers: { 'x-middleware-next': '1' } });
 }
 
+/* Anti-CSRF : accepte notre domaine avec ou sans "www" (et les URLs de preview Vercel du même hôte). */
+function isSameSite(origin, url) {
+  if (!origin) return false;
+  try {
+    const o = new URL(origin);
+    if (o.protocol !== 'https:' && o.hostname !== 'localhost') return false;
+    const strip = h => h.replace(/^www\./, '').toLowerCase();
+    return strip(o.hostname) === strip(url.hostname);
+  } catch (e) {
+    return false;
+  }
+}
+
 function b64url(buf) {
   let s = '';
   const bytes = new Uint8Array(buf);
@@ -171,7 +184,7 @@ async function handleLogin(request, url) {
 
   // Anti-CSRF : la requête doit venir de notre propre domaine.
   const origin = request.headers.get('origin');
-  if (origin && origin !== url.origin) return new Response('Forbidden', { status: 403 });
+  if (origin && origin !== 'null' && !isSameSite(origin, url)) return new Response('Forbidden', { status: 403 });
 
   let form;
   try { form = await request.formData(); } catch (e) { return loginPage('/outils/tournee-clients.html', 'Requête invalide.', 400); }
@@ -245,7 +258,7 @@ async function handleSignDevis(request, url) {
   if (!configured) return json({ error: 'not_configured' }, 503);
   if (request.method !== 'POST') return json({ error: 'method_not_allowed' }, 405);
   const origin = request.headers.get('origin');
-  if (!origin || origin !== url.origin) return json({ error: 'forbidden' }, 403);
+  if (!isSameSite(origin, url)) return json({ error: 'forbidden' }, 403);
   if (!(request.headers.get('content-type') || '').includes('application/json')) return json({ error: 'bad_content_type' }, 415);
   if (!(await isValidSession(request, secret))) return json({ error: 'unauthorized' }, 401);
 
