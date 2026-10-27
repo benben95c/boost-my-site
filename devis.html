@@ -13,6 +13,8 @@
   <!-- jsPDF officiel avec intégrité SHA-384 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
   <script src="/assets/devis-pdf.js"></script>
+  <script src="/assets/qrcode.min.js"></script>
+  <script src="/assets/payment-config.js"></script>
   <style>
     :root {
       --bg: #F8FAFC;
@@ -300,6 +302,213 @@
       color: #fff;
     }
 
+    /* ENCAISSEMENT ACOMPTE */
+    .deposit-box {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .dp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .dp-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #15803D;
+      background: #DCFCE7;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .dp-amount {
+      font-size: 18px;
+      font-weight: 800;
+      color: #14532D;
+    }
+
+    .dp-desc {
+      font-size: 12px;
+      color: #166534;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .dp-btn-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-dp {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-dp-instant {
+      background: #15803D;
+      color: #fff;
+    }
+
+    .btn-dp-card {
+      background: #FFFFFF;
+      color: #111827;
+      border: 1px solid #D1D5DB;
+    }
+
+    /* MODAL VIREMENT INSTANTANÉ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: #FFFFFF;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .modal-head strong {
+      font-size: 15.5px;
+      color: var(--ink);
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1;
+    }
+
+    .qr-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .qr-canvas-box {
+      width: 180px;
+      height: 180px;
+      background: #fff;
+      padding: 8px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+
+    .qr-canvas-box img, .qr-canvas-box canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .qr-hint {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 8px;
+      line-height: 1.35;
+    }
+
+    .bank-details {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .bank-field {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bank-field-label {
+      font-size: 10.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .bank-field-val {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      word-break: break-all;
+    }
+
+    .btn-copy {
+      padding: 4px 8px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 8px 6px calc(90px + var(--safe-bottom));
@@ -307,6 +516,9 @@
       .sheet {
         border-radius: 10px;
         padding: 16px 14px;
+      }
+      .dp-btn-grid {
+        grid-template-columns: 1fr;
       }
       .btn-act {
         padding: 9px 11px;
@@ -358,6 +570,27 @@
       </div>
     </div>
 
+    <!-- ENCAISSEMENT ACOMPTE 50 % -->
+    <div class="deposit-box">
+      <div class="dp-header">
+        <span class="dp-badge">⚡ Règlement de l'Acompte (50 %)</span>
+        <span class="dp-amount" id="depositBoxAmount">495 €</span>
+      </div>
+      <div class="dp-desc">
+        Bloquez le lancement immédiat de votre projet dès aujourd'hui par virement instantané sécurisé ou carte bancaire.
+      </div>
+      <div class="dp-btn-grid">
+        <button type="button" class="btn-dp btn-dp-instant" onclick="openDepositModal()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          QR Virement Instantané
+        </button>
+        <button type="button" class="btn-dp btn-dp-card" onclick="payByCard()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Carte / Apple Pay
+        </button>
+      </div>
+    </div>
+
     <div class="sig-section">
       <div class="sig-head">
         <span class="sig-label">Bon pour accord — Signature au doigt ou souris</span>
@@ -382,6 +615,65 @@
           Valider sur WhatsApp
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL VIREMENT INSTANTANÉ SEPA (EPC-QR) -->
+  <div id="depositModal" class="modal-backdrop" onclick="handleModalBackdropClick(event)">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <strong>⚡ Virement Instantané SEPA</strong>
+        <button type="button" class="modal-close-btn" onclick="closeDepositModal()" aria-label="Fermer">&times;</button>
+      </div>
+
+      <div class="qr-wrap">
+        <div class="qr-canvas-box" id="qrCodeContainer"></div>
+        <div class="qr-hint">
+          Scannez avec l'app de votre banque (BoursoBank, BNP, CA, LCL, SG, Revolut...).<br>
+          <strong>Montant et IBAN pré-remplis automatiquement sans erreur.</strong>
+        </div>
+      </div>
+
+      <div class="bank-details">
+        <div class="bank-field">
+          <div>
+            <div class="bank-field-label">Montant acompte (50 %)</div>
+            <div class="bank-field-val" id="bankModalAmount">495,00 €</div>
+          </div>
+        </div>
+        <div class="bank-field">
+          <div style="min-width:0; flex:1;">
+            <div class="bank-field-label">IBAN</div>
+            <div class="bank-field-val" id="bankModalIban" style="font-size:11.5px;">FR76 1751 5900 0008 1234 5678 901</div>
+          </div>
+          <button type="button" class="btn-copy" onclick="copyBankField('bankModalIban', this)">Copier</button>
+        </div>
+        <div class="bank-field">
+          <div>
+            <div class="bank-field-label">BIC</div>
+            <div class="bank-field-val" id="bankModalBic">REVOFRP2</div>
+          </div>
+          <button type="button" class="btn-copy" onclick="copyBankField('bankModalBic', this)">Copier</button>
+        </div>
+        <div class="bank-field">
+          <div>
+            <div class="bank-field-label">Bénéficiaire</div>
+            <div class="bank-field-val" id="bankModalBeneficiary">Brahim Ben Said — BoostMySite</div>
+          </div>
+          <button type="button" class="btn-copy" onclick="copyBankField('bankModalBeneficiary', this)">Copier</button>
+        </div>
+        <div class="bank-field">
+          <div style="min-width:0; flex:1;">
+            <div class="bank-field-label">Motif à indiquer</div>
+            <div class="bank-field-val" id="bankModalReference">DEVIS BMS</div>
+          </div>
+          <button type="button" class="btn-copy" onclick="copyBankField('bankModalReference', this)">Copier</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn-dp btn-dp-card" style="width:100%; justify-content:center;" onclick="closeDepositModal()">
+        Fermer
+      </button>
     </div>
   </div>
 
@@ -466,6 +758,79 @@
       window.open(url, '_blank', 'noopener,noreferrer');
     }
 
+    /* GESTION DU RÈGLEMENT DE L'ACOMPTE */
+    function openDepositModal() {
+      const half = Math.round(quoteData.price / 2);
+      const cfg = window.BMSPayment ? window.BMSPayment.getConfig() : {
+        iban: 'FR76 1751 5900 0008 1234 5678 901',
+        bic: 'REVOFRP2',
+        beneficiary: 'Brahim Ben Said — BoostMySite'
+      };
+
+      document.getElementById('bankModalAmount').textContent = half.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €';
+      document.getElementById('bankModalIban').textContent = cfg.iban;
+      document.getElementById('bankModalBic').textContent = cfg.bic;
+      document.getElementById('bankModalBeneficiary').textContent = cfg.beneficiary;
+      document.getElementById('bankModalReference').textContent = `DEVIS ${quoteData.ref} ${quoteData.client}`.slice(0, 35);
+
+      const qrContainer = document.getElementById('qrCodeContainer');
+      qrContainer.innerHTML = '';
+
+      if (window.BMSPayment && window.QRCode) {
+        const epcPayload = window.BMSPayment.buildEpcQrString(half, quoteData.ref, quoteData.client);
+        new window.QRCode(qrContainer, {
+          text: epcPayload,
+          width: 164,
+          height: 164,
+          colorDark: '#0F172A',
+          colorLight: '#FFFFFF',
+          correctLevel: window.QRCode.CorrectLevel.M
+        });
+      }
+
+      document.getElementById('depositModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDepositModal() {
+      document.getElementById('depositModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleModalBackdropClick(e) {
+      if (e.target && e.target.id === 'depositModal') {
+        closeDepositModal();
+      }
+    }
+
+    function copyBankField(id, btnEl) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const text = el.textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        if (btnEl) {
+          const prev = btnEl.textContent;
+          btnEl.textContent = 'Copié !';
+          btnEl.style.background = '#DCFCE7';
+          btnEl.style.color = '#15803D';
+          setTimeout(() => {
+            btnEl.textContent = prev;
+            btnEl.style.background = '';
+            btnEl.style.color = '';
+          }, 1500);
+        }
+      }).catch(() => {
+        window.prompt('Copiez le texte :', text);
+      });
+    }
+
+    function payByCard() {
+      const cfg = window.BMSPayment ? window.BMSPayment.getConfig() : {};
+      const links = cfg.stripeLinks || {};
+      const url = links[quoteData.pack] || links.pro || 'https://buy.stripe.com/test_pro_495';
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       const p = new URLSearchParams(window.location.search);
       if (p.get('ref')) quoteData.ref = p.get('ref').replace(/[^a-zA-Z0-9-]/g, '');
@@ -498,6 +863,8 @@
       document.getElementById('quoteTotalBottom').textContent = quoteData.price.toLocaleString('fr-FR') + ' €';
       document.getElementById('quoteDepositBottom').textContent = half.toLocaleString('fr-FR') + ' €';
       document.getElementById('quoteBalanceBottom').textContent = rest.toLocaleString('fr-FR') + ' €';
+      const depositBoxEl = document.getElementById('depositBoxAmount');
+      if (depositBoxEl) depositBoxEl.textContent = half.toLocaleString('fr-FR') + ' €';
       document.getElementById('stickyTotalText').textContent = `Total : ${quoteData.price.toLocaleString('fr-FR')} €`;
       document.getElementById('stickyDepositText').textContent = `Acompte 50 % : ${half.toLocaleString('fr-FR')} €`;
 
