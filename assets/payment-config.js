@@ -1,6 +1,6 @@
-/* BoostMySite — Configuration des encaissements d'acompte (Virement instantané SEPA EPC & CB/Stripe)
- * Fichier partagé pour devis.html et devis-express.html
- * Modifiez votre IBAN et vos liens Stripe ci-dessous. */
+/* BoostMySite — Configuration des encaissements d'acompte (Virement instantané SEPA EPC Revolut)
+ * Fichier partagé pour devis.html, devis-express.html et devis-pdf.js
+ * Virement bancaire instantané SEPA 100 % direct vers compte Revolut. */
 (function () {
   'use strict';
 
@@ -9,13 +9,7 @@
     iban: 'FR76 2823 3000 0117 1939 3893 095',
     bic: 'REVOFRP2',
     bankName: 'Revolut Bank UAB (Paris)',
-    phone: '06 98 72 72 47',
-    stripeLinks: {
-      starter: 'https://buy.stripe.com/test_starter_245', // Lien Stripe Acompte Starter (245 €)
-      pro: 'https://buy.stripe.com/test_pro_495',         // Lien Stripe Acompte Pro (495 €)
-      cb: 'https://buy.stripe.com/test_cb_745',           // Lien Stripe Acompte CB (745 €)
-      custom: 'https://buy.stripe.com/test_custom'
-    }
+    phone: '06 98 72 72 47'
   };
 
   function getConfig() {

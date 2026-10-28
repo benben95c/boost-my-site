@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Suivi des Projets & Pipeline — BoostMySite Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0F172A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="app-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --green: #16A34A;
+      --emerald: #10B981;
+      --blue: #2563EB;
+      --amber: #D97706;
+      --purple: #7C3AED;
+      --red: #DC2626;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+      padding-bottom: calc(75px + var(--safe-bottom));
+      min-height: 100vh;
+    }
+
+    /* ÉCRAN DE VERROUILLAGE PIN */
+    .pin-lock-overlay {
+      position: fixed;
+      inset: 0;
+      background: #0F172A;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .pin-box {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: #fff;
+    }
+
+    .pin-dots {
+      display: flex;
+      gap: 14px;
+      margin: 12px 0 20px 0;
+    }
+
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #475569;
+      background: transparent;
+      transition: all 0.2s;
+    }
+
+    .pin-dot.filled {
+      background: #10B981;
+      border-color: #10B981;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    }
+
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .pin-key {
+      background: #1E293B;
+      border: 1px solid #334155;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      padding: 16px 0;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.1s, transform 0.1s;
+    }
+
+    .pin-key:active {
+      background: #334155;
+      transform: scale(0.96);
+    }
+
+    /* HEADER FIXE */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0F172A;
+      color: #fff;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #1E293B;
+    }
+
+    .app-switch {
+      display: inline-flex;
+      background: #1E293B;
+      padding: 3px;
+      border-radius: 9px;
+      gap: 2px;
+    }
+
+    .app-switch a {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 7px;
+      transition: all 0.15s;
+    }
+
+    .app-switch a.active {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .v-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      cursor: pointer;
+    }
+
+    .btn-top {
+      background: #1E293B;
+      color: #F8FAFC;
+      border: 1px solid #334155;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-size: 11.5px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 14px 14px 30px 14px;
+    }
+
+    /* KPI METRICS BAR */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .kpi-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--muted);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .kpi-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .kpi-card.cash .kpi-val {
+      color: var(--green);
+    }
+
+    .kpi-sub {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* CONTROLS BAR: SEARCH & BUTTONS */
+    .controls-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+
+    .search-inp {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 12px 9px 34px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .search-inp:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .btn-add-project {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .btn-add-project:hover {
+      background: #15803D;
+    }
+
+    /* FILTER PILLS */
+    .filter-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .filter-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pill-btn {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 20px;
+      padding: 5px 11px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+
+    .pill-btn.active {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #0F172A;
+    }
+
+    .pill-count {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: #F1F5F9;
+      color: var(--ink);
+    }
+
+    .pill-btn.active .pill-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+    }
+
+    /* PROJECT CARDS LIST */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .project-card:hover {
+      border-color: #CBD5E1;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .client-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .client-meta {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 3px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .client-meta a {
+      color: var(--ink);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-badge.devis_envoye { background: #FEF3C7; color: #92400E; }
+    .status-badge.signe { background: #DBEAFE; color: #1E40AF; }
+    .status-badge.acompte_recu { background: #DCFCE7; color: #166534; }
+    .status-badge.en_creation { background: #F3E8FF; color: #6B21A8; }
+    .status-badge.livre { background: #D1FAE5; color: #065F46; }
+    .status-badge.sans_suite { background: #F1F5F9; color: #64748B; }
+
+    /* OFFER & FINANCIAL ROW */
+    .card-finances {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 11px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pack-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .finance-sums {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .fin-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .fin-item-label {
+      font-size: 9.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .fin-item-val {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .fin-item-val.paid {
+      color: var(--green);
+    }
+
+    /* OPTIONS TAGS */
+    .card-options-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .opt-tag {
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* CARD BOTTOM CONTROLS */
+    .card-actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #F1F5F9;
+      flex-wrap: wrap;
+    }
+
+    .status-select-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-select-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .status-select {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 5px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .card-btns {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .btn-card-act {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      color: var(--ink);
+      border-radius: 7px;
+      padding: 5px 9px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+
+    .btn-card-act:hover {
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+
+    .btn-card-act.wa {
+      background: #DCFCE7;
+      color: #166534;
+      border-color: #BBF7D0;
+    }
+
+    .btn-card-act.wa:hover {
+      background: #BBF7D0;
+    }
+
+    .btn-card-act.del {
+      color: #94A3B8;
+      border: none;
+      background: none;
+      padding: 5px;
+    }
+
+    .btn-card-act.del:hover {
+      color: #DC2626;
+      background: #FEE2E2;
+    }
+
+    /* NOTES ROW */
+    .card-note-box {
+      margin-top: 8px;
+    }
+
+    .card-note-inp {
+      width: 100%;
+      background: #FAF5FF;
+      border: 1px solid #E9D5FF;
+      border-radius: 6px;
+      padding: 6px 9px;
+      font-size: 11.5px;
+      font-family: inherit;
+      color: #581C87;
+      resize: vertical;
+      min-height: 36px;
+    }
+
+    .card-note-inp::placeholder {
+      color: #C084FC;
+      font-style: italic;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      background: #FFFFFF;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+    }
+
+    .empty-state svg {
+      color: #CBD5E1;
+      margin-bottom: 12px;
+    }
+
+    /* MODAL AJOUT PROJET */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: #FFFFFF;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 460px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 11px;
+    }
+
+    .form-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .form-inp {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      outline: none;
+    }
+
+    .form-inp:focus {
+      border-color: var(--green);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .btn-submit {
+      flex: 1;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-cancel {
+      background: #F1F5F9;
+      color: #334155;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: #0F172A;
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 10000;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ÉCRAN PIN LOCAL (FAIL CLOSED) -->
+  <div id="pinLockScreen" class="pin-lock-overlay" style="display:none;">
+    <div class="pin-box">
+      <div style="font-size:24px;">🔒</div>
+      <h2 style="font-size:17px; font-weight:800;">Espace Équipe BoostMySite</h2>
+      <p style="font-size:12px; color:#94A3B8; text-align:center;">Entrez le code PIN pour accéder au Suivi</p>
+
+      <div class="pin-dots">
+        <div class="pin-dot" id="pDot0"></div>
+        <div class="pin-dot" id="pDot1"></div>
+        <div class="pin-dot" id="pDot2"></div>
+        <div class="pin-dot" id="pDot3"></div>
+      </div>
+
+      <div class="pin-keypad">
+        <button type="button" class="pin-key" onclick="pressPin('1')">1</button>
+        <button type="button" class="pin-key" onclick="pressPin('2')">2</button>
+        <button type="button" class="pin-key" onclick="pressPin('3')">3</button>
+        <button type="button" class="pin-key" onclick="pressPin('4')">4</button>
+        <button type="button" class="pin-key" onclick="pressPin('5')">5</button>
+        <button type="button" class="pin-key" onclick="pressPin('6')">6</button>
+        <button type="button" class="pin-key" onclick="pressPin('7')">7</button>
+        <button type="button" class="pin-key" onclick="pressPin('8')">8</button>
+        <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
+        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:13px; color:#94A3B8;">C</button>
+        <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
+        <button type="button" class="pin-key" onclick="backspacePin()" style="font-size:15px;">⌫</button>
+      </div>
+      <a href="../index.html" style="color:#64748B; font-size:12px; text-decoration:none; margin-top:8px;">Retour au site public</a>
+    </div>
+  </div>
+
+  <!-- HEADER NAVIGATION -->
+  <header>
+    <div class="app-switch">
+      <a href="tournee-clients.html">Carte</a>
+      <a href="devis-express.html">Devis</a>
+      <a href="suivi-projets.html" class="active">Suivi</a>
+    </div>
+    <div class="header-actions">
+      <span class="v-badge" onclick="window.location.reload(true)" title="Actualiser les données">v3.2 Suivi 📋</span>
+      <button type="button" class="btn-top" onclick="exportDataJson()" title="Sauvegarder les données">💾 Backup</button>
+      <a href="../portfolio.html" class="btn-top">Démos</a>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- KPI STATS BAR -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Pipeline Total
+        </div>
+        <div class="kpi-val" id="kpiTotalPipeline">0 €</div>
+        <div class="kpi-sub" id="kpiActiveCount">0 dossier actif</div>
+      </div>
+
+      <div class="kpi-card cash">
+        <div class="kpi-label" style="color:#16A34A;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Acomptes Reçus (50%)
+        </div>
+        <div class="kpi-val" id="kpiTotalAcomptes">0 €</div>
+        <div class="kpi-sub" style="color:#166534;" id="kpiAcompteCount">Revolut validé</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label" style="color:#7C3AED;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          En Création
+        </div>
+        <div class="kpi-val" id="kpiEnCreation">0</div>
+        <div class="kpi-sub">Sites en chantier</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label" style="color:#2563EB;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Soldes à Venir (50%)
+        </div>
+        <div class="kpi-val" id="kpiTotalSoldes">0 €</div>
+        <div class="kpi-sub">À la livraison</div>
+      </div>
+    </div>
+
+    <!-- CONTROLS & RECHERCHE -->
+    <div class="controls-bar">
+      <div class="search-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" class="search-inp" placeholder="Rechercher par commerce, ville, téléphone, réf..." oninput="handleSearch()">
+      </div>
+      <button type="button" class="btn-add-project" onclick="openAddProjectModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        + Nouveau Dossier
+      </button>
+    </div>
+
+    <!-- FILTRES HORIZONTAUX -->
+    <div class="filter-pills" id="filterPillsContainer">
+      <!-- Rendu par JS -->
+    </div>
+
+    <!-- LISTE DES CARTES PROJETS -->
+    <div class="project-list" id="projectListContainer">
+      <!-- Rendu par JS -->
+    </div>
+
+  </div>
+
+  <!-- MODAL NOUVEAU DOSSIER -->
+  <div id="addModal" class="modal-backdrop" onclick="if(event.target===this)closeAddModal()">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <span class="modal-title">+ Nouveau Dossier Client</span>
+        <button type="button" class="modal-close" onclick="closeAddModal()">✕</button>
+      </div>
+
+      <form id="addProjectForm" onsubmit="handleCreateProject(event)">
+        <div class="form-group">
+          <label class="form-label">Établissement / Client *</label>
+          <input type="text" id="newClient" class="form-inp" placeholder="Ex: Restaurant Le Marrakech" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Adresse / Ville</label>
+          <input type="text" id="newAddress" class="form-inp" placeholder="Ex: 12 Rue de l'Hôtel de Ville, Pontoise">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input type="tel" id="newPhone" class="form-inp" placeholder="Ex: 06 12 34 56 78">
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label class="form-label">Forfait</label>
+            <select id="newPack" class="form-inp" onchange="updateNewPriceFromPack()">
+              <option value="starter">Starter (490 €)</option>
+              <option value="pro" selected>Pro Click&Collect (990 €)</option>
+              <option value="cb">Click&Collect CB (1 490 €)</option>
+              <option value="custom">Sur Mesure (2 500 €)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Prix Total (€)</label>
+            <input type="number" id="newPrice" class="form-inp" value="990" min="0" step="10" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Statut Initial</label>
+          <select id="newStatus" class="form-inp">
+            <option value="devis_envoye">⏳ Devis envoyé</option>
+            <option value="signe">✍️ Bon pour accord / Signé</option>
+            <option value="acompte_recu">⚡ Acompte 50 % reçu (Revolut)</option>
+            <option value="en_creation">💻 En création de site</option>
+            <option value="livre">🎉 Livré & Soldé (100 %)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Notes de suivi</label>
+          <input type="text" id="newNotes" class="form-inp" placeholder="Ex: RDV photos pris, attente logo...">
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeAddModal()">Annuler</button>
+          <button type="submit" class="btn-submit">Créer le dossier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Action effectuée</div>
+
+  <script>
+    const STAGES = [
+      { key: 'all', label: 'Tous', icon: '📁' },
+      { key: 'devis_envoye', label: 'Devis envoyé', icon: '⏳' },
+      { key: 'signe', label: 'Accord / Signé', icon: '✍️' },
+      { key: 'acompte_recu', label: 'Acompte 50% reçu', icon: '⚡' },
+      { key: 'en_creation', label: 'En création', icon: '💻' },
+      { key: 'livre', label: 'Livré & Soldé', icon: '🎉' },
+      { key: 'sans_suite', label: 'Sans suite', icon: '❌' }
+    ];
+
+    const PACK_LABELS = {
+      starter: 'Forfait Vitrine',
+      pro: 'Forfait Pro Click & Collect',
+      cb: 'Forfait CB & Commande',
+      custom: 'Sur Mesure'
+    };
+
+    const PACK_BASE_PRICES = {
+      starter: 490,
+      pro: 990,
+      cb: 1490,
+      custom: 2500
+    };
+
+    // ÉCHANTILLONS RÉELS DE DÉPART SI AUCUNE DONNÉE ENCORE SAUVEGARDÉE
+    const SAMPLE_PROJECTS = [
+      {
+        id: 'BMS-8412',
+        refCode: 'BMS-8412',
+        client: 'Pepper Smash',
+        address: '18 Mail de la Cavalerie, 95300 Pontoise',
+        phone: '01 30 32 79 28',
+        pack: 'pro',
+        total: 1390,
+        deposit: 695,
+        balance: 695,
+        customItems: [{ title: 'Borne de commande tactile', price: 400 }],
+        date: '28/10/2026',
+        status: 'acompte_recu',
+        notes: 'Acompte Revolut validé. Photos du restaurant faites mardi.',
+        updatedAt: '2026-10-28T09:00:00Z'
+      },
+      {
+        id: 'BMS-5120',
+        refCode: 'BMS-5120',
+        client: 'Be\'Sushi Pontoise',
+        address: '11 Rue de Rouen, 95300 Pontoise',
+        phone: '01 30 31 90 74',
+        pack: 'pro',
+        total: 990,
+        deposit: 495,
+        balance: 495,
+        customItems: [],
+        date: '27/10/2026',
+        status: 'signe',
+        notes: 'Devis signé sur place au doigt. En attente du virement acompte.',
+        updatedAt: '2026-10-27T17:30:00Z'
+      },
+      {
+        id: 'BMS-3904',
+        refCode: 'BMS-3904',
+        client: 'Chicken Drive Pontoise',
+        address: '18 Rue de Rouen, 95300 Pontoise',
+        phone: '07 59 70 40 28',
+        pack: 'starter',
+        total: 490,
+        deposit: 245,
+        balance: 245,
+        customItems: [],
+        date: '26/10/2026',
+        status: 'devis_envoye',
+        notes: 'Gérant intéressé par la liaison Google Maps & horaires.',
+        updatedAt: '2026-10-26T14:15:00Z'
+      }
+    ];
+
+    let projects = [];
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function loadProjects() {
+      try {
+        const raw = localStorage.getItem('bms_pipeline_projects');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            projects = parsed;
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // Si premier lancement, initialiser avec les échantillons
+      projects = SAMPLE_PROJECTS.slice();
+      saveProjects();
+    }
+
+    function saveProjects() {
+      try {
+        localStorage.setItem('bms_pipeline_projects', JSON.stringify(projects));
+      } catch (e) {}
+    }
+
+    function renderFilterPills() {
+      const container = document.getElementById('filterPillsContainer');
+      container.innerHTML = STAGES.map(s => {
+        let count = 0;
+        if (s.key === 'all') {
+          count = projects.filter(p => p.status !== 'sans_suite').length;
+        } else {
+          count = projects.filter(p => p.status === s.key).length;
+        }
+        const isActive = activeFilter === s.key;
+        return `
+          <button type="button" class="pill-btn ${isActive ? 'active' : ''}" onclick="setFilter('${s.key}')">
+            <span>${s.icon} ${s.label}</span>
+            <span class="pill-count">${count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setFilter(key) {
+      activeFilter = key;
+      renderFilterPills();
+      renderProjects();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+      renderProjects();
+    }
+
+    function updateKPIs() {
+      let activeProjects = projects.filter(p => p.status !== 'sans_suite');
+      let totalPipeline = 0;
+      let totalAcomptes = 0;
+      let totalSoldes = 0;
+      let enCreationCount = 0;
+      let acompteCount = 0;
+
+      activeProjects.forEach(p => {
+        const tot = Number(p.total) || 0;
+        const dep = Number(p.deposit) || Math.round(tot / 2);
+        const bal = tot - dep;
+
+        totalPipeline += tot;
+
+        if (p.status === 'acompte_recu' || p.status === 'en_creation' || p.status === 'livre') {
+          totalAcomptes += dep;
+          acompteCount++;
+        }
+
+        if (p.status === 'en_creation') {
+          enCreationCount++;
+        }
+
+        if (p.status === 'acompte_recu' || p.status === 'en_creation') {
+          totalSoldes += bal;
+        }
+      });
+
+      document.getElementById('kpiTotalPipeline').textContent = totalPipeline.toLocaleString('fr-FR') + ' €';
+      document.getElementById('kpiActiveCount').textContent = `${activeProjects.length} dossier${activeProjects.length > 1 ? 's' : ''} actif${activeProjects.length > 1 ? 's' : ''}`;
+
+      document.getElementById('kpiTotalAcomptes').textContent = totalAcomptes.toLocaleString('fr-FR') + ' €';
+      document.getElementById('kpiAcompteCount').textContent = `${acompteCount} acompte${acompteCount > 1 ? 's' : ''} encaissé${acompteCount > 1 ? 's' : ''}`;
+
+      document.getElementById('kpiEnCreation').textContent = enCreationCount;
+      document.getElementById('kpiTotalSoldes').textContent = totalSoldes.toLocaleString('fr-FR') + ' €';
+    }
+
+    function updateProjectStatus(id, newStatus) {
+      const p = projects.find(it => it.id === id);
+      if (!p) return;
+      p.status = newStatus;
+      p.updatedAt = new Date().toISOString();
+      saveProjects();
+      updateKPIs();
+      renderFilterPills();
+      renderProjects();
+      showToast(`Statut mis à jour : ${p.client}`);
+    }
+
+    function updateProjectNote(id, noteVal) {
+      const p = projects.find(it => it.id === id);
+      if (!p) return;
+      p.notes = noteVal.trim();
+      p.updatedAt = new Date().toISOString();
+      saveProjects();
+    }
+
+    function deleteProject(id) {
+      const p = projects.find(it => it.id === id);
+      if (!p) return;
+      if (!confirm(`Supprimer définitivement le dossier "${p.client}" ?`)) return;
+      projects = projects.filter(it => it.id !== id);
+      saveProjects();
+      updateKPIs();
+      renderFilterPills();
+      renderProjects();
+      showToast('Dossier supprimé');
+    }
+
+    function getFilteredProjects() {
+      return projects.filter(p => {
+        // Filtre par étape
+        if (activeFilter === 'all') {
+          if (p.status === 'sans_suite' && !searchQuery) return false;
+        } else if (p.status !== activeFilter) {
+          return false;
+        }
+
+        // Filtre de recherche texte
+        if (searchQuery) {
+          const haystack = `${p.client} ${p.address || ''} ${p.phone || ''} ${p.refCode || ''} ${p.notes || ''}`.toLowerCase();
+          return haystack.includes(searchQuery);
+        }
+
+        return true;
+      });
+    }
+
+    function renderProjects() {
+      const container = document.getElementById('projectListContainer');
+      const list = getFilteredProjects();
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+            <h3 style="font-size:15px; font-weight:700; color:var(--ink); margin-bottom:4px;">Aucun dossier trouvé</h3>
+            <p style="font-size:12px;">Modifiez vos filtres ou créez un nouveau dossier client ci-dessus.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(p => {
+        const stageObj = STAGES.find(s => s.key === p.status) || { label: p.status, icon: '•' };
+        const tot = Number(p.total) || 0;
+        const dep = Number(p.deposit) || Math.round(tot / 2);
+        const bal = tot - dep;
+        const packLabel = PACK_LABELS[p.pack] || p.pack || 'Forfait Site';
+        const cleanPhone = (p.phone || '').replace(/[^0-9+]/g, '');
+
+        // Options badges
+        const optBadges = (p.customItems && p.customItems.length > 0)
+          ? p.customItems.map(ci => `<span class="opt-tag">+ ${esc(ci.title)} (${Number(ci.price)} €)</span>`).join('')
+          : '';
+
+        // Lien direct devis ou WhatsApp
+        let waText = `Bonjour ${p.client}, c'est Brahim de BoostMySite au sujet de votre projet web (#${p.refCode}).`;
+        if (p.status === 'devis_envoye') {
+          waText = `Bonjour ${p.client}, avez-vous pu jeter un œil au devis BoostMySite (#${p.refCode}) ? Je reste dispo si vous avez la moindre question !`;
+        } else if (p.status === 'signe') {
+          waText = `Bonjour ${p.client}, nous avons bien validé votre accord pour le projet web. Vous pouvez effectuer l'acompte de démarrage (50 %) directement par virement instantané.`;
+        }
+
+        const waPhone = cleanPhone.startsWith('0') ? ('33' + cleanPhone.slice(1)) : cleanPhone;
+        const waUrl = waPhone ? `https://wa.me/${waPhone}?text=${encodeURIComponent(waText)}` : `https://wa.me/?text=${encodeURIComponent(waText)}`;
+
+        const devisDirectUrl = p.quoteUrl || `devis-express.html?client=${encodeURIComponent(p.client)}&phone=${encodeURIComponent(p.phone||'')}&address=${encodeURIComponent(p.address||'')}&pack=${p.pack||'pro'}&price=${tot}`;
+
+        const isDepositPaid = (p.status === 'acompte_recu' || p.status === 'en_creation' || p.status === 'livre');
+        const isBalancePaid = (p.status === 'livre');
+
+        return `
+          <div class="project-card">
+            <div class="card-top">
+              <div>
+                <div class="client-title">${esc(p.client)}</div>
+                <div class="client-meta">
+                  ${p.address ? `<span>📍 ${esc(p.address)}</span>` : ''}
+                  ${p.phone ? `<span>📞 <a href="tel:${cleanPhone}">${esc(p.phone)}</a></span>` : ''}
+                  <span>📅 ${esc(p.date || 'Récemment')}</span>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <span class="status-badge ${p.status}">${stageObj.icon} ${stageObj.label}</span>
+                <div style="font-size:10px; color:var(--muted); font-weight:700; margin-top:3px;">#${esc(p.refCode || 'BMS')}</div>
+              </div>
+            </div>
+
+            <!-- Détail financier -->
+            <div class="card-finances">
+              <div>
+                <span class="pack-name">${packLabel}</span>
+                ${optBadges ? `<div class="card-options-tags" style="margin-top:4px;">${optBadges}</div>` : ''}
+              </div>
+              <div class="finance-sums">
+                <div class="fin-item">
+                  <span class="fin-item-label">Total</span>
+                  <strong class="fin-item-val">${tot.toLocaleString('fr-FR')} €</strong>
+                </div>
+                <div class="fin-item">
+                  <span class="fin-item-label">Acompte 50%</span>
+                  <strong class="fin-item-val ${isDepositPaid ? 'paid' : ''}">${isDepositPaid ? '✓ ' : ''}${dep.toLocaleString('fr-FR')} €</strong>
+                </div>
+                <div class="fin-item">
+                  <span class="fin-item-label">Solde 50%</span>
+                  <strong class="fin-item-val ${isBalancePaid ? 'paid' : ''}">${isBalancePaid ? '✓ ' : ''}${bal.toLocaleString('fr-FR')} €</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Note rapide modifiable -->
+            <div class="card-note-box">
+              <textarea class="card-note-inp" placeholder="Ajouter une note de suivi (ex: RDV convenu, photos reçues...)" onblur="updateProjectNote('${p.id}', this.value)">${esc(p.notes || '')}</textarea>
+            </div>
+
+            <!-- Barre d'actions -->
+            <div class="card-actions-bar">
+              <div class="status-select-wrap">
+                <span class="status-select-label">Statut :</span>
+                <select class="status-select" onchange="updateProjectStatus('${p.id}', this.value)">
+                  <option value="devis_envoye" ${p.status==='devis_envoye'?'selected':''}>⏳ Devis envoyé</option>
+                  <option value="signe" ${p.status==='signe'?'selected':''}>✍️ Accord / Signé</option>
+                  <option value="acompte_recu" ${p.status==='acompte_recu'?'selected':''}>⚡ Acompte 50% reçu</option>
+                  <option value="en_creation" ${p.status==='en_creation'?'selected':''}>💻 En création</option>
+                  <option value="livre" ${p.status==='livre'?'selected':''}>🎉 Livré & Soldé</option>
+                  <option value="sans_suite" ${p.status==='sans_suite'?'selected':''}>❌ Sans suite</option>
+                </select>
+              </div>
+
+              <div class="card-btns">
+                <a href="${waUrl}" target="_blank" rel="noopener" class="btn-card-act wa" title="Contacter sur WhatsApp">
+                  💬 WhatsApp
+                </a>
+                <a href="${devisDirectUrl}" class="btn-card-act" title="Ouvrir le devis">
+                  📄 Devis
+                </a>
+                <button type="button" class="btn-card-act del" onclick="deleteProject('${p.id}')" title="Supprimer">
+                  🗑️
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* GESTION DE L'AJOUT DE NOUVEAU DOSSIER */
+    function openAddProjectModal() {
+      document.getElementById('addProjectForm').reset();
+      document.getElementById('newPrice').value = '990';
+      document.getElementById('addModal').classList.add('open');
+    }
+
+    function closeAddModal() {
+      document.getElementById('addModal').classList.remove('open');
+    }
+
+    function updateNewPriceFromPack() {
+      const pack = document.getElementById('newPack').value;
+      const basePrice = PACK_BASE_PRICES[pack] || 990;
+      document.getElementById('newPrice').value = basePrice;
+    }
+
+    function handleCreateProject(e) {
+      e.preventDefault();
+      const client = document.getElementById('newClient').value.trim();
+      const address = document.getElementById('newAddress').value.trim();
+      const phone = document.getElementById('newPhone').value.trim();
+      const pack = document.getElementById('newPack').value;
+      const total = Math.max(0, parseFloat(document.getElementById('newPrice').value) || 0);
+      const half = Math.round(total / 2);
+      const status = document.getElementById('newStatus').value;
+      const notes = document.getElementById('newNotes').value.trim();
+
+      const newRef = 'BMS-' + Math.floor(1000 + Math.random() * 9000);
+      const newObj = {
+        id: newRef,
+        refCode: newRef,
+        client: client,
+        address: address,
+        phone: phone,
+        pack: pack,
+        total: total,
+        deposit: half,
+        balance: total - half,
+        customItems: [],
+        date: new Date().toLocaleDateString('fr-FR'),
+        status: status,
+        notes: notes,
+        updatedAt: new Date().toISOString()
+      };
+
+      projects.unshift(newObj);
+      saveProjects();
+      closeAddModal();
+      updateKPIs();
+      renderFilterPills();
+      renderProjects();
+      showToast(`Dossier créé : ${client}`);
+    }
+
+    function exportDataJson() {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(projects, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute('href', dataStr);
+      a.setAttribute('download', `Pipeline-BoostMySite-${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('💾 Sauvegarde JSON téléchargée');
+    }
+
+    /* AUTH PIN LOCAL (FAIL CLOSED) */
+    const DEV_PIN_STORAGE_KEY = 'bms_dev_auth_v1';
+    const REQUIRED_PIN = '9595';
+    let enteredPin = '';
+
+    function updatePinDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById('pDot' + i);
+        if (dot) dot.classList.toggle('filled', i < enteredPin.length);
+      }
+    }
+
+    function pressPin(d) {
+      if (enteredPin.length >= 4) return;
+      enteredPin += d;
+      updatePinDots();
+      if (enteredPin.length === 4) {
+        setTimeout(verifyPin, 100);
+      }
+    }
+
+    function clearPin() {
+      enteredPin = '';
+      updatePinDots();
+    }
+
+    function backspacePin() {
+      if (enteredPin.length > 0) {
+        enteredPin = enteredPin.slice(0, -1);
+        updatePinDots();
+      }
+    }
+
+    function verifyPin() {
+      if (enteredPin === REQUIRED_PIN) {
+        try { sessionStorage.setItem(DEV_PIN_STORAGE_KEY, 'ok'); } catch (e) {}
+        document.getElementById('pinLockScreen').style.display = 'none';
+        enteredPin = '';
+        updatePinDots();
+        initPipeline();
+      } else {
+        alert('Code PIN incorrect.');
+        clearPin();
+      }
+    }
+
+    function checkAuth() {
+      try {
+        if (sessionStorage.getItem(DEV_PIN_STORAGE_KEY) === 'ok') {
+          document.getElementById('pinLockScreen').style.display = 'none';
+          initPipeline();
+          return;
+        }
+      } catch (e) {}
+      document.getElementById('pinLockScreen').style.display = 'flex';
+    }
+
+    function initPipeline() {
+      loadProjects();
+      updateKPIs();
+      renderFilterPills();
+      renderProjects();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+    });
+  </script>
+</body>
+</html>

@@ -19,9 +19,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- jsPDF officiel avec intégrité SHA-384 & module devis partagé -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
-  <script src="/assets/payment-config.js?v=20261027_06"></script>
-  <script src="/assets/qrcode.min.js?v=20261027_06"></script>
-  <script src="/assets/devis-pdf.js?v=20261027_06"></script>
+  <script src="/assets/payment-config.js?v=20261028_01"></script>
+  <script src="/assets/qrcode.min.js?v=20261028_01"></script>
+  <script src="/assets/devis-pdf.js?v=20261028_01"></script>
   <style>
     :root {
       --bg: #F8FAFC;
@@ -1011,9 +1011,10 @@
     <div class="app-switch">
       <a href="tournee-clients.html">Carte</a>
       <a href="devis-express.html" class="active">Devis</a>
+      <a href="suivi-projets.html">Suivi</a>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
-      <span class="v-badge" onclick="window.location.reload(true)" title="Appuyer pour forcer l'actualisation">v3.1 Devis Sur-Mesure ⚡</span>
+      <span class="v-badge" onclick="window.location.reload(true)" title="Appuyer pour forcer l'actualisation">v3.2 Suivi 📋</span>
       <a href="../portfolio.html" class="btn-top">Démos</a>
     </div>
   </header>
@@ -1153,14 +1154,10 @@
         </div>
         <strong class="field-dp-sum" id="fieldDpSum">495 €</strong>
       </div>
-      <div class="field-dp-btns">
-        <button type="button" class="btn-field-dp btn-field-dp-qr" onclick="openFieldDepositModal()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          QR Virement Instantané
-        </button>
-        <button type="button" class="btn-field-dp btn-field-dp-cb" onclick="fieldPayByCard()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          Carte / Apple Pay
+      <div class="field-dp-btns" style="grid-template-columns: 1fr;">
+        <button type="button" class="btn-field-dp btn-field-dp-qr" style="width:100%; justify-content:center; padding:12px 14px;" onclick="openFieldDepositModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Afficher le QR Virement Instantané Revolut
         </button>
       </div>
     </div>
@@ -1198,7 +1195,7 @@
     </div>
   </div>
 
-  <!-- MODAL ENCAISSEMENT TERRAIN (EPC-QR + STRIPE) -->
+  <!-- MODAL ENCAISSEMENT TERRAIN (EPC-QR VIREMENT INSTANTANÉ REVOLUT) -->
   <div id="fieldDepositModal" class="modal-backdrop" onclick="handleFieldModalClick(event)">
     <div class="modal-sheet">
       <div class="modal-head">
@@ -1257,11 +1254,8 @@
         </div>
       </div>
 
-      <div class="field-modal-actions">
-        <button type="button" class="btn-action btn-wa" style="justify-content:center;" onclick="fieldPayByCard()">
-          💳 Carte / Stripe
-        </button>
-        <button type="button" class="btn-action btn-pdf" style="justify-content:center;" onclick="closeFieldDepositModal()">
+      <div class="field-modal-actions" style="grid-template-columns: 1fr;">
+        <button type="button" class="btn-action btn-pdf" style="width:100%; justify-content:center; padding:12px;" onclick="closeFieldDepositModal()">
           Fermer
         </button>
       </div>
@@ -1599,7 +1593,7 @@
         `• Solde à la livraison après validation (50 %) : ${total - half} €`,
         ``,
         `⚡ *Règlement de l'acompte (${half} €) :*`,
-        `Par virement instantané ou CB directement sur votre devis en ligne ci-dessous :`,
+        `Par virement instantané sécurisé (QR code bancaire ou IBAN direct) :`,
         ``,
         `📥 *Consulter, signer et valider votre Devis :*`,
         link,
@@ -1679,17 +1673,52 @@
       });
     }
 
-    function fieldPayByCard() {
-      const cfg = window.BMSPayment ? window.BMSPayment.getConfig() : {};
-      const links = cfg.stripeLinks || {};
-      const url = links[currentOfferKey] || links.pro || 'https://buy.stripe.com/test_pro_495';
-      window.open(url, '_blank', 'noopener,noreferrer');
+    function saveQuoteToPipeline(quoteUrl) {
+      try {
+        const shop = document.getElementById('clientName').value.trim() || 'Client';
+        const addr = document.getElementById('clientAddress').value.trim();
+        const phone = document.getElementById('clientPhone').value.trim();
+        const total = Math.max(0, parseFloat(document.getElementById('customPriceInput').value) || 0);
+        const half = Math.round(total / 2);
+        const dateStr = document.getElementById('docDate').textContent || new Date().toLocaleDateString('fr-FR');
+
+        const raw = localStorage.getItem('bms_pipeline_projects');
+        let list = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(list)) list = [];
+
+        const existingIdx = list.findIndex(p => p.refCode === refCode || (p.client && p.client.toLowerCase() === shop.toLowerCase()));
+        const project = {
+          id: refCode || ('BMS-' + Date.now().toString(36)),
+          refCode: refCode,
+          client: shop,
+          address: addr,
+          phone: phone,
+          pack: currentOfferKey,
+          total: total,
+          deposit: half,
+          balance: total - half,
+          customItems: customItems,
+          date: dateStr,
+          quoteUrl: quoteUrl || '',
+          hasSignature: !!hasSignature,
+          status: hasSignature ? 'signe' : 'devis_envoye',
+          updatedAt: new Date().toISOString()
+        };
+
+        if (existingIdx >= 0) {
+          list[existingIdx] = Object.assign({}, list[existingIdx], project);
+        } else {
+          list.unshift(project);
+        }
+        localStorage.setItem('bms_pipeline_projects', JSON.stringify(list));
+      } catch (e) {}
     }
 
     async function downloadPDF() {
       const shop = document.getElementById('clientName').value.trim() || 'Client';
       const filename = getQuoteFilename(shop);
       const signedUrl = await getSignedQuoteUrl();
+      saveQuoteToPipeline(signedUrl);
       const doc = generatePDFDocument(signedUrl);
       doc.save(filename);
       showToast('📄 Devis PDF téléchargé : ' + filename);
@@ -1699,6 +1728,7 @@
       const shop = document.getElementById('clientName').value.trim() || 'Client';
       const filename = getQuoteFilename(shop);
       const signedUrl = await getSignedQuoteUrl();
+      saveQuoteToPipeline(signedUrl);
       const doc = generatePDFDocument(signedUrl);
       doc.save(filename);
       const lines = buildWhatsAppMessageText(signedUrl);
@@ -1714,6 +1744,7 @@
       const shop = document.getElementById('clientName').value.trim() || 'Votre établissement';
       const filename = getQuoteFilename(shop);
       const signedUrl = await getSignedQuoteUrl();
+      saveQuoteToPipeline(signedUrl);
       const lines = buildWhatsAppMessageText(signedUrl);
 
       // 1. Génère le vrai fichier PDF avec QR code paiement & signature

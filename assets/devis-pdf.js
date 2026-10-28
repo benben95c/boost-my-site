@@ -364,7 +364,7 @@
     doc.text('2. Solde de 50 % a la livraison (apres validation du site) :', 22, s4Top + 21.8);
     doc.text(`${rest} EUR`, 188, s4Top + 21.8, { align: 'right' });
 
-    // 5. BLOC REGLEMENT SECURISE DE L'ACOMPTE 50 %
+    // 5. BLOC REGLEMENT SECURISE DE L'ACOMPTE 50 % (VIREMENT INSTANTANE SEPA REVOLUT)
     doc.setFillColor(240, 253, 244);
     doc.setDrawColor(187, 247, 208);
     doc.roundedRect(16, s5Top, 178, s5Height, 2.5, 2.5, 'FD');
@@ -379,11 +379,11 @@
     doc.setDrawColor(220, 252, 231);
     doc.line(22, s5Top + 9.5, 140, s5Top + 9.5);
 
-    // Option 1 : Virement SEPA
+    // Modalité unique et sécurisée : Virement SEPA
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.2);
     doc.setTextColor(15, 23, 42);
-    doc.text('Option 1 : Virement Instantane SEPA (pre-rempli par scan ou IBAN) :', 22, s5Top + 14.5);
+    doc.text('Modalite : Virement Bancaire Instantane SEPA (pre-rempli par scan ou IBAN) :', 22, s5Top + 14.5);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.6);
@@ -398,19 +398,14 @@
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.4);
     doc.setTextColor(71, 85, 105);
-    doc.text(`BIC : ${cfg.bic}   |   Beneficiaire : ${cfg.beneficiary}`, 24, s5Top + 24.5);
-    doc.text(`Motif a indiquer : DEVIS ${cleanPdfText(refCode)} ${shop.slice(0, 18)}`, 24, s5Top + 28.8);
+    doc.text(`BIC : ${cfg.bic}   |   Banque : Revolut Bank UAB (Paris)`, 24, s5Top + 24.5);
+    doc.text(`Beneficiaire : ${cfg.beneficiary}   |   Tel : ${cfg.phone || '06 98 72 72 47'}`, 24, s5Top + 28.8);
+    doc.text(`Motif a indiquer : DEVIS ${cleanPdfText(refCode)} ${shop.slice(0, 18)}`, 24, s5Top + 33.2);
 
-    // Option 2 : CB / En ligne
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8.2);
-    doc.setTextColor(15, 23, 42);
-    doc.text('Option 2 : Paiement Carte Bancaire / Apple Pay en ligne :', 22, s5Top + 34.5);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7.4);
+    doc.setFontSize(7.5);
     doc.setTextColor(22, 163, 74);
-    doc.textWithLink('-> Cliquez ici pour regler l\'acompte en ligne en 1 clic', 24, s5Top + 39.5, { url: payLink });
+    doc.textWithLink('-> Consulter et signer le devis en ligne (cliquez ici)', 24, s5Top + 39.5, { url: payLink });
 
     // QR Code encadré à droite
     if (qrDataUrl) {
@@ -478,7 +473,7 @@
   }
 
   window.BMSDevis = Object.freeze({
-    version: '20261027_06',
+    version: '20261028_01',
     OFFERS,
     cleanPdfText,
     getQuoteFilename,
