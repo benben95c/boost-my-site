@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Les Halles du Terroir — Boucherie Artisanale, Traiteur &amp; Épicerie Fine</title>
-  <meta name="description" content="Boucherie artisanale, rôtisserie fermière, plateaux traiteur et produits du terroir. Pré-commande Click & Collect coupe-file en boutique.">
+  <title>LES HALLES DU TERROIR — Boucherie Artisanale, Rôtisserie &amp; Épicerie Fine</title>
+  <meta name="description" content="Boucherie artisanale, cave de maturation, rôtisserie fermière et traiteur. Pré-commande Click & Collect coupe-file et calculateur de portions pour vos réceptions.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #FAF8F5;
-      --surface: #FFFFFF;
-      --warm: #F2ECE3;
-      --ink: #1F1916;
-      --muted: #6E625B;
-      --burgundy: #7F1D1D;
-      --forest: #14532D;
-      --border: #E4DDD2;
+      --bg: #F8F5EE;
+      --surface: #EFEAE0;
+      --ink: #1C1715;
+      --ink-muted: #685E57;
+      --bordeaux: #7A1F1D;
+      --border: #DFD7C8;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -25,231 +23,351 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--ink);
       font-family: var(--font-sans);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 32px;
     }
+    @media (max-width: 640px) { .container { padding: 0 20px; } }
 
     header {
-      background: rgba(250, 248, 245, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 80;
+      background: rgba(248, 245, 238, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
     }
     .nav-bar {
-      height: 76px;
+      height: 84px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .brand {
       font-family: var(--font-serif);
-      font-size: 27px;
-      font-weight: 700;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       color: var(--ink);
       text-decoration: none;
     }
     .nav-links {
       display: flex;
-      gap: 26px;
+      gap: 36px;
       list-style: none;
     }
     .nav-links a {
       text-decoration: none;
       color: var(--ink);
-      font-size: 13.5px;
-      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
     }
-    .btn-burgundy {
-      background: var(--burgundy);
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
+    .nav-links a:hover { color: var(--bordeaux); }
+    .btn-header {
+      background: var(--ink);
+      color: var(--bg);
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      padding: 12px 22px;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
       font-family: inherit;
+      transition: background 0.2s;
     }
-    @media (max-width: 768px) { .nav-links { display: none; } }
+    .btn-header:hover { background: var(--bordeaux); }
+    @media (max-width: 820px) { .nav-links { display: none; } }
 
+    /* HERO ÉDITORIAL */
     .hero {
-      padding: 56px 0 64px;
+      padding: 88px 0 96px;
       border-bottom: 1px solid var(--border);
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 40px;
-      align-items: center;
+    .hero-top {
+      max-width: 820px;
+      margin-bottom: 52px;
     }
-    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
     .eyebrow {
-      display: inline-block;
-      background: var(--warm);
-      color: var(--burgundy);
-      border: 1px solid var(--border);
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 11.5px;
-      font-weight: 800;
+      font-size: 0.76rem;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      letter-spacing: 0.16em;
+      color: var(--bordeaux);
+      font-weight: 600;
+      margin-bottom: 18px;
+      display: block;
     }
     .hero h1 {
       font-family: var(--font-serif);
-      font-size: clamp(36px, 4.8vw, 54px);
-      line-height: 1.08;
-      margin-bottom: 16px;
+      font-size: clamp(3rem, 5.4vw, 4.8rem);
+      font-weight: 500;
+      line-height: 1.02;
+      margin-bottom: 26px;
     }
-    .hero h1 em { color: var(--burgundy); font-style: italic; }
-    .hero p {
-      color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 24px;
+    .hero h1 em {
+      font-style: italic;
+      color: var(--bordeaux);
     }
-    .hero-img {
-      border-radius: 18px;
+    .hero-sub {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .hero-lead {
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      max-width: 540px;
+    }
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 16 / 7.8;
       overflow: hidden;
-      aspect-ratio: 4/3;
+      background: #1C1715;
     }
-    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-    .section {
-      padding: 64px 0;
+    /* ÉLEVEURS & MATURATION */
+    .philosophy {
+      padding: 100px 0;
       border-bottom: 1px solid var(--border);
     }
-    .sec-head {
-      text-align: center;
-      max-width: 640px;
-      margin: 0 auto 32px;
-    }
-    .sec-head h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(28px, 3.8vw, 42px);
-      margin-bottom: 8px;
-    }
-
-    .shop-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-    .sh-tab {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 9px 18px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .sh-tab.active {
-      background: var(--burgundy);
-      color: #fff;
-      border-color: var(--burgundy);
-    }
-
-    .shop-grid {
+    .phil-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 72px;
+      align-items: center;
     }
-    .sh-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+    @media (max-width: 860px) {
+      .phil-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .phil-photo {
+      aspect-ratio: 4 / 4.5;
       overflow: hidden;
+    }
+    .phil-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .phil-text h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 22px;
+    }
+    .phil-text p {
+      color: var(--ink-muted);
+      font-size: 1rem;
+      margin-bottom: 18px;
+      max-width: 520px;
+    }
+    .phil-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .phil-metrics strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .phil-metrics span {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+    }
+
+    /* ARDOISE DU BOUCHER (2 COLONNES) */
+    .menu-sheet {
+      padding: 104px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sheet-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 68px;
+    }
+    .sheet-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 3.8vw, 3.4rem);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .sheet-header p {
+      color: var(--ink-muted);
+      font-size: 0.96rem;
+    }
+    .menu-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 68px;
+    }
+    @media (max-width: 860px) {
+      .menu-columns { grid-template-columns: 1fr; gap: 44px; }
+    }
+    .menu-category-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--bordeaux);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 26px;
+    }
+    .cut-item {
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid rgba(223, 215, 200, 0.7);
+    }
+    .cut-row {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 4px;
     }
-    .sh-img {
-      height: 175px;
-      position: relative;
+    .cut-name {
+      font-family: var(--font-serif);
+      font-size: 1.32rem;
+      font-weight: 600;
     }
-    .sh-img img { width: 100%; height: 100%; object-fit: cover; }
-    .sh-tag {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: var(--forest);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 999px;
+    .cut-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      white-space: nowrap;
     }
-    .sh-body {
-      padding: 16px;
-      flex: 1;
+    .cut-price {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+    .btn-order-line {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink);
+      padding: 4px 10px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-order-line:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .cut-desc {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+    }
+
+    /* CALCULATEUR DE RÉCEPTION */
+    .calc-section {
+      padding: 100px 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .calc-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .calc-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 36px;
+    }
+    .field {
+      margin-bottom: 18px;
+    }
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+    .field input, .field select {
+      width: 100%;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--ink);
+      outline: none;
+    }
+
+    /* TIROIR */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 23, 21, 0.55);
+      z-index: 2000;
+      display: none;
+      justify-content: flex-end;
+    }
+    .drawer-backdrop.open { display: flex; }
+    .drawer-panel {
+      background: var(--bg);
+      width: 100%;
+      max-width: 440px;
+      height: 100%;
+      padding: 32px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-
-    /* CALCULATEUR DE PORTIONS */
-    .calc-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 28px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-      align-items: center;
-    }
-    @media (max-width: 860px) { .calc-box { grid-template-columns: 1fr; } }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(31, 25, 22, 0.65);
-      backdrop-filter: blur(4px);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal-card {
-      background: var(--surface);
-      border-radius: 16px;
-      max-width: 460px;
-      width: 100%;
-      padding: 24px;
-    }
-    .inp {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 13.5px;
-      margin-bottom: 10px;
-      font-family: inherit;
+      overflow-y: auto;
+      border-left: 1px solid var(--border);
     }
 
     footer {
-      padding: 40px 0;
-      background: var(--ink);
-      color: #D6CEC2;
-      text-align: center;
-      font-size: 13px;
+      padding: 64px 0;
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      flex-wrap: wrap;
     }
   </style>
 </head>
@@ -259,218 +377,308 @@
     <div class="container nav-bar">
       <a href="#" class="brand" data-bms-brand>Les Halles du Terroir</a>
       <ul class="nav-links">
-        <li><a href="#boutique">Colis &amp; Spécialités</a></li>
-        <li><a href="#boutique" onclick="filterShop('rotisserie')">Rôtisserie Fermière</a></li>
+        <li><a href="#eleveurs">Nos Éleveurs</a></li>
+        <li><a href="#billot">L'Ardoise du Boucher</a></li>
         <li><a href="#calculateur">Calculateur Réception</a></li>
       </ul>
-      <button type="button" class="btn-burgundy" onclick="openShopCart()">
-        <span>️ Panier Boutique</span>
-        <span id="shopCartCount" style="background:#fff; color:var(--burgundy); padding:1px 7px; border-radius:999px; font-size:11.5px;">0</span>
+      <button type="button" class="btn-header" onclick="openButcherDrawer()">
+        Retrait Boutique (<span id="butcherBagCount">0</span>)
       </button>
     </div>
   </header>
 
   <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">Artisan Boucher-Traiteur • Élevages Fermiers Label Rouge</span>
-        <h1>Le meilleur de votre commerce de quartier, <em>préparé d'avance</em>.</h1>
-        <p>Réservez votre poulet fermier rôti du dimanche, vos colis de viandes maturées ou vos plateaux traiteur directement en ligne. Retrait prioritaire en boutique sans faire la queue.</p>
-        <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="#boutique" class="btn-burgundy">Pré-commander en Click &amp; Collect</a>
-          <a href="#calculateur" style="padding:10px 20px; border-radius:999px; border:1px solid var(--border); text-decoration:none; color:var(--ink); font-weight:700; font-size:13px; background:#fff;">Calculer mes quantités</a>
+    <div class="container">
+      <div class="hero-top">
+        <span class="eyebrow">Artisan Boucher-Charcutier, Cave de Maturation &amp; Rôtisserie</span>
+        <h1>Viandes maturées sur l'os, <em>volailles fermières à la broche</em>.</h1>
+        <div class="hero-sub">
+          <p class="hero-lead">En lien direct avec nos éleveurs du Limousin, du Cantal et des Landes, nous découpons vos pièces au billot et préparons vos commandes à l'avance. Retirez votre poulet rôti du dimanche ou vos colis sans attendre en boutique.</p>
+          <a href="#billot" class="btn-header">Réserver au billot</a>
         </div>
       </div>
-      <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80" alt="Viandes maturées et spécialités artisanales">
+
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1500&q=85" alt="Pièces de bœuf maturées et rôtisserie artisanale">
       </div>
     </div>
   </section>
 
-  <!-- CATALOGUE CLICK & COLLECT -->
-  <section class="section" id="boutique">
-    <div class="container">
-      <div class="sec-head">
-        <h2>Click &amp; Collect — Préparé sur Commande</h2>
-        <p>Sélectionnez vos colis ou pièces du boucher : tout est préparé sous vide ou sur plateau juste avant votre passage.</p>
+  <!-- ÉLEVEURS & MATURATION -->
+  <section class="philosophy" id="eleveurs">
+    <div class="container phil-grid">
+      <div class="phil-photo">
+        <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&q=80" alt="Cave de maturation et travail de découpe">
       </div>
-
-      <div class="shop-tabs">
-        <button type="button" class="sh-tab active" onclick="filterShop('colis', this)">Colis Boucherie &amp; Grill</button>
-        <button type="button" class="sh-tab" onclick="filterShop('rotisserie', this)">Rôtisserie du Week-End</button>
-        <button type="button" class="sh-tab" onclick="filterShop('traiteur', this)">Plateaux Traiteur &amp; Épicerie</button>
+      <div class="phil-text">
+        <span class="eyebrow">Élevages de Plein Air &amp; Affinage</span>
+        <h2>Le respect du temps d'affinage fait toute la tendreté d'une pièce.</h2>
+        <p>Nos trains de côtes de race Salers, Limousine et Normande reposent entre trente et quarante-cinq jours dans notre chambre de maturation à parois de sel gemme. Ce repos concentre les sucs et attendrit naturellement la fibre.</p>
+        <div class="phil-metrics">
+          <div>
+            <strong>35 jours</strong>
+            <span>Maturation minimale sur l'os en cave</span>
+          </div>
+          <div>
+            <strong>100 %</strong>
+            <span>Viandes nées et élevées en France</span>
+          </div>
+          <div>
+            <strong>Label Rouge</strong>
+            <span>Volailles fermières des Landes &amp; Bresse</span>
+          </div>
+        </div>
       </div>
-
-      <div class="shop-grid" id="shopGrid"></div>
     </div>
   </section>
 
-  <!-- CALCULATEUR DE QUANTITÉS RÉCEPTION -->
-  <section class="section" id="calculateur">
+  <!-- ARDOISE DU BOUCHER (2 COLONNES) -->
+  <section class="menu-sheet" id="billot">
     <div class="container">
-      <div class="sec-head">
-        <h2>Calculateur Repas de Famille &amp; Barbecue</h2>
-        <p>Indiquez le nombre d'invités pour obtenir le grammage exact recommandé par notre maître artisan.</p>
+      <div class="sheet-header">
+        <span class="eyebrow">Pré-Commande Coupe-File en Boutique</span>
+        <h2>L'Ardoise du Billot &amp; de la Rôtissoire</h2>
+        <p>Chaque pièce est préparée, parée et ficelée à la main par nos compagnons bouchers une heure avant votre passage.</p>
       </div>
 
-      <div class="calc-box">
+      <div class="menu-columns">
         <div>
-          <label style="font-size:12.5px; font-weight:700; display:block; margin-bottom:6px;">Type de repas prévu</label>
-          <select id="mealType" class="inp" onchange="updatePortionCalc()">
-            <option value="bbq" data-g="320" data-p="7.5">Assortiment Barbecue &amp; Plancha (Brochettes, Merguez, Côtes)</option>
-            <option value="roti" data-g="240" data-p="8.9">Pièce Rôtie du Dimanche (Rôti de Bœuf Simmental ou Gigot)</option>
-            <option value="raclette" data-g="400" data-p="9.5">Plateau Raclette &amp; Charcuterie Artisanale à la coupe</option>
-          </select>
+          <h3 class="menu-category-title">Pièces de Maturation &amp; Rôtisserie Fermière</h3>
+          <div class="cut-item">
+            <div class="cut-row">
+              <span class="cut-name">Côte de Bœuf Salers Maturée 35 Jours (1,2 kg)</span>
+              <div class="cut-right">
+                <span class="cut-price">48,00 €</span>
+                <button type="button" class="btn-order-line" onclick="addButcherLine('Côte de Bœuf Salers Maturée 1,2kg', 48.00)">+ Réserver</button>
+              </div>
+            </div>
+            <p class="cut-desc">Persillage généreux, parée au couteau pour 2 à 3 convives, accompagnée de notre fleur de sel au poivre fumé.</p>
+          </div>
 
-          <label style="font-size:12.5px; font-weight:700; display:block; margin-bottom:6px;">Nombre de convives : <strong id="guestsValLabel">8 personnes</strong></label>
-          <input type="range" id="guestsRange" min="4" max="30" value="8" style="width:100%; margin-bottom:14px;" oninput="updatePortionCalc()">
-          <p style="font-size:12.5px; color:var(--muted);">Découpe artisanale à la demande • Conseils de cuisson du chef inclus</p>
+          <div class="cut-item">
+            <div class="cut-row">
+              <span class="cut-name">Poulet Fermier des Landes Rôti à la Broche (1,6 kg)</span>
+              <div class="cut-right">
+                <span class="cut-price">22,50 €</span>
+                <button type="button" class="btn-order-line" onclick="addButcherLine('Poulet Fermier Rôti + Grenailles', 22.50)">+ Réserver</button>
+              </div>
+            </div>
+            <p class="cut-desc">Volaille Label Rouge élevée en liberté 81 jours, rôtie lentement et servie chaude avec ses pommes grenailles au jus.</p>
+          </div>
+
+          <div class="cut-item">
+            <div class="cut-row">
+              <span class="cut-name">Filet de Bœuf Limousin en Rôti Bardé (800 g)</span>
+              <div class="cut-right">
+                <span class="cut-price">44,00 €</span>
+                <button type="button" class="btn-order-line" onclick="addButcherLine('Filet de Bœuf Limousin 800g', 44.00)">+ Réserver</button>
+              </div>
+            </div>
+            <p class="cut-desc">Cœur de filet d'une tendreté absolue, ficelé à la main pour 4 convives.</p>
+          </div>
         </div>
 
-        <div style="background:var(--warm); border:1px solid var(--border); border-radius:14px; padding:24px; text-align:center;">
-          <span style="font-size:11px; text-transform:uppercase; font-weight:800; color:var(--burgundy);">Quantité Recommandée</span>
-          <div style="font-family:var(--font-serif); font-size:38px; font-weight:700; margin:6px 0;" id="calcWeightDisplay">2,56 kg</div>
-          <div style="font-size:16px; font-weight:800; color:var(--forest); margin-bottom:14px;" id="calcPriceDisplay">Budget estimé : 60,00 €</div>
-          <button type="button" class="btn-burgundy" style="width:100%; justify-content:center;" onclick="addCalcToShopCart()">
-            + Commander ce colis sur-mesure
-          </button>
+        <div>
+          <h3 class="menu-category-title">Colis Familiaux &amp; Plateaux Traiteur</h3>
+          <div class="cut-item">
+            <div class="cut-row">
+              <span class="cut-name">Colis Tradition de la Semaine (3,5 kg)</span>
+              <div class="cut-right">
+                <span class="cut-price">56,00 €</span>
+                <button type="button" class="btn-order-line" onclick="addButcherLine('Colis Tradition Semaine 3,5kg', 56.00)">+ Réserver</button>
+              </div>
+            </div>
+            <p class="cut-desc">1 Rôti de bœuf (800 g), 6 Steaks hachés minute, 6 Escalopes de volaille fermière, 800 g de Saucisses au couteau.</p>
+          </div>
+
+          <div class="cut-item">
+            <div class="cut-row">
+              <span class="cut-name">Grand Plateau Charcuteries &amp; Fromages Affinés (6-8 pers.)</span>
+              <div class="cut-right">
+                <span class="cut-price">42,00 €</span>
+                <button type="button" class="btn-order-line" onclick="addButcherLine('Grand Plateau Charcuteries & Fromages', 42.00)">+ Réserver</button>
+              </div>
+            </div>
+            <p class="cut-desc">Jambon sec 18 mois, saucisson de montagne, pâté en croûte maison, Comté 24 mois, Saint-Nectaire fermier et Brie à la truffe.</p>
+          </div>
+
+          <div class="cut-item">
+            <div class="cut-row">
+              <span class="cut-name">Assortiment Grillades &amp; Plancha (2,4 kg)</span>
+              <div class="cut-right">
+                <span class="cut-price">39,50 €</span>
+                <button type="button" class="btn-order-line" onclick="addButcherLine('Assortiment Grillades 2,4kg', 39.50)">+ Réserver</button>
+              </div>
+            </div>
+            <p class="cut-desc">6 Brochettes de bœuf marinées, 6 Véritables merguez pur bœuf/agneau, 6 Chipolatas aux herbes fraîches et 4 Travers marinés.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATEUR DU MAÎTRE BOUCHER -->
+  <section class="calc-section" id="calculateur">
+    <div class="container calc-grid">
+      <div>
+        <span class="eyebrow">Conseil du Compagnon Boucher</span>
+        <h2 style="font-family:var(--font-serif); font-size:clamp(2.2rem, 3.6vw, 3.1rem); font-weight:500; line-height:1.1; margin-bottom:20px;">Calculer le juste grammage pour vos convives.</h2>
+        <p style="color:var(--ink-muted); margin-bottom:24px; max-width:460px;">Indiquez la pièce souhaitée et le nombre de personnes à table : nous calculons la pesée exacte avant cuisson et préparons votre commande sur mesure.</p>
+        <div style="padding-top:24px; border-top:1px solid var(--border); font-size:0.86rem; color:var(--ink-muted);">
+          <strong style="color:var(--ink); display:block; margin-bottom:4px;">Origine des Viandes (Décret du 26 janvier 2022)</strong>
+          Bœuf, Veau, Agneau, Porc et Volaille : Nés, élevés et abattus en France. Mise sous vide individuelle offerte sur simple demande.
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <div class="field">
+          <label for="butcherCutSelect">Pièce ou Assortiment</label>
+          <select id="butcherCutSelect" onchange="calcButcherPortion()">
+            <option value="Rôti de Bœuf Simmental / Limousin Ficelé" data-g="220" data-p="8.50">Rôti de Bœuf Limousin Ficelé (220 g / convive)</option>
+            <option value="Gigot d'Agneau Fermier du Quercy" data-g="250" data-p="9.20">Gigot d'Agneau Fermier du Quercy (250 g / convive)</option>
+            <option value="Plateau Raclette Fermière & Charcuterie à la Coupe" data-g="380" data-p="9.80">Plateau Raclette &amp; Charcuterie Fine (380 g / convive)</option>
+            <option value="Assortiment Barbecue & Brochettes Marinées" data-g="320" data-p="7.60">Assortiment Barbecue &amp; Plancha (320 g / convive)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="butcherGuestSelect">Nombre de convives à table</label>
+          <select id="butcherGuestSelect" onchange="calcButcherPortion()">
+            <option value="4">4 convives</option>
+            <option value="6">6 convives</option>
+            <option value="8" selected>8 convives</option>
+            <option value="10">10 convives</option>
+            <option value="12">12 convives</option>
+            <option value="16">16 convives</option>
+          </select>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:18px 0; border-top:1px solid var(--border); margin-top:10px;">
+          <div>
+            <span style="font-size:0.74rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-muted);" id="butcherWeightLabel">Pesée recommandée : 1,76 kg</span>
+            <div style="font-family:var(--font-serif); font-size:2rem; font-weight:600;" id="butcherTotalLabel">68,00 €</div>
+          </div>
+          <button type="button" class="btn-header" style="padding:14px 24px;" onclick="addCustomCutToDrawer()">Réserver cette pièce</button>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container">
-      <strong data-bms-brand style="color:#fff;">Les Halles du Terroir</strong> — Commerce de proximité &amp; Click &amp; Collect • Mardi au Dimanche midi
+    <div class="container footer-row">
+      <div>
+        <strong data-bms-brand style="color:var(--ink); font-family:var(--font-serif); font-size:1.2rem; text-transform:uppercase;">Les Halles du Terroir</strong>
+        <p style="margin-top:6px;">Boucherie Artisanale, Rôtisserie &amp; Traiteur • Mardi au Samedi 08h00 – 19h30, Dimanche 08h00 – 13h00.</p>
+      </div>
+      <div style="max-width:520px; font-size:0.78rem;">
+        Prix nets TTC. Exception au droit de rétractation applicable aux denrées alimentaires fraîchement découpées à la commande (Art. L.221-28 4° du Code de la consommation).
+      </div>
     </div>
   </footer>
 
-  <!-- MODAL PANIER -->
-  <div class="modal-backdrop" id="shopCartModal" onclick="if(event.target===this)closeShopCart()">
-    <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="font-family:var(--font-serif); font-size:24px;">Votre Panier Boutique</h3>
-        <button type="button" onclick="closeShopCart()" style="background:none;border:none;font-size:20px;cursor:pointer;"></button>
+  <!-- TIROIR RETRAIT BOUTIQUE -->
+  <div class="drawer-backdrop" id="butcherDrawer" onclick="if(event.target===this)closeButcherDrawer()">
+    <div class="drawer-panel">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:18px; border-bottom:1px solid var(--border); margin-bottom:20px;">
+          <h3 style="font-family:var(--font-serif); font-size:1.75rem; font-weight:500;">Votre Retrait en Boutique</h3>
+          <button type="button" onclick="closeButcherDrawer()" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
+        </div>
+        <div id="butcherDrawerLines"></div>
       </div>
-      <div id="shopCartList"></div>
-      <div style="display:flex; justify-content:space-between; font-weight:800; font-size:17px; margin:14px 0;">
-        <span>Total Commande</span>
-        <span id="shopCartTotal">0,00 €</span>
+
+      <div style="padding-top:20px; border-top:1px solid var(--border);">
+        <div style="display:flex; justify-content:space-between; font-size:1.15rem; font-weight:600; margin-bottom:18px;">
+          <span>Total Estimé TTC</span>
+          <span id="butcherDrawerTotal">0,00 €</span>
+        </div>
+        <div class="field" style="margin-bottom:12px;">
+          <label>Nom &amp; Téléphone</label>
+          <input type="text" id="butcherClientName" placeholder="Votre nom et numéro mobile">
+        </div>
+        <div class="field" style="margin-bottom:18px;">
+          <label>Créneau de retrait au comptoir</label>
+          <select id="butcherSlot">
+            <option>Aujourd'hui fin d'après-midi (17h00 – 19h30)</option>
+            <option>Demain matin (09h00 – 12h30)</option>
+            <option>Dimanche matin — Rôtisserie chaude (10h30 – 12h30)</option>
+          </select>
+        </div>
+        <button type="button" class="btn-header" style="width:100%; padding:15px;" onclick="validateButcherOrder()">
+          Confirmer ma réservation Coupe-File
+        </button>
+        <p id="butcherOrderConfirm" style="display:none; margin-top:14px; padding:12px; background:var(--surface); border:1px solid var(--border); font-size:0.85rem;"></p>
       </div>
-      <input type="text" id="shopClient" class="inp" placeholder="Votre Nom &amp; Téléphone">
-      <select id="shopSlot" class="inp">
-        <option>Retrait en boutique : Aujourd'hui 17h00 – 19h00</option>
-        <option>Retrait en boutique : Demain matin 09h30 – 12h30</option>
-        <option>Retrait Dimanche matin (Rôtisserie chaude)</option>
-      </select>
-      <button type="button" class="btn-burgundy" style="width:100%; justify-content:center;" onclick="confirmShopOrder()">
-        Confirmer ma commande Coupe-File
-      </button>
-      <div id="shopOrderMsg" style="display:none; margin-top:12px; padding:12px; background:#DCFCE7; color:#166534; border-radius:8px; font-size:12.5px; font-weight:600; text-align:center;"></div>
     </div>
   </div>
 
   <script>
-    const SHOP_ITEMS = [
-      { id: 'c1', cat: 'colis', name: 'Colis Famille Semaine (3,5 kg)', price: 54.90, tag: 'Économique', desc: '1 Rôti de bœuf tendre (800g), 6 Steaks hachés façon bouchère, 6 Escalopes de volaille fermière, 1kg Saucisses maison.', img: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=600&q=80' },
-      { id: 'c2', cat: 'colis', name: 'Côte de Bœuf Maturée 35 Jours (1,2 kg)', price: 46.00, tag: 'Maturée sur Os', desc: 'Race Normande ou Salers sélectionnée par notre artisan, persillage exceptionnel et tendreté garantie.', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-      { id: 'r1', cat: 'rotisserie', name: 'Poulet Fermier Label Rouge Rôti + Pommes Grenailles', price: 21.50, tag: 'Chaud Rôtissoire', desc: 'Volaille fermière élevée en plein air (1,6 kg), rôtie à la broche et arrosée à son jus avec pommes de terre.', img: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=600&q=80' },
-      { id: 'r2', cat: 'rotisserie', name: 'Travers de Porc Marinés & Rôtis au Miel', price: 16.90, tag: 'Prêt à déguster', desc: 'Coustellous caramélisés à la broche (800g) pour 2 à 3 personnes.', img: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80' },
-      { id: 't1', cat: 'traiteur', name: 'Grand Plateau Apéritif & Terroir (6-8 pers)', price: 39.00, tag: 'Sur-Mesure', desc: 'Sélection de charcuteries fines tranchées minute, Comté 24 mois, Brie truffé et fruits secs.', img: 'https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=600&q=80' }
-    ];
+    let butcherLines = [];
 
-    let shopCart = [];
-
-    function filterShop(cat, btn) {
-      if (btn) document.querySelectorAll('.sh-tab').forEach(b => b.classList.toggle('active', b === btn));
-      const grid = document.getElementById('shopGrid');
-      grid.innerHTML = SHOP_ITEMS.filter(x => x.cat === cat).map(it => `
-        <div class="sh-card">
-          <div class="sh-img">
-            <img src="${it.img}" alt="${it.name}" loading="lazy">
-            <span class="sh-tag">${it.tag}</span>
-          </div>
-          <div class="sh-body">
-            <div>
-              <div style="font-weight:700; font-size:15.5px; margin-bottom:4px;">${it.name}</div>
-              <p style="font-size:12.5px; color:var(--muted); margin-bottom:14px;">${it.desc}</p>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid var(--warm);">
-              <strong style="font-size:17px; color:var(--burgundy);">${it.price.toFixed(2).replace('.', ',')} €</strong>
-              <button type="button" onclick="addShopItem('${it.id}')" style="background:var(--warm); border:1px solid var(--border); padding:7px 13px; border-radius:8px; font-weight:700; font-size:12.5px; cursor:pointer;">+ Réserver</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
+    function addButcherLine(name, price) {
+      butcherLines.push({ name, price });
+      document.getElementById('butcherBagCount').textContent = String(butcherLines.length);
+      openButcherDrawer();
     }
 
-    function addShopItem(id) {
-      const it = SHOP_ITEMS.find(x => x.id === id);
-      if (!it) return;
-      shopCart.push({ name: it.name, price: it.price });
-      document.getElementById('shopCartCount').textContent = String(shopCart.length);
-    }
-
-    function updatePortionCalc() {
-      const sel = document.getElementById('mealType');
+    function calcButcherPortion() {
+      const sel = document.getElementById('butcherCutSelect');
       const opt = sel.options[sel.selectedIndex];
-      const gPerGuest = parseInt(opt.dataset.g || '300', 10);
-      const pPerGuest = parseFloat(opt.dataset.p || '7.5');
-      const guests = parseInt(document.getElementById('guestsRange').value, 10) || 8;
-      document.getElementById('guestsValLabel').textContent = guests + ' personnes';
-      const kg = ((gPerGuest * guests) / 1000).toFixed(2).replace('.', ',');
-      const price = (pPerGuest * guests).toFixed(2).replace('.', ',');
-      document.getElementById('calcWeightDisplay').textContent = kg + ' kg';
-      document.getElementById('calcPriceDisplay').textContent = 'Budget estimé : ' + price + ' €';
+      const g = parseInt(opt.dataset.g || '220', 10);
+      const p = parseFloat(opt.dataset.p || '8.50');
+      const guests = parseInt(document.getElementById('butcherGuestSelect').value, 10) || 8;
+      const kg = ((g * guests) / 1000).toFixed(2).replace('.', ',');
+      const total = (p * guests).toFixed(2).replace('.', ',');
+      document.getElementById('butcherWeightLabel').textContent = `Pesée recommandée : ${kg} kg (${guests} convives)`;
+      document.getElementById('butcherTotalLabel').textContent = total + ' €';
     }
 
-    function addCalcToShopCart() {
-      const sel = document.getElementById('mealType');
+    function addCustomCutToDrawer() {
+      const sel = document.getElementById('butcherCutSelect');
       const opt = sel.options[sel.selectedIndex];
-      const pPerGuest = parseFloat(opt.dataset.p || '7.5');
-      const guests = parseInt(document.getElementById('guestsRange').value, 10) || 8;
-      shopCart.push({
-        name: `Colis Sur-Mesure (${guests} pers.) — ${opt.text.split('(')[0].trim()}`,
-        price: pPerGuest * guests
-      });
-      document.getElementById('shopCartCount').textContent = String(shopCart.length);
-      openShopCart();
+      const g = parseInt(opt.dataset.g || '220', 10);
+      const p = parseFloat(opt.dataset.p || '8.50');
+      const guests = parseInt(document.getElementById('butcherGuestSelect').value, 10) || 8;
+      const kg = ((g * guests) / 1000).toFixed(2).replace('.', ',');
+      addButcherLine(`${sel.value} (${kg} kg — ${guests} convives)`, p * guests);
     }
 
-    function openShopCart() {
-      const list = document.getElementById('shopCartList');
-      if (shopCart.length === 0) {
-        list.innerHTML = `<p style="color:var(--muted); font-size:13px; padding:10px 0;">Votre panier est vide.</p>`;
+    function openButcherDrawer() {
+      const el = document.getElementById('butcherDrawerLines');
+      if (butcherLines.length === 0) {
+        el.innerHTML = `<p style="color:var(--ink-muted); font-size:0.9rem;">Votre panier de réservation est vide.</p>`;
       } else {
-        list.innerHTML = shopCart.map(c => `
-          <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px;">
-            <span>${c.name}</span>
-            <strong>${c.price.toFixed(2).replace('.', ',')} €</strong>
+        el.innerHTML = butcherLines.map((item, i) => `
+          <div style="display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--border); font-size:0.92rem;">
+            <span>${item.name}</span>
+            <div style="display:flex; gap:12px; align-items:center;">
+              <strong>${item.price.toFixed(2).replace('.', ',')} €</strong>
+              <button type="button" onclick="butcherLines.splice(${i},1);document.getElementById('butcherBagCount').textContent=String(butcherLines.length);openButcherDrawer();" style="background:none;border:none;color:var(--ink-muted);cursor:pointer;">✕</button>
+            </div>
           </div>
         `).join('');
       }
-      const total = shopCart.reduce((a, b) => a + b.price, 0);
-      document.getElementById('shopCartTotal').textContent = total.toFixed(2).replace('.', ',') + ' €';
-      document.getElementById('shopCartModal').classList.add('open');
+      const sum = butcherLines.reduce((acc, x) => acc + x.price, 0);
+      document.getElementById('butcherDrawerTotal').textContent = sum.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('butcherDrawer').classList.add('open');
     }
 
-    function closeShopCart() {
-      document.getElementById('shopCartModal').classList.remove('open');
+    function closeButcherDrawer() {
+      document.getElementById('butcherDrawer').classList.remove('open');
     }
 
-    function confirmShopOrder() {
-      if (shopCart.length === 0) return;
-      const client = document.getElementById('shopClient').value.trim() || 'Client';
-      const slot = document.getElementById('shopSlot').value;
-      const msg = document.getElementById('shopOrderMsg');
+    function validateButcherOrder() {
+      if (butcherLines.length === 0) return;
+      const client = document.getElementById('butcherClientName').value.trim() || 'Client';
+      const slot = document.getElementById('butcherSlot').value;
+      const msg = document.getElementById('butcherOrderConfirm');
       msg.style.display = 'block';
-      msg.innerHTML = `Commande enregistrée pour <strong>${client}</strong> (${slot}). Votre colis vous attendra prêt au comptoir Coupe-File !`;
-      shopCart = [];
-      document.getElementById('shopCartCount').textContent = '0';
+      msg.textContent = `Merci ${client}. Votre commande est transmise au billot pour le créneau : ${slot}.`;
+      butcherLines = [];
+      document.getElementById('butcherBagCount').textContent = '0';
     }
 
-    filterShop('colis');
-    updatePortionCalc();
+    calcButcherPortion();
   </script>
   <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
