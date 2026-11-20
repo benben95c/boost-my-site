@@ -4,20 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FORNO NAPOLI — Pizzeria Napolitaine au Feu de Bois &amp; Trattoria</title>
-  <meta name="description" content="Trattoria et pizzeria napolitaine au feu de bois. Pâte maturée 72 heures, tomates San Marzano DOP, pasta fresca maison, réservation de table et retrait sortie du four.">
+  <meta name="description" content="Pizzeria napolitaine au four à bois Stefano Ferrara 485°C. Pâte maturée 72 heures, tomates San Marzano DOP, commande sortie du four et réservation de table.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F9F5ED;
-      --surface: #F0E9DC;
-      --ink: #1B1714;
-      --ink-muted: #6A6056;
-      --pomodoro: #A82E1B;
-      --border: #DFD5C4;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg: #FBF7EE;
+      --surface: #F2EAE0;
+      --card: #FFFFFF;
+      --ink: #1B1512;
+      --ink-muted: #6C5F55;
+      --vesuvio: #B22E1A;
+      --olive: #2E4B33;
+      --border: #E0D5C3;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,319 +33,326 @@
     }
 
     .container {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 32px;
     }
     @media (max-width: 640px) { .container { padding: 0 20px; } }
 
+    .promo-banner {
+      background: var(--olive);
+      color: #F4F1EA;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      padding: 9px 16px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .promo-banner strong { color: #fff; font-weight: 700; }
+
     header {
       position: sticky;
       top: 0;
       z-index: 80;
-      background: rgba(249, 245, 237, 0.94);
-      backdrop-filter: blur(10px);
+      background: rgba(251, 247, 238, 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
     .nav-bar {
-      height: 84px;
+      height: 82px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 16px;
     }
     .brand {
       font-family: var(--font-serif);
       font-size: 1.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.02em;
       color: var(--ink);
       text-decoration: none;
     }
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 30px;
       list-style: none;
     }
     .nav-links a {
       text-decoration: none;
       color: var(--ink);
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      font-weight: 500;
+      font-size: 0.86rem;
+      font-weight: 600;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--pomodoro); }
-    .btn-header {
-      background: var(--ink);
-      color: var(--bg);
-      text-decoration: none;
-      padding: 12px 22px;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 600;
+    .nav-links a:hover { color: var(--vesuvio); }
+    .btn-vesuvio {
+      background: var(--vesuvio);
+      color: #fff;
       border: none;
+      padding: 11px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       cursor: pointer;
       font-family: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       transition: background 0.2s;
     }
-    .btn-header:hover { background: var(--pomodoro); }
-    @media (max-width: 820px) { .nav-links { display: none; } }
+    .btn-vesuvio:hover { background: #8F2212; }
+    @media (max-width: 860px) { .nav-links { display: none; } }
 
-    /* HERO ÉDITORIAL */
+    /* HERO TRATTORIA NAPOLETANA SUNLIT SPLIT BLEED-LEFT / MARBRE RIGHT */
     .hero {
-      padding: 88px 0 96px;
-      border-bottom: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--ink);
+      padding: 0;
+      border-top: 4px solid var(--olive);
+      border-bottom: 4px solid var(--vesuvio);
     }
-    .hero-top {
-      max-width: 820px;
-      margin-bottom: 52px;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      max-width: 100%;
+      padding: 0;
+    }
+    .hero-copy-col {
+      padding: 64px 56px 64px max(32px, calc((100vw - 1200px) / 2 + 32px));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #FFFDF9;
+    }
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy-col { padding: 48px 24px; }
     }
     .eyebrow {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: var(--pomodoro);
-      font-weight: 600;
-      margin-bottom: 18px;
+      color: var(--vesuvio);
+      font-weight: 700;
+      margin-bottom: 16px;
       display: block;
     }
     .hero h1 {
       font-family: var(--font-serif);
-      font-size: clamp(3rem, 5.4vw, 4.8rem);
-      font-weight: 500;
-      line-height: 1.02;
-      margin-bottom: 26px;
+      font-size: clamp(2.6rem, 4.4vw, 4rem);
+      font-weight: 700;
+      line-height: 1.06;
+      margin-bottom: 20px;
+      color: var(--ink);
     }
     .hero h1 em {
       font-style: italic;
-      color: var(--pomodoro);
+      color: var(--vesuvio);
+      font-weight: 600;
     }
-    .hero-sub {
+    .hero-lead {
+      font-size: 1rem;
+      color: var(--ink-muted);
+      margin-bottom: 26px;
+    }
+    .oven-badge-box {
+      border: 3px double var(--border);
+      background: #FAF5EC;
+      padding: 18px 20px;
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .oven-badge-box strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--vesuvio);
+      line-height: 1.1;
+    }
+    .oven-badge-box span {
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+    }
+    .hero-frame {
+      padding: 0;
+      border: none;
+      background: #1B1512;
+      min-height: 520px;
+    }
+    .hero-frame img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* CARTE PHOTOGRAPHIQUE FILTRABLE */
+    .section {
+      padding: 92px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       gap: 32px;
+      margin-bottom: 40px;
       flex-wrap: wrap;
     }
-    .hero-lead {
-      font-size: 1.05rem;
-      color: var(--ink-muted);
-      max-width: 540px;
-    }
-    .hero-image {
-      width: 100%;
-      aspect-ratio: 16 / 7.8;
-      overflow: hidden;
-      background: #1B1714;
-    }
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* L'IMPASTO & LES PRODUCTEURS */
-    .philosophy {
-      padding: 100px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .phil-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 72px;
-      align-items: center;
-    }
-    @media (max-width: 860px) {
-      .phil-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-    .phil-photo {
-      aspect-ratio: 4 / 4.5;
-      overflow: hidden;
-    }
-    .phil-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .phil-text h2 {
+    .section-head h2 {
       font-family: var(--font-serif);
-      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
-      font-weight: 500;
+      font-size: clamp(2.2rem, 3.6vw, 3.1rem);
+      font-weight: 600;
       line-height: 1.1;
-      margin-bottom: 22px;
     }
-    .phil-text p {
-      color: var(--ink-muted);
-      font-size: 1rem;
-      margin-bottom: 18px;
-      max-width: 520px;
-    }
-    .phil-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 40px;
-      padding-top: 28px;
-      border-top: 1px solid var(--border);
-    }
-    .phil-metrics strong {
-      display: block;
-      font-family: var(--font-serif);
-      font-size: 2rem;
-      font-weight: 600;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .phil-metrics span {
-      font-size: 0.82rem;
-      color: var(--ink-muted);
-    }
+    .section-head p { color: var(--ink-muted); max-width: 450px; font-size: 0.96rem; }
 
-    /* MENU IMPRIMÉ 2 COLONNES */
-    .menu-sheet {
-      padding: 104px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .sheet-header {
-      text-align: center;
-      max-width: 580px;
-      margin: 0 auto 68px;
-    }
-    .sheet-header h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 3.8vw, 3.4rem);
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-    .sheet-header p {
-      color: var(--ink-muted);
-      font-size: 0.96rem;
-    }
-    .menu-columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 68px;
-    }
-    @media (max-width: 860px) {
-      .menu-columns { grid-template-columns: 1fr; gap: 44px; }
-    }
-    .menu-category-title {
-      font-family: var(--font-serif);
-      font-size: 1.6rem;
-      font-style: italic;
-      color: var(--pomodoro);
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 26px;
-    }
-    .dish-item {
-      padding-bottom: 22px;
-      margin-bottom: 22px;
-      border-bottom: 1px solid rgba(223, 213, 196, 0.65);
-    }
-    .dish-row {
+    .menu-filters {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 4px;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
     }
-    .dish-name {
-      font-family: var(--font-serif);
-      font-size: 1.32rem;
-      font-weight: 600;
-    }
-    .dish-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      white-space: nowrap;
-    }
-    .dish-price {
-      font-size: 0.98rem;
-      font-weight: 600;
-    }
-    .btn-order-line {
+    .filter-tab {
       background: transparent;
-      border: 1px solid var(--border);
-      color: var(--ink);
-      padding: 4px 10px;
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      border: 1px solid transparent;
+      padding: 9px 16px;
+      font-size: 0.85rem;
       font-weight: 600;
+      color: var(--ink-muted);
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.15s;
     }
-    .btn-order-line:hover {
+    .filter-tab.active {
       background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
+      color: #fff;
     }
-    .dish-desc {
-      font-size: 0.88rem;
-      color: var(--ink-muted);
+
+    .dish-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 960px) { .dish-cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px) { .dish-cards-grid { grid-template-columns: 1fr; } }
+
+    .d-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s;
+    }
+    .d-card:hover { transform: translateY(-3px); border-color: var(--vesuvio); }
+    .d-img {
+      aspect-ratio: 16 / 10.5;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .d-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .d-base-tag {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(27, 21, 18, 0.86);
+      color: #FBF7EE;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+    }
+    .d-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .d-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .d-desc { font-size: 0.86rem; color: var(--ink-muted); margin-bottom: 18px; }
+    .d-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--surface);
+    }
+
+    /* CARTE DES APPELLATIONS DOP */
+    .dop-section {
+      background: var(--surface);
+    }
+    .dop-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) { .dop-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .dop-grid { grid-template-columns: 1fr; } }
+    .dop-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+    .dop-region {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--vesuvio);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
     }
 
     /* RÉSERVATION DE TABLE */
-    .reservation {
-      padding: 104px 0;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
     .res-grid {
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 72px;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 64px;
       align-items: start;
     }
-    @media (max-width: 860px) {
-      .res-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-    .res-info h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
-      font-weight: 500;
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-    .res-info p {
-      color: var(--ink-muted);
-      margin-bottom: 28px;
-      max-width: 440px;
-    }
+    @media (max-width: 900px) { .res-grid { grid-template-columns: 1fr; } }
     .res-card {
-      background: var(--bg);
+      background: #fff;
       border: 1px solid var(--border);
       padding: 36px;
     }
     .field-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin-bottom: 16px;
     }
     @media (max-width: 560px) { .field-grid { grid-template-columns: 1fr; } }
     .field label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--ink-muted);
-      margin-bottom: 7px;
+      margin-bottom: 6px;
       font-weight: 600;
     }
     .field input, .field select {
       width: 100%;
-      padding: 12px 14px;
-      background: #fff;
+      padding: 11px 14px;
+      background: var(--bg);
       border: 1px solid var(--border);
       font-family: inherit;
       font-size: 0.92rem;
@@ -351,20 +360,21 @@
       outline: none;
     }
 
-    /* TIROIR À EMPORTER */
-    .drawer-backdrop {
+    /* MODALES & TIROIRS */
+    .drawer-backdrop, .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(27, 23, 20, 0.55);
+      background: rgba(27, 21, 18, 0.58);
+      backdrop-filter: blur(4px);
       z-index: 2000;
       display: none;
-      justify-content: flex-end;
     }
-    .drawer-backdrop.open { display: flex; }
+    .drawer-backdrop.open { display: flex; justify-content: flex-end; }
+    .modal-backdrop.open { display: flex; align-items: center; justify-content: center; padding: 16px; }
     .drawer-panel {
       background: var(--bg);
       width: 100%;
-      max-width: 440px;
+      max-width: 450px;
       height: 100%;
       padding: 32px;
       display: flex;
@@ -373,11 +383,19 @@
       overflow-y: auto;
       border-left: 1px solid var(--border);
     }
+    .modal-panel {
+      background: var(--bg);
+      max-width: 500px;
+      width: 100%;
+      padding: 28px;
+      border: 1px solid var(--border);
+    }
 
     footer {
       padding: 64px 0;
-      font-size: 0.85rem;
-      color: var(--ink-muted);
+      background: var(--ink);
+      color: #C7BBAE;
+      font-size: 0.84rem;
     }
     .footer-row {
       display: flex;
@@ -390,271 +408,185 @@
 </head>
 <body>
 
+  <div class="promo-banner">
+    Commande directe sans plateforme : <strong>Votre 10ᵉ pizza à emporter offerte</strong> • Enfournement minuté au four Stefano Ferrara
+  </div>
+
   <header>
     <div class="container nav-bar">
       <a href="#" class="brand" data-bms-brand>Forno Napoli</a>
       <ul class="nav-links">
-        <li><a href="#impasto">L'Impasto</a></li>
-        <li><a href="#menu">La Carte</a></li>
-        <li><a href="#reservation">Réserver une Table</a></li>
+        <li><a href="#carte">Pizzas &amp; Pasta</a></li>
+        <li><a href="#terroir">Origines DOP</a></li>
+        <li><a href="#reservation">Réserver en Salle</a></li>
       </ul>
-      <button type="button" class="btn-header" onclick="openPizzaDrawer()">
-        À Emporter (<span id="pizCount">0</span>)
+      <button type="button" class="btn-vesuvio" onclick="openPizzaDrawer()">
+        Sortie du Four (<span id="pizCount">0</span>)
       </button>
     </div>
   </header>
 
   <section class="hero">
-    <div class="container">
-      <div class="hero-top">
-        <span class="eyebrow">Forno a Legna 485 °C &amp; Pasta Fresca</span>
-        <h1>Farine napolitaine, levain de trois jours <em>et flamme de chêne</em>.</h1>
-        <div class="hero-sub">
-          <p class="hero-lead">Nos pâtons reposent soixante-douze heures en chambre froide avant d'être saisis quatre-vingt-dix secondes sur la pierre volcanique du Vésuve. Réservez votre table face au four ou commandez à emporter à l'heure exacte de sortie de flamme.</p>
-          <div style="display:flex; gap:12px; flex-wrap:wrap;">
-            <a href="#reservation" class="btn-header">Réserver une table</a>
-            <a href="#menu" class="btn-header" style="background:transparent; color:var(--ink); border:1px solid var(--ink);">Commander à emporter</a>
-          </div>
+    <div class="hero-grid">
+      <div class="hero-copy-col">
+        <span class="eyebrow">Four Napolitain 485 °C &amp; Pâte Maturée 72 Heures</span>
+        <h1>La vraie pizza napolitaine, <em>chaude à la minute exacte</em>.</h1>
+        <p class="hero-lead">Farine Caputo Nuvola, tomates San Marzano DOP, Fior di Latte d'Agerola et pâtes fraîches préparées chaque matin. Commandez en ligne pour récupérer vos pizzas dès leur sortie du four à bois ou réservez votre table face aux flammes.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#carte" class="btn-vesuvio">Commander à emporter</a>
+          <a href="#reservation" style="padding:11px 22px; border:1px solid var(--ink); text-decoration:none; color:var(--ink); font-size:0.82rem; text-transform:uppercase; font-weight:600;">Réserver une table</a>
         </div>
-      </div>
 
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1500&q=85" alt="Pizza napolitaine sortie du four à bois">
-      </div>
-    </div>
-  </section>
-
-  <!-- SAVOIR-FAIRE -->
-  <section class="philosophy" id="impasto">
-    <div class="container phil-grid">
-      <div class="phil-photo">
-        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80" alt="Pâton napolitain et tomates San Marzano">
-      </div>
-      <div class="phil-text">
-        <span class="eyebrow">Terroir Campanien &amp; Pouilles</span>
-        <h2>La légèreté d'une corniche alvéolée, la justesse des produits DOP.</h2>
-        <p>Nous importons directement nos tomates San Marzano DOP cultivées sur les terres volcaniques de l'Agro Sarnese-Nocerino, notre Fior di Latte d'Agerola livrée trois fois par semaine et nos charcuteries tranchées minute à la trancheuse manuelle Berkel.</p>
-        <div class="phil-metrics">
+        <div class="oven-badge-box">
           <div>
             <strong>72 h</strong>
-            <span>Maturation lente de la pâte au levain</span>
+            <span>Fermentation lente en chambre froide</span>
           </div>
           <div>
             <strong>485 °C</strong>
-            <span>Cuisson au bois de chêne en 90 secondes</span>
+            <span>Saisie sur pierre volcanique 90 sec.</span>
           </div>
           <div>
-            <strong>100 %</strong>
-            <span>Appellations DOP &amp; IGP italiennes</span>
+            <strong>100 % DOP</strong>
+            <span>Produits livrés d'Italie chaque semaine</span>
           </div>
         </div>
+      </div>
+
+      <div class="hero-frame">
+        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1200&q=85" alt="Pizza napolitaine cuite au bois de chêne">
       </div>
     </div>
   </section>
 
-  <!-- MENU IMPRIMÉ 2 COLONNES -->
-  <section class="menu-sheet" id="menu">
+  <!-- CARTE VISUELLE FILTRABLE & PERSONNALISATION PIZZA -->
+  <section class="section" id="carte">
     <div class="container">
-      <div class="sheet-header">
-        <span class="eyebrow">Sur Place ou Retrait Sortie du Four</span>
-        <h2>Il Menu della Trattoria</h2>
-        <p>En commande directe sur notre site, votre 10ème pizza à emporter est offerte. Cliquez sur « + Emporter » pour préparer votre retrait.</p>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Sur Place ou Retrait Express</span>
+          <h2>La Carte della Casa</h2>
+        </div>
+        <p>Cliquez sur « Personnaliser &amp; Emporter » pour choisir votre pâte et ajouter des produits frais d'Italie (Burrata des Pouilles, truffe noire).</p>
       </div>
 
-      <div class="menu-columns">
+      <div class="menu-filters">
+        <button type="button" class="filter-tab active" onclick="filterTrattoria('all', this)">Toute la carte</button>
+        <button type="button" class="filter-tab" onclick="filterTrattoria('tomate', this)">Pizze Rosse (San Marzano)</button>
+        <button type="button" class="filter-tab" onclick="filterTrattoria('bianca', this)">Pizze Bianche &amp; Truffe</button>
+        <button type="button" class="filter-tab" onclick="filterTrattoria('pasta', this)">Pasta Fresca</button>
+        <button type="button" class="filter-tab" onclick="filterTrattoria('dolci', this)">Dolci Maison</button>
+      </div>
+
+      <div class="dish-cards-grid" id="trattoriaGrid"></div>
+    </div>
+  </section>
+
+  <!-- TERROIR & PROVENANCE DES APPELLATIONS DOP -->
+  <section class="section dop-section" id="terroir">
+    <div class="container">
+      <div class="section-head">
         <div>
-          <h3 class="menu-category-title">Antipasti &amp; Partage</h3>
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Burrata Pugliese &amp; Datterini Rôties (250 g)</span>
-              <div class="dish-right">
-                <span class="dish-price">12,50 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Burrata Pugliese 250g', 12.50)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Cœur crémeux des Pouilles, tomates datterini confites au four, basilic frais et focaccia chaude à l'origan.</p>
-          </div>
-
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Vitello Tonnato &amp; Câpres de Pantelleria</span>
-              <div class="dish-right">
-                <span class="dish-price">13,50 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Vitello Tonnato', 13.50)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Fines tranches de quasi de veau rosé (Origine France), émulsion au thon Bonito et fleurs de câpres.</p>
-          </div>
-
-          <h3 class="menu-category-title" style="margin-top:44px;">Le Pizze Classiche</h3>
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Margherita Verace San Marzano DOP</span>
-              <div class="dish-right">
-                <span class="dish-price">13,00 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Pizza Margherita Verace DOP', 13.00)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Tomate San Marzano DOP écrasée à la main, Fior di Latte d'Agerola, Parmigiano Reggiano 24 mois, basilic frais.</p>
-          </div>
-
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Diavola Spianata Calabra &amp; Nduja</span>
-              <div class="dish-right">
-                <span class="dish-price">16,00 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Pizza Diavola Spianata Calabra', 16.00)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Tomate San Marzano, Fior di Latte, saucisson piquant de Calabre, pointe de Nduja de Spilinga et olives Taggiasche.</p>
-          </div>
-
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Regina Prosciutto Cotto aux Herbes &amp; Champignons</span>
-              <div class="dish-right">
-                <span class="dish-price">15,50 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Pizza Regina Prosciutto Cotto', 15.50)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Tomate San Marzano, Fior di Latte, jambon blanc italien rôti aux herbes, champignons bruns frais et artichauts grillés.</p>
-          </div>
+          <span class="eyebrow">Sourcing Direct Italie</span>
+          <h2>Quatre Terroirs d'Origine Contrôlée</h2>
         </div>
+        <p>Nous refusons les substituts industriels : chaque ingrédient provient directement de sa région d'origine historique.</p>
+      </div>
 
-        <div>
-          <h3 class="menu-category-title">Pizze Contemporanee &amp; Tartufo</h3>
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Tartufo Nero &amp; Stracciatella Fumée</span>
-              <div class="dish-right">
-                <span class="dish-price">18,50 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Pizza Tartufo Nero & Stracciatella', 18.50)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Base bianca, crème de truffe noire d'Ombrie, Fior di Latte, poêlée forestière et Stracciatella fraîche après cuisson.</p>
-          </div>
-
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Mortadella di Bologna IGP &amp; Pistacchio di Bronte</span>
-              <div class="dish-right">
-                <span class="dish-price">17,50 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Pizza Mortadella & Pistacchio', 17.50)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Fior di Latte, mortadelle IGP tranchée en chiffonnade à la sortie du four, cœur de Burrata et pistaches vertes de Sicile.</p>
-          </div>
-
-          <h3 class="menu-category-title" style="margin-top:44px;">Pasta Fresca &amp; Dolci</h3>
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Rigatoni alla Carbonara Authentique (Guanciale)</span>
-              <div class="dish-right">
-                <span class="dish-price">16,50 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Rigatoni alla Carbonara Guanciale', 16.50)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Guanciale croustillant du Latium, jaunes d'œufs fermiers, Pecorino Romano DOP et poivre Tellicherry concassé.</p>
-          </div>
-
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Tagliolini Freschi dans la Meule de Parmigiano</span>
-              <div class="dish-right">
-                <span class="dish-price">18,00 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Tagliolini au Parmigiano & Truffe', 18.00)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Pâtes fraîches maison liées au beurre de sauge et copeaux de truffe fraîche de saison.</p>
-          </div>
-
-          <div class="dish-item">
-            <div class="dish-row">
-              <span class="dish-name">Tiramisu Classico au Café Napolitain</span>
-              <div class="dish-right">
-                <span class="dish-price">7,50 €</span>
-                <button type="button" class="btn-order-line" onclick="addPizzaLine('Tiramisu Classico', 7.50)">+ Emporter</button>
-              </div>
-            </div>
-            <p class="dish-desc">Biscuits Savoiardi trempés minute dans l'espresso Kimbo, crème au mascarpone battue et cacao amer.</p>
-          </div>
+      <div class="dop-grid">
+        <div class="dop-box">
+          <span class="dop-region">Campania</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.35rem; margin-bottom:8px;">San Marzano &amp; Agerola</h3>
+          <p style="font-size:0.86rem; color:var(--ink-muted);">Tomates cultivées au pied du Vésuve et Fior di Latte fraîche façonnée au lait de vache d'Agerola.</p>
+        </div>
+        <div class="dop-box">
+          <span class="dop-region">Emilia-Romagna</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.35rem; margin-bottom:8px;">Parmigiano 24m &amp; Mortadella</h3>
+          <p style="font-size:0.86rem; color:var(--ink-muted);">Parmesan affiné vingt-quatre mois et véritable Mortadelle de Bologne IGP tranchée en chiffonnade après cuisson.</p>
+        </div>
+        <div class="dop-box">
+          <span class="dop-region">Sicilia</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.35rem; margin-bottom:8px;">Pistacchio di Bronte DOP</h3>
+          <p style="font-size:0.86rem; color:var(--ink-muted);">Pistaches vertes récoltées sur les pentes de l'Etna, concassées à la main avec notre crème de Stracciatella.</p>
+        </div>
+        <div class="dop-box">
+          <span class="dop-region">Calabria</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.35rem; margin-bottom:8px;">Spianata &amp; Nduja Artisanale</h3>
+          <p style="font-size:0.86rem; color:var(--ink-muted);">Saucisson piquant de Calabre au piment rouge doux et pâte de Nduja de Spilinga fondante.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- RÉSERVATION DE TABLE -->
-  <section class="reservation" id="reservation">
+  <section class="section" id="reservation">
     <div class="container res-grid">
-      <div class="res-info">
-        <span class="eyebrow">Carnet de Réservation</span>
-        <h2>Réserver une table à la Trattoria.</h2>
-        <p>Choisissez votre ambiance : au comptoir face au four en cuivre martelé, dans notre grande salle voûtée ou sous la verrière arborée.</p>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; padding-top:24px; border-top:1px solid var(--border); font-size:0.88rem;">
+      <div>
+        <span class="eyebrow">Déjeuner &amp; Dîner — 7j/7</span>
+        <h2 style="font-family:var(--font-serif); font-size:clamp(2.2rem, 3.6vw, 3.1rem); line-height:1.1; margin-bottom:18px;">Réserver votre table à la Trattoria</h2>
+        <p style="color:var(--ink-muted); margin-bottom:26px;">Installez-vous face à notre four Stefano Ferrara ou profitez de notre véranda chauffée. Pour les tablées de plus de 8 convives, n'hésitez pas à nous appeler.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; padding-top:24px; border-top:1px solid var(--border); font-size:0.86rem;">
           <div>
-            <strong style="display:block; text-transform:uppercase; font-size:0.75rem; letter-spacing:0.1em; color:var(--ink-muted); margin-bottom:4px;">Services</strong>
-            Déjeuner : 12h00 – 14h30<br>Dîner : 19h00 – 22h45 (7j/7)
+            <strong style="display:block; text-transform:uppercase; font-size:0.74rem; letter-spacing:0.1em; color:var(--ink-muted); margin-bottom:4px;">Horaires</strong>
+            Ouvert 7j/7<br>12h00 – 14h30 &amp; 19h00 – 22h45
           </div>
           <div>
-            <strong style="display:block; text-transform:uppercase; font-size:0.75rem; letter-spacing:0.1em; color:var(--ink-muted); margin-bottom:4px;">Grandes Tablées</strong>
-            Privatisation de notre table d'hôtes en chêne jusqu'à 14 convives.
+            <strong style="display:block; text-transform:uppercase; font-size:0.74rem; letter-spacing:0.1em; color:var(--ink-muted); margin-bottom:4px;">Adresse</strong>
+            18 Place du Grand Martroy<br>Tél : 01 30 32 00 00
           </div>
         </div>
       </div>
 
-      <form class="res-card" onsubmit="confirmTrattoriaTable(event)">
+      <form class="res-card" onsubmit="confirmPizzaTable(event)">
         <div class="field-grid">
           <div class="field">
-            <label for="tratGuests">Nombre de convives</label>
-            <select id="tratGuests">
+            <label for="tGuests">Couverts</label>
+            <select id="tGuests">
               <option>2 Couverts</option>
-              <option>3 Couverts</option>
               <option>4 Couverts</option>
               <option>6 Couverts</option>
               <option>8 Couverts</option>
             </select>
           </div>
           <div class="field">
-            <label for="tratDate">Date souhaitée</label>
-            <input type="date" id="tratDate" required>
+            <label for="tDate">Date souhaitée</label>
+            <input type="date" id="tDate" required>
           </div>
         </div>
-
         <div class="field-grid">
           <div class="field">
-            <label for="tratService">Service &amp; Horaire</label>
-            <select id="tratService">
-              <option>Dîner — 19h30</option>
-              <option>Dîner — 20h15</option>
-              <option>Dîner — 21h00</option>
+            <label for="tService">Service</label>
+            <select id="tService">
+              <option>Ce soir — 19h30</option>
+              <option>Ce soir — 20h30</option>
+              <option>Ce soir — 21h15</option>
               <option>Déjeuner — 12h30</option>
-              <option>Déjeuner — 13h15</option>
             </select>
           </div>
           <div class="field">
-            <label for="tratZone">Espace préféré</label>
-            <select id="tratZone">
-              <option>Salle face au Four à Bois</option>
-              <option>Sous la Verrière</option>
-              <option>Terrasse Chauffée</option>
+            <label for="tZone">Emplacement souhaité</label>
+            <select id="tZone">
+              <option>Comptoir face au Four à Bois</option>
+              <option>Grande Salle Voûtée</option>
+              <option>Terrasse Véranda</option>
             </select>
           </div>
         </div>
-
         <div class="field-grid">
           <div class="field">
-            <label for="tratName">Nom de réservation</label>
-            <input type="text" id="tratName" required placeholder="Votre nom">
+            <label for="tName">Votre Nom</label>
+            <input type="text" id="tName" required placeholder="Votre nom">
           </div>
           <div class="field">
-            <label for="tratPhone">Téléphone Mobile</label>
-            <input type="tel" id="tratPhone" required placeholder="06 00 00 00 00">
+            <label for="tPhone">Téléphone</label>
+            <input type="tel" id="tPhone" required placeholder="06 00 00 00 00">
           </div>
         </div>
-
         <input type="text" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
-        <button type="submit" class="btn-header" style="width:100%; padding:15px;">Confirmer la table</button>
-        <p id="tratConfirm" style="display:none; margin-top:16px; padding:14px; background:var(--surface); border:1px solid var(--border); font-size:0.88rem;"></p>
+        <button type="submit" class="btn-vesuvio" style="width:100%; justify-content:center; padding:14px;">
+          Confirmer ma table gratuitement
+        </button>
+        <p id="tableConfirmMsg" style="display:none; margin-top:14px; padding:12px; background:var(--surface); border:1px solid var(--border); font-size:0.86rem;"></p>
       </form>
     </div>
   </section>
@@ -662,118 +594,218 @@
   <footer>
     <div class="container footer-row">
       <div>
-        <strong data-bms-brand style="color:var(--ink); font-family:var(--font-serif); font-size:1.2rem; text-transform:uppercase;">Forno Napoli</strong>
-        <p style="margin-top:6px;">Pizzeria Napolitaine &amp; Trattoria • Ouvert 7j/7 midi et soir.</p>
+        <strong data-bms-brand style="font-family:var(--font-serif); font-size:1.45rem; color:#fff; display:block; margin-bottom:6px;">Forno Napoli</strong>
+        <p>Pizzeria Napolitaine au Feu de Bois &amp; Trattoria • Ouvert 7j/7.</p>
       </div>
       <div style="max-width:520px; font-size:0.78rem;">
-        Prix nets TTC, service compris. Origine des viandes (Décret du 26 janvier 2022) : Veau et Bœuf nés, élevés et abattus en France ; Charcuteries DOP/IGP élaborées en Italie. Registre des 14 allergènes disponible sur simple demande.
+        Prix nets TTC, service compris. Viandes (veau, bœuf) nées, élevées et abattues en France ; Charcuteries artisanales IGP élaborées en Italie (Décret du 26 janvier 2022). Registre des 14 allergènes disponible en salle.
       </div>
     </div>
   </footer>
 
-  <!-- TIROIR RETRAIT SORTIE DU FOUR -->
+  <!-- MODAL PERSONNALISATION PIZZA -->
+  <div class="modal-backdrop" id="customModal" onclick="if(event.target===this)closeCustomModal()">
+    <div class="modal-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-family:var(--font-serif); font-size:1.55rem;" id="cmTitle">Personnaliser votre Pizza</h3>
+        <button type="button" onclick="closeCustomModal()" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <div class="field" style="margin-bottom:14px;">
+        <label>Choix de la pâte (Maturation 72h)</label>
+        <select id="cmDough" onchange="updateModalPrice()">
+          <option value="0">Pâte Classique Napoletana (Caputo Nuvola)</option>
+          <option value="1.5">Pâte Céréales &amp; Épeautre Bio (+1,50 €)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="font-size:0.74rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-muted); font-weight:600; display:block; margin-bottom:8px;">Suppléments d'Italie (posés après cuisson)</label>
+        <label style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.88rem; cursor:pointer;">
+          <span><input type="checkbox" class="cm-extra" data-name="Burrata des Pouilles entière" value="3.5" onchange="updateModalPrice()"> Burrata entière des Pouilles (125 g)</span>
+          <strong>+3,50 €</strong>
+        </label>
+        <label style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.88rem; cursor:pointer;">
+          <span><input type="checkbox" class="cm-extra" data-name="Crème de Truffe d'Ombrie" value="3.0" onchange="updateModalPrice()"> Crème de truffe noire d'Ombrie</span>
+          <strong>+3,00 €</strong>
+        </label>
+        <label style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.88rem; cursor:pointer;">
+          <span><input type="checkbox" class="cm-extra" data-name="Spianata Piccante Calabraise" value="2.0" onchange="updateModalPrice()"> Spianata Piccante de Calabre</span>
+          <strong>+2,00 €</strong>
+        </label>
+      </div>
+
+      <button type="button" class="btn-vesuvio" style="width:100%; justify-content:center; padding:13px;" onclick="confirmModalAdd()">
+        Ajouter à ma commande — <span id="cmPriceBtn">14,00 €</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- TIROIR COMMANDE SORTIE DU FOUR -->
   <div class="drawer-backdrop" id="pizzaDrawer" onclick="if(event.target===this)closePizzaDrawer()">
     <div class="drawer-panel">
       <div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:18px; border-bottom:1px solid var(--border); margin-bottom:20px;">
-          <h3 style="font-family:var(--font-serif); font-size:1.75rem; font-weight:500;">Retrait Sortie du Four</h3>
+          <h3 style="font-family:var(--font-serif); font-size:1.7rem;">Sortie du Four</h3>
           <button type="button" onclick="closePizzaDrawer()" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
         </div>
-        <div id="pizDrawerLines"></div>
-        <div style="margin-top:16px; padding:12px; background:var(--surface); border:1px solid var(--border); font-size:0.85rem;">
-          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-            <input type="checkbox" id="pizExtraBurrata" onchange="renderPizzaDrawer()"> Ajouter une Burrata entière des Pouilles (+3,50 €)
-          </label>
-        </div>
+        <div id="pizDrawerList"></div>
       </div>
 
       <div style="padding-top:20px; border-top:1px solid var(--border);">
-        <div style="display:flex; justify-content:space-between; font-size:1.15rem; font-weight:600; margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; font-size:1.15rem; font-weight:700; margin-bottom:16px;">
           <span>Total TTC</span>
           <span id="pizDrawerTotal">0,00 €</span>
         </div>
         <div class="field" style="margin-bottom:12px;">
-          <label>Nom &amp; Téléphone</label>
-          <input type="text" id="pizClientName" placeholder="Votre nom et numéro mobile">
+          <label>Votre Prénom &amp; Téléphone</label>
+          <input type="text" id="pizClientInp" placeholder="Ex : Marco — 06 12 34 56 78">
         </div>
-        <div class="field" style="margin-bottom:18px;">
-          <label>Heure souhaitée de sortie du four</label>
-          <select id="pizPickupSlot">
-            <option>Dans 20 minutes (Enfournement immédiat)</option>
-            <option>Ce soir — 19h30</option>
-            <option>Ce soir — 20h00</option>
-            <option>Ce soir — 20h30</option>
-            <option>Ce soir — 21h00</option>
+        <div class="field" style="margin-bottom:16px;">
+          <label>Créneau précis de sortie du four</label>
+          <select id="pizBatchSlot">
+            <option>Fournée Express — Dans 15 minutes</option>
+            <option>Ce soir — 19h30 pile</option>
+            <option>Ce soir — 20h00 pile</option>
+            <option>Ce soir — 20h30 pile</option>
+            <option>Ce soir — 21h00 pile</option>
           </select>
         </div>
-        <button type="button" class="btn-header" style="width:100%; padding:15px;" onclick="validatePizzaOrder()">
-          Transmettre ma commande au four
+        <button type="button" class="btn-vesuvio" style="width:100%; justify-content:center; padding:14px;" onclick="submitPizzaOrder()">
+          Envoyer ma commande au Pizzaiolo
         </button>
-        <p id="pizOrderConfirm" style="display:none; margin-top:14px; padding:12px; background:var(--surface); border:1px solid var(--border); font-size:0.85rem;"></p>
+        <div id="pizOrderReceipt" style="display:none; margin-top:14px; padding:14px; background:var(--surface); border:1px solid var(--border); font-size:0.86rem;"></div>
       </div>
     </div>
   </div>
 
   <script>
-    let pizLines = [];
-    document.getElementById('tratDate').valueAsDate = new Date();
+    const TRATTORIA_CATALOG = [
+      { id: 'pz1', cat: 'tomate', base: 'Tomate San Marzano DOP', title: 'Margherita Verace', price: 13.00, desc: 'Tomates San Marzano DOP écrasées à la main, Fior di Latte d\'Agerola, Parmigiano 24 mois, basilic frais.', img: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80', isPizza: true },
+      { id: 'pz2', cat: 'bianca', base: 'Base Bianca & Truffe', title: 'Tartufo & Stracciatella Fumée', price: 18.50, desc: 'Crème de truffe noire d\'Ombrie, Fior di Latte, champignons rôtis au thym et Stracciatella des Pouilles.', img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80', isPizza: true },
+      { id: 'pz3', cat: 'tomate', base: 'Tomate San Marzano DOP', title: 'Diavola Spianata Calabra', price: 16.00, desc: 'San Marzano DOP, Fior di Latte, saucisson piquant Spianata de Calabre, pointe de Nduja et olives Taggiasche.', img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=80', isPizza: true },
+      { id: 'pz4', cat: 'bianca', base: 'Base Bianca', title: 'Mortadella IGP & Pistacchio di Bronte', price: 17.50, desc: 'Fior di Latte, mortadelle de Bologne IGP tranchée en chiffonnade après cuisson, burrata et pistaches de Sicile.', img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=900&q=80', isPizza: true },
+      { id: 'ps1', cat: 'pasta', base: 'Pasta Fresca', title: 'Rigatoni alla Carbonara Authentique', price: 16.50, desc: 'Véritable Guanciale croustillant du Latium, jaunes d\'œufs fermiers, Pecorino Romano DOP et poivre noir concassé.', img: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=900&q=80', isPizza: false },
+      { id: 'dl1', cat: 'dolci', base: 'Dolce Fait Maison', title: 'Tiramisu Classico de la Nonna', price: 7.50, desc: 'Biscuits Savoiardi trempés minute à l\'espresso napolitain Kimbo, mascarpone aérien et cacao amer.', img: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80', isPizza: false }
+    ];
 
-    function addPizzaLine(name, price) {
-      pizLines.push({ name, price });
-      document.getElementById('pizCount').textContent = String(pizLines.length);
+    let pizCart = [];
+    let modalItem = null;
+    document.getElementById('tDate').valueAsDate = new Date();
+
+    function filterTrattoria(cat, btn) {
+      if (btn) document.querySelectorAll('.filter-tab').forEach(b => b.classList.toggle('active', b === btn));
+      const items = cat === 'all' ? TRATTORIA_CATALOG : TRATTORIA_CATALOG.filter(x => x.cat === cat);
+      document.getElementById('trattoriaGrid').innerHTML = items.map(it => `
+        <article class="d-card">
+          <div>
+            <div class="d-img">
+              <img src="${it.img}" alt="${it.title}" loading="lazy">
+              <span class="d-base-tag">${it.base}</span>
+            </div>
+            <div class="d-body">
+              <div>
+                <h3 class="d-title">${it.title}</h3>
+                <p class="d-desc">${it.desc}</p>
+              </div>
+              <div class="d-foot">
+                <strong style="font-size:1.05rem;">${it.price.toFixed(2).replace('.', ',')} €</strong>
+                <button type="button" onclick="handleDishClick('${it.id}')" style="background:var(--surface); border:1px solid var(--border); padding:7px 12px; font-size:0.78rem; text-transform:uppercase; font-weight:700; cursor:pointer;">
+                  ${it.isPizza ? '+ Personnaliser' : '+ Emporter'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function handleDishClick(id) {
+      const it = TRATTORIA_CATALOG.find(x => x.id === id);
+      if (!it) return;
+      if (!it.isPizza) {
+        pizCart.push({ name: it.title, price: it.price });
+        document.getElementById('pizCount').textContent = String(pizCart.length);
+        openPizzaDrawer();
+        return;
+      }
+      modalItem = it;
+      document.getElementById('cmTitle').textContent = it.title;
+      document.getElementById('cmDough').selectedIndex = 0;
+      document.querySelectorAll('.cm-extra').forEach(cb => cb.checked = false);
+      updateModalPrice();
+      document.getElementById('customModal').classList.add('open');
+    }
+
+    function updateModalPrice() {
+      if (!modalItem) return;
+      let total = modalItem.price + parseFloat(document.getElementById('cmDough').value || '0');
+      document.querySelectorAll('.cm-extra:checked').forEach(cb => { total += parseFloat(cb.value || '0'); });
+      document.getElementById('cmPriceBtn').textContent = total.toFixed(2).replace('.', ',') + ' €';
+    }
+
+    function closeCustomModal() { document.getElementById('customModal').classList.remove('open'); }
+
+    function confirmModalAdd() {
+      if (!modalItem) return;
+      const dough = document.getElementById('cmDough');
+      const doughLabel = dough.value !== '0' ? ' (Pâte Épeautre Bio)' : '';
+      const extras = Array.from(document.querySelectorAll('.cm-extra:checked')).map(cb => cb.dataset.name);
+      let price = modalItem.price + parseFloat(dough.value || '0');
+      document.querySelectorAll('.cm-extra:checked').forEach(cb => { price += parseFloat(cb.value || '0'); });
+      const label = modalItem.title + doughLabel + (extras.length > 0 ? ' + ' + extras.join(', ') : '');
+      pizCart.push({ name: label, price });
+      document.getElementById('pizCount').textContent = String(pizCart.length);
+      closeCustomModal();
       openPizzaDrawer();
     }
 
     function openPizzaDrawer() {
-      renderPizzaDrawer();
-      document.getElementById('pizzaDrawer').classList.add('open');
-    }
-
-    function closePizzaDrawer() {
-      document.getElementById('pizzaDrawer').classList.remove('open');
-    }
-
-    function renderPizzaDrawer() {
-      const el = document.getElementById('pizDrawerLines');
-      if (pizLines.length === 0) {
-        el.innerHTML = `<p style="color:var(--ink-muted); font-size:0.9rem;">Aucune pizza sélectionnée.</p>`;
+      const el = document.getElementById('pizDrawerList');
+      if (pizCart.length === 0) {
+        el.innerHTML = `<p style="color:var(--ink-muted); font-size:0.9rem;">Votre panier est vide.</p>`;
       } else {
-        el.innerHTML = pizLines.map((item, i) => `
-          <div style="display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--border); font-size:0.92rem;">
-            <span>${item.name}</span>
-            <div style="display:flex; gap:12px; align-items:center;">
-              <strong>${item.price.toFixed(2).replace('.', ',')} €</strong>
-              <button type="button" onclick="pizLines.splice(${i},1);document.getElementById('pizCount').textContent=String(pizLines.length);renderPizzaDrawer();" style="background:none;border:none;color:var(--ink-muted);cursor:pointer;">✕</button>
+        el.innerHTML = pizCart.map((c, i) => `
+          <div style="display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--border); font-size:0.9rem; gap:10px;">
+            <span>${c.name}</span>
+            <div style="display:flex; gap:10px; align-items:center; white-space:nowrap;">
+              <strong>${c.price.toFixed(2).replace('.', ',')} €</strong>
+              <button type="button" onclick="pizCart.splice(${i},1);document.getElementById('pizCount').textContent=String(pizCart.length);openPizzaDrawer();" style="background:none;border:none;color:var(--ink-muted);cursor:pointer;">✕</button>
             </div>
           </div>
         `).join('');
       }
-      const extra = (pizLines.length > 0 && document.getElementById('pizExtraBurrata').checked) ? 3.50 : 0;
-      const sum = pizLines.reduce((acc, x) => acc + x.price, 0) + extra;
+      const sum = pizCart.reduce((a, b) => a + b.price, 0);
       document.getElementById('pizDrawerTotal').textContent = sum.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('pizzaDrawer').classList.add('open');
     }
 
-    function validatePizzaOrder() {
-      if (pizLines.length === 0) return;
-      const client = document.getElementById('pizClientName').value.trim() || 'Client';
-      const slot = document.getElementById('pizPickupSlot').value;
-      const msg = document.getElementById('pizOrderConfirm');
-      msg.style.display = 'block';
-      msg.textContent = `Merci ${client}. Votre commande est programmée au four (${slot}). Nos pizzaiolos enfourneront 90 secondes avant votre passage.`;
-      pizLines = [];
+    function closePizzaDrawer() { document.getElementById('pizzaDrawer').classList.remove('open'); }
+
+    function submitPizzaOrder() {
+      if (pizCart.length === 0) return;
+      const client = document.getElementById('pizClientInp').value.trim() || 'Client';
+      const slot = document.getElementById('pizBatchSlot').value;
+      const code = 'FN-' + Math.floor(100 + Math.random() * 900);
+      const box = document.getElementById('pizOrderReceipt');
+      box.style.display = 'block';
+      box.innerHTML = `<strong>Ticket Four #${code}</strong><br>Enregistrement confirmé pour <strong>${client}</strong> (${slot}). Enfourner 90 secondes avant votre passage !`;
+      pizCart = [];
       document.getElementById('pizCount').textContent = '0';
     }
 
-    function confirmTrattoriaTable(e) {
+    function confirmPizzaTable(e) {
       e.preventDefault();
-      const name = document.getElementById('tratName').value.trim();
-      const guests = document.getElementById('tratGuests').value;
-      const srv = document.getElementById('tratService').value;
-      const zone = document.getElementById('tratZone').value;
-      const msg = document.getElementById('tratConfirm');
+      const name = document.getElementById('tName').value.trim();
+      const guests = document.getElementById('tGuests').value;
+      const srv = document.getElementById('tService').value;
+      const zone = document.getElementById('tZone').value;
+      const msg = document.getElementById('tableConfirmMsg');
       msg.style.display = 'block';
       msg.textContent = `Merci ${name}. Votre table pour ${guests} (${srv}, ${zone}) est confirmée.`;
     }
+
+    filterTrattoria('all');
   </script>
   <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>

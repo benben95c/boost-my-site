@@ -4,641 +4,1149 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PÔLE AUTO PERFORMANCE — Atelier Mécanique Toutes Marques &amp; Occasions</title>
-  <meta name="description" content="Garage automobile indépendant toutes marques. Révision garantie constructeur préservée, freinage, distribution, géométrie 3D et véhicules d'occasion révisés.">
+  <meta name="description" content="Garage automobile indépendant toutes marques. Révision garantie constructeur préservée, freinage, distribution, géométrie 3D et véhicules d'occasion certifiés Histovec.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F4F3EF;
-      --surface: #EAE7DF;
-      --ink: #161715;
-      --ink-muted: #63625B;
-      --green: #1E4631;
-      --sienna: #9E3B22;
-      --border: #D8D4C8;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --gunmetal: #15181E;
+      --gunmetal-soft: #1E222A;
+      --gunmetal-border: #2E3440;
+      --silver-bg: #F4F5F7;
+      --silver-deep: #E8EBEF;
+      --white: #FFFFFF;
+      --ink: #15181E;
+      --ink-muted: #5A606D;
+      --copper: #C8421B;
+      --copper-hover: #A83513;
+      --emerald: #176B45;
+      --border: #D9DDE4;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'DM Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background-color: var(--bg);
+      background-color: var(--silver-bg);
       color: var(--ink);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-    @media (max-width: 640px) { .container { padding: 0 20px; } }
+    .container { max-width: 1220px; margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 680px) { .container { padding: 0 20px; } }
 
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--copper);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
       z-index: 80;
-      background: rgba(244, 243, 239, 0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(21, 24, 30, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gunmetal-border);
+      color: #FFF;
     }
     .nav-bar {
-      height: 84px;
+      height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
     }
-    .brand {
-      font-family: var(--font-serif);
-      font-size: 1.65rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--ink);
+    .brand-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       text-decoration: none;
+      color: #FFF;
     }
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--ink);
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--copper);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-weight: 500;
       font-size: 0.85rem;
       letter-spacing: 0.05em;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      font-weight: 500;
+      color: #FFF;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--sienna); }
-    .btn-header {
-      background: var(--ink);
-      color: var(--bg);
-      text-decoration: none;
-      padding: 12px 24px;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .nav-links a:hover { color: #FFF; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-ghost-light {
+      background: transparent;
+      border: 1px solid var(--gunmetal-border);
+      color: rgba(255,255,255,0.85);
+      padding: 9px 14px;
+      font-size: 0.76rem;
       font-weight: 600;
-      border: none;
+      font-family: var(--font-mono);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-ghost-light:hover { border-color: var(--copper); color: #FFF; }
+    .btn-copper {
+      background: var(--copper);
+      color: #FFF;
+      border: 1px solid var(--copper);
+      padding: 11px 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       cursor: pointer;
       font-family: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       transition: background 0.2s;
     }
-    .btn-header:hover { background: var(--green); }
-    @media (max-width: 820px) { .nav-links { display: none; } }
+    .btn-copper:hover { background: var(--copper-hover); }
+    .btn-dark {
+      background: var(--gunmetal);
+      color: #FFF;
+      border: 1px solid var(--gunmetal);
+      padding: 11px 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-dark:hover { background: var(--copper); border-color: var(--copper); }
+    @media (max-width: 980px) { .nav-links { display: none; } }
 
-    /* HERO ÉDITORIAL & CHIFFRAGE */
-    .hero {
-      padding: 80px 0 92px;
-      border-bottom: 1px solid var(--border);
+    /* HERO TECHNICAL BLUEPRINT SILVER */
+    .hero-tech {
+      background-color: #EDF0F5;
+      background-image: linear-gradient(to right, rgba(21,24,30,0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(21,24,30,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      color: var(--ink);
+      padding: 64px 0 76px;
+      border-bottom: 2px solid var(--gunmetal);
     }
     .hero-grid {
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
-      gap: 64px;
-      align-items: start;
+      gap: 48px;
+      align-items: center;
     }
-    @media (max-width: 920px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-    .eyebrow {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--green);
-      font-weight: 600;
+    @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; } }
+    .hero-tech h1 {
+      font-size: clamp(2.2rem, 4.3vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
       margin-bottom: 18px;
-      display: block;
+      color: var(--gunmetal);
     }
-    .hero h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.8rem, 4.8vw, 4.3rem);
-      font-weight: 500;
-      line-height: 1.04;
-      margin-bottom: 24px;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--sienna);
-    }
-    .hero p {
+    .hero-lead {
       color: var(--ink-muted);
       font-size: 1.02rem;
-      margin-bottom: 32px;
-      max-width: 520px;
+      max-width: 540px;
+      margin-bottom: 28px;
     }
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      padding-top: 28px;
-      border-top: 1px solid var(--border);
-    }
-    .hero-metrics strong {
-      display: block;
-      font-family: var(--font-serif);
-      font-size: 1.85rem;
-      font-weight: 600;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .hero-metrics span {
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-    }
-
-    /* REGISTRE D'ATELIER */
-    .workshop-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      padding: 36px;
-    }
-    .field {
-      margin-bottom: 16px;
-    }
-    .field label {
-      display: block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--ink-muted);
-      margin-bottom: 7px;
-      font-weight: 600;
-    }
-    .field input, .field select {
-      width: 100%;
-      padding: 12px 14px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      font-family: inherit;
-      font-size: 0.92rem;
-      color: var(--ink);
-      outline: none;
-    }
-    .field-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    @media (max-width: 560px) { .field-grid { grid-template-columns: 1fr; } }
-
-    /* BARÈME DES FORFAITS (2 COLONNES) */
-    .menu-sheet {
-      padding: 104px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .sheet-header {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 68px;
-    }
-    .sheet-header h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 3.8vw, 3.4rem);
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-    .sheet-header p {
-      color: var(--ink-muted);
-      font-size: 0.96rem;
-    }
-    .menu-columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 68px;
-    }
-    @media (max-width: 860px) {
-      .menu-columns { grid-template-columns: 1fr; gap: 44px; }
-    }
-    .menu-category-title {
-      font-family: var(--font-serif);
-      font-size: 1.6rem;
-      font-style: italic;
-      color: var(--green);
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
+    .siv-simulator-card {
+      background: var(--white);
+      border: 1px solid var(--gunmetal);
+      border-top: 4px solid var(--copper);
+      padding: 24px;
       margin-bottom: 26px;
+      box-shadow: 0 12px 30px rgba(21,24,30,0.08);
     }
-    .forfait-item {
-      padding-bottom: 22px;
-      margin-bottom: 22px;
-      border-bottom: 1px solid rgba(216, 212, 200, 0.7);
+    .siv-inputs-row {
+      display: grid;
+      grid-template-columns: 165px 1fr auto;
+      gap: 10px;
+      margin-top: 12px;
     }
-    .forfait-row {
+    @media (max-width: 640px) { .siv-inputs-row { grid-template-columns: 1fr; } }
+    .fr-plate-wrap {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 4px;
+      align-items: stretch;
+      background: #FFF;
+      border: 2px solid #111;
+      border-radius: 4px;
+      overflow: hidden;
     }
-    .forfait-name {
-      font-family: var(--font-serif);
-      font-size: 1.32rem;
-      font-weight: 600;
-    }
-    .forfait-right {
+    .fr-plate-eu {
+      background: #003399;
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0 8px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      white-space: nowrap;
+      justify-content: center;
     }
-    .forfait-price {
-      font-size: 0.98rem;
-      font-weight: 600;
+    .fr-plate-input {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 10px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #111;
+      background: #FFF;
+      text-align: center;
     }
-    .btn-pick {
-      background: transparent;
+    .siv-select {
+      background: var(--silver-bg);
       border: 1px solid var(--border);
       color: var(--ink);
-      padding: 4px 10px;
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-      cursor: pointer;
+      padding: 10px 12px;
       font-family: inherit;
-      transition: all 0.15s;
-    }
-    .btn-pick:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-    .forfait-desc {
       font-size: 0.88rem;
-      color: var(--ink-muted);
     }
+    .siv-result {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: #FDF2EE;
+      border-left: 3px solid var(--copper);
+      font-size: 0.85rem;
+      color: var(--ink);
+    }
+    .siv-result a { color: var(--copper) !important; }
 
-    /* PARC AUTOMOBILE D'OCCASION */
-    .sales-section {
-      padding: 100px 0;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-    .cars-grid {
+    .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
     }
-    @media (max-width: 900px) { .cars-grid { grid-template-columns: 1fr; } }
-    .car-sheet {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    @media (max-width: 540px) { .hero-stats { grid-template-columns: 1fr; } }
+    .hstat strong { display: block; font-family: var(--font-mono); font-size: 1.3rem; color: var(--copper); }
+    .hstat span { font-size: 0.76rem; color: var(--ink-muted); }
+
+    .hero-photo-panel {
+      position: relative;
+      border: 1px solid var(--gunmetal-border);
     }
-    .car-photo {
-      aspect-ratio: 16 / 10.5;
-      overflow: hidden;
-      background: #161715;
-    }
-    .car-photo img {
+    .hero-photo-panel img {
       width: 100%;
-      height: 100%;
+      height: 450px;
       object-fit: cover;
       display: block;
     }
-    .car-content {
-      padding: 26px;
+    .hero-photo-badge {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(21, 24, 30, 0.92);
+      border-top: 1px solid var(--gunmetal-border);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
     }
-    .car-title {
-      font-family: var(--font-serif);
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .car-price {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--sienna);
-      margin-bottom: 16px;
-    }
-    .spec-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.84rem;
-      margin-bottom: 20px;
-    }
-    .spec-table td {
-      padding: 6px 0;
+    .hero-photo-badge span { font-size: 0.82rem; color: rgba(255,255,255,0.86); }
+    .hero-photo-badge strong { font-family: var(--font-mono); color: var(--copper); font-size: 0.84rem; }
+
+    /* TRUST RIBBON */
+    .trust-strip {
+      background: var(--white);
       border-bottom: 1px solid var(--border);
+      padding: 20px 0;
     }
-    .spec-table td:last-child {
-      text-align: right;
-      font-weight: 600;
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 820px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+    .trust-item strong { display: block; font-size: 0.92rem; margin-bottom: 2px; }
+    .trust-item span { font-size: 0.78rem; color: var(--ink-muted); }
+
+    /* MULTI-SERVICE PRE-QUOTE BUILDER */
+    .section-pad { padding: 80px 0; }
+    .section-head { margin-bottom: 36px; }
+    .section-head h2 {
+      font-size: clamp(1.85rem, 3.3vw, 2.55rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
     }
 
-    footer {
-      padding: 64px 0;
-      font-size: 0.85rem;
-      color: var(--ink-muted);
+    .devis-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: start;
     }
-    .footer-row {
+    @media (max-width: 960px) { .devis-grid { grid-template-columns: 1fr; } }
+
+    .ops-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 640px) { .ops-list { grid-template-columns: 1fr; } }
+    .op-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 18px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .op-card:hover { border-color: var(--ink); }
+    .op-card.selected {
+      border-color: var(--copper);
+      box-shadow: inset 0 0 0 1px var(--copper);
+      background: #FFFDFB;
+    }
+    .op-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 32px;
-      flex-wrap: wrap;
+      gap: 10px;
     }
+    .op-top h3 { font-size: 1rem; font-weight: 700; line-height: 1.3; }
+    .op-check {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--copper);
+      flex-shrink: 0;
+    }
+    .op-desc { font-size: 0.8rem; color: var(--ink-muted); }
+    .op-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .op-code { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); }
+    .op-price { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: var(--copper); }
+
+    .devis-summary-panel {
+      background: var(--gunmetal);
+      color: #FFF;
+      padding: 30px;
+      position: sticky;
+      top: 96px;
+    }
+    .summary-lines {
+      list-style: none;
+      margin: 18px 0;
+      border-top: 1px solid var(--gunmetal-border);
+      border-bottom: 1px solid var(--gunmetal-border);
+      padding: 12px 0;
+    }
+    .summary-lines li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      padding: 6px 0;
+      gap: 10px;
+    }
+    .summary-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 20px;
+    }
+    .summary-total-row strong {
+      font-family: var(--font-mono);
+      font-size: 1.85rem;
+      color: var(--copper);
+    }
+    .dark-field { margin-bottom: 12px; }
+    .dark-field label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 5px;
+    }
+    .dark-field input, .dark-field select {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--gunmetal-soft);
+      border: 1px solid var(--gunmetal-border);
+      color: #FFF;
+      font-family: inherit;
+      font-size: 0.88rem;
+    }
+    .ticket-confirm {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      background: rgba(23, 107, 69, 0.25);
+      border-left: 3px solid #3CC183;
+      font-size: 0.84rem;
+    }
+
+    /* DIAGNOSTIC 90 POINTS INTERACTIVE TABS */
+    .diag-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 0;
+    }
+    .diag-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+    @media (max-width: 920px) { .diag-layout { grid-template-columns: 1fr; } }
+    .diag-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .diag-tab-btn {
+      background: var(--silver-bg);
+      border: 1px solid var(--border);
+      padding: 9px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .diag-tab-btn.active {
+      background: var(--gunmetal);
+      color: #FFF;
+      border-color: var(--gunmetal);
+    }
+    .diag-checklist {
+      list-style: none;
+      background: var(--silver-bg);
+      border: 1px solid var(--border);
+      padding: 22px;
+    }
+    .diag-checklist li {
+      padding: 9px 0;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      gap: 10px;
+    }
+    .diag-checklist li:last-child { border-bottom: none; }
+    .diag-badge { font-family: var(--font-mono); font-size: 0.72rem; color: var(--emerald); font-weight: 600; white-space: nowrap; }
+    .diag-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .diag-photos img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    /* SHOWROOM OCCASIONS */
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 980px) { .cars-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .cars-grid { grid-template-columns: 1fr; } }
+    .car-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .car-media { position: relative; height: 215px; overflow: hidden; }
+    .car-media img { width: 100%; height: 100%; object-fit: cover; }
+    .car-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--gunmetal);
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 4px 10px;
+    }
+    .car-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .car-price { font-family: var(--font-mono); font-size: 1.35rem; font-weight: 700; color: var(--copper); margin-bottom: 4px; }
+    .car-body h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .car-specs { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); margin-bottom: 14px; }
+    .car-actions { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* LEGAL BAREME T1 T2 T3 + FOOTER */
+    .rates-bar {
+      background: var(--silver-deep);
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .rates-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 780px) { .rates-grid { grid-template-columns: 1fr; } }
+    .rate-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 18px;
+    }
+    .rate-box span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--copper); font-weight: 600; }
+    .rate-box strong { display: block; font-size: 1.35rem; font-family: var(--font-mono); margin: 4px 0; }
+    .rate-box p { font-size: 0.8rem; color: var(--ink-muted); }
+
+    footer {
+      background: var(--gunmetal);
+      color: rgba(255,255,255,0.7);
+      padding: 44px 0 30px;
+      font-size: 0.82rem;
+    }
+    .footer-flex {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--gunmetal-border);
+      margin-bottom: 18px;
+    }
+
+    /* MODAL DOSSIER VEHICULE */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(21, 24, 30, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 120;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      max-width: 580px;
+      width: 100%;
+      padding: 28px;
+      border: 1px solid var(--gunmetal);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .dossier-cell {
+      background: var(--silver-bg);
+      padding: 12px;
+      border: 1px solid var(--border);
+    }
+    .dossier-cell span { display: block; font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; font-family: var(--font-mono); }
+    .dossier-cell strong { font-size: 0.94rem; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="container nav-bar">
-      <a href="#" class="brand" data-bms-brand>Pôle Auto Performance</a>
+      <a href="#" class="brand-wrap">
+        <span class="brand-mark">PA</span>
+        <span class="brand" data-bms-brand>Pôle Auto Performance</span>
+      </a>
       <ul class="nav-links">
-        <li><a href="#atelier">Rendez-Vous Atelier</a></li>
-        <li><a href="#bareme">Forfaits Mécaniques</a></li>
-        <li><a href="#occasions">Véhicules Révisés</a></li>
+        <li><a href="#simulateur">Plan SIV</a></li>
+        <li><a href="#devis-atelier">Devis Atelier</a></li>
+        <li><a href="#diagnostic">Contrôle 90 pts</a></li>
+        <li><a href="#occasions">Occasions Certifiées</a></li>
       </ul>
-      <a href="#atelier" class="btn-header">Prendre rendez-vous</a>
+      <div class="nav-actions">
+        <a href="#bareme" class="btn-ghost-light">Tarifs T1–T3</a>
+        <a href="#devis-atelier" class="btn-copper">Prendre RDV</a>
+      </div>
     </div>
   </header>
 
-  <section class="hero" id="atelier">
+  <!-- HERO INGENIERIE AUTOMOBILE -->
+  <section id="simulateur" class="hero-tech">
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow">Atelier Mécanique Toutes Marques &amp; Diagnostic Électronique</span>
-        <h1>Mécanique de précision, <em>garantie constructeur préservée</em>.</h1>
-        <p>Conformément à la réglementation européenne, nous réalisons l'entretien périodique de votre véhicule selon le cahier des charges strict du constructeur, avec pièces d'origine Bosch, Brembo et lubrifiants homologués, tout en réduisant votre facture de 30 à 40 %.</p>
+        <span class="eyebrow">Atelier Toutes Marques • Pièces OEM Constructeur</span>
+        <h1>Votre entretien constructeur transparent, sans surprise à la facture.</h1>
+        <p class="hero-lead">
+          Diagnostiqueurs valise multi-marques Bosch, pièces d'origine garanties 2 ans et préservation intégrale de votre garantie constructeur (Règlement UE n°461/2010).
+        </p>
 
-        <div class="hero-metrics">
-          <div>
-            <strong>100 %</strong>
-            <span>Garantie constructeur maintenue</span>
+        <div class="siv-simulator-card">
+          <span class="eyebrow" style="margin-bottom:2px;">Simulateur Express Plan Constructeur</span>
+          <p style="font-size:0.84rem; color:var(--ink-muted);">Saisissez votre immatriculation et kilométrage actuel pour connaître les opérations recommandées.</p>
+          <div class="siv-inputs-row">
+            <div class="fr-plate-wrap">
+              <div class="fr-plate-eu">F</div>
+              <input type="text" id="heroPlate" class="fr-plate-input" value="GK-418-NP" maxlength="10" aria-label="Plaque d'immatriculation">
+            </div>
+            <select id="heroKm" class="siv-select" aria-label="Kilométrage">
+              <option value="30000">30 000 km (Révision 2 ans)</option>
+              <option value="60000" selected>60 000 km (Intermédiaire + Filtres)</option>
+              <option value="90000">90 000 km (Freinage & Bougies)</option>
+              <option value="120000">120 000 km+ (Distribution & Eau)</option>
+            </select>
+            <button type="button" class="btn-copper" onclick="analyzeSivPlan()">Analyser</button>
           </div>
-          <div>
-            <strong>90 pts</strong>
-            <span>Contrôle systématique sur pont</span>
+          <div id="sivResultBox" class="siv-result"></div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hstat">
+            <strong>68 € TTC/h</strong>
+            <span>Tarif T1 Mécanique courante affiché</span>
           </div>
-          <div>
-            <strong>Prêt Auto</strong>
-            <span>Véhicule de courtoisie sur réservation</span>
+          <div class="hstat">
+            <strong>24 mois</strong>
+            <span>Garantie pièces d'origine &amp; main-d'œuvre</span>
+          </div>
+          <div class="hstat">
+            <strong>4,8 / 5</strong>
+            <span>Noté sur 340 interventions Val-d'Oise</span>
           </div>
         </div>
       </div>
 
-      <!-- REGISTRE D'ATELIER -->
-      <form class="workshop-card" onsubmit="submitWorkshopRdv(event)">
-        <span class="eyebrow" style="margin-bottom:8px;">Registre de Planification</span>
-        <h2 style="font-family:var(--font-serif); font-size:2rem; font-weight:500; margin-bottom:20px;">Chiffrer &amp; Planifier une Intervention</h2>
-
-        <div class="field-grid">
-          <div class="field">
-            <label for="autoPlate">Immatriculation ou Modèle</label>
-            <input type="text" id="autoPlate" value="GH-492-TR" required style="text-transform:uppercase; font-weight:700; letter-spacing:0.08em;">
-          </div>
-          <div class="field">
-            <label for="autoDate">Date de dépôt souhaitée</label>
-            <input type="date" id="autoDate" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="autoOperation">Opération mécanique</label>
-          <select id="autoOperation" onchange="updateAutoForfaitPrice()">
-            <option value="149">Révision Constructeur + Vidange Synthèse &amp; 3 Filtres (149 €)</option>
-            <option value="139">Remplacement Plaquettes de Frein Avant Bosch (139 €)</option>
-            <option value="269">Forfait Disques + Plaquettes de Frein Avant (269 €)</option>
-            <option value="85">Recharge Climatisation &amp; Passage Valise Diagnostic (85 €)</option>
-            <option value="520">Kit Courroie de Distribution + Pompe à Eau &amp; Liquide (520 €)</option>
-            <option value="65">Contrôle Géométrie &amp; Parallélisme Laser 3D (65 €)</option>
-          </select>
-        </div>
-
-        <div class="field-grid">
-          <div class="field">
-            <label for="autoClientName">Nom &amp; Prénom</label>
-            <input type="text" id="autoClientName" required placeholder="Votre nom">
-          </div>
-          <div class="field">
-            <label for="autoClientTel">Téléphone Mobile</label>
-            <input type="tel" id="autoClientTel" required placeholder="06 00 00 00 00">
-          </div>
-        </div>
-
-        <label style="display:flex; align-items:center; gap:8px; font-size:0.86rem; color:var(--ink-muted); margin-bottom:18px; cursor:pointer;">
-          <input type="checkbox" id="autoLoanCar" checked> Réserver gratuitement un véhicule de courtoisie pour la journée
-        </label>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid var(--border);">
-          <div>
-            <span style="font-size:0.74rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-muted);">Forfait TTC Pièces &amp; Main-d'œuvre</span>
-            <div style="font-family:var(--font-serif); font-size:2rem; font-weight:600;" id="autoPriceDisplay">149 €</div>
-          </div>
-          <button type="submit" class="btn-header" style="padding:14px 24px;">Bloquer le créneau</button>
-        </div>
-        <p id="autoConfirmMsg" style="display:none; margin-top:16px; padding:12px; background:var(--surface); border:1px solid var(--border); font-size:0.86rem;"></p>
-      </form>
-    </div>
-  </section>
-
-  <!-- BARÈME OFFICIEL DES FORFAITS -->
-  <section class="menu-sheet" id="bareme">
-    <div class="container">
-      <div class="sheet-header">
-        <span class="eyebrow">Transparence Tarifaire — Pièces d'Origine &amp; Main-d'Œuvre Incluses</span>
-        <h2>Barème des Forfaits d'Atelier</h2>
-        <p>Aucune intervention supplémentaire n'est engagée sans votre accord écrit préalable.</p>
-      </div>
-
-      <div class="menu-columns">
-        <div>
-          <h3 class="menu-category-title">Entretien Périodique &amp; Moteur</h3>
-          <div class="forfait-item">
-            <div class="forfait-row">
-              <span class="forfait-name">Révision Constructeur Garantie Préservée</span>
-              <div class="forfait-right">
-                <span class="forfait-price">149 €</span>
-                <button type="button" class="btn-pick" onclick="pickAutoForfait('149')">Planifier</button>
-              </div>
-            </div>
-            <p class="forfait-desc">Vidange huile 100 % synthèse homologuée (norme VW, PSA, RN, BMW, MB), filtre à huile, filtre d'habitacle, mise à niveau des fluides et remise à zéro de l'indicateur de maintenance.</p>
-          </div>
-
-          <div class="forfait-item">
-            <div class="forfait-row">
-              <span class="forfait-name">Kit Courroie de Distribution &amp; Pompe à Eau</span>
-              <div class="forfait-right">
-                <span class="forfait-price">520 €</span>
-                <button type="button" class="btn-pick" onclick="pickAutoForfait('520')">Planifier</button>
-              </div>
-            </div>
-            <p class="forfait-desc">Remplacement complet de la courroie crantée, galets tendeurs, pompe à eau neuve, courroie d'accessoires et purge du circuit de refroidissement.</p>
-          </div>
-
-          <div class="forfait-item">
-            <div class="forfait-row">
-              <span class="forfait-name">Recharge Climatisation &amp; Lecture Valise OBD</span>
-              <div class="forfait-right">
-                <span class="forfait-price">85 €</span>
-                <button type="button" class="btn-pick" onclick="pickAutoForfait('85')">Planifier</button>
-              </div>
-            </div>
-            <p class="forfait-desc">Tirage au vide du circuit, test d'étanchéité, recharge en gaz réfrigérant, lubrification du compresseur et traitement antibactérien.</p>
-          </div>
-        </div>
-
-        <div>
-          <h3 class="menu-category-title">Liaison au Sol, Freinage &amp; Géométrie</h3>
-          <div class="forfait-item">
-            <div class="forfait-row">
-              <span class="forfait-name">Forfait Plaquettes de Frein Avant (Bosch / Brembo)</span>
-              <div class="forfait-right">
-                <span class="forfait-price">139 €</span>
-                <button type="button" class="btn-pick" onclick="pickAutoForfait('139')">Planifier</button>
-              </div>
-            </div>
-            <p class="forfait-desc">Dépose des étriers, nettoyage des coulisseaux, pose d'un jeu de 4 plaquettes neuves avec témoin d'usure et contrôle du point d'ébullition du liquide de frein.</p>
-          </div>
-
-          <div class="forfait-item">
-            <div class="forfait-row">
-              <span class="forfait-name">Ensemble Disques Ventilés &amp; Plaquettes Avant</span>
-              <div class="forfait-right">
-                <span class="forfait-price">269 €</span>
-                <button type="button" class="btn-pick" onclick="pickAutoForfait('269')">Planifier</button>
-              </div>
-            </div>
-            <p class="forfait-desc">Remplacement des deux disques de frein haute teneur en carbone et du jeu de plaquettes associé, essai routier de rodage inclus.</p>
-          </div>
-
-          <div class="forfait-item">
-            <div class="forfait-row">
-              <span class="forfait-name">Géométrie &amp; Parallélisme Train Avant/Arrière 3D</span>
-              <div class="forfait-right">
-                <span class="forfait-price">65 €</span>
-                <button type="button" class="btn-pick" onclick="pickAutoForfait('65')">Planifier</button>
-              </div>
-            </div>
-            <p class="forfait-desc">Réglage de l'angle de chasse, du carrossage et du parallélisme sur banc optique 3D avec remise du rapport de mesures avant/après.</p>
-          </div>
+      <div class="hero-photo-panel">
+        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1400&q=85" alt="Bloc moteur en révision atelier de précision">
+        <div class="hero-photo-badge">
+          <span>Banc diagnostic Bosch &amp; géométrie laser 3D</span>
+          <strong>Agrément Multi-Marques</strong>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PARC VÉHICULES D'OCCASION -->
-  <section class="sales-section" id="occasions">
+  <!-- TRUST STRIP -->
+  <section class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <strong>Garantie Constructeur Préservée</strong>
+        <span>Huiles normées ACEA/API &amp; carnet numérique tamponné.</span>
+      </div>
+      <div class="trust-item">
+        <strong>Accord Client Systématique</strong>
+        <span>Aucune pièce supplémentaire changée sans devis validé.</span>
+      </div>
+      <div class="trust-item">
+        <strong>Véhicule de Courtoisie Récent</strong>
+        <span>Prêt de citadine offert dès 200 € d'intervention atelier.</span>
+      </div>
+      <div class="trust-item">
+        <strong>Pièces Remplacées Montrées</strong>
+        <span>Transparence totale : vos anciennes pièces conservées au retrait.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEVIS ATELIER MULTI-SERVICES -->
+  <section id="devis-atelier" class="section-pad">
     <div class="container">
-      <div class="sheet-header" style="margin-bottom:52px;">
-        <span class="eyebrow">Sélection de l'Atelier — Garantie Nationale 12 Mois</span>
-        <h2>Véhicules Révisés Disponibles</h2>
-        <p>Chaque véhicule présenté est intégralement révisé dans notre atelier, livré avec contrôle technique vierge et garantie pièces et main-d'œuvre.</p>
+      <div class="section-head">
+        <span class="eyebrow">Estimation Immédiate Sans Engagement</span>
+        <h2>Composez votre devis atelier sur mesure</h2>
+      </div>
+
+      <div class="devis-grid">
+        <div class="ops-list" id="opsContainer">
+          <label class="op-card selected">
+            <div>
+              <div class="op-top">
+                <h3>Révision Vidange Constructeur</h3>
+                <input type="checkbox" class="op-check" value="Révision Vidange Constructeur" data-price="169" checked onchange="recalcGarageQuote()">
+              </div>
+              <p class="op-desc">Huile synthèse normée + filtre à huile + 45 contrôles sécurité + remise à zéro ordinateur.</p>
+            </div>
+            <div class="op-bottom">
+              <span class="op-code">FORFAIT T1 • 1H15</span>
+              <span class="op-price">169 € TTC</span>
+            </div>
+          </label>
+
+          <label class="op-card">
+            <div>
+              <div class="op-top">
+                <h3>Freinage Avant (Disques + Plaquettes)</h3>
+                <input type="checkbox" class="op-check" value="Disques & Plaquettes Avant Bosch" data-price="245" onchange="recalcGarageQuote()">
+              </div>
+              <p class="op-desc">Montage kit Bosch/Brembo certifié ECE R90, nettoyage étriers et purge dot4.</p>
+            </div>
+            <div class="op-bottom">
+              <span class="op-code">FORFAIT T1 • 1H30</span>
+              <span class="op-price">245 € TTC</span>
+            </div>
+          </label>
+
+          <label class="op-card">
+            <div>
+              <div class="op-top">
+                <h3>Recharge Climatisation R1234yf</h3>
+                <input type="checkbox" class="op-check" value="Recharge Clim + Traitement Bactéricide" data-price="89" onchange="recalcGarageQuote()">
+              </div>
+              <p class="op-desc">Tirage au vide, test d'étanchéité azote, appoint gaz et traitement habitacle.</p>
+            </div>
+            <div class="op-bottom">
+              <span class="op-code">FORFAIT T2 • 1H00</span>
+              <span class="op-price">89 € TTC</span>
+            </div>
+          </label>
+
+          <label class="op-card">
+            <div>
+              <div class="op-top">
+                <h3>Kit Distribution + Pompe à Eau</h3>
+                <input type="checkbox" class="op-check" value="Kit Distribution & Pompe à Eau" data-price="590" onchange="recalcGarageQuote()">
+              </div>
+              <p class="op-desc">Courroie, galets tendeurs, pompe à eau et remplacement liquide de refroidissement G12/G13.</p>
+            </div>
+            <div class="op-bottom">
+              <span class="op-code">FORFAIT T2 • 4H30</span>
+              <span class="op-price">590 € TTC</span>
+            </div>
+          </label>
+
+          <label class="op-card">
+            <div>
+              <div class="op-top">
+                <h3>Géométrie Laser 3D + Parallélisme</h3>
+                <input type="checkbox" class="op-check" value="Géométrie 3D Essieux Av/Ar" data-price="85" onchange="recalcGarageQuote()">
+              </div>
+              <p class="op-desc">Réglage précis chasse, carrossage et parallélisme avec rapport papier avant/après.</p>
+            </div>
+            <div class="op-bottom">
+              <span class="op-code">FORFAIT T3 • 0H45</span>
+              <span class="op-price">85 € TTC</span>
+            </div>
+          </label>
+
+          <label class="op-card">
+            <div>
+              <div class="op-top">
+                <h3>Pré-Contrôle + Présentation CT</h3>
+                <input type="checkbox" class="op-check" value="Pré-Contrôle Technique + Présentation" data-price="79" onchange="recalcGarageQuote()">
+              </div>
+              <p class="op-desc">Inspection pollution/éclairage/trains roulants et convoyage au centre agréé inclus.</p>
+            </div>
+            <div class="op-bottom">
+              <span class="op-code">FORFAIT GLOBAL</span>
+              <span class="op-price">79 € TTC</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- SUMMARY SIDEBAR -->
+        <aside class="devis-summary-panel">
+          <span class="eyebrow" style="margin-bottom:4px;">Récapitulatif Estimatif</span>
+          <h3 style="font-size:1.45rem; font-weight:700;">Ordre de Réparation</h3>
+
+          <ul class="summary-lines" id="garageQuoteLines"></ul>
+
+          <label style="display:flex; align-items:center; gap:10px; font-size:0.84rem; margin-bottom:18px; cursor:pointer;">
+            <input type="checkbox" id="autoLoanCar" onchange="recalcGarageQuote()" style="width:16px;height:16px;accent-color:var(--copper);">
+            Réserver une citadine de courtoisie (offerte dès 200 €)
+          </label>
+
+          <div class="summary-total-row">
+            <span style="font-size:0.9rem; color:rgba(255,255,255,0.72);">Total estimé TTC</span>
+            <strong id="garageQuoteTotal">169 €</strong>
+          </div>
+
+          <form onsubmit="submitGarageRdv(event)">
+            <div class="dark-field">
+              <label for="autoPlate">Immatriculation ou Modèle</label>
+              <input type="text" id="autoPlate" required value="GK-418-NP" placeholder="AA-123-BB">
+            </div>
+            <div class="dark-field">
+              <label for="autoClientName">Nom &amp; Téléphone mobile</label>
+              <input type="text" id="autoClientName" required placeholder="Votre nom + 06...">
+            </div>
+            <div class="dark-field">
+              <label for="autoSlot">Dépôt atelier souhaité</label>
+              <select id="autoSlot">
+                <option>Demain matin — 08h30</option>
+                <option>Demain après-midi — 14h00</option>
+                <option>Jeudi matin — 08h30</option>
+                <option>Samedi matin — 09h00</option>
+              </select>
+            </div>
+            <input type="text" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+            <button type="submit" class="btn-copper" style="width:100%; padding:14px; margin-top:6px;">
+              Valider ce RDV Atelier
+            </button>
+            <div id="autoConfirmMsg" class="ticket-confirm"></div>
+          </form>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGNOSTIC 90 POINTS INTERACTIF -->
+  <section id="diagnostic" class="diag-section">
+    <div class="container diag-layout">
+      <div>
+        <span class="eyebrow">Transparence Totale</span>
+        <h2 style="font-size:2.1rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:14px;">Contrôle Atelier en 90 Points</h2>
+        <p style="color:var(--ink-muted); font-size:0.92rem; margin-bottom:22px;">
+          Chaque véhicule entrant sur nos ponts bénéficie d'un relevé technique photo envoyé par SMS avant toute dépense complémentaire.
+        </p>
+
+        <div class="diag-tabs">
+          <button type="button" class="diag-tab-btn active" onclick="renderDiagTab('moteur', this)">Moteur &amp; Fluides</button>
+          <button type="button" class="diag-tab-btn" onclick="renderDiagTab('freinage', this)">Freinage &amp; Châssis</button>
+          <button type="button" class="diag-tab-btn" onclick="renderDiagTab('elec', this)">Électronique &amp; AdBlue</button>
+          <button type="button" class="diag-tab-btn" onclick="renderDiagTab('ct', this)">Points Critiques CT</button>
+        </div>
+
+        <ul class="diag-checklist" id="diagChecklistBox"></ul>
+      </div>
+
+      <div class="diag-photos">
+        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1000&q=80" alt="Intervention mécanique sur pont élévateur">
+        <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=900&q=80" alt="Outillage dynamométrique de précision">
+      </div>
+    </div>
+  </section>
+
+  <!-- OCCASIONS CERTIFIEES -->
+  <section id="occasions" class="section-pad">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Parc Occasions Révisées</span>
+        <h2>Véhicules d'occasion certifiés &amp; garantis 12 mois</h2>
       </div>
 
       <div class="cars-grid">
-        <article class="car-sheet">
-          <div>
-            <div class="car-photo">
-              <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80" alt="Volkswagen Golf VIII TDI DSG7">
-            </div>
-            <div class="car-content">
-              <h3 class="car-title">Volkswagen Golf VIII 2.0 TDI 150 DSG</h3>
-              <div class="car-price">21 900 € TTC</div>
-              <table class="spec-table">
-                <tr><td>Mise en circulation</td><td>Octobre 2021</td></tr>
-                <tr><td>Kilométrage certifié</td><td>54 200 km</td></tr>
-                <tr><td>Transmission</td><td>Automatique DSG7</td></tr>
-                <tr><td>Suivi d'entretien</td><td>Carnet complet + Révision faite</td></tr>
-              </table>
-              <button type="button" class="btn-header" style="width:100%;" onclick="requestCarTrial('Volkswagen Golf VIII 2.0 TDI')">Réserver un essai routier</button>
+        <article class="car-card">
+          <div class="car-media">
+            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=85" alt="Volkswagen Golf VIII R-Line">
+            <span class="car-tag">1ère Main • Histovec OK</span>
+          </div>
+          <div class="car-body">
+            <div class="car-price">24 900 €</div>
+            <h3>VW Golf VIII R-Line 1.5 eTSI 150</h3>
+            <p class="car-specs">2022 • 38 400 km • Boîte DSG7 • Crit'Air 1</p>
+            <div class="car-actions">
+              <button type="button" class="btn-dark" onclick="openCarDossier(0)">Dossier Tech</button>
+              <button type="button" class="btn-copper" onclick="requestCarTrial('VW Golf VIII R-Line')">Essayer</button>
             </div>
           </div>
         </article>
 
-        <article class="car-sheet">
-          <div>
-            <div class="car-photo">
-              <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" alt="Peugeot 208 GT EAT8">
-            </div>
-            <div class="car-content">
-              <h3 class="car-title">Peugeot 208 II PureTech 100 EAT8 GT</h3>
-              <div class="car-price">15 490 € TTC</div>
-              <table class="spec-table">
-                <tr><td>Mise en circulation</td><td>Mai 2022</td></tr>
-                <tr><td>Kilométrage certifié</td><td>38 500 km</td></tr>
-                <tr><td>Transmission</td><td>Automatique EAT8</td></tr>
-                <tr><td>Suivi d'entretien</td><td>1ère main • Courroie vérifiée</td></tr>
-              </table>
-              <button type="button" class="btn-header" style="width:100%;" onclick="requestCarTrial('Peugeot 208 II GT EAT8')">Réserver un essai routier</button>
+        <article class="car-card">
+          <div class="car-media">
+            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=900&q=85" alt="Peugeot 208 GT Pack EAT8">
+            <span class="car-tag">Entretien 100% Atelier</span>
+          </div>
+          <div class="car-body">
+            <div class="car-price">17 490 €</div>
+            <h3>Peugeot 208 GT Pack 130 EAT8</h3>
+            <p class="car-specs">2021 • 44 200 km • Automatique • Crit'Air 1</p>
+            <div class="car-actions">
+              <button type="button" class="btn-dark" onclick="openCarDossier(1)">Dossier Tech</button>
+              <button type="button" class="btn-copper" onclick="requestCarTrial('Peugeot 208 GT Pack')">Essayer</button>
             </div>
           </div>
         </article>
 
-        <article class="car-sheet">
-          <div>
-            <div class="car-photo">
-              <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=800&q=80" alt="Renault Clio V E-Tech Hybride">
-            </div>
-            <div class="car-content">
-              <h3 class="car-title">Renault Clio V E-Tech Hybride 145 ch</h3>
-              <div class="car-price">16 800 € TTC</div>
-              <table class="spec-table">
-                <tr><td>Mise en circulation</td><td>Février 2023</td></tr>
-                <tr><td>Kilométrage certifié</td><td>22 100 km</td></tr>
-                <tr><td>Motorisation</td><td>Full Hybrid (4,2 L / 100 km)</td></tr>
-                <tr><td>Suivi d'entretien</td><td>Garantie 12 mois incluse</td></tr>
-              </table>
-              <button type="button" class="btn-header" style="width:100%;" onclick="requestCarTrial('Renault Clio V E-Tech Hybride')">Réserver un essai routier</button>
+        <article class="car-card">
+          <div class="car-media">
+            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=900&q=85" alt="BMW Série 3 320d M-Sport">
+            <span class="car-tag">Garantie 12 Mois</span>
+          </div>
+          <div class="car-body">
+            <div class="car-price">28 900 €</div>
+            <h3>BMW Série 3 320d M-Sport BVA8</h3>
+            <p class="car-specs">2021 • 56 800 km • Diesel AdBlue • Crit'Air 2</p>
+            <div class="car-actions">
+              <button type="button" class="btn-dark" onclick="openCarDossier(2)">Dossier Tech</button>
+              <button type="button" class="btn-copper" onclick="requestCarTrial('BMW 320d M-Sport')">Essayer</button>
             </div>
           </div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAREME OFFICIEL T1 T2 T3 -->
+  <section id="bareme" class="rates-bar">
+    <div class="container">
+      <div style="margin-bottom:20px;">
+        <span class="eyebrow">Affichage Réglementaire — Arrêté du 27 avril 1995</span>
+        <h3 style="font-size:1.35rem; font-weight:800;">Tarifs Horaires Main-d'Œuvre Atelier</h3>
+      </div>
+      <div class="rates-grid">
+        <div class="rate-box">
+          <span>CATÉGORIE T1</span>
+          <strong>68,00 € TTC / h</strong>
+          <p>Entretien courant : vidange, filtres, freinage, amortisseurs, échappement.</p>
+        </div>
+        <div class="rate-box">
+          <span>CATÉGORIE T2</span>
+          <strong>78,00 € TTC / h</strong>
+          <p>Haute technicité : distribution, embrayage, climatisation, valise diagnostic.</p>
+        </div>
+        <div class="rate-box">
+          <span>CATÉGORIE T3</span>
+          <strong>84,00 € TTC / h</strong>
+          <p>Haute complexité : géométrie laser 3D, véhicules hybrides/électriques habilités B2TL.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container footer-row">
-      <div>
-        <strong data-bms-brand style="color:var(--ink); font-family:var(--font-serif); font-size:1.2rem; text-transform:uppercase;">Pôle Auto Performance</strong>
-        <p style="margin-top:6px;">Atelier Mécanique &amp; Vente Automobile • Lundi au Samedi 08h30 – 19h00.</p>
+    <div class="container">
+      <div class="footer-flex">
+        <div>
+          <strong data-bms-brand style="color:#FFF; font-size:1.05rem; text-transform:uppercase;">Pôle Auto Performance</strong>
+          <p style="margin-top:6px;">ZA des Béthunes, 14 Avenue de l'Éguillette, 95310 Saint-Ouen-l'Aumône</p>
+          <p>Lundi au Vendredi 08h00 – 18h30 • Samedi 09h00 – 12h30 • Tél : 01 30 37 64 20</p>
+        </div>
+        <div style="max-width:480px;">
+          <p>SIRET 842 901 552 00027 • Préservation garantie constructeur (Règlement UE n°461/2010). Recyclage huiles &amp; batteries certifié.</p>
+        </div>
       </div>
-      <div style="max-width:520px; font-size:0.78rem;">
-        Barème des taux horaires de main-d'œuvre TTC : Mécanique courante (T1) : 68 € TTC/h • Mécanique complexe (T2) : 78 € TTC/h • Diagnostic électronique (T3) : 85 € TTC/h. Devis écrit gratuit avant toute réparation.
+      <div style="font-size:0.75rem; color:rgba(255,255,255,0.48);">
+        Prix indiqués TTC incluant pièces et main-d'œuvre pour citadines &amp; compactes standards. Devis définitif remis avant toute intervention.
       </div>
     </div>
   </footer>
 
+  <!-- MODAL DOSSIER TECHNIQUE OCCASION -->
+  <div class="modal-backdrop" id="carDossierModal" onclick="if(event.target===this)closeCarDossier()">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:12px;">
+        <div>
+          <span class="eyebrow" style="margin-bottom:2px;">Inspection Atelier Certifiée</span>
+          <h3 id="modalCarTitle" style="font-size:1.35rem; font-weight:800;">Véhicule</h3>
+        </div>
+        <button type="button" onclick="closeCarDossier()" style="background:none; border:1px solid var(--border); width:32px; height:32px; cursor:pointer;">✕</button>
+      </div>
+      <div id="modalCarContent"></div>
+    </div>
+  </div>
+
   <script>
-    document.getElementById('autoDate').valueAsDate = new Date();
-
-    function updateAutoForfaitPrice() {
-      const val = document.getElementById('autoOperation').value;
-      document.getElementById('autoPriceDisplay').textContent = val + ' €';
+    function escHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
     }
 
-    function pickAutoForfait(priceVal) {
-      const sel = document.getElementById('autoOperation');
-      sel.value = priceVal;
-      updateAutoForfaitPrice();
-      document.getElementById('atelier').scrollIntoView({ behavior: 'smooth' });
+    function analyzeSivPlan() {
+      const plate = (document.getElementById('heroPlate').value || 'AA-123-BB').toUpperCase().trim();
+      const km = parseInt(document.getElementById('heroKm').value, 10);
+      const box = document.getElementById('sivResultBox');
+      let plan = '';
+      if (km === 30000) {
+        plan = `<strong>Plan Constructeur 30 000 km détecté (${escHtml(plate)}) :</strong> Vidange huile synthèse normée + filtre à huile + purge liquide de frein préconisée. Budget indicatif : <strong>169 € TTC</strong>.`;
+      } else if (km === 60000) {
+        plan = `<strong>Plan Constructeur 60 000 km détecté (${escHtml(plate)}) :</strong> Révision complète (Huile, Air, Habitacle) + contrôle épaisseur disques/plaquettes. Budget indicatif : <strong>169 € TTC</strong>.`;
+      } else if (km === 90000) {
+        plan = `<strong>Plan Constructeur 90 000 km détecté (${escHtml(plate)}) :</strong> Révision majeure + remplacement bougies/filtres + kit freinage avant conseillé. Budget indicatif : <strong>414 € TTC</strong>.`;
+      } else {
+        plan = `<strong>Échéance 120 000 km+ détectée (${escHtml(plate)}) :</strong> Contrôle urgent kit distribution, pompe à eau et géométrie train avant. Budget pack : <strong>590 € TTC</strong>.`;
+      }
+      box.style.display = 'block';
+      box.innerHTML = `${plan} <div style="margin-top:8px;"><a href="#devis-atelier" onclick="document.getElementById('autoPlate').value='${escHtml(plate)}'" style="color:#FFF; text-decoration:underline; font-weight:700;">Pré-remplir le devis atelier →</a></div>`;
     }
 
-    function submitWorkshopRdv(e) {
+    function recalcGarageQuote() {
+      const cards = document.querySelectorAll('#opsContainer .op-card');
+      const selected = [];
+      let subtotal = 0;
+      cards.forEach(card => {
+        const cb = card.querySelector('.op-check');
+        if (cb.checked) {
+          card.classList.add('selected');
+          const price = parseFloat(cb.dataset.price);
+          subtotal += price;
+          selected.push({ label: cb.value, price });
+        } else {
+          card.classList.remove('selected');
+        }
+      });
+
+      const loan = document.getElementById('autoLoanCar').checked;
+      let loanCost = 0;
+      if (loan) {
+        loanCost = subtotal >= 200 ? 0 : 19;
+      }
+      const total = subtotal + loanCost;
+
+      const listEl = document.getElementById('garageQuoteLines');
+      if (selected.length === 0) {
+        listEl.innerHTML = `<li style="color:rgba(255,255,255,0.6);">Cochez au moins une opération à gauche.</li>`;
+      } else {
+        listEl.innerHTML = selected.map(s => `<li><span>${escHtml(s.label)}</span><strong>${s.price} €</strong></li>`).join('') +
+          (loan ? `<li><span>Véhicule de courtoisie</span><strong>${loanCost === 0 ? 'OFFERT' : '19 €'}</strong></li>` : '');
+      }
+      document.getElementById('garageQuoteTotal').textContent = `${total} €`;
+    }
+
+    function submitGarageRdv(e) {
       e.preventDefault();
-      const plate = document.getElementById('autoPlate').value.trim();
-      const name = document.getElementById('autoClientName').value.trim();
-      const sel = document.getElementById('autoOperation');
-      const opText = sel.options[sel.selectedIndex].text;
-      const loan = document.getElementById('autoLoanCar').checked ? ' avec véhicule de courtoisie réservé' : '';
+      const form = e.target;
+      if (form.botcheck && form.botcheck.value) return;
+      const plate = document.getElementById('autoPlate').value.trim().toUpperCase();
+      const client = document.getElementById('autoClientName').value.trim();
+      const slot = document.getElementById('autoSlot').value;
+      const total = document.getElementById('garageQuoteTotal').textContent;
+      const ticket = '#AT-' + Math.floor(100 + Math.random() * 899);
       const msg = document.getElementById('autoConfirmMsg');
       msg.style.display = 'block';
-      msg.textContent = `Merci ${name}. Le rendez-vous atelier pour le véhicule ${plate} (${opText}${loan}) est enregistré. Notre chef d'atelier vous confirme l'heure de réception par SMS.`;
+      msg.innerHTML = `<strong>Dossier ${escHtml(ticket)} enregistré</strong><br>${escHtml(client)} • Véhicule ${escHtml(plate)} • ${escHtml(slot)} (${escHtml(total)}). Le chef d'atelier vous confirme sous 15 min.`;
     }
 
-    function requestCarTrial(modelName) {
-      document.getElementById('autoPlate').value = modelName;
-      document.getElementById('atelier').scrollIntoView({ behavior: 'smooth' });
+    const DIAG_DATA = {
+      moteur: [
+        ['Test compression & étanchéité joint culasse', 'CONFORME'],
+        ['Contrôle tension courroie accessoires & distribution', 'VÉRIFIÉ'],
+        ['Analyse point d’ébullition liquide frein & refroidissement', '-28°C / OK'],
+        ['Inspection durites turbo & absence de suintement carter', 'ÉTANCHE']
+      ],
+      freinage: [
+        ['Mesure micrométrique disques avant / arrière', 'MM RELEVÉS'],
+        ['Contrôle jeu rotules, biellettes & soufflets de cardan', 'SANS JEU'],
+        ['Test efficacité amortisseurs & géométrie 4 roues', 'ALIGNÉ'],
+        ['Profondeur sculptures pneus Av/Ar & pression à froid', 'RAPPORT ÉCRIT']
+      ],
+      elec: [
+        ['Lecture défauts calculateurs moteur, ABS & Airbag', '0 DÉFAUT'],
+        ['Test charge alternateur & état de santé batterie (SOH)', 'TESTER BOSCH'],
+        ['Contrôle filtre à particules (FAP) & pression différentielle', 'RÉGÉNÉRÉ'],
+        ['Vérification faisceau capteurs ADAS & caméra pare-brise', 'CALIBRÉ']
+      ],
+      ct: [
+        ['Réglage hauteur faisceau phares au régloscope', 'CONFORME'],
+        ['Test opacité fumées Diesel / Lambda Essence', 'SOUS SEUIL'],
+        ['Contrôle fixation ligne échappement & silentblocs', 'OK'],
+        ['Vérification klaxon, essuie-glaces, plaques & châssis', 'VALIDÉ CT']
+      ]
+    };
+
+    function renderDiagTab(key, btn) {
+      document.querySelectorAll('.diag-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const items = DIAG_DATA[key] || DIAG_DATA.moteur;
+      document.getElementById('diagChecklistBox').innerHTML = items.map(([label, status]) =>
+        `<li><span>${escHtml(label)}</span><span class="diag-badge">${escHtml(status)}</span></li>`
+      ).join('');
     }
+
+    const CAR_DOSSIERS = [
+      {
+        title: 'VW Golf VIII R-Line 1.5 eTSI 150 DSG7',
+        price: '24 900 € TTC',
+        histovec: '1ère main France • 0 sinistre • Carnet 100% VW',
+        brakes: 'Avant 85% / Arrière 90%',
+        tires: 'Michelin Pilot Sport 4 — 6,2 mm',
+        ct: 'Vierge — 0 défaut mineur',
+        warranty: '12 mois Moteur, Boîte DSG & Électronique'
+      },
+      {
+        title: 'Peugeot 208 GT Pack PureTech 130 EAT8',
+        price: '17 490 € TTC',
+        histovec: 'Origine France • Distribution contrôlée à 42 000 km',
+        brakes: 'Disques & plaquettes avant neufs',
+        tires: 'Continental EcoContact — 6,5 mm',
+        ct: 'Vierge — 0 défaut mineur',
+        warranty: '12 mois Pièces & Main-d’œuvre sans vétusté'
+      },
+      {
+        title: 'BMW Série 3 320d M-Sport 190ch BVA8',
+        price: '28 900 € TTC',
+        histovec: 'Suivi exclusif concession BMW • Histovec fourni',
+        brakes: 'Avant 80% / Arrière 75%',
+        tires: 'Bridgestone Turanza Runflat — 5,8 mm',
+        ct: 'Vierge — Prête à immatriculer',
+        warranty: '12 mois Garantie Europe Étendue'
+      }
+    ];
+
+    function openCarDossier(idx) {
+      const car = CAR_DOSSIERS[idx];
+      document.getElementById('modalCarTitle').textContent = car.title;
+      document.getElementById('modalCarContent').innerHTML = `
+        <div class="dossier-grid">
+          <div class="dossier-cell"><span>Tarif Clé en Main</span><strong>${escHtml(car.price)}</strong></div>
+          <div class="dossier-cell"><span>Rapport Histovec</span><strong>${escHtml(car.histovec)}</strong></div>
+          <div class="dossier-cell"><span>Freinage vérifié</span><strong>${escHtml(car.brakes)}</strong></div>
+          <div class="dossier-cell"><span>Pneumatiques</span><strong>${escHtml(car.tires)}</strong></div>
+          <div class="dossier-cell"><span>Contrôle Technique</span><strong>${escHtml(car.ct)}</strong></div>
+          <div class="dossier-cell"><span>Garantie Atelier</span><strong>${escHtml(car.warranty)}</strong></div>
+        </div>
+        <button type="button" class="btn-copper" style="width:100%; padding:14px;" onclick="closeCarDossier(); requestCarTrial('${escHtml(car.title)}')">
+          Réserver l'essai routier sur ce véhicule
+        </button>
+      `;
+      document.getElementById('carDossierModal').classList.add('open');
+    }
+
+    function closeCarDossier() { document.getElementById('carDossierModal').classList.remove('open'); }
+
+    function requestCarTrial(modelName) {
+      document.getElementById('autoPlate').value = 'ESSAI : ' + modelName;
+      document.getElementById('devis-atelier').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    recalcGarageQuote();
+    renderDiagTab('moteur');
   </script>
   <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>

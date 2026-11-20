@@ -3,27 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAISON LAME &amp; CISEAUX — Maître Barbier &amp; Studio de Coiffure</title>
-  <meta name="description" content="Salon de coiffure et barbier traditionnel. Coupe aux ciseaux japonais, dégradé progressif, rituel barbe à la serviette chaude et réservation de créneau en ligne.">
+  <title>MAISON LAME &amp; CISEAUX — Maître Barbier &amp; Studio Visagiste</title>
+  <meta name="description" content="Salon de coiffure et barbier traditionnel. Coupe aux ciseaux japonais, dégradé américain, rituel barbe vapeur serviette chaude et réservation en ligne.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F5F2EB;
-      --surface: #EBE5D9;
-      --ink: #171614;
-      --ink-muted: #666057;
-      --walnut: #7D5331;
-      --border: #D9D1C3;
+      --obsidian: #132920;
+      --obsidian-soft: #1B362B;
+      --club: #F3EFE7;
+      --club-alt: #EAE4D8;
+      --card: #FFFFFF;
+      --ink: #171513;
+      --ink-muted: #665F56;
+      --brass: #CFA05B;
+      --walnut: #8A532F;
+      --border: #DCD4C6;
+      --border-dark: #2B4B3D;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background-color: var(--bg);
+      background-color: var(--club);
       color: var(--ink);
       font-family: var(--font-sans);
       line-height: 1.6;
@@ -31,401 +36,392 @@
     }
 
     .container {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 32px;
     }
     @media (max-width: 640px) { .container { padding: 0 20px; } }
 
+    /* HEADER NOIR HERITAGE */
     header {
       position: sticky;
       top: 0;
       z-index: 80;
-      background: rgba(245, 242, 235, 0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(19, 41, 32, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 3px solid var(--brass);
+      border-bottom: 1px solid var(--border-dark);
+      color: #F3EFE7;
     }
     .nav-bar {
-      height: 84px;
+      height: 82px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .brand {
       font-family: var(--font-serif);
-      font-size: 1.65rem;
+      font-size: 1.6rem;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--ink);
+      color: #F3EFE7;
       text-decoration: none;
     }
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 34px;
       list-style: none;
     }
     .nav-links a {
       text-decoration: none;
-      color: var(--ink);
-      font-size: 0.85rem;
+      color: #C4BDB1;
+      font-size: 0.84rem;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       font-weight: 500;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--walnut); }
-    .btn-header {
-      background: var(--ink);
-      color: var(--bg);
+    .nav-links a:hover { color: var(--brass); }
+    .btn-brass {
+      background: var(--brass);
+      color: #121110;
       text-decoration: none;
-      padding: 12px 24px;
+      padding: 12px 22px;
       font-size: 0.8rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
       transition: background 0.2s;
+      display: inline-block;
     }
-    .btn-header:hover { background: var(--walnut); }
-    @media (max-width: 820px) { .nav-links { display: none; } }
+    .btn-brass:hover { background: #C89B5B; }
+    @media (max-width: 860px) { .nav-links { display: none; } }
 
-    /* HERO ÉDITORIAL */
-    .hero {
-      padding: 88px 0 96px;
-      border-bottom: 1px solid var(--border);
+    /* HERO OBSIDIAN FULL-FRAME */
+    .hero-dark {
+      background: var(--obsidian);
+      color: #F3EFE7;
+      padding: 78px 0 92px;
+      border-bottom: 1px solid var(--border-dark);
     }
-    .hero-top {
-      max-width: 800px;
-      margin-bottom: 52px;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 36px; }
     }
     .eyebrow {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: var(--walnut);
+      color: var(--brass);
       font-weight: 600;
       margin-bottom: 18px;
       display: block;
     }
-    .hero h1 {
+    .hero-dark h1 {
       font-family: var(--font-serif);
-      font-size: clamp(3rem, 5.4vw, 4.7rem);
+      font-size: clamp(2.9rem, 5vw, 4.4rem);
       font-weight: 500;
-      line-height: 1.03;
-      margin-bottom: 26px;
+      line-height: 1.04;
+      margin-bottom: 22px;
     }
-    .hero h1 em {
+    .hero-dark h1 em {
       font-style: italic;
-      color: var(--walnut);
+      color: var(--brass);
     }
-    .hero-sub {
+    .hero-lead {
+      font-size: 1.02rem;
+      color: #ADA69B;
+      max-width: 490px;
+      margin-bottom: 32px;
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 38px;
+      padding-top: 26px;
+      border-top: 1px solid var(--border-dark);
+    }
+    .hero-metrics strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      color: var(--brass);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-metrics span {
+      font-size: 0.8rem;
+      color: #9A9287;
+    }
+    .hero-photo-frame {
+      border: 1px solid #3A342B;
+      padding: 10px;
+      background: var(--obsidian-soft);
+    }
+    .hero-photo-frame img {
+      width: 100%;
+      aspect-ratio: 4 / 3.2;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* DIAGNOSTIC VISAGISTE INTERACTIF */
+    .section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       gap: 32px;
+      margin-bottom: 48px;
       flex-wrap: wrap;
     }
-    .hero-lead {
-      font-size: 1.05rem;
-      color: var(--ink-muted);
-      max-width: 540px;
-    }
-    .hero-image {
-      width: 100%;
-      aspect-ratio: 16 / 7.8;
-      overflow: hidden;
-      background: #171614;
-    }
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* L'ATELIER & LE RITUEL */
-    .philosophy {
-      padding: 100px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .phil-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 72px;
-      align-items: center;
-    }
-    @media (max-width: 860px) {
-      .phil-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-    .phil-photo {
-      aspect-ratio: 4 / 4.5;
-      overflow: hidden;
-    }
-    .phil-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .phil-text h2 {
+    .section-head h2 {
       font-family: var(--font-serif);
-      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+      font-size: clamp(2.2rem, 3.6vw, 3.1rem);
       font-weight: 500;
-      line-height: 1.1;
-      margin-bottom: 22px;
+      line-height: 1.08;
     }
-    .phil-text p {
+    .section-head p {
       color: var(--ink-muted);
-      font-size: 1rem;
-      margin-bottom: 18px;
-      max-width: 520px;
-    }
-    .phil-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 40px;
-      padding-top: 28px;
-      border-top: 1px solid var(--border);
-    }
-    .phil-metrics strong {
-      display: block;
-      font-family: var(--font-serif);
-      font-size: 2rem;
-      font-weight: 600;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .phil-metrics span {
-      font-size: 0.82rem;
-      color: var(--ink-muted);
-    }
-
-    /* CARTE DES FAUTEUILS (2 COLONNES) */
-    .menu-sheet {
-      padding: 104px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .sheet-header {
-      text-align: center;
-      max-width: 580px;
-      margin: 0 auto 68px;
-    }
-    .sheet-header h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 3.8vw, 3.4rem);
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-    .sheet-header p {
-      color: var(--ink-muted);
+      max-width: 450px;
       font-size: 0.96rem;
     }
-    .menu-columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 68px;
-    }
-    @media (max-width: 860px) {
-      .menu-columns { grid-template-columns: 1fr; gap: 44px; }
-    }
-    .menu-category-title {
-      font-family: var(--font-serif);
-      font-size: 1.6rem;
-      font-style: italic;
-      color: var(--walnut);
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 26px;
-    }
-    .service-item {
-      padding-bottom: 22px;
-      margin-bottom: 22px;
-      border-bottom: 1px solid rgba(217, 209, 195, 0.65);
-    }
-    .service-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 4px;
-    }
-    .service-name {
-      font-family: var(--font-serif);
-      font-size: 1.32rem;
-      font-weight: 600;
-    }
-    .service-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      white-space: nowrap;
-    }
-    .service-price {
-      font-size: 0.98rem;
-      font-weight: 600;
-    }
-    .btn-pick {
-      background: transparent;
+
+    .diag-grid {
+      background: var(--card);
       border: 1px solid var(--border);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 880px) {
+      .diag-grid { grid-template-columns: 1fr; padding: 24px; }
+    }
+    .pill-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .style-pill {
+      border: 1px solid var(--border);
+      background: var(--club);
       color: var(--ink);
-      padding: 4px 10px;
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      padding: 10px 16px;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
       transition: all 0.15s;
     }
-    .btn-pick:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
+    .style-pill.active {
+      background: var(--obsidian);
+      color: #fff;
+      border-color: var(--obsidian);
     }
-    .service-desc {
-      font-size: 0.88rem;
-      color: var(--ink-muted);
+    .diag-result {
+      background: var(--obsidian);
+      color: #F3EFE7;
+      padding: 30px;
+      border-left: 3px solid var(--brass);
     }
 
-    /* LES MAÎTRES BARBIERS */
-    .team-section {
-      padding: 96px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .team-grid {
+    /* LES FAUTEUILS INTERACTIFS (ÉQUIPE) */
+    .barbers-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+      gap: 28px;
     }
-    @media (max-width: 860px) {
-      .team-grid { grid-template-columns: 1fr; }
-    }
-    .team-card {
+    @media (max-width: 860px) { .barbers-grid { grid-template-columns: 1fr; } }
+    .barber-card {
+      background: var(--card);
       border: 1px solid var(--border);
-      background: var(--bg);
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .team-photo {
+    .barber-card:hover, .barber-card.active {
+      border-color: var(--ink);
+      transform: translateY(-2px);
+    }
+    .barber-card.active {
+      box-shadow: 0 12px 30px rgba(18, 17, 16, 0.08);
+    }
+    .barber-photo {
       aspect-ratio: 4 / 3.4;
       overflow: hidden;
-      background: var(--surface);
+      background: var(--obsidian);
     }
-    .team-photo img {
+    .barber-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    .team-body {
+    .barber-body {
       padding: 24px;
     }
-    .team-role {
-      font-size: 0.74rem;
+    .barber-chair-tag {
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--walnut);
-      font-weight: 600;
-      margin-bottom: 6px;
+      font-weight: 700;
       display: block;
-    }
-    .team-name {
-      font-family: var(--font-serif);
-      font-size: 1.55rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .team-bio {
-      font-size: 0.88rem;
-      color: var(--ink-muted);
+      margin-bottom: 6px;
     }
 
-    /* CARNET DE RENDEZ-VOUS */
-    .booking-section {
-      padding: 104px 0;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-    .booking-grid {
+    /* LOOKBOOK GALERIE PHOTO */
+    .lookbook-grid {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 72px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .lookbook-grid { grid-template-columns: repeat(2, 1fr); } }
+    .look-item {
+      position: relative;
+      aspect-ratio: 3 / 3.8;
+      overflow: hidden;
+      background: var(--obsidian);
+    }
+    .look-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .look-item:hover img { transform: scale(1.05); }
+    .look-meta {
+      position: absolute;
+      inset-x: 0;
+      bottom: 0;
+      padding: 20px 16px 14px;
+      background: linear-gradient(transparent, rgba(18, 17, 16, 0.88));
+      color: #fff;
+    }
+    .look-meta strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .look-meta span { font-size: 0.76rem; color: #D6CEC2; }
+
+    /* CARTE DES FAUTEUILS (ONGLETS + RÉSERVATION) */
+    .cat-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .cat-tab {
+      background: transparent;
+      border: none;
+      padding: 9px 18px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .cat-tab.active {
+      background: var(--obsidian);
+      color: #fff;
+    }
+
+    .booking-workspace {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 44px;
       align-items: start;
     }
-    @media (max-width: 860px) {
-      .booking-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-    .booking-info h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.2rem, 3.6vw, 3.2rem);
-      font-weight: 500;
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-    .booking-info p {
-      color: var(--ink-muted);
-      margin-bottom: 28px;
-      max-width: 440px;
-    }
-    .booking-card {
-      background: var(--bg);
+    @media (max-width: 920px) { .booking-workspace { grid-template-columns: 1fr; } }
+
+    .srv-row {
+      background: var(--card);
       border: 1px solid var(--border);
-      padding: 36px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: border-color 0.15s;
     }
-    .field-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
+    .srv-row:hover, .srv-row.selected {
+      border-color: var(--obsidian);
+      background: var(--club-alt);
     }
-    @media (max-width: 560px) {
-      .field-grid { grid-template-columns: 1fr; }
+
+    .booking-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: sticky;
+      top: 102px;
     }
+    .field { margin-bottom: 16px; }
     .field label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--ink-muted);
-      margin-bottom: 7px;
+      margin-bottom: 6px;
       font-weight: 600;
     }
     .field input, .field select {
       width: 100%;
-      padding: 12px 14px;
-      background: #fff;
+      padding: 11px 13px;
+      background: var(--club);
       border: 1px solid var(--border);
       font-family: inherit;
       font-size: 0.92rem;
       color: var(--ink);
       outline: none;
     }
-    .slots-row {
+    .slots-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-bottom: 20px;
     }
-    .slot-pill {
-      padding: 10px 6px;
+    .slot-btn {
+      padding: 9px;
       border: 1px solid var(--border);
-      background: #fff;
-      text-align: center;
-      font-size: 0.85rem;
+      background: var(--club);
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.15s;
     }
-    .slot-pill.active {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
+    .slot-btn.active {
+      background: var(--obsidian);
+      color: #fff;
+      border-color: var(--obsidian);
     }
 
     footer {
       padding: 64px 0;
-      font-size: 0.85rem;
-      color: var(--ink-muted);
+      background: var(--obsidian);
+      color: #A69E92;
+      font-size: 0.84rem;
     }
     .footer-row {
       display: flex;
@@ -442,312 +438,365 @@
     <div class="container nav-bar">
       <a href="#" class="brand" data-bms-brand>Maison Lame &amp; Ciseaux</a>
       <ul class="nav-links">
-        <li><a href="#atelier">L'Atelier</a></li>
-        <li><a href="#tarifs">Prestations</a></li>
-        <li><a href="#equipe">Les Coiffeurs</a></li>
-        <li><a href="#rdv">Rendez-Vous</a></li>
+        <li><a href="#diagnostic">Diagnostic Style</a></li>
+        <li><a href="#fauteuils">Les Maîtres Fauteuils</a></li>
+        <li><a href="#lookbook">Réalisations</a></li>
+        <li><a href="#rendez-vous">Tarifs &amp; RDV</a></li>
       </ul>
-      <a href="#rdv" class="btn-header">Réserver un fauteuil</a>
+      <a href="#rendez-vous" class="btn-brass">Réserver un fauteuil</a>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-top">
-        <span class="eyebrow">Maître Barbier &amp; Architecture Capillaire</span>
+  <section class="hero-dark">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Maître Barbier &amp; Coiffure Architecturale</span>
         <h1>L'art du tailleur de barbe <em>et de la coupe au ciseau</em>.</h1>
-        <div class="hero-sub">
-          <p class="hero-lead">Un lieu calme dédié au soin masculin. Travail de coupe au ciseau japonais, dégradés progressifs fondus à la main et rasage traditionnel à la serviette chaude infusée au bois de santal.</p>
-          <a href="#rdv" class="btn-header">Prendre rendez-vous</a>
+        <p class="hero-lead">Un club privé calme, sans attente. Chaque rendez-vous débute par un diagnostic morphologique précis suivi d'une coupe aux ciseaux japonais ou d'un dégradé fondu au rasoir avec rituel serviette chaude à l'eucalyptus.</p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="#rendez-vous" class="btn-brass">Prendre rendez-vous en ligne</a>
+          <a href="#diagnostic" style="border:1px solid #4A443B; color:#F3EFE7; text-decoration:none; padding:12px 20px; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; font-weight:600;">Trouver ma coupe</a>
         </div>
-      </div>
-
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1500&q=85" alt="Intérieur du salon de barbier et fauteuils Takara Belmont">
-      </div>
-    </div>
-  </section>
-
-  <!-- L'ATELIER & LE RITUEL -->
-  <section class="philosophy" id="atelier">
-    <div class="container phil-grid">
-      <div class="phil-photo">
-        <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=80" alt="Travail de précision au rasoir et serviette chaude">
-      </div>
-      <div class="phil-text">
-        <span class="eyebrow">Savoir-Faire &amp; Botanique</span>
-        <h2>Quarante-cinq minutes hors du tumulte, dédiées à la justesse du geste.</h2>
-        <p>Chaque séance débute par un diagnostic morphologique de votre implantation capillaire et de la densité de votre barbe. Nous privilégions la coupe aux ciseaux sur cheveux secs et humides pour une repousse naturelle qui garde sa tenue pendant plusieurs semaines.</p>
-        <p>Nos rituels de barbe s'accompagnent de serviettes chaudes à la vapeur d'eucalyptus, d'huiles botaniques pressées à froid et d'une finition au coupe-chou.</p>
-        <div class="phil-metrics">
+        <div class="hero-metrics">
           <div>
             <strong>45 min</strong>
-            <span>Temps consacré à chaque forfait signature</span>
+            <span>Durée minimale par forfait signature</span>
           </div>
           <div>
-            <strong>1964</strong>
-            <span>Fauteuils Takara Belmont restaurés</span>
+            <strong>0 attente</strong>
+            <span>Fauteuil bloqué à votre heure exacte</span>
           </div>
           <div>
             <strong>4,9 / 5</strong>
-            <span>Sur plus de 580 avis clients vérifiés</span>
+            <span>Note moyenne sur 580 avis vérifiés</span>
           </div>
         </div>
+      </div>
+
+      <div class="hero-photo-frame">
+        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=85" alt="Maître barbier en action dans le salon">
       </div>
     </div>
   </section>
 
-  <!-- CARTE DES PRESTATIONS (2 COLONNES) -->
-  <section class="menu-sheet" id="tarifs">
+  <!-- MODULE INTERACTIF : DIAGNOSTIC STYLE & MORPHOLOGIE -->
+  <section class="section" id="diagnostic">
     <div class="container">
-      <div class="sheet-header">
-        <span class="eyebrow">Tarifs TTC — Service Compris</span>
-        <h2>Le Tarif des Fauteuils</h2>
-        <p>Sélectionnez la prestation souhaitée pour la pré-remplir dans le registre de réservation ci-dessous.</p>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Conseil Visagiste Personnalisé</span>
+          <h2>Quelle coupe convient à votre texture ?</h2>
+        </div>
+        <p>Sélectionnez votre nature de cheveu et l'allure souhaitée : nous vous recommandons le protocole exact et le maître barbier adapté.</p>
       </div>
 
-      <div class="menu-columns">
+      <div class="diag-grid">
         <div>
-          <h3 class="menu-category-title">Coupes &amp; Architecture Capillaire</h3>
-          <div class="service-item">
-            <div class="service-row">
-              <span class="service-name">Coupe Ciseaux &amp; Dégradé sur Mesure (35 min)</span>
-              <div class="service-right">
-                <span class="service-price">26 €</span>
-                <button type="button" class="btn-pick" onclick="pickBarberForfait('Coupe Ciseaux & Dégradé sur Mesure (26 €)')">Choisir</button>
-              </div>
-            </div>
-            <p class="service-desc">Diagnostic visagiste, double shampoing apaisant, coupe aux ciseaux japonais ou dégradé américain (Taper / Fade), contours au rasoir et coiffage.</p>
+          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--walnut); font-weight:700; display:block; margin-bottom:10px;">1. Votre nature de cheveu</span>
+          <div class="pill-group">
+            <button type="button" class="style-pill active" onclick="setDiag('texture', 'Fins & Raides', this)">Fins &amp; Raides</button>
+            <button type="button" class="style-pill" onclick="setDiag('texture', 'Épais & Ondulés', this)">Épais &amp; Ondulés</button>
+            <button type="button" class="style-pill" onclick="setDiag('texture', 'Bouclés & Texturés', this)">Bouclés &amp; Texturés</button>
           </div>
 
-          <div class="service-item">
-            <div class="service-row">
-              <span class="service-name">Restructuration &amp; Cheveux Mi-Longs (45 min)</span>
-              <div class="service-right">
-                <span class="service-price">32 €</span>
-                <button type="button" class="btn-pick" onclick="pickBarberForfait('Restructuration & Cheveux Mi-Longs (32 €)')">Choisir</button>
-              </div>
-            </div>
-            <p class="service-desc">Coupe texturisée exclusivement aux ciseaux droits et sculpteurs, massage crânien tonifiant et séchage naturel.</p>
-          </div>
-
-          <div class="service-item">
-            <div class="service-row">
-              <span class="service-name">Coupe Jeune Homme &amp; Étudiant (30 min)</span>
-              <div class="service-right">
-                <span class="service-price">20 €</span>
-                <button type="button" class="btn-pick" onclick="pickBarberForfait('Coupe Jeune Homme & Étudiant (20 €)')">Choisir</button>
-              </div>
-            </div>
-            <p class="service-desc">Shampoing, coupe personnalisée et finition coiffage à la cire mate ou argile naturelle.</p>
+          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--walnut); font-weight:700; display:block; margin-bottom:10px;">2. Le style recherché</span>
+          <div class="pill-group" style="margin-bottom:0;">
+            <button type="button" class="style-pill active" onclick="setDiag('allure', 'Taper & Dégradé Net', this)">Taper &amp; Dégradé Net</button>
+            <button type="button" class="style-pill" onclick="setDiag('allure', 'Coupe Ciseaux Classique', this)">Coupe Ciseaux Naturelle</button>
+            <button type="button" class="style-pill" onclick="setDiag('allure', 'Barbe Sculptée & Contours', this)">Barbe Sculptée &amp; Vapeur</button>
           </div>
         </div>
 
-        <div>
-          <h3 class="menu-category-title">Rituels de Barbe &amp; Forfaits Signatures</h3>
-          <div class="service-item">
-            <div class="service-row">
-              <span class="service-name">Le Forfait Maison — Coupe &amp; Barbe Vapeur (45 min)</span>
-              <div class="service-right">
-                <span class="service-price">38 €</span>
-                <button type="button" class="btn-pick" onclick="pickBarberForfait('Le Forfait Maison — Coupe & Barbe Vapeur (38 €)')">Choisir</button>
-              </div>
-            </div>
-            <p class="service-desc">Notre prestation emblématique : coupe complète, taille de barbe géométrique, serviette chaude aux huiles essentielles et rasage des contours au coupe-chou.</p>
+        <div class="diag-result">
+          <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--brass);">Recommandation de l'Atelier</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.65rem; font-weight:500; margin:8px 0 8px;" id="diagTitle">Mid Taper Fade &amp; Effilage Texturé</h3>
+          <p style="font-size:0.86rem; color:#C4BDB1; margin-bottom:14px;" id="diagDesc">Fondu progressif sur les tempes et la nuque, dessus travaillé en pointe aux ciseaux sculpteurs pour donner du volume sans alourdir. Coiffage recommandé à l'argile mate.</p>
+          <div style="font-size:0.82rem; color:#E8DEC8; padding:10px 0; border-top:1px solid var(--border-dark); border-bottom:1px solid var(--border-dark); margin-bottom:16px;" id="diagMeta">
+            Barbier conseillé : Lucas • Durée : 35 min • Tarif : 26 €
           </div>
-
-          <div class="service-item">
-            <div class="service-row">
-              <span class="service-name">Rituel Barbe à l'Ancienne &amp; Serviette Chaude (25 min)</span>
-              <div class="service-right">
-                <span class="service-price">20 €</span>
-                <button type="button" class="btn-pick" onclick="pickBarberForfait('Rituel Barbe à l\'Ancienne & Serviette Chaude (20 €)')">Choisir</button>
-              </div>
-            </div>
-            <p class="service-desc">Remise en forme de la barbe, préparation de la peau au blaireau, compresse chaude, rasage traditionnel et baume au bois de cèdre.</p>
-          </div>
-
-          <div class="service-item">
-            <div class="service-row">
-              <span class="service-name">Grand Soin Signature — Coupe, Barbe &amp; Visage (60 min)</span>
-              <div class="service-right">
-                <span class="service-price">54 €</span>
-                <button type="button" class="btn-pick" onclick="pickBarberForfait('Grand Soin Signature — Coupe, Barbe & Visage (54 €)')">Choisir</button>
-              </div>
-            </div>
-            <p class="service-desc">Coupe sur mesure, rituel barbe royale, exfoliation purifiante du visage sous vapeur d'ozone et massage crânien prolongé.</p>
-          </div>
+          <button type="button" class="btn-brass" style="width:100%;" onclick="applyDiagToBooking()">
+            Réserver ce protocole recommandé
+          </button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- L'ÉQUIPE -->
-  <section class="team-section" id="equipe">
+  <!-- LES MAÎTRES FAUTEUILS (CLIC SUR UN BARBIER ACTUALISE SES CRÉNEAUX) -->
+  <section class="section" id="fauteuils" style="background:var(--club-alt);">
     <div class="container">
-      <div class="sheet-header" style="margin-bottom:48px;">
-        <span class="eyebrow">Les Fauteuils</span>
-        <h2>Nos Maîtres Coiffeurs &amp; Barbiers</h2>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Choisissez votre Spécialiste</span>
+          <h2>Les Trois Fauteuils du Salon</h2>
+        </div>
+        <p>Cliquez sur le maître coiffeur de votre choix pour afficher ses disponibilités en temps réel dans le module de réservation.</p>
       </div>
-      <div class="team-grid">
-        <article class="team-card">
-          <div class="team-photo">
-            <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=80" alt="Karim, Maître Barbier">
+
+      <div class="barbers-grid">
+        <article class="barber-card active" onclick="pickBarberMaster(0, this)">
+          <div class="barber-photo">
+            <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=800&q=85" alt="Karim, Fondateur et Maître Barbier">
           </div>
-          <div class="team-body">
-            <span class="team-role">Fondateur &amp; Maître Barbier</span>
-            <h3 class="team-name">Karim</h3>
-            <p class="team-bio">Quatorze années d'expérience en coupe classique et sculpture de barbe traditionnelle au coupe-chou.</p>
-          </div>
-        </article>
-        <article class="team-card">
-          <div class="team-photo">
-            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=700&q=80" alt="Lucas, Spécialiste Dégradés">
-          </div>
-          <div class="team-body">
-            <span class="team-role">Coiffeur &amp; Spécialiste Taper</span>
-            <h3 class="team-name">Lucas</h3>
-            <p class="team-bio">Spécialiste des fondus progressifs américains, coupes texturisées et coiffage sur cheveux bouclés ou épais.</p>
+          <div class="barber-body">
+            <span class="barber-chair-tag">Fauteuil n°1 — Fondateur</span>
+            <h3 style="font-family:var(--font-serif); font-size:1.6rem; margin-bottom:6px;">Karim</h3>
+            <p style="font-size:0.86rem; color:var(--ink-muted);">14 ans d'expérience en coupe traditionnelle aux ciseaux et rasage au coupe-chou à la serviette chaude.</p>
           </div>
         </article>
-        <article class="team-card">
-          <div class="team-photo">
-            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=700&q=80" alt="Sofia, Visagiste">
+
+        <article class="barber-card" onclick="pickBarberMaster(1, this)">
+          <div class="barber-photo">
+            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=800&q=85" alt="Lucas, Spécialiste Taper et Dégradés">
           </div>
-          <div class="team-body">
-            <span class="team-role">Visagiste &amp; Coupe aux Ciseaux</span>
-            <h3 class="team-name">Sofia</h3>
-            <p class="team-bio">Experte des restructurations aux ciseaux sur cheveux mi-longs et des rituels de soin du cuir chevelu.</p>
+          <div class="barber-body">
+            <span class="barber-chair-tag">Fauteuil n°2 — Expert Taper &amp; Fade</span>
+            <h3 style="font-family:var(--font-serif); font-size:1.6rem; margin-bottom:6px;">Lucas</h3>
+            <p style="font-size:0.86rem; color:var(--ink-muted);">Précision millimétrée sur les dégradés américains (Skin Fade, Burst Fade) et travail sur cheveux texturés ou bouclés.</p>
+          </div>
+        </article>
+
+        <article class="barber-card" onclick="pickBarberMaster(2, this)">
+          <div class="barber-photo">
+            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=85" alt="Sofia, Visagiste Ciseaux">
+          </div>
+          <div class="barber-body">
+            <span class="barber-chair-tag">Fauteuil n°3 — Visagiste Studio</span>
+            <h3 style="font-family:var(--font-serif); font-size:1.6rem; margin-bottom:6px;">Sofia</h3>
+            <p style="font-size:0.86rem; color:var(--ink-muted);">Spécialiste des coupes mi-longues exclusivement aux ciseaux, coiffures structurées et soins apaisants du cuir chevelu.</p>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- CARNET DE RENDEZ-VOUS -->
-  <section class="booking-section" id="rdv">
-    <div class="container booking-grid">
-      <div class="booking-info">
-        <span class="eyebrow">Réservation Directe</span>
-        <h2>Réserver votre créneau au salon.</h2>
-        <p>Nos rendez-vous sont ponctuels afin de vous garantir zéro attente à votre arrivée. Un café de spécialité ou une infusion fraîche vous est offert dès votre installation.</p>
-        <div style="padding-top:24px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:0.88rem;">
-          <div>
-            <strong style="display:block; text-transform:uppercase; font-size:0.75rem; letter-spacing:0.1em; color:var(--ink-muted); margin-bottom:4px;">Horaires d'ouverture</strong>
-            Mardi au Vendredi : 09h30 – 19h30<br>Samedi : 09h00 – 19h00
+  <!-- GALERIE LOOKBOOK DES COUPS DE CISEAUX -->
+  <section class="section" id="lookbook">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Portfolio du Salon</span>
+          <h2>Réalisations au Fauteuil</h2>
+        </div>
+        <p>Un aperçu du soin apporté aux contours, aux dégradés et aux finitions naturelles.</p>
+      </div>
+
+      <div class="lookbook-grid">
+        <div class="look-item">
+          <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=700&q=80" alt="Rituel taille de barbe serviette chaude">
+          <div class="look-meta">
+            <strong>Taille de Barbe Royale</strong>
+            <span>Rasage au coupe-chou • Karim</span>
           </div>
-          <div>
-            <strong style="display:block; text-transform:uppercase; font-size:0.75rem; letter-spacing:0.1em; color:var(--ink-muted); margin-bottom:4px;">Annulation &amp; Rappel</strong>
-            SMS de confirmation immédiat. Report possible en un clic jusqu'à 3h avant.
+        </div>
+        <div class="look-item">
+          <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=700&q=80" alt="Dégradé progressif fade">
+          <div class="look-meta">
+            <strong>Low Taper &amp; Texture</strong>
+            <span>Fondu progressif • Lucas</span>
+          </div>
+        </div>
+        <div class="look-item">
+          <img src="https://images.unsplash.com/photo-1593702288056-7927b442d0fa?auto=format&fit=crop&w=700&q=80" alt="Coupe ciseaux classiques">
+          <div class="look-meta">
+            <strong>Coupe Ciseaux &amp; Volume</strong>
+            <span>Effilage à sec • Sofia</span>
+          </div>
+        </div>
+        <div class="look-item">
+          <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=700&q=80" alt="Finition fauteuil">
+          <div class="look-meta">
+            <strong>Soin Vapeur &amp; Huile</strong>
+            <span>Finition bois de cèdre • Salon</span>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <form class="booking-card" onsubmit="submitBarberBooking(event)">
-        <div class="field" style="margin-bottom:16px;">
-          <label for="barberForfaitSelect">Prestation retenue</label>
-          <select id="barberForfaitSelect">
-            <option>Le Forfait Maison — Coupe &amp; Barbe Vapeur (38 €)</option>
-            <option>Coupe Ciseaux &amp; Dégradé sur Mesure (26 €)</option>
-            <option>Rituel Barbe à l'Ancienne &amp; Serviette Chaude (20 €)</option>
-            <option>Restructuration &amp; Cheveux Mi-Longs (32 €)</option>
-            <option>Grand Soin Signature — Coupe, Barbe &amp; Visage (54 €)</option>
-            <option>Coupe Jeune Homme &amp; Étudiant (20 €)</option>
-          </select>
+  <!-- PRESTATIONS & RÉSERVATION INTERACTIVE -->
+  <section class="section" id="rendez-vous">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Agenda Live — Confirmation Instantanée</span>
+          <h2>Tarifs &amp; Réservation Directe</h2>
+        </div>
+        <p>Café d'accueil ou infusion fraîche offerts dès votre arrivée. Règlement sur place après la prestation.</p>
+      </div>
+
+      <div class="booking-workspace">
+        <div>
+          <div class="cat-tabs">
+            <button type="button" class="cat-tab active" onclick="filterBarberMenu('all', this)">Tout voir</button>
+            <button type="button" class="cat-tab" onclick="filterBarberMenu('coupes', this)">Coupes &amp; Taper</button>
+            <button type="button" class="cat-tab" onclick="filterBarberMenu('barbe', this)">Barbe &amp; Soins</button>
+            <button type="button" class="cat-tab" onclick="filterBarberMenu('forfaits', this)">Forfaits Signatures</button>
+          </div>
+          <div id="barberServicesList"></div>
         </div>
 
-        <div class="field-grid">
-          <div class="field">
-            <label for="barberChairSelect">Choix du Fauteuil</label>
-            <select id="barberChairSelect">
-              <option>Karim — Maître Barbier</option>
-              <option>Lucas — Spécialiste Dégradé &amp; Taper</option>
-              <option>Sofia — Visagiste &amp; Coupe Ciseaux</option>
-              <option>Premier fauteuil disponible</option>
-            </select>
+        <form class="booking-panel" onsubmit="confirmChairReservation(event)">
+          <span class="eyebrow" style="margin-bottom:6px;">Fauteuil Bloqué Sans Attente</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.75rem; margin-bottom:14px;" id="panelSrvName">Forfait Signature : Coupe + Barbe Vapeur</h3>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:14px; border-bottom:1px solid var(--border); margin-bottom:16px;">
+            <span style="font-size:0.85rem; color:var(--ink-muted);" id="panelBarberLabel">Avec Karim (Fauteuil n°1)</span>
+            <strong style="font-family:var(--font-serif); font-size:1.85rem; color:var(--walnut);" id="panelSrvPrice">38 €</strong>
           </div>
-          <div class="field">
-            <label for="barberDateInput">Jour souhaité</label>
-            <input type="date" id="barberDateInput" required>
-          </div>
-        </div>
 
-        <div class="field">
-          <label>Créneaux horaires disponibles</label>
-          <div class="slots-row">
-            <button type="button" class="slot-pill" onclick="selectBarberTime('10h00', this)">10h00</button>
-            <button type="button" class="slot-pill active" onclick="selectBarberTime('11h30', this)">11h30</button>
-            <button type="button" class="slot-pill" onclick="selectBarberTime('14h15', this)">14h15</button>
-            <button type="button" class="slot-pill" onclick="selectBarberTime('15h45', this)">15h45</button>
-            <button type="button" class="slot-pill" onclick="selectBarberTime('16h30', this)">16h30</button>
-            <button type="button" class="slot-pill" onclick="selectBarberTime('17h30', this)">17h30</button>
-            <button type="button" class="slot-pill" onclick="selectBarberTime('18h15', this)">18h15</button>
-            <button type="button" class="slot-pill" onclick="selectBarberTime('19h00', this)">19h00</button>
-          </div>
-        </div>
-
-        <div class="field-grid">
           <div class="field">
-            <label for="barberClientName">Nom &amp; Prénom</label>
-            <input type="text" id="barberClientName" required placeholder="Votre nom">
+            <label for="bDateInp">Jour de rendez-vous</label>
+            <input type="date" id="bDateInp" required>
+          </div>
+
+          <div class="field">
+            <label>Créneaux disponibles (<span id="slotsMasterTitle">Karim</span>)</label>
+            <div class="slots-grid" id="dynamicSlotsGrid"></div>
+          </div>
+
+          <div class="field">
+            <label for="bClientName">Votre Nom &amp; Prénom</label>
+            <input type="text" id="bClientName" required placeholder="Ex : Mehdi Benali">
           </div>
           <div class="field">
-            <label for="barberClientTel">Téléphone Mobile</label>
-            <input type="tel" id="barberClientTel" required placeholder="06 00 00 00 00">
+            <label for="bClientPhone">Téléphone Portable (Rappel SMS)</label>
+            <input type="tel" id="bClientPhone" required placeholder="06 00 00 00 00">
           </div>
-        </div>
 
-        <input type="text" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
-        <button type="submit" class="btn-header" style="width:100%; border:none; cursor:pointer; padding:15px;">
-          Confirmer le rendez-vous
-        </button>
-        <p id="barberConfirmMsg" style="display:none; margin-top:16px; padding:14px; background:var(--surface); border:1px solid var(--border); font-size:0.88rem;"></p>
-      </form>
+          <input type="text" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+          <button type="submit" class="btn-brass" style="width:100%; padding:14px;">
+            Confirmer mon rendez-vous
+          </button>
+          <div id="chairConfirmTicket" style="display:none; margin-top:16px; padding:16px; background:var(--club); border:1px solid var(--obsidian); font-size:0.86rem;"></div>
+        </form>
+      </div>
     </div>
   </section>
 
   <footer>
     <div class="container footer-row">
       <div>
-        <strong data-bms-brand style="color:var(--ink); font-family:var(--font-serif); font-size:1.2rem; text-transform:uppercase;">Maison Lame &amp; Ciseaux</strong>
-        <p style="margin-top:6px;">Salon de Coiffure &amp; Maître Barbier • Mardi au Samedi sur rendez-vous.</p>
+        <strong data-bms-brand style="font-family:var(--font-serif); font-size:1.35rem; color:#F3EFE7; text-transform:uppercase;">Maison Lame &amp; Ciseaux</strong>
+        <p style="margin-top:6px;">Salon de Coiffure Homme &amp; Maître Barbier • Mardi au Vendredi 09h30 – 19h30, Samedi 09h00 – 19h00.</p>
       </div>
       <div style="max-width:480px; font-size:0.78rem;">
-        Tarifs TTC affichés conformément à l'arrêté du 27 mars 1987. Vos coordonnées sont utilisées exclusivement pour l'envoi de votre confirmation de rendez-vous par SMS (RGPD).
+        Prix nets TTC, service compris. Annulation ou report sans frais jusqu'à 3 heures avant le rendez-vous. Conformité RGPD.
       </div>
     </div>
   </footer>
 
   <script>
-    let chosenBarberSlot = '11h30';
+    const BARBER_CATALOG = [
+      { id: 'c1', cat: 'forfaits', name: 'Forfait Signature : Coupe + Barbe Serviette Chaude', dur: '45 min', price: 38, desc: 'Shampoing apaisant, coupe aux ciseaux ou dégradé américain, sculpture de la barbe, vapeur chaude et rasage contours.' },
+      { id: 'c2', cat: 'coupes', name: 'Coupe Homme & Dégradé Américain (Taper / Skin Fade)', dur: '35 min', price: 26, desc: 'Diagnostic morphologique, dégradé progressif à la tondeuse et aux ciseaux, coiffage argile matte ou cire.' },
+      { id: 'c3', cat: 'coupes', name: 'Restructuration Cheveux Mi-Longs aux Ciseaux', dur: '45 min', price: 32, desc: 'Coupe intégrale aux ciseaux droits et sculpteurs pour une repousse équilibrée, massage crânien.' },
+      { id: 'c4', cat: 'barbe', name: 'Rituel Barbe Royale & Vapeur Eucalyptus', dur: '25 min', price: 20, desc: 'Taille géométrique, blaireau chaud, double serviette vapeur, huile de bois de cèdre et rasage coupe-chou.' },
+      { id: 'c5', cat: 'forfaits', name: 'Grand Rituel VIP : Coupe + Barbe + Soin Visage Vapozone', dur: '60 min', price: 54, desc: 'L\'expérience complète avec gommage purifiant sous vapeur d\'ozone et massage du cuir chevelu.' },
+      { id: 'c6', cat: 'coupes', name: 'Coupe Étudiant / Jeune Homme (-18 ans)', dur: '30 min', price: 20, desc: 'Coupe personnalisée, contours nets au coupe-chou et finition coiffage.' }
+    ];
 
-    document.getElementById('barberDateInput').valueAsDate = new Date();
+    const BARBERS = [
+      { name: 'Karim', role: 'Fauteuil n°1 — Maître Barbier', slots: ['10h00', '11h30', '14h15', '16h00', '17h30', '18h30'] },
+      { name: 'Lucas', role: 'Fauteuil n°2 — Expert Taper & Fade', slots: ['09h30', '11h00', '13h45', '15h15', '16h45', '18h15'] },
+      { name: 'Sofia', role: 'Fauteuil n°3 — Visagiste Studio', slots: ['10h15', '12h00', '14h30', '15h45', '17h00', '18h00'] }
+    ];
 
-    function pickBarberForfait(label) {
-      const sel = document.getElementById('barberForfaitSelect');
-      for (let i = 0; i < sel.options.length; i++) {
-        if (sel.options[i].text.indexOf(label.split('(')[0].trim()) !== -1) {
-          sel.selectedIndex = i;
-          break;
-        }
+    let selectedSrv = BARBER_CATALOG[0];
+    let selectedBarberIdx = 0;
+    let selectedSlot = BARBERS[0].slots[1];
+    let diagState = { texture: 'Fins & Raides', allure: 'Taper & Dégradé Net' };
+
+    document.getElementById('bDateInp').valueAsDate = new Date();
+
+    function filterBarberMenu(cat, btn) {
+      if (btn) document.querySelectorAll('.cat-tab').forEach(b => b.classList.toggle('active', b === btn));
+      const items = cat === 'all' ? BARBER_CATALOG : BARBER_CATALOG.filter(x => x.cat === cat);
+      document.getElementById('barberServicesList').innerHTML = items.map(s => `
+        <div class="srv-row ${s.id === selectedSrv.id ? 'selected' : ''}" onclick="selectSrv('${s.id}')">
+          <div>
+            <div style="font-family:var(--font-serif); font-size:1.3rem; font-weight:600;">${s.name} <span style="font-family:var(--font-sans); font-size:0.75rem; color:var(--ink-muted); font-weight:500;">(${s.dur})</span></div>
+            <p style="font-size:0.86rem; color:var(--ink-muted); margin-top:3px;">${s.desc}</p>
+          </div>
+          <strong style="font-family:var(--font-serif); font-size:1.5rem; color:var(--walnut); white-space:nowrap;">${s.price} €</strong>
+        </div>
+      `).join('');
+    }
+
+    function selectSrv(id) {
+      selectedSrv = BARBER_CATALOG.find(x => x.id === id) || BARBER_CATALOG[0];
+      document.getElementById('panelSrvName').textContent = selectedSrv.name;
+      document.getElementById('panelSrvPrice').textContent = selectedSrv.price + ' €';
+      filterBarberMenu(document.querySelector('.cat-tab.active')?.textContent === 'Tout voir' ? 'all' : 'all');
+    }
+
+    function pickBarberMaster(idx, card) {
+      selectedBarberIdx = idx;
+      if (card) {
+        document.querySelectorAll('.barber-card').forEach(c => c.classList.toggle('active', c === card));
       }
-      document.getElementById('rdv').scrollIntoView({ behavior: 'smooth' });
+      const b = BARBERS[idx];
+      selectedSlot = b.slots[0];
+      document.getElementById('panelBarberLabel').textContent = `Avec ${b.name} (${b.role.split('—')[0].trim()})`;
+      document.getElementById('slotsMasterTitle').textContent = b.name;
+      renderSlots();
     }
 
-    function selectBarberTime(time, btn) {
-      chosenBarberSlot = time;
-      document.querySelectorAll('.slot-pill').forEach(b => b.classList.toggle('active', b === btn));
+    function renderSlots() {
+      const b = BARBERS[selectedBarberIdx];
+      document.getElementById('dynamicSlotsGrid').innerHTML = b.slots.map(t => `
+        <button type="button" class="slot-btn ${t === selectedSlot ? 'active' : ''}" onclick="selectedSlot='${t}';renderSlots();">${t}</button>
+      `).join('');
     }
 
-    function submitBarberBooking(e) {
+    function setDiag(key, val, btn) {
+      diagState[key] = val;
+      btn.parentElement.querySelectorAll('.style-pill').forEach(b => b.classList.toggle('active', b === btn));
+      const titleEl = document.getElementById('diagTitle');
+      const descEl = document.getElementById('diagDesc');
+      const metaEl = document.getElementById('diagMeta');
+
+      if (diagState.allure === 'Barbe Sculptée & Contours') {
+        titleEl.textContent = 'Forfait Signature : Coupe + Barbe Vapeur';
+        descEl.textContent = `Adapté à vos cheveux (${diagState.texture}) : fondu propre sur les côtés combiné à une taille de barbe géométrique sous serviette chaude et finition coupe-chou.`;
+        metaEl.textContent = 'Barbier conseillé : Karim (Maître Barbier) • Durée : 45 min • Tarif : 38 €';
+      } else if (diagState.allure === 'Coupe Ciseaux Classique') {
+        titleEl.textContent = 'Restructuration Ciseaux Japonais & Coiffage Naturel';
+        descEl.textContent = `Idéal sur texture "${diagState.texture}" : coupe précise sans sabot pour respecter le mouvement naturel et garantir un tombé impeccable pendant 5 semaines.`;
+        metaEl.textContent = 'Visagiste conseillée : Sofia • Durée : 45 min • Tarif : 32 €';
+      } else {
+        titleEl.textContent = 'Mid Taper Fade & Dessus Texturé';
+        descEl.textContent = `Sur cheveux ${diagState.texture} : dégradé millimétré sur les tempes et la nuque, coiffage léger à l'argile mate ou sel marin.`;
+        metaEl.textContent = 'Barbier conseillé : Lucas (Expert Taper) • Durée : 35 min • Tarif : 26 €';
+      }
+    }
+
+    function applyDiagToBooking() {
+      if (diagState.allure === 'Barbe Sculptée & Contours') {
+        selectSrv('c1');
+        pickBarberMaster(0, document.querySelectorAll('.barber-card')[0]);
+      } else if (diagState.allure === 'Coupe Ciseaux Classique') {
+        selectSrv('c3');
+        pickBarberMaster(2, document.querySelectorAll('.barber-card')[2]);
+      } else {
+        selectSrv('c2');
+        pickBarberMaster(1, document.querySelectorAll('.barber-card')[1]);
+      }
+      document.getElementById('rendez-vous').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function confirmChairReservation(e) {
       e.preventDefault();
-      const name = document.getElementById('barberClientName').value.trim();
-      const chair = document.getElementById('barberChairSelect').value;
-      const forfait = document.getElementById('barberForfaitSelect').value;
-      const msg = document.getElementById('barberConfirmMsg');
-      msg.style.display = 'block';
-      msg.textContent = `Merci ${name}. Votre fauteuil est réservé à ${chosenBarberSlot} avec ${chair} (${forfait}). Un SMS de confirmation vient de vous être adressé.`;
+      const name = document.getElementById('bClientName').value.trim();
+      const dateStr = document.getElementById('bDateInp').value;
+      const b = BARBERS[selectedBarberIdx];
+      const ref = 'LC-' + Math.floor(100 + Math.random() * 900);
+      const box = document.getElementById('chairConfirmTicket');
+      box.style.display = 'block';
+      box.innerHTML = `<strong>Confirmation Fauteuil #${ref}</strong><br>Rendez-vous validé pour <strong>${name}</strong> le ${dateStr} à <strong>${selectedSlot}</strong> avec <strong>${b.name}</strong> (${selectedSrv.name} — ${selectedSrv.price} €). Rappel SMS envoyé.`;
     }
+
+    filterBarberMenu('all');
+    renderSlots();
   </script>
   <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
