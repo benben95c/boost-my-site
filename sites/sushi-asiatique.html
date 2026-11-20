@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kensho Sushi &amp; Poké — Créations Japonaises &amp; Commande en Ligne</title>
+  <meta name="description" content="Sushis artisanaux minute, plateaux signatures, Poké Bowls sur-mesure et Wok. Commande Click & Collect et livraison directe.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111317;
+      --surface: #1A1D24;
+      --surface-alt: #232730;
+      --ink: #F9FAFB;
+      --muted: #9CA3AF;
+      --coral: #E11D48;
+      --coral-dark: #BE123C;
+      --gold: #F59E0B;
+      --border: #2E333F;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      background: rgba(17, 19, 23, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 80;
+    }
+    .nav-bar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--font-head);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+    .nav-links a:hover { color: #fff; }
+    .btn-coral {
+      background: var(--coral);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    .btn-coral:hover { background: var(--coral-dark); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    .hero {
+      padding: 60px 0 68px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+    .eyebrow {
+      display: inline-block;
+      background: rgba(225, 29, 72, 0.14);
+      border: 1px solid rgba(225, 29, 72, 0.4);
+      color: #FDA4AF;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(34px, 4.8vw, 54px);
+      line-height: 1.08;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--coral); }
+    .hero p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+    .hero-img {
+      border-radius: 18px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--border);
+    }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 32px;
+    }
+    .sec-head h2 {
+      font-family: var(--font-head);
+      font-size: clamp(26px, 3.6vw, 40px);
+      margin-bottom: 8px;
+    }
+    .sec-head p { color: var(--muted); font-size: 15px; }
+
+    .sushi-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .s-tab {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .s-tab.active {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+    }
+
+    .sushi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+      gap: 20px;
+    }
+    .s-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .s-img {
+      height: 175px;
+      position: relative;
+    }
+    .s-img img { width: 100%; height: 100%; object-fit: cover; }
+    .s-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(17, 19, 23, 0.88);
+      color: #FBBF24;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .s-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* POKE BUILDER */
+    .poke-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (max-width: 860px) { .poke-box { grid-template-columns: 1fr; } }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .p-chip {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .p-chip.active {
+      background: rgba(225, 29, 72, 0.2);
+      border-color: var(--coral);
+      color: #FDA4AF;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 460px;
+      width: 100%;
+      padding: 24px;
+    }
+    .inp-dark {
+      width: 100%;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      margin-bottom: 10px;
+      font-family: inherit;
+    }
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand" data-bms-brand>Kensho Sushi &amp; Poké</a>
+      <ul class="nav-links">
+        <li><a href="#boxes">Plateaux &amp; Boxes</a></li>
+        <li><a href="#poke">Composer mon Poké</a></li>
+        <li><a href="#boxes" onclick="filterSushi('wok')">Wok &amp; Chaud</a></li>
+      </ul>
+      <button type="button" class="btn-coral" onclick="openSushiCart()">
+        <span>🥢 Ma Commande</span>
+        <span id="sushiCartCount" style="background:#fff; color:var(--coral); padding:1px 7px; border-radius:999px; font-size:11.5px;">0</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">🍣 Saumon Écosse Label Rouge • Découpe Minute • 0% Commission</span>
+        <h1>L'art du Sushi &amp; du Poké, <span>commandé en direct</span>.</h1>
+        <p>Nos maîtres sushis préparent vos plateaux signatures, California rolls et Poké Bowls à la commande. Économisez les frais de plateforme et bénéficiez d'une boisson ou soupe miso offerte en Click &amp; Collect.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#boxes" class="btn-coral">Découvrir les Plateaux</a>
+          <a href="#poke" style="padding:10px 20px; border-radius:999px; border:1px solid var(--border); color:#fff; text-decoration:none; font-weight:700; font-size:13px; background:var(--surface);">🥣 Composer un Poké Bowl</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1000&q=80" alt="Plateau de Sushis et California Rolls">
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE BOXES -->
+  <section class="section" id="boxes">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Plateaux Signatures, Rolls &amp; Wok</h2>
+        <p>Soupe Miso, salade de chou et sauces incluses avec chaque plateau.</p>
+      </div>
+
+      <div class="sushi-tabs">
+        <button type="button" class="s-tab active" onclick="filterSushi('box', this)">🍱 Boxes &amp; Plateaux</button>
+        <button type="button" class="s-tab" onclick="filterSushi('rolls', this)">🍣 Signatures &amp; California</button>
+        <button type="button" class="s-tab" onclick="filterSushi('wok', this)">🍜 Wok, Gyozas &amp; Yakitori</button>
+      </div>
+
+      <div class="sushi-grid" id="sushiGrid"></div>
+    </div>
+  </section>
+
+  <!-- COMPOSEUR DE POKÉ BOWL -->
+  <section class="section" id="poke">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Composez votre Poké Bowl Sur-Mesure</h2>
+        <p>Sélectionnez votre base, votre protéine marinée et vos garnitures fraîches.</p>
+      </div>
+
+      <div class="poke-box">
+        <div>
+          <label style="font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; display:block; margin-bottom:6px;">1. Votre Base</label>
+          <div class="chip-row" id="pokeBaseRow">
+            <button type="button" class="p-chip active" onclick="pickPokeOpt('base', 'Riz Vinaigré Sushi', this)">Riz Vinaigré Sushi</button>
+            <button type="button" class="p-chip" onclick="pickPokeOpt('base', 'Quinoa & Jeunes Pousses', this)">Quinoa &amp; Jeunes Pousses</button>
+          </div>
+
+          <label style="font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; display:block; margin-bottom:6px;">2. Votre Protéine</label>
+          <div class="chip-row" id="pokeProtRow">
+            <button type="button" class="p-chip active" onclick="pickPokeOpt('prot', 'Saumon Mariné Soja-Sésame', this)">Saumon Label Rouge</button>
+            <button type="button" class="p-chip" onclick="pickPokeOpt('prot', 'Poulet Karaage Croustillant', this)">Poulet Karaage Croustillant</button>
+            <button type="button" class="p-chip" onclick="pickPokeOpt('prot', 'Crevettes Tempura', this)">Crevettes Tempura</button>
+            <button type="button" class="p-chip" onclick="pickPokeOpt('prot', 'Thon Rouge Mariné', this)">Thon Rouge</button>
+          </div>
+
+          <label style="font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; display:block; margin-bottom:6px;">3. Sauce Maison</label>
+          <div class="chip-row" id="pokeSauceRow">
+            <button type="button" class="p-chip active" onclick="pickPokeOpt('sauce', 'Mayo Spicy Sriracha', this)">Mayo Spicy</button>
+            <button type="button" class="p-chip" onclick="pickPokeOpt('sauce', 'Ponzu Yuzu Agrumes', this)">Ponzu Yuzu</button>
+            <button type="button" class="p-chip" onclick="pickPokeOpt('sauce', 'Teriyaki Caramélisée', this)">Teriyaki Maison</button>
+          </div>
+          <p style="font-size:12px; color:var(--muted);">Garnitures incluses : Avocat frais, Mangue, Edamame, Wakamé, Oignons frits &amp; Sésame torréfié.</p>
+        </div>
+
+        <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:14px; padding:24px; text-align:center;">
+          <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:#FDA4AF;">Votre Poké Signature</span>
+          <div style="font-family:var(--font-head); font-size:38px; font-weight:700; margin:8px 0;">13,90 €</div>
+          <p id="pokeSummaryText" style="font-size:13px; color:var(--muted); margin-bottom:16px;">Riz Vinaigré Sushi • Saumon Mariné Soja-Sésame • Mayo Spicy Sriracha</p>
+          <button type="button" class="btn-coral" style="width:100%; justify-content:center;" onclick="addPokeToCart()">
+            + Ajouter mon Poké Bowl
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <strong data-bms-brand style="color:#fff;">Kensho Sushi &amp; Poké</strong> — Click &amp; Collect Express &amp; Livraison Soir • 7j/7
+    </div>
+  </footer>
+
+  <!-- MODAL PANIER -->
+  <div class="modal-backdrop" id="sushiCartModal" onclick="if(event.target===this)closeSushiCart()">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-family:var(--font-head); font-size:20px;">Votre Panier Sushi</h3>
+        <button type="button" onclick="closeSushiCart()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">✕</button>
+      </div>
+      <div id="sushiCartList"></div>
+      <div style="display:flex; justify-content:space-between; font-weight:800; font-size:17px; margin:14px 0;">
+        <span>Total Commande</span>
+        <span id="sushiCartTotal">0,00 €</span>
+      </div>
+      <input type="text" id="sushiClient" class="inp-dark" placeholder="Votre Prénom &amp; Téléphone">
+      <select id="sushiMode" class="inp-dark">
+        <option>Retrait Click &amp; Collect dans 20 min (+ Soupe Miso offerte)</option>
+        <option>Retrait Click &amp; Collect ce soir 20h00</option>
+        <option>Livraison à domicile (40 min)</option>
+      </select>
+      <button type="button" class="btn-coral" style="width:100%; justify-content:center;" onclick="confirmSushiOrder()">
+        Valider ma commande
+      </button>
+      <div id="sushiOrderMsg" style="display:none; margin-top:12px; padding:12px; background:rgba(16,185,129,0.18); border:1px solid #10B981; color:#6EE7B7; border-radius:8px; font-size:12.5px; font-weight:600; text-align:center;"></div>
+    </div>
+  </div>
+
+  <script>
+    const SUSHI_ITEMS = [
+      { id: 'bx1', cat: 'box', name: 'Box Tokyo Lovers (24 pièces)', price: 24.90, tag: 'Best-Seller', desc: '6 Sushis Saumon, 6 California Saumon Avocat, 6 Crispy Tempura Crevette, 6 Spring Rolls + 2 Soupes Miso.', img: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=80' },
+      { id: 'bx2', cat: 'box', name: 'Plateau Impérial Kensho (42 pièces)', price: 44.00, tag: '2-3 Personnes', desc: 'Assortiment complet : Dragon Rolls, Sushis Saumon & Thon, Sashimis Label Rouge, California Cheese.', img: 'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=600&q=80' },
+      { id: 'bx3', cat: 'box', name: 'Menu Midi Bento Salmon (14 pièces)', price: 14.90, tag: 'Formule Midi', desc: '4 Sushis Saumon, 6 California Avocat, 4 Gyozas grillés + Soupe Miso + Salade de chou.', img: 'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=600&q=80' },
+      { id: 'rl1', cat: 'rolls', name: 'Dragon Roll Tempura & Avocat (8 pcs)', price: 11.90, tag: 'Signature', desc: 'Crevette tempura croustillante, cream cheese, recouvert de fines lamelles d\'avocat, sauce unagi et sésame.', img: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=600&q=80' },
+      { id: 'rl2', cat: 'rolls', name: 'Salmon Aburi Flambé & Truffe (8 pcs)', price: 12.90, tag: 'Création Chef', desc: 'Saumon mi-cuit au chalumeau, cœur avocat cheese et pointe de mayonnaise à la truffe.', img: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=600&q=80' },
+      { id: 'wk1', cat: 'wok', name: 'Nouilles Udon Sautées au Wok Bœuf ou Poulet', price: 13.50, tag: 'Chaud Minute', desc: 'Nouilles japonaises épaisses sautées à la flamme, légumes croquants, sauce yakisoba maison.', img: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80' },
+      { id: 'wk2', cat: 'wok', name: 'Duo 5 Brochettes Yakitori + Riz Blanc', price: 12.50, tag: 'Grill Japonais', desc: '2 Bœuf Fromage Gouda, 2 Poulet caramélisé, 1 Boulettes Tsukune nappées de sauce teriyaki.', img: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80' }
+    ];
+
+    let sushiCart = [];
+    let pokeState = {
+      base: 'Riz Vinaigré Sushi',
+      prot: 'Saumon Mariné Soja-Sésame',
+      sauce: 'Mayo Spicy Sriracha'
+    };
+
+    function filterSushi(cat, btn) {
+      if (btn) document.querySelectorAll('.s-tab').forEach(b => b.classList.toggle('active', b === btn));
+      const grid = document.getElementById('sushiGrid');
+      grid.innerHTML = SUSHI_ITEMS.filter(x => x.cat === cat).map(it => `
+        <div class="s-card">
+          <div class="s-img">
+            <img src="${it.img}" alt="${it.name}" loading="lazy">
+            <span class="s-tag">${it.tag}</span>
+          </div>
+          <div class="s-body">
+            <div>
+              <div style="font-weight:700; font-size:15.5px; margin-bottom:4px;">${it.name}</div>
+              <p style="font-size:12.5px; color:var(--muted); margin-bottom:14px;">${it.desc}</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid var(--border);">
+              <strong style="font-size:17px; color:#FDA4AF;">${it.price.toFixed(2).replace('.', ',')} €</strong>
+              <button type="button" onclick="addSushi('${it.id}')" style="background:var(--surface-alt); border:1px solid var(--border); color:#fff; padding:7px 13px; border-radius:8px; font-weight:700; font-size:12.5px; cursor:pointer;">+ Ajouter</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addSushi(id) {
+      const it = SUSHI_ITEMS.find(x => x.id === id);
+      if (!it) return;
+      sushiCart.push({ name: it.name, price: it.price });
+      document.getElementById('sushiCartCount').textContent = String(sushiCart.length);
+    }
+
+    function pickPokeOpt(key, val, btn) {
+      pokeState[key] = val;
+      btn.parentElement.querySelectorAll('.p-chip').forEach(c => c.classList.toggle('active', c === btn));
+      document.getElementById('pokeSummaryText').textContent = `${pokeState.base} • ${pokeState.prot} • ${pokeState.sauce}`;
+    }
+
+    function addPokeToCart() {
+      sushiCart.push({
+        name: `Poké Bowl (${pokeState.prot}, ${pokeState.base})`,
+        price: 13.90
+      });
+      document.getElementById('sushiCartCount').textContent = String(sushiCart.length);
+      openSushiCart();
+    }
+
+    function openSushiCart() {
+      const list = document.getElementById('sushiCartList');
+      if (sushiCart.length === 0) {
+        list.innerHTML = `<p style="color:var(--muted); font-size:13px; padding:10px 0;">Votre panier est vide.</p>`;
+      } else {
+        list.innerHTML = sushiCart.map(c => `
+          <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px;">
+            <span>${c.name}</span>
+            <strong>${c.price.toFixed(2).replace('.', ',')} €</strong>
+          </div>
+        `).join('');
+      }
+      const total = sushiCart.reduce((a, b) => a + b.price, 0);
+      document.getElementById('sushiCartTotal').textContent = total.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('sushiCartModal').classList.add('open');
+    }
+
+    function closeSushiCart() {
+      document.getElementById('sushiCartModal').classList.remove('open');
+    }
+
+    function confirmSushiOrder() {
+      if (sushiCart.length === 0) return;
+      const client = document.getElementById('sushiClient').value.trim() || 'Client';
+      const mode = document.getElementById('sushiMode').value;
+      const msg = document.getElementById('sushiOrderMsg');
+      msg.style.display = 'block';
+      msg.innerHTML = `🥢 Commande validée pour <strong>${client}</strong> (${mode}). Préparation minute en cours !`;
+      sushiCart = [];
+      document.getElementById('sushiCartCount').textContent = '0';
+    }
+
+    filterSushi('box');
+  </script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Écrin de Soie — Institut de Beauté, Onglerie &amp; Head Spa</title>
+  <meta name="description" content="Institut de beauté, bar à ongles, manucure russe, Head Spa japonais et soins visage. Réservation en ligne 24h/24 et cartes cadeaux.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FCF9F7;
+      --surface: #FFFFFF;
+      --blush: #F6ECE8;
+      --ink: #291E1C;
+      --muted: #7C6A65;
+      --rose: #B56E61;
+      --rose-dark: #945246;
+      --border: #EADCD7;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      background: rgba(252, 249, 247, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 80;
+    }
+    .nav-bar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 27px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+    .nav-links a:hover { color: var(--rose); }
+    .btn-rose {
+      background: var(--rose);
+      color: #fff;
+      text-decoration: none;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-rose:hover { background: var(--rose-dark); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    .hero {
+      padding: 58px 0 68px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 44px;
+      align-items: center;
+    }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+    .eyebrow {
+      display: inline-block;
+      background: var(--blush);
+      color: var(--rose-dark);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 4.8vw, 56px);
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+    .hero h1 em { color: var(--rose); font-style: italic; }
+    .hero p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 26px;
+      max-width: 520px;
+    }
+    .hero-img {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 0 20px 45px rgba(181, 110, 97, 0.14);
+    }
+    .hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 36px;
+    }
+    .sec-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.8vw, 42px);
+      margin-bottom: 8px;
+    }
+    .sec-head p { color: var(--muted); font-size: 15px; }
+
+    .cat-pills {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .cat-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .cat-pill.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .beauty-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .beauty-layout { grid-template-columns: 1fr; } }
+
+    .soin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .soin-card:hover, .soin-card.selected {
+      border-color: var(--rose);
+      background: var(--blush);
+    }
+    .soin-price {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--rose-dark);
+      white-space: nowrap;
+    }
+
+    .booking-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      position: sticky;
+      top: 96px;
+      box-shadow: 0 12px 30px rgba(41, 30, 28, 0.05);
+    }
+    .inp-light {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13.5px;
+      margin-bottom: 12px;
+      font-family: inherit;
+      background: var(--bg);
+    }
+
+    /* CARTE CADEAU GENERATOR */
+    .gift-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    @media (max-width: 860px) { .gift-grid { grid-template-columns: 1fr; } }
+    .gift-preview {
+      background: linear-gradient(135deg, #291E1C, #4A3531);
+      color: #F6ECE8;
+      border-radius: 18px;
+      padding: 32px;
+      text-align: center;
+      border: 1px solid #B56E61;
+      box-shadow: 0 20px 40px rgba(41, 30, 28, 0.2);
+    }
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      background: var(--blush);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand" data-bms-brand>L'Écrin de Soie</a>
+      <ul class="nav-links">
+        <li><a href="#soins">Carte des Soins</a></li>
+        <li><a href="#soins">Réservation en ligne</a></li>
+        <li><a href="#cadeau">Offrir un Bon Cadeau</a></li>
+      </ul>
+      <a href="#soins" class="btn-rose">Réserver un Soin</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">✨ Institut de Beauté • Nails Studio &amp; Head Spa Japonais</span>
+        <h1>Votre parenthèse de beauté, <em>réservée en un instant</em>.</h1>
+        <p>Manucure russe de haute précision, Head Spa holistique à la vapeur, soins visage Hydrafacial et beauté du regard. Consultez nos disponibilités en direct et réservez votre soin 24h/24.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#soins" class="btn-rose">Choisir mon soin &amp; mon créneau</a>
+          <a href="#cadeau" style="padding:11px 20px; border-radius:999px; border:1px solid var(--border); text-decoration:none; color:var(--ink); font-weight:700; font-size:13px; background:#fff;">🎁 Créer une Carte Cadeau</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80" alt="Soin Spa et Institut de beauté">
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTE DES SOINS & RÉSERVATION -->
+  <section class="section" id="soins">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Carte des Soins &amp; Réservation Directe</h2>
+        <p>Filtrez par univers de beauté et cliquez sur un soin pour planifier votre séance.</p>
+      </div>
+
+      <div class="cat-pills">
+        <button type="button" class="cat-pill active" onclick="filterBeauty('nails', this)">💅 Onglerie &amp; Manucure Russe</button>
+        <button type="button" class="cat-pill" onclick="filterBeauty('spa', this)">🌿 Head Spa &amp; Massages</button>
+        <button type="button" class="cat-pill" onclick="filterBeauty('visage', this)">✨ Visage &amp; Regard</button>
+      </div>
+
+      <div class="beauty-layout">
+        <div id="beautyServicesList"></div>
+
+        <div class="booking-box">
+          <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:var(--rose);">Votre Séance Bien-Être</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0 14px; padding-bottom:12px; border-bottom:1px solid var(--border);">
+            <strong id="selBeautyName" style="font-size:15px;">Manucure Russe + Semi-Permanent Renforcé</strong>
+            <strong id="selBeautyPrice" style="font-family:var(--font-serif); font-size:24px; color:var(--rose-dark);">42 €</strong>
+          </div>
+
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:5px;">Choisissez votre praticienne</label>
+          <select id="beautyExpert" class="inp-light">
+            <option>Camille — Experte Nails &amp; Manucure Russe</option>
+            <option>Mei — Praticienne Head Spa &amp; Massage</option>
+            <option>Chloé — Facialiste &amp; Beauté du Regard</option>
+          </select>
+
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:5px;">Jour &amp; Créneau souhaité</label>
+          <select id="beautySlot" class="inp-light">
+            <option>Aujourd'hui — 14h30</option>
+            <option>Aujourd'hui — 16h15</option>
+            <option>Demain — 10h00</option>
+            <option>Demain — 11h45</option>
+            <option>Samedi — 15h00</option>
+          </select>
+
+          <input type="text" id="beautyClientName" class="inp-light" placeholder="Votre Prénom &amp; Nom (ex: Sarah)">
+          <input type="tel" id="beautyClientPhone" class="inp-light" placeholder="Votre Téléphone (Rappel SMS)">
+
+          <button type="button" class="btn-rose" style="width:100%;" onclick="confirmBeautyBooking()">
+            Réserver mon soin maintenant
+          </button>
+          <div id="beautyConfirmMsg" style="display:none; margin-top:12px; padding:12px; background:#DCFCE7; color:#166534; border-radius:8px; font-size:12.5px; font-weight:600;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GÉNÉRATEUR DE CARTE CADEAU -->
+  <section class="section" id="cadeau">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Offrir un Bon Cadeau Personnalisé</h2>
+        <p>Personnalisez votre invitation beauté en direct : prête à imprimer ou à envoyer sur WhatsApp.</p>
+      </div>
+
+      <div class="gift-grid">
+        <div>
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:5px;">Pour qui est ce cadeau ?</label>
+          <input type="text" id="giftTo" class="inp-light" value="Inès" oninput="updateGiftCard()">
+
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:5px;">Soin ou Montant offert</label>
+          <select id="giftSoin" class="inp-light" onchange="updateGiftCard()">
+            <option value="Rituel Head Spa Japonais Impérial (79 €)">Rituel Head Spa Japonais Impérial (79 €)</option>
+            <option value="Soin Visage Hydrafacial Éclat (85 €)">Soin Visage Hydrafacial Éclat (85 €)</option>
+            <option value="Bon Cadeau Libre de 50 €">Bon Cadeau Libre de 50 €</option>
+            <option value="Bon Cadeau Libre de 100 €">Bon Cadeau Libre de 100 €</option>
+          </select>
+
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:5px;">Petit mot doux</label>
+          <input type="text" id="giftNote" class="inp-light" value="Profite bien de ce moment rien que pour toi !" oninput="updateGiftCard()">
+        </div>
+
+        <div class="gift-preview">
+          <div style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:#D4AF37; margin-bottom:8px;">Invitation Privilège • <span data-bms-brand>L'Écrin de Soie</span></div>
+          <div style="font-family:var(--font-serif); font-size:32px; margin-bottom:6px;">Pour <span id="giftToPreview">Inès</span></div>
+          <div style="font-size:16px; font-weight:700; color:#F3C6B6; margin-bottom:14px;" id="giftSoinPreview">Rituel Head Spa Japonais Impérial (79 €)</div>
+          <p style="font-family:var(--font-serif); font-style:italic; font-size:17px; color:#E5D5CE; margin-bottom:18px;" id="giftNotePreview">« Profite bien de ce moment rien que pour toi ! »</p>
+          <div style="font-size:11px; color:#A8958E;">Valable 12 mois • Réservation en ligne avec le code #SOIE-2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <strong data-bms-brand>L'Écrin de Soie</strong> — Institut de Beauté, Nails &amp; Head Spa • Mardi au Samedi 10h00 – 19h30
+    </div>
+  </footer>
+
+  <script>
+    const BEAUTY_SERVICES = [
+      { id: 'b1', cat: 'nails', name: 'Manucure Russe + Gainage Semi-Permanent', dur: '50 min', price: 42, desc: 'Travail minutieux des cuticules, renfort base protéinée et couleur miroir longue tenue 4 semaines.' },
+      { id: 'b2', cat: 'nails', name: 'Pose Complète Gel Chablon / Babyboomer', dur: '1h15', price: 58, desc: 'Extension sur-mesure au chablon sans colle, architecture naturelle ultra-fine et Nail Art au choix.' },
+      { id: 'b3', cat: 'nails', name: 'Beauté des Pieds Spa + Semi-Permanent', dur: '55 min', price: 46, desc: 'Bain thermal, gommage aux sels roses, soin callosités et pose de vernis semi-permanent.' },
+      { id: 'b4', cat: 'spa', name: 'Rituel Head Spa Japonais Impérial Vapeur', dur: '1h00', price: 79, desc: 'Fontaine d\'eau chaude circulaire, détox cuir chevelu, soin profond vaporeux et massage nuque/épaules.' },
+      { id: 'b5', cat: 'spa', name: 'Massage Corps Relaxant aux Huiles Chaudes', dur: '1h00', price: 68, desc: 'Manœuvres enveloppantes pour dénouer toutes les tensions nerveuses et musculaires.' },
+      { id: 'b6', cat: 'visage', name: 'Soin Visage Hydrafacial Glow & Pureté', dur: '1h00', price: 85, desc: 'Nettoyage profond par hydro-dermabrasion, infusion d\'acide hyaluronique et luminothérapie LED.' },
+      { id: 'b7', cat: 'visage', name: 'Rehaussement de Cils Lash Lift + Kératine', dur: '45 min', price: 52, desc: 'Courbure spectaculaire de vos cils naturels pendant 6 à 8 semaines avec teinture noire intense.' }
+    ];
+
+    let currentBeautyCat = 'nails';
+    let selectedBeauty = BEAUTY_SERVICES[0];
+
+    function filterBeauty(cat, btn) {
+      currentBeautyCat = cat;
+      if (btn) {
+        document.querySelectorAll('.cat-pill').forEach(b => b.classList.toggle('active', b === btn));
+      }
+      renderBeautyList();
+    }
+
+    function renderBeautyList() {
+      const list = document.getElementById('beautyServicesList');
+      const items = BEAUTY_SERVICES.filter(s => s.cat === currentBeautyCat);
+      list.innerHTML = items.map(s => `
+        <div class="soin-card ${s.id === selectedBeauty.id ? 'selected' : ''}" onclick="pickBeautySoin('${s.id}')">
+          <div>
+            <div style="font-weight:700; font-size:15px; margin-bottom:3px;">${s.name} <span style="font-size:11px; color:var(--muted); font-weight:600;">(${s.dur})</span></div>
+            <p style="font-size:12.5px; color:var(--muted);">${s.desc}</p>
+          </div>
+          <div class="soin-price">${s.price} €</div>
+        </div>
+      `).join('');
+    }
+
+    function pickBeautySoin(id) {
+      selectedBeauty = BEAUTY_SERVICES.find(x => x.id === id) || BEAUTY_SERVICES[0];
+      document.getElementById('selBeautyName').textContent = selectedBeauty.name;
+      document.getElementById('selBeautyPrice').textContent = selectedBeauty.price + ' €';
+      renderBeautyList();
+    }
+
+    function confirmBeautyBooking() {
+      const name = document.getElementById('beautyClientName').value.trim() || 'Cliente';
+      const slot = document.getElementById('beautySlot').value;
+      const expert = document.getElementById('beautyExpert').value.split('—')[0].trim();
+      const msg = document.getElementById('beautyConfirmMsg');
+      msg.style.display = 'block';
+      msg.innerHTML = `✨ Séance confirmée pour <strong>${name}</strong> (${slot}) avec <strong>${expert}</strong> pour : <em>${selectedBeauty.name}</em>.`;
+    }
+
+    function updateGiftCard() {
+      document.getElementById('giftToPreview').textContent = document.getElementById('giftTo').value || 'Inès';
+      document.getElementById('giftSoinPreview').textContent = document.getElementById('giftSoin').value;
+      document.getElementById('giftNotePreview').textContent = '« ' + (document.getElementById('giftNote').value || '') + ' »';
+    }
+
+    renderBeautyList();
+  </script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+</body>
+</html>

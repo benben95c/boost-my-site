@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOS Artisans Express — Plombier, Serrurier &amp; Électricien 24h/24</title>
+  <meta name="description" content="Dépannage d'urgence en 30 minutes : Plomberie, Serrurerie et Électricité. Tarifs fixes annoncés avant intervention et agréés assurances.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --navy: #0F172A;
+      --blue: #1D4ED8;
+      --blue-light: #EFF6FF;
+      --green: #16A34A;
+      --red: #DC2626;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .urgent-bar {
+      background: #DC2626;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-align: center;
+      padding: 7px 14px;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 80;
+    }
+    .nav-bar {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--font-head);
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .btn-call {
+      background: var(--green);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+    }
+
+    .hero {
+      padding: 52px 0 64px;
+      background: linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 38px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+
+    .badge-trust {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #DBEAFE;
+      color: #1E40AF;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 4.5vw, 50px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--blue); }
+    .hero p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    .guarantees {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .g-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .g-box strong {
+      display: block;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .g-box span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* DIAGNOSTIC & SIMULATEUR TARIF FIXE */
+    .diag-card {
+      background: var(--surface);
+      border: 2px solid var(--blue);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 20px 45px rgba(29, 78, 216, 0.12);
+    }
+    .trade-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .t-tab {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 9px 6px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+    }
+    .t-tab.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+    .inp {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13.5px;
+      margin-bottom: 12px;
+      font-family: inherit;
+      font-weight: 600;
+    }
+    .price-banner {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .price-big {
+      font-family: var(--font-head);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1.1;
+    }
+
+    footer {
+      padding: 40px 0;
+      background: var(--navy);
+      color: #94A3B8;
+      text-align: center;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="urgent-bar">
+    🚨 Technicien de garde disponible dans votre secteur • Arrivée sur place en 25 à 35 minutes (24h/24 &amp; 7j/7)
+  </div>
+
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand" data-bms-brand>SOS Artisans Express</a>
+      <a href="tel:0698727247" class="btn-call">📞 Urgence 24/7 : 06 98 72 72 47</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="badge-trust">🛡️ Artisans Certifiés &amp; Agréés Assurances Habitation</span>
+        <h1>Dépannage d'urgence à <span>tarif fixe garanti d'avance</span>.</h1>
+        <p>Fini les mauvaises surprises : sélectionnez votre panne dans notre simulateur officiel ci-contre pour connaître le prix exact TTC (déplacement et main-d'œuvre inclus) avant même le départ du technicien.</p>
+
+        <div class="guarantees">
+          <div class="g-box">
+            <strong>⚡ Arrivée en 30 min</strong>
+            <span>Géolocalisation de l'artisan le plus proche</span>
+          </div>
+          <div class="g-box">
+            <strong>💶 Devis 0 € &amp; Prix Fixe</strong>
+            <span>Aucun supplément caché sur place</span>
+          </div>
+          <div class="g-box">
+            <strong>🏦 Remboursé Assurance</strong>
+            <span>Facture conforme Macif, AXA, MAIF, Allianz...</span>
+          </div>
+          <div class="g-box">
+            <strong>⭐ 4,9 / 5 sur Google</strong>
+            <span>+740 dépannages vérifiés</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULATEUR DE TARIF URGENCE -->
+      <div class="diag-card">
+        <div style="font-weight:800; font-size:16px; margin-bottom:10px;">Simulateur de Tarif Fixe Avant Déplacement</div>
+
+        <div class="trade-tabs">
+          <button type="button" class="t-tab active" onclick="switchTrade('serrurier', this)">🔑 Serrurerie</button>
+          <button type="button" class="t-tab" onclick="switchTrade('plombier', this)">🚰 Plomberie</button>
+          <button type="button" class="t-tab" onclick="switchTrade('elec', this)">⚡ Électricité</button>
+        </div>
+
+        <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">Quelle est votre urgence ?</label>
+        <select id="emergencyIssue" class="inp" onchange="updateEmergencyPrice()"></select>
+
+        <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">Créneau d'intervention</label>
+        <select id="emergencyTime" class="inp" onchange="updateEmergencyPrice()">
+          <option value="1">Journée en semaine (08h00 – 19h00) — Tarif Normal</option>
+          <option value="1.35">Soir, Nuit ou Dimanche (+35% tarif garde)</option>
+        </select>
+
+        <div class="price-banner">
+          <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:#166534;">Forfait Garanti Tout Compris (Déplacement + Main d'œuvre)</span>
+          <div class="price-big" id="emergencyPriceVal">95 € TTC</div>
+          <div style="font-size:12px; color:#15803D; font-weight:600;" id="emergencyGuaranteeNote">Ouverture radio sans dégât sur votre cylindre</div>
+        </div>
+
+        <input type="text" id="emClientAddr" class="inp" placeholder="Votre Adresse / Ville (ex: 14 Rue de Rouen, Pontoise)">
+        <input type="tel" id="emClientPhone" class="inp" placeholder="Votre Téléphone portable">
+
+        <button type="button" onclick="confirmEmergencyDispatch()" style="width:100%; background:var(--blue); color:#fff; border:none; padding:13px; border-radius:10px; font-weight:800; font-size:14px; cursor:pointer;">
+          🚀 Envoyer l'artisan maintenant (Arrivée ~25 min)
+        </button>
+        <div id="emConfirmBox" style="display:none; margin-top:12px; padding:12px; background:#DCFCE7; color:#166534; border-radius:8px; font-size:12.5px; font-weight:600;"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <strong data-bms-brand style="color:#fff;">SOS Artisans Express</strong> — Plomberie, Serrurerie &amp; Électricité d'Urgence 24h/24 &amp; 7j/7 • Garantie Décennale
+    </div>
+  </footer>
+
+  <script>
+    const EMERGENCY_CATALOG = {
+      serrurier: [
+        { name: 'Ouverture de porte claquée (non fermée à clé)', price: 95, note: 'Ouverture fine à la radio 100% sans abîmer la serrure' },
+        { name: 'Ouverture de porte fermée à clé ou clé cassée', price: 139, note: 'Extraction ou perçage propre + cylindre provisoire inclus' },
+        { name: 'Remplacement Cylindre Haute Sécurité A2P* (3 clés)', price: 179, note: 'Fourniture cylindre agréé assurance + pose garantie 2 ans' },
+        { name: 'Mise en sécurité après effraction (Remboursé Assurance)', price: 190, note: 'Facture officielle pour remboursement intégral assurance' }
+      ],
+      plombier: [
+        { name: 'Recherche & Réparation de fuite d\'eau urgente', price: 110, note: 'Joint, raccord cuivre/PER, siphon ou robinet d\'arrêt' },
+        { name: 'Débouchage haute pression WC / Évier / Douche', price: 115, note: 'Dégorgement au furet électrique ou pompe haute pression' },
+        { name: 'Dépannage Chauffe-Eau / Ballon d\'eau chaude en panne', price: 135, note: 'Diagnostic thermostat, groupe de sécurité ou résistance' },
+        { name: 'Remplacement Robinet Mitigeur ou Mécanisme Chasse WC', price: 129, note: 'Main d\'œuvre + petites fournitures d\'étanchéité incluses' }
+      ],
+      elec: [
+        { name: 'Recherche de panne & Remise en route Tableau Électrique', price: 115, note: 'Isolation du court-circuit et réarmement sécurisé NF C 15-100' },
+        { name: 'Remplacement Disjoncteur Différentiel 30mA brûlé', price: 145, note: 'Pièce Legrand/Schneider + pose et test d\'isolement' },
+        { name: 'Réparation Prise, Interrupteur ou Volet Roulant Électrique', price: 105, note: 'Diagnostic moteur/condensateur et remise en service' }
+      ]
+    };
+
+    let currentTrade = 'serrurier';
+
+    function switchTrade(trade, btn) {
+      currentTrade = trade;
+      if (btn) document.querySelectorAll('.t-tab').forEach(b => b.classList.toggle('active', b === btn));
+      const sel = document.getElementById('emergencyIssue');
+      const items = EMERGENCY_CATALOG[trade];
+      sel.innerHTML = items.map((it, idx) => `<option value="${idx}">${it.name} (${it.price} €)</option>`).join('');
+      updateEmergencyPrice();
+    }
+
+    function updateEmergencyPrice() {
+      const sel = document.getElementById('emergencyIssue');
+      const idx = parseInt(sel.value, 10) || 0;
+      const item = EMERGENCY_CATALOG[currentTrade][idx];
+      const mult = parseFloat(document.getElementById('emergencyTime').value || '1');
+      const finalPrice = Math.round(item.price * mult);
+      document.getElementById('emergencyPriceVal').textContent = finalPrice + ' € TTC';
+      document.getElementById('emergencyGuaranteeNote').textContent = item.note;
+    }
+
+    function confirmEmergencyDispatch() {
+      const addr = document.getElementById('emClientAddr').value.trim() || 'votre adresse';
+      const price = document.getElementById('emergencyPriceVal').textContent;
+      const box = document.getElementById('emConfirmBox');
+      box.style.display = 'block';
+      box.innerHTML = `🚨 Demande d'intervention prioritaire transmise pour <strong>${addr}</strong> au tarif fixe garanti de <strong>${price}</strong>. Notre technicien vous appelle dans moins de 2 minutes !`;
+    }
+
+    switchTrade('serrurier');
+  </script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+</body>
+</html>

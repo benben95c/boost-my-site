@@ -1225,6 +1225,7 @@
       <div class="header-left">
         <div class="app-switch">
           <a href="tournee-clients.html" class="active">Carte</a>
+          <a href="maquettes.html">Maquettes</a>
           <a href="devis-express.html">Devis</a>
           <a href="suivi-projets.html">Suivi</a>
         </div>
@@ -1748,6 +1749,41 @@
       return 'resto';
     }
 
+    function resolveBestDemoUrl(node) {
+      if (!node) return '../sites/fastfood-smash.html';
+      const s = ((node.name || '') + ' ' + (node.pitch || '') + ' ' + (node.category || '')).toLowerCase();
+      let file = '../sites/fastfood-smash.html';
+      if (s.includes('boulanger') || s.includes('pâtiss') || s.includes('patiss') || s.includes('fournil') || s.includes('pain') || s.includes('levain')) {
+        file = '../sites/boulangerie-patisserie.html';
+      } else if (s.includes('barber') || s.includes('coiff') || s.includes('ciseaux') || s.includes('hair')) {
+        file = '../sites/barber-coiffure.html';
+      } else if (s.includes('institut') || s.includes('mei li') || s.includes('beauté') || s.includes('beaute') || s.includes('nails') || s.includes('ongle') || s.includes('spa') || s.includes('massage') || s.includes('cabinet')) {
+        file = '../sites/institut-beaute.html';
+      } else if (s.includes('pizza') || s.includes('italien') || s.includes('trattoria') || s.includes('pasta')) {
+        file = '../sites/pizzeria-italien.html';
+      } else if (s.includes('sushi') || s.includes('poké') || s.includes('poke') || s.includes('shanghai') || s.includes('asiat') || s.includes('wok') || s.includes('japon')) {
+        file = '../sites/sushi-asiatique.html';
+      } else if (s.includes('garage') || s.includes('auto') || s.includes('pneu') || s.includes('carross') || s.includes('mécan')) {
+        file = '../sites/garage-auto.html';
+      } else if (s.includes('plomb') || s.includes('serrur') || s.includes('élec') || s.includes('dépann') || s.includes('urgence')) {
+        file = '../sites/depannage-urgence.html';
+      } else if (s.includes('boucher') || s.includes('market') || s.includes('bamako') || s.includes('épicer') || s.includes('fleur') || s.includes('primeur') || s.includes('traiteur')) {
+        file = '../sites/commerce-boutique.html';
+      } else if (s.includes('vtc') || s.includes('taxi') || s.includes('chauffeur')) {
+        file = '../sites/chauffeur-prestige.html';
+      } else if (s.includes('parquet') || s.includes('rénov') || s.includes('artisan') || s.includes('menuis') || s.includes('bâtiment')) {
+        file = '../sites/artisan-elite.html';
+      } else if (s.includes('smash') || s.includes('burger') || s.includes('kebab') || s.includes('chicken') || s.includes('tacos') || s.includes('twist') || s.includes('fast')) {
+        file = '../sites/fastfood-smash.html';
+      } else if (s.includes('brasserie') || s.includes('bosphore') || s.includes('érable') || s.includes('chalet') || s.includes('cezam') || s.includes('restaurant') || s.includes('bistrot')) {
+        file = '../sites/restaurant-braise.html';
+      } else if (node.demo) {
+        file = node.demo;
+      }
+      const cleanName = (node.name || '').trim();
+      return cleanName ? `${file}?client=${encodeURIComponent(cleanName)}` : file;
+    }
+
     const SECTOR_CONFIG = {
       resto: {
         naf: '56.10C,56.10A',
@@ -1769,7 +1805,7 @@
         naf: '96.02A,96.02B',
         pack: 'starter',
         potentialEur: 490,
-        demo: '../sites/artisan-elite.html',
+        demo: '../sites/institut-beaute.html',
         category: 'beaute',
         pitchLabel: 'Proposer site vitrine, tarifs des prestations et RDV (490 €).'
       },
@@ -1777,17 +1813,17 @@
         naf: '45.20A',
         pack: 'pro',
         potentialEur: 990,
-        demo: '../sites/artisan-elite.html',
+        demo: '../sites/garage-auto.html',
         category: 'artisan',
         pitchLabel: 'Garage indépendant : proposer prise de RDV atelier & devis (990 €).'
       },
       boulangerie: {
         naf: '10.71C,10.71D',
-        pack: 'starter',
-        potentialEur: 490,
-        demo: '../sites/fastfood-smash.html',
+        pack: 'pro',
+        potentialEur: 990,
+        demo: '../sites/boulangerie-patisserie.html',
         category: 'resto',
-        pitchLabel: 'Proposer vitrine et pré-commande formules midi / pâtisseries (490 €).'
+        pitchLabel: 'Proposer vitrine et pré-commande formules midi / pâtisseries (990 €).'
       }
     };
 
@@ -2842,7 +2878,7 @@
           .addTo(markersLayer);
 
         const singleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(node.address)}&travelmode=${gmapsTravelMode}`;
-        const demoUrl = node.demo || '../sites/fastfood-smash.html';
+        const demoUrl = resolveBestDemoUrl(node);
         const devisUrl = buildDevisUrlForNode(node, ev);
         const cleanTel = (node.phone || '').replace(/\s+/g, '');
 
@@ -3150,7 +3186,7 @@
         callBtn.style.opacity = '0.45';
         callBtn.style.pointerEvents = 'none';
       }
-      document.getElementById('visitDemoBtn').href = node.demo || '../sites/fastfood-smash.html';
+      document.getElementById('visitDemoBtn').href = resolveBestDemoUrl(node);
 
       renderVisitStatusGrid();
       document.getElementById('visitSheetBackdrop').classList.add('open');

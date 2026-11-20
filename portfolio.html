@@ -103,16 +103,43 @@
   </div>
 
   <main>
-    <section class="page-hero">
+    <section class="page-hero" style="padding-bottom: 24px;">
       <div class="container">
-        <span class="eyebrow" data-reveal>Réalisations & Démos</span>
-        <h1 data-reveal>Démos métiers et projets en ligne.</h1>
-        <p class="lead" data-reveal style="--d:.1s">Découvrez nos démonstrations interactives orientées conversion et nos projets logiciels déployés en production.</p>
-        
+        <span class="eyebrow" data-reveal>Showroom Interactif • 12 Secteurs d'Activité</span>
+        <h1 data-reveal>Choisissez votre métier et testez votre futur site.</h1>
+        <p class="lead" data-reveal style="--d:.1s">Faites défiler les secteurs ci-dessous et entrez le nom de votre commerce pour projeter immédiatement votre établissement sur une maquette fonctionnelle.</p>
+
+        <!-- BARRE DE PROJECTION CLIENT & MENU DÉFILANT -->
+        <div style="margin-top: 28px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 18px 20px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px;">
+            <div>
+              <strong style="font-size:14.5px; color:#fff; display:block;">✨ Projection en direct au nom de votre commerce</strong>
+              <span style="font-size:12.5px; color:#94A3B8;">Tapez le nom de votre enseigne : il s'affichera automatiquement sur toutes les maquettes que vous ouvrez.</span>
+            </div>
+            <div style="display:flex; gap:8px; flex:1; max-width:420px; min-width:250px;">
+              <input type="text" id="publicCustomBrand" placeholder="✏️ Ex: Boulangerie L'Épi d'Or, Barber King..." oninput="updatePublicShowcase()" style="flex:1; background:rgba(5,6,13,0.8); border:1px solid rgba(255,255,255,0.22); color:#34D399; font-weight:700; font-size:13.5px; padding:10px 14px; border-radius:10px; outline:none; font-family:inherit;">
+            </div>
+          </div>
+
+          <!-- MENU DÉFILANT HORIZONTAL DES 12 TYPES DE BUSINESS -->
+          <div id="publicScrollingMenu" style="display:flex; gap:8px; overflow-x:auto; padding:4px 2px 8px 2px; scrollbar-width:none; -webkit-overflow-scrolling:touch;"></div>
+        </div>
       </div>
     </section>
+
+    <!-- GRILLE DYNAMIQUE DES 12 MAQUETTES MÉTIERS -->
+    <section class="section" style="padding-top: 12px; padding-bottom: 40px;">
+      <div class="container">
+        <div id="publicMaquettesGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:18px;"></div>
+      </div>
+    </section>
+
     <section class="section" style="padding-top:20px">
       <div class="container">
+        <div style="margin-bottom:28px;">
+          <span class="eyebrow">Focus Projets &amp; Études de Cas</span>
+          <h2 class="h-lg" style="margin-top:6px;">Zoom sur nos architectures clés en main</h2>
+        </div>
         <article class="case" data-reveal>
           <div>
             <span class="tag">Fast-Food & Click-and-Collect</span>
@@ -200,6 +227,82 @@
   </footer>
 
   
+  <script src="assets/maquettes-switcher.js?v=20261120_01"></script>
+  <script>
+    (function () {
+      const cat = (window.BMSMaquettes && window.BMSMaquettes.catalog) ? window.BMSMaquettes.catalog : [];
+      let currentFilter = 'all';
+
+      function getBrand() {
+        return (document.getElementById('publicCustomBrand')?.value || '').trim();
+      }
+
+      window.pickPublicCategory = function (id) {
+        currentFilter = id;
+        renderPublicShowcase();
+      };
+
+      window.updatePublicShowcase = function () {
+        const b = getBrand();
+        try { sessionStorage.setItem('bms_demo_client_name', b); } catch (e) {}
+        renderPublicShowcase();
+      };
+
+      function renderPublicShowcase() {
+        const menuEl = document.getElementById('publicScrollingMenu');
+        const gridEl = document.getElementById('publicMaquettesGrid');
+        if (!menuEl || !gridEl) return;
+
+        const brand = getBrand();
+
+        const allBtn = `<button type="button" onclick="pickPublicCategory('all')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;border:1px solid ${currentFilter==='all'?'#3d6bff':'rgba(255,255,255,0.16)'};background:${currentFilter==='all'?'#3d6bff':'rgba(255,255,255,0.06)'};color:#fff;font-family:inherit;flex-shrink:0;">✨ Tous les métiers (${cat.length})</button>`;
+
+        const pills = cat.map(item => {
+          const active = currentFilter === item.id;
+          return `<button type="button" onclick="pickPublicCategory('${item.id}')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;border:1px solid ${active?'#3d6bff':'rgba(255,255,255,0.16)'};background:${active?'#3d6bff':'rgba(255,255,255,0.06)'};color:#fff;font-family:inherit;flex-shrink:0;">
+            <span>${item.icon}</span>
+            <span>${item.shortLabel}</span>
+          </button>`;
+        }).join('');
+
+        menuEl.innerHTML = allBtn + pills;
+
+        const filtered = currentFilter === 'all' ? cat : cat.filter(x => x.id === currentFilter);
+        gridEl.innerHTML = filtered.map(item => {
+          const href = `sites/${item.file}${brand ? '?client=' + encodeURIComponent(brand) : ''}`;
+          const displayTitle = brand ? `${brand} (${item.shortLabel})` : item.defaultBrand;
+          return `
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
+                  <span style="font-size:12px;font-weight:700;color:#60A5FA;background:rgba(59,130,246,0.15);padding:4px 10px;border-radius:999px;">${item.icon} ${item.label}</span>
+                  <span style="font-size:12px;font-weight:800;color:#34D399;">Dès ${item.price} €</span>
+                </div>
+                <h3 style="font-size:19px;font-weight:700;color:#fff;margin-bottom:6px;">${displayTitle}</h3>
+                <p style="font-size:13.5px;color:#94A3B8;margin-bottom:14px;">${item.tagline}</p>
+                <ul style="list-style:none;padding:0;margin:0 0 18px 0;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">
+                  ${item.features.map(f => `<li style="font-size:12.5px;color:#CBD5E1;padding:3px 0;">✓ ${f}</li>`).join('')}
+                </ul>
+              </div>
+              <a href="${href}" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;justify-content:center;text-align:center;">
+                Ouvrir la maquette ${item.shortLabel} ➔
+              </a>
+            </div>
+          `;
+        }).join('');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        try {
+          const saved = sessionStorage.getItem('bms_demo_client_name');
+          if (saved && document.getElementById('publicCustomBrand')) {
+            document.getElementById('publicCustomBrand').value = saved;
+          }
+        } catch (e) {}
+        renderPublicShowcase();
+      });
+    })();
+  </script>
   <script src="main.js"></script>
 </body>
 </html>

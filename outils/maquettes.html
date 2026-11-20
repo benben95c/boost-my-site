@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Showroom Maquettes Métiers — BoostMySite Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0F172A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="app-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --green: #16A34A;
+      --emerald: #10B981;
+      --blue: #2563EB;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+      min-height: 100vh;
+      padding-bottom: calc(40px + var(--safe-bottom));
+    }
+
+    /* HEADER FIXE */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0F172A;
+      color: #fff;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #1E293B;
+    }
+
+    .app-switch {
+      display: inline-flex;
+      background: #1E293B;
+      padding: 3px;
+      border-radius: 9px;
+      gap: 2px;
+      overflow-x: auto;
+    }
+    .app-switch a {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 7px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .app-switch a.active {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .v-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      white-space: nowrap;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 14px;
+    }
+
+    /* BARRE DE PROJECTION CLIENT EN DIRECT */
+    .projection-banner {
+      background: linear-gradient(135deg, #0F172A, #1E293B);
+      color: #fff;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+    }
+    .proj-left h1 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .proj-left p {
+      font-size: 12px;
+      color: #94A3B8;
+    }
+    .proj-inputs {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      max-width: 520px;
+      min-width: 260px;
+      flex-wrap: wrap;
+    }
+    .proj-inp {
+      flex: 1;
+      min-width: 170px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #34D399;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 12px;
+      border-radius: 9px;
+      outline: none;
+      font-family: inherit;
+    }
+    .proj-inp::placeholder {
+      color: #94A3B8;
+      font-weight: 500;
+    }
+    .proj-inp:focus {
+      border-color: #34D399;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* MENU DÉFILANT HORIZONTAL DES 12 MÉTIERS */
+    .scrolling-menu-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 7px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .business-carousel {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 12px 2px;
+      margin-bottom: 14px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .business-carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .biz-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      color: var(--ink);
+      padding: 9px 15px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      flex-shrink: 0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .biz-pill:hover {
+      border-color: #94A3B8;
+      transform: translateY(-1px);
+    }
+    .biz-pill.active {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #0F172A;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+    }
+    .biz-pill-price {
+      font-size: 10.5px;
+      background: #F1F5F9;
+      color: #475569;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+    .biz-pill.active .biz-pill-price {
+      background: var(--green);
+      color: #fff;
+    }
+
+    /* STUDIO APERÇU EN DIRECT (IFRAME INTERACTIVE) */
+    .live-studio {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+    }
+    .studio-bar {
+      background: #F1F5F9;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .studio-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+    }
+    .device-toggle {
+      display: inline-flex;
+      background: #E2E8F0;
+      padding: 3px;
+      border-radius: 8px;
+      gap: 3px;
+    }
+    .dev-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #475569;
+    }
+    .dev-btn.active {
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .studio-actions {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    .btn-act {
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-act.primary {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+    .btn-act.wa {
+      background: #DCFCE7;
+      color: #166534;
+      border-color: #BBF7D0;
+    }
+    .iframe-viewport {
+      background: #0F172A;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      transition: padding 0.2s;
+    }
+    .iframe-viewport.mobile-mode {
+      padding: 18px 0;
+    }
+    #maquetteIframe {
+      width: 100%;
+      height: 540px;
+      border: none;
+      background: #fff;
+      transition: width 0.25s ease;
+    }
+    .iframe-viewport.mobile-mode #maquetteIframe {
+      width: 390px;
+      height: 680px;
+      border-radius: 24px;
+      border: 6px solid #334155;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    /* GRILLE DE TOUTES LES MAQUETTES */
+    .maquettes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+    }
+    .mq-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.15s;
+    }
+    .mq-card:hover {
+      border-color: #94A3B8;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    }
+    .mq-card.active-card {
+      border-color: var(--green);
+      background: #F0FDF4;
+    }
+    .mq-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .mq-icon {
+      font-size: 26px;
+      background: #F1F5F9;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mq-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .mq-brand {
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .mq-price-badge {
+      background: #0F172A;
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .mq-tagline {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .mq-features {
+      list-style: none;
+      margin-bottom: 14px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+    .mq-features li {
+      font-size: 11.5px;
+      color: #334155;
+      padding: 2px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+    .mq-features li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 800;
+    }
+    .mq-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+    .mq-btns-full {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="app-switch">
+      <a href="tournee-clients.html">Carte</a>
+      <a href="maquettes.html" class="active">Maquettes (12)</a>
+      <a href="devis-express.html">Devis</a>
+      <a href="suivi-projets.html">Suivi</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span class="v-badge">v3.3 Showroom 🎨</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- BARRE DE PERSONNALISATION AU NOM DU PROSPECT -->
+    <div class="projection-banner">
+      <div class="proj-left">
+        <h1>✨ Mode Projection Client en Direct</h1>
+        <p>Tapez le nom du commerce prospecté : la maquette s'affiche immédiatement à SON nom pour conclure la vente.</p>
+      </div>
+      <div class="proj-inputs">
+        <input type="text" id="clientCustomName" class="proj-inp" placeholder="✏️ Nom du commerce (ex: Boulangerie L'Épi d'Or)" oninput="onClientNameChange()">
+        <input type="tel" id="clientCustomPhone" class="proj-inp" placeholder="📞 Tél WhatsApp client (optionnel)" style="max-width:190px;">
+      </div>
+    </div>
+
+    <!-- MENU DÉFILANT HORIZONTAL AVEC TOUS LES TYPES DE BUSINESS -->
+    <div class="scrolling-menu-label">
+      <span>👉 Menu défilant : Choisissez le secteur d'activité du client (12 maquettes interactives)</span>
+      <span style="color:var(--green);">Glissez horizontalement ➔</span>
+    </div>
+    <div class="business-carousel" id="businessCarousel"></div>
+
+    <!-- STUDIO D'APERÇU EN DIRECT -->
+    <div class="live-studio">
+      <div class="studio-bar">
+        <div class="studio-title">
+          <span id="studioIcon" style="font-size:20px;">🍔</span>
+          <div>
+            <div id="studioLabel">Fast-Food &amp; Burger</div>
+            <div style="font-size:11px; color:var(--muted); font-weight:600;" id="studioSub">Démo interactive en direct</div>
+          </div>
+        </div>
+
+        <div class="device-toggle">
+          <button type="button" class="dev-btn active" id="btnDevDesktop" onclick="setViewportMode('desktop')">💻 Vue Ordinateur</button>
+          <button type="button" class="dev-btn" id="btnDevMobile" onclick="setViewportMode('mobile')">📱 Vue Téléphone Client</button>
+        </div>
+
+        <div class="studio-actions">
+          <a href="#" id="studioFullBtn" target="_blank" class="btn-act">👁️ Plein écran</a>
+          <button type="button" class="btn-act wa" onclick="sendCurrentMaquetteWhatsApp()">💬 Envoyer la maquette sur WhatsApp</button>
+          <button type="button" class="btn-act primary" onclick="createDevisForCurrent()">⚡ Créer le Devis</button>
+        </div>
+      </div>
+
+      <div class="iframe-viewport" id="iframeViewport">
+        <iframe id="maquetteIframe" src="../sites/fastfood-smash.html?embed=1" title="Aperçu Maquette"></iframe>
+      </div>
+    </div>
+
+    <!-- CATALOGUE COMPLET DES 12 MAQUETTES MÉTIERS -->
+    <div class="scrolling-menu-label" style="margin-top:8px;">
+      <span>Catalogue complet des 12 Maquettes par Business</span>
+    </div>
+    <div class="maquettes-grid" id="maquettesGrid"></div>
+
+  </div>
+
+  <script>
+    const catalog = (window.BMSMaquettes && window.BMSMaquettes.catalog) ? window.BMSMaquettes.catalog : [];
+    let selectedId = catalog.length > 0 ? catalog[0].id : 'fastfood';
+
+    function getClientName() {
+      return (document.getElementById('clientCustomName').value || '').trim();
+    }
+
+    function buildDemoUrl(item, isEmbed) {
+      const client = getClientName();
+      const q = new URLSearchParams();
+      if (client) q.set('client', client);
+      if (isEmbed) q.set('embed', '1');
+      const qs = q.toString();
+      return `../sites/${item.file}${qs ? '?' + qs : ''}`;
+    }
+
+    function renderCarousel() {
+      const el = document.getElementById('businessCarousel');
+      el.innerHTML = catalog.map(item => `
+        <button type="button" class="biz-pill ${item.id === selectedId ? 'active' : ''}" onclick="selectBusiness('${item.id}')">
+          <span style="font-size:16px;">${item.icon}</span>
+          <span>${item.shortLabel}</span>
+          <span class="biz-pill-price">${item.price} €</span>
+        </button>
+      `).join('');
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('maquettesGrid');
+      const client = getClientName();
+      grid.innerHTML = catalog.map(item => {
+        const displayBrand = client ? `${client} (${item.shortLabel})` : item.defaultBrand;
+        const fullUrl = buildDemoUrl(item, false);
+        return `
+          <article class="mq-card ${item.id === selectedId ? 'active-card' : ''}">
+            <div>
+              <div class="mq-head">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="mq-icon">${item.icon}</div>
+                  <div>
+                    <div class="mq-title">${item.label}</div>
+                    <div class="mq-brand">${displayBrand}</div>
+                  </div>
+                </div>
+                <span class="mq-price-badge">${item.price} €</span>
+              </div>
+              <p class="mq-tagline">${item.tagline}</p>
+              <ul class="mq-features">
+                ${item.features.map(f => `<li>${f}</li>`).join('')}
+              </ul>
+            </div>
+            <div class="mq-btns">
+              <button type="button" class="btn-act" style="justify-content:center;" onclick="selectBusiness('${item.id}'); window.scrollTo({top:0,behavior:'smooth'});">
+                ▶️ Prévisualiser ici
+              </button>
+              <a href="${fullUrl}" target="_blank" class="btn-act" style="justify-content:center;">
+                👁️ Plein écran
+              </a>
+              <button type="button" class="btn-act wa" style="justify-content:center;" onclick="sendMaquetteWhatsAppById('${item.id}')">
+                💬 WhatsApp Client
+              </button>
+              <button type="button" class="btn-act primary" style="justify-content:center;" onclick="createDevisById('${item.id}')">
+                ⚡ Devis (${item.price} €)
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function updateStudio() {
+      const item = catalog.find(x => x.id === selectedId) || catalog[0];
+      if (!item) return;
+      const client = getClientName();
+      document.getElementById('studioIcon').textContent = item.icon;
+      document.getElementById('studioLabel').textContent = item.label;
+      document.getElementById('studioSub').textContent = client
+        ? `Personnalisé au nom de : ${client} • Forfait conseillé : ${item.price} €`
+        : `Maquette : ${item.defaultBrand} • Forfait conseillé : ${item.price} €`;
+
+      document.getElementById('maquetteIframe').src = buildDemoUrl(item, true);
+      document.getElementById('studioFullBtn').href = buildDemoUrl(item, false);
+    }
+
+    function selectBusiness(id) {
+      selectedId = id;
+      renderCarousel();
+      renderGrid();
+      updateStudio();
+    }
+
+    let debounceTimer = null;
+    function onClientNameChange() {
+      const val = getClientName();
+      try { sessionStorage.setItem('bms_demo_client_name', val); } catch (e) {}
+      renderGrid();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        updateStudio();
+      }, 350);
+    }
+
+    function setViewportMode(mode) {
+      const vp = document.getElementById('iframeViewport');
+      document.getElementById('btnDevDesktop').classList.toggle('active', mode === 'desktop');
+      document.getElementById('btnDevMobile').classList.toggle('active', mode === 'mobile');
+      vp.classList.toggle('mobile-mode', mode === 'mobile');
+    }
+
+    function sendMaquetteWhatsAppById(id) {
+      const item = catalog.find(x => x.id === id) || catalog[0];
+      const client = getClientName() || 'votre établissement';
+      const q = new URLSearchParams();
+      if (getClientName()) q.set('client', getClientName());
+      const publicUrl = `${window.location.origin}/sites/${item.file}${q.toString() ? '?' + q.toString() : ''}`;
+
+      const text = [
+        `Bonjour, c'est Brahim de *BoostMySite* 👋`,
+        ``,
+        `Voici la maquette interactive préparée pour *${client}* (${item.label}) :`,
+        `👉 ${publicUrl}`,
+        ``,
+        `Vous pouvez la tester directement sur votre téléphone (${item.tagline}).`,
+        ``,
+        `Brahim Ben Said — 06 98 72 72 47`
+      ].join('\n');
+
+      let phone = (document.getElementById('clientCustomPhone').value || '').replace(/[^0-9+]/g, '');
+      if (phone.startsWith('0')) phone = '33' + phone.slice(1);
+      const waLink = phone
+        ? `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
+        : `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(waLink, '_blank', 'noopener,noreferrer');
+    }
+
+    function sendCurrentMaquetteWhatsApp() {
+      sendMaquetteWhatsAppById(selectedId);
+    }
+
+    function createDevisById(id) {
+      const item = catalog.find(x => x.id === id) || catalog[0];
+      const q = new URLSearchParams({
+        pack: item.pack,
+        price: String(item.price)
+      });
+      if (getClientName()) q.set('client', getClientName());
+      const phone = (document.getElementById('clientCustomPhone').value || '').trim();
+      if (phone) q.set('phone', phone);
+      window.location.href = `devis-express.html?${q.toString()}`;
+    }
+
+    function createDevisForCurrent() {
+      createDevisById(selectedId);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('client')) {
+        document.getElementById('clientCustomName').value = p.get('client');
+      } else {
+        try {
+          const saved = sessionStorage.getItem('bms_demo_client_name');
+          if (saved) document.getElementById('clientCustomName').value = saved;
+        } catch (e) {}
+      }
+      if (p.get('type')) {
+        selectedId = p.get('type');
+      }
+      renderCarousel();
+      renderGrid();
+      updateStudio();
+    });
+  </script>
+</body>
+</html>

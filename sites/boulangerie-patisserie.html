@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Levain &amp; Dorure — Boulangerie Pâtisserie Artisanale</title>
+  <meta name="description" content="Boulangerie au levain naturel, viennoiseries pur beurre AOP, haute pâtisserie et Click & Collect formules midi coupe-file.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAF6F0;
+      --surface: #FFFFFF;
+      --surface-warm: #F3ECE1;
+      --ink: #231810;
+      --muted: #705E50;
+      --gold: #B87333;
+      --gold-dark: #8F541E;
+      --border: #E5DACA;
+      --green: #166534;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* BANDEAU FOURNÉE EN DIRECT */
+    .oven-strip {
+      background: #231810;
+      color: #F3ECE1;
+      font-size: 12.5px;
+      padding: 8px 16px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .oven-dot {
+      width: 8px;
+      height: 8px;
+      background: #F59E0B;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #F59E0B;
+      display: inline-block;
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(250, 246, 240, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 80;
+    }
+    .nav-bar {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 27px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .cart-btn {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    .cart-count {
+      background: var(--gold);
+      color: #fff;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 11.5px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .brand { font-size: 22px; }
+    }
+
+    /* HERO */
+    .hero {
+      padding: 56px 0 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 44px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-warm);
+      border: 1px solid var(--border);
+      color: var(--gold-dark);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.08;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 26px;
+      max-width: 540px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: #fff;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-dark); }
+    .btn-outline {
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid var(--border);
+    }
+    .hero-badges {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .h-badge strong {
+      display: block;
+      font-size: 16px;
+      color: var(--ink);
+    }
+    .h-badge span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .hero-visual {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(35, 24, 16, 0.14);
+      aspect-ratio: 4/3;
+      background: #E5DACA;
+    }
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .floating-card {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border);
+    }
+
+    /* CLICK & COLLECT SECTION */
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec-head {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 36px;
+    }
+    .sec-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.8vw, 42px);
+      margin-bottom: 8px;
+    }
+    .sec-head p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cat-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .cat-tab {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .cat-tab.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+      gap: 20px;
+    }
+    .prod-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .prod-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(35, 24, 16, 0.08);
+    }
+    .prod-img {
+      height: 175px;
+      background: var(--surface-warm);
+      position: relative;
+      overflow: hidden;
+    }
+    .prod-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .prod-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(35, 24, 16, 0.85);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .prod-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .prod-title {
+      font-weight: 700;
+      font-size: 15.5px;
+      margin-bottom: 4px;
+    }
+    .prod-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .prod-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--surface-warm);
+    }
+    .prod-price {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--gold-dark);
+    }
+    .btn-add {
+      background: var(--surface-warm);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-add:hover {
+      background: var(--gold);
+      color: #fff;
+      border-color: var(--gold);
+    }
+
+    /* CONFIGURATEUR GÂTEAU D'ANNIVERSAIRE / ÉVÉNEMENT */
+    .cake-builder {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .cake-builder { grid-template-columns: 1fr; padding: 22px; }
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--ink);
+    }
+    .field select, .field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-family: inherit;
+      background: var(--bg);
+    }
+    .cake-summary {
+      background: var(--surface-warm);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+    }
+    .cake-price-big {
+      font-family: var(--font-serif);
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      line-height: 1;
+      margin: 12px 0;
+    }
+
+    /* MODAL PANIER */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(35, 24, 16, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: var(--surface);
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+    }
+
+    footer {
+      padding: 44px 0;
+      background: #231810;
+      color: #D6C7B2;
+      font-size: 13.5px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+    }
+    footer h4 {
+      color: #fff;
+      font-family: var(--font-serif);
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="oven-strip">
+    <span class="oven-dot"></span>
+    <strong>Fournée en direct :</strong> Baguettes de Tradition &amp; Croissants pur beurre AOP sortis du four il y a 14 min • Retrait Coupe-File disponible
+  </div>
+
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand" data-bms-brand>Maison Levain &amp; Dorure</a>
+      <ul class="nav-links">
+        <li><a href="#commande">Click &amp; Collect Midi</a></li>
+        <li><a href="#commande" onclick="filterBakery('pains')">Pains au Levain</a></li>
+        <li><a href="#commande" onclick="filterBakery('patisseries')">Pâtisseries</a></li>
+        <li><a href="#gateau">Gâteaux d'Anniversaire</a></li>
+      </ul>
+      <button type="button" class="cart-btn" onclick="openBakeryCart()">
+        <span>🧺 Panier Coupe-File</span>
+        <span class="cart-count" id="cartCountBadge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">🌾 Artisan Boulanger-Pâtissier • Farines Bio &amp; Levain Naturel</span>
+        <h1>Le goût du pain chaud, <em>sans la file d'attente</em>.</h1>
+        <p>Commandez votre formule sandwich artisanal du midi, vos viennoiseries pur beurre AOP ou votre gâteau d'événement sur-mesure et récupérez votre commande prête au comptoir coupe-file.</p>
+        <div class="hero-btns">
+          <a href="#commande" class="btn-primary">Commander en Click &amp; Collect</a>
+          <a href="#gateau" class="btn-outline">Créer un Gâteau sur-mesure</a>
+        </div>
+        <div class="hero-badges">
+          <div class="h-badge">
+            <strong>100 % Maison</strong>
+            <span>Levain naturel &amp; Beurre AOP</span>
+          </div>
+          <div class="h-badge">
+            <strong>Retrait 15 min</strong>
+            <span>File prioritaire en boutique</span>
+          </div>
+          <div class="h-badge">
+            <strong>4,9 / 5 ★</strong>
+            <span>+420 avis clients du quartier</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=80" alt="Pains au levain et viennoiseries artisanales">
+        <div class="floating-card">
+          <div>
+            <strong style="font-size:13.5px; display:block;">⚡ Formule Midi Coupe-File</strong>
+            <span style="font-size:12px; color:var(--muted);">Sandwich sur-mesure + Pâtisserie + Boisson</span>
+          </div>
+          <span style="background:var(--gold); color:#fff; font-weight:800; font-size:13px; padding:5px 10px; border-radius:8px;">9,90 €</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE CLICK & COLLECT -->
+  <section class="section" id="commande">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Click &amp; Collect — Retrait Express</h2>
+        <p>Sélectionnez vos produits frais du jour et choisissez votre créneau de retrait sans faire la queue.</p>
+      </div>
+
+      <div class="cat-tabs">
+        <button type="button" class="cat-tab active" onclick="filterBakery('midi', this)">🥪 Formules Midi Coupe-File</button>
+        <button type="button" class="cat-tab" onclick="filterBakery('viennoiseries', this)">🥐 Viennoiseries AOP</button>
+        <button type="button" class="cat-tab" onclick="filterBakery('pains', this)">🥖 Pains au Levain</button>
+        <button type="button" class="cat-tab" onclick="filterBakery('patisseries', this)">🍰 Haute Pâtisserie</button>
+      </div>
+
+      <div class="products-grid" id="bakeryGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONFIGURATEUR DE GÂTEAU D'ÉVÉNEMENT -->
+  <section class="section" id="gateau">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Gâteau d'Anniversaire &amp; Événement</h2>
+        <p>Composez votre création pâtissière grand format avec plaque en chocolat calligraphiée à la main.</p>
+      </div>
+
+      <div class="cake-builder">
+        <div>
+          <div class="form-row">
+            <div class="field">
+              <label>Création Pâtissière</label>
+              <select id="cakeType" onchange="updateCakePrice()">
+                <option value="Fraisier Vanille Bourbon" data-p="5.8">Fraisier Crème Diplomate Vanille (5,80 € / part)</option>
+                <option value="Royal Chocolat Valrhona" data-p="5.9">Royal Chocolat Croustillant Praliné (5,90 € / part)</option>
+                <option value="Paris-Brest Géant Piémont" data-p="6.2">Paris-Brest Noisettes du Piémont (6,20 € / part)</option>
+                <option value="Number Cake Fruits Rouges" data-p="6.5">Number Cake Personnalisé (6,50 € / part)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Nombre de convives</label>
+              <select id="cakeGuests" onchange="updateCakePrice()">
+                <option value="6">6 personnes</option>
+                <option value="8" selected>8 personnes</option>
+                <option value="10">10 personnes</option>
+                <option value="12">12 personnes</option>
+                <option value="16">16 personnes (2 étages)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label>Inscription sur plaque chocolat (Offerte)</label>
+              <input type="text" id="cakeMessage" placeholder="Ex: Joyeux Anniversaire Sofia - 25 ans">
+            </div>
+            <div class="field">
+              <label>Jour de retrait souhaité</label>
+              <input type="date" id="cakeDate">
+            </div>
+          </div>
+          <p style="font-size:12px; color:var(--muted);">✓ Préparé le matin même par notre Chef Pâtissier • ✓ Boîte de transport rigide &amp; bougies incluses</p>
+        </div>
+
+        <div class="cake-summary">
+          <span style="font-size:11.5px; font-weight:700; text-transform:uppercase; color:var(--muted);">Tarif Création Sur-Mesure</span>
+          <div class="cake-price-big" id="cakePriceDisplay">46,40 €</div>
+          <p style="font-size:12.5px; color:var(--muted); margin-bottom:16px;" id="cakeDescDisplay">Pour 8 personnes • Plaque chocolat incluse</p>
+          <button type="button" class="btn-primary" style="width:100%;" onclick="addCustomCakeToCart()">
+            + Ajouter ce gâteau à ma commande
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4 data-bms-brand>Maison Levain &amp; Dorure</h4>
+        <p>Artisan Boulanger-Pâtissier. Pétrissage lent, fermentation sur levain naturel de 24h et beurre Charentes-Poitou AOP.</p>
+      </div>
+      <div>
+        <h4>Horaires &amp; Fournées</h4>
+        <p>Mardi au Samedi : 06h30 – 20h00<br>Dimanche : 07h00 – 13h30<br>Fournées chaudes : 7h, 12h, 16h30 et 18h30</p>
+      </div>
+      <div>
+        <h4>Retrait Coupe-File</h4>
+        <p>Présentez votre numéro de commande au comptoir dédié Click &amp; Collect sans attendre.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL PANIER -->
+  <div class="modal-backdrop" id="bakeryCartModal" onclick="if(event.target===this)closeBakeryCart()">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-family:var(--font-serif); font-size:24px;">Votre Panier Coupe-File</h3>
+        <button type="button" onclick="closeBakeryCart()" style="background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
+      </div>
+      <div id="bakeryCartList"></div>
+      <div style="display:flex; justify-content:space-between; font-weight:800; font-size:17px; margin:16px 0;">
+        <span>Total à régler au retrait</span>
+        <span id="bakeryCartTotal">0,00 €</span>
+      </div>
+      <div class="field" style="margin-bottom:10px;">
+        <label>Votre Prénom &amp; Téléphone</label>
+        <input type="text" id="bakeryClientName" placeholder="Ex: Thomas • 06 12 34 56 78">
+      </div>
+      <div class="field" style="margin-bottom:16px;">
+        <label>Créneau de retrait au comptoir</label>
+        <select id="bakeryPickupTime">
+          <option>Dans 20 minutes (Retrait Express)</option>
+          <option>Ce midi (12h15 – 12h45)</option>
+          <option>Ce midi (12h45 – 13h30)</option>
+          <option>Cet après-midi (Sortie fournée 16h30)</option>
+          <option>Demain matin (08h00 – 10h00)</option>
+        </select>
+      </div>
+      <button type="button" class="btn-primary" style="width:100%;" onclick="confirmBakeryOrder()">
+        Valider ma commande Coupe-File
+      </button>
+      <div id="bakeryConfirmMsg" style="display:none; margin-top:12px; padding:12px; background:#DCFCE7; color:#166534; border-radius:8px; font-size:13px; font-weight:600; text-align:center;"></div>
+    </div>
+  </div>
+
+  <script>
+    const BAKERY_ITEMS = [
+      { id: 'm1', cat: 'midi', title: 'Formule Midi Le Parisien AOP', desc: 'Baguette Tradition chaude, Jambon Prince de Paris, Comté 18 mois, Beurre fermier + Boisson + Dessert au choix', price: 9.90, tag: 'Coupe-File Midi', img: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=600&q=80' },
+      { id: 'm2', cat: 'midi', title: 'Formule Poulet Rôti & Pesto', desc: 'Pain ciabatta au levain, aiguillettes de poulet fermier, tomates confites, parmesan + Boisson + Flan vanille', price: 10.90, tag: 'Best-Seller', img: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80' },
+      { id: 'm3', cat: 'midi', title: 'Formule Quiche / Focaccia Chaude', desc: 'Quiche Lorraine fermière ou Focaccia Mozzarella Buffala + Salade verte + Tartelette du jour + Boisson', price: 10.50, tag: 'Chaud du four', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80' },
+      { id: 'v1', cat: 'viennoiseries', title: 'Lot 4 Croissants Pur Beurre AOP', desc: 'Feuilletage croustillant au beurre Charentes-Poitou AOP, façonnés à la main chaque matin', price: 5.20, tag: 'Pur Beurre AOP', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80' },
+      { id: 'v2', cat: 'viennoiseries', title: 'Lot 4 Pains au Chocolat Valrhona', desc: 'Double barre de chocolat noir 66% Valrhona dans une pâte levée feuilletée dorée au four', price: 5.60, tag: 'Chaud', img: 'https://images.unsplash.com/photo-1530610476181-d83430b64dcd?auto=format&fit=crop&w=600&q=80' },
+      { id: 'v3', cat: 'viennoiseries', title: 'Brioche Feuilletée Praliné Rose', desc: 'Grande brioche à partager tressée au beurre et éclats de pralines artisanales', price: 7.50, tag: 'À partager', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p1', cat: 'pains', title: '3 + 1 Baguettes de Tradition (Offre)', desc: 'Farine de blé CRC Label Rouge, fermentation lente 24h, croûte caramélisée et mie alvéolée', price: 3.90, tag: '3 achetées = 4e offerte', img: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p2', cat: 'pains', title: 'Miche Tourte de Meule au Levain (600g)', desc: 'Farine bio moulue sur meule de pierre, conservation naturelle 5 jours', price: 4.90, tag: 'Levain 100%', img: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=600&q=80' },
+      { id: 'p3', cat: 'pains', title: 'Pain Khorasan & Graines Torréfiées', desc: 'Blé ancien faible en gluten, graines de courge, lin doré et tournesol grillées', price: 4.50, tag: 'Bio', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80' },
+      { id: 'g1', cat: 'patisseries', title: 'Paris-Brest Praliné Pur Piémont', desc: 'Pâte à choux craquelin, crème mousseline aérienne et cœur coulant praliné pur noisette', price: 5.80, tag: 'Signature Chef', img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80' },
+      { id: 'g2', cat: 'patisseries', title: 'Flan Pâtissier Vanille de Madagascar', desc: 'Pâte brisée caramélisée pur beurre et appareil ultra-crémeux infusé aux gousses de vanille', price: 4.50, tag: 'Médaille d\'Or', img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80' },
+      { id: 'g3', cat: 'patisseries', title: 'Tartelette Citron de Menton Meringuée', desc: 'Crémeux citron jaune de Menton IGP, sablé amande et meringue italienne flambée', price: 5.40, tag: 'Frais du jour', img: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=600&q=80' }
+    ];
+
+    let bakeryCart = [];
+    let currentCat = 'midi';
+
+    function filterBakery(cat, btn) {
+      currentCat = cat;
+      if (btn) {
+        document.querySelectorAll('.cat-tab').forEach(b => b.classList.toggle('active', b === btn));
+      }
+      const grid = document.getElementById('bakeryGrid');
+      const items = BAKERY_ITEMS.filter(i => i.cat === cat);
+      grid.innerHTML = items.map(it => `
+        <article class="prod-card">
+          <div class="prod-img">
+            <img src="${it.img}" alt="${it.title}" loading="lazy">
+            <span class="prod-tag">${it.tag}</span>
+          </div>
+          <div class="prod-body">
+            <div>
+              <div class="prod-title">${it.title}</div>
+              <p class="prod-desc">${it.desc}</p>
+            </div>
+            <div class="prod-foot">
+              <span class="prod-price">${it.price.toFixed(2).replace('.', ',')} €</span>
+              <button type="button" class="btn-add" onclick="addBakeryItem('${it.id}')">+ Ajouter</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function addBakeryItem(id) {
+      const it = BAKERY_ITEMS.find(x => x.id === id);
+      if (!it) return;
+      bakeryCart.push({ title: it.title, price: it.price });
+      updateBakeryBadge();
+    }
+
+    function updateCakePrice() {
+      const sel = document.getElementById('cakeType');
+      const pPerGuest = parseFloat(sel.options[sel.selectedIndex].dataset.p || '5.8');
+      const guests = parseInt(document.getElementById('cakeGuests').value, 10) || 8;
+      const total = pPerGuest * guests;
+      document.getElementById('cakePriceDisplay').textContent = total.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('cakeDescDisplay').textContent = `${sel.value} (${guests} parts) • Plaque chocolat offerte`;
+    }
+
+    function addCustomCakeToCart() {
+      const sel = document.getElementById('cakeType');
+      const pPerGuest = parseFloat(sel.options[sel.selectedIndex].dataset.p || '5.8');
+      const guests = parseInt(document.getElementById('cakeGuests').value, 10) || 8;
+      const msg = document.getElementById('cakeMessage').value.trim();
+      const total = pPerGuest * guests;
+      const label = `Gâteau ${sel.value} (${guests}p)${msg ? ' — "' + msg + '"' : ''}`;
+      bakeryCart.push({ title: label, price: total });
+      updateBakeryBadge();
+      openBakeryCart();
+    }
+
+    function updateBakeryBadge() {
+      document.getElementById('cartCountBadge').textContent = String(bakeryCart.length);
+    }
+
+    function openBakeryCart() {
+      const listEl = document.getElementById('bakeryCartList');
+      if (bakeryCart.length === 0) {
+        listEl.innerHTML = `<p style="color:var(--muted); font-size:13.5px; padding:12px 0;">Votre panier est vide. Ajoutez une formule midi ou une pâtisserie.</p>`;
+      } else {
+        listEl.innerHTML = bakeryCart.map((c, idx) => `
+          <div class="cart-item">
+            <span>${c.title}</span>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <strong>${c.price.toFixed(2).replace('.', ',')} €</strong>
+              <button type="button" onclick="bakeryCart.splice(${idx},1);updateBakeryBadge();openBakeryCart();" style="background:none;border:none;color:#DC2626;cursor:pointer;">✕</button>
+            </div>
+          </div>
+        `).join('');
+      }
+      const sum = bakeryCart.reduce((a, b) => a + b.price, 0);
+      document.getElementById('bakeryCartTotal').textContent = sum.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('bakeryCartModal').classList.add('open');
+    }
+
+    function closeBakeryCart() {
+      document.getElementById('bakeryCartModal').classList.remove('open');
+    }
+
+    function confirmBakeryOrder() {
+      if (bakeryCart.length === 0) return;
+      const client = document.getElementById('bakeryClientName').value.trim() || 'Client';
+      const slot = document.getElementById('bakeryPickupTime').value;
+      const code = 'BLG-' + Math.floor(100 + Math.random() * 900);
+      const msg = document.getElementById('bakeryConfirmMsg');
+      msg.style.display = 'block';
+      msg.innerHTML = `✅ Commande Coupe-File <strong>#${code}</strong> enregistrée pour <strong>${client}</strong> (${slot}). Présentez ce code directement au comptoir prioritaire !`;
+      bakeryCart = [];
+      updateBakeryBadge();
+    }
+
+    filterBakery('midi');
+    updateCakePrice();
+  </script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+</body>
+</html>
