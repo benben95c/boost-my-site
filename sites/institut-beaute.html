@@ -271,12 +271,12 @@
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow">✨ Institut de Beauté • Nails Studio &amp; Head Spa Japonais</span>
+        <span class="eyebrow">Institut de Beauté • Nails Studio &amp; Head Spa Japonais</span>
         <h1>Votre parenthèse de beauté, <em>réservée en un instant</em>.</h1>
         <p>Manucure russe de haute précision, Head Spa holistique à la vapeur, soins visage Hydrafacial et beauté du regard. Consultez nos disponibilités en direct et réservez votre soin 24h/24.</p>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
           <a href="#soins" class="btn-rose">Choisir mon soin &amp; mon créneau</a>
-          <a href="#cadeau" style="padding:11px 20px; border-radius:999px; border:1px solid var(--border); text-decoration:none; color:var(--ink); font-weight:700; font-size:13px; background:#fff;">🎁 Créer une Carte Cadeau</a>
+          <a href="#cadeau" style="padding:11px 20px; border-radius:999px; border:1px solid var(--border); text-decoration:none; color:var(--ink); font-weight:700; font-size:13px; background:#fff;">Créer une Carte Cadeau</a>
         </div>
       </div>
       <div class="hero-img">
@@ -294,9 +294,9 @@
       </div>
 
       <div class="cat-pills">
-        <button type="button" class="cat-pill active" onclick="filterBeauty('nails', this)">💅 Onglerie &amp; Manucure Russe</button>
-        <button type="button" class="cat-pill" onclick="filterBeauty('spa', this)">🌿 Head Spa &amp; Massages</button>
-        <button type="button" class="cat-pill" onclick="filterBeauty('visage', this)">✨ Visage &amp; Regard</button>
+        <button type="button" class="cat-pill active" onclick="filterBeauty('nails', this)">Onglerie &amp; Manucure Russe</button>
+        <button type="button" class="cat-pill" onclick="filterBeauty('spa', this)">Head Spa &amp; Massages</button>
+        <button type="button" class="cat-pill" onclick="filterBeauty('visage', this)">Visage &amp; Regard</button>
       </div>
 
       <div class="beauty-layout">
@@ -428,7 +428,7 @@
       const expert = document.getElementById('beautyExpert').value.split('—')[0].trim();
       const msg = document.getElementById('beautyConfirmMsg');
       msg.style.display = 'block';
-      msg.innerHTML = `✨ Séance confirmée pour <strong>${name}</strong> (${slot}) avec <strong>${expert}</strong> pour : <em>${selectedBeauty.name}</em>.`;
+      msg.innerHTML = `Séance confirmée pour <strong>${name}</strong> (${slot}) avec <strong>${expert}</strong> pour : <em>${selectedBeauty.name}</em>.`;
     }
 
     function updateGiftCard() {
@@ -439,6 +439,6 @@
 
     renderBeautyList();
   </script>
-  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /**
- * BoostMySite — Système Universel de Maquettes Métiers & Projection Client en Direct
- * Menu défilant (12 secteurs d'activité) + Personnalisation instantanée au nom du commerce
+ * BoostMySite — Barre de navigation des démonstrations métiers
+ * Menu déroulant sobre (12 secteurs d'activité) + personnalisation du nom d'enseigne
  */
 (function () {
   'use strict';
@@ -8,147 +8,147 @@
   const MAQUETTES_CATALOG = [
     {
       id: 'fastfood',
-      label: 'Fast-Food & Burger',
-      shortLabel: 'Fast-Food',
-      icon: '🍔',
+      label: 'Fast-Food & Smash Burger',
+      shortLabel: 'Fast-Food & Burger',
       file: 'fastfood-smash.html',
       defaultBrand: "L'Atelier du Smash",
       pack: 'pro',
       price: 990,
-      tagline: 'Click & Collect 0% commission, composition menu, suppléments & sauces',
-      features: ['Commande Click & Collect sans commission', 'Choix viandes, sauces & suppléments', 'Réception directe WhatsApp Caisse', 'QR Code tables & comptoir']
+      img: 'project-fastfood.jpg',
+      tagline: 'Commande Click & Collect sans commission, composition de menu et retrait comptoir.',
+      long: "Conception d'un site de commande directe pensé pour les fast-foods, smash burgers et enseignes de street-food artisanale. L'interface permet au client de composer son menu sur téléphone en quelques secondes (formule, suppléments, sauces maison, heure de retrait au comptoir) tout en affranchissant le restaurateur des commissions des plateformes."
     },
     {
       id: 'restaurant',
-      label: 'Restaurant & Brasserie',
-      shortLabel: 'Restaurant',
-      icon: '🥩',
+      label: 'Restaurant, Brasserie & Bistronomie',
+      shortLabel: 'Restaurant & Brasserie',
       file: 'restaurant-braise.html',
       defaultBrand: "L'Atelier Braise",
       pack: 'pro',
       price: 990,
-      tagline: 'Réservation de table en direct, choix de salle, carte de saison & à emporter',
-      features: ['Réservation de table avec choix de zone', 'Carte interactive & origines produits', 'Module Click & Collect à emporter', 'Fiche Google Maps & avis clients']
+      img: 'project-restaurant.jpg',
+      tagline: 'Ardoise de saison, réservation de table par espace et vente à emporter.',
+      long: "Site chaleureux conçu pour une rôtisserie et table bistronomique au feu de bois. Carte de saison avec origine certifiée des viandes françaises, sélection de son emplacement préféré (cheminée, verrière ou cour intérieure), carnet de réservation en direct et commande à emporter."
     },
     {
       id: 'boulangerie',
-      label: 'Boulangerie & Pâtisserie',
-      shortLabel: 'Boulangerie',
-      icon: '🥖',
+      label: 'Boulangerie & Pâtisserie Artisanale',
+      shortLabel: 'Boulangerie & Pâtisserie',
       file: 'boulangerie-patisserie.html',
       defaultBrand: 'Maison Levain & Dorure',
       pack: 'pro',
       price: 990,
-      tagline: 'Pré-commande formules midi coupe-file, gâteaux d’anniversaire sur-mesure & fournées',
-      features: ['Click & Collect Formules Midi sans queue', 'Configurateur gâteaux événements & plaque', 'Horaires des fournées chaudes en direct', 'Catalogue pains au levain & pâtisseries']
+      img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Pré-commande formules midi coupe-file, pains au levain et gâteaux sur commande.',
+      long: "Vitrine gourmande et comptoir numérique pour boulangerie-pâtisserie artisanale. Présentation des pains au levain naturel et viennoiseries pur beurre AOP, retrait express des formules déjeuner sans file d'attente et commande de pâtisseries grand format personnalisées pour les événements."
     },
     {
       id: 'barber',
-      label: 'Barber Shop & Coiffeur',
-      shortLabel: 'Barber / Coiffeur',
-      icon: '💈',
+      label: 'Salon de Coiffure & Barber Shop',
+      shortLabel: 'Coiffure & Barber Shop',
       file: 'barber-coiffure.html',
       defaultBrand: 'Maison Lame & Ciseaux',
       pack: 'starter',
       price: 490,
-      tagline: 'Réservation de créneau en ligne, choix du barbier/coiffeur, tarifs & lookbook',
-      features: ['Prise de RDV par coiffeur & créneau', 'Carte des coupes, dégradés & soins barbe', 'Lookbook photos & réalisations', 'Rappel WhatsApp anti-lapin']
+      img: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Carte des coupes et soins barbe, choix du coiffeur et prise de rendez-vous en ligne.',
+      long: "Site de réservation conçu pour les salons de coiffure et maîtres barbiers. Présentation claire des forfaits coupe et rituel barbe à la serviette chaude, sélection nominative du coiffeur, prise de rendez-vous par créneau horaire en trente secondes et galerie de réalisations."
     },
     {
       id: 'beaute',
-      label: 'Institut de Beauté & Nails',
-      shortLabel: 'Institut / Nails',
-      icon: '💅',
+      label: 'Institut de Beauté, Onglerie & Spa',
+      shortLabel: 'Institut de Beauté & Soins',
       file: 'institut-beaute.html',
       defaultBrand: "L'Écrin de Soie",
       pack: 'starter',
       price: 490,
-      tagline: 'Carte des soins (Onglerie, Head Spa, Visage), réservation en ligne & carte cadeau',
-      features: ['Réservation soins par durée & praticienne', 'Catalogue Onglerie, Head Spa & Visage', 'Générateur de Carte Cadeau personnalisée', 'Galerie résultats & avis vérifiés']
+      img: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Carte des soins visage, onglerie et massage, réservation par praticienne et bons cadeaux.',
+      long: "Écrin digital pensé pour les instituts de beauté, bars à ongles et spas urbains. Organisation fluide des prestations par univers (manucure russe, soins du visage, Head Spa et massages), réservation directe selon les disponibilités de chaque praticienne et édition de bons cadeaux personnalisés."
     },
     {
       id: 'pizzeria',
-      label: 'Pizzeria & Trattoria Italienne',
-      shortLabel: 'Pizzeria',
-      icon: '🍕',
+      label: 'Pizzeria au Feu de Bois & Trattoria',
+      shortLabel: 'Pizzeria & Trattoria',
       file: 'pizzeria-italien.html',
       defaultBrand: 'Forno Napoli',
       pack: 'pro',
       price: 990,
-      tagline: 'Commande pizzas à emporter avec heure de sortie du four, suppléments & table',
-      features: ['Commande Click & Collect sortie du four', 'Personnalisation pizza (burrata, truffe...)', 'Offre fidélité (10ème pizza offerte)', 'Réservation de table en salle ou terrasse']
+      img: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Commande à emporter calée sur la sortie du four, carte napolitaine et réservation de table.',
+      long: "Interface dédiée aux pizzerias artisanales et trattorias italiennes. Mise en valeur de la fermentation lente et des produits DOP, commande à emporter avec sélection précise du créneau de sortie du four et réservation de table en salle ou en terrasse."
     },
     {
       id: 'sushi',
-      label: 'Sushi, Poké Bowl & Asiatique',
-      shortLabel: 'Sushi & Poké',
-      icon: '🍣',
+      label: 'Restaurant Japonais, Sushi & Poké',
+      shortLabel: 'Sushi & Cuisine Asiatique',
       file: 'sushi-asiatique.html',
-      defaultBrand: 'Kensho Sushi & Poké',
+      defaultBrand: 'Kensho Sushi',
       pack: 'pro',
       price: 990,
-      tagline: 'Box plateaux signatures, composeur de Poké Bowl sur-mesure & commande en ligne',
-      features: ['Configurateur Poké Bowl étape par étape', 'Catalogue Plateaux, California & Wok', 'Panier Click & Collect & Livraison', 'Photos HD de chaque pièce']
+      img: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Plateaux signatures, composition de Poké Bowl sur mesure et commande directe.',
+      long: "Plateforme de commande en ligne pour restaurant japonais et bar à Poké. Photographies détaillées des plateaux et créations du chef, module permettant au client de composer son bol sur mesure (base, protéine marinée, sauce maison) et commande Click & Collect sans intermédiaire."
     },
     {
       id: 'garage',
-      label: 'Garage Auto & Carrosserie',
-      shortLabel: 'Garage Auto',
-      icon: '🔧',
+      label: 'Garage Automobile, Entretien & Occasion',
+      shortLabel: 'Garage Automobile',
       file: 'garage-auto.html',
       defaultBrand: 'Pôle Auto Performance',
       pack: 'pro',
       price: 990,
-      tagline: 'Devis entretien instantané, RDV atelier (révision, pneus, freins) & véhicules occasion',
-      features: ['Simulateur tarif révision / freins / pneus', 'Prise de RDV atelier par immatriculation', 'Catalogue véhicules d’occasion garantis', 'Bouton dépannage & remorquage']
+      img: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Forfaits révision et mécanique, prise de rendez-vous atelier et parc de véhicules révisés.',
+      long: "Outil complet pour garage indépendant et atelier mécanique toutes marques. Consultation transparente des forfaits d'entretien (révision constructeur, freinage, pneumatiques, distribution), prise de rendez-vous par immatriculation avec véhicule de courtoisie et vitrine des véhicules d'occasion garantis."
     },
     {
       id: 'artisan',
-      label: 'Artisan Rénovation & BTP',
-      shortLabel: 'Artisan BTP',
-      icon: '🏗️',
+      label: 'Artisanat, Rénovation & Architecture d’Intérieur',
+      shortLabel: 'Artisanat & Rénovation',
       file: 'artisan-elite.html',
-      defaultBrand: 'Atelier Apex Rénovation',
+      defaultBrand: 'Maison Valmont',
       pack: 'pro',
       price: 990,
-      tagline: 'Comparateur Avant/Après interactif, configurateur matériaux & chiffrage travaux',
-      features: ['Slider Avant / Après chantiers réels', 'Estimateur de budget travaux en direct', 'Mise en avant Décennale & RGE Qualibat', 'Prise de RDV visite technique']
+      img: 'project-artisan.jpg',
+      tagline: 'Carnet de matériaux 3D, comparateur Avant / Après chantier et estimation de travaux.',
+      long: "Site vitrine et outil de chiffrage pour une entreprise artisanale de rénovation de salles de bains et d'appartements. Présentation claire des compagnons par corps d'état, visualisation 3D des matériaux (travertin, béton ciré, chêne), comparateur Avant/Après et estimateur de budget conforme aux obligations légales du bâtiment."
     },
     {
       id: 'depannage',
-      label: 'Plombier, Serrurier & Électricien 24/7',
-      shortLabel: 'Dépannage 24/7',
-      icon: '🚨',
+      label: 'Plombier, Serrurier & Électricien Dépannage',
+      shortLabel: 'Plomberie & Serrurerie',
       file: 'depannage-urgence.html',
-      defaultBrand: 'SOS Artisans Express',
+      defaultBrand: 'Atelier Dépannage & Cie',
       pack: 'pro',
       price: 990,
-      tagline: 'Diagnostic urgence avec prix fixe annoncé avant déplacement & appel direct 30 min',
-      features: ['Simulateur tarif fixe anti-arnaque', 'Urgence Plomberie, Serrurerie, Électricité', 'Agrément assurances habitation', 'Appel d’urgence 1-clic & WhatsApp photo']
+      img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Barème tarifaire annoncé avant déplacement, garanties assurances et contact direct.',
+      long: "Site de confiance pour artisans dépanneurs (plomberie, serrurerie, électricité). Affichage clair des forfaits d'intervention avant déplacement pour rassurer immédiatement le particulier, mise en avant de la garantie décennale et des agréments assurances habitation."
     },
     {
       id: 'commerce',
-      label: 'Boucherie, Épicerie, Fleuriste & Boutique',
-      shortLabel: 'Boucherie / Boutique',
-      icon: '🥩',
+      label: 'Boucherie, Traiteur, Primeur & Commerce',
+      shortLabel: 'Boucherie & Commerce',
       file: 'commerce-boutique.html',
       defaultBrand: 'Les Halles du Terroir',
       pack: 'pro',
       price: 990,
-      tagline: 'Colis boucherie, plateaux traiteur, calculateur de portions & retrait coupe-file',
-      features: ['Pré-commande colis viande & rôtisserie', 'Calculateur de quantités par convives', 'Retrait coupe-file en boutique', 'Mise en avant savoir-faire & producteurs']
+      img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80',
+      tagline: 'Réservation colis boucherie, rôtisserie du week-end, plateaux traiteur et retrait boutique.',
+      long: "Vitrine de pré-commande pour commerces de bouche indépendants (boucherie-charcuterie, rôtisserie, fromagerie, épicerie fine). Réservation en ligne des pièces du week-end et colis familiaux, calculateur de portions selon le nombre de convives et retrait prioritaire en boutique."
     },
     {
       id: 'vtc',
-      label: 'Chauffeur Privé VTC & Taxi',
-      shortLabel: 'Chauffeur VTC',
-      icon: '🚘',
+      label: 'Chauffeur Privé VTC & Grande Remise',
+      shortLabel: 'Chauffeur Privé & VTC',
       file: 'chauffeur-prestige.html',
-      defaultBrand: 'Prestige Drive Paris',
+      defaultBrand: 'Maison Chabé & Prestige',
       pack: 'pro',
       price: 990,
-      tagline: 'Calculateur de tarif course, forfaits aéroports CDG/Orly & réservation directe',
-      features: ['Simulateur de tarif course & aéroports', 'Présentation flotte Berline & Van VIP', 'Réservation sans commission Uber/Bolt', 'Confirmation instantanée WhatsApp']
+      img: 'project-chauffeur.jpg',
+      tagline: 'Estimation de course en direct, forfaits aéroports CDG / Orly et réservation privée.',
+      long: "Création d'une vitrine dédiée aux chauffeurs privés et artisans VTC pour capter une clientèle directe sur les transferts aéroports (CDG, Orly) et mises à disposition, sans dépendre des applications."
     }
   ];
 
@@ -162,17 +162,14 @@
     }
   };
 
-  // Ne pas injecter la barre si on est sur la page parente maquettes.html ou portfolio.html
   const path = window.location.pathname || '';
   if (path.indexOf('/sites/') === -1) return;
 
   function initSwitcherBar() {
     const params = new URLSearchParams(window.location.search);
-    // Si la maquette est chargée dans l'iframe d'aperçu avec ?embed=1, on garde la barre compacte ou on applique juste le nom client
     const isEmbed = params.get('embed') === '1';
     const currentItem = window.BMSMaquettes.getByFile(path);
 
-    // Récupérer le nom du client personnalisé (URL ?client=... ou sessionStorage)
     let clientName = params.get('client') || '';
     if (clientName) {
       try { sessionStorage.setItem('bms_demo_client_name', clientName); } catch (e) {}
@@ -180,10 +177,8 @@
       try { clientName = sessionStorage.getItem('bms_demo_client_name') || ''; } catch (e) {}
     }
 
-    // Appliquer le nom du client sur la maquette
     function applyCustomClientName(name) {
       const clean = (name || '').trim();
-      const targetName = clean || currentItem.defaultBrand;
       document.querySelectorAll('[data-bms-brand], .brand, .logo-text, .nav-brand').forEach(el => {
         if (!el.dataset.originalBrand) {
           el.dataset.originalBrand = el.textContent.trim();
@@ -195,247 +190,169 @@
         badgeEl.value = clean;
       }
       if (clean) {
-        document.title = `${clean} — Maquette ${currentItem.shortLabel} | BoostMySite`;
+        document.title = `${clean} — ${currentItem.shortLabel}`;
       }
     }
 
     if (clientName) {
-      setTimeout(() => applyCustomClientName(clientName), 50);
+      setTimeout(() => applyCustomClientName(clientName), 40);
     }
 
     if (isEmbed) return;
 
-    // Supprimer l'ancienne .demo-bar statique si présente pour éviter un doublon
     const oldDemoBar = document.querySelector('.demo-bar');
     if (oldDemoBar) oldDemoBar.style.display = 'none';
 
     const style = document.createElement('style');
     style.textContent = `
-      .bms-switcher-wrap {
-        position: sticky;
-        top: 0;
-        z-index: 99990;
-        background: rgba(15, 23, 42, 0.97);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: #F8FAFC;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
-        user-select: none;
-      }
-      .bms-sw-top {
+      .bms-demo-bar {
+        background: #141413;
+        color: #D6D3CD;
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Plus Jakarta Sans', sans-serif;
+        font-size: 12.5px;
+        border-bottom: 1px solid #2A2926;
+        padding: 8px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
-        padding: 7px 14px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        gap: 14px;
         flex-wrap: wrap;
+        position: relative;
+        z-index: 99990;
       }
-      .bms-sw-brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        font-size: 12px;
-        font-weight: 800;
-        color: #fff;
-        text-decoration: none;
-        letter-spacing: -0.01em;
-      }
-      .bms-sw-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #10B981;
-        box-shadow: 0 0 8px #10B981;
-      }
-      .bms-sw-controls {
+      .bms-demo-left, .bms-demo-right {
         display: flex;
         align-items: center;
-        gap: 7px;
+        gap: 12px;
         flex-wrap: wrap;
       }
-      .bms-client-box {
-        display: inline-flex;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.09);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 7px;
-        padding: 3px 8px;
-        gap: 5px;
-      }
-      .bms-client-box span {
-        font-size: 11px;
-        color: #94A3B8;
+      .bms-demo-back {
+        color: #FFFFFF !important;
+        text-decoration: none !important;
         font-weight: 600;
+        letter-spacing: 0.01em;
+        opacity: 0.9;
       }
-      .bms-client-inp {
+      .bms-demo-back:hover {
+        opacity: 1;
+        text-decoration: underline !important;
+      }
+      .bms-demo-sep {
+        color: #4A4843;
+      }
+      .bms-demo-label {
+        color: #9C968C;
+        font-size: 12px;
+      }
+      .bms-demo-select {
+        background: #1F1E1C;
+        color: #F5F3EF;
+        border: 1px solid #3A3834;
+        border-radius: 5px;
+        padding: 5px 28px 5px 10px;
+        font-size: 12.5px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239C968C' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+      }
+      .bms-demo-select:hover, .bms-demo-select:focus {
+        border-color: #78736A;
+      }
+      .bms-demo-inp {
+        background: #1F1E1C;
+        color: #FFFFFF;
+        border: 1px solid #3A3834;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 12.5px;
+        font-family: inherit;
+        width: 175px;
+        outline: none;
+      }
+      .bms-demo-inp::placeholder {
+        color: #78736A;
+      }
+      .bms-demo-inp:focus {
+        border-color: #A8A29E;
+      }
+      .bms-demo-link {
+        color: #F5F3EF !important;
+        background: #292825;
+        border: 1px solid #3E3C38;
+        padding: 5px 12px;
+        border-radius: 5px;
+        text-decoration: none !important;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .bms-demo-link:hover {
+        background: #3A3834;
+      }
+      .bms-demo-close {
         background: transparent;
         border: none;
-        color: #34D399;
+        color: #8C867B;
         font-size: 12px;
-        font-weight: 700;
-        width: 145px;
-        outline: none;
-        font-family: inherit;
-      }
-      .bms-client-inp::placeholder {
-        color: #64748B;
-        font-weight: 500;
-      }
-      .bms-btn-devis {
-        background: linear-gradient(135deg, #16A34A, #10B981);
-        color: #fff !important;
-        text-decoration: none !important;
-        font-size: 11.5px;
-        font-weight: 800;
-        padding: 5px 11px;
-        border-radius: 7px;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        border: none;
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
-        transition: transform 0.15s;
-        white-space: nowrap;
+        padding: 4px 6px;
       }
-      .bms-btn-devis:hover {
-        transform: translateY(-1px);
+      .bms-demo-close:hover {
+        color: #FFFFFF;
       }
-      .bms-btn-hide {
-        background: rgba(255, 255, 255, 0.08);
-        color: #CBD5E1;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        font-size: 11px;
-        font-weight: 600;
-        padding: 4px 8px;
-        border-radius: 6px;
-        cursor: pointer;
-      }
-      .bms-sw-scroll {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        overflow-x: auto;
-        padding: 7px 14px;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-      }
-      .bms-sw-scroll::-webkit-scrollbar {
-        display: none;
-      }
-      .bms-sw-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 5px 11px;
-        border-radius: 999px;
-        font-size: 11.5px;
-        font-weight: 600;
-        color: #CBD5E1 !important;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        text-decoration: none !important;
-        white-space: nowrap;
-        transition: all 0.15s;
-        flex-shrink: 0;
-      }
-      .bms-sw-pill:hover {
-        background: rgba(255, 255, 255, 0.14);
-        color: #fff !important;
-      }
-      .bms-sw-pill.active {
-        background: #3B82F6;
-        color: #fff !important;
-        border-color: #60A5FA;
-        font-weight: 700;
-        box-shadow: 0 2px 10px rgba(59, 130, 246, 0.45);
-      }
-      .bms-sw-reopen {
-        position: fixed;
-        bottom: 16px;
-        left: 16px;
-        z-index: 99995;
-        background: #0F172A;
-        color: #fff;
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 999px;
-        padding: 8px 14px;
-        font-family: 'Inter', sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-        display: none;
-        align-items: center;
-        gap: 6px;
-      }
-      @media (max-width: 640px) {
-        .bms-sw-top { padding: 6px 10px; }
-        .bms-sw-scroll { padding: 6px 10px; }
-        .bms-client-inp { width: 115px; }
+      @media (max-width: 720px) {
+        .bms-demo-bar { padding: 8px 12px; gap: 8px; }
+        .bms-demo-sep, .bms-demo-label { display: none; }
+        .bms-demo-inp { width: 135px; }
       }
     `;
     document.head.appendChild(style);
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'bms-switcher-wrap';
-    wrapper.id = 'bmsSwitcherBar';
+    const bar = document.createElement('div');
+    bar.className = 'bms-demo-bar';
+    bar.id = 'bmsSwitcherBar';
 
-    const pillsHtml = MAQUETTES_CATALOG.map(item => {
-      const isActive = item.id === currentItem.id;
-      return `<a href="${item.file}" class="bms-sw-pill ${isActive ? 'active' : ''}" data-maquette-id="${item.id}">
-        <span>${item.icon}</span>
-        <span>${item.shortLabel}</span>
-      </a>`;
+    const optionsHtml = MAQUETTES_CATALOG.map(item => {
+      const sel = item.id === currentItem.id ? 'selected' : '';
+      return `<option value="${item.file}" ${sel}>${item.label}</option>`;
     }).join('');
 
-    wrapper.innerHTML = `
-      <div class="bms-sw-top">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <a href="../portfolio.html" class="bms-sw-brand" title="Retour aux réalisations">
-            <span class="bms-sw-dot"></span>
-            <span>BoostMySite • Showroom (${MAQUETTES_CATALOG.length} métiers)</span>
-          </a>
-        </div>
-        <div class="bms-sw-controls">
-          <div class="bms-client-box" title="Tapez le nom du commerce pour personnaliser la maquette en direct">
-            <span>✏️ Nom client :</span>
-            <input type="text" id="bmsClientInput" class="bms-client-inp" placeholder="Ex: ${currentItem.defaultBrand}" value="${clientName.replace(/"/g, '&quot;')}">
-          </div>
-          <button type="button" id="bmsCreateQuoteBtn" class="bms-btn-devis">
-            ⚡ Créer Devis (${currentItem.price} €)
-          </button>
-          <button type="button" id="bmsHideBarBtn" class="bms-btn-hide" title="Masquer la barre pour présentation plein écran">
-            Plein écran ✕
-          </button>
-        </div>
+    bar.innerHTML = `
+      <div class="bms-demo-left">
+        <a href="../portfolio.html" class="bms-demo-back">← BoostMySite</a>
+        <span class="bms-demo-sep">|</span>
+        <span class="bms-demo-label">Secteur :</span>
+        <select id="bmsSectorSelect" class="bms-demo-select" aria-label="Choisir un secteur d'activité">
+          ${optionsHtml}
+        </select>
       </div>
-      <div class="bms-sw-scroll" id="bmsSwitcherScroll">
-        ${pillsHtml}
+      <div class="bms-demo-right">
+        <span class="bms-demo-label">Personnaliser l'enseigne :</span>
+        <input type="text" id="bmsClientInput" class="bms-demo-inp" placeholder="Nom du commerce..." value="${clientName.replace(/"/g, '&quot;')}">
+        <button type="button" id="bmsCreateQuoteBtn" class="bms-demo-link">Chiffrer ce modèle</button>
+        <button type="button" id="bmsHideBarBtn" class="bms-demo-close" title="Masquer ce bandeau">✕</button>
       </div>
     `;
 
-    const reopenBtn = document.createElement('button');
-    reopenBtn.type = 'button';
-    reopenBtn.className = 'bms-sw-reopen';
-    reopenBtn.id = 'bmsReopenBtn';
-    reopenBtn.innerHTML = `<span>✨ Changer de métier (${MAQUETTES_CATALOG.length} maquettes)</span>`;
+    document.body.insertBefore(bar, document.body.firstChild);
 
-    document.body.insertBefore(wrapper, document.body.firstChild);
-    document.body.appendChild(reopenBtn);
+    document.getElementById('bmsSectorSelect').addEventListener('change', function () {
+      const targetFile = this.value;
+      const currentClient = (document.getElementById('bmsClientInput')?.value || '').trim();
+      if (currentClient) {
+        window.location.href = `${targetFile}?client=${encodeURIComponent(currentClient)}`;
+      } else {
+        window.location.href = targetFile;
+      }
+    });
 
-    // Centrer la pilule active dans le menu défilant
-    const activePill = wrapper.querySelector('.bms-sw-pill.active');
-    if (activePill) {
-      setTimeout(() => {
-        activePill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }, 100);
-    }
-
-    // Écouteur personnalisation du nom du client en direct
     const inp = document.getElementById('bmsClientInput');
     if (inp) {
       inp.addEventListener('input', function () {
@@ -445,19 +362,6 @@
       });
     }
 
-    // Conserver le nom du client lors du changement de maquette
-    wrapper.querySelectorAll('.bms-sw-pill').forEach(link => {
-      link.addEventListener('click', function (e) {
-        const currentClient = (document.getElementById('bmsClientInput')?.value || '').trim();
-        if (currentClient) {
-          e.preventDefault();
-          const href = this.getAttribute('href');
-          window.location.href = `${href}?client=${encodeURIComponent(currentClient)}`;
-        }
-      });
-    });
-
-    // Bouton Créer Devis
     document.getElementById('bmsCreateQuoteBtn').addEventListener('click', function () {
       const currentClient = (document.getElementById('bmsClientInput')?.value || '').trim();
       const q = new URLSearchParams({
@@ -468,14 +372,8 @@
       window.location.href = `../outils/devis-express.html?${q.toString()}`;
     });
 
-    // Masquer / Ré-afficher la barre
     document.getElementById('bmsHideBarBtn').addEventListener('click', function () {
-      wrapper.style.display = 'none';
-      reopenBtn.style.display = 'inline-flex';
-    });
-    reopenBtn.addEventListener('click', function () {
-      wrapper.style.display = 'block';
-      reopenBtn.style.display = 'none';
+      bar.style.display = 'none';
     });
   }
 

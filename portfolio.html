@@ -12,7 +12,7 @@
   <link rel="manifest" href="favicon_io/site.webmanifest">
 
   <title>Réalisations &amp; Démos interactives | BoostMySite</title>
-  <meta name="description" content="Découvrez les démos interactives et projets réalisés par BoostMySite : Chauffeur VIP, Artisan BTP, Restaurant &amp; Click-and-Collect, SaaS IA et Web3.">
+  <meta name="description" content="Découvrez les démos interactives et projets réalisés par BoostMySite : Restaurant, Fast-Food, Boulangerie, Coiffeur, Institut, Garage, Artisan BTP et Chauffeur VTC.">
   <meta name="author" content="Brahim Ben Said, BoostMySite">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://boost-my-site.com/portfolio.html">
@@ -23,54 +23,97 @@
   <meta property="og:site_name" content="BoostMySite">
   <meta property="og:url" content="https://boost-my-site.com/portfolio.html">
   <meta property="og:title" content="Réalisations &amp; Démos interactives | BoostMySite">
-  <meta property="og:description" content="Découvrez les démos interactives et projets réalisés par BoostMySite : Chauffeur VIP, Artisan BTP, Restaurant &amp; Click-and-Collect, SaaS IA et Web3.">
+  <meta property="og:description" content="Découvrez les démos interactives et projets réalisés par BoostMySite : Restaurant, Fast-Food, Boulangerie, Coiffeur, Institut, Garage, Artisan BTP et Chauffeur VTC.">
   <meta property="og:image" content="https://boost-my-site.com/project-chauffeur.jpg">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Réalisations &amp; Démos interactives | BoostMySite">
-  <meta name="twitter:description" content="Découvrez les démos interactives et projets réalisés par BoostMySite : Chauffeur VIP, Artisan BTP, Restaurant &amp; Click-and-Collect, SaaS IA et Web3.">
+  <meta name="twitter:description" content="Découvrez les démos interactives et projets réalisés par BoostMySite : Restaurant, Fast-Food, Boulangerie, Coiffeur, Institut, Garage, Artisan BTP et Chauffeur VTC.">
   <meta name="twitter:image" content="https://boost-my-site.com/project-chauffeur.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .sector-selector-bar {
+      margin-top: 32px;
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 1.3fr 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+    @media (max-width: 820px) {
+      .sector-selector-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+    .selector-field label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .selector-select,
+    .selector-input {
+      width: 100%;
+      height: 46px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0 14px;
+      font-family: inherit;
+      font-size: 14.5px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .selector-select {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 38px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+    .selector-select:focus,
+    .selector-input:focus {
+      border-color: var(--text-dim);
+    }
+    .selector-input::placeholder {
+      color: var(--text-dim);
+      opacity: 0.65;
+    }
+    .case[hidden] {
+      display: none !important;
+    }
+  </style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Réalisations BoostMySite",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "L'Atelier du Smash Paris — Fast-Food & Click-and-Collect",
-      "url": "https://boost-my-site.com/sites/fastfood-smash.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Atelier Apex Rénovation — Artisanat & Salle de Bain",
-      "url": "https://boost-my-site.com/sites/artisan-elite.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Maison Braise Paris — Bistronomie & Feu de Bois",
-      "url": "https://boost-my-site.com/sites/restaurant-braise.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "name": "Prestige Drive Paris — Chauffeur Privé & VTC",
-      "url": "https://boost-my-site.com/sites/chauffeur-prestige.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 5,
-      "name": "Devis-AI — SaaS & Intelligence Artificielle",
-      "url": "https://devis-ai.fr"
-    }
+    { "@type": "ListItem", "position": 1, "name": "L'Atelier du Smash Paris — Fast-Food & Click-and-Collect", "url": "https://boost-my-site.com/sites/fastfood-smash.html" },
+    { "@type": "ListItem", "position": 2, "name": "Maison Braise Paris — Bistronomie & Feu de Bois", "url": "https://boost-my-site.com/sites/restaurant-braise.html" },
+    { "@type": "ListItem", "position": 3, "name": "Maison Levain & Dorure — Boulangerie & Pâtisserie Artisanale", "url": "https://boost-my-site.com/sites/boulangerie-patisserie.html" },
+    { "@type": "ListItem", "position": 4, "name": "Maison Lame & Ciseaux — Salon de Coiffure & Barber Shop", "url": "https://boost-my-site.com/sites/barber-coiffure.html" },
+    { "@type": "ListItem", "position": 5, "name": "L'Écrin de Soie — Institut de Beauté & Soins", "url": "https://boost-my-site.com/sites/institut-beaute.html" },
+    { "@type": "ListItem", "position": 6, "name": "Forno Napoli — Pizzeria au Feu de Bois & Trattoria", "url": "https://boost-my-site.com/sites/pizzeria-italien.html" },
+    { "@type": "ListItem", "position": 7, "name": "Kensho Sushi — Restaurant Japonais & Poké", "url": "https://boost-my-site.com/sites/sushi-asiatique.html" },
+    { "@type": "ListItem", "position": 8, "name": "Pôle Auto Performance — Garage Automobile & Atelier", "url": "https://boost-my-site.com/sites/garage-auto.html" },
+    { "@type": "ListItem", "position": 9, "name": "Maison Valmont — Artisanat & Salle de Bain", "url": "https://boost-my-site.com/sites/artisan-elite.html" },
+    { "@type": "ListItem", "position": 10, "name": "Atelier Dépannage & Cie — Plomberie, Serrurerie & Électricité", "url": "https://boost-my-site.com/sites/depannage-urgence.html" },
+    { "@type": "ListItem", "position": 11, "name": "Les Halles du Terroir — Boucherie, Traiteur & Commerce", "url": "https://boost-my-site.com/sites/commerce-boutique.html" },
+    { "@type": "ListItem", "position": 12, "name": "Prestige Drive Paris — Chauffeur Privé & VTC", "url": "https://boost-my-site.com/sites/chauffeur-prestige.html" }
   ]
 }
 </script>
@@ -103,90 +146,181 @@
   </div>
 
   <main>
-    <section class="page-hero" style="padding-bottom: 24px;">
+    <section class="page-hero" style="padding-bottom: 20px;">
       <div class="container">
-        <span class="eyebrow" data-reveal>Showroom Interactif • 12 Secteurs d'Activité</span>
-        <h1 data-reveal>Choisissez votre métier et testez votre futur site.</h1>
-        <p class="lead" data-reveal style="--d:.1s">Faites défiler les secteurs ci-dessous et entrez le nom de votre commerce pour projeter immédiatement votre établissement sur une maquette fonctionnelle.</p>
+        <span class="eyebrow" data-reveal>Réalisations &amp; Démos</span>
+        <h1 data-reveal>Démos métiers et projets en ligne.</h1>
+        <p class="lead" data-reveal style="--d:.1s">Sélectionnez votre secteur d'activité dans le menu déroulant pour consulter ou tester le modèle correspondant à votre métier.</p>
 
-        <!-- BARRE DE PROJECTION CLIENT & MENU DÉFILANT -->
-        <div style="margin-top: 28px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 18px 20px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px;">
-            <div>
-              <strong style="font-size:14.5px; color:#fff; display:block;">✨ Projection en direct au nom de votre commerce</strong>
-              <span style="font-size:12.5px; color:#94A3B8;">Tapez le nom de votre enseigne : il s'affichera automatiquement sur toutes les maquettes que vous ouvrez.</span>
-            </div>
-            <div style="display:flex; gap:8px; flex:1; max-width:420px; min-width:250px;">
-              <input type="text" id="publicCustomBrand" placeholder="✏️ Ex: Boulangerie L'Épi d'Or, Barber King..." oninput="updatePublicShowcase()" style="flex:1; background:rgba(5,6,13,0.8); border:1px solid rgba(255,255,255,0.22); color:#34D399; font-weight:700; font-size:13.5px; padding:10px 14px; border-radius:10px; outline:none; font-family:inherit;">
-            </div>
+        <!-- MENU DÉROULANT SOBRE PAR SECTEUR D'ACTIVITÉ -->
+        <div class="sector-selector-bar" data-reveal style="--d:.15s">
+          <div class="selector-field">
+            <label for="sectorDropdown">Secteur d'activité</label>
+            <select id="sectorDropdown" class="selector-select">
+              <option value="all">Tous les secteurs d'activité (12 démonstrations)</option>
+              <option value="fastfood">Fast-Food, Smash Burger &amp; Street-Food</option>
+              <option value="restaurant">Restaurant, Brasserie &amp; Bistronomie</option>
+              <option value="boulangerie">Boulangerie &amp; Pâtisserie Artisanale</option>
+              <option value="barber">Salon de Coiffure &amp; Barber Shop</option>
+              <option value="beaute">Institut de Beauté, Onglerie &amp; Soins</option>
+              <option value="pizzeria">Pizzeria au Feu de Bois &amp; Trattoria</option>
+              <option value="sushi">Restaurant Japonais, Sushi &amp; Poké</option>
+              <option value="garage">Garage Automobile, Entretien &amp; Occasion</option>
+              <option value="artisan">Artisanat, Rénovation &amp; Salle de Bain</option>
+              <option value="depannage">Plombier, Serrurier &amp; Électricien Dépannage</option>
+              <option value="commerce">Boucherie, Traiteur, Primeur &amp; Commerce</option>
+              <option value="vtc">Chauffeur Privé VTC &amp; Grande Remise</option>
+            </select>
           </div>
-
-          <!-- MENU DÉFILANT HORIZONTAL DES 12 TYPES DE BUSINESS -->
-          <div id="publicScrollingMenu" style="display:flex; gap:8px; overflow-x:auto; padding:4px 2px 8px 2px; scrollbar-width:none; -webkit-overflow-scrolling:touch;"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- GRILLE DYNAMIQUE DES 12 MAQUETTES MÉTIERS -->
-    <section class="section" style="padding-top: 12px; padding-bottom: 40px;">
-      <div class="container">
-        <div id="publicMaquettesGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:18px;"></div>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top:20px">
-      <div class="container">
-        <div style="margin-bottom:28px;">
-          <span class="eyebrow">Focus Projets &amp; Études de Cas</span>
-          <h2 class="h-lg" style="margin-top:6px;">Zoom sur nos architectures clés en main</h2>
-        </div>
-        <article class="case" data-reveal>
+          <div class="selector-field">
+            <label for="customShopInput">Aperçu au nom de votre enseigne (optionnel)</label>
+            <input type="text" id="customShopInput" class="selector-input" placeholder="Ex : Boulangerie Saint-Martin">
+          </div>
           <div>
-            <span class="tag">Fast-Food & Click-and-Collect</span>
-            <h2>L'Atelier du Smash Paris</h2>
-            <p>Conception d'un site de commande directe pensé pour les fast-foods, smash burgers et enseignes de street-food artisanale. L'interface permet au client de composer son menu sur téléphone en quelques secondes (formule, suppléments, sauces maison, heure de retrait au comptoir) tout en affranchissant le restaurateur des 30 % de commission des plateformes.</p>
-            <a href="sites/fastfood-smash.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Tester la démo Fast-Food</a>
+            <button type="button" id="openSelectedDemoBtn" class="btn btn--primary" style="height:46px; width:100%;">
+              Ouvrir la démo
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:24px">
+      <div class="container" id="casesContainer">
+
+        <article class="case" data-sector="fastfood">
+          <div>
+            <span class="tag">Fast-Food &amp; Click-and-Collect</span>
+            <h2 data-default-title="L'Atelier du Smash Paris">L'Atelier du Smash Paris</h2>
+            <p>Conception d'un site de commande directe pensé pour les fast-foods, smash burgers et enseignes de street-food artisanale. L'interface permet au client de composer son menu sur téléphone en quelques secondes (formule, suppléments, sauces maison, heure de retrait au comptoir) tout en affranchissant le restaurateur des commissions des plateformes.</p>
+            <a href="sites/fastfood-smash.html" data-base-href="sites/fastfood-smash.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary demo-link">Tester la démo Fast-Food</a>
           </div>
           <div class="case-img"><img src="project-fastfood.jpg" alt="L'Atelier du Smash, site de commande Click &amp; Collect sans commission pour fast-food et smash burger" loading="lazy" width="1200" height="750"></div>
         </article>
-        <article class="case" data-reveal>
+
+        <article class="case" data-sector="restaurant">
           <div>
-            <span class="tag">Artisanat & Salle de Bain</span>
-            <h2>Atelier Apex Rénovation</h2>
-            <p>Site vitrine et outil de chiffrage pour une entreprise artisanale de rénovation de salles de bains et d'appartements à Paris. Présentation claire des compagnons par corps d'état, visualisation 3D des matériaux (travertin, béton ciré, chêne), comparateur Avant/Après et estimateur de budget conforme aux obligations légales du bâtiment.</p>
-            <a href="sites/artisan-elite.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Tester la démo Artisan</a>
-          </div>
-          <div class="case-img"><img src="project-artisan.jpg" alt="Atelier Apex Rénovation, site pour artisan salle de bain et rénovation d'intérieur" loading="lazy" width="1200" height="750"></div>
-        </article>
-        <article class="case" data-reveal>
-          <div>
-            <span class="tag">Bistronomie & Feu de Bois</span>
-            <h2>Maison Braise Paris</h2>
+            <span class="tag">Bistronomie &amp; Feu de Bois</span>
+            <h2 data-default-title="Maison Braise Paris">Maison Braise Paris</h2>
             <p>Site chaleureux conçu pour une rôtisserie et table bistronomique au feu de bois. Carte de saison avec origine certifiée des viandes françaises, sélection de son emplacement préféré (cheminée, verrière ou cour intérieure), carnet de réservation en direct et commande à emporter.</p>
-            <a href="sites/restaurant-braise.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Tester la démo Restaurant</a>
+            <a href="sites/restaurant-braise.html" data-base-href="sites/restaurant-braise.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo Restaurant</a>
           </div>
           <div class="case-img"><img src="project-restaurant.jpg" alt="Maison Braise, site web de restaurant au feu de bois avec réservation de table et vente à emporter" loading="lazy" width="1200" height="750"></div>
         </article>
-        <article class="case" data-reveal>
+
+        <article class="case" data-sector="boulangerie">
           <div>
-            <span class="tag">Chauffeur Privé & VTC</span>
-            <h2>Prestige Drive Paris</h2>
+            <span class="tag">Boulangerie &amp; Pâtisserie Artisanale</span>
+            <h2 data-default-title="Maison Levain &amp; Dorure">Maison Levain &amp; Dorure</h2>
+            <p>Vitrine gourmande et comptoir numérique pour boulangerie-pâtisserie artisanale. Présentation des pains au levain naturel et viennoiseries pur beurre AOP, retrait express des formules déjeuner sans file d'attente et commande de pâtisseries grand format personnalisées pour les événements.</p>
+            <a href="sites/boulangerie-patisserie.html" data-base-href="sites/boulangerie-patisserie.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary demo-link">Tester la démo Boulangerie</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80" alt="Maison Levain &amp; Dorure, site web pour boulangerie et pâtisserie artisanale" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="barber">
+          <div>
+            <span class="tag">Salon de Coiffure &amp; Barber Shop</span>
+            <h2 data-default-title="Maison Lame &amp; Ciseaux">Maison Lame &amp; Ciseaux</h2>
+            <p>Site de réservation conçu pour les salons de coiffure et maîtres barbiers. Présentation claire des forfaits coupe et rituel barbe à la serviette chaude, sélection nominative du coiffeur, prise de rendez-vous par créneau horaire en trente secondes et galerie de réalisations.</p>
+            <a href="sites/barber-coiffure.html" data-base-href="sites/barber-coiffure.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo Coiffure &amp; Barber</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80" alt="Maison Lame &amp; Ciseaux, site web de réservation pour barber shop et salon de coiffure" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="beaute">
+          <div>
+            <span class="tag">Institut de Beauté, Onglerie &amp; Soins</span>
+            <h2 data-default-title="L'Écrin de Soie">L'Écrin de Soie</h2>
+            <p>Écrin digital pensé pour les instituts de beauté, bars à ongles et spas urbains. Organisation fluide des prestations par univers (manucure russe, soins du visage, Head Spa et massages), réservation directe selon les disponibilités de chaque praticienne et édition de bons cadeaux personnalisés.</p>
+            <a href="sites/institut-beaute.html" data-base-href="sites/institut-beaute.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary demo-link">Tester la démo Institut de Beauté</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80" alt="L'Écrin de Soie, site vitrine et prise de rendez-vous pour institut de beauté et onglerie" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="pizzeria">
+          <div>
+            <span class="tag">Pizzeria au Feu de Bois &amp; Trattoria</span>
+            <h2 data-default-title="Forno Napoli">Forno Napoli</h2>
+            <p>Interface dédiée aux pizzerias artisanales et trattorias italiennes. Mise en valeur de la fermentation lente de 72 heures et des produits DOP, commande à emporter avec sélection précise du créneau de sortie du four et réservation de table en salle ou en terrasse.</p>
+            <a href="sites/pizzeria-italien.html" data-base-href="sites/pizzeria-italien.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo Pizzeria</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1200&q=80" alt="Forno Napoli, site de commande en ligne pour pizzeria napolitaine et restaurant italien" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="sushi">
+          <div>
+            <span class="tag">Restaurant Japonais, Sushi &amp; Poké</span>
+            <h2 data-default-title="Kensho Sushi">Kensho Sushi</h2>
+            <p>Plateforme de commande en ligne pour restaurant japonais et bar à Poké. Photographies détaillées des plateaux et créations du chef, module permettant au client de composer son bol sur mesure (base, protéine marinée, sauce maison) et commande Click &amp; Collect sans intermédiaire.</p>
+            <a href="sites/sushi-asiatique.html" data-base-href="sites/sushi-asiatique.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary demo-link">Tester la démo Sushi &amp; Poké</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1200&q=80" alt="Kensho Sushi, site de commande Click &amp; Collect pour restaurant japonais et poké bowl" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="garage">
+          <div>
+            <span class="tag">Garage Automobile &amp; Atelier</span>
+            <h2 data-default-title="Pôle Auto Performance">Pôle Auto Performance</h2>
+            <p>Outil complet pour garage indépendant et atelier mécanique toutes marques. Consultation transparente des forfaits d'entretien (révision constructeur, freinage, pneumatiques, distribution), prise de rendez-vous par immatriculation avec véhicule de courtoisie et vitrine des véhicules d'occasion garantis.</p>
+            <a href="sites/garage-auto.html" data-base-href="sites/garage-auto.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo Garage Auto</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80" alt="Pôle Auto Performance, site internet pour garage automobile et vente de véhicules d'occasion" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="artisan">
+          <div>
+            <span class="tag">Artisanat &amp; Salle de Bain</span>
+            <h2 data-default-title="Atelier Apex Rénovation">Atelier Apex Rénovation</h2>
+            <p>Site vitrine et outil de chiffrage pour une entreprise artisanale de rénovation de salles de bains et d'appartements à Paris. Présentation claire des compagnons par corps d'état, visualisation 3D des matériaux (travertin, béton ciré, chêne), comparateur Avant/Après et estimateur de budget conforme aux obligations légales du bâtiment.</p>
+            <a href="sites/artisan-elite.html" data-base-href="sites/artisan-elite.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary demo-link">Tester la démo Artisan</a>
+          </div>
+          <div class="case-img"><img src="project-artisan.jpg" alt="Atelier Apex Rénovation, site pour artisan salle de bain et rénovation d'intérieur" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="depannage">
+          <div>
+            <span class="tag">Plomberie, Serrurerie &amp; Électricité</span>
+            <h2 data-default-title="Atelier Dépannage &amp; Cie">Atelier Dépannage &amp; Cie</h2>
+            <p>Site de confiance pour artisans dépanneurs (plomberie, serrurerie, électricité). Affichage clair des forfaits d'intervention avant déplacement pour rassurer immédiatement le particulier, mise en avant de la garantie décennale et des agréments assurances habitation.</p>
+            <a href="sites/depannage-urgence.html" data-base-href="sites/depannage-urgence.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo Dépannage</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80" alt="Atelier Dépannage &amp; Cie, site web pour plombier, serrurier et électricien" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="commerce">
+          <div>
+            <span class="tag">Boucherie, Traiteur &amp; Commerce de Bouche</span>
+            <h2 data-default-title="Les Halles du Terroir">Les Halles du Terroir</h2>
+            <p>Vitrine de pré-commande pour commerces de bouche indépendants (boucherie-charcuterie, rôtisserie fermière, fromagerie, épicerie fine). Réservation en ligne des pièces du week-end et colis familiaux, calculateur de portions selon le nombre de convives et retrait prioritaire en boutique.</p>
+            <a href="sites/commerce-boutique.html" data-base-href="sites/commerce-boutique.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary demo-link">Tester la démo Commerce</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80" alt="Les Halles du Terroir, site Click &amp; Collect pour boucherie artisanale et commerce de proximité" loading="lazy" width="1200" height="750"></div>
+        </article>
+
+        <article class="case" data-sector="vtc">
+          <div>
+            <span class="tag">Chauffeur Privé &amp; VTC</span>
+            <h2 data-default-title="Prestige Drive Paris">Prestige Drive Paris</h2>
             <p>Création d'une vitrine dédiée aux chauffeurs privés et artisans VTC pour capter une clientèle directe sur les transferts aéroports (CDG, Orly) et mises à disposition, sans dépendre des applications.</p>
-            <a href="sites/chauffeur-prestige.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Tester la démo VTC</a>
+            <a href="sites/chauffeur-prestige.html" data-base-href="sites/chauffeur-prestige.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo VTC</a>
           </div>
           <div class="case-img"><img src="project-chauffeur.jpg" alt="Prestige Drive Paris, site vitrine pour chauffeur privé VTC" loading="lazy" width="1200" height="750"></div>
         </article>
-        <article class="case" data-reveal>
+
+        <article class="case" data-sector="saas">
           <div>
-            <span class="tag">SaaS & Intelligence Artificielle</span>
+            <span class="tag">SaaS &amp; Intelligence Artificielle</span>
             <h2>Devis-AI</h2>
-            <p>Outil SaaS complet développé sur mesure pour les indépendants et professionnels du BTP. L'application intègre une interface moderne et réactive, une gestion d'authentification et de profils, une base de données chiffrée et un moteur d'intelligence artificielle automatisant la création de devis complexes.</p>
+            <p>Outil SaaS complet développé sur mesure pour les indépendants et professionnels du BTP. L'application intègre une interface moderne et réactive, une gestion d'authentification et de profils, une base de données chiffrée et un moteur d'automatisation de devis complexes.</p>
             <a href="https://devis-ai.fr" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Visiter le SaaS en direct</a>
           </div>
-          <div class="case-img"><img src="devis-ai.jpg" alt="Devis-AI, plateforme SaaS de génération de devis par intelligence artificielle" loading="lazy" width="1200" height="750"></div>
+          <div class="case-img"><img src="devis-ai.jpg" alt="Devis-AI, plateforme SaaS de génération de devis" loading="lazy" width="1200" height="750"></div>
         </article>
+
       </div>
     </section>
+
     <section class="cta-band">
       <div class="container">
         <h2 class="h-lg" data-reveal>Un projet en tête ?</h2>
@@ -226,81 +360,72 @@
     </div>
   </footer>
 
-  
-  <script src="assets/maquettes-switcher.js?v=20261120_01"></script>
   <script>
     (function () {
-      const cat = (window.BMSMaquettes && window.BMSMaquettes.catalog) ? window.BMSMaquettes.catalog : [];
-      let currentFilter = 'all';
+      const dropdown = document.getElementById('sectorDropdown');
+      const shopInput = document.getElementById('customShopInput');
+      const openBtn = document.getElementById('openSelectedDemoBtn');
+      const articles = Array.from(document.querySelectorAll('#casesContainer .case'));
 
-      function getBrand() {
-        return (document.getElementById('publicCustomBrand')?.value || '').trim();
-      }
-
-      window.pickPublicCategory = function (id) {
-        currentFilter = id;
-        renderPublicShowcase();
+      const SECTOR_FILES = {
+        fastfood: 'sites/fastfood-smash.html',
+        restaurant: 'sites/restaurant-braise.html',
+        boulangerie: 'sites/boulangerie-patisserie.html',
+        barber: 'sites/barber-coiffure.html',
+        beaute: 'sites/institut-beaute.html',
+        pizzeria: 'sites/pizzeria-italien.html',
+        sushi: 'sites/sushi-asiatique.html',
+        garage: 'sites/garage-auto.html',
+        artisan: 'sites/artisan-elite.html',
+        depannage: 'sites/depannage-urgence.html',
+        commerce: 'sites/commerce-boutique.html',
+        vtc: 'sites/chauffeur-prestige.html'
       };
 
-      window.updatePublicShowcase = function () {
-        const b = getBrand();
-        try { sessionStorage.setItem('bms_demo_client_name', b); } catch (e) {}
-        renderPublicShowcase();
-      };
+      function updateView() {
+        const selected = dropdown.value;
+        const customName = (shopInput.value || '').trim();
+        try { sessionStorage.setItem('bms_demo_client_name', customName); } catch (e) {}
 
-      function renderPublicShowcase() {
-        const menuEl = document.getElementById('publicScrollingMenu');
-        const gridEl = document.getElementById('publicMaquettesGrid');
-        if (!menuEl || !gridEl) return;
-
-        const brand = getBrand();
-
-        const allBtn = `<button type="button" onclick="pickPublicCategory('all')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;border:1px solid ${currentFilter==='all'?'#3d6bff':'rgba(255,255,255,0.16)'};background:${currentFilter==='all'?'#3d6bff':'rgba(255,255,255,0.06)'};color:#fff;font-family:inherit;flex-shrink:0;">✨ Tous les métiers (${cat.length})</button>`;
-
-        const pills = cat.map(item => {
-          const active = currentFilter === item.id;
-          return `<button type="button" onclick="pickPublicCategory('${item.id}')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;border:1px solid ${active?'#3d6bff':'rgba(255,255,255,0.16)'};background:${active?'#3d6bff':'rgba(255,255,255,0.06)'};color:#fff;font-family:inherit;flex-shrink:0;">
-            <span>${item.icon}</span>
-            <span>${item.shortLabel}</span>
-          </button>`;
-        }).join('');
-
-        menuEl.innerHTML = allBtn + pills;
-
-        const filtered = currentFilter === 'all' ? cat : cat.filter(x => x.id === currentFilter);
-        gridEl.innerHTML = filtered.map(item => {
-          const href = `sites/${item.file}${brand ? '?client=' + encodeURIComponent(brand) : ''}`;
-          const displayTitle = brand ? `${brand} (${item.shortLabel})` : item.defaultBrand;
-          return `
-            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
-              <div>
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
-                  <span style="font-size:12px;font-weight:700;color:#60A5FA;background:rgba(59,130,246,0.15);padding:4px 10px;border-radius:999px;">${item.icon} ${item.label}</span>
-                  <span style="font-size:12px;font-weight:800;color:#34D399;">Dès ${item.price} €</span>
-                </div>
-                <h3 style="font-size:19px;font-weight:700;color:#fff;margin-bottom:6px;">${displayTitle}</h3>
-                <p style="font-size:13.5px;color:#94A3B8;margin-bottom:14px;">${item.tagline}</p>
-                <ul style="list-style:none;padding:0;margin:0 0 18px 0;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">
-                  ${item.features.map(f => `<li style="font-size:12.5px;color:#CBD5E1;padding:3px 0;">✓ ${f}</li>`).join('')}
-                </ul>
-              </div>
-              <a href="${href}" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;justify-content:center;text-align:center;">
-                Ouvrir la maquette ${item.shortLabel} ➔
-              </a>
-            </div>
-          `;
-        }).join('');
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        try {
-          const saved = sessionStorage.getItem('bms_demo_client_name');
-          if (saved && document.getElementById('publicCustomBrand')) {
-            document.getElementById('publicCustomBrand').value = saved;
+        articles.forEach(art => {
+          const sec = art.getAttribute('data-sector');
+          const visible = (selected === 'all') || (sec === selected);
+          if (visible) {
+            art.removeAttribute('hidden');
+          } else {
+            art.setAttribute('hidden', '');
           }
-        } catch (e) {}
-        renderPublicShowcase();
+
+          const titleEl = art.querySelector('h2[data-default-title]');
+          if (titleEl) {
+            titleEl.textContent = customName || titleEl.getAttribute('data-default-title');
+          }
+
+          const linkEl = art.querySelector('a.demo-link');
+          if (linkEl) {
+            const base = linkEl.getAttribute('data-base-href');
+            linkEl.href = customName ? `${base}?client=${encodeURIComponent(customName)}` : base;
+          }
+        });
+      }
+
+      dropdown.addEventListener('change', updateView);
+      shopInput.addEventListener('input', updateView);
+
+      openBtn.addEventListener('click', function () {
+        const selected = dropdown.value;
+        const customName = (shopInput.value || '').trim();
+        const targetSector = selected === 'all' ? 'fastfood' : selected;
+        const baseFile = SECTOR_FILES[targetSector] || 'sites/fastfood-smash.html';
+        const url = customName ? `${baseFile}?client=${encodeURIComponent(customName)}` : baseFile;
+        window.open(url, '_blank', 'noopener,noreferrer');
       });
+
+      try {
+        const saved = sessionStorage.getItem('bms_demo_client_name');
+        if (saved) shopInput.value = saved;
+      } catch (e) {}
+      updateView();
     })();
   </script>
   <script src="main.js"></script>

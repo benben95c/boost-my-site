@@ -7,7 +7,7 @@
   <meta name="description" content="Dépannage d'urgence en 30 minutes : Plomberie, Serrurerie et Électricité. Tarifs fixes annoncés avant intervention et agréés assurances.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #F8FAFC;
@@ -20,7 +20,7 @@
       --ink: #0F172A;
       --muted: #64748B;
       --border: #E2E8F0;
-      --font-head: 'Space Grotesk', sans-serif;
+      --font-head: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -210,34 +210,34 @@
 <body>
 
   <div class="urgent-bar">
-    🚨 Technicien de garde disponible dans votre secteur • Arrivée sur place en 25 à 35 minutes (24h/24 &amp; 7j/7)
+    Technicien de garde disponible dans votre secteur • Arrivée sur place en 25 à 35 minutes (24h/24 &amp; 7j/7)
   </div>
 
   <header>
     <div class="container nav-bar">
       <a href="#" class="brand" data-bms-brand>SOS Artisans Express</a>
-      <a href="tel:0698727247" class="btn-call">📞 Urgence 24/7 : 06 98 72 72 47</a>
+      <a href="tel:0698727247" class="btn-call">Urgence 24/7 : 06 98 72 72 47</a>
     </div>
   </header>
 
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="badge-trust">🛡️ Artisans Certifiés &amp; Agréés Assurances Habitation</span>
+        <span class="badge-trust">️ Artisans Certifiés &amp; Agréés Assurances Habitation</span>
         <h1>Dépannage d'urgence à <span>tarif fixe garanti d'avance</span>.</h1>
         <p>Fini les mauvaises surprises : sélectionnez votre panne dans notre simulateur officiel ci-contre pour connaître le prix exact TTC (déplacement et main-d'œuvre inclus) avant même le départ du technicien.</p>
 
         <div class="guarantees">
           <div class="g-box">
-            <strong>⚡ Arrivée en 30 min</strong>
+            <strong>Arrivée en 30 min</strong>
             <span>Géolocalisation de l'artisan le plus proche</span>
           </div>
           <div class="g-box">
-            <strong>💶 Devis 0 € &amp; Prix Fixe</strong>
+            <strong>Devis 0 € &amp; Prix Fixe</strong>
             <span>Aucun supplément caché sur place</span>
           </div>
           <div class="g-box">
-            <strong>🏦 Remboursé Assurance</strong>
+            <strong>Remboursé Assurance</strong>
             <span>Facture conforme Macif, AXA, MAIF, Allianz...</span>
           </div>
           <div class="g-box">
@@ -252,9 +252,9 @@
         <div style="font-weight:800; font-size:16px; margin-bottom:10px;">Simulateur de Tarif Fixe Avant Déplacement</div>
 
         <div class="trade-tabs">
-          <button type="button" class="t-tab active" onclick="switchTrade('serrurier', this)">🔑 Serrurerie</button>
-          <button type="button" class="t-tab" onclick="switchTrade('plombier', this)">🚰 Plomberie</button>
-          <button type="button" class="t-tab" onclick="switchTrade('elec', this)">⚡ Électricité</button>
+          <button type="button" class="t-tab active" onclick="switchTrade('serrurier', this)">Serrurerie</button>
+          <button type="button" class="t-tab" onclick="switchTrade('plombier', this)">Plomberie</button>
+          <button type="button" class="t-tab" onclick="switchTrade('elec', this)">Électricité</button>
         </div>
 
         <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">Quelle est votre urgence ?</label>
@@ -276,7 +276,7 @@
         <input type="tel" id="emClientPhone" class="inp" placeholder="Votre Téléphone portable">
 
         <button type="button" onclick="confirmEmergencyDispatch()" style="width:100%; background:var(--blue); color:#fff; border:none; padding:13px; border-radius:10px; font-weight:800; font-size:14px; cursor:pointer;">
-          🚀 Envoyer l'artisan maintenant (Arrivée ~25 min)
+          Envoyer l'artisan maintenant (Arrivée ~25 min)
         </button>
         <div id="emConfirmBox" style="display:none; margin-top:12px; padding:12px; background:#DCFCE7; color:#166534; border-radius:8px; font-size:12.5px; font-weight:600;"></div>
       </div>
@@ -336,11 +336,11 @@
       const price = document.getElementById('emergencyPriceVal').textContent;
       const box = document.getElementById('emConfirmBox');
       box.style.display = 'block';
-      box.innerHTML = `🚨 Demande d'intervention prioritaire transmise pour <strong>${addr}</strong> au tarif fixe garanti de <strong>${price}</strong>. Notre technicien vous appelle dans moins de 2 minutes !`;
+      box.innerHTML = `Demande d'intervention prioritaire transmise pour <strong>${addr}</strong> au tarif fixe garanti de <strong>${price}</strong>. Notre technicien vous appelle dans moins de 2 minutes !`;
     }
 
     switchTrade('serrurier');
   </script>
-  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
 </html>

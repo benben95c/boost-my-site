@@ -7,7 +7,7 @@
   <meta name="description" content="Garage automobile indépendant toutes marques. Révision garantie constructeur préservée, freinage, pneumatiques, diagnostic électronique et véhicules d'occasion garantis.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #F4F6F9;
@@ -18,7 +18,7 @@
       --orange: #EA580C;
       --orange-dark: #C2410C;
       --border: #E2E8F0;
-      --font-head: 'Space Grotesk', sans-serif;
+      --font-head: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -260,14 +260,14 @@
         <li><a href="#occasions">Véhicules d'Occasion</a></li>
         <li><a href="#devis">Prendre RDV Atelier</a></li>
       </ul>
-      <a href="#devis" class="btn-orange">🔧 Devis &amp; RDV Atelier</a>
+      <a href="#devis" class="btn-orange">Devis &amp; RDV Atelier</a>
     </div>
   </header>
 
   <section class="hero" id="devis">
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow">🔧 Atelier Multimaster • Garantie Constructeur Préservée</span>
+        <span class="eyebrow">Atelier Multimaster • Garantie Constructeur Préservée</span>
         <h1>Votre entretien auto au prix juste, <span>sans mauvaise surprise</span>.</h1>
         <p>Révision certifiée, freinage, pneumatiques, distribution et diagnostic valise électronique. Simulez votre forfait d'intervention en direct et réservez votre créneau atelier avec prêt de véhicule.</p>
         <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.12);">
@@ -309,7 +309,7 @@
         </div>
 
         <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; margin-bottom:14px; cursor:pointer;">
-          <input type="checkbox" id="courtesyCar" checked> 🚗 Demander un véhicule de prêt gratuit pendant l'intervention
+          <input type="checkbox" id="courtesyCar" checked> Demander un véhicule de prêt gratuit pendant l'intervention
         </label>
 
         <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg); padding:12px 14px; border-radius:10px; margin-bottom:14px;">
@@ -416,9 +416,9 @@
       const loan = document.getElementById('courtesyCar').checked ? ' (avec véhicule de prêt réservé)' : '';
       const msg = document.getElementById('garageConfirmMsg');
       msg.style.display = 'block';
-      msg.innerHTML = `✅ Rendez-vous atelier enregistré pour l'immatriculation <strong>${plate}</strong> : <em>${srvText}</em>${loan}. Notre chef d'atelier vous confirme l'heure par SMS.`;
+      msg.innerHTML = `Rendez-vous atelier enregistré pour l'immatriculation <strong>${plate}</strong> : <em>${srvText}</em>${loan}. Notre chef d'atelier vous confirme l'heure par SMS.`;
     }
   </script>
-  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
 </html>

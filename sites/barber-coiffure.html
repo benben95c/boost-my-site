@@ -7,7 +7,7 @@
   <meta name="description" content="Salon de coiffure et Barber Shop. Coupe sur-mesure, dégradé américain, taille de barbe à la serviette chaude et réservation en ligne en 30 secondes.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0D0E11;
@@ -18,7 +18,7 @@
       --brass: #D4AF37;
       --brass-dark: #B59024;
       --border: #2B2F3A;
-      --font-head: 'Space Grotesk', sans-serif;
+      --font-head: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -357,7 +357,7 @@
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow">💈 Barber Shop &amp; Studio Visagiste • Sans Attente</span>
+        <span class="eyebrow">Barber Shop &amp; Studio Visagiste • Sans Attente</span>
         <h1>Précision au rasoir. <span>Réservation en 30 secondes.</span></h1>
         <p>Dégradé américain millimétré, taille de barbe traditionnelle à la serviette chaude et soins visagistes. Choisissez votre barbier et bloquez votre créneau en direct 24h/24.</p>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
@@ -369,7 +369,7 @@
             <span>Créneau garanti à l'heure</span>
           </div>
           <div>
-            <strong>4,9 / 5 ★</strong>
+            <strong>4,9 / 5 </strong>
             <span>+580 avis Google vérifiés</span>
           </div>
           <div>
@@ -407,9 +407,9 @@
 
           <label style="font-size:12px; font-weight:700; display:block; margin-bottom:6px;">2. Choisissez votre Barbier / Coiffeur</label>
           <div class="barber-grid">
-            <div class="barber-chip active" onclick="pickBarber('Karim (Master)', this)">💈 Karim<br><span style="font-size:10px;color:var(--muted);">Master Barber</span></div>
-            <div class="barber-chip" onclick="pickBarber('Lucas (Fade)', this)">✂️ Lucas<br><span style="font-size:10px;color:var(--muted);">Expert Taper</span></div>
-            <div class="barber-chip" onclick="pickBarber('Sofia (Studio)', this)">✨ Sofia<br><span style="font-size:10px;color:var(--muted);">Visagiste</span></div>
+            <div class="barber-chip active" onclick="pickBarber('Karim (Master)', this)">Karim<br><span style="font-size:10px;color:var(--muted);">Master Barber</span></div>
+            <div class="barber-chip" onclick="pickBarber('Lucas (Fade)', this)">️ Lucas<br><span style="font-size:10px;color:var(--muted);">Expert Taper</span></div>
+            <div class="barber-chip" onclick="pickBarber('Sofia (Studio)', this)">Sofia<br><span style="font-size:10px;color:var(--muted);">Visagiste</span></div>
           </div>
 
           <label style="font-size:12px; font-weight:700; display:block; margin-bottom:6px;">3. Créneaux disponibles aujourd'hui / demain</label>
@@ -514,11 +514,11 @@
       const name = document.getElementById('barberClientName').value.trim() || 'Client';
       const box = document.getElementById('barberConfirmBox');
       box.style.display = 'block';
-      box.innerHTML = `✅ Rendez-vous confirmé pour <strong>${name}</strong> à <strong>${selectedSlot}</strong> avec <strong>${selectedBarber}</strong> (${selectedSrv.name} — ${selectedSrv.price} €). Un SMS de rappel vous a été envoyé !`;
+      box.innerHTML = `Rendez-vous confirmé pour <strong>${name}</strong> à <strong>${selectedSlot}</strong> avec <strong>${selectedBarber}</strong> (${selectedSrv.name} — ${selectedSrv.price} €). Un SMS de rappel vous a été envoyé !`;
     }
 
     renderBarberServices();
   </script>
-  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
 </html>

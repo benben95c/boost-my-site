@@ -271,7 +271,7 @@
 <body>
 
   <div class="promo-strip">
-    🍕 <strong>Offre Directe sur notre site :</strong> 0% commission UberEats + Votre 10ème Pizza Napolitaine Offerte à emporter !
+    <strong>Offre Directe sur notre site :</strong> 0% commission UberEats + Votre 10ème Pizza Napolitaine Offerte à emporter !
   </div>
 
   <header>
@@ -283,7 +283,7 @@
         <li><a href="#table">Réserver une Table</a></li>
       </ul>
       <button type="button" class="btn-tomato" onclick="openPizzaCart()">
-        <span>🍕 Commande Sortie du Four</span>
+        <span>Commande Sortie du Four</span>
         <span id="pizzaCartCount" style="background:#fff; color:var(--tomato); padding:1px 7px; border-radius:999px; font-size:11.5px;">0</span>
       </button>
     </div>
@@ -292,7 +292,7 @@
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow">🔥 Four à Bois Stefano Ferrara 485°C • Pâte Maturée 72h</span>
+        <span class="eyebrow">Four à Bois Stefano Ferrara 485°C • Pâte Maturée 72h</span>
         <h1>L'authentique Pizza Napolitaine, <em>chaude à la minute</em>.</h1>
         <p>Farine Caputo Nuvola, tomates San Marzano DOP, Fior di Latte d'Agerola et Burrata des Pouilles. Commandez en ligne et récupérez vos pizzas brûlantes à l'heure exacte de sortie du four.</p>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
@@ -315,9 +315,9 @@
       </div>
 
       <div class="pizza-tabs">
-        <button type="button" class="p-tab active" onclick="filterPizza('pizza', this)">🍕 Pizzas Napolitaines</button>
-        <button type="button" class="p-tab" onclick="filterPizza('pasta', this)">🍝 Pasta &amp; Antipasti</button>
-        <button type="button" class="p-tab" onclick="filterPizza('dolci', this)">🍮 Dolci Maison</button>
+        <button type="button" class="p-tab active" onclick="filterPizza('pizza', this)">Pizzas Napolitaines</button>
+        <button type="button" class="p-tab" onclick="filterPizza('pasta', this)">Pasta &amp; Antipasti</button>
+        <button type="button" class="p-tab" onclick="filterPizza('dolci', this)">Dolci Maison</button>
       </div>
 
       <div class="pizza-grid" id="pizzaGrid"></div>
@@ -371,7 +371,7 @@
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <h3 style="font-family:var(--font-serif); font-size:24px;">Commande Sortie du Four</h3>
-        <button type="button" onclick="closePizzaCart()" style="background:none;border:none;font-size:20px;cursor:pointer;">✕</button>
+        <button type="button" onclick="closePizzaCart()" style="background:none;border:none;font-size:20px;cursor:pointer;"></button>
       </div>
       <div id="pizzaCartList"></div>
       <div style="margin:12px 0; padding:10px; background:var(--warm); border-radius:8px; font-size:12.5px;">
@@ -473,7 +473,7 @@
       const slot = document.getElementById('pizzaPickupSlot').value;
       const msg = document.getElementById('pizzaOrderMsg');
       msg.style.display = 'block';
-      msg.innerHTML = `🔥 Commande reçue au four pour <strong>${client}</strong> (${slot}). Vos pizzas seront enfournées à la minute !`;
+      msg.innerHTML = `Commande reçue au four pour <strong>${client}</strong> (${slot}). Vos pizzas seront enfournées à la minute !`;
       pizzaCart = [];
       document.getElementById('pizzaCartCount').textContent = '0';
     }
@@ -485,11 +485,11 @@
       const time = document.getElementById('pizResTime').value;
       const msg = document.getElementById('pizTableMsg');
       msg.style.display = 'block';
-      msg.innerHTML = `✅ Table réservée pour <strong>${name}</strong> (${guests} • ${zone} • ${time}). À très vite chez Forno Napoli !`;
+      msg.innerHTML = `Table réservée pour <strong>${name}</strong> (${guests} • ${zone} • ${time}). À très vite chez Forno Napoli !`;
     }
 
     filterPizza('pizza');
   </script>
-  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
 </html>

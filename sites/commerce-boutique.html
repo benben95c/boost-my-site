@@ -264,7 +264,7 @@
         <li><a href="#calculateur">Calculateur Réception</a></li>
       </ul>
       <button type="button" class="btn-burgundy" onclick="openShopCart()">
-        <span>🛍️ Panier Boutique</span>
+        <span>️ Panier Boutique</span>
         <span id="shopCartCount" style="background:#fff; color:var(--burgundy); padding:1px 7px; border-radius:999px; font-size:11.5px;">0</span>
       </button>
     </div>
@@ -273,7 +273,7 @@
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow">🥩 Artisan Boucher-Traiteur • Élevages Fermiers Label Rouge</span>
+        <span class="eyebrow">Artisan Boucher-Traiteur • Élevages Fermiers Label Rouge</span>
         <h1>Le meilleur de votre commerce de quartier, <em>préparé d'avance</em>.</h1>
         <p>Réservez votre poulet fermier rôti du dimanche, vos colis de viandes maturées ou vos plateaux traiteur directement en ligne. Retrait prioritaire en boutique sans faire la queue.</p>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
@@ -296,9 +296,9 @@
       </div>
 
       <div class="shop-tabs">
-        <button type="button" class="sh-tab active" onclick="filterShop('colis', this)">🥩 Colis Boucherie &amp; Grill</button>
-        <button type="button" class="sh-tab" onclick="filterShop('rotisserie', this)">🍗 Rôtisserie du Week-End</button>
-        <button type="button" class="sh-tab" onclick="filterShop('traiteur', this)">🧀 Plateaux Traiteur &amp; Épicerie</button>
+        <button type="button" class="sh-tab active" onclick="filterShop('colis', this)">Colis Boucherie &amp; Grill</button>
+        <button type="button" class="sh-tab" onclick="filterShop('rotisserie', this)">Rôtisserie du Week-End</button>
+        <button type="button" class="sh-tab" onclick="filterShop('traiteur', this)">Plateaux Traiteur &amp; Épicerie</button>
       </div>
 
       <div class="shop-grid" id="shopGrid"></div>
@@ -324,7 +324,7 @@
 
           <label style="font-size:12.5px; font-weight:700; display:block; margin-bottom:6px;">Nombre de convives : <strong id="guestsValLabel">8 personnes</strong></label>
           <input type="range" id="guestsRange" min="4" max="30" value="8" style="width:100%; margin-bottom:14px;" oninput="updatePortionCalc()">
-          <p style="font-size:12.5px; color:var(--muted);">✓ Découpe artisanale à la demande • ✓ Conseils de cuisson du chef inclus</p>
+          <p style="font-size:12.5px; color:var(--muted);">Découpe artisanale à la demande • Conseils de cuisson du chef inclus</p>
         </div>
 
         <div style="background:var(--warm); border:1px solid var(--border); border-radius:14px; padding:24px; text-align:center;">
@@ -350,7 +350,7 @@
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <h3 style="font-family:var(--font-serif); font-size:24px;">Votre Panier Boutique</h3>
-        <button type="button" onclick="closeShopCart()" style="background:none;border:none;font-size:20px;cursor:pointer;">✕</button>
+        <button type="button" onclick="closeShopCart()" style="background:none;border:none;font-size:20px;cursor:pointer;"></button>
       </div>
       <div id="shopCartList"></div>
       <div style="display:flex; justify-content:space-between; font-weight:800; font-size:17px; margin:14px 0;">
@@ -464,7 +464,7 @@
       const slot = document.getElementById('shopSlot').value;
       const msg = document.getElementById('shopOrderMsg');
       msg.style.display = 'block';
-      msg.innerHTML = `✅ Commande enregistrée pour <strong>${client}</strong> (${slot}). Votre colis vous attendra prêt au comptoir Coupe-File !`;
+      msg.innerHTML = `Commande enregistrée pour <strong>${client}</strong> (${slot}). Votre colis vous attendra prêt au comptoir Coupe-File !`;
       shopCart = [];
       document.getElementById('shopCartCount').textContent = '0';
     }
@@ -472,6 +472,6 @@
     filterShop('colis');
     updatePortionCalc();
   </script>
-  <script src="../assets/maquettes-switcher.js?v=20261120_01"></script>
+  <script src="../assets/maquettes-switcher.js?v=20261120_02"></script>
 </body>
 </html>
