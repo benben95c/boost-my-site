@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Travail Terrain &amp; Objectifs Équipe — BoostMySite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F172A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="app-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --ink: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --green: #16A34A;
+      --green-soft: #DCFCE7;
+      --blue: #2563EB;
+      --blue-soft: #DBEAFE;
+      --amber: #D97706;
+      --amber-soft: #FEF3C7;
+      --red: #DC2626;
+      --red-soft: #FEE2E2;
+      --purple: #7C3AED;
+      --purple-soft: #EDE9FE;
+      --slate-soft: #F1F5F9;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+      padding-bottom: calc(70px + var(--safe-bottom));
+      min-height: 100vh;
+    }
+
+    /* VERROUILLAGE PIN */
+    .pin-lock-overlay {
+      position: fixed;
+      inset: 0;
+      background: #0F172A;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .pin-box {
+      width: 100%;
+      max-width: 310px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: #fff;
+    }
+    .pin-dots { display: flex; gap: 14px; margin: 10px 0 18px; }
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #475569;
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .pin-dot.filled { background: #10B981; border-color: #10B981; }
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+    .pin-key {
+      background: #1E293B;
+      border: 1px solid #334155;
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+      padding: 15px 0;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .pin-key:active { background: #334155; transform: scale(0.97); }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0F172A;
+      color: #fff;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #1E293B;
+    }
+    .app-switch {
+      display: inline-flex;
+      background: #1E293B;
+      padding: 3px;
+      border-radius: 9px;
+      gap: 2px;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+    .app-switch a {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 7px;
+      white-space: nowrap;
+    }
+    .app-switch a.active { background: var(--green); color: #fff; }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .btn-top {
+      background: #1E293B;
+      color: #fff;
+      border: 1px solid #334155;
+      border-radius: 7px;
+      padding: 6px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-top:hover { background: #334155; }
+    .btn-top-green { background: var(--green); border-color: var(--green); }
+    .btn-top-green:hover { background: #15803D; }
+
+    .container {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    @media (max-width: 600px) { .container { padding: 12px; } }
+
+    /* BANDEAU JOUR & STATS EQUIPE */
+    .day-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .day-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .date-inp {
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    .team-total-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0F172A;
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .team-total-pill strong { color: #4ADE80; font-size: 14px; }
+
+    /* CARTES OBJECTIFS 3 DEMARCHEURS */
+    .reps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 900px) { .reps-grid { grid-template-columns: 1fr; } }
+
+    .rep-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.18s;
+      position: relative;
+    }
+    .rep-card:hover { border-color: #94A3B8; }
+    .rep-card.active {
+      border-color: var(--ink);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+    .rep-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .rep-identity { display: flex; align-items: center; gap: 10px; }
+    .rep-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .rep-name { font-size: 15px; font-weight: 800; line-height: 1.2; }
+    .rep-hours-label { font-size: 11px; color: var(--muted); font-weight: 500; }
+    .rep-score { text-align: right; }
+    .rep-score strong { font-size: 20px; font-weight: 800; display: block; line-height: 1; }
+    .rep-score span { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+    .progress-track {
+      height: 8px;
+      background: var(--slate-soft);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .rep-mini-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .goal-badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+
+    /* WORKSPACE EN 2 COLONNES (HORAIRES + SAISIE | JOURNAL & RELANCES) */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 1040px) { .work-grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+    .panel-title h2 { font-size: 14.5px; font-weight: 800; color: var(--ink); }
+    .panel-sub { font-size: 11.5px; color: var(--muted); }
+
+    /* HORAIRES POINTAGE */
+    .rep-pill-switch {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .rep-btn {
+      padding: 8px 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--muted);
+    }
+    .rep-btn.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .field-lbl {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .inp, .sel, .ta {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+    .inp:focus, .sel:focus, .ta:focus { border-color: var(--ink); }
+    .punch-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .btn-punch {
+      padding: 7px 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-punch:hover { background: var(--slate-soft); }
+    .hours-summary-bar {
+      background: var(--slate-soft);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* STATUTS CLIENT BOUTONS */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .outcome-btn {
+      padding: 9px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink);
+      transition: all 0.15s;
+    }
+    .outcome-btn.active[data-st="interesse"] { background: #FFF7ED; border-color: #EA580C; color: #9A3412; }
+    .outcome-btn.active[data-st="signe"] { background: var(--green-soft); border-color: var(--green); color: #166534; }
+    .outcome-btn.active[data-st="rappeler"] { background: var(--amber-soft); border-color: var(--amber); color: #92400E; }
+    .outcome-btn.active[data-st="absent"] { background: var(--blue-soft); border-color: var(--blue); color: #1E40AF; }
+    .outcome-btn.active[data-st="refus"] { background: var(--red-soft); border-color: var(--red); color: #991B1B; }
+
+    .quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 6px 0 10px;
+    }
+    .qchip {
+      background: var(--slate-soft);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .qchip:hover { border-color: var(--ink); }
+
+    .btn-save {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 9px;
+      background: var(--green);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-save:hover { background: #15803D; }
+
+    /* FILTRES & LISTE JOURNAL */
+    .filter-toolbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .filter-row-top {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+    }
+    @media (max-width: 680px) { .filter-row-top { grid-template-columns: 1fr; } }
+    .pills-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .f-pill {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .f-pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    /* CARTES PASSAGES CLIENTS */
+    .visits-list { display: flex; flex-direction: column; gap: 10px; }
+    .visit-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .visit-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .visit-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .rep-badge {
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .time-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--muted);
+      background: var(--slate-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .st-badge {
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .st-interesse { background: #FFEDD5; color: #9A3412; }
+    .st-signe { background: var(--green-soft); color: #166534; }
+    .st-rappeler { background: var(--amber-soft); color: #92400E; }
+    .st-absent { background: var(--blue-soft); color: #1E40AF; }
+    .st-refus { background: var(--red-soft); color: #991B1B; }
+
+    .visit-shop { font-size: 15.5px; font-weight: 800; color: var(--ink); }
+    .visit-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .visit-meta a { color: var(--blue); text-decoration: none; font-weight: 600; }
+    .visit-answer {
+      background: var(--bg);
+      border-left: 3px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .visit-recall-tag {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #92400E;
+      background: var(--amber-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .visit-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .v-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .v-btn:hover { background: var(--slate-soft); }
+    .v-btn.wa { border-color: #BBF7D0; background: #F0FDF4; color: #166534; }
+    .v-btn.suivi { border-color: #DDD6FE; background: #F5F3FF; color: #5B21B6; }
+    .v-btn.del { color: var(--red); border-color: #FECACA; }
+
+    /* TABLEAU RECAP HORAIRES EQUIPE */
+    .hours-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 820px) { .hours-overview-grid { grid-template-columns: 1fr; } }
+    .hour-mini-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .hour-mini-card strong { display: block; font-size: 13px; margin-bottom: 3px; }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0F172A;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s;
+      z-index: 999;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* MODAL SYNC BILAN */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 200;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: #fff;
+      border-radius: 14px;
+      max-width: 520px;
+      width: 100%;
+      padding: 22px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VERROUILLAGE PIN -->
+  <div id="pinLockScreen" class="pin-lock-overlay">
+    <div class="pin-box">
+      <div style="font-size:18px; font-weight:800;">BoostMySite — Travail Équipe</div>
+      <div style="font-size:13px; color:#94A3B8; text-align:center;">Objectifs 15 démarchages &amp; suivi terrain</div>
+      <div class="pin-dots">
+        <span class="pin-dot" id="pDot0"></span>
+        <span class="pin-dot" id="pDot1"></span>
+        <span class="pin-dot" id="pDot2"></span>
+        <span class="pin-dot" id="pDot3"></span>
+      </div>
+      <div class="pin-keypad">
+        <button type="button" class="pin-key" onclick="pressPin('1')">1</button>
+        <button type="button" class="pin-key" onclick="pressPin('2')">2</button>
+        <button type="button" class="pin-key" onclick="pressPin('3')">3</button>
+        <button type="button" class="pin-key" onclick="pressPin('4')">4</button>
+        <button type="button" class="pin-key" onclick="pressPin('5')">5</button>
+        <button type="button" class="pin-key" onclick="pressPin('6')">6</button>
+        <button type="button" class="pin-key" onclick="pressPin('7')">7</button>
+        <button type="button" class="pin-key" onclick="pressPin('8')">8</button>
+        <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
+        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:13px; color:#94A3B8;">C</button>
+        <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
+        <button type="button" class="pin-key" onclick="backspacePin()" style="font-size:15px;">⌫</button>
+      </div>
+      <a href="../index.html" style="color:#64748B; font-size:12px; text-decoration:none;">Retour au site public</a>
+    </div>
+  </div>
+
+  <header>
+    <div class="app-switch">
+      <a href="tournee-clients.html">Carte</a>
+      <a href="maquettes.html">Maquettes</a>
+      <a href="devis-express.html">Devis</a>
+      <a href="suivi-projets.html">Suivi</a>
+      <a href="travail.html" class="active">Travail</a>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn-top" onclick="importFromCarte()">⬇ Importer Carte</button>
+      <button type="button" class="btn-top" onclick="exportCsvReport()">📊 CSV Excel</button>
+      <button type="button" class="btn-top btn-top-green" onclick="openShareSyncModal()">📤 Bilan &amp; Synchro Équipe</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- BARRE DATE & OBJECTIF GLOBAL -->
+    <div class="day-bar">
+      <div class="day-controls">
+        <span style="font-size:12.5px; font-weight:700; color:var(--muted);">Journée suivie :</span>
+        <input type="date" id="activeDateInp" class="date-inp" onchange="onActiveDateChange()">
+        <button type="button" class="f-pill" onclick="jumpToToday()">Aujourd'hui</button>
+        <span id="viewRepLabel" style="font-size:12.5px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="filterByRep('all')">Voir toute l'équipe</span>
+      </div>
+      <div class="team-total-pill">
+        <span>Objectif Équipe du jour :</span>
+        <strong id="teamTotalGoalText">0 / 45</strong>
+        <span id="teamSignedSummary" style="font-size:11.5px; color:#CBD5E1;"></span>
+      </div>
+    </div>
+
+    <!-- 3 CARTES OBJECTIFS DEMARCHEURS (15 CHACUN) -->
+    <div class="reps-grid" id="repsCardsContainer"></div>
+
+    <!-- GRILLE PRINCIPALE : HORAIRES + SAISIE | JOURNAL & FILTRES -->
+    <div class="work-grid">
+      <!-- COLONNE GAUCHE : POINTAGE HORAIRES & NOUVEAU PASSAGE CLIENT -->
+      <div>
+        <!-- BLOC 1 : HORAIRES DU DEMARCHEUR -->
+        <section class="panel">
+          <div class="panel-title">
+            <h2>🕐 Horaires &amp; Pointage — <span id="hoursRepTitle">Jalil</span></h2>
+            <span class="panel-sub" id="hoursDateBadge">Aujourd'hui</span>
+          </div>
+
+          <div class="rep-pill-switch" id="activeRepSwitch">
+            <button type="button" class="rep-btn active" onclick="selectActiveRep('Jalil')">Jalil</button>
+            <button type="button" class="rep-btn" onclick="selectActiveRep('Mehdi')">Mehdi</button>
+            <button type="button" class="rep-btn" onclick="selectActiveRep('Mino')">Mino</button>
+          </div>
+
+          <div class="punch-row">
+            <button type="button" class="btn-punch" onclick="punchNow('start')">▶ Pointer Début (Maintenant)</button>
+            <button type="button" class="btn-punch" onclick="punchNow('end')">⏹ Pointer Fin (Maintenant)</button>
+          </div>
+
+          <div class="hours-grid">
+            <div>
+              <label class="field-lbl" for="hrStart">Début terrain</label>
+              <input type="time" id="hrStart" class="inp" onchange="saveRepHours()">
+            </div>
+            <div>
+              <label class="field-lbl" for="hrEnd">Fin terrain</label>
+              <input type="time" id="hrEnd" class="inp" onchange="saveRepHours()">
+            </div>
+            <div>
+              <label class="field-lbl" for="hrBreakStart">Début pause</label>
+              <input type="time" id="hrBreakStart" class="inp" onchange="saveRepHours()">
+            </div>
+            <div>
+              <label class="field-lbl" for="hrBreakEnd">Fin pause</label>
+              <input type="time" id="hrBreakEnd" class="inp" onchange="saveRepHours()">
+            </div>
+          </div>
+
+          <div style="margin-bottom:10px;">
+            <label class="field-lbl" for="hrZone">Secteur / Ville prospecté aujourd'hui</label>
+            <input type="text" id="hrZone" class="inp" placeholder="Ex : Pontoise Centre, Cergy Préfecture..." onchange="saveRepHours()">
+          </div>
+
+          <div class="hours-summary-bar" id="hoursSummaryBar">
+            <span>Temps terrain : <strong>Non pointé</strong></span>
+            <span>Cadence : <strong>—</strong></span>
+          </div>
+        </section>
+
+        <!-- BLOC 2 : ENREGISTRER UN PASSAGE CLIENT -->
+        <section class="panel" id="visitFormPanel">
+          <div class="panel-title">
+            <h2 id="formHeading">📝 Nouveau Passage Client</h2>
+            <button type="button" id="cancelEditBtn" class="f-pill" style="display:none;" onclick="resetVisitForm()">Annuler modif</button>
+          </div>
+
+          <form id="visitLogForm" onsubmit="submitVisitForm(event)">
+            <input type="hidden" id="editVisitId" value="">
+
+            <div class="hours-grid">
+              <div>
+                <label class="field-lbl" for="vRep">Démarcheur *</label>
+                <select id="vRep" class="sel" onchange="syncActiveRepFromSelect()">
+                  <option value="Jalil">Jalil</option>
+                  <option value="Mehdi">Mehdi</option>
+                  <option value="Mino">Mino</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-lbl" for="vDateTime">Date &amp; heure du passage *</label>
+                <input type="datetime-local" id="vDateTime" class="inp" required>
+              </div>
+            </div>
+
+            <div style="margin-bottom:10px;">
+              <label class="field-lbl" for="vShop">Commerce / Client visité *</label>
+              <input type="text" id="vShop" class="inp" placeholder="Ex : Boulangerie Saint-Martin, Barber King..." required>
+            </div>
+
+            <div class="hours-grid">
+              <div>
+                <label class="field-lbl" for="vSector">Secteur d'activité</label>
+                <select id="vSector" class="sel">
+                  <option value="restaurant">Restaurant / Brasserie</option>
+                  <option value="fastfood">Fast-Food / Smash</option>
+                  <option value="boulangerie">Boulangerie / Pâtisserie</option>
+                  <option value="barber">Coiffeur / Barber</option>
+                  <option value="beaute">Institut / Onglerie</option>
+                  <option value="pizzeria">Pizzeria / Trattoria</option>
+                  <option value="sushi">Sushi / Poké</option>
+                  <option value="garage">Garage Auto</option>
+                  <option value="fleuriste">Fleuriste</option>
+                  <option value="commerce">Boucherie / Commerce</option>
+                  <option value="artisan">Artisan / BTP</option>
+                  <option value="depannage">Plombier / Serrurier</option>
+                  <option value="vtc">VTC / Transport</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-lbl" for="vContact">Interlocuteur vu</label>
+                <input type="text" id="vContact" class="inp" placeholder="Ex : Karim (Gérant)">
+              </div>
+            </div>
+
+            <div class="hours-grid">
+              <div>
+                <label class="field-lbl" for="vPhone">Téléphone client</label>
+                <input type="tel" id="vPhone" class="inp" placeholder="06 12 34 56 78">
+              </div>
+              <div>
+                <label class="field-lbl" for="vCity">Ville / Rue</label>
+                <input type="text" id="vCity" class="inp" placeholder="Pontoise, Cergy...">
+              </div>
+            </div>
+
+            <label class="field-lbl">Réponse du client *</label>
+            <div class="outcome-grid" id="outcomeBtnsGrid">
+              <button type="button" class="outcome-btn active" data-st="interesse" onclick="pickOutcome('interesse')">🔥 Intéressé</button>
+              <button type="button" class="outcome-btn" data-st="rappeler" onclick="pickOutcome('rappeler')">⏰ À rappeler</button>
+              <button type="button" class="outcome-btn" data-st="signe" onclick="pickOutcome('signe')">✅ Signé / Devis OK</button>
+              <button type="button" class="outcome-btn" data-st="absent" onclick="pickOutcome('absent')">🚪 Gérant absent</button>
+              <button type="button" class="outcome-btn" data-st="refus" onclick="pickOutcome('refus')">❌ Refus / Pas intéressé</button>
+            </div>
+
+            <div id="recallFieldWrap" style="display:none; margin-bottom:10px;">
+              <label class="field-lbl" for="vRecallAt">Date &amp; heure de rappel / repassage</label>
+              <input type="datetime-local" id="vRecallAt" class="inp">
+            </div>
+
+            <label class="field-lbl" for="vAnswer">Détail exact de sa réponse / Notes</label>
+            <div class="quick-chips">
+              <button type="button" class="qchip" onclick="appendAnswerChip('Maquette montrée sur place')">Maquette montrée</button>
+              <button type="button" class="qchip" onclick="appendAnswerChip('Lien envoyé par WhatsApp')">Envoyé WhatsApp</button>
+              <button type="button" class="qchip" onclick="appendAnswerChip('A déjà un site internet')">Déjà un site</button>
+              <button type="button" class="qchip" onclick="appendAnswerChip('Patron absent, carte laissée')">Carte laissée</button>
+              <button type="button" class="qchip" onclick="appendAnswerChip('Intéressé par Click & Collect 0%')">Veut Click &amp; Collect</button>
+              <button type="button" class="qchip" onclick="appendAnswerChip('Trop cher pour le moment')">Objection prix</button>
+            </div>
+            <textarea id="vAnswer" class="ta" rows="2" placeholder="Ex : Veut supprimer les 30% Uber Eats, rappeler mardi à 15h pour signer le devis 990 €..."></textarea>
+
+            <button type="submit" id="submitVisitBtn" class="btn-save" style="margin-top:12px;">
+              ✓ Enregistrer le démarchage (+1 objectif)
+            </button>
+          </form>
+        </section>
+      </div>
+
+      <!-- COLONNE DROITE : RECAP HORAIRES EQUIPE + FILTRES + JOURNAL DETAILLE -->
+      <div>
+        <!-- APERCU RAPIDE HORAIRES DES 3 DEMARCHEURS POUR LA DATE SELECTIONNEE -->
+        <div class="hours-overview-grid" id="teamHoursOverview"></div>
+
+        <!-- FILTRES JOURNAL -->
+        <div class="filter-toolbar">
+          <div class="filter-row-top">
+            <input type="text" id="searchJournal" class="inp" placeholder="🔍 Rechercher un commerce, gérant, ville, réponse..." oninput="renderJournal()">
+            <select id="periodFilter" class="sel" style="width:auto;" onchange="renderJournal()">
+              <option value="day">Journée sélectionnée</option>
+              <option value="week">7 derniers jours</option>
+              <option value="all">Tout l'historique</option>
+            </select>
+            <select id="repFilter" class="sel" style="width:auto;" onchange="renderJournal()">
+              <option value="all">Tous démarcheurs</option>
+              <option value="Jalil">Jalil uniquement</option>
+              <option value="Mehdi">Mehdi uniquement</option>
+              <option value="Mino">Mino uniquement</option>
+            </select>
+          </div>
+          <div class="pills-wrap" id="statusFilterPills">
+            <button type="button" class="f-pill active" onclick="setStatusFilter('all', this)">Toutes réponses</button>
+            <button type="button" class="f-pill" onclick="setStatusFilter('interesse', this)">🔥 Intéressés</button>
+            <button type="button" class="f-pill" onclick="setStatusFilter('rappeler', this)">⏰ À rappeler</button>
+            <button type="button" class="f-pill" onclick="setStatusFilter('signe', this)">✅ Signés</button>
+            <button type="button" class="f-pill" onclick="setStatusFilter('absent', this)">🚪 Absents</button>
+            <button type="button" class="f-pill" onclick="setStatusFilter('refus', this)">❌ Refus</button>
+          </div>
+        </div>
+
+        <div class="visits-list" id="visitsListContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PARTAGE & SYNCHRO MULTI-APPAREILS -->
+  <div id="syncModal" class="modal-backdrop" onclick="if(event.target===this)closeShareSyncModal()">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-size:16px; font-weight:800;">📤 Envoyer le Bilan &amp; Synchroniser l'Équipe</h3>
+        <button type="button" onclick="closeShareSyncModal()" style="background:none; border:none; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+      <p style="font-size:12.5px; color:var(--muted); margin-bottom:12px;">
+        Chaque démarcheur (Jalil, Mehdi, Mino) envoie son bilan du jour sur WhatsApp avec un <strong>lien de synchronisation</strong> : en l'ouvrant sur un autre téléphone ou PC, ses passages et horaires fusionnent automatiquement dans le tableau.
+      </p>
+
+      <div style="margin-bottom:10px;">
+        <label class="field-lbl" for="syncRepSelect">Démarcheur à exporter</label>
+        <select id="syncRepSelect" class="sel" onchange="buildSyncPayloadPreview()">
+          <option value="all">Toute l'équipe (Jalil + Mehdi + Mino)</option>
+          <option value="Jalil">Jalil uniquement</option>
+          <option value="Mehdi">Mehdi uniquement</option>
+          <option value="Mino">Mino uniquement</option>
+        </select>
+      </div>
+
+      <textarea id="syncTextPreview" class="ta" rows="8" readonly style="font-size:12px; background:var(--slate-soft); margin-bottom:12px;"></textarea>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
+        <button type="button" class="btn-save" style="padding:10px;" onclick="sendSyncWhatsApp()">💬 Envoyer sur WhatsApp</button>
+        <button type="button" class="v-btn" style="justify-content:center; padding:10px; font-weight:700;" onclick="copySyncMessage()">📋 Copier le bilan</button>
+      </div>
+
+      <div style="padding-top:10px; border-top:1px solid var(--border); display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+        <button type="button" class="v-btn" onclick="downloadBackupJson()">💾 Sauvegarde JSON</button>
+        <label class="v-btn" style="cursor:pointer;">
+          📥 Importer / Fusionner un JSON
+          <input type="file" accept=".json" style="display:none;" onchange="importBackupJson(event)">
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const REPS = [
+      { id: 'Jalil', color: '#2563EB', goal: 15 },
+      { id: 'Mehdi', color: '#7C3AED', goal: 15 },
+      { id: 'Mino',  color: '#D97706', goal: 15 }
+    ];
+    const DAILY_GOAL = 15;
+
+    const OUTCOME_LABELS = {
+      interesse: { label: 'Intéressé', ico: '🔥', cls: 'st-interesse' },
+      rappeler:  { label: 'À rappeler', ico: '⏰', cls: 'st-rappeler' },
+      signe:     { label: 'Signé / Devis OK', ico: '✅', cls: 'st-signe' },
+      absent:    { label: 'Gérant absent', ico: '🚪', cls: 'st-absent' },
+      refus:     { label: 'Refus', ico: '❌', cls: 'st-refus' }
+    };
+
+    const STORE_LOGS_KEY = 'bms_travail_logs_v1';
+    const STORE_HOURS_KEY = 'bms_travail_hours_v1';
+    const STORE_ACTIVE_REP_KEY = 'bms_travail_active_rep';
+
+    let visitLogs = [];
+    let hoursMap = {}; // { 'YYYY-MM-DD': { Jalil: { start, end, bStart, bEnd, zone }, ... } }
+    let activeRep = 'Jalil';
+    let selectedOutcome = 'interesse';
+    let statusFilter = 'all';
+
+    function todayIso() {
+      const d = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    }
+
+    function nowDateTimeLocal() {
+      const d = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function loadAllData() {
+      try {
+        const rawLogs = localStorage.getItem(STORE_LOGS_KEY);
+        visitLogs = rawLogs ? JSON.parse(rawLogs) : [];
+        if (!Array.isArray(visitLogs)) visitLogs = [];
+      } catch (e) { visitLogs = []; }
+
+      try {
+        const rawHrs = localStorage.getItem(STORE_HOURS_KEY);
+        hoursMap = rawHrs ? JSON.parse(rawHrs) : {};
+        if (!hoursMap || typeof hoursMap !== 'object') hoursMap = {};
+      } catch (e) { hoursMap = {}; }
+
+      try {
+        const savedRep = localStorage.getItem(STORE_ACTIVE_REP_KEY);
+        if (REPS.some(r => r.id === savedRep)) activeRep = savedRep;
+      } catch (e) {}
+    }
+
+    function saveAllData() {
+      try {
+        localStorage.setItem(STORE_LOGS_KEY, JSON.stringify(visitLogs));
+        localStorage.setItem(STORE_HOURS_KEY, JSON.stringify(hoursMap));
+      } catch (e) {}
+    }
+
+    function getActiveDate() {
+      return document.getElementById('activeDateInp').value || todayIso();
+    }
+
+    function onActiveDateChange() {
+      const dt = getActiveDate();
+      document.getElementById('hoursDateBadge').textContent = dt === todayIso() ? "Aujourd'hui" : dt;
+      loadRepHoursUI();
+      renderAll();
+    }
+
+    function jumpToToday() {
+      document.getElementById('activeDateInp').value = todayIso();
+      onActiveDateChange();
+    }
+
+    function selectActiveRep(repId) {
+      activeRep = repId;
+      try { localStorage.setItem(STORE_ACTIVE_REP_KEY, repId); } catch (e) {}
+      document.getElementById('vRep').value = repId;
+      document.getElementById('hoursRepTitle').textContent = repId;
+      document.querySelectorAll('#activeRepSwitch .rep-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim() === repId);
+      });
+      loadRepHoursUI();
+      renderRepCards();
+    }
+
+    function syncActiveRepFromSelect() {
+      selectActiveRep(document.getElementById('vRep').value);
+    }
+
+    /* =============== HORAIRES =============== */
+    function getHoursObj(dateStr, repId) {
+      return (hoursMap[dateStr] && hoursMap[dateStr][repId]) ? hoursMap[dateStr][repId] : { start: '', end: '', bStart: '', bEnd: '', zone: '' };
+    }
+
+    function calcWorkedMinutes(h) {
+      if (!h.start || !h.end) return null;
+      const toMin = str => {
+        const [hh, mm] = str.split(':').map(Number);
+        return hh * 60 + mm;
+      };
+      let total = toMin(h.end) - toMin(h.start);
+      if (total <= 0) return null;
+      if (h.bStart && h.bEnd) {
+        const pause = toMin(h.bEnd) - toMin(h.bStart);
+        if (pause > 0 && pause < total) total -= pause;
+      }
+      return total;
+    }
+
+    function formatMins(mins) {
+      if (mins === null || mins === undefined) return 'Non calculé';
+      const h = Math.floor(mins / 60);
+      const m = mins % 60;
+      return `${h}h${String(m).padStart(2, '0')}`;
+    }
+
+    function loadRepHoursUI() {
+      const h = getHoursObj(getActiveDate(), activeRep);
+      document.getElementById('hrStart').value = h.start || '';
+      document.getElementById('hrEnd').value = h.end || '';
+      document.getElementById('hrBreakStart').value = h.bStart || '';
+      document.getElementById('hrBreakEnd').value = h.bEnd || '';
+      document.getElementById('hrZone').value = h.zone || '';
+      updateHoursSummaryBar(h);
+    }
+
+    function saveRepHours() {
+      const d = getActiveDate();
+      if (!hoursMap[d]) hoursMap[d] = {};
+      const h = {
+        start: document.getElementById('hrStart').value,
+        end: document.getElementById('hrEnd').value,
+        bStart: document.getElementById('hrBreakStart').value,
+        bEnd: document.getElementById('hrBreakEnd').value,
+        zone: document.getElementById('hrZone').value.trim()
+      };
+      hoursMap[d][activeRep] = h;
+      saveAllData();
+      updateHoursSummaryBar(h);
+      renderRepCards();
+      renderTeamHoursOverview();
+    }
+
+    function punchNow(field) {
+      const d = new Date();
+      const hhmm = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+      if (field === 'start') document.getElementById('hrStart').value = hhmm;
+      if (field === 'end') document.getElementById('hrEnd').value = hhmm;
+      saveRepHours();
+      showToast(`⏱️ ${activeRep} pointé (${field === 'start' ? 'début' : 'fin'}) à ${hhmm}`);
+    }
+
+    function updateHoursSummaryBar(h) {
+      const d = getActiveDate();
+      const count = visitLogs.filter(v => v.rep === activeRep && (v.visitedAt || '').slice(0, 10) === d).length;
+      const mins = calcWorkedMinutes(h);
+      const durText = mins !== null ? formatMins(mins) : (h.start ? `En cours dès ${h.start}` : 'Non pointé');
+      let rateText = '—';
+      if (mins && mins >= 30 && count > 0) {
+        rateText = (count / (mins / 60)).toFixed(1).replace('.', ',') + ' visites/h';
+      }
+      document.getElementById('hoursSummaryBar').innerHTML = `
+        <span>Temps terrain : <strong>${esc(durText)}</strong></span>
+        <span>Cadence : <strong>${esc(rateText)}</strong></span>
+      `;
+    }
+
+    /* =============== DASHBOARD 3 DEMARCHEURS (OBJECTIF 15 CHACUN) =============== */
+    function renderRepCards() {
+      const d = getActiveDate();
+      let teamDayTotal = 0;
+      let teamInterested = 0;
+      let teamSigned = 0;
+
+      const html = REPS.map(rep => {
+        const dayLogs = visitLogs.filter(v => v.rep === rep.id && (v.visitedAt || '').slice(0, 10) === d);
+        const count = dayLogs.length;
+        teamDayTotal += count;
+
+        const inter = dayLogs.filter(v => v.outcome === 'interesse').length;
+        const rec = dayLogs.filter(v => v.outcome === 'rappeler').length;
+        const sig = dayLogs.filter(v => v.outcome === 'signe').length;
+        teamInterested += inter;
+        teamSigned += sig;
+
+        const pct = Math.min(100, Math.round((count / DAILY_GOAL) * 100));
+        const reached = count >= DAILY_GOAL;
+        const h = getHoursObj(d, rep.id);
+        const mins = calcWorkedMinutes(h);
+        const hourTxt = h.start
+          ? (h.end ? `${h.start} → ${h.end} (${formatMins(mins)})` : `En cours dès ${h.start}`)
+          : 'Horaires non pointés';
+
+        const badgeHtml = reached
+          ? `<span class="goal-badge" style="background:#DCFCE7;color:#166534;">🎯 Objectif atteint (${count}/15)</span>`
+          : `<span class="goal-badge" style="background:#F1F5F9;color:#475569;">Reste ${DAILY_GOAL - count} avant 15</span>`;
+
+        return `
+          <div class="rep-card ${activeRep === rep.id ? 'active' : ''}" onclick="selectActiveRep('${rep.id}'); filterByRep('${rep.id}');">
+            <div class="rep-top">
+              <div class="rep-identity">
+                <div class="rep-avatar" style="background:${rep.color};">${rep.id.slice(0, 1)}</div>
+                <div>
+                  <div class="rep-name">${rep.id}</div>
+                  <div class="rep-hours-label">🕐 ${esc(hourTxt)}${h.zone ? ' · ' + esc(h.zone) : ''}</div>
+                </div>
+              </div>
+              <div class="rep-score">
+                <strong style="color:${reached ? 'var(--green)' : rep.color};">${count}<span style="font-size:13px;color:var(--muted);font-weight:600;">/${DAILY_GOAL}</span></strong>
+                <span>${pct}% objectif</span>
+              </div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:${pct}%; background:${reached ? 'var(--green)' : rep.color};"></div>
+            </div>
+            <div class="rep-mini-stats">
+              <span>🔥 ${inter} · ⏰ ${rec} · ✅ ${sig}</span>
+              ${badgeHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('repsCardsContainer').innerHTML = html;
+      document.getElementById('teamTotalGoalText').textContent = `${teamDayTotal} / 45`;
+      document.getElementById('teamSignedSummary').textContent = `(${teamInterested} intéressés · ${teamSigned} signés)`;
+    }
+
+    function renderTeamHoursOverview() {
+      const d = getActiveDate();
+      document.getElementById('teamHoursOverview').innerHTML = REPS.map(rep => {
+        const h = getHoursObj(d, rep.id);
+        const mins = calcWorkedMinutes(h);
+        const schedule = h.start
+          ? `${h.start} – ${h.end || '...'}${h.bStart && h.bEnd ? ` (Pause ${h.bStart}-${h.bEnd})` : ''}`
+          : 'Pas encore pointé';
+        return `
+          <div class="hour-mini-card">
+            <strong style="color:${rep.color};">🕐 ${rep.id} ${mins !== null ? `• ${formatMins(mins)}` : ''}</strong>
+            <div style="color:var(--muted);">${esc(schedule)}</div>
+            ${h.zone ? `<div style="margin-top:2px; font-weight:600;">📍 ${esc(h.zone)}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* =============== FORMULAIRE PASSAGE CLIENT =============== */
+    function pickOutcome(st) {
+      selectedOutcome = st;
+      document.querySelectorAll('#outcomeBtnsGrid .outcome-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.st === st);
+      });
+      const recallWrap = document.getElementById('recallFieldWrap');
+      recallWrap.style.display = (st === 'rappeler' || st === 'absent') ? 'block' : 'none';
+      if ((st === 'rappeler' || st === 'absent') && !document.getElementById('vRecallAt').value) {
+        const tomorrow = new Date(Date.now() + 24 * 3600 * 1000);
+        tomorrow.setHours(15, 0, 0, 0);
+        const pad = n => String(n).padStart(2, '0');
+        document.getElementById('vRecallAt').value = `${tomorrow.getFullYear()}-${pad(tomorrow.getMonth() + 1)}-${pad(tomorrow.getDate())}T15:00`;
+      }
+    }
+
+    function appendAnswerChip(text) {
+      const ta = document.getElementById('vAnswer');
+      ta.value = ta.value.trim() ? `${ta.value.trim()} · ${text}` : text;
+      ta.focus();
+    }
+
+    function resetVisitForm() {
+      document.getElementById('visitLogForm').reset();
+      document.getElementById('editVisitId').value = '';
+      document.getElementById('vRep').value = activeRep;
+      document.getElementById('vDateTime').value = nowDateTimeLocal();
+      document.getElementById('formHeading').textContent = '📝 Nouveau Passage Client';
+      document.getElementById('submitVisitBtn').textContent = '✓ Enregistrer le démarchage (+1 objectif)';
+      document.getElementById('cancelEditBtn').style.display = 'none';
+      pickOutcome('interesse');
+    }
+
+    function submitVisitForm(e) {
+      e.preventDefault();
+      const editId = document.getElementById('editVisitId').value;
+      const rep = document.getElementById('vRep').value;
+      const visitedAt = document.getElementById('vDateTime').value || nowDateTimeLocal();
+      const shop = document.getElementById('vShop').value.trim();
+      if (!shop) return;
+
+      const entry = {
+        id: editId || ('TRV-' + Date.now() + '-' + Math.floor(Math.random() * 999)),
+        rep,
+        visitedAt,
+        shop,
+        sector: document.getElementById('vSector').value,
+        contact: document.getElementById('vContact').value.trim(),
+        phone: document.getElementById('vPhone').value.trim(),
+        city: document.getElementById('vCity').value.trim(),
+        outcome: selectedOutcome,
+        recallAt: (selectedOutcome === 'rappeler' || selectedOutcome === 'absent') ? document.getElementById('vRecallAt').value : '',
+        answer: document.getElementById('vAnswer').value.trim(),
+        updatedAt: new Date().toISOString()
+      };
+
+      if (editId) {
+        const idx = visitLogs.findIndex(v => v.id === editId);
+        if (idx !== -1) visitLogs[idx] = entry;
+        showToast(`Passage mis à jour : ${shop}`);
+      } else {
+        visitLogs.unshift(entry);
+        // S'assurer que la journée suivie correspond si le démarcheur saisit pour aujourd'hui
+        document.getElementById('activeDateInp').value = visitedAt.slice(0, 10);
+        showToast(`+1 démarchage enregistré pour ${rep} !`);
+      }
+
+      saveAllData();
+      resetVisitForm();
+      renderAll();
+    }
+
+    function editVisit(id) {
+      const v = visitLogs.find(it => it.id === id);
+      if (!v) return;
+      document.getElementById('editVisitId').value = v.id;
+      document.getElementById('vRep').value = v.rep;
+      selectActiveRep(v.rep);
+      document.getElementById('vDateTime').value = v.visitedAt || nowDateTimeLocal();
+      document.getElementById('vShop').value = v.shop || '';
+      document.getElementById('vSector').value = v.sector || 'restaurant';
+      document.getElementById('vContact').value = v.contact || '';
+      document.getElementById('vPhone').value = v.phone || '';
+      document.getElementById('vCity').value = v.city || '';
+      document.getElementById('vAnswer').value = v.answer || '';
+      pickOutcome(v.outcome || 'interesse');
+      if (v.recallAt) document.getElementById('vRecallAt').value = v.recallAt;
+
+      document.getElementById('formHeading').textContent = `✏️ Modifier : ${v.shop}`;
+      document.getElementById('submitVisitBtn').textContent = 'Enregistrer les modifications';
+      document.getElementById('cancelEditBtn').style.display = 'inline-block';
+      document.getElementById('visitFormPanel').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function deleteVisit(id) {
+      const v = visitLogs.find(it => it.id === id);
+      if (!v || !confirm(`Supprimer le passage chez "${v.shop}" ?`)) return;
+      visitLogs = visitLogs.filter(it => it.id !== id);
+      saveAllData();
+      renderAll();
+      showToast('Passage supprimé');
+    }
+
+    /* =============== FILTRES & JOURNAL =============== */
+    function filterByRep(repId) {
+      document.getElementById('repFilter').value = repId;
+      renderJournal();
+    }
+
+    function setStatusFilter(st, btn) {
+      statusFilter = st;
+      document.querySelectorAll('#statusFilterPills .f-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderJournal();
+    }
+
+    function formatHumanDt(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d)) return iso;
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' · ' +
+        d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+    }
+
+    function renderJournal() {
+      const q = (document.getElementById('searchJournal').value || '').trim().toLowerCase();
+      const period = document.getElementById('periodFilter').value;
+      const repF = document.getElementById('repFilter').value;
+      const actDate = getActiveDate();
+      const weekAgo = new Date(new Date(actDate).getTime() - 6 * 86400000).toISOString().slice(0, 10);
+
+      const list = visitLogs.filter(v => {
+        const vDay = (v.visitedAt || '').slice(0, 10);
+        if (period === 'day' && vDay !== actDate) return false;
+        if (period === 'week' && (vDay < weekAgo || vDay > actDate)) return false;
+        if (repF !== 'all' && v.rep !== repF) return false;
+        if (statusFilter !== 'all' && v.outcome !== statusFilter) return false;
+        if (q) {
+          const hay = `${v.shop} ${v.contact || ''} ${v.city || ''} ${v.phone || ''} ${v.answer || ''} ${v.rep}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      }).sort((a, b) => (b.visitedAt || '').localeCompare(a.visitedAt || ''));
+
+      const box = document.getElementById('visitsListContainer');
+      if (list.length === 0) {
+        box.innerHTML = `
+          <div class="panel" style="text-align:center; padding:36px 20px;">
+            <strong style="display:block; font-size:15px; margin-bottom:6px;">Aucun démarchage affiché pour ces filtres</strong>
+            <span style="font-size:12.5px; color:var(--muted);">Saisissez un passage client à gauche ou basculez sur « Tout l'historique ».</span>
+          </div>
+        `;
+        return;
+      }
+
+      box.innerHTML = list.map(v => {
+        const repMeta = REPS.find(r => r.id === v.rep) || REPS[0];
+        const stMeta = OUTCOME_LABELS[v.outcome] || OUTCOME_LABELS.interesse;
+        const cleanTel = (v.phone || '').replace(/[^0-9+]/g, '');
+        const waTel = cleanTel.startsWith('0') ? '33' + cleanTel.slice(1) : cleanTel;
+        const waMsg = `Bonjour${v.contact ? ' ' + v.contact : ''}, c'est ${v.rep} de BoostMySite suite à notre passage chez ${v.shop}. Voici notre démo personnalisée pour votre commerce : https://boost-my-site.com/portfolio.html`;
+        const waUrl = waTel ? `https://wa.me/${waTel}?text=${encodeURIComponent(waMsg)}` : `https://wa.me/?text=${encodeURIComponent(waMsg)}`;
+        const maquetteUrl = `maquettes.html?type=${encodeURIComponent(v.sector || 'restaurant')}&client=${encodeURIComponent(v.shop)}&phone=${encodeURIComponent(v.phone || '')}`;
+        const devisUrl = `devis-express.html?client=${encodeURIComponent(v.shop)}&phone=${encodeURIComponent(v.phone || '')}&address=${encodeURIComponent(v.city || '')}&pack=pro&price=990`;
+
+        return `
+          <article class="visit-card">
+            <div class="visit-head">
+              <div>
+                <div class="visit-badges">
+                  <span class="rep-badge" style="background:${repMeta.color};">${esc(v.rep)}</span>
+                  <span class="time-badge">📅 ${esc(formatHumanDt(v.visitedAt))}</span>
+                </div>
+                <div class="visit-shop">${esc(v.shop)}</div>
+              </div>
+              <span class="st-badge ${stMeta.cls}">${stMeta.ico} ${stMeta.label}</span>
+            </div>
+
+            <div class="visit-meta">
+              ${v.contact ? `<span>👤 ${esc(v.contact)}</span>` : ''}
+              ${v.city ? `<span>📍 ${esc(v.city)}</span>` : ''}
+              ${v.phone ? `<span>📞 <a href="tel:${esc(cleanTel)}">${esc(v.phone)}</a></span>` : ''}
+            </div>
+
+            <div class="visit-answer">
+              ${v.answer ? esc(v.answer) : '<span style="color:var(--muted);font-style:italic;">Pas de commentaire saisi.</span>'}
+              ${v.recallAt ? `<div><span class="visit-recall-tag">⚠️ Relance prévue : ${esc(formatHumanDt(v.recallAt))}</span></div>` : ''}
+            </div>
+
+            <div class="visit-actions">
+              <button type="button" class="v-btn" onclick="editVisit('${v.id}')">✏️ Modifier</button>
+              <a href="${maquetteUrl}" class="v-btn">🎨 Maquette</a>
+              <a href="${devisUrl}" class="v-btn">📄 Devis</a>
+              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="v-btn wa">💬 WhatsApp</a>
+              <button type="button" class="v-btn suivi" onclick="pushToSuiviPipeline('${v.id}')">📌 Basculer en Suivi</button>
+              <button type="button" class="v-btn del" onclick="deleteVisit('${v.id}')">🗑️</button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderAll() {
+      renderRepCards();
+      renderTeamHoursOverview();
+      updateHoursSummaryBar(getHoursObj(getActiveDate(), activeRep));
+      renderJournal();
+    }
+
+    /* =============== PONTS AVEC CARTE & SUIVI =============== */
+    function pushToSuiviPipeline(id) {
+      const v = visitLogs.find(it => it.id === id);
+      if (!v) return;
+      try {
+        const raw = localStorage.getItem('bms_pipeline_projects');
+        const list = raw ? JSON.parse(raw) : [];
+        const ref = 'BMS-' + Math.floor(1000 + Math.random() * 9000);
+        list.unshift({
+          id: ref,
+          refCode: ref,
+          client: v.shop,
+          address: v.city || '',
+          phone: v.phone || '',
+          pack: 'pro',
+          total: 990,
+          deposit: 495,
+          balance: 495,
+          customItems: [],
+          date: new Date().toLocaleDateString('fr-FR'),
+          status: v.outcome === 'signe' ? 'signe' : 'devis_envoye',
+          notes: `[Démarcheur: ${v.rep} le ${formatHumanDt(v.visitedAt)}] ${v.answer || ''}`.trim(),
+          updatedAt: new Date().toISOString()
+        });
+        localStorage.setItem('bms_pipeline_projects', JSON.stringify(list));
+        showToast(`✅ "${v.shop}" transféré dans l'onglet Suivi !`);
+      } catch (e) {
+        showToast('Erreur lors du transfert Suivi.');
+      }
+    }
+
+    function importFromCarte() {
+      let rawMap = {}, rawProspects = [];
+      try { rawMap = JSON.parse(localStorage.getItem('bms_visit_status_v1') || '{}') || {}; } catch (e) {}
+      try { rawProspects = JSON.parse(localStorage.getItem('bms_route_prospects_v6') || '[]') || []; } catch (e) {}
+
+      const entries = Object.entries(rawMap);
+      if (!entries.length) {
+        showToast('Aucune visite enregistrée à importer depuis la Carte.');
+        return;
+      }
+      let added = 0;
+      const mapOutcome = { interesse: 'interesse', rappeler: 'rappeler', refus: 'refus', signe: 'signe' };
+      entries.forEach(([addr, data]) => {
+        if (!data || data.s === 'a_voir') return;
+        const pInfo = rawProspects.find(p => p.address === addr) || {};
+        const shopName = pInfo.name || addr.split(',')[0] || addr;
+        const tsIso = new Date(data.ts || Date.now());
+        const pad = n => String(n).padStart(2, '0');
+        const dtLocal = `${tsIso.getFullYear()}-${pad(tsIso.getMonth() + 1)}-${pad(tsIso.getDate())}T${pad(tsIso.getHours())}:${pad(tsIso.getMinutes())}`;
+
+        const exists = visitLogs.some(l => l.shop === shopName && l.visitedAt.slice(0, 10) === dtLocal.slice(0, 10));
+        if (!exists) {
+          visitLogs.unshift({
+            id: 'CARTE-' + (data.ts || Date.now()) + '-' + Math.floor(Math.random() * 999),
+            rep: activeRep,
+            visitedAt: dtLocal,
+            shop: shopName,
+            sector: pInfo.sector || 'restaurant',
+            contact: '',
+            phone: pInfo.phone || '',
+            city: addr,
+            outcome: mapOutcome[data.s] || 'interesse',
+            recallAt: data.recall || '',
+            answer: data.note || 'Importé depuis la Carte tournée',
+            updatedAt: new Date().toISOString()
+          });
+          added++;
+        }
+      });
+      if (added > 0) {
+        saveAllData();
+        renderAll();
+        showToast(`⬇ ${added} visite(s) importée(s) depuis la Carte pour ${activeRep}`);
+      } else {
+        showToast('Toutes les visites de la Carte sont déjà présentes.');
+      }
+    }
+
+    /* =============== EXPORT CSV & SYNCHRO EQUIPE =============== */
+    function exportCsvReport() {
+      const headers = ['Date_Heure', 'Demarcheur', 'Commerce', 'Secteur', 'Interlocuteur', 'Telephone', 'Ville', 'Reponse', 'Rappel', 'Notes_Reponse'];
+      const rows = visitLogs.map(v => [
+        v.visitedAt, v.rep, v.shop, v.sector, v.contact, v.phone, v.city,
+        (OUTCOME_LABELS[v.outcome]?.label || v.outcome), v.recallAt || '', (v.answer || '').replace(/\n/g, ' ')
+      ].map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(';'));
+
+      const csv = '\uFEFF' + [headers.join(';'), ...rows].join('\r\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Travail-Equipe-BoostMySite-${getActiveDate()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('📊 Export CSV téléchargé');
+    }
+
+    function b64EncodeUnicode(str) {
+      return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+    function b64DecodeUnicode(str) {
+      let s = str.replace(/-/g, '+').replace(/_/g, '/');
+      while (s.length % 4) s += '=';
+      return decodeURIComponent(escape(atob(s)));
+    }
+
+    function openShareSyncModal() {
+      document.getElementById('syncRepSelect').value = activeRep;
+      buildSyncPayloadPreview();
+      document.getElementById('syncModal').classList.add('open');
+    }
+
+    function closeShareSyncModal() { document.getElementById('syncModal').classList.remove('open'); }
+
+    function buildSyncPayloadPreview() {
+      const d = getActiveDate();
+      const targetRep = document.getElementById('syncRepSelect').value;
+      const filteredLogs = visitLogs.filter(v => (v.visitedAt || '').slice(0, 10) === d && (targetRep === 'all' || v.rep === targetRep));
+      const payload = {
+        date: d,
+        logs: filteredLogs,
+        hours: {}
+      };
+      (targetRep === 'all' ? REPS.map(r => r.id) : [targetRep]).forEach(rId => {
+        if (hoursMap[d] && hoursMap[d][rId]) payload.hours[rId] = hoursMap[d][rId];
+      });
+
+      let syncUrl = '';
+      try {
+        const encoded = b64EncodeUnicode(JSON.stringify(payload));
+        syncUrl = `${window.location.origin}${window.location.pathname}?sync=${encoded}`;
+      } catch (e) {}
+
+      const repSummaryLines = (targetRep === 'all' ? REPS.map(r => r.id) : [targetRep]).map(rId => {
+        const rLogs = filteredLogs.filter(l => l.rep === rId);
+        const h = getHoursObj(d, rId);
+        const mins = calcWorkedMinutes(h);
+        const hrTxt = h.start ? `${h.start}→${h.end || '...'} (${mins !== null ? formatMins(mins) : 'en cours'})` : 'Horaires non pointés';
+        const lines = rLogs.map(l => `  • ${(l.visitedAt || '').slice(11, 16)} ${l.shop} [${OUTCOME_LABELS[l.outcome]?.label || l.outcome}]${l.answer ? ' : ' + l.answer : ''}`).join('\n');
+        return `👤 ${rId} — ${rLogs.length}/15 démarchages | 🕐 ${hrTxt}\n${lines || '  (Aucun passage saisi)'}`;
+      }).join('\n\n');
+
+      const txt = `📊 BILAN TERRAIN BOOST MY SITE (${d})\n\n${repSummaryLines}${syncUrl && syncUrl.length < 3500 ? `\n\n🔗 Lien synchro directe équipe (1 clic pour importer) :\n${syncUrl}` : ''}`;
+      document.getElementById('syncTextPreview').value = txt;
+    }
+
+    function sendSyncWhatsApp() {
+      const txt = document.getElementById('syncTextPreview').value;
+      window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`, '_blank', 'noopener,noreferrer');
+    }
+
+    function copySyncMessage() {
+      const txt = document.getElementById('syncTextPreview').value;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(() => showToast('📋 Bilan copié !'));
+      } else {
+        document.getElementById('syncTextPreview').select();
+        document.execCommand('copy');
+        showToast('📋 Bilan copié !');
+      }
+    }
+
+    function downloadBackupJson() {
+      const blob = new Blob([JSON.stringify({ visitLogs, hoursMap }, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Travail-Sync-${todayIso()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('💾 Sauvegarde JSON téléchargée');
+    }
+
+    function mergeSyncPackage(pkg) {
+      if (!pkg || typeof pkg !== 'object') return 0;
+      let added = 0;
+      if (Array.isArray(pkg.logs)) {
+        pkg.logs.forEach(item => {
+          if (!item || !item.id || !item.shop) return;
+          const idx = visitLogs.findIndex(v => v.id === item.id);
+          if (idx === -1) {
+            visitLogs.unshift(item);
+            added++;
+          }
+        });
+      }
+      if (pkg.hours && pkg.date) {
+        if (!hoursMap[pkg.date]) hoursMap[pkg.date] = {};
+        Object.entries(pkg.hours).forEach(([rId, hObj]) => {
+          hoursMap[pkg.date][rId] = hObj;
+        });
+      }
+      if (pkg.hours && pkg.hoursMap) {
+        Object.entries(pkg.hoursMap).forEach(([dKey, mapObj]) => {
+          hoursMap[dKey] = { ...(hoursMap[dKey] || {}), ...mapObj };
+        });
+      }
+      saveAllData();
+      return added;
+    }
+
+    function importBackupJson(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(String(reader.result || '{}'));
+          const count = mergeSyncPackage({
+            logs: parsed.visitLogs || parsed.logs || [],
+            hours: parsed.hours,
+            date: parsed.date,
+            hoursMap: parsed.hoursMap
+          });
+          renderAll();
+          closeShareSyncModal();
+          showToast(`📥 Fusion réussie (${count} nouveaux passages ajoutés)`);
+        } catch (e) {
+          showToast('Fichier JSON invalide.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function checkUrlSyncParam() {
+      try {
+        const p = new URLSearchParams(window.location.search);
+        const raw = p.get('sync');
+        if (!raw) return;
+        const pkg = JSON.parse(b64DecodeUnicode(raw));
+        const added = mergeSyncPackage(pkg);
+        if (pkg.date) document.getElementById('activeDateInp').value = pkg.date;
+        history.replaceState({}, '', window.location.pathname);
+        showToast(`🔗 Synchro reçue : +${added} passage(s) et horaires importés`);
+      } catch (e) {}
+    }
+
+    /* AUTH PIN */
+    const DEV_PIN_STORAGE_KEY = 'bms_dev_auth_v1';
+    const REQUIRED_PIN = '9595';
+    let enteredPin = '';
+
+    function updatePinDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById('pDot' + i);
+        if (dot) dot.classList.toggle('filled', i < enteredPin.length);
+      }
+    }
+    function pressPin(d) {
+      if (enteredPin.length >= 4) return;
+      enteredPin += d;
+      updatePinDots();
+      if (enteredPin.length === 4) setTimeout(verifyPin, 100);
+    }
+    function clearPin() { enteredPin = ''; updatePinDots(); }
+    function backspacePin() {
+      if (enteredPin.length > 0) { enteredPin = enteredPin.slice(0, -1); updatePinDots(); }
+    }
+    function verifyPin() {
+      if (enteredPin === REQUIRED_PIN) {
+        try { localStorage.setItem(DEV_PIN_STORAGE_KEY, REQUIRED_PIN); } catch (e) {}
+        try { sessionStorage.setItem(DEV_PIN_STORAGE_KEY, 'ok'); } catch (e) {}
+        document.getElementById('pinLockScreen').style.display = 'none';
+        enteredPin = '';
+        updatePinDots();
+        bootApp();
+      } else {
+        alert('Code PIN incorrect.');
+        clearPin();
+      }
+    }
+    function checkAuth() {
+      try {
+        if (localStorage.getItem(DEV_PIN_STORAGE_KEY) === REQUIRED_PIN || sessionStorage.getItem(DEV_PIN_STORAGE_KEY) === 'ok') {
+          document.getElementById('pinLockScreen').style.display = 'none';
+          bootApp();
+          return;
+        }
+      } catch (e) {}
+      document.getElementById('pinLockScreen').style.display = 'flex';
+    }
+
+    function bootApp() {
+      loadAllData();
+      document.getElementById('activeDateInp').value = todayIso();
+      document.getElementById('vDateTime').value = nowDateTimeLocal();
+      checkUrlSyncParam();
+      selectActiveRep(activeRep);
+      renderAll();
+    }
+
+    window.addEventListener('DOMContentLoaded', checkAuth);
+  </script>
+</body>
+</html>
