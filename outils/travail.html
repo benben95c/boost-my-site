@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Travail Terrain &amp; Objectifs Équipe — BoostMySite</title>
+  <title>Travail Terrain — BoostMySite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0F172A">
@@ -12,25 +12,25 @@
   <link rel="apple-touch-icon" href="app-icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #F8FAFC;
       --surface: #FFFFFF;
       --ink: #0F172A;
+      --slate: #475569;
       --muted: #64748B;
       --border: #E2E8F0;
+      --border-strong: #CBD5E1;
       --green: #16A34A;
-      --green-soft: #DCFCE7;
-      --blue: #2563EB;
-      --blue-soft: #DBEAFE;
+      --green-soft: #F0FDF4;
       --amber: #D97706;
-      --amber-soft: #FEF3C7;
+      --amber-soft: #FFFBEB;
+      --blue: #2563EB;
+      --blue-soft: #EFF6FF;
       --red: #DC2626;
-      --red-soft: #FEE2E2;
-      --purple: #7C3AED;
-      --purple-soft: #EDE9FE;
-      --slate-soft: #F1F5F9;
+      --red-soft: #FEF2F2;
+      --soft: #F1F5F9;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
@@ -51,9 +51,11 @@
       font-family: var(--font);
       background: var(--bg);
       color: var(--ink);
+      font-size: 13.5px;
       line-height: 1.45;
-      padding-bottom: calc(70px + var(--safe-bottom));
+      padding-bottom: calc(64px + var(--safe-bottom));
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* VERROUILLAGE PIN */
@@ -70,50 +72,50 @@
     }
     .pin-box {
       width: 100%;
-      max-width: 310px;
+      max-width: 300px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       color: #fff;
     }
-    .pin-dots { display: flex; gap: 14px; margin: 10px 0 18px; }
+    .pin-dots { display: flex; gap: 12px; margin: 8px 0 14px; }
     .pin-dot {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      border: 2px solid #475569;
+      border: 1.5px solid #475569;
       background: transparent;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
-    .pin-dot.filled { background: #10B981; border-color: #10B981; }
+    .pin-dot.filled { background: #16A34A; border-color: #16A34A; }
     .pin-keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 10px;
       width: 100%;
     }
     .pin-key {
       background: #1E293B;
       border: 1px solid #334155;
       color: #fff;
-      font-size: 21px;
-      font-weight: 700;
-      padding: 15px 0;
-      border-radius: 12px;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 14px 0;
+      border-radius: 8px;
       cursor: pointer;
       font-family: inherit;
     }
-    .pin-key:active { background: #334155; transform: scale(0.97); }
+    .pin-key:active { background: #334155; }
 
-    /* HEADER */
+    /* HEADER SOBRE */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
       background: #0F172A;
       color: #fff;
-      padding: 10px 14px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -125,7 +127,7 @@
       display: inline-flex;
       background: #1E293B;
       padding: 3px;
-      border-radius: 9px;
+      border-radius: 8px;
       gap: 2px;
       overflow-x: auto;
       max-width: 100%;
@@ -134,9 +136,9 @@
       color: #94A3B8;
       text-decoration: none;
       font-size: 12px;
-      font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 7px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 6px;
       white-space: nowrap;
     }
     .app-switch a.active { background: var(--green); color: #fff; }
@@ -148,480 +150,553 @@
     }
     .btn-top {
       background: #1E293B;
-      color: #fff;
+      color: #E2E8F0;
       border: 1px solid #334155;
-      border-radius: 7px;
-      padding: 6px 10px;
-      font-size: 11.5px;
+      border-radius: 6px;
+      padding: 6px 11px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
-      text-decoration: none;
       white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
     }
-    .btn-top:hover { background: #334155; }
-    .btn-top-green { background: var(--green); border-color: var(--green); }
-    .btn-top-green:hover { background: #15803D; }
+    .btn-top:hover { background: #334155; color: #fff; }
+    .btn-top-primary {
+      background: #FFFFFF;
+      color: #0F172A;
+      border-color: #FFFFFF;
+    }
+    .btn-top-primary:hover { background: #F1F5F9; color: #0F172A; }
 
     .container {
-      max-width: 1260px;
+      max-width: 1220px;
       margin: 0 auto;
       padding: 16px;
     }
     @media (max-width: 600px) { .container { padding: 12px; } }
 
-    /* BANDEAU JOUR & STATS EQUIPE */
+    /* BARRE JOURNEE & OBJECTIF GLOBAL */
     .day-bar {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 14px;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
     }
     .day-controls {
       display: flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+      min-width: 0;
+    }
+    .lbl-inline {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--slate);
     }
     .date-inp {
-      height: 36px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0 10px;
+      height: 34px;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 0 9px;
       font-family: inherit;
       font-size: 13px;
       font-weight: 600;
       color: var(--ink);
-      background: var(--bg);
+      background: #fff;
     }
-    .team-total-pill {
-      display: inline-flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px 8px;
-      background: #0F172A;
-      color: #fff;
-      padding: 7px 14px;
-      border-radius: 12px;
+    .btn-plain {
+      height: 34px;
+      padding: 0 11px;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      border-radius: 6px;
       font-size: 12px;
-      font-weight: 700;
-      max-width: 100%;
-    }
-    .team-total-pill strong { color: #4ADE80; font-size: 14px; }
-
-    /* CARTES OBJECTIFS 3 DEMARCHEURS */
-    .reps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    @media (max-width: 900px) { .reps-grid { grid-template-columns: 1fr; } }
-
-    .rep-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.18s;
-      position: relative;
-    }
-    .rep-card:hover { border-color: #94A3B8; }
-    .rep-card.active {
-      border-color: var(--ink);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-    }
-    .rep-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .rep-identity { display: flex; align-items: center; gap: 10px; }
-    .rep-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 14px;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    .rep-name { font-size: 15px; font-weight: 800; line-height: 1.2; }
-    .rep-hours-label { font-size: 11px; color: var(--muted); font-weight: 500; }
-    .rep-score { text-align: right; }
-    .rep-score strong { font-size: 20px; font-weight: 800; display: block; line-height: 1; }
-    .rep-score span { font-size: 11px; color: var(--muted); font-weight: 600; }
-
-    .progress-track {
-      height: 8px;
-      background: var(--slate-soft);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
-    .progress-fill {
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
-    .rep-mini-stats {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 11px;
       font-weight: 600;
-    }
-    .goal-badge {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 10.5px;
-      font-weight: 700;
-    }
-
-    /* WORKSPACE EN 2 COLONNES (HORAIRES + SAISIE | JOURNAL & RELANCES) */
-    .work-grid {
-      display: grid;
-      grid-template-columns: 420px 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-    .work-grid > *, .reps-grid > * { min-width: 0; }
-    @media (max-width: 1040px) { .work-grid { grid-template-columns: 1fr; } }
-
-    .panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 14px;
-      min-width: 0;
-      max-width: 100%;
-    }
-    @media (max-width: 560px) {
-      .hours-grid, .punch-row, .outcome-grid { grid-template-columns: 1fr !important; }
-      .header-actions { width: 100%; }
-      .header-actions .btn-top { flex: 1 1 auto; justify-content: center; }
-    }
-    .panel-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      gap: 8px;
-    }
-    .panel-title h2 { font-size: 14.5px; font-weight: 800; color: var(--ink); }
-    .panel-sub { font-size: 11.5px; color: var(--muted); }
-
-    /* HORAIRES POINTAGE */
-    .rep-pill-switch {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-    .rep-btn {
-      padding: 8px 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      border-radius: 8px;
-      font-size: 12.5px;
-      font-weight: 700;
+      color: var(--ink);
       cursor: pointer;
       font-family: inherit;
-      color: var(--muted);
+      white-space: nowrap;
     }
-    .rep-btn.active {
+    .btn-plain:hover { background: var(--soft); }
+    .btn-plain.is-active {
       background: var(--ink);
       color: #fff;
       border-color: var(--ink);
     }
-
-    .hours-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+    .team-summary {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate);
+      display: flex;
+      align-items: center;
       gap: 8px;
-      margin-bottom: 10px;
+      flex-wrap: wrap;
     }
-    .field-lbl {
-      display: block;
-      font-size: 10.5px;
+    .team-summary strong {
+      color: var(--ink);
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+    }
+    .team-sub {
       color: var(--muted);
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    /* 3 CARTES DEMARCHEURS EPUREES */
+    .reps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .reps-grid > * { min-width: 0; }
+    @media (max-width: 820px) { .reps-grid { grid-template-columns: 1fr; } }
+
+    .rep-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+    .rep-card:hover { border-color: #94A3B8; }
+    .rep-card.active {
+      border-color: var(--ink);
+      box-shadow: inset 0 0 0 1px var(--ink);
+    }
+    .rep-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
       margin-bottom: 4px;
     }
+    .rep-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .rep-score {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .rep-score small {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .rep-score.reached { color: var(--green); }
+    .rep-hours-txt {
+      font-size: 12px;
+      color: var(--slate);
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progress-track {
+      height: 5px;
+      background: var(--soft);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--ink);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+    .progress-fill.reached { background: var(--green); }
+    .rep-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+    .rep-goal-tag {
+      font-weight: 600;
+      color: var(--slate);
+    }
+    .rep-goal-tag.reached { color: var(--green); }
+
+    /* BARRE HORAIRES COMPACTE 1 LIGNE */
+    .hours-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .hours-bar-inner {
+      display: grid;
+      grid-template-columns: auto 1fr 1fr 140px 1.2fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+    @media (max-width: 980px) {
+      .hours-bar-inner { grid-template-columns: 1fr 1fr; }
+      .hours-bar-head { grid-column: 1 / -1; }
+      .hours-net-box { grid-column: 1 / -1; text-align: left !important; }
+    }
+    @media (max-width: 520px) {
+      .hours-bar-inner { grid-template-columns: 1fr; }
+    }
+    .hours-bar-head {
+      padding-bottom: 6px;
+    }
+    .hours-bar-head strong {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .hours-bar-head span {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+    .time-field-wrap { min-width: 0; }
+    .field-lbl {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--slate);
+      margin-bottom: 4px;
+    }
+    .link-now {
+      background: none;
+      border: none;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+    }
+    .link-now:hover { text-decoration: underline; }
+    .hours-net-box {
+      font-size: 12px;
+      color: var(--slate);
+      background: var(--soft);
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .hours-net-box strong { color: var(--ink); }
+
+    /* CHAMPS FORMULAIRE */
     .inp, .sel, .ta {
       width: 100%;
       min-width: 0;
       max-width: 100%;
-      padding: 9px 11px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 13.5px;
+      padding: 8px 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      font-size: 13px;
       font-family: inherit;
       color: var(--ink);
       background: #fff;
       outline: none;
     }
+    .inp, .sel { height: 36px; }
     .inp:focus, .sel:focus, .ta:focus { border-color: var(--ink); }
-    .punch-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .btn-punch {
-      padding: 7px 8px;
+
+    /* BLOC SAISIE RAPIDE PASSAGE CLIENT */
+    .entry-panel {
+      background: var(--surface);
       border: 1px solid var(--border);
-      background: var(--bg);
-      border-radius: 7px;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--ink);
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .btn-punch:hover { background: var(--slate-soft); }
-    .hours-summary-bar {
-      background: var(--slate-soft);
       border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .entry-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
+      margin-bottom: 10px;
+      gap: 8px;
     }
-
-    /* STATUTS CLIENT BOUTONS */
-    .outcome-grid {
+    .entry-head h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .entry-row-1 {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
+      grid-template-columns: 120px 1.4fr 1.1fr 1fr 1fr 175px;
+      gap: 8px;
       margin-bottom: 10px;
     }
-    .outcome-btn {
-      padding: 9px 10px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      background: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--ink);
-      transition: all 0.15s;
+    .entry-row-1 > * { min-width: 0; }
+    @media (max-width: 1040px) {
+      .entry-row-1 { grid-template-columns: repeat(3, 1fr); }
     }
-    .outcome-btn.active[data-st="interesse"] { background: #FFF7ED; border-color: #EA580C; color: #9A3412; }
-    .outcome-btn.active[data-st="signe"] { background: var(--green-soft); border-color: var(--green); color: #166534; }
-    .outcome-btn.active[data-st="rappeler"] { background: var(--amber-soft); border-color: var(--amber); color: #92400E; }
-    .outcome-btn.active[data-st="absent"] { background: var(--blue-soft); border-color: var(--blue); color: #1E40AF; }
-    .outcome-btn.active[data-st="refus"] { background: var(--red-soft); border-color: var(--red); color: #991B1B; }
+    @media (max-width: 620px) {
+      .entry-row-1 { grid-template-columns: 1fr; }
+    }
 
-    .quick-chips {
+    .entry-row-2 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 820px) { .entry-row-2 { grid-template-columns: 1fr; } }
+
+    .outcome-segments {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
-      margin: 6px 0 10px;
+      gap: 6px;
     }
-    .qchip {
-      background: var(--slate-soft);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 11px;
+    .seg-btn {
+      padding: 7px 12px;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      border-radius: 6px;
+      font-size: 12.5px;
       font-weight: 600;
-      color: var(--ink);
+      color: var(--slate);
       cursor: pointer;
       font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.12s;
     }
-    .qchip:hover { border-color: var(--ink); }
+    .seg-btn:hover { background: var(--soft); color: var(--ink); }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-interesse { background: var(--amber); }
+    .dot-rappeler { background: var(--blue); }
+    .dot-signe { background: var(--green); }
+    .dot-absent { background: var(--muted); }
+    .dot-refus { background: var(--red); }
 
-    .btn-save {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 9px;
-      background: var(--green);
+    .seg-btn.active {
+      background: var(--ink);
       color: #fff;
-      font-size: 14px;
-      font-weight: 800;
+      border-color: var(--ink);
+    }
+
+    .entry-row-3 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+    @media (max-width: 720px) { .entry-row-3 { grid-template-columns: 1fr; } }
+
+    .quick-notes-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .q-chip {
+      background: var(--soft);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--slate);
       cursor: pointer;
       font-family: inherit;
     }
-    .btn-save:hover { background: #15803D; }
+    .q-chip:hover { color: var(--ink); border-color: var(--border-strong); }
 
-    /* FILTRES & LISTE JOURNAL */
-    .filter-toolbar {
+    .btn-submit {
+      height: 38px;
+      padding: 0 18px;
+      border: none;
+      border-radius: 6px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-submit:hover { background: #1E293B; }
+
+    /* FILTRES & TABLEAU JOURNAL */
+    .journal-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .filter-bar {
       padding: 12px 14px;
-      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
-    .filter-row-top {
+    .filter-top {
       display: grid;
       grid-template-columns: 1fr auto auto;
       gap: 8px;
       align-items: center;
     }
-    @media (max-width: 680px) { .filter-row-top { grid-template-columns: 1fr; } }
-    .pills-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
-    .f-pill {
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--muted);
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .f-pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-
-    /* CARTES PASSAGES CLIENTS */
-    .visits-list { display: flex; flex-direction: column; gap: 10px; }
-    .visit-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-    }
-    .visit-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .visit-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 4px; }
-    .rep-badge {
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 800;
-      color: #fff;
-    }
-    .time-badge {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--muted);
-      background: var(--slate-soft);
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .st-badge {
-      padding: 3px 9px;
-      border-radius: 999px;
-      font-size: 11.5px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .st-interesse { background: #FFEDD5; color: #9A3412; }
-    .st-signe { background: var(--green-soft); color: #166534; }
-    .st-rappeler { background: var(--amber-soft); color: #92400E; }
-    .st-absent { background: var(--blue-soft); color: #1E40AF; }
-    .st-refus { background: var(--red-soft); color: #991B1B; }
-
-    .visit-shop { font-size: 15.5px; font-weight: 800; color: var(--ink); }
-    .visit-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .visit-meta a { color: var(--blue); text-decoration: none; font-weight: 600; }
-    .visit-answer {
-      background: var(--bg);
-      border-left: 3px solid var(--border);
-      padding: 8px 10px;
-      border-radius: 0 8px 8px 0;
-      font-size: 13px;
-      color: var(--ink);
-      margin-bottom: 10px;
-    }
-    .visit-recall-tag {
-      display: inline-block;
-      margin-top: 5px;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #92400E;
-      background: var(--amber-soft);
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .visit-actions {
+    @media (max-width: 680px) { .filter-top { grid-template-columns: 1fr; } }
+    .filter-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
     }
-    .v-btn {
-      padding: 5px 10px;
-      border-radius: 7px;
+    .f-tab {
+      padding: 4px 10px;
+      border-radius: 5px;
       border: 1px solid var(--border);
       background: #fff;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 600;
-      color: var(--ink);
+      color: var(--slate);
       cursor: pointer;
-      text-decoration: none;
       font-family: inherit;
+    }
+    .f-tab:hover { background: var(--soft); }
+    .f-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    .visits-table-head {
+      display: grid;
+      grid-template-columns: 105px 86px 1.25fr 1.6fr 235px;
+      gap: 12px;
+      padding: 9px 14px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    @media (max-width: 960px) { .visits-table-head { display: none; } }
+
+    .visit-row {
+      display: grid;
+      grid-template-columns: 105px 86px 1.25fr 1.6fr 235px;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .visit-row:last-child { border-bottom: none; }
+    .visit-row:hover { background: #FAFCFF; }
+    .visit-row > * { min-width: 0; }
+    @media (max-width: 960px) {
+      .visit-row { grid-template-columns: 1fr; gap: 6px; }
+    }
+
+    .col-when {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--slate);
+    }
+    .col-rep {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .shop-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .shop-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .shop-sub a { color: var(--blue); text-decoration: none; font-weight: 600; }
+
+    .status-pill {
       display: inline-flex;
       align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 11.5px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      border: 1px solid transparent;
+    }
+    .st-interesse { background: var(--amber-soft); color: #92400E; border-color: #FDE68A; }
+    .st-rappeler  { background: var(--blue-soft);  color: #1E40AF; border-color: #BFDBFE; }
+    .st-signe     { background: var(--green-soft); color: #166534; border-color: #BBF7D0; }
+    .st-absent    { background: var(--soft);       color: var(--slate); border-color: var(--border); }
+    .st-refus     { background: var(--red-soft);   color: #991B1B; border-color: #FECACA; }
+
+    .answer-text {
+      font-size: 12.5px;
+      color: var(--ink);
+      word-break: break-word;
+    }
+    .recall-note {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-top: 3px;
+    }
+
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
       gap: 4px;
+      justify-content: flex-end;
     }
-    .v-btn:hover { background: var(--slate-soft); }
-    .v-btn.wa { border-color: #BBF7D0; background: #F0FDF4; color: #166534; }
-    .v-btn.suivi { border-color: #DDD6FE; background: #F5F3FF; color: #5B21B6; }
-    .v-btn.del { color: var(--red); border-color: #FECACA; }
+    @media (max-width: 960px) { .row-actions { justify-content: flex-start; padding-top: 4px; } }
+    .act-btn {
+      padding: 4px 8px;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      border-radius: 5px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--slate);
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .act-btn:hover { background: var(--soft); color: var(--ink); }
+    .act-btn.del { color: var(--red); border-color: #FECACA; }
 
-    /* TABLEAU RECAP HORAIRES EQUIPE */
-    .hours-overview-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
+    .empty-box {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--muted);
     }
-    @media (max-width: 820px) { .hours-overview-grid { grid-template-columns: 1fr; } }
-    .hour-mini-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 12px;
+    .empty-box strong {
+      display: block;
+      color: var(--ink);
+      font-size: 14px;
+      margin-bottom: 4px;
     }
-    .hour-mini-card strong { display: block; font-size: 13px; margin-bottom: 3px; }
 
+    /* TOAST & MODAL */
     .toast {
       position: fixed;
       bottom: 20px;
@@ -629,23 +704,21 @@
       transform: translateX(-50%) translateY(20px);
       background: #0F172A;
       color: #fff;
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-size: 13px;
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-size: 12.5px;
       font-weight: 600;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.25s;
+      transition: all 0.2s;
       z-index: 999;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* MODAL SYNC BILAN */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.65);
+      background: rgba(15, 23, 42, 0.55);
       display: none;
       align-items: center;
       justify-content: center;
@@ -655,12 +728,13 @@
     .modal-backdrop.open { display: flex; }
     .modal-card {
       background: #fff;
-      border-radius: 14px;
+      border-radius: 10px;
       max-width: 520px;
       width: 100%;
-      padding: 22px;
+      padding: 20px;
       max-height: 90vh;
       overflow-y: auto;
+      border: 1px solid var(--border);
     }
   </style>
 </head>
@@ -669,8 +743,8 @@
   <!-- VERROUILLAGE PIN -->
   <div id="pinLockScreen" class="pin-lock-overlay">
     <div class="pin-box">
-      <div style="font-size:18px; font-weight:800;">BoostMySite — Travail Équipe</div>
-      <div style="font-size:13px; color:#94A3B8; text-align:center;">Objectifs 15 démarchages &amp; suivi terrain</div>
+      <div style="font-size:17px; font-weight:700;">BoostMySite — Travail Équipe</div>
+      <div style="font-size:12.5px; color:#94A3B8; text-align:center;">Code d'accès équipe requis</div>
       <div class="pin-dots">
         <span class="pin-dot" id="pDot0"></span>
         <span class="pin-dot" id="pDot1"></span>
@@ -687,11 +761,11 @@
         <button type="button" class="pin-key" onclick="pressPin('7')">7</button>
         <button type="button" class="pin-key" onclick="pressPin('8')">8</button>
         <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
-        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:13px; color:#94A3B8;">C</button>
+        <button type="button" class="pin-key" onclick="clearPin()" style="font-size:12.5px; color:#94A3B8;">Effacer</button>
         <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
-        <button type="button" class="pin-key" onclick="backspacePin()" style="font-size:15px;">⌫</button>
+        <button type="button" class="pin-key" onclick="backspacePin()">←</button>
       </div>
-      <a href="../index.html" style="color:#64748B; font-size:12px; text-decoration:none;">Retour au site public</a>
+      <a href="../index.html" style="color:#64748B; font-size:12px; text-decoration:none;">Retour au site</a>
     </div>
   </div>
 
@@ -704,230 +778,218 @@
       <a href="travail.html" class="active">Travail</a>
     </div>
     <div class="header-actions">
-      <button type="button" class="btn-top" onclick="importFromCarte()">⬇ Importer Carte</button>
-      <button type="button" class="btn-top" onclick="exportCsvReport()">📊 CSV Excel</button>
-      <button type="button" class="btn-top btn-top-green" onclick="openShareSyncModal()">📤 Bilan &amp; Synchro Équipe</button>
+      <button type="button" class="btn-top" onclick="importFromCarte()">Importer Carte</button>
+      <button type="button" class="btn-top" onclick="exportCsvReport()">Export CSV</button>
+      <button type="button" class="btn-top btn-top-primary" onclick="openShareSyncModal()">Partager le bilan</button>
     </div>
   </header>
 
   <div class="container">
-    <!-- BARRE DATE & OBJECTIF GLOBAL -->
+    <!-- BARRE DATE & RESUME EQUIPE -->
     <div class="day-bar">
       <div class="day-controls">
-        <span style="font-size:12.5px; font-weight:700; color:var(--muted);">Journée suivie :</span>
+        <span class="lbl-inline">Journée :</span>
         <input type="date" id="activeDateInp" class="date-inp" onchange="onActiveDateChange()">
-        <button type="button" class="f-pill" onclick="jumpToToday()">Aujourd'hui</button>
-        <span id="viewRepLabel" style="font-size:12.5px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="filterByRep('all')">Voir toute l'équipe</span>
+        <button type="button" class="btn-plain" onclick="jumpToToday()">Aujourd'hui</button>
+        <button type="button" id="allRepsBtn" class="btn-plain is-active" onclick="filterByRep('all')">Voir les 3 démarcheurs</button>
       </div>
-      <div class="team-total-pill">
-        <span>Objectif Équipe du jour :</span>
-        <strong id="teamTotalGoalText">0 / 45</strong>
-        <span id="teamSignedSummary" style="font-size:11.5px; color:#CBD5E1;"></span>
+      <div class="team-summary">
+        <span>Équipe : <strong id="teamTotalGoalText">0 / 45 démarchages</strong></span>
+        <span class="team-sub" id="teamSignedSummary">(0 intéressé · 0 signé)</span>
       </div>
     </div>
 
-    <!-- 3 CARTES OBJECTIFS DEMARCHEURS (15 CHACUN) -->
+    <!-- 3 CARTES OBJECTIFS (JALIL, MEHDI, MINO) -->
     <div class="reps-grid" id="repsCardsContainer"></div>
 
-    <!-- GRILLE PRINCIPALE : HORAIRES + SAISIE | JOURNAL & FILTRES -->
-    <div class="work-grid">
-      <!-- COLONNE GAUCHE : POINTAGE HORAIRES & NOUVEAU PASSAGE CLIENT -->
-      <div>
-        <!-- BLOC 1 : HORAIRES DU DEMARCHEUR -->
-        <section class="panel">
-          <div class="panel-title">
-            <h2>🕐 Horaires &amp; Pointage — <span id="hoursRepTitle">Jalil</span></h2>
-            <span class="panel-sub" id="hoursDateBadge">Aujourd'hui</span>
+    <!-- BARRE HORAIRES COMPACTE 1 LIGNE -->
+    <section class="hours-bar">
+      <div class="hours-bar-inner">
+        <div class="hours-bar-head">
+          <strong>Horaires de <span id="hoursRepTitle">Jalil</span></strong>
+          <span id="hoursDateBadge">Aujourd'hui</span>
+        </div>
+
+        <div class="time-field-wrap">
+          <div class="field-lbl">
+            <span>Arrivée</span>
+            <button type="button" class="link-now" onclick="punchNow('start')">Maintenant</button>
           </div>
+          <input type="time" id="hrStart" class="inp" onchange="saveRepHours()">
+        </div>
 
-          <div class="rep-pill-switch" id="activeRepSwitch">
-            <button type="button" class="rep-btn active" onclick="selectActiveRep('Jalil')">Jalil</button>
-            <button type="button" class="rep-btn" onclick="selectActiveRep('Mehdi')">Mehdi</button>
-            <button type="button" class="rep-btn" onclick="selectActiveRep('Mino')">Mino</button>
+        <div class="time-field-wrap">
+          <div class="field-lbl">
+            <span>Fin</span>
+            <button type="button" class="link-now" onclick="punchNow('end')">Maintenant</button>
           </div>
+          <input type="time" id="hrEnd" class="inp" onchange="saveRepHours()">
+        </div>
 
-          <div class="punch-row">
-            <button type="button" class="btn-punch" onclick="punchNow('start')">▶ Pointer Début (Maintenant)</button>
-            <button type="button" class="btn-punch" onclick="punchNow('end')">⏹ Pointer Fin (Maintenant)</button>
-          </div>
+        <div class="time-field-wrap">
+          <label class="field-lbl" for="hrBreakMin">Pause</label>
+          <select id="hrBreakMin" class="sel" onchange="saveRepHours()">
+            <option value="0">Aucune pause</option>
+            <option value="30">30 min</option>
+            <option value="45">45 min</option>
+            <option value="60">1h00</option>
+            <option value="90">1h30</option>
+            <option value="120">2h00</option>
+          </select>
+        </div>
 
-          <div class="hours-grid">
-            <div>
-              <label class="field-lbl" for="hrStart">Début terrain</label>
-              <input type="time" id="hrStart" class="inp" onchange="saveRepHours()">
-            </div>
-            <div>
-              <label class="field-lbl" for="hrEnd">Fin terrain</label>
-              <input type="time" id="hrEnd" class="inp" onchange="saveRepHours()">
-            </div>
-            <div>
-              <label class="field-lbl" for="hrBreakStart">Début pause</label>
-              <input type="time" id="hrBreakStart" class="inp" onchange="saveRepHours()">
-            </div>
-            <div>
-              <label class="field-lbl" for="hrBreakEnd">Fin pause</label>
-              <input type="time" id="hrBreakEnd" class="inp" onchange="saveRepHours()">
-            </div>
-          </div>
+        <div class="time-field-wrap">
+          <label class="field-lbl" for="hrZone">Secteur / Ville</label>
+          <input type="text" id="hrZone" class="inp" placeholder="Ville ou quartier prospecté" onchange="saveRepHours()">
+        </div>
 
-          <div style="margin-bottom:10px;">
-            <label class="field-lbl" for="hrZone">Secteur / Ville prospecté aujourd'hui</label>
-            <input type="text" id="hrZone" class="inp" placeholder="Ex : Pontoise Centre, Cergy Préfecture..." onchange="saveRepHours()">
-          </div>
+        <div class="hours-net-box" id="hoursSummaryBar">
+          Temps actif : <strong>—</strong>
+        </div>
+      </div>
+    </section>
 
-          <div class="hours-summary-bar" id="hoursSummaryBar">
-            <span>Temps terrain : <strong>Non pointé</strong></span>
-            <span>Cadence : <strong>—</strong></span>
-          </div>
-        </section>
-
-        <!-- BLOC 2 : ENREGISTRER UN PASSAGE CLIENT -->
-        <section class="panel" id="visitFormPanel">
-          <div class="panel-title">
-            <h2 id="formHeading">📝 Nouveau Passage Client</h2>
-            <button type="button" id="cancelEditBtn" class="f-pill" style="display:none;" onclick="resetVisitForm()">Annuler modif</button>
-          </div>
-
-          <form id="visitLogForm" onsubmit="submitVisitForm(event)">
-            <input type="hidden" id="editVisitId" value="">
-
-            <div class="hours-grid">
-              <div>
-                <label class="field-lbl" for="vRep">Démarcheur *</label>
-                <select id="vRep" class="sel" onchange="syncActiveRepFromSelect()">
-                  <option value="Jalil">Jalil</option>
-                  <option value="Mehdi">Mehdi</option>
-                  <option value="Mino">Mino</option>
-                </select>
-              </div>
-              <div>
-                <label class="field-lbl" for="vDateTime">Date &amp; heure du passage *</label>
-                <input type="datetime-local" id="vDateTime" class="inp" required>
-              </div>
-            </div>
-
-            <div style="margin-bottom:10px;">
-              <label class="field-lbl" for="vShop">Commerce / Client visité *</label>
-              <input type="text" id="vShop" class="inp" placeholder="Ex : Boulangerie Saint-Martin, Barber King..." required>
-            </div>
-
-            <div class="hours-grid">
-              <div>
-                <label class="field-lbl" for="vSector">Secteur d'activité</label>
-                <select id="vSector" class="sel">
-                  <option value="restaurant">Restaurant / Brasserie</option>
-                  <option value="fastfood">Fast-Food / Smash</option>
-                  <option value="boulangerie">Boulangerie / Pâtisserie</option>
-                  <option value="barber">Coiffeur / Barber</option>
-                  <option value="beaute">Institut / Onglerie</option>
-                  <option value="pizzeria">Pizzeria / Trattoria</option>
-                  <option value="sushi">Sushi / Poké</option>
-                  <option value="garage">Garage Auto</option>
-                  <option value="fleuriste">Fleuriste</option>
-                  <option value="commerce">Boucherie / Commerce</option>
-                  <option value="artisan">Artisan / BTP</option>
-                  <option value="depannage">Plombier / Serrurier</option>
-                  <option value="vtc">VTC / Transport</option>
-                </select>
-              </div>
-              <div>
-                <label class="field-lbl" for="vContact">Interlocuteur vu</label>
-                <input type="text" id="vContact" class="inp" placeholder="Ex : Karim (Gérant)">
-              </div>
-            </div>
-
-            <div class="hours-grid">
-              <div>
-                <label class="field-lbl" for="vPhone">Téléphone client</label>
-                <input type="tel" id="vPhone" class="inp" placeholder="06 12 34 56 78">
-              </div>
-              <div>
-                <label class="field-lbl" for="vCity">Ville / Rue</label>
-                <input type="text" id="vCity" class="inp" placeholder="Pontoise, Cergy...">
-              </div>
-            </div>
-
-            <label class="field-lbl">Réponse du client *</label>
-            <div class="outcome-grid" id="outcomeBtnsGrid">
-              <button type="button" class="outcome-btn active" data-st="interesse" onclick="pickOutcome('interesse')">🔥 Intéressé</button>
-              <button type="button" class="outcome-btn" data-st="rappeler" onclick="pickOutcome('rappeler')">⏰ À rappeler</button>
-              <button type="button" class="outcome-btn" data-st="signe" onclick="pickOutcome('signe')">✅ Signé / Devis OK</button>
-              <button type="button" class="outcome-btn" data-st="absent" onclick="pickOutcome('absent')">🚪 Gérant absent</button>
-              <button type="button" class="outcome-btn" data-st="refus" onclick="pickOutcome('refus')">❌ Refus / Pas intéressé</button>
-            </div>
-
-            <div id="recallFieldWrap" style="display:none; margin-bottom:10px;">
-              <label class="field-lbl" for="vRecallAt">Date &amp; heure de rappel / repassage</label>
-              <input type="datetime-local" id="vRecallAt" class="inp">
-            </div>
-
-            <label class="field-lbl" for="vAnswer">Détail exact de sa réponse / Notes</label>
-            <div class="quick-chips">
-              <button type="button" class="qchip" onclick="appendAnswerChip('Maquette montrée sur place')">Maquette montrée</button>
-              <button type="button" class="qchip" onclick="appendAnswerChip('Lien envoyé par WhatsApp')">Envoyé WhatsApp</button>
-              <button type="button" class="qchip" onclick="appendAnswerChip('A déjà un site internet')">Déjà un site</button>
-              <button type="button" class="qchip" onclick="appendAnswerChip('Patron absent, carte laissée')">Carte laissée</button>
-              <button type="button" class="qchip" onclick="appendAnswerChip('Intéressé par Click & Collect 0%')">Veut Click &amp; Collect</button>
-              <button type="button" class="qchip" onclick="appendAnswerChip('Trop cher pour le moment')">Objection prix</button>
-            </div>
-            <textarea id="vAnswer" class="ta" rows="2" placeholder="Ex : Veut supprimer les 30% Uber Eats, rappeler mardi à 15h pour signer le devis 990 €..."></textarea>
-
-            <button type="submit" id="submitVisitBtn" class="btn-save" style="margin-top:12px;">
-              ✓ Enregistrer le démarchage (+1 objectif)
-            </button>
-          </form>
-        </section>
+    <!-- SAISIE RAPIDE PASSAGE CLIENT -->
+    <section class="entry-panel" id="visitFormPanel">
+      <div class="entry-head">
+        <h2 id="formHeading">Nouveau passage client</h2>
+        <button type="button" id="cancelEditBtn" class="btn-plain" style="display:none; height:28px; font-size:11.5px;" onclick="resetVisitForm()">Annuler la modification</button>
       </div>
 
-      <!-- COLONNE DROITE : RECAP HORAIRES EQUIPE + FILTRES + JOURNAL DETAILLE -->
-      <div>
-        <!-- APERCU RAPIDE HORAIRES DES 3 DEMARCHEURS POUR LA DATE SELECTIONNEE -->
-        <div class="hours-overview-grid" id="teamHoursOverview"></div>
+      <form id="visitLogForm" onsubmit="submitVisitForm(event)">
+        <input type="hidden" id="editVisitId" value="">
 
-        <!-- FILTRES JOURNAL -->
-        <div class="filter-toolbar">
-          <div class="filter-row-top">
-            <input type="text" id="searchJournal" class="inp" placeholder="🔍 Rechercher un commerce, gérant, ville, réponse..." oninput="renderJournal()">
-            <select id="periodFilter" class="sel" style="width:auto;" onchange="renderJournal()">
-              <option value="day">Journée sélectionnée</option>
-              <option value="week">7 derniers jours</option>
-              <option value="all">Tout l'historique</option>
-            </select>
-            <select id="repFilter" class="sel" style="width:auto;" onchange="renderJournal()">
-              <option value="all">Tous démarcheurs</option>
-              <option value="Jalil">Jalil uniquement</option>
-              <option value="Mehdi">Mehdi uniquement</option>
-              <option value="Mino">Mino uniquement</option>
+        <div class="entry-row-1">
+          <div>
+            <label class="field-lbl" for="vRep">Démarcheur</label>
+            <select id="vRep" class="sel" onchange="syncActiveRepFromSelect()">
+              <option value="Jalil">Jalil</option>
+              <option value="Mehdi">Mehdi</option>
+              <option value="Mino">Mino</option>
             </select>
           </div>
-          <div class="pills-wrap" id="statusFilterPills">
-            <button type="button" class="f-pill active" onclick="setStatusFilter('all', this)">Toutes réponses</button>
-            <button type="button" class="f-pill" onclick="setStatusFilter('interesse', this)">🔥 Intéressés</button>
-            <button type="button" class="f-pill" onclick="setStatusFilter('rappeler', this)">⏰ À rappeler</button>
-            <button type="button" class="f-pill" onclick="setStatusFilter('signe', this)">✅ Signés</button>
-            <button type="button" class="f-pill" onclick="setStatusFilter('absent', this)">🚪 Absents</button>
-            <button type="button" class="f-pill" onclick="setStatusFilter('refus', this)">❌ Refus</button>
+          <div>
+            <label class="field-lbl" for="vShop">Commerce visité *</label>
+            <input type="text" id="vShop" class="inp" placeholder="Ex : Boulangerie L'Épi d'Or" required>
+          </div>
+          <div>
+            <label class="field-lbl" for="vSector">Secteur</label>
+            <select id="vSector" class="sel">
+              <option value="restaurant">Restaurant / Brasserie</option>
+              <option value="fastfood">Fast-Food / Smash</option>
+              <option value="boulangerie">Boulangerie / Pâtisserie</option>
+              <option value="barber">Coiffeur / Barber</option>
+              <option value="beaute">Institut / Onglerie</option>
+              <option value="pizzeria">Pizzeria / Trattoria</option>
+              <option value="sushi">Sushi / Poké</option>
+              <option value="garage">Garage Auto</option>
+              <option value="fleuriste">Fleuriste</option>
+              <option value="commerce">Boucherie / Commerce</option>
+              <option value="artisan">Artisan / BTP</option>
+              <option value="depannage">Plombier / Serrurier</option>
+              <option value="vtc">VTC / Transport</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-lbl" for="vCity">Ville / Rue</label>
+            <input type="text" id="vCity" class="inp" placeholder="Pontoise, Cergy...">
+          </div>
+          <div>
+            <label class="field-lbl" for="vContactPhone">Contact &amp; Tél.</label>
+            <input type="text" id="vContactPhone" class="inp" placeholder="Karim · 06 12 34 56 78">
+          </div>
+          <div>
+            <label class="field-lbl" for="vDateTime">Date &amp; heure *</label>
+            <input type="datetime-local" id="vDateTime" class="inp" required>
           </div>
         </div>
 
-        <div class="visits-list" id="visitsListContainer"></div>
+        <div class="entry-row-2">
+          <div>
+            <span class="field-lbl">Réponse du client</span>
+            <div class="outcome-segments" id="outcomeBtnsGrid">
+              <button type="button" class="seg-btn active" data-st="interesse" onclick="pickOutcome('interesse')"><span class="dot dot-interesse"></span>Intéressé</button>
+              <button type="button" class="seg-btn" data-st="rappeler" onclick="pickOutcome('rappeler')"><span class="dot dot-rappeler"></span>À rappeler</button>
+              <button type="button" class="seg-btn" data-st="signe" onclick="pickOutcome('signe')"><span class="dot dot-signe"></span>Signé</button>
+              <button type="button" class="seg-btn" data-st="absent" onclick="pickOutcome('absent')"><span class="dot dot-absent"></span>Gérant absent</button>
+              <button type="button" class="seg-btn" data-st="refus" onclick="pickOutcome('refus')"><span class="dot dot-refus"></span>Refus</button>
+            </div>
+          </div>
+
+          <div id="recallFieldWrap" style="display:none; min-width:190px;">
+            <label class="field-lbl" for="vRecallAt">Date / heure de relance</label>
+            <input type="datetime-local" id="vRecallAt" class="inp">
+          </div>
+        </div>
+
+        <div class="entry-row-3">
+          <div>
+            <div class="quick-notes-row">
+              <button type="button" class="q-chip" onclick="appendAnswerChip('Maquette montrée')">Maquette montrée</button>
+              <button type="button" class="q-chip" onclick="appendAnswerChip('Envoyé sur WhatsApp')">Envoyé sur WhatsApp</button>
+              <button type="button" class="q-chip" onclick="appendAnswerChip('A déjà un site')">A déjà un site</button>
+              <button type="button" class="q-chip" onclick="appendAnswerChip('Repasser voir le gérant')">Repasser voir le gérant</button>
+            </div>
+            <input type="text" id="vAnswer" class="inp" placeholder="Réponse du client / notes (ex : gérant intéressé par le Click & Collect, repasser jeudi à 15h...)">
+          </div>
+
+          <button type="submit" id="submitVisitBtn" class="btn-submit">Enregistrer le passage (+1)</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- JOURNAL DES PASSAGES -->
+    <section class="journal-card">
+      <div class="filter-bar">
+        <div class="filter-top">
+          <input type="text" id="searchJournal" class="inp" placeholder="Rechercher un commerce, une ville, un contact, une note..." oninput="renderJournal()">
+          <select id="repFilter" class="sel" style="width:auto;" onchange="onRepFilterDropdownChange()">
+            <option value="all">Tous les démarcheurs</option>
+            <option value="Jalil">Jalil</option>
+            <option value="Mehdi">Mehdi</option>
+            <option value="Mino">Mino</option>
+          </select>
+          <select id="periodFilter" class="sel" style="width:auto;" onchange="renderJournal()">
+            <option value="day">Journée sélectionnée</option>
+            <option value="week">7 derniers jours</option>
+            <option value="all">Tout l'historique</option>
+          </select>
+        </div>
+        <div class="filter-tabs" id="statusFilterPills">
+          <button type="button" class="f-tab active" onclick="setStatusFilter('all', this)">Tous</button>
+          <button type="button" class="f-tab" onclick="setStatusFilter('interesse', this)">Intéressés</button>
+          <button type="button" class="f-tab" onclick="setStatusFilter('rappeler', this)">À rappeler</button>
+          <button type="button" class="f-tab" onclick="setStatusFilter('signe', this)">Signés</button>
+          <button type="button" class="f-tab" onclick="setStatusFilter('absent', this)">Absents</button>
+          <button type="button" class="f-tab" onclick="setStatusFilter('refus', this)">Refus</button>
+        </div>
       </div>
-    </div>
+
+      <div class="visits-table-head">
+        <div>Quand</div>
+        <div>Démarcheur</div>
+        <div>Commerce &amp; Contact</div>
+        <div>Réponse du client</div>
+        <div style="text-align:right;">Actions</div>
+      </div>
+
+      <div id="visitsListContainer"></div>
+    </section>
   </div>
 
-  <!-- MODAL PARTAGE & SYNCHRO MULTI-APPAREILS -->
+  <!-- MODAL PARTAGE BILAN -->
   <div id="syncModal" class="modal-backdrop" onclick="if(event.target===this)closeShareSyncModal()">
     <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h3 style="font-size:16px; font-weight:800;">📤 Envoyer le Bilan &amp; Synchroniser l'Équipe</h3>
-        <button type="button" onclick="closeShareSyncModal()" style="background:none; border:none; font-size:18px; cursor:pointer;">✕</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h3 style="font-size:15px; font-weight:700;">Partager le bilan &amp; synchroniser</h3>
+        <button type="button" onclick="closeShareSyncModal()" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--slate);">✕</button>
       </div>
-      <p style="font-size:12.5px; color:var(--muted); margin-bottom:12px;">
-        Chaque démarcheur (Jalil, Mehdi, Mino) envoie son bilan du jour sur WhatsApp avec un <strong>lien de synchronisation</strong> : en l'ouvrant sur un autre téléphone ou PC, ses passages et horaires fusionnent automatiquement dans le tableau.
+      <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">
+        Envoyez le récapitulatif du jour sur WhatsApp. Le lien inclus permet d'importer et de fusionner automatiquement ces passages et horaires sur un autre appareil.
       </p>
 
       <div style="margin-bottom:10px;">
-        <label class="field-lbl" for="syncRepSelect">Démarcheur à exporter</label>
+        <label class="field-lbl" for="syncRepSelect">Démarcheur à inclure</label>
         <select id="syncRepSelect" class="sel" onchange="buildSyncPayloadPreview()">
           <option value="all">Toute l'équipe (Jalil + Mehdi + Mino)</option>
           <option value="Jalil">Jalil uniquement</option>
@@ -936,17 +998,17 @@
         </select>
       </div>
 
-      <textarea id="syncTextPreview" class="ta" rows="8" readonly style="font-size:12px; background:var(--slate-soft); margin-bottom:12px;"></textarea>
+      <textarea id="syncTextPreview" class="ta" rows="8" readonly style="font-size:12px; background:var(--bg); margin-bottom:10px;"></textarea>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
-        <button type="button" class="btn-save" style="padding:10px;" onclick="sendSyncWhatsApp()">💬 Envoyer sur WhatsApp</button>
-        <button type="button" class="v-btn" style="justify-content:center; padding:10px; font-weight:700;" onclick="copySyncMessage()">📋 Copier le bilan</button>
+        <button type="button" class="btn-submit" style="width:100%;" onclick="sendSyncWhatsApp()">Envoyer sur WhatsApp</button>
+        <button type="button" class="btn-plain" style="width:100%; height:38px;" onclick="copySyncMessage()">Copier le texte</button>
       </div>
 
       <div style="padding-top:10px; border-top:1px solid var(--border); display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-        <button type="button" class="v-btn" onclick="downloadBackupJson()">💾 Sauvegarde JSON</button>
-        <label class="v-btn" style="cursor:pointer;">
-          📥 Importer / Fusionner un JSON
+        <button type="button" class="btn-plain" onclick="downloadBackupJson()">Sauvegarde JSON</button>
+        <label class="btn-plain" style="display:inline-flex; align-items:center; cursor:pointer;">
+          Importer un JSON
           <input type="file" accept=".json" style="display:none;" onchange="importBackupJson(event)">
         </label>
       </div>
@@ -956,19 +1018,15 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    const REPS = [
-      { id: 'Jalil', color: '#2563EB', goal: 15 },
-      { id: 'Mehdi', color: '#7C3AED', goal: 15 },
-      { id: 'Mino',  color: '#D97706', goal: 15 }
-    ];
+    const REPS = ['Jalil', 'Mehdi', 'Mino'];
     const DAILY_GOAL = 15;
 
-    const OUTCOME_LABELS = {
-      interesse: { label: 'Intéressé', ico: '🔥', cls: 'st-interesse' },
-      rappeler:  { label: 'À rappeler', ico: '⏰', cls: 'st-rappeler' },
-      signe:     { label: 'Signé / Devis OK', ico: '✅', cls: 'st-signe' },
-      absent:    { label: 'Gérant absent', ico: '🚪', cls: 'st-absent' },
-      refus:     { label: 'Refus', ico: '❌', cls: 'st-refus' }
+    const OUTCOME_META = {
+      interesse: { label: 'Intéressé', cls: 'st-interesse', dot: 'dot-interesse' },
+      rappeler:  { label: 'À rappeler', cls: 'st-rappeler', dot: 'dot-rappeler' },
+      signe:     { label: 'Signé', cls: 'st-signe', dot: 'dot-signe' },
+      absent:    { label: 'Gérant absent', cls: 'st-absent', dot: 'dot-absent' },
+      refus:     { label: 'Refus', cls: 'st-refus', dot: 'dot-refus' }
     };
 
     const STORE_LOGS_KEY = 'bms_travail_logs_v1';
@@ -976,7 +1034,7 @@
     const STORE_ACTIVE_REP_KEY = 'bms_travail_active_rep';
 
     let visitLogs = [];
-    let hoursMap = {}; // { 'YYYY-MM-DD': { Jalil: { start, end, bStart, bEnd, zone }, ... } }
+    let hoursMap = {};
     let activeRep = 'Jalil';
     let selectedOutcome = 'interesse';
     let statusFilter = 'all';
@@ -1001,7 +1059,7 @@
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2800);
+      setTimeout(() => t.classList.remove('show'), 2600);
     }
 
     function loadAllData() {
@@ -1019,7 +1077,7 @@
 
       try {
         const savedRep = localStorage.getItem(STORE_ACTIVE_REP_KEY);
-        if (REPS.some(r => r.id === savedRep)) activeRep = savedRep;
+        if (REPS.includes(savedRep)) activeRep = savedRep;
       } catch (e) {}
     }
 
@@ -1047,15 +1105,14 @@
     }
 
     function selectActiveRep(repId) {
+      if (!REPS.includes(repId)) return;
       activeRep = repId;
       try { localStorage.setItem(STORE_ACTIVE_REP_KEY, repId); } catch (e) {}
       document.getElementById('vRep').value = repId;
       document.getElementById('hoursRepTitle').textContent = repId;
-      document.querySelectorAll('#activeRepSwitch .rep-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.trim() === repId);
-      });
       loadRepHoursUI();
       renderRepCards();
+      updateHoursSummaryBar(getHoursObj(getActiveDate(), activeRep));
     }
 
     function syncActiveRepFromSelect() {
@@ -1064,26 +1121,36 @@
 
     /* =============== HORAIRES =============== */
     function getHoursObj(dateStr, repId) {
-      return (hoursMap[dateStr] && hoursMap[dateStr][repId]) ? hoursMap[dateStr][repId] : { start: '', end: '', bStart: '', bEnd: '', zone: '' };
+      return (hoursMap[dateStr] && hoursMap[dateStr][repId])
+        ? hoursMap[dateStr][repId]
+        : { start: '', end: '', pauseMin: 0, zone: '' };
+    }
+
+    function getPauseMinutes(h) {
+      if (!h) return 0;
+      if (typeof h.pauseMin === 'number') return h.pauseMin;
+      if (h.bStart && h.bEnd) {
+        const toM = str => { const [hh, mm] = str.split(':').map(Number); return hh * 60 + mm; };
+        const diff = toM(h.bEnd) - toM(h.bStart);
+        return diff > 0 ? diff : 0;
+      }
+      return 0;
     }
 
     function calcWorkedMinutes(h) {
-      if (!h.start || !h.end) return null;
+      if (!h || !h.start || !h.end) return null;
       const toMin = str => {
         const [hh, mm] = str.split(':').map(Number);
         return hh * 60 + mm;
       };
-      let total = toMin(h.end) - toMin(h.start);
-      if (total <= 0) return null;
-      if (h.bStart && h.bEnd) {
-        const pause = toMin(h.bEnd) - toMin(h.bStart);
-        if (pause > 0 && pause < total) total -= pause;
-      }
-      return total;
+      const span = toMin(h.end) - toMin(h.start);
+      if (span <= 0) return null;
+      const net = span - getPauseMinutes(h);
+      return net > 0 ? net : span;
     }
 
     function formatMins(mins) {
-      if (mins === null || mins === undefined) return 'Non calculé';
+      if (mins === null || mins === undefined) return '—';
       const h = Math.floor(mins / 60);
       const m = mins % 60;
       return `${h}h${String(m).padStart(2, '0')}`;
@@ -1093,8 +1160,7 @@
       const h = getHoursObj(getActiveDate(), activeRep);
       document.getElementById('hrStart').value = h.start || '';
       document.getElementById('hrEnd').value = h.end || '';
-      document.getElementById('hrBreakStart').value = h.bStart || '';
-      document.getElementById('hrBreakEnd').value = h.bEnd || '';
+      document.getElementById('hrBreakMin').value = String(getPauseMinutes(h));
       document.getElementById('hrZone').value = h.zone || '';
       updateHoursSummaryBar(h);
     }
@@ -1105,15 +1171,13 @@
       const h = {
         start: document.getElementById('hrStart').value,
         end: document.getElementById('hrEnd').value,
-        bStart: document.getElementById('hrBreakStart').value,
-        bEnd: document.getElementById('hrBreakEnd').value,
+        pauseMin: parseInt(document.getElementById('hrBreakMin').value, 10) || 0,
         zone: document.getElementById('hrZone').value.trim()
       };
       hoursMap[d][activeRep] = h;
       saveAllData();
       updateHoursSummaryBar(h);
       renderRepCards();
-      renderTeamHoursOverview();
     }
 
     function punchNow(field) {
@@ -1122,25 +1186,22 @@
       if (field === 'start') document.getElementById('hrStart').value = hhmm;
       if (field === 'end') document.getElementById('hrEnd').value = hhmm;
       saveRepHours();
-      showToast(`⏱️ ${activeRep} pointé (${field === 'start' ? 'début' : 'fin'}) à ${hhmm}`);
+      showToast(`${activeRep} — heure enregistrée (${hhmm})`);
     }
 
     function updateHoursSummaryBar(h) {
       const d = getActiveDate();
       const count = visitLogs.filter(v => v.rep === activeRep && (v.visitedAt || '').slice(0, 10) === d).length;
       const mins = calcWorkedMinutes(h);
-      const durText = mins !== null ? formatMins(mins) : (h.start ? `En cours dès ${h.start}` : 'Non pointé');
-      let rateText = '—';
+      const durText = mins !== null ? formatMins(mins) : (h && h.start ? `Dès ${h.start}` : '—');
+      let rateText = '';
       if (mins && mins >= 30 && count > 0) {
-        rateText = (count / (mins / 60)).toFixed(1).replace('.', ',') + ' visites/h';
+        rateText = ` · ${(count / (mins / 60)).toFixed(1).replace('.', ',')} visites/h`;
       }
-      document.getElementById('hoursSummaryBar').innerHTML = `
-        <span>Temps terrain : <strong>${esc(durText)}</strong></span>
-        <span>Cadence : <strong>${esc(rateText)}</strong></span>
-      `;
+      document.getElementById('hoursSummaryBar').innerHTML = `Temps actif : <strong>${esc(durText)}</strong>${esc(rateText)}`;
     }
 
-    /* =============== DASHBOARD 3 DEMARCHEURS (OBJECTIF 15 CHACUN) =============== */
+    /* =============== CARTES DES 3 DEMARCHEURS =============== */
     function renderRepCards() {
       const d = getActiveDate();
       let teamDayTotal = 0;
@@ -1148,7 +1209,7 @@
       let teamSigned = 0;
 
       const html = REPS.map(rep => {
-        const dayLogs = visitLogs.filter(v => v.rep === rep.id && (v.visitedAt || '').slice(0, 10) === d);
+        const dayLogs = visitLogs.filter(v => v.rep === rep && (v.visitedAt || '').slice(0, 10) === d);
         const count = dayLogs.length;
         teamDayTotal += count;
 
@@ -1160,69 +1221,80 @@
 
         const pct = Math.min(100, Math.round((count / DAILY_GOAL) * 100));
         const reached = count >= DAILY_GOAL;
-        const h = getHoursObj(d, rep.id);
+        const h = getHoursObj(d, rep);
         const mins = calcWorkedMinutes(h);
-        const hourTxt = h.start
-          ? (h.end ? `${h.start} → ${h.end} (${formatMins(mins)})` : `En cours dès ${h.start}`)
-          : 'Horaires non pointés';
+        let hourTxt = 'Horaires non renseignés';
+        if (h.start) {
+          hourTxt = h.end
+            ? `${h.start.replace(':', 'h')} – ${h.end.replace(':', 'h')} (${formatMins(mins)})`
+            : `Arrivé à ${h.start.replace(':', 'h')}`;
+          if (h.zone) hourTxt += ` · ${h.zone}`;
+        } else if (h.zone) {
+          hourTxt = h.zone;
+        }
 
-        const badgeHtml = reached
-          ? `<span class="goal-badge" style="background:#DCFCE7;color:#166534;">🎯 Objectif atteint (${count}/15)</span>`
-          : `<span class="goal-badge" style="background:#F1F5F9;color:#475569;">Reste ${DAILY_GOAL - count} avant 15</span>`;
+        const goalTag = reached
+          ? `<span class="rep-goal-tag reached">Objectif atteint</span>`
+          : `<span class="rep-goal-tag">Reste ${DAILY_GOAL - count} avant 15</span>`;
 
         return `
-          <div class="rep-card ${activeRep === rep.id ? 'active' : ''}" onclick="selectActiveRep('${rep.id}'); filterByRep('${rep.id}');">
-            <div class="rep-top">
-              <div class="rep-identity">
-                <div class="rep-avatar" style="background:${rep.color};">${rep.id.slice(0, 1)}</div>
-                <div>
-                  <div class="rep-name">${rep.id}</div>
-                  <div class="rep-hours-label">🕐 ${esc(hourTxt)}${h.zone ? ' · ' + esc(h.zone) : ''}</div>
-                </div>
-              </div>
-              <div class="rep-score">
-                <strong style="color:${reached ? 'var(--green)' : rep.color};">${count}<span style="font-size:13px;color:var(--muted);font-weight:600;">/${DAILY_GOAL}</span></strong>
-                <span>${pct}% objectif</span>
-              </div>
+          <div class="rep-card ${activeRep === rep ? 'active' : ''}" onclick="onRepCardClick('${rep}')">
+            <div class="rep-row-top">
+              <span class="rep-name">${rep}</span>
+              <span class="rep-score ${reached ? 'reached' : ''}">${count} <small>/ ${DAILY_GOAL}</small></span>
             </div>
+            <div class="rep-hours-txt">${esc(hourTxt)}</div>
             <div class="progress-track">
-              <div class="progress-fill" style="width:${pct}%; background:${reached ? 'var(--green)' : rep.color};"></div>
+              <div class="progress-fill ${reached ? 'reached' : ''}" style="width:${pct}%;"></div>
             </div>
-            <div class="rep-mini-stats">
-              <span>🔥 ${inter} · ⏰ ${rec} · ✅ ${sig}</span>
-              ${badgeHtml}
+            <div class="rep-footer">
+              <span>${inter} intéressé${inter > 1 ? 's' : ''} · ${rec} à rappeler · ${sig} signé${sig > 1 ? 's' : ''}</span>
+              ${goalTag}
             </div>
           </div>
         `;
       }).join('');
 
       document.getElementById('repsCardsContainer').innerHTML = html;
-      document.getElementById('teamTotalGoalText').textContent = `${teamDayTotal} / 45`;
-      document.getElementById('teamSignedSummary').textContent = `(${teamInterested} intéressés · ${teamSigned} signés)`;
+      document.getElementById('teamTotalGoalText').textContent = `${teamDayTotal} / 45 démarchages`;
+      document.getElementById('teamSignedSummary').textContent = `(${teamInterested} intéressé${teamInterested > 1 ? 's' : ''} · ${teamSigned} signé${teamSigned > 1 ? 's' : ''})`;
     }
 
-    function renderTeamHoursOverview() {
-      const d = getActiveDate();
-      document.getElementById('teamHoursOverview').innerHTML = REPS.map(rep => {
-        const h = getHoursObj(d, rep.id);
-        const mins = calcWorkedMinutes(h);
-        const schedule = h.start
-          ? `${h.start} – ${h.end || '...'}${h.bStart && h.bEnd ? ` (Pause ${h.bStart}-${h.bEnd})` : ''}`
-          : 'Pas encore pointé';
-        return `
-          <div class="hour-mini-card">
-            <strong style="color:${rep.color};">🕐 ${rep.id} ${mins !== null ? `• ${formatMins(mins)}` : ''}</strong>
-            <div style="color:var(--muted);">${esc(schedule)}</div>
-            ${h.zone ? `<div style="margin-top:2px; font-weight:600;">📍 ${esc(h.zone)}</div>` : ''}
-          </div>
-        `;
-      }).join('');
+    function onRepCardClick(repId) {
+      selectActiveRep(repId);
+      filterByRep(repId);
     }
 
-    /* =============== FORMULAIRE PASSAGE CLIENT =============== */
+    function filterByRep(repId) {
+      document.getElementById('repFilter').value = repId;
+      document.getElementById('allRepsBtn').classList.toggle('is-active', repId === 'all');
+      renderJournal();
+    }
+
+    function onRepFilterDropdownChange() {
+      const val = document.getElementById('repFilter').value;
+      document.getElementById('allRepsBtn').classList.toggle('is-active', val === 'all');
+      renderJournal();
+    }
+
+    /* =============== SAISIE PASSAGE CLIENT =============== */
+    function parseContactAndPhone(rawContactPhone, separatePhone) {
+      // Compatibilité avec anciennes entrées (contact + phone séparés) ou saisie combinée
+      if (separatePhone !== undefined) return { contact: rawContactPhone || '', phone: separatePhone || '' };
+      const str = String(rawContactPhone || '').trim();
+      if (!str) return { contact: '', phone: '' };
+      const phoneMatch = str.match(/(?:\+33|0)[1-9](?:[\s.-]?\d{2}){4}/);
+      if (phoneMatch) {
+        const phone = phoneMatch[0].trim();
+        const contact = str.replace(phoneMatch[0], '').replace(/[·,\-|/]+/g, ' ').trim();
+        return { contact, phone };
+      }
+      return { contact: str, phone: '' };
+    }
+
     function pickOutcome(st) {
       selectedOutcome = st;
-      document.querySelectorAll('#outcomeBtnsGrid .outcome-btn').forEach(b => {
+      document.querySelectorAll('#outcomeBtnsGrid .seg-btn').forEach(b => {
         b.classList.toggle('active', b.dataset.st === st);
       });
       const recallWrap = document.getElementById('recallFieldWrap');
@@ -1236,9 +1308,9 @@
     }
 
     function appendAnswerChip(text) {
-      const ta = document.getElementById('vAnswer');
-      ta.value = ta.value.trim() ? `${ta.value.trim()} · ${text}` : text;
-      ta.focus();
+      const inp = document.getElementById('vAnswer');
+      inp.value = inp.value.trim() ? `${inp.value.trim()} · ${text}` : text;
+      inp.focus();
     }
 
     function resetVisitForm() {
@@ -1246,8 +1318,8 @@
       document.getElementById('editVisitId').value = '';
       document.getElementById('vRep').value = activeRep;
       document.getElementById('vDateTime').value = nowDateTimeLocal();
-      document.getElementById('formHeading').textContent = '📝 Nouveau Passage Client';
-      document.getElementById('submitVisitBtn').textContent = '✓ Enregistrer le démarchage (+1 objectif)';
+      document.getElementById('formHeading').textContent = 'Nouveau passage client';
+      document.getElementById('submitVisitBtn').textContent = 'Enregistrer le passage (+1)';
       document.getElementById('cancelEditBtn').style.display = 'none';
       pickOutcome('interesse');
     }
@@ -1260,14 +1332,16 @@
       const shop = document.getElementById('vShop').value.trim();
       if (!shop) return;
 
+      const parsedCP = parseContactAndPhone(document.getElementById('vContactPhone').value);
+
       const entry = {
         id: editId || ('TRV-' + Date.now() + '-' + Math.floor(Math.random() * 999)),
         rep,
         visitedAt,
         shop,
         sector: document.getElementById('vSector').value,
-        contact: document.getElementById('vContact').value.trim(),
-        phone: document.getElementById('vPhone').value.trim(),
+        contact: parsedCP.contact,
+        phone: parsedCP.phone,
         city: document.getElementById('vCity').value.trim(),
         outcome: selectedOutcome,
         recallAt: (selectedOutcome === 'rappeler' || selectedOutcome === 'absent') ? document.getElementById('vRecallAt').value : '',
@@ -1278,12 +1352,11 @@
       if (editId) {
         const idx = visitLogs.findIndex(v => v.id === editId);
         if (idx !== -1) visitLogs[idx] = entry;
-        showToast(`Passage mis à jour : ${shop}`);
+        showToast(`Passage modifié : ${shop}`);
       } else {
         visitLogs.unshift(entry);
-        // S'assurer que la journée suivie correspond si le démarcheur saisit pour aujourd'hui
         document.getElementById('activeDateInp').value = visitedAt.slice(0, 10);
-        showToast(`+1 démarchage enregistré pour ${rep} !`);
+        showToast(`Passage enregistré pour ${rep}`);
       }
 
       saveAllData();
@@ -1300,14 +1373,13 @@
       document.getElementById('vDateTime').value = v.visitedAt || nowDateTimeLocal();
       document.getElementById('vShop').value = v.shop || '';
       document.getElementById('vSector').value = v.sector || 'restaurant';
-      document.getElementById('vContact').value = v.contact || '';
-      document.getElementById('vPhone').value = v.phone || '';
       document.getElementById('vCity').value = v.city || '';
+      document.getElementById('vContactPhone').value = [v.contact, v.phone].filter(Boolean).join(' · ');
       document.getElementById('vAnswer').value = v.answer || '';
       pickOutcome(v.outcome || 'interesse');
       if (v.recallAt) document.getElementById('vRecallAt').value = v.recallAt;
 
-      document.getElementById('formHeading').textContent = `✏️ Modifier : ${v.shop}`;
+      document.getElementById('formHeading').textContent = `Modifier : ${v.shop}`;
       document.getElementById('submitVisitBtn').textContent = 'Enregistrer les modifications';
       document.getElementById('cancelEditBtn').style.display = 'inline-block';
       document.getElementById('visitFormPanel').scrollIntoView({ behavior: 'smooth' });
@@ -1322,15 +1394,10 @@
       showToast('Passage supprimé');
     }
 
-    /* =============== FILTRES & JOURNAL =============== */
-    function filterByRep(repId) {
-      document.getElementById('repFilter').value = repId;
-      renderJournal();
-    }
-
+    /* =============== FILTRES & LISTE =============== */
     function setStatusFilter(st, btn) {
       statusFilter = st;
-      document.querySelectorAll('#statusFilterPills .f-pill').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#statusFilterPills .f-tab').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       renderJournal();
     }
@@ -1366,64 +1433,57 @@
       const box = document.getElementById('visitsListContainer');
       if (list.length === 0) {
         box.innerHTML = `
-          <div class="panel" style="text-align:center; padding:36px 20px;">
-            <strong style="display:block; font-size:15px; margin-bottom:6px;">Aucun démarchage affiché pour ces filtres</strong>
-            <span style="font-size:12.5px; color:var(--muted);">Saisissez un passage client à gauche ou basculez sur « Tout l'historique ».</span>
+          <div class="empty-box">
+            <strong>Aucun démarchage affiché pour cette sélection</strong>
+            <span>Enregistrez un passage ci-dessus ou changez la période sur « Tout l'historique ».</span>
           </div>
         `;
         return;
       }
 
       box.innerHTML = list.map(v => {
-        const repMeta = REPS.find(r => r.id === v.rep) || REPS[0];
-        const stMeta = OUTCOME_LABELS[v.outcome] || OUTCOME_LABELS.interesse;
+        const st = OUTCOME_META[v.outcome] || OUTCOME_META.interesse;
         const cleanTel = (v.phone || '').replace(/[^0-9+]/g, '');
         const waTel = cleanTel.startsWith('0') ? '33' + cleanTel.slice(1) : cleanTel;
-        const waMsg = `Bonjour${v.contact ? ' ' + v.contact : ''}, c'est ${v.rep} de BoostMySite suite à notre passage chez ${v.shop}. Voici notre démo personnalisée pour votre commerce : https://boost-my-site.com/portfolio.html`;
+        const waMsg = `Bonjour${v.contact ? ' ' + v.contact : ''}, c'est ${v.rep} de BoostMySite suite à notre passage chez ${v.shop}. Voici notre maquette personnalisée : https://boost-my-site.com/portfolio.html`;
         const waUrl = waTel ? `https://wa.me/${waTel}?text=${encodeURIComponent(waMsg)}` : `https://wa.me/?text=${encodeURIComponent(waMsg)}`;
         const maquetteUrl = `maquettes.html?type=${encodeURIComponent(v.sector || 'restaurant')}&client=${encodeURIComponent(v.shop)}&phone=${encodeURIComponent(v.phone || '')}`;
         const devisUrl = `devis-express.html?client=${encodeURIComponent(v.shop)}&phone=${encodeURIComponent(v.phone || '')}&address=${encodeURIComponent(v.city || '')}&pack=pro&price=990`;
 
+        const subParts = [
+          v.contact ? esc(v.contact) : '',
+          v.city ? esc(v.city) : '',
+          v.phone ? `<a href="tel:${esc(cleanTel)}">${esc(v.phone)}</a>` : ''
+        ].filter(Boolean).join(' · ');
+
         return `
-          <article class="visit-card">
-            <div class="visit-head">
-              <div>
-                <div class="visit-badges">
-                  <span class="rep-badge" style="background:${repMeta.color};">${esc(v.rep)}</span>
-                  <span class="time-badge">📅 ${esc(formatHumanDt(v.visitedAt))}</span>
-                </div>
-                <div class="visit-shop">${esc(v.shop)}</div>
-              </div>
-              <span class="st-badge ${stMeta.cls}">${stMeta.ico} ${stMeta.label}</span>
+          <div class="visit-row">
+            <div class="col-when">${esc(formatHumanDt(v.visitedAt))}</div>
+            <div class="col-rep">${esc(v.rep)}</div>
+            <div>
+              <div class="shop-name">${esc(v.shop)}</div>
+              ${subParts ? `<div class="shop-sub">${subParts}</div>` : ''}
             </div>
-
-            <div class="visit-meta">
-              ${v.contact ? `<span>👤 ${esc(v.contact)}</span>` : ''}
-              ${v.city ? `<span>📍 ${esc(v.city)}</span>` : ''}
-              ${v.phone ? `<span>📞 <a href="tel:${esc(cleanTel)}">${esc(v.phone)}</a></span>` : ''}
+            <div>
+              <span class="status-pill ${st.cls}"><span class="dot ${st.dot}"></span>${st.label}</span>
+              <div class="answer-text">${v.answer ? esc(v.answer) : '<span style="color:var(--muted);">—</span>'}</div>
+              ${v.recallAt ? `<div class="recall-note">Relance prévue : ${esc(formatHumanDt(v.recallAt))}</div>` : ''}
             </div>
-
-            <div class="visit-answer">
-              ${v.answer ? esc(v.answer) : '<span style="color:var(--muted);font-style:italic;">Pas de commentaire saisi.</span>'}
-              ${v.recallAt ? `<div><span class="visit-recall-tag">⚠️ Relance prévue : ${esc(formatHumanDt(v.recallAt))}</span></div>` : ''}
+            <div class="row-actions">
+              <button type="button" class="act-btn" onclick="editVisit('${v.id}')">Modifier</button>
+              <a href="${maquetteUrl}" class="act-btn">Maquette</a>
+              <a href="${devisUrl}" class="act-btn">Devis</a>
+              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="act-btn">WhatsApp</a>
+              <button type="button" class="act-btn" onclick="pushToSuiviPipeline('${v.id}')">Suivi</button>
+              <button type="button" class="act-btn del" onclick="deleteVisit('${v.id}')">Suppr.</button>
             </div>
-
-            <div class="visit-actions">
-              <button type="button" class="v-btn" onclick="editVisit('${v.id}')">✏️ Modifier</button>
-              <a href="${maquetteUrl}" class="v-btn">🎨 Maquette</a>
-              <a href="${devisUrl}" class="v-btn">📄 Devis</a>
-              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="v-btn wa">💬 WhatsApp</a>
-              <button type="button" class="v-btn suivi" onclick="pushToSuiviPipeline('${v.id}')">📌 Basculer en Suivi</button>
-              <button type="button" class="v-btn del" onclick="deleteVisit('${v.id}')">🗑️</button>
-            </div>
-          </article>
+          </div>
         `;
       }).join('');
     }
 
     function renderAll() {
       renderRepCards();
-      renderTeamHoursOverview();
       updateHoursSummaryBar(getHoursObj(getActiveDate(), activeRep));
       renderJournal();
     }
@@ -1453,7 +1513,7 @@
           updatedAt: new Date().toISOString()
         });
         localStorage.setItem('bms_pipeline_projects', JSON.stringify(list));
-        showToast(`✅ "${v.shop}" transféré dans l'onglet Suivi !`);
+        showToast(`"${v.shop}" envoyé dans l'onglet Suivi.`);
       } catch (e) {
         showToast('Erreur lors du transfert Suivi.');
       }
@@ -1479,7 +1539,7 @@
         const pad = n => String(n).padStart(2, '0');
         const dtLocal = `${tsIso.getFullYear()}-${pad(tsIso.getMonth() + 1)}-${pad(tsIso.getDate())}T${pad(tsIso.getHours())}:${pad(tsIso.getMinutes())}`;
 
-        const exists = visitLogs.some(l => l.shop === shopName && l.visitedAt.slice(0, 10) === dtLocal.slice(0, 10));
+        const exists = visitLogs.some(l => l.shop === shopName && (l.visitedAt || '').slice(0, 10) === dtLocal.slice(0, 10));
         if (!exists) {
           visitLogs.unshift({
             id: 'CARTE-' + (data.ts || Date.now()) + '-' + Math.floor(Math.random() * 999),
@@ -1501,9 +1561,9 @@
       if (added > 0) {
         saveAllData();
         renderAll();
-        showToast(`⬇ ${added} visite(s) importée(s) depuis la Carte pour ${activeRep}`);
+        showToast(`${added} visite(s) importée(s) depuis la Carte pour ${activeRep}.`);
       } else {
-        showToast('Toutes les visites de la Carte sont déjà présentes.');
+        showToast('Toutes les visites de la Carte sont déjà importées.');
       }
     }
 
@@ -1512,7 +1572,7 @@
       const headers = ['Date_Heure', 'Demarcheur', 'Commerce', 'Secteur', 'Interlocuteur', 'Telephone', 'Ville', 'Reponse', 'Rappel', 'Notes_Reponse'];
       const rows = visitLogs.map(v => [
         v.visitedAt, v.rep, v.shop, v.sector, v.contact, v.phone, v.city,
-        (OUTCOME_LABELS[v.outcome]?.label || v.outcome), v.recallAt || '', (v.answer || '').replace(/\n/g, ' ')
+        (OUTCOME_META[v.outcome]?.label || v.outcome), v.recallAt || '', (v.answer || '').replace(/\n/g, ' ')
       ].map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(';'));
 
       const csv = '\uFEFF' + [headers.join(';'), ...rows].join('\r\n');
@@ -1520,12 +1580,12 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Travail-Equipe-BoostMySite-${getActiveDate()}.csv`;
+      a.download = `Travail-Equipe-${getActiveDate()}.csv`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      showToast('📊 Export CSV téléchargé');
+      showToast('Export CSV téléchargé.');
     }
 
     function b64EncodeUnicode(str) {
@@ -1549,12 +1609,8 @@
       const d = getActiveDate();
       const targetRep = document.getElementById('syncRepSelect').value;
       const filteredLogs = visitLogs.filter(v => (v.visitedAt || '').slice(0, 10) === d && (targetRep === 'all' || v.rep === targetRep));
-      const payload = {
-        date: d,
-        logs: filteredLogs,
-        hours: {}
-      };
-      (targetRep === 'all' ? REPS.map(r => r.id) : [targetRep]).forEach(rId => {
+      const payload = { date: d, logs: filteredLogs, hours: {} };
+      (targetRep === 'all' ? REPS : [targetRep]).forEach(rId => {
         if (hoursMap[d] && hoursMap[d][rId]) payload.hours[rId] = hoursMap[d][rId];
       });
 
@@ -1564,16 +1620,16 @@
         syncUrl = `${window.location.origin}${window.location.pathname}?sync=${encoded}`;
       } catch (e) {}
 
-      const repSummaryLines = (targetRep === 'all' ? REPS.map(r => r.id) : [targetRep]).map(rId => {
+      const repSummaryLines = (targetRep === 'all' ? REPS : [targetRep]).map(rId => {
         const rLogs = filteredLogs.filter(l => l.rep === rId);
         const h = getHoursObj(d, rId);
         const mins = calcWorkedMinutes(h);
-        const hrTxt = h.start ? `${h.start}→${h.end || '...'} (${mins !== null ? formatMins(mins) : 'en cours'})` : 'Horaires non pointés';
-        const lines = rLogs.map(l => `  • ${(l.visitedAt || '').slice(11, 16)} ${l.shop} [${OUTCOME_LABELS[l.outcome]?.label || l.outcome}]${l.answer ? ' : ' + l.answer : ''}`).join('\n');
-        return `👤 ${rId} — ${rLogs.length}/15 démarchages | 🕐 ${hrTxt}\n${lines || '  (Aucun passage saisi)'}`;
+        const hrTxt = h.start ? `${h.start} -> ${h.end || '...'} (${formatMins(mins)})` : 'Horaires non renseignés';
+        const lines = rLogs.map(l => `  - ${(l.visitedAt || '').slice(11, 16)} | ${l.shop} [${OUTCOME_META[l.outcome]?.label || l.outcome}]${l.answer ? ' : ' + l.answer : ''}`).join('\n');
+        return `${rId} — ${rLogs.length}/15 démarchages | ${hrTxt}\n${lines || '  (Aucun passage saisi)'}`;
       }).join('\n\n');
 
-      const txt = `📊 BILAN TERRAIN BOOST MY SITE (${d})\n\n${repSummaryLines}${syncUrl && syncUrl.length < 3500 ? `\n\n🔗 Lien synchro directe équipe (1 clic pour importer) :\n${syncUrl}` : ''}`;
+      const txt = `BILAN TERRAIN BOOST MY SITE (${d})\n\n${repSummaryLines}${syncUrl && syncUrl.length < 3500 ? `\n\nLien synchro directe (ouvrir pour importer) :\n${syncUrl}` : ''}`;
       document.getElementById('syncTextPreview').value = txt;
     }
 
@@ -1585,11 +1641,11 @@
     function copySyncMessage() {
       const txt = document.getElementById('syncTextPreview').value;
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(txt).then(() => showToast('📋 Bilan copié !'));
+        navigator.clipboard.writeText(txt).then(() => showToast('Bilan copié.'));
       } else {
         document.getElementById('syncTextPreview').select();
         document.execCommand('copy');
-        showToast('📋 Bilan copié !');
+        showToast('Bilan copié.');
       }
     }
 
@@ -1603,7 +1659,7 @@
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      showToast('💾 Sauvegarde JSON téléchargée');
+      showToast('Sauvegarde JSON téléchargée.');
     }
 
     function mergeSyncPackage(pkg) {
@@ -1612,8 +1668,7 @@
       if (Array.isArray(pkg.logs)) {
         pkg.logs.forEach(item => {
           if (!item || !item.id || !item.shop) return;
-          const idx = visitLogs.findIndex(v => v.id === item.id);
-          if (idx === -1) {
+          if (!visitLogs.some(v => v.id === item.id)) {
             visitLogs.unshift(item);
             added++;
           }
@@ -1625,7 +1680,7 @@
           hoursMap[pkg.date][rId] = hObj;
         });
       }
-      if (pkg.hours && pkg.hoursMap) {
+      if (pkg.hoursMap) {
         Object.entries(pkg.hoursMap).forEach(([dKey, mapObj]) => {
           hoursMap[dKey] = { ...(hoursMap[dKey] || {}), ...mapObj };
         });
@@ -1649,7 +1704,7 @@
           });
           renderAll();
           closeShareSyncModal();
-          showToast(`📥 Fusion réussie (${count} nouveaux passages ajoutés)`);
+          showToast(`Import terminé (${count} nouveaux passages ajoutés).`);
         } catch (e) {
           showToast('Fichier JSON invalide.');
         }
@@ -1666,7 +1721,7 @@
         const added = mergeSyncPackage(pkg);
         if (pkg.date) document.getElementById('activeDateInp').value = pkg.date;
         history.replaceState({}, '', window.location.pathname);
-        showToast(`🔗 Synchro reçue : +${added} passage(s) et horaires importés`);
+        showToast(`Synchro reçue : +${added} passage(s) importés.`);
       } catch (e) {}
     }
 
