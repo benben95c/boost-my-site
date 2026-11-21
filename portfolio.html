@@ -157,7 +157,7 @@
           <div class="selector-field">
             <label for="sectorDropdown">Secteur d'activité</label>
             <select id="sectorDropdown" class="selector-select">
-              <option value="all">Tous les secteurs d'activité (12 démonstrations)</option>
+              <option value="all">Tous les secteurs d'activité (13 démonstrations)</option>
               <option value="fastfood">Fast-Food, Smash Burger &amp; Street-Food</option>
               <option value="restaurant">Restaurant, Brasserie &amp; Bistronomie</option>
               <option value="boulangerie">Boulangerie &amp; Pâtisserie Artisanale</option>
@@ -169,6 +169,7 @@
               <option value="artisan">Artisanat, Rénovation &amp; Salle de Bain</option>
               <option value="depannage">Plombier, Serrurier &amp; Électricien Dépannage</option>
               <option value="commerce">Boucherie, Traiteur, Primeur &amp; Commerce</option>
+              <option value="fleuriste">Fleuriste, Bouquets &amp; Création Florale</option>
               <option value="vtc">Chauffeur Privé VTC &amp; Grande Remise</option>
             </select>
           </div>
@@ -298,14 +299,24 @@
           <div class="case-img"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80" alt="Les Halles du Terroir, site Click &amp; Collect pour boucherie artisanale et commerce de proximité" loading="lazy" width="1200" height="750"></div>
         </article>
 
+        <article class="case" data-sector="fleuriste">
+          <div>
+            <span class="tag">Fleuriste Artisan &amp; Plantes</span>
+            <h2 data-default-title="Maison Pivoine &amp; Sauge">Maison Pivoine &amp; Sauge</h2>
+            <p>Boutique florale élégante pensée pour les artisans fleuristes indépendants. Compositeur de bouquets personnalisés par taille et palette de couleurs, aperçu en direct du petit mot manuscrit sur carte coton, simulateur d'abonnement et livraison locale sans commission.</p>
+            <a href="sites/fleuriste-atelier.html" data-base-href="sites/fleuriste-atelier.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo Fleuriste</a>
+          </div>
+          <div class="case-img"><img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1200&q=85" alt="Maison Pivoine &amp; Sauge, site internet pour artisan fleuriste" loading="lazy" width="1200" height="750"></div>
+        </article>
+
         <article class="case" data-sector="vtc">
           <div>
             <span class="tag">Chauffeur Privé &amp; VTC</span>
             <h2 data-default-title="Prestige Drive Paris">Prestige Drive Paris</h2>
             <p>Création d'une vitrine dédiée aux chauffeurs privés et artisans VTC pour capter une clientèle directe sur les transferts aéroports (CDG, Orly) et mises à disposition, sans dépendre des applications.</p>
-            <a href="sites/chauffeur-prestige.html" data-base-href="sites/chauffeur-prestige.html" target="_blank" rel="noopener noreferrer" class="btn btn--ghost demo-link">Tester la démo VTC</a>
+            <a href="sites/chauffeur-prestige.html" data-base-href="sites/chauffeur-prestige.html" target="_blank" rel="noopener noreferrer" class="btn btn--primary demo-link">Tester la démo VTC</a>
           </div>
-          <div class="case-img"><img src="project-chauffeur.jpg" alt="Prestige Drive Paris, site vitrine pour chauffeur privé VTC" loading="lazy" width="1200" height="750"></div>
+          <div class="case-img"><img src="sites/vehicle-classe-s.jpg" alt="Prestige Drive Paris, site vitrine pour chauffeur privé VTC" loading="lazy" width="1200" height="750"></div>
         </article>
 
         <article class="case" data-sector="saas">
@@ -379,6 +390,7 @@
         artisan: 'sites/artisan-elite.html',
         depannage: 'sites/depannage-urgence.html',
         commerce: 'sites/commerce-boutique.html',
+        fleuriste: 'sites/fleuriste-atelier.html',
         vtc: 'sites/chauffeur-prestige.html'
       };
 

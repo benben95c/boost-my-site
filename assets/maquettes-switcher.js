@@ -1,6 +1,6 @@
 /**
  * BoostMySite — Barre de navigation des démonstrations métiers
- * Menu déroulant sobre (12 secteurs d'activité) + personnalisation du nom d'enseigne
+ * Menu déroulant sobre (13 secteurs d'activité) + personnalisation du nom d'enseigne
  */
 (function () {
   'use strict';
@@ -139,6 +139,18 @@
       long: "Vitrine de pré-commande pour commerces de bouche indépendants (boucherie-charcuterie, rôtisserie, fromagerie, épicerie fine). Réservation en ligne des pièces du week-end et colis familiaux, calculateur de portions selon le nombre de convives et retrait prioritaire en boutique."
     },
     {
+      id: 'fleuriste',
+      label: 'Fleuriste, Bouquets & Création Florale',
+      shortLabel: 'Fleuriste Artisan',
+      file: 'fleuriste-atelier.html',
+      defaultBrand: 'Maison Pivoine & Sauge',
+      pack: 'pro',
+      price: 990,
+      img: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1000&q=85',
+      tagline: 'Composition de bouquet sur mesure avec mot manuscrit, livraison 3h et abonnements floraux.',
+      long: "Boutique florale élégante pensée pour les artisans fleuristes indépendants. Compositeur de bouquets personnalisés par taille et palette de couleurs, aperçu en direct du petit mot manuscrit sur carte coton, simulateur d'abonnement hebdomadaire pour entreprises/particuliers et commande vélo-cargo sans commission."
+    },
+    {
       id: 'vtc',
       label: 'Chauffeur Privé VTC & Grande Remise',
       shortLabel: 'Chauffeur Privé & VTC',
@@ -146,7 +158,7 @@
       defaultBrand: 'Maison Chabé & Prestige',
       pack: 'pro',
       price: 990,
-      img: 'project-chauffeur.jpg',
+      img: 'sites/vehicle-classe-s.jpg',
       tagline: 'Estimation de course en direct, forfaits aéroports CDG / Orly et réservation privée.',
       long: "Création d'une vitrine dédiée aux chauffeurs privés et artisans VTC pour capter une clientèle directe sur les transferts aéroports (CDG, Orly) et mises à disposition, sans dépendre des applications."
     }

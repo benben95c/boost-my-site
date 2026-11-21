@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAISON PIVOINE &amp; SAUGE — Fleuriste Artisan, Bouquets de Saison &amp; Plantes</title>
+  <meta name="description" content="Fleuriste artisanal de proximité. Bouquets noués main le matin même, composition sur mesure avec mot manuscrit, livraison locale sous 3h et abonnements floraux.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sage-bg: #F3F6F1;
+      --sage-soft: #E8EEE5;
+      --sage-deep: #294A35;
+      --sage-dark: #1E3828;
+      --peony: #B5545B;
+      --peony-hover: #964147;
+      --linen: #FFFFFF;
+      --ink: #1B241E;
+      --muted: #5F6B62;
+      --border: #D9E1D6;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--sage-bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 680px) { .container { padding: 0 20px; } }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--peony);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* BANDEAU FRAÎCHEUR DU MATIN */
+    .botanical-top {
+      background: var(--sage-dark);
+      color: #ECF2EA;
+      font-size: 0.78rem;
+      text-align: center;
+      padding: 9px 18px;
+      letter-spacing: 0.03em;
+    }
+    .botanical-top strong { color: #FFFFFF; font-weight: 600; }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-bar {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .botanical-seal {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--sage-deep);
+      color: #FFF;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .brand {
+      font-family: var(--font-serif);
+      font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links { display: flex; gap: 26px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--peony); }
+    .btn-sage {
+      background: var(--sage-deep);
+      color: #FFF;
+      border: 1px solid var(--sage-deep);
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-sage:hover { background: var(--sage-dark); }
+    .btn-peony {
+      background: var(--peony);
+      color: #FFF;
+      border: 1px solid var(--peony);
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .btn-peony:hover { background: var(--peony-hover); }
+    .bag-badge {
+      background: rgba(255,255,255,0.22);
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+    }
+    @media (max-width: 940px) { .nav-links { display: none; } }
+
+    /* HERO SAUGE BOTANIQUE LUMINEUX */
+    .hero-floral {
+      background: linear-gradient(145deg, #E8EFE5 0%, #FAFBF8 100%);
+      padding: 68px 0 82px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 54px;
+      align-items: center;
+    }
+    @media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+    .hero-photos-duo {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .hero-img-tall {
+      width: 100%;
+      height: 430px;
+      object-fit: cover;
+      border-radius: 200px 200px 12px 12px;
+      border: 6px solid #FFFFFF;
+      box-shadow: 0 22px 44px rgba(41, 74, 53, 0.12);
+    }
+    .hero-col-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .hero-img-small {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 5px solid #FFFFFF;
+      box-shadow: 0 14px 30px rgba(41, 74, 53, 0.09);
+    }
+    .seasonal-stamp {
+      background: var(--linen);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .seasonal-stamp strong {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: var(--sage-deep);
+      margin-bottom: 4px;
+    }
+    .seasonal-stamp span { font-size: 0.8rem; color: var(--muted); }
+
+    .hero-floral h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 4.6vw, 4.1rem);
+      font-weight: 600;
+      line-height: 1.06;
+      margin-bottom: 20px;
+    }
+    .hero-floral h1 em { color: var(--peony); font-style: italic; font-weight: 500; }
+    .hero-lead {
+      font-size: 1.03rem;
+      color: var(--muted);
+      margin-bottom: 26px;
+      max-width: 520px;
+    }
+    .quick-occasions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+    .occ-chip {
+      background: #FFF;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .occ-chip:hover { border-color: var(--peony); color: var(--peony); }
+
+    /* CATALOGUE BOUQUETS */
+    .section-pad { padding: 84px 0; }
+    .section-white { background: var(--linen); border-bottom: 1px solid var(--border); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 34px;
+    }
+    .section-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 3.6vw, 2.95rem);
+      font-weight: 600;
+      line-height: 1.1;
+    }
+    .filter-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-pill {
+      background: var(--sage-bg);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--muted);
+    }
+    .filter-pill.active { background: var(--sage-deep); border-color: var(--sage-deep); color: #FFF; }
+
+    .bouquet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 960px) { .bouquet-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px) { .bouquet-grid { grid-template-columns: 1fr; } }
+
+    .bouquet-card {
+      background: var(--linen);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .bouquet-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(41, 74, 53, 0.08);
+    }
+    .bouquet-media { position: relative; height: 240px; overflow: hidden; }
+    .bouquet-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s; }
+    .bouquet-card:hover .bouquet-media img { transform: scale(1.04); }
+    .bouquet-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255,255,255,0.92);
+      color: var(--sage-deep);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .bouquet-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+    .bouquet-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+    .bouquet-head h3 { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 600; }
+    .bouquet-price { font-weight: 700; color: var(--peony); white-space: nowrap; }
+    .bouquet-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; flex: 1; }
+
+    /* ATELIER BOUQUET SUR-MESURE */
+    .atelier-box {
+      background: var(--linen);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 920px) { .atelier-box { grid-template-columns: 1fr; padding: 24px; } }
+    .step-title {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sage-deep);
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .choice-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    @media (max-width: 600px) { .choice-row { grid-template-columns: 1fr; } }
+    .choice-pill {
+      background: var(--sage-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .choice-pill.active {
+      background: var(--sage-deep);
+      color: #FFF;
+      border-color: var(--sage-deep);
+    }
+    .choice-pill strong { display: block; font-size: 0.85rem; }
+    .choice-pill span { font-size: 0.74rem; opacity: 0.8; }
+
+    .swatch-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    @media (max-width: 560px) { .swatch-row { grid-template-columns: 1fr; } }
+    .swatch-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--sage-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+    }
+    .swatch-btn.active { border-color: var(--peony); background: #FCF4F5; box-shadow: inset 0 0 0 1px var(--peony); }
+    .swatch-dots { display: flex; gap: 3px; flex-shrink: 0; }
+    .swatch-dots i { width: 12px; height: 12px; border-radius: 50%; display: block; border: 1px solid rgba(0,0,0,0.08); }
+
+    .cotton-card-preview {
+      background: #FCF9F2;
+      border: 1px solid #E2D9C8;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.05);
+    }
+    .handwritten-card {
+      background: #FFFFFF;
+      border: 1px dashed #D7CFC0;
+      padding: 22px;
+      margin: 18px 0;
+      text-align: center;
+      border-radius: 8px;
+    }
+    .handwritten-card p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--sage-dark);
+      line-height: 1.3;
+    }
+
+    /* ABONNEMENTS & ENTRETIEN */
+    .sub-band {
+      background: var(--sage-deep);
+      color: #F3F6F1;
+      padding: 78px 0;
+    }
+    .sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+    @media (max-width: 880px) { .sub-grid { grid-template-columns: 1fr; } }
+    .sub-card {
+      background: #FFF;
+      color: var(--ink);
+      border-radius: 16px;
+      padding: 30px;
+    }
+
+    footer {
+      background: var(--sage-dark);
+      color: rgba(236, 242, 234, 0.78);
+      padding: 46px 0 30px;
+      font-size: 0.82rem;
+    }
+
+    /* DRAWER */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 56, 40, 0.56);
+      display: none;
+      justify-content: flex-end;
+      z-index: 120;
+    }
+    .drawer-backdrop.open { display: flex; }
+    .drawer-panel {
+      width: 100%;
+      max-width: 440px;
+      background: var(--linen);
+      height: 100%;
+      overflow-y: auto;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: var(--muted); margin-bottom: 5px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: var(--sage-bg);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+    .ticket-ok {
+      display: none;
+      margin-top: 12px;
+      padding: 14px;
+      background: var(--sage-soft);
+      border-left: 3px solid var(--sage-deep);
+      border-radius: 6px;
+      font-size: 0.84rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="botanical-top">
+    <strong>Arrivage de saison du matin (Rungis &amp; producteurs d'Île-de-France)</strong> • Livraison vélo-cargo sous 3h &amp; retrait boutique coupe-file
+  </div>
+
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand-wrap">
+        <span class="botanical-seal" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-9"/><path d="M12 13c0-5 4-8 8-8 0 4-3 8-8 8Z"/><path d="M12 15c0-4-3.5-7-7-7 0 4 3 7 7 7Z"/></svg>
+        </span>
+        <span class="brand" data-bms-brand>Maison Pivoine &amp; Sauge</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#catalogue">Bouquets &amp; Plantes</a></li>
+        <li><a href="#atelier-bouquet">Sur-Mesure</a></li>
+        <li><a href="#abonnements">Abonnements</a></li>
+      </ul>
+      <button type="button" class="btn-sage" onclick="openFloristDrawer()">
+        Mon Bouquet <span class="bag-badge" id="floristBagCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO BOTANIQUE LUMINEUX -->
+  <section class="hero-floral">
+    <div class="container hero-grid">
+      <div class="hero-photos-duo">
+        <img class="hero-img-tall" src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1000&q=85" alt="Bouquet de fleurs fraîches de saison noué à la main">
+        <div class="hero-col-stack">
+          <img class="hero-img-small" src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=1000&q=85" alt="Lys blancs et branches d'eucalyptus frais">
+          <div class="seasonal-stamp">
+            <strong>Fleurs du Jour</strong>
+            <span>Pivoines Sarah Bernhardt, Renoncules &amp; Eucalyptus Populus</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow">Artisan Fleuriste &amp; Créateur Végétal</span>
+        <h1>Des bouquets de saison, <em>noués à la main le matin même</em>.</h1>
+        <p class="hero-lead">
+          Nous sélectionnons chaque aube des tiges cultivées sans forçage en France et en Europe. Choisissez un bouquet prêt à offrir ou composez votre création sur mesure avec petit mot manuscrit sur papier coton.
+        </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#atelier-bouquet" class="btn-peony">Composer mon bouquet</a>
+          <a href="#catalogue" class="btn-sage" style="background:transparent; color:var(--sage-deep);">Voir les bouquets du jour</a>
+        </div>
+
+        <div class="quick-occasions">
+          <button type="button" class="occ-chip" onclick="presetBouquet('pastel', 'generous', 'Pour illuminer cette journée — Joyeux Anniversaire !')">Anniversaire</button>
+          <button type="button" class="occ-chip" onclick="presetBouquet('pastel', 'grand', 'Pour te dire tout mon amour, simplement.')">Amour &amp; Romantique</button>
+          <button type="button" class="occ-chip" onclick="presetBouquet('blanc', 'boutique', 'Un immense merci pour votre accueil et votre gentillesse.')">Remerciement</button>
+          <button type="button" class="occ-chip" onclick="presetBouquet('solaire', 'generous', 'Félicitations pour votre nouvelle maison !')">Félicitations</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE BOUQUETS & PLANTES -->
+  <section id="catalogue" class="section-pad section-white">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Boutique Florale</span>
+          <h2>Bouquets du Jour &amp; Éternels</h2>
+        </div>
+        <div class="filter-pills">
+          <button type="button" class="filter-pill active" onclick="filterFloral('all', this)">Toute la boutique</button>
+          <button type="button" class="filter-pill" onclick="filterFloral('frais', this)">Bouquets Frais</button>
+          <button type="button" class="filter-pill" onclick="filterFloral('rose', this)">Roses &amp; Romance</button>
+          <button type="button" class="filter-pill" onclick="filterFloral('seche', this)">Fleurs Séchées &amp; Déco</button>
+        </div>
+      </div>
+
+      <div class="bouquet-grid" id="floralCatalog">
+        <article class="bouquet-card" data-cat="frais">
+          <div class="bouquet-media">
+            <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1000&q=85" alt="Bouquet champêtre pastel">
+            <span class="bouquet-tag">Best-seller du Matin</span>
+          </div>
+          <div class="bouquet-body">
+            <div class="bouquet-head">
+              <h3>Jardin d'Été — Bouquet Rond</h3>
+              <span class="bouquet-price">44,00 €</span>
+            </div>
+            <p class="bouquet-desc">Roses de jardin anglaises, lisianthus blanc crème, chrysanthèmes poudrés et feuillage de saison.</p>
+            <button type="button" class="btn-sage" style="width:100%; justify-content:center;" onclick="addFloristLine('Bouquet Jardin d\'Été (Rond)', 44)">Ajouter au panier</button>
+          </div>
+        </article>
+
+        <article class="bouquet-card" data-cat="rose">
+          <div class="bouquet-media">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85" alt="Bouquet de roses velours rouges">
+            <span class="bouquet-tag">Roses Équateur / Var</span>
+          </div>
+          <div class="bouquet-body">
+            <div class="bouquet-head">
+              <h3>Déclaration — 15 Roses Velours</h3>
+              <span class="bouquet-price">58,00 €</span>
+            </div>
+            <p class="bouquet-desc">Quinze roses grand bouton rouge profond parfumées, eucalyptus cinerea et lien de soie.</p>
+            <button type="button" class="btn-sage" style="width:100%; justify-content:center;" onclick="addFloristLine('Déclaration 15 Roses Velours', 58)">Ajouter au panier</button>
+          </div>
+        </article>
+
+        <article class="bouquet-card" data-cat="frais">
+          <div class="bouquet-media">
+            <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=1000&q=85" alt="Composition pureté blanche">
+            <span class="bouquet-tag">Élégance &amp; Pureté</span>
+          </div>
+          <div class="bouquet-body">
+            <div class="bouquet-head">
+              <h3>Nuage d'Ivoire &amp; Eucalyptus</h3>
+              <span class="bouquet-price">49,00 €</span>
+            </div>
+            <p class="bouquet-desc">Composition aérienne monochrome tout en nuances blanches, parfaite pour dîner ou naissance.</p>
+            <button type="button" class="btn-sage" style="width:100%; justify-content:center;" onclick="addFloristLine('Bouquet Nuage d\'Ivoire', 49)">Ajouter au panier</button>
+          </div>
+        </article>
+
+        <article class="bouquet-card" data-cat="frais">
+          <div class="bouquet-media">
+            <img src="https://images.unsplash.com/photo-1437275537121-331a0457c8d6?auto=format&fit=crop&w=1000&q=85" alt="Bouquet rose tendre">
+            <span class="bouquet-tag">Douceur</span>
+          </div>
+          <div class="bouquet-body">
+            <div class="bouquet-head">
+              <h3>Éclosion Pivoine &amp; Tendresse</h3>
+              <span class="bouquet-price">52,00 €</span>
+            </div>
+            <p class="bouquet-desc">Harmonie rosée et lumineuse mêlant tiges de saison parfumées et feuillage argenté délicat.</p>
+            <button type="button" class="btn-sage" style="width:100%; justify-content:center;" onclick="addFloristLine('Éclosion Pivoine & Tendresse', 52)">Ajouter au panier</button>
+          </div>
+        </article>
+
+        <article class="bouquet-card" data-cat="seche">
+          <div class="bouquet-media">
+            <img src="https://images.unsplash.com/photo-1512698817183-7c7de14072b9?auto=format&fit=crop&w=1000&q=85" alt="Grand bouquet séché et frais">
+            <span class="bouquet-tag">Longue Conservation</span>
+          </div>
+          <div class="bouquet-body">
+            <div class="bouquet-head">
+              <h3>Herbier d'Atelier — Fleurs Séchées</h3>
+              <span class="bouquet-price">46,00 €</span>
+            </div>
+            <p class="bouquet-desc">Broom bloom, lagurus, gypsophile stabilisé et statice séchés à notre séchoir (conservation 12 mois+).</p>
+            <button type="button" class="btn-sage" style="width:100%; justify-content:center;" onclick="addFloristLine('Herbier d\'Atelier Fleurs Séchées', 46)">Ajouter au panier</button>
+          </div>
+        </article>
+
+        <article class="bouquet-card" data-cat="seche">
+          <div class="bouquet-media">
+            <img src="https://images.unsplash.com/photo-1530092285049-1c42085fd395?auto=format&fit=crop&w=1000&q=85" alt="Centre de table mariage & réception">
+            <span class="bouquet-tag">Événement &amp; Table</span>
+          </div>
+          <div class="bouquet-body">
+            <div class="bouquet-head">
+              <h3>Centre de Table Bas Céramique</h3>
+              <span class="bouquet-price">65,00 €</span>
+            </div>
+            <p class="bouquet-desc">Piqué dans mousse biodégradable sans plastique, contenant en grès réutilisable.</p>
+            <button type="button" class="btn-sage" style="width:100%; justify-content:center;" onclick="addFloristLine('Centre de Table Céramique', 65)">Ajouter au panier</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATELIER COMPOSITEUR SUR MESURE -->
+  <section id="atelier-bouquet" class="section-pad">
+    <div class="container">
+      <div style="margin-bottom:34px;">
+        <span class="eyebrow">Atelier Sur Mesure</span>
+        <h2 style="font-family:var(--font-serif); font-size:clamp(2.1rem, 3.6vw, 2.95rem); font-weight:600;">Créez votre bouquet personnalisé</h2>
+      </div>
+
+      <div class="atelier-box">
+        <div>
+          <span class="step-title">1. Taille &amp; Générosité</span>
+          <div class="choice-row" id="sizePills">
+            <button type="button" class="choice-pill active" onclick="setFloralSize('Boutique (25 tiges)', 38, this)">
+              <strong>Boutique</strong>
+              <span>25 tiges • 38 €</span>
+            </button>
+            <button type="button" class="choice-pill" onclick="setFloralSize('Généreux (38 tiges)', 56, this)">
+              <strong>Généreux</strong>
+              <span>38 tiges • 56 €</span>
+            </button>
+            <button type="button" class="choice-pill" onclick="setFloralSize('Spectaculaire (55 tiges)', 82, this)">
+              <strong>Spectaculaire</strong>
+              <span>55 tiges • 82 €</span>
+            </button>
+          </div>
+
+          <span class="step-title">2. Palette Chromatique de Saison</span>
+          <div class="swatch-row" id="palettePills">
+            <button type="button" class="swatch-btn active" onclick="setFloralPalette('Pastel & Pivoines', this)">
+              <span class="swatch-dots"><i style="background:#F7EFEA;"></i><i style="background:#E6A9AD;"></i><i style="background:#7A9A78;"></i></span>
+              <span>Pastel &amp; Pivoines</span>
+            </button>
+            <button type="button" class="swatch-btn" onclick="setFloralPalette('Champêtre Solaire', this)">
+              <span class="swatch-dots"><i style="background:#F4C95D;"></i><i style="background:#E57A54;"></i><i style="background:#6B8B63;"></i></span>
+              <span>Champêtre Solaire</span>
+            </button>
+            <button type="button" class="swatch-btn" onclick="setFloralPalette('Blanc Pur & Eucalyptus', this)">
+              <span class="swatch-dots"><i style="background:#FFFFFF;"></i><i style="background:#E8EFE6;"></i><i style="background:#4A6B54;"></i></span>
+              <span>Blanc Pur &amp; Sauge</span>
+            </button>
+            <button type="button" class="swatch-btn" onclick="setFloralPalette('Rouge Velours & Baies', this)">
+              <span class="swatch-dots"><i style="background:#9E1F2A;"></i><i style="background:#C96B6E;"></i><i style="background:#2E4B35;"></i></span>
+              <span>Rouge Velours</span>
+            </button>
+          </div>
+
+          <span class="step-title">3. Finition &amp; Hydratation</span>
+          <div class="choice-row" id="wrapPills">
+            <button type="button" class="choice-pill active" onclick="setFloralWrap('Kraft & Raphia Naturel', 0, this)">
+              <strong>Kraft Atelier</strong>
+              <span>Inclus</span>
+            </button>
+            <button type="button" class="choice-pill" onclick="setFloralWrap('Ruban Satin & Bulle d\'Eau', 4, this)">
+              <strong>Bulle d'Eau</strong>
+              <span>+ 4 € • Trajet long</span>
+            </button>
+            <button type="button" class="choice-pill" onclick="setFloralWrap('Vase Céramique Inclus', 18, this)">
+              <strong>Vase Grès</strong>
+              <span>+ 18 € • Prêt à poser</span>
+            </button>
+          </div>
+
+          <div class="field" style="margin-bottom:0;">
+            <label for="cardMsgInput">4. Votre mot manuscrit (offert sur papier coton)</label>
+            <textarea id="cardMsgInput" rows="2" placeholder="Ex : Très bel anniversaire maman, je t'embrasse fort." oninput="updateFloralPreview()"></textarea>
+          </div>
+        </div>
+
+        <!-- COTTON CARD LIVE PREVIEW -->
+        <aside class="cotton-card-preview">
+          <span class="eyebrow" style="margin-bottom:4px;">Aperçu Atelier en Direct</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.75rem; margin-bottom:14px;">Votre Composition</h3>
+          <div style="font-size:0.88rem; display:grid; gap:8px; padding-bottom:14px; border-bottom:1px solid #E2D9C8;">
+            <div style="display:flex; justify-content:space-between;"><span>Volume :</span><strong id="prevSize">Boutique (25 tiges)</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>Harmonie :</span><strong id="prevPalette">Pastel &amp; Pivoines</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span>Finition :</span><strong id="prevWrap">Kraft &amp; Raphia Naturel</strong></div>
+          </div>
+
+          <div class="handwritten-card">
+            <span style="display:block; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:8px;">Carte calligraphiée à la main</span>
+            <p id="prevHandwritten">« Avec toute mon affection, belle journée ! »</p>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;">
+            <span style="font-weight:600;">Total TTC</span>
+            <strong id="prevFloralPrice" style="font-family:var(--font-serif); font-size:2rem; color:var(--peony);">38,00 €</strong>
+          </div>
+
+          <button type="button" class="btn-peony" style="width:100%;" onclick="addCustomBouquet()">
+            Ajouter cette création au panier
+          </button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABONNEMENTS FLORAURX PRO & PARTICULIERS -->
+  <section id="abonnements" class="sub-band">
+    <div class="container sub-grid">
+      <div>
+        <span class="eyebrow" style="color:#E7B8B9;">Fleurissement Régulier</span>
+        <h2 style="font-family:var(--font-serif); font-size:clamp(2rem, 3.6vw, 2.9rem); line-height:1.1; margin-bottom:16px;">Abonnements Maisons, Accueils &amp; Restaurants</h2>
+        <p style="color:rgba(243, 246, 241, 0.82); font-size:0.96rem; margin-bottom:24px;">
+          Un bouquet frais livré directement en vase propre, récupéré et remplacé au rythme de vos envies. Idéal pour comptoirs d'accueil, hôtels, cabinets médicaux ou intérieurs particuliers.
+        </p>
+        <ul style="font-size:0.88rem; list-style:none; display:grid; gap:8px; color:rgba(243, 246, 241, 0.9);">
+          <li>• Vase assorti prêté gratuitement et échangé à chaque livraison</li>
+          <li>• Livraison avant 10h le lundi ou le vendredi sans frais supplémentaires</li>
+          <li>• Sans engagement de durée, suspension gratuite pendant vos congés</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <span class="eyebrow">Simulateur Abonnement</span>
+        <h3 style="font-family:var(--font-serif); font-size:1.75rem; margin-bottom:18px;">Estimez votre budget</h3>
+        <div class="field">
+          <label for="subSize">Format souhaité</label>
+          <select id="subSize" onchange="recalcSub()">
+            <option value="42">Bouquet Intérieur / Bureau (42 € / livraison)</option>
+            <option value="64">Grand Bouquet Comptoir d'Accueil (64 € / livraison)</option>
+            <option value="95">Majestueux Hall / Restaurant (95 € / livraison)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="subFreq">Fréquence de renouvellement</label>
+          <select id="subFreq" onchange="recalcSub()">
+            <option value="4">Chaque semaine (4 bouquets / mois)</option>
+            <option value="2" selected>Toutes les 2 semaines (2 bouquets / mois)</option>
+            <option value="1">1 fois par mois</option>
+          </select>
+        </div>
+        <div style="background:var(--sage-bg); padding:16px; border-radius:10px; display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;">
+          <span style="font-size:0.86rem; font-weight:600;">Total estimé / mois (TTC)</span>
+          <strong id="subTotalDisplay" style="font-family:var(--font-serif); font-size:1.85rem; color:var(--sage-deep);">84,00 €</strong>
+        </div>
+        <button type="button" class="btn-sage" style="width:100%; justify-content:center;" onclick="addSubToDrawer()">
+          Activer cet abonnement test (1ère livraison)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.14); margin-bottom:16px;">
+        <div>
+          <strong data-bms-brand style="color:#FFF; font-family:var(--font-serif); font-size:1.3rem;">Maison Pivoine &amp; Sauge</strong>
+          <p style="margin-top:4px;">9 Rue de l'Hôtel de Ville, 95300 Pontoise • Mar – Sam 09h00 – 19h30 • Dim 09h30 – 13h30</p>
+        </div>
+        <div style="max-width:480px;">
+          Mariages, décors sur mesure &amp; dernier hommage : accueil dédié en boutique au 01 34 25 18 90.
+        </div>
+      </div>
+      <div style="font-size:0.75rem; opacity:0.72;">
+        SIRET 902 184 510 00014 • Végétaux frais et compositions personnalisées exclus du droit de rétractation (Art. L.221-28 3° &amp; 4° Code de la consommation).
+      </div>
+    </div>
+  </footer>
+
+  <!-- TIROIR CLICK & COLLECT / LIVRAISON -->
+  <div class="drawer-backdrop" id="floristDrawer" onclick="if(event.target===this)closeFloristDrawer()">
+    <div class="drawer-panel">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--border); margin-bottom:16px;">
+          <h3 style="font-family:var(--font-serif); font-size:1.75rem;">Votre Commande Florale</h3>
+          <button type="button" onclick="closeFloristDrawer()" style="background:none; border:1px solid var(--border); width:32px; height:32px; border-radius:50%; cursor:pointer;">✕</button>
+        </div>
+        <div id="floristDrawerLines"></div>
+      </div>
+
+      <div style="padding-top:16px; border-top:1px solid var(--border);">
+        <div style="display:flex; justify-content:space-between; font-size:1.15rem; font-weight:700; margin-bottom:14px;">
+          <span>Total TTC</span>
+          <span id="floristDrawerTotal" style="color:var(--peony);">0,00 €</span>
+        </div>
+        <div class="field">
+          <label for="floristClientName">Votre nom &amp; mobile</label>
+          <input type="text" id="floristClientName" placeholder="Ex : Léa • 06 12 34 56 78">
+        </div>
+        <div class="field">
+          <label for="floristDeliveryMode">Retrait ou Livraison vélo-cargo</label>
+          <select id="floristDeliveryMode">
+            <option>Retrait boutique aujourd'hui sous 1h (Gratuit)</option>
+            <option>Livraison Pontoise / Cergy / Osny aujourd'hui (+ 6 €)</option>
+            <option>Retrait demain matin dès 09h00 (Gratuit)</option>
+          </select>
+        </div>
+        <button type="button" class="btn-peony" style="width:100%;" onclick="validateFloristOrder()">
+          Confirmer ma commande florale
+        </button>
+        <div id="floristOrderConfirm" class="ticket-ok"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function escHtml(s) {
+      return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+    }
+
+    let floristCart = [];
+    const customBouquet = {
+      sizeLabel: 'Boutique (25 tiges)',
+      basePrice: 38,
+      palette: 'Pastel & Pivoines',
+      wrapLabel: 'Kraft & Raphia Naturel',
+      wrapExtra: 0
+    };
+
+    function filterFloral(cat, btn) {
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#floralCatalog .bouquet-card').forEach(c => {
+        c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'flex' : 'none';
+      });
+    }
+
+    function setFloralSize(label, price, btn) {
+      customBouquet.sizeLabel = label;
+      customBouquet.basePrice = price;
+      document.querySelectorAll('#sizePills .choice-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateFloralPreview();
+    }
+
+    function setFloralPalette(name, btn) {
+      customBouquet.palette = name;
+      document.querySelectorAll('#palettePills .swatch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateFloralPreview();
+    }
+
+    function setFloralWrap(label, extra, btn) {
+      customBouquet.wrapLabel = label;
+      customBouquet.wrapExtra = extra;
+      document.querySelectorAll('#wrapPills .choice-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateFloralPreview();
+    }
+
+    function presetBouquet(paletteKey, sizeKey, msgText) {
+      const sizeIndex = sizeKey === 'boutique' ? 0 : (sizeKey === 'generous' ? 1 : 2);
+      const sizeBtns = document.querySelectorAll('#sizePills .choice-pill');
+      if (sizeBtns[sizeIndex]) sizeBtns[sizeIndex].click();
+
+      const palIndex = paletteKey === 'solaire' ? 1 : (paletteKey === 'blanc' ? 2 : 0);
+      const palBtns = document.querySelectorAll('#palettePills .swatch-btn');
+      if (palBtns[palIndex]) palBtns[palIndex].click();
+
+      document.getElementById('cardMsgInput').value = msgText;
+      updateFloralPreview();
+      document.getElementById('atelier-bouquet').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function updateFloralPreview() {
+      document.getElementById('prevSize').textContent = customBouquet.sizeLabel;
+      document.getElementById('prevPalette').textContent = customBouquet.palette;
+      document.getElementById('prevWrap').textContent = customBouquet.wrapLabel;
+      const msg = (document.getElementById('cardMsgInput').value || '').trim();
+      document.getElementById('prevHandwritten').textContent = msg ? `« ${msg} »` : '« Avec toute mon affection, belle journée ! »';
+      const total = customBouquet.basePrice + customBouquet.wrapExtra;
+      document.getElementById('prevFloralPrice').textContent = total.toFixed(2).replace('.', ',') + ' €';
+    }
+
+    function addCustomBouquet() {
+      const total = customBouquet.basePrice + customBouquet.wrapExtra;
+      const note = (document.getElementById('cardMsgInput').value || '').trim();
+      const label = `Bouquet Sur Mesure : ${customBouquet.sizeLabel} • ${customBouquet.palette} • ${customBouquet.wrapLabel}` + (note ? ` (Mot: "${note.slice(0, 32)}")` : '');
+      addFloristLine(label, total);
+    }
+
+    function addFloristLine(name, price) {
+      floristCart.push({ name, price });
+      document.getElementById('floristBagCount').textContent = String(floristCart.length);
+      openFloristDrawer();
+    }
+
+    function openFloristDrawer() {
+      const box = document.getElementById('floristDrawerLines');
+      if (!floristCart.length) {
+        box.innerHTML = `<p style="color:var(--muted); font-size:0.9rem;">Votre panier floral est vide.</p>`;
+      } else {
+        box.innerHTML = floristCart.map((it, idx) => `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); font-size:0.88rem;">
+            <span>${escHtml(it.name)}</span>
+            <div style="display:flex; gap:10px; align-items:center; flex-shrink:0;">
+              <strong>${it.price.toFixed(2).replace('.', ',')} €</strong>
+              <button type="button" onclick="floristCart.splice(${idx},1);document.getElementById('floristBagCount').textContent=String(floristCart.length);openFloristDrawer();" style="background:none;border:1px solid var(--border);width:24px;height:24px;border-radius:50%;cursor:pointer;">✕</button>
+            </div>
+          </div>
+        `).join('');
+      }
+      const sum = floristCart.reduce((acc, x) => acc + x.price, 0);
+      document.getElementById('floristDrawerTotal').textContent = sum.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('floristDrawer').classList.add('open');
+    }
+
+    function closeFloristDrawer() { document.getElementById('floristDrawer').classList.remove('open'); }
+
+    function validateFloristOrder() {
+      if (!floristCart.length) return;
+      const client = document.getElementById('floristClientName').value.trim() || 'Client';
+      const mode = document.getElementById('floristDeliveryMode').value;
+      const ticket = '#MPS-' + Math.floor(100 + Math.random() * 899);
+      const box = document.getElementById('floristOrderConfirm');
+      box.style.display = 'block';
+      box.innerHTML = `<strong>Commande ${escHtml(ticket)} confirmée</strong><br>Merci ${escHtml(client)} ! Votre bouquet est mis en fabrication avec soin (${escHtml(mode)}).`;
+      floristCart = [];
+      document.getElementById('floristBagCount').textContent = '0';
+      document.getElementById('floristDrawerLines').innerHTML = `<p style="color:var(--muted); font-size:0.86rem;">Commande enregistrée (${escHtml(ticket)}).</p>`;
+      document.getElementById('floristDrawerTotal').textContent = '0,00 €';
+    }
+
+    function recalcSub() {
+      const unit = parseFloat(document.getElementById('subSize').value) || 42;
+      const freq = parseInt(document.getElementById('subFreq').value, 10) || 2;
+      const total = unit * freq;
+      document.getElementById('subTotalDisplay').textContent = total.toFixed(2).replace('.', ',') + ' €';
+    }
+
+    function addSubToDrawer() {
+      const selSize = document.getElementById('subSize');
+      const unit = parseFloat(selSize.value) || 42;
+      const sizeText = selSize.options[selSize.selectedIndex].text.split('(')[0].trim();
+      addFloristLine(`1er Bouquet Abonnement (${sizeText} + Vase prêté)`, unit);
+    }
+
+    updateFloralPreview();
+    recalcSub();
+  </script>
+  <script src="../assets/maquettes-switcher.js?v=20261121_01"></script>
+</body>
+</html>
