@@ -12,10 +12,10 @@
   <link rel="apple-touch-icon" href="app-icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F8FAFC;
+      --bg: #F4F6FA;
       --surface: #FFFFFF;
       --ink: #0F172A;
       --slate: #475569;
@@ -23,13 +23,15 @@
       --border: #E2E8F0;
       --border-strong: #CBD5E1;
       --green: #16A34A;
-      --green-soft: #F0FDF4;
+      --green-soft: #DCFCE7;
       --amber: #D97706;
-      --amber-soft: #FFFBEB;
+      --amber-soft: #FEF3C7;
       --blue: #2563EB;
-      --blue-soft: #EFF6FF;
+      --blue-soft: #DBEAFE;
+      --purple: #7C3AED;
+      --purple-soft: #EDE9FE;
       --red: #DC2626;
-      --red-soft: #FEF2F2;
+      --red-soft: #FEE2E2;
       --soft: #F1F5F9;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -53,12 +55,39 @@
       color: var(--ink);
       font-size: 13.5px;
       line-height: 1.45;
-      padding-bottom: calc(64px + var(--safe-bottom));
+      padding-bottom: calc(70px + var(--safe-bottom));
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* VERROUILLAGE PIN */
+    /* CONFETTIS CELEBRATION */
+    .confetti-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 9998;
+    }
+    .confetti-piece {
+      position: absolute;
+      top: -12px;
+      width: 9px;
+      height: 12px;
+      border-radius: 2px;
+      animation: confettiFall 1.35s cubic-bezier(.2,.7,.3,1) forwards;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(85vh) rotate(520deg); opacity: 0; }
+    }
+    @keyframes tilePop {
+      0% { transform: scale(0.7); }
+      55% { transform: scale(1.22); }
+      100% { transform: scale(1); }
+    }
+    .tile-pop { animation: tilePop 0.35s ease; }
+
+    /* PIN LOCK */
     .pin-lock-overlay {
       position: fixed;
       inset: 0;
@@ -102,13 +131,13 @@
       font-size: 20px;
       font-weight: 600;
       padding: 14px 0;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-family: inherit;
     }
     .pin-key:active { background: #334155; }
 
-    /* HEADER SOBRE */
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
@@ -127,7 +156,7 @@
       display: inline-flex;
       background: #1E293B;
       padding: 3px;
-      border-radius: 8px;
+      border-radius: 9px;
       gap: 2px;
       overflow-x: auto;
       max-width: 100%;
@@ -138,22 +167,17 @@
       font-size: 12px;
       font-weight: 600;
       padding: 5px 11px;
-      border-radius: 6px;
+      border-radius: 7px;
       white-space: nowrap;
     }
     .app-switch a.active { background: var(--green); color: #fff; }
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
+    .header-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .btn-top {
       background: #1E293B;
       color: #E2E8F0;
       border: 1px solid #334155;
-      border-radius: 6px;
-      padding: 6px 11px;
+      border-radius: 8px;
+      padding: 6px 12px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
@@ -161,25 +185,17 @@
       white-space: nowrap;
     }
     .btn-top:hover { background: #334155; color: #fff; }
-    .btn-top-primary {
-      background: #FFFFFF;
-      color: #0F172A;
-      border-color: #FFFFFF;
-    }
+    .btn-top-primary { background: #fff; color: #0F172A; border-color: #fff; }
     .btn-top-primary:hover { background: #F1F5F9; color: #0F172A; }
 
-    .container {
-      max-width: 1220px;
-      margin: 0 auto;
-      padding: 16px;
-    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 16px; }
     @media (max-width: 600px) { .container { padding: 12px; } }
 
-    /* BARRE NAVIGATION SEMAINE */
+    /* BARRE SEMAINE */
     .week-bar {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 10px 14px;
       margin-bottom: 12px;
       display: flex;
@@ -195,142 +211,196 @@
       flex-wrap: wrap;
       min-width: 0;
     }
-    .week-range-badge {
-      font-size: 13px;
-      font-weight: 700;
+    .week-label { font-size: 13.5px; font-weight: 700; color: var(--ink); padding: 0 4px; }
+    .btn-pill {
+      height: 32px;
+      padding: 0 11px;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
       color: var(--ink);
-      padding: 0 4px;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
     }
+    .btn-pill:hover { background: var(--soft); }
+    .btn-pill.is-active { background: var(--ink); color: #fff; border-color: var(--ink); }
     .date-inp {
       height: 32px;
       border: 1px solid var(--border-strong);
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 0 8px;
       font-family: inherit;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--ink);
-      background: #fff;
-    }
-    .btn-plain {
-      height: 32px;
-      padding: 0 10px;
-      border: 1px solid var(--border-strong);
-      background: #fff;
-      border-radius: 6px;
       font-size: 12px;
       font-weight: 600;
       color: var(--ink);
-      cursor: pointer;
-      font-family: inherit;
-      white-space: nowrap;
+      background: #fff;
     }
-    .btn-plain:hover { background: var(--soft); }
-    .btn-plain.is-active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-    .team-summary {
+    .team-score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: var(--soft);
+      padding: 6px 12px;
+      border-radius: 999px;
       font-size: 12.5px;
       font-weight: 600;
       color: var(--slate);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
     }
-    .team-summary strong { color: var(--ink); font-weight: 700; }
-    .team-sub { color: var(--muted); font-weight: 500; font-size: 12px; }
+    .team-score-badge strong { color: var(--ink); font-weight: 800; }
 
-    /* 3 CARTES DEMARCHEURS (OBJECTIF 15/SEMAINE CHACUN) */
+    /* 3 CARTES OBJECTIFS AVEC GRILLE DE 15 CASES */
     .reps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
     .reps-grid > * { min-width: 0; }
-    @media (max-width: 820px) { .reps-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 880px) { .reps-grid { grid-template-columns: 1fr; } }
 
     .rep-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
       cursor: pointer;
-      transition: border-color 0.15s;
+      transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s;
     }
-    .rep-card:hover { border-color: #94A3B8; }
+    .rep-card:hover { border-color: #94A3B8; transform: translateY(-1px); }
     .rep-card.active {
-      border-color: var(--ink);
-      box-shadow: inset 0 0 0 1px var(--ink);
+      border-color: var(--rep-accent, var(--ink));
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
     }
-    .rep-row-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 3px;
-    }
-    .rep-name { font-size: 15px; font-weight: 700; color: var(--ink); }
-    .rep-score { font-size: 15px; font-weight: 700; color: var(--ink); white-space: nowrap; }
-    .rep-score small { font-size: 12px; color: var(--muted); font-weight: 500; }
-    .rep-score.reached { color: var(--green); }
-    .rep-hours-txt {
-      font-size: 12px;
-      color: var(--slate);
-      margin-bottom: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .progress-track {
-      height: 5px;
-      background: var(--soft);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--ink);
-      border-radius: 999px;
-      transition: width 0.25s ease;
-    }
-    .progress-fill.reached { background: var(--green); }
-    .rep-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      font-size: 11.5px;
-      color: var(--muted);
-    }
-    .rep-hist-total {
-      font-weight: 600;
-      color: var(--slate);
-    }
-    .rep-hist-total.reached { color: var(--green); }
+    .rep-card.goal-done { border-color: var(--green); }
 
-    /* BLOC HORAIRES SEMAINE (7 JOURS + POINTAGE + RECAP SEMAINE) */
-    .hours-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 12px;
-    }
-    .hours-top-bar {
+    .rep-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      align-items: flex-start;
       gap: 8px;
       margin-bottom: 10px;
     }
-    .hours-top-bar strong { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+    .rep-title-wrap { display: flex; flex-direction: column; gap: 3px; }
+    .rep-name-row { display: flex; align-items: center; gap: 7px; }
+    .rep-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .rep-name { font-size: 16px; font-weight: 800; color: var(--ink); }
+    .rep-status-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--slate);
+      width: fit-content;
+    }
+    .rep-status-tag.done { background: var(--green-soft); color: #166534; }
+    .rep-status-tag.lead { background: var(--amber-soft); color: #92400E; }
+
+    .rep-counter { text-align: right; }
+    .rep-counter strong { font-size: 22px; font-weight: 800; line-height: 1; }
+    .rep-counter small { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+    /* GRILLE 15 CASES */
+    .tiles-15 {
+      display: grid;
+      grid-template-columns: repeat(15, 1fr);
+      gap: 3px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 440px) { .tiles-15 { grid-template-columns: repeat(8, 1fr); gap: 4px; } }
+    .tile-cell {
+      height: 22px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      display: grid;
+      place-items: center;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #94A3B8;
+      user-select: none;
+      transition: all 0.2s;
+    }
+    .tile-cell.filled-signe { background: #16A34A; border-color: #15803D; color: #fff; }
+    .tile-cell.filled-interesse { background: #F59E0B; border-color: #D97706; color: #fff; }
+    .tile-cell.filled-rappeler { background: #3B82F6; border-color: #2563EB; color: #fff; }
+    .tile-cell.filled-other { background: #64748B; border-color: #475569; color: #fff; }
+
+    .rep-bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+    .rep-hours-pill { font-weight: 600; color: var(--slate); }
+
+    /* BARRE CHRONO 1-CLIC & HORAIRES PLIABLES */
+    .chrono-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .chrono-main-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chrono-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94A3B8;
+    }
+    .live-dot.running { background: var(--green); box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18); }
+    .chrono-label { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+    .chrono-sub { font-size: 12px; color: var(--muted); }
+
+    .chrono-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .btn-chrono-start {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-chrono-start:hover { background: #15803D; }
+    .btn-chrono-stop {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-chrono-stop:hover { background: #1E293B; }
+
+    .hours-drawer {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .hours-drawer.open { display: block; }
     .days-strip {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -343,7 +413,7 @@
       padding: 6px 8px;
       border: 1px solid var(--border);
       background: var(--bg);
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 11.5px;
       font-weight: 600;
       color: var(--slate);
@@ -354,37 +424,218 @@
       flex-direction: column;
       gap: 1px;
     }
-    .day-pill:hover { border-color: var(--border-strong); color: var(--ink); }
-    .day-pill.active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-    .day-pill .day-dur {
-      font-size: 10.5px;
-      font-weight: 500;
-      opacity: 0.8;
-    }
-    .day-pill.has-hours:not(.active) {
-      border-color: #86EFAC;
-      background: var(--green-soft);
-      color: #166534;
-    }
+    .day-pill.has-hours:not(.active) { background: var(--green-soft); border-color: #86EFAC; color: #166534; }
+    .day-pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .day-dur { font-size: 10.5px; opacity: 0.82; }
 
-    .hours-bar-inner {
+    .hours-inputs-row {
       display: grid;
-      grid-template-columns: 1fr 1fr 135px 1.2fr auto;
+      grid-template-columns: 1fr 1fr 130px 1.2fr auto;
       gap: 10px;
       align-items: end;
     }
-    @media (max-width: 900px) {
-      .hours-bar-inner { grid-template-columns: 1fr 1fr; }
-      .hours-net-box { grid-column: 1 / -1; text-align: left !important; }
+    @media (max-width: 880px) { .hours-inputs-row { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .hours-inputs-row { grid-template-columns: 1fr; } }
+
+    .hours-net-tag {
+      background: var(--soft);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--slate);
+      white-space: nowrap;
     }
-    @media (max-width: 500px) {
-      .hours-bar-inner { grid-template-columns: 1fr; }
+    .hours-net-tag strong { color: var(--ink); }
+
+    /* FORMULAIRE LUDIQUE EN 3 ETAPES */
+    .entry-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
     }
-    .time-field-wrap { min-width: 0; }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .entry-header h2 { font-size: 16px; font-weight: 800; color: var(--ink); }
+    .step-block { margin-bottom: 14px; }
+    .step-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .rep-select-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .rep-pick-btn {
+      padding: 9px 10px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate);
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+    .rep-pick-btn.active[data-rep="Jalil"] { background: var(--blue-soft); border-color: var(--blue); color: #1E40AF; }
+    .rep-pick-btn.active[data-rep="Mehdi"] { background: var(--purple-soft); border-color: var(--purple); color: #5B21B6; }
+    .rep-pick-btn.active[data-rep="Mino"]  { background: var(--amber-soft); border-color: var(--amber); color: #92400E; }
+
+    .step1-fields {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .step1-fields > * { min-width: 0; }
+    @media (max-width: 920px) { .step1-fields { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 540px) { .step1-fields { grid-template-columns: 1fr; } }
+
+    .when-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .when-pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--slate);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .when-pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    /* STEP 2 OUTCOMES TACTILES */
+    .outcome-tiles {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 820px) { .outcome-tiles { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 500px) { .outcome-tiles { grid-template-columns: repeat(2, 1fr); } }
+
+    .out-btn {
+      padding: 11px 10px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--slate);
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.14s;
+    }
+    .out-btn:hover { background: var(--bg); }
+    .out-btn.active[data-st="interesse"] { background: var(--amber-soft); border-color: var(--amber); color: #92400E; }
+    .out-btn.active[data-st="rappeler"]  { background: var(--blue-soft);  border-color: var(--blue);  color: #1E40AF; }
+    .out-btn.active[data-st="signe"]     { background: var(--green-soft); border-color: var(--green); color: #166534; }
+    .out-btn.active[data-st="absent"]    { background: var(--soft);       border-color: var(--slate); color: var(--ink); }
+    .out-btn.active[data-st="refus"]     { background: var(--red-soft);   border-color: var(--red);   color: #991B1B; }
+
+    .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .dot-interesse { background: var(--amber); }
+    .dot-rappeler  { background: var(--blue); }
+    .dot-signe     { background: var(--green); }
+    .dot-absent    { background: var(--muted); }
+    .dot-refus     { background: var(--red); }
+
+    .recall-quick-bar {
+      display: none;
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: var(--blue-soft);
+      border-radius: 9px;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .recall-quick-bar.open { display: flex; }
+
+    /* STEP 3 NOTES & CTA */
+    .quick-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .q-chip {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--slate);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .q-chip:hover { border-color: var(--ink); color: var(--ink); background: #fff; }
+
+    .submit-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    @media (max-width: 720px) { .submit-row { grid-template-columns: 1fr; } }
+
+    .btn-validate {
+      height: 44px;
+      padding: 0 22px;
+      border: none;
+      border-radius: 10px;
+      background: var(--green);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-validate:hover { background: #15803D; }
+    .btn-validate:active { transform: scale(0.98); }
+
+    .inp, .sel, .ta {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      padding: 9px 11px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+    .inp, .sel { height: 38px; }
+    .inp:focus, .sel:focus, .ta:focus { border-color: var(--ink); }
     .field-lbl {
       display: flex;
       justify-content: space-between;
@@ -394,172 +645,41 @@
       color: var(--slate);
       margin-bottom: 4px;
     }
-    .link-now {
-      background: none;
-      border: none;
-      color: var(--blue);
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      padding: 0;
-    }
-    .link-now:hover { text-decoration: underline; }
-    .hours-net-box {
-      font-size: 12px;
-      color: var(--slate);
-      background: var(--soft);
-      padding: 8px 12px;
-      border-radius: 6px;
-      text-align: right;
-      white-space: nowrap;
-    }
-    .hours-net-box strong { color: var(--ink); }
 
-    .week-hours-log {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: center;
-      font-size: 12px;
-    }
-    .hour-log-chip {
-      border: 1px solid var(--border);
-      background: var(--bg);
-      border-radius: 5px;
-      padding: 3px 8px;
-      font-size: 11.5px;
-      color: var(--slate);
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .hour-log-chip:hover { border-color: var(--ink); color: var(--ink); }
-    .hour-log-chip strong { color: var(--ink); }
-
-    /* CHAMPS FORMULAIRE */
-    .inp, .sel, .ta {
-      width: 100%;
-      min-width: 0;
-      max-width: 100%;
-      padding: 8px 10px;
-      border: 1px solid var(--border-strong);
-      border-radius: 6px;
-      font-size: 13px;
-      font-family: inherit;
-      color: var(--ink);
-      background: #fff;
-      outline: none;
-    }
-    .inp, .sel { height: 36px; }
-    .inp:focus, .sel:focus, .ta:focus { border-color: var(--ink); }
-
-    /* BLOC SAISIE PASSAGE CLIENT */
-    .entry-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 14px;
-    }
-    .entry-head {
+    /* ONGLETS BAS : PASSAGES VS HISTORIQUE SEMAINES */
+    .view-tabs-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      gap: 8px;
-    }
-    .entry-head h2 { font-size: 14px; font-weight: 700; color: var(--ink); }
-    .entry-row-1 {
-      display: grid;
-      grid-template-columns: 120px 1.4fr 1.1fr 1fr 1fr 175px;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .entry-row-1 > * { min-width: 0; }
-    @media (max-width: 1040px) { .entry-row-1 { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 620px) { .entry-row-1 { grid-template-columns: 1fr; } }
-
-    .entry-row-2 {
-      display: grid;
-      grid-template-columns: 1fr auto;
+      flex-wrap: wrap;
       gap: 10px;
-      align-items: end;
       margin-bottom: 10px;
     }
-    @media (max-width: 820px) { .entry-row-2 { grid-template-columns: 1fr; } }
-
-    .outcome-segments { display: flex; flex-wrap: wrap; gap: 6px; }
-    .seg-btn {
-      padding: 7px 12px;
-      border: 1px solid var(--border-strong);
-      background: #fff;
-      border-radius: 6px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--slate);
-      cursor: pointer;
-      font-family: inherit;
+    .view-switch {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.12s;
+      background: #E2E8F0;
+      padding: 3px;
+      border-radius: 10px;
+      gap: 3px;
     }
-    .seg-btn:hover { background: var(--soft); color: var(--ink); }
-    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .dot-interesse { background: var(--amber); }
-    .dot-rappeler { background: var(--blue); }
-    .dot-signe { background: var(--green); }
-    .dot-absent { background: var(--muted); }
-    .dot-refus { background: var(--red); }
-    .seg-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-
-    .entry-row-3 {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: end;
-    }
-    @media (max-width: 720px) { .entry-row-3 { grid-template-columns: 1fr; } }
-
-    .quick-notes-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
-    .q-chip {
-      background: var(--soft);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 3px 8px;
-      font-size: 11px;
-      font-weight: 500;
+    .v-tab {
+      border: none;
+      background: transparent;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
       color: var(--slate);
       cursor: pointer;
       font-family: inherit;
     }
-    .q-chip:hover { color: var(--ink); border-color: var(--border-strong); }
+    .v-tab.active { background: #fff; color: var(--ink); box-shadow: 0 2px 6px rgba(15,23,42,0.06); }
 
-    .btn-submit {
-      height: 38px;
-      padding: 0 18px;
-      border: none;
-      border-radius: 6px;
-      background: var(--ink);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      white-space: nowrap;
-    }
-    .btn-submit:hover { background: #1E293B; }
-
-    /* JOURNAL DES PASSAGES */
-    .journal-card {
+    .journal-shell {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 14px;
       overflow: hidden;
-      margin-bottom: 16px;
     }
     .filter-bar {
       padding: 12px 14px;
@@ -577,85 +697,97 @@
     @media (max-width: 720px) { .filter-top { grid-template-columns: 1fr; } }
     .filter-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
     .f-tab {
-      padding: 4px 10px;
-      border-radius: 5px;
+      padding: 5px 11px;
+      border-radius: 999px;
       border: 1px solid var(--border);
       background: #fff;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       color: var(--slate);
       cursor: pointer;
       font-family: inherit;
     }
-    .f-tab:hover { background: var(--soft); }
     .f-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
-    .visits-table-head {
-      display: grid;
-      grid-template-columns: 130px 86px 1.2fr 1.55fr 235px;
-      gap: 12px;
-      padding: 9px 14px;
-      background: var(--bg);
+    /* CARTES-LIGNES PASSAGES */
+    .visits-feed { display: flex; flex-direction: column; }
+    .visit-item {
+      padding: 14px 16px;
       border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .visit-item:last-child { border-bottom: none; }
+    .visit-item:hover { background: #FAFBFD; }
+    .visit-left { flex: 1; min-width: 240px; }
+    .visit-meta-top {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .rep-badge-sm {
       font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
     }
-    @media (max-width: 960px) { .visits-table-head { display: none; } }
-
-    .visit-row {
-      display: grid;
-      grid-template-columns: 130px 86px 1.2fr 1.55fr 235px;
-      gap: 12px;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-      align-items: start;
-    }
-    .visit-row:last-child { border-bottom: none; }
-    .visit-row:hover { background: #FAFCFF; }
-    .visit-row > * { min-width: 0; }
-    @media (max-width: 960px) { .visit-row { grid-template-columns: 1fr; gap: 6px; } }
-
-    .col-when { font-size: 12px; font-weight: 600; color: var(--slate); }
-    .col-rep { font-size: 12px; font-weight: 700; color: var(--ink); }
-    .shop-name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
-    .shop-sub { font-size: 12px; color: var(--muted); }
-    .shop-sub a { color: var(--blue); text-decoration: none; font-weight: 600; }
-
+    .rep-badge-Jalil  { background: var(--blue-soft); color: #1E40AF; }
+    .rep-badge-Mehdi  { background: var(--purple-soft); color: #5B21B6; }
+    .rep-badge-Mino   { background: var(--amber-soft); color: #92400E; }
+    .when-txt { font-size: 12px; font-weight: 600; color: var(--muted); }
     .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       padding: 2px 8px;
-      border-radius: 5px;
-      font-size: 11.5px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
     }
-    .st-interesse { background: var(--amber-soft); color: #92400E; border-color: #FDE68A; }
-    .st-rappeler  { background: var(--blue-soft);  color: #1E40AF; border-color: #BFDBFE; }
-    .st-signe     { background: var(--green-soft); color: #166534; border-color: #BBF7D0; }
-    .st-absent    { background: var(--soft);       color: var(--slate); border-color: var(--border); }
-    .st-refus     { background: var(--red-soft);   color: #991B1B; border-color: #FECACA; }
+    .st-interesse { background: var(--amber-soft); color: #92400E; }
+    .st-rappeler  { background: var(--blue-soft);  color: #1E40AF; }
+    .st-signe     { background: var(--green-soft); color: #166534; }
+    .st-absent    { background: var(--soft);       color: var(--slate); }
+    .st-refus     { background: var(--red-soft);   color: #991B1B; }
 
-    .answer-text { font-size: 12.5px; color: var(--ink); word-break: break-word; }
-    .recall-note { font-size: 11.5px; font-weight: 600; color: var(--blue); margin-top: 3px; }
+    .shop-title { font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 2px; }
+    .shop-contact { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .shop-contact a { color: var(--blue); text-decoration: none; font-weight: 600; }
+    .quote-bubble {
+      background: var(--bg);
+      border-left: 3px solid var(--border-strong);
+      padding: 7px 11px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+    .recall-pill {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1E40AF;
+      background: var(--blue-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
 
-    .row-actions {
+    .visit-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
-      justify-content: flex-end;
+      gap: 5px;
+      align-items: center;
     }
-    @media (max-width: 960px) { .row-actions { justify-content: flex-start; padding-top: 4px; } }
     .act-btn {
-      padding: 4px 8px;
+      padding: 5px 9px;
       border: 1px solid var(--border-strong);
       background: #fff;
-      border-radius: 5px;
+      border-radius: 7px;
       font-size: 11.5px;
       font-weight: 600;
       color: var(--slate);
@@ -666,35 +798,14 @@
     .act-btn:hover { background: var(--soft); color: var(--ink); }
     .act-btn.del { color: var(--red); border-color: #FECACA; }
 
-    .empty-box { text-align: center; padding: 34px 16px; color: var(--muted); }
-    .empty-box strong { display: block; color: var(--ink); font-size: 14px; margin-bottom: 4px; }
+    .empty-box { text-align: center; padding: 38px 16px; color: var(--muted); }
+    .empty-box strong { display: block; color: var(--ink); font-size: 14.5px; margin-bottom: 4px; }
 
-    /* HISTORIQUE PAR SEMAINE */
-    .history-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .history-head {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .history-head h3 { font-size: 13.5px; font-weight: 700; color: var(--ink); }
-    .history-head span { font-size: 12px; color: var(--muted); }
+    /* HISTORIQUE SEMAINES TABLEAU */
     .hist-table-wrap { overflow-x: auto; }
-    .hist-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
-    }
+    .hist-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
     .hist-table th, .hist-table td {
-      padding: 10px 14px;
+      padding: 11px 14px;
       text-align: left;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
@@ -709,31 +820,32 @@
     }
     .hist-table tr:last-child td { border-bottom: none; }
     .hist-table tr.is-current { background: #F8FAFC; }
-    .hist-ok { color: var(--green); font-weight: 700; }
+    .hist-ok { color: var(--green); font-weight: 800; }
 
     /* TOAST & MODAL */
     .toast {
       position: fixed;
-      bottom: 20px;
+      bottom: 22px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       background: #0F172A;
       color: #fff;
-      padding: 9px 16px;
-      border-radius: 6px;
-      font-size: 12.5px;
-      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.2s;
+      transition: all 0.22s;
       z-index: 999;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.22);
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.55);
+      background: rgba(15, 23, 42, 0.58);
       display: none;
       align-items: center;
       justify-content: center;
@@ -743,7 +855,7 @@
     .modal-backdrop.open { display: flex; }
     .modal-card {
       background: #fff;
-      border-radius: 10px;
+      border-radius: 14px;
       max-width: 520px;
       width: 100%;
       padding: 20px;
@@ -755,10 +867,12 @@
 </head>
 <body>
 
+  <div id="confettiLayer" class="confetti-layer"></div>
+
   <!-- VERROUILLAGE PIN -->
   <div id="pinLockScreen" class="pin-lock-overlay">
     <div class="pin-box">
-      <div style="font-size:17px; font-weight:700;">BoostMySite — Travail Équipe</div>
+      <div style="font-size:17px; font-weight:800;">BoostMySite — Travail Équipe</div>
       <div style="font-size:12.5px; color:#94A3B8; text-align:center;">Code d'accès équipe requis</div>
       <div class="pin-dots">
         <span class="pin-dot" id="pDot0"></span>
@@ -800,174 +914,202 @@
   </header>
 
   <div class="container">
-    <!-- BARRE NAVIGATION PAR SEMAINE -->
+    <!-- BARRE NAVIGATION SEMAINE -->
     <div class="week-bar">
       <div class="week-controls">
-        <button type="button" class="btn-plain" onclick="shiftWeek(-7)">&larr; Semaine préc.</button>
-        <span class="week-range-badge" id="weekRangeLabel">Semaine du ...</span>
-        <button type="button" class="btn-plain" onclick="shiftWeek(7)">Semaine suiv. &rarr;</button>
-        <input type="date" id="activeDateInp" class="date-inp" onchange="onActiveDateChange()" title="Aller à une date / semaine">
-        <button type="button" class="btn-plain" onclick="jumpToThisWeek()">Cette semaine</button>
-        <button type="button" id="allRepsBtn" class="btn-plain is-active" onclick="filterByRep('all')">Voir les 3 démarcheurs</button>
+        <button type="button" class="btn-pill" onclick="shiftWeek(-7)">&larr; Préc.</button>
+        <span class="week-label" id="weekRangeLabel">Semaine du ...</span>
+        <button type="button" class="btn-pill" onclick="shiftWeek(7)">Suiv. &rarr;</button>
+        <input type="date" id="activeDateInp" class="date-inp" onchange="onActiveDateChange()" title="Changer de semaine">
+        <button type="button" class="btn-pill" onclick="jumpToThisWeek()">Cette semaine</button>
+        <button type="button" id="allRepsBtn" class="btn-pill is-active" onclick="filterByRep('all')">Les 3 démarcheurs</button>
       </div>
-      <div class="team-summary">
-        <span>Semaine : <strong id="teamTotalGoalText">0 / 45 démarchages</strong></span>
-        <span class="team-sub" id="teamSignedSummary">(0 intéressé · 0 signé)</span>
-        <span class="team-sub" id="teamHistoryTotal">Historique : 0</span>
+      <div class="team-score-badge">
+        <span>Équipe : <strong id="teamTotalGoalText">0 / 45</strong></span>
+        <span id="teamSignedSummary" style="font-size:11.5px;">0 intéressé · 0 signé</span>
       </div>
     </div>
 
-    <!-- 3 CARTES OBJECTIFS HEBDOMADAIRES (15 / SEMAINE CHACUN) -->
+    <!-- 3 CARTES CHALLENGE LUDIQUE (15 CASES CHACUN) -->
     <div class="reps-grid" id="repsCardsContainer"></div>
 
-    <!-- BLOC HORAIRES SUR LA SEMAINE -->
-    <section class="hours-panel">
-      <div class="hours-top-bar">
-        <div>
-          <strong>Horaires de <span id="hoursRepTitle">Jalil</span></strong>
-          <span style="color:var(--muted); font-size:12px; margin-left:8px;" id="hoursSelectedDayLabel">Samedi 21/11</span>
-        </div>
-        <span style="font-size:12px; color:var(--slate);" id="repWeekHoursSummary">Cumul semaine : 0h00</span>
-      </div>
-
-      <div class="days-strip" id="weekDaysStrip"></div>
-
-      <div class="hours-bar-inner">
-        <div class="time-field-wrap">
-          <div class="field-lbl">
-            <span>Arrivée</span>
-            <button type="button" class="link-now" onclick="punchNow('start')">Maintenant</button>
+    <!-- POINTAGE CHRONO 1-CLIC + HORAIRES SEMAINE PLIABLES -->
+    <section class="chrono-card">
+      <div class="chrono-main-row">
+        <div class="chrono-left">
+          <span class="live-dot" id="chronoLiveDot"></span>
+          <div>
+            <div class="chrono-label" id="chronoHeadline">Tournée de Jalil</div>
+            <div class="chrono-sub" id="chronoSub">Aujourd'hui : pas encore démarrée · Cumul semaine : 0h00</div>
           </div>
-          <input type="time" id="hrStart" class="inp" onchange="saveRepHours()">
         </div>
-
-        <div class="time-field-wrap">
-          <div class="field-lbl">
-            <span>Fin</span>
-            <button type="button" class="link-now" onclick="punchNow('end')">Maintenant</button>
-          </div>
-          <input type="time" id="hrEnd" class="inp" onchange="saveRepHours()">
-        </div>
-
-        <div class="time-field-wrap">
-          <label class="field-lbl" for="hrBreakMin">Pause</label>
-          <select id="hrBreakMin" class="sel" onchange="saveRepHours()">
-            <option value="0">Aucune pause</option>
-            <option value="30">30 min</option>
-            <option value="45">45 min</option>
-            <option value="60">1h00</option>
-            <option value="90">1h30</option>
-            <option value="120">2h00</option>
-          </select>
-        </div>
-
-        <div class="time-field-wrap">
-          <label class="field-lbl" for="hrZone">Secteur / Ville</label>
-          <input type="text" id="hrZone" class="inp" placeholder="Ville ou quartier prospecté" onchange="saveRepHours()">
-        </div>
-
-        <div class="hours-net-box" id="hoursSummaryBar">
-          Jour : <strong>—</strong>
+        <div class="chrono-actions">
+          <button type="button" id="chronoActionBtn" class="btn-chrono-start" onclick="handleQuickChrono()">Démarrer ma journée</button>
+          <button type="button" class="btn-pill" onclick="toggleHoursDrawer()" id="toggleHoursBtn">Horaires de la semaine (7 j.)</button>
         </div>
       </div>
 
-      <div class="week-hours-log" id="weekHoursLogRow"></div>
+      <div class="hours-drawer" id="hoursDrawer">
+        <div class="days-strip" id="weekDaysStrip"></div>
+
+        <div class="hours-inputs-row">
+          <div>
+            <div class="field-lbl">
+              <span>Arrivée</span>
+              <button type="button" class="btn-pill" style="height:20px; padding:0 7px; font-size:10.5px;" onclick="punchNow('start')">Maintenant</button>
+            </div>
+            <select id="hrStart" class="sel" onchange="saveRepHours()"></select>
+          </div>
+
+          <div>
+            <div class="field-lbl">
+              <span>Fin</span>
+              <button type="button" class="btn-pill" style="height:20px; padding:0 7px; font-size:10.5px;" onclick="punchNow('end')">Maintenant</button>
+            </div>
+            <select id="hrEnd" class="sel" onchange="saveRepHours()"></select>
+          </div>
+
+          <div>
+            <label class="field-lbl" for="hrBreakMin">Pause</label>
+            <select id="hrBreakMin" class="sel" onchange="saveRepHours()">
+              <option value="0">Aucune pause</option>
+              <option value="30">30 min</option>
+              <option value="45">45 min</option>
+              <option value="60">1h00</option>
+              <option value="90">1h30</option>
+              <option value="120">2h00</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="field-lbl" for="hrZone">Ville / Quartier</label>
+            <input type="text" id="hrZone" class="inp" placeholder="Ex : Pontoise, Cergy..." onchange="saveRepHours()">
+          </div>
+
+          <div class="hours-net-tag" id="hoursSummaryBar">
+            Jour : <strong>—</strong>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- SAISIE RAPIDE PASSAGE CLIENT -->
-    <section class="entry-panel" id="visitFormPanel">
-      <div class="entry-head">
-        <h2 id="formHeading">Nouveau passage client</h2>
-        <button type="button" id="cancelEditBtn" class="btn-plain" style="display:none; height:28px; font-size:11.5px;" onclick="resetVisitForm()">Annuler la modification</button>
+    <!-- SAISIE ULTRA-SIMPLE EN 3 ETAPES -->
+    <section class="entry-card" id="visitFormPanel">
+      <div class="entry-header">
+        <h2 id="formHeading">+ Enregistrer un démarchage</h2>
+        <button type="button" id="cancelEditBtn" class="btn-pill" style="display:none;" onclick="resetVisitForm()">Annuler la modification</button>
       </div>
 
       <form id="visitLogForm" onsubmit="submitVisitForm(event)">
         <input type="hidden" id="editVisitId" value="">
 
-        <div class="entry-row-1">
-          <div>
-            <label class="field-lbl" for="vRep">Démarcheur</label>
-            <select id="vRep" class="sel" onchange="syncActiveRepFromSelect()">
-              <option value="Jalil">Jalil</option>
-              <option value="Mehdi">Mehdi</option>
-              <option value="Mino">Mino</option>
-            </select>
+        <!-- ETAPE 1 -->
+        <div class="step-block">
+          <span class="step-badge">1. Qui as-tu vu et quand ?</span>
+          <div class="rep-select-pills" id="formRepPills">
+            <button type="button" class="rep-pick-btn active" data-rep="Jalil" onclick="selectActiveRep('Jalil')"><span class="rep-dot" style="background:#2563EB;"></span>Jalil</button>
+            <button type="button" class="rep-pick-btn" data-rep="Mehdi" onclick="selectActiveRep('Mehdi')"><span class="rep-dot" style="background:#7C3AED;"></span>Mehdi</button>
+            <button type="button" class="rep-pick-btn" data-rep="Mino" onclick="selectActiveRep('Mino')"><span class="rep-dot" style="background:#D97706;"></span>Mino</button>
           </div>
-          <div>
-            <label class="field-lbl" for="vShop">Commerce visité *</label>
-            <input type="text" id="vShop" class="inp" placeholder="Ex : Boulangerie L'Épi d'Or" required>
-          </div>
-          <div>
-            <label class="field-lbl" for="vSector">Secteur</label>
-            <select id="vSector" class="sel">
-              <option value="restaurant">Restaurant / Brasserie</option>
-              <option value="fastfood">Fast-Food / Smash</option>
-              <option value="boulangerie">Boulangerie / Pâtisserie</option>
-              <option value="barber">Coiffeur / Barber</option>
-              <option value="beaute">Institut / Onglerie</option>
-              <option value="pizzeria">Pizzeria / Trattoria</option>
-              <option value="sushi">Sushi / Poké</option>
-              <option value="garage">Garage Auto</option>
-              <option value="fleuriste">Fleuriste</option>
-              <option value="commerce">Boucherie / Commerce</option>
-              <option value="artisan">Artisan / BTP</option>
-              <option value="depannage">Plombier / Serrurier</option>
-              <option value="vtc">VTC / Transport</option>
-            </select>
-          </div>
-          <div>
-            <label class="field-lbl" for="vCity">Ville / Rue</label>
-            <input type="text" id="vCity" class="inp" placeholder="Pontoise, Cergy...">
-          </div>
-          <div>
-            <label class="field-lbl" for="vContactPhone">Contact &amp; Tél.</label>
-            <input type="text" id="vContactPhone" class="inp" placeholder="Karim · 06 12 34 56 78">
-          </div>
-          <div>
-            <label class="field-lbl" for="vDateTime">Date &amp; heure *</label>
-            <input type="datetime-local" id="vDateTime" class="inp" required>
-          </div>
-        </div>
 
-        <div class="entry-row-2">
-          <div>
-            <span class="field-lbl">Réponse du client</span>
-            <div class="outcome-segments" id="outcomeBtnsGrid">
-              <button type="button" class="seg-btn active" data-st="interesse" onclick="pickOutcome('interesse')"><span class="dot dot-interesse"></span>Intéressé</button>
-              <button type="button" class="seg-btn" data-st="rappeler" onclick="pickOutcome('rappeler')"><span class="dot dot-rappeler"></span>À rappeler</button>
-              <button type="button" class="seg-btn" data-st="signe" onclick="pickOutcome('signe')"><span class="dot dot-signe"></span>Signé</button>
-              <button type="button" class="seg-btn" data-st="absent" onclick="pickOutcome('absent')"><span class="dot dot-absent"></span>Gérant absent</button>
-              <button type="button" class="seg-btn" data-st="refus" onclick="pickOutcome('refus')"><span class="dot dot-refus"></span>Refus</button>
+          <div class="step1-fields">
+            <div>
+              <label class="field-lbl" for="vShop">Nom du commerce visité *</label>
+              <input type="text" id="vShop" class="inp" placeholder="Ex : Boulangerie L'Épi d'Or" required>
+            </div>
+            <div>
+              <label class="field-lbl" for="vSector">Secteur</label>
+              <select id="vSector" class="sel">
+                <option value="restaurant">Restaurant / Brasserie</option>
+                <option value="fastfood">Fast-Food / Smash</option>
+                <option value="boulangerie">Boulangerie / Pâtisserie</option>
+                <option value="barber">Coiffeur / Barber</option>
+                <option value="beaute">Institut / Onglerie</option>
+                <option value="pizzeria">Pizzeria / Trattoria</option>
+                <option value="sushi">Sushi / Poké</option>
+                <option value="garage">Garage Auto</option>
+                <option value="fleuriste">Fleuriste</option>
+                <option value="commerce">Boucherie / Commerce</option>
+                <option value="artisan">Artisan / BTP</option>
+                <option value="depannage">Plombier / Serrurier</option>
+                <option value="vtc">VTC / Transport</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-lbl" for="vCity">Ville / Rue</label>
+              <input type="text" id="vCity" class="inp" placeholder="Ex : Pontoise">
+            </div>
+            <div>
+              <label class="field-lbl" for="vContactPhone">Contact &amp; Téléphone</label>
+              <input type="text" id="vContactPhone" class="inp" placeholder="Ex : Karim · 06 12 34 56 78">
             </div>
           </div>
 
-          <div id="recallFieldWrap" style="display:none; min-width:190px;">
-            <label class="field-lbl" for="vRecallAt">Date / heure de relance</label>
-            <input type="datetime-local" id="vRecallAt" class="inp">
+          <div class="when-row">
+            <span style="font-size:11.5px; font-weight:600; color:var(--slate);">Quand :</span>
+            <button type="button" class="when-pill active" id="whenNowBtn" onclick="setWhenMode('now')">Maintenant</button>
+            <button type="button" class="when-pill" id="whenTodayBtn" onclick="setWhenMode('today')">Plus tôt aujourd'hui</button>
+            <button type="button" class="when-pill" id="whenCustomBtn" onclick="setWhenMode('custom')">Choisir jour &amp; heure</button>
+
+            <select id="vTodayTimeSel" class="sel" style="display:none; width:auto; height:32px; font-size:12px;"></select>
+            <input type="datetime-local" id="vDateTime" class="inp" style="display:none; width:auto; height:32px; font-size:12px;">
           </div>
         </div>
 
-        <div class="entry-row-3">
-          <div>
-            <div class="quick-notes-row">
-              <button type="button" class="q-chip" onclick="appendAnswerChip('Maquette montrée')">Maquette montrée</button>
-              <button type="button" class="q-chip" onclick="appendAnswerChip('Envoyé sur WhatsApp')">Envoyé sur WhatsApp</button>
-              <button type="button" class="q-chip" onclick="appendAnswerChip('A déjà un site')">A déjà un site</button>
-              <button type="button" class="q-chip" onclick="appendAnswerChip('Repasser voir le gérant')">Repasser voir le gérant</button>
-            </div>
-            <input type="text" id="vAnswer" class="inp" placeholder="Réponse du client / notes (ex : gérant intéressé par le Click & Collect, repasser jeudi à 15h...)">
+        <!-- ETAPE 2 -->
+        <div class="step-block">
+          <span class="step-badge">2. Quelle est la réponse du client ?</span>
+          <div class="outcome-tiles" id="outcomeBtnsGrid">
+            <button type="button" class="out-btn active" data-st="interesse" onclick="pickOutcome('interesse')"><span class="dot dot-interesse"></span>Intéressé</button>
+            <button type="button" class="out-btn" data-st="rappeler" onclick="pickOutcome('rappeler')"><span class="dot dot-rappeler"></span>À rappeler</button>
+            <button type="button" class="out-btn" data-st="signe" onclick="pickOutcome('signe')"><span class="dot dot-signe"></span>Signé / Devis OK</button>
+            <button type="button" class="out-btn" data-st="absent" onclick="pickOutcome('absent')"><span class="dot dot-absent"></span>Gérant absent</button>
+            <button type="button" class="out-btn" data-st="refus" onclick="pickOutcome('refus')"><span class="dot dot-refus"></span>Refus</button>
           </div>
 
-          <button type="submit" id="submitVisitBtn" class="btn-submit">Enregistrer le passage (+1)</button>
+          <div class="recall-quick-bar" id="recallFieldWrap">
+            <span style="font-size:12px; font-weight:700; color:#1E40AF;">Relance prévue :</span>
+            <button type="button" class="btn-pill" onclick="setQuickRecall(1, 10)">Demain 10h</button>
+            <button type="button" class="btn-pill" onclick="setQuickRecall(1, 15)">Demain 15h</button>
+            <button type="button" class="btn-pill" onclick="setQuickRecall(2, 14)">Dans 2 jours</button>
+            <input type="datetime-local" id="vRecallAt" class="inp" style="width:auto; height:32px; font-size:12px;">
+          </div>
+        </div>
+
+        <!-- ETAPE 3 -->
+        <div class="step-block" style="margin-bottom:0;">
+          <span class="step-badge">3. Ce que le client a dit (1 clic ou note courte)</span>
+          <div class="quick-chips">
+            <button type="button" class="q-chip" onclick="appendAnswerChip('Maquette montrée sur tél')">Maquette montrée sur tél</button>
+            <button type="button" class="q-chip" onclick="appendAnswerChip('Démo envoyée WhatsApp')">Démo envoyée WhatsApp</button>
+            <button type="button" class="q-chip" onclick="appendAnswerChip('Veut Click & Collect')">Veut Click &amp; Collect</button>
+            <button type="button" class="q-chip" onclick="appendAnswerChip('Gérant absent, repasser')">Gérant absent, repasser</button>
+            <button type="button" class="q-chip" onclick="appendAnswerChip('A déjà un site')">A déjà un site</button>
+            <button type="button" class="q-chip" onclick="appendAnswerChip('Réfléchit au tarif')">Réfléchit au tarif</button>
+          </div>
+
+          <div class="submit-row">
+            <input type="text" id="vAnswer" class="inp" placeholder="Résumé de sa réponse (ex : veux supprimer Uber Eats, repasser jeudi)...">
+            <button type="submit" id="submitVisitBtn" class="btn-validate">Valider ce démarchage (+1 case pour Jalil)</button>
+          </div>
         </div>
       </form>
     </section>
 
-    <!-- JOURNAL DES PASSAGES -->
-    <section class="journal-card">
+    <!-- BARRE ONGLETS : PASSAGES VS HISTORIQUE SEMAINES -->
+    <div class="view-tabs-bar">
+      <div class="view-switch">
+        <button type="button" class="v-tab active" id="tabBtnVisits" onclick="switchBottomView('visits')">Passages clients (<span id="visitsTabCount">0</span>)</button>
+        <button type="button" class="v-tab" id="tabBtnHistory" onclick="switchBottomView('history')">Historique des semaines (<span id="historyTabCount">1</span>)</button>
+      </div>
+      <span style="font-size:12px; color:var(--muted);" id="totalHistLabel">Total enregistré : 0 passage(s)</span>
+    </div>
+
+    <!-- VUE 1 : PASSAGES CLIENTS -->
+    <section class="journal-shell" id="paneVisits">
       <div class="filter-bar">
         <div class="filter-top">
-          <input type="text" id="searchJournal" class="inp" placeholder="Rechercher un commerce, une ville, un contact, une note..." oninput="renderJournal()">
+          <input type="text" id="searchJournal" class="inp" placeholder="Rechercher un commerce, une ville, un contact, une réponse..." oninput="renderJournal()">
           <select id="repFilter" class="sel" style="width:auto;" onchange="onRepFilterDropdownChange()">
             <option value="all">Tous les démarcheurs</option>
             <option value="Jalil">Jalil</option>
@@ -975,9 +1117,9 @@
             <option value="Mino">Mino</option>
           </select>
           <select id="periodFilter" class="sel" style="width:auto;" onchange="renderJournal()">
-            <option value="week">Semaine sélectionnée (Lun – Dim)</option>
-            <option value="all">Tout l'historique (toutes les semaines)</option>
-            <option value="day">Jour sélectionné uniquement</option>
+            <option value="week">Cette semaine (Lun – Dim)</option>
+            <option value="all">Tout l'historique</option>
+            <option value="day">Jour sélectionné</option>
           </select>
         </div>
         <div class="filter-tabs" id="statusFilterPills">
@@ -990,23 +1132,11 @@
         </div>
       </div>
 
-      <div class="visits-table-head">
-        <div>Quand</div>
-        <div>Démarcheur</div>
-        <div>Commerce &amp; Contact</div>
-        <div>Réponse du client</div>
-        <div style="text-align:right;">Actions</div>
-      </div>
-
-      <div id="visitsListContainer"></div>
+      <div class="visits-feed" id="visitsListContainer"></div>
     </section>
 
-    <!-- HISTORIQUE PAR SEMAINE -->
-    <section class="history-card">
-      <div class="history-head">
-        <h3>Historique par semaine</h3>
-        <span>Cliquez sur « Ouvrir » pour consulter une semaine passée</span>
-      </div>
+    <!-- VUE 2 : HISTORIQUE DES SEMAINES -->
+    <section class="journal-shell" id="paneHistory" style="display:none;">
       <div class="hist-table-wrap">
         <table class="hist-table">
           <thead>
@@ -1017,7 +1147,7 @@
               <th>Mino (/15)</th>
               <th>Équipe (/45)</th>
               <th>Heures cumulées</th>
-              <th>Accès</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="weeklyHistoryBody"></tbody>
@@ -1026,15 +1156,15 @@
     </section>
   </div>
 
-  <!-- MODAL PARTAGE BILAN HEBDO -->
+  <!-- MODAL PARTAGE BILAN -->
   <div id="syncModal" class="modal-backdrop" onclick="if(event.target===this)closeShareSyncModal()">
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <h3 style="font-size:15px; font-weight:700;">Partager le bilan de la semaine</h3>
-        <button type="button" onclick="closeShareSyncModal()" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--slate);">&times;</button>
+        <h3 style="font-size:15.5px; font-weight:800;">Partager le bilan de la semaine</h3>
+        <button type="button" onclick="closeShareSyncModal()" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--slate);">&times;</button>
       </div>
       <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">
-        Envoyez le récapitulatif de la semaine sélectionnée sur WhatsApp. Le lien inclus permet d'importer et de fusionner automatiquement les passages et horaires de la semaine sur un autre appareil.
+        Envoyez le récapitulatif de la semaine sur WhatsApp. Le lien inclus permet d'importer et de fusionner automatiquement ces passages et horaires sur un autre appareil.
       </p>
 
       <div style="margin-bottom:10px;">
@@ -1047,16 +1177,16 @@
         </select>
       </div>
 
-      <textarea id="syncTextPreview" class="ta" rows="9" readonly style="font-size:12px; background:var(--bg); margin-bottom:10px;"></textarea>
+      <textarea id="syncTextPreview" class="ta" rows="8" readonly style="font-size:12px; background:var(--bg); margin-bottom:10px;"></textarea>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
-        <button type="button" class="btn-submit" style="width:100%;" onclick="sendSyncWhatsApp()">Envoyer sur WhatsApp</button>
-        <button type="button" class="btn-plain" style="width:100%; height:38px;" onclick="copySyncMessage()">Copier le texte</button>
+        <button type="button" class="btn-validate" style="height:38px; font-size:13px;" onclick="sendSyncWhatsApp()">Envoyer sur WhatsApp</button>
+        <button type="button" class="btn-pill" style="height:38px;" onclick="copySyncMessage()">Copier le texte</button>
       </div>
 
       <div style="padding-top:10px; border-top:1px solid var(--border); display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-        <button type="button" class="btn-plain" onclick="downloadBackupJson()">Sauvegarde JSON complète</button>
-        <label class="btn-plain" style="display:inline-flex; align-items:center; cursor:pointer;">
+        <button type="button" class="btn-pill" onclick="downloadBackupJson()">Sauvegarde JSON complète</button>
+        <label class="btn-pill" style="display:inline-flex; align-items:center; cursor:pointer;">
           Importer / Fusionner JSON
           <input type="file" accept=".json" style="display:none;" onchange="importBackupJson(event)">
         </label>
@@ -1067,17 +1197,21 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    const REPS = ['Jalil', 'Mehdi', 'Mino'];
+    const REPS = [
+      { id: 'Jalil', color: '#2563EB' },
+      { id: 'Mehdi', color: '#7C3AED' },
+      { id: 'Mino',  color: '#D97706' }
+    ];
     const WEEKLY_GOAL = 15;
     const DAY_SHORT = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     const DAY_LONG = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
     const OUTCOME_META = {
-      interesse: { label: 'Intéressé', cls: 'st-interesse', dot: 'dot-interesse' },
-      rappeler:  { label: 'À rappeler', cls: 'st-rappeler', dot: 'dot-rappeler' },
-      signe:     { label: 'Signé', cls: 'st-signe', dot: 'dot-signe' },
-      absent:    { label: 'Gérant absent', cls: 'st-absent', dot: 'dot-absent' },
-      refus:     { label: 'Refus', cls: 'st-refus', dot: 'dot-refus' }
+      interesse: { label: 'Intéressé', cls: 'st-interesse', dot: 'dot-interesse', tileCls: 'filled-interesse' },
+      rappeler:  { label: 'À rappeler', cls: 'st-rappeler', dot: 'dot-rappeler', tileCls: 'filled-rappeler' },
+      signe:     { label: 'Signé / Devis OK', cls: 'st-signe', dot: 'dot-signe', tileCls: 'filled-signe' },
+      absent:    { label: 'Gérant absent', cls: 'st-absent', dot: 'dot-absent', tileCls: 'filled-other' },
+      refus:     { label: 'Refus', cls: 'st-refus', dot: 'dot-refus', tileCls: 'filled-other' }
     };
 
     const STORE_LOGS_KEY = 'bms_travail_logs_v1';
@@ -1089,8 +1223,9 @@
     let activeRep = 'Jalil';
     let selectedOutcome = 'interesse';
     let statusFilter = 'all';
+    let whenMode = 'now';
+    let lastAnimatedRep = '';
 
-    /* =============== UTILITAIRES DATES LOCALES (SANS DECALAGE UTC) =============== */
     function pad2(n) { return String(n).padStart(2, '0'); }
 
     function parseLocalYmd(ymd) {
@@ -1103,9 +1238,7 @@
       return `${dateObj.getFullYear()}-${pad2(dateObj.getMonth() + 1)}-${pad2(dateObj.getDate())}`;
     }
 
-    function todayIso() {
-      return toYmd(new Date());
-    }
+    function todayIso() { return toYmd(new Date()); }
 
     function nowDateTimeLocal() {
       const d = new Date();
@@ -1120,7 +1253,7 @@
 
     function getMondayYmd(ymd) {
       const d = parseLocalYmd(ymd);
-      const dayShift = (d.getDay() + 6) % 7; // Lundi = 0 ... Dimanche = 6
+      const dayShift = (d.getDay() + 6) % 7;
       d.setDate(d.getDate() - dayShift);
       return toYmd(d);
     }
@@ -1135,16 +1268,9 @@
 
     function formatWeekLabel(mondayYmd) {
       const sundayYmd = addDaysYmd(mondayYmd, 6);
-      const [wy, wm, wd] = mondayYmd.split('-');
+      const [, wm, wd] = mondayYmd.split('-');
       const [sy, sm, sd] = sundayYmd.split('-');
       return `Semaine du Lun. ${wd}/${wm} au Dim. ${sd}/${sm}/${sy}`;
-    }
-
-    function formatDayFullLabel(ymd) {
-      const d = parseLocalYmd(ymd);
-      const idx = (d.getDay() + 6) % 7;
-      const [, m, dd] = ymd.split('-');
-      return `${DAY_LONG[idx]} ${dd}/${m}`;
     }
 
     function esc(s) {
@@ -1155,9 +1281,60 @@
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2600);
+      setTimeout(() => t.classList.remove('show'), 2700);
     }
 
+    function launchConfettiBurst(count = 26) {
+      const layer = document.getElementById('confettiLayer');
+      if (!layer) return;
+      const colors = ['#16A34A', '#2563EB', '#D97706', '#7C3AED', '#F59E0B'];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = 'confetti-piece';
+        el.style.left = (Math.random() * 96 + 2) + 'vw';
+        el.style.background = colors[i % colors.length];
+        el.style.animationDelay = (Math.random() * 0.25) + 's';
+        el.style.transform = `rotate(${Math.floor(Math.random() * 180)}deg)`;
+        layer.appendChild(el);
+        setTimeout(() => el.remove(), 1700);
+      }
+    }
+
+    /* =============== OPTIONS HEURES PROPRES (SANS PLACEHOLDER 12:30 SAFARI) =============== */
+    function buildTimeSelectOptions(selEl, selectedVal) {
+      const opts = ['<option value="">-- Choisir --</option>'];
+      const known = new Set(['']);
+      for (let h = 7; h <= 22; h++) {
+        for (const m of [0, 15, 30, 45]) {
+          if (h === 22 && m > 0) continue;
+          const val = `${pad2(h)}:${pad2(m)}`;
+          known.add(val);
+          opts.push(`<option value="${val}">${pad2(h)}h${pad2(m)}</option>`);
+        }
+      }
+      if (selectedVal && !known.has(selectedVal)) {
+        opts.splice(1, 0, `<option value="${esc(selectedVal)}">${esc(selectedVal.replace(':', 'h'))}</option>`);
+      }
+      selEl.innerHTML = opts.join('');
+      selEl.value = selectedVal || '';
+    }
+
+    function initTodayQuickTimeSelect() {
+      const sel = document.getElementById('vTodayTimeSel');
+      const d = new Date();
+      const opts = [];
+      for (let h = 7; h <= 21; h++) {
+        for (const m of [0, 30]) {
+          const val = `${pad2(h)}:${pad2(m)}`;
+          opts.push(`<option value="${val}">Aujourd'hui à ${pad2(h)}h${pad2(m)}</option>`);
+        }
+      }
+      sel.innerHTML = opts.join('');
+      const nearest = `${pad2(d.getHours())}:${d.getMinutes() >= 30 ? '30' : '00'}`;
+      if (sel.querySelector(`option[value="${nearest}"]`)) sel.value = nearest;
+    }
+
+    /* =============== CHARGEMENT & SAUVEGARDE =============== */
     function loadAllData() {
       try {
         const rawLogs = localStorage.getItem(STORE_LOGS_KEY);
@@ -1173,7 +1350,7 @@
 
       try {
         const savedRep = localStorage.getItem(STORE_ACTIVE_REP_KEY);
-        if (REPS.includes(savedRep)) activeRep = savedRep;
+        if (REPS.some(r => r.id === savedRep)) activeRep = savedRep;
       } catch (e) {}
     }
 
@@ -1184,21 +1361,12 @@
       } catch (e) {}
     }
 
-    function getSelectedDay() {
-      return document.getElementById('activeDateInp').value || todayIso();
-    }
-
-    function getActiveWeekStart() {
-      return getMondayYmd(getSelectedDay());
-    }
-
-    function getActiveWeekEnd() {
-      return addDaysYmd(getActiveWeekStart(), 6);
-    }
+    function getSelectedDay() { return document.getElementById('activeDateInp').value || todayIso(); }
+    function getActiveWeekStart() { return getMondayYmd(getSelectedDay()); }
+    function getActiveWeekEnd() { return addDaysYmd(getActiveWeekStart(), 6); }
 
     function shiftWeek(deltaDays) {
-      const next = addDaysYmd(getActiveWeekStart(), deltaDays);
-      document.getElementById('activeDateInp').value = next;
+      document.getElementById('activeDateInp').value = addDaysYmd(getActiveWeekStart(), deltaDays);
       onActiveDateChange();
     }
 
@@ -1212,10 +1380,11 @@
       onActiveDateChange();
     }
 
-    function jumpToWeek(mondayYmd, scrollTop = true) {
+    function jumpToWeek(mondayYmd) {
       document.getElementById('activeDateInp').value = mondayYmd;
+      switchBottomView('visits');
       onActiveDateChange();
-      if (scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function onActiveDateChange() {
@@ -1224,22 +1393,23 @@
     }
 
     function selectActiveRep(repId) {
-      if (!REPS.includes(repId)) return;
+      if (!REPS.some(r => r.id === repId)) return;
       activeRep = repId;
       try { localStorage.setItem(STORE_ACTIVE_REP_KEY, repId); } catch (e) {}
-      document.getElementById('vRep').value = repId;
-      document.getElementById('hoursRepTitle').textContent = repId;
+
+      document.querySelectorAll('#formRepPills .rep-pick-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.rep === repId);
+      });
+      if (!document.getElementById('editVisitId').value) {
+        document.getElementById('submitVisitBtn').textContent = `Valider ce démarchage (+1 case pour ${repId})`;
+      }
       loadRepHoursUI();
+      renderChronoBar();
       renderRepCards();
       renderWeekDaysStrip();
-      updateHoursSummaryBar();
     }
 
-    function syncActiveRepFromSelect() {
-      selectActiveRep(document.getElementById('vRep').value);
-    }
-
-    /* =============== HORAIRES JOURNALIERS & CUMUL SEMAINE =============== */
+    /* =============== HORAIRES & CHRONO 1-CLIC =============== */
     function getHoursObj(dateStr, repId) {
       return (hoursMap[dateStr] && hoursMap[dateStr][repId])
         ? hoursMap[dateStr][repId]
@@ -1280,32 +1450,90 @@
       const days = getWeekDays(mondayYmd);
       let totalMins = 0;
       let loggedDays = 0;
-      let inProgressStart = '';
       days.forEach(d => {
         const h = getHoursObj(d.ymd, repId);
         if (h.start) {
+          loggedDays++;
           const m = calcWorkedMinutes(h);
-          if (m !== null) {
-            totalMins += m;
-            loggedDays++;
-          } else {
-            inProgressStart = `${d.shortName} ${h.start.replace(':', 'h')}`;
-            loggedDays++;
-          }
+          if (m !== null) totalMins += m;
         }
       });
-      return { totalMins, loggedDays, inProgressStart };
+      return { totalMins, loggedDays };
+    }
+
+    function toggleHoursDrawer() {
+      const el = document.getElementById('hoursDrawer');
+      el.classList.toggle('open');
+      document.getElementById('toggleHoursBtn').textContent = el.classList.contains('open')
+        ? 'Masquer les horaires'
+        : 'Horaires de la semaine (7 j.)';
+    }
+
+    function handleQuickChrono() {
+      const today = todayIso();
+      const h = getHoursObj(today, activeRep);
+      const d = new Date();
+      const hhmm = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+
+      if (!hoursMap[today]) hoursMap[today] = {};
+      if (!h.start) {
+        hoursMap[today][activeRep] = { ...h, start: hhmm };
+        showToast(`Bonne tournée ${activeRep} ! Arrivée pointée à ${hhmm.replace(':', 'h')}`);
+      } else if (!h.end) {
+        hoursMap[today][activeRep] = { ...h, end: hhmm };
+        const net = calcWorkedMinutes(hoursMap[today][activeRep]);
+        showToast(`Bravo ${activeRep} ! Fin pointée à ${hhmm.replace(':', 'h')} (${formatMins(net)})`);
+      } else {
+        document.getElementById('activeDateInp').value = today;
+        if (!document.getElementById('hoursDrawer').classList.contains('open')) toggleHoursDrawer();
+      }
+      saveAllData();
+      loadRepHoursUI();
+      renderAll();
+    }
+
+    function renderChronoBar() {
+      const today = todayIso();
+      const h = getHoursObj(today, activeRep);
+      const monYmd = getActiveWeekStart();
+      const weekStats = getRepWeekHoursStats(monYmd, activeRep);
+      const dot = document.getElementById('chronoLiveDot');
+      const headline = document.getElementById('chronoHeadline');
+      const sub = document.getElementById('chronoSub');
+      const btn = document.getElementById('chronoActionBtn');
+
+      headline.textContent = `Tournée de ${activeRep}`;
+      const cumTxt = `Cumul semaine : ${formatMins(weekStats.totalMins)} (${weekStats.loggedDays} j.)`;
+
+      if (!h.start) {
+        dot.classList.remove('running');
+        sub.textContent = `Aujourd'hui : pas encore pointé · ${cumTxt}`;
+        btn.className = 'btn-chrono-start';
+        btn.textContent = 'Démarrer ma journée (Pointer arrivée)';
+      } else if (!h.end) {
+        dot.classList.add('running');
+        sub.textContent = `En tournée depuis ${h.start.replace(':', 'h')}${h.zone ? ' (' + h.zone + ')' : ''} · ${cumTxt}`;
+        btn.className = 'btn-chrono-stop';
+        btn.textContent = `Terminer ma journée (dès ${h.start.replace(':', 'h')})`;
+      } else {
+        dot.classList.remove('running');
+        const net = calcWorkedMinutes(h);
+        sub.textContent = `Aujourd'hui : ${h.start.replace(':', 'h')} -> ${h.end.replace(':', 'h')} (${formatMins(net)}) · ${cumTxt}`;
+        btn.className = 'btn-pill';
+        btn.textContent = 'Modifier mes horaires';
+      }
     }
 
     function loadRepHoursUI() {
       const selYmd = getSelectedDay();
-      document.getElementById('hoursSelectedDayLabel').textContent = formatDayFullLabel(selYmd);
       const h = getHoursObj(selYmd, activeRep);
-      document.getElementById('hrStart').value = h.start || '';
-      document.getElementById('hrEnd').value = h.end || '';
+      buildTimeSelectOptions(document.getElementById('hrStart'), h.start || '');
+      buildTimeSelectOptions(document.getElementById('hrEnd'), h.end || '');
       document.getElementById('hrBreakMin').value = String(getPauseMinutes(h));
       document.getElementById('hrZone').value = h.zone || '';
-      updateHoursSummaryBar();
+      const dayMins = calcWorkedMinutes(h);
+      const dayTxt = dayMins !== null ? formatMins(dayMins) : (h.start ? `Dès ${h.start.replace(':', 'h')}` : '—');
+      document.getElementById('hoursSummaryBar').innerHTML = `Jour : <strong>${esc(dayTxt)}</strong>`;
     }
 
     function saveRepHours() {
@@ -1318,9 +1546,9 @@
         zone: document.getElementById('hrZone').value.trim()
       };
       saveAllData();
-      updateHoursSummaryBar();
+      loadRepHoursUI();
+      renderChronoBar();
       renderWeekDaysStrip();
-      renderWeekHoursLog();
       renderRepCards();
       renderWeeklyHistory();
     }
@@ -1328,21 +1556,10 @@
     function punchNow(field) {
       const d = new Date();
       const hhmm = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
-      if (field === 'start') document.getElementById('hrStart').value = hhmm;
-      if (field === 'end') document.getElementById('hrEnd').value = hhmm;
+      const sel = document.getElementById(field === 'start' ? 'hrStart' : 'hrEnd');
+      buildTimeSelectOptions(sel, hhmm);
       saveRepHours();
-      showToast(`${activeRep} — heure enregistrée (${hhmm})`);
-    }
-
-    function updateHoursSummaryBar() {
-      const selYmd = getSelectedDay();
-      const monYmd = getActiveWeekStart();
-      const h = getHoursObj(selYmd, activeRep);
-      const dayMins = calcWorkedMinutes(h);
-      const dayTxt = dayMins !== null ? formatMins(dayMins) : (h.start ? `Dès ${h.start.replace(':', 'h')}` : '—');
-      const weekStats = getRepWeekHoursStats(monYmd, activeRep);
-      document.getElementById('hoursSummaryBar').innerHTML = `Jour : <strong>${esc(dayTxt)}</strong>`;
-      document.getElementById('repWeekHoursSummary').textContent = `Cumul semaine ${activeRep} : ${formatMins(weekStats.totalMins)} (${weekStats.loggedDays} j. pointé${weekStats.loggedDays > 1 ? 's' : ''})`;
+      showToast(`${activeRep} — heure pointée (${hhmm.replace(':', 'h')})`);
     }
 
     function renderWeekDaysStrip() {
@@ -1363,43 +1580,28 @@
       }).join('');
     }
 
-    function renderWeekHoursLog() {
-      const days = getWeekDays(getActiveWeekStart());
-      const items = [];
-      days.forEach(d => {
-        REPS.forEach(rep => {
-          const h = getHoursObj(d.ymd, rep);
-          if (h.start) {
-            const mins = calcWorkedMinutes(h);
-            const span = h.end ? `${h.start.replace(':', 'h')}-${h.end.replace(':', 'h')} (${formatMins(mins)})` : `dès ${h.start.replace(':', 'h')}`;
-            items.push(`<button type="button" class="hour-log-chip" onclick="selectActiveRep('${rep}'); selectDayInWeek('${d.ymd}');"><strong>${rep}</strong> ${d.shortName} ${d.dm} : ${esc(span)}${h.zone ? ' · ' + esc(h.zone) : ''}</button>`);
-          }
-        });
-      });
-      const box = document.getElementById('weekHoursLogRow');
-      if (!items.length) {
-        box.innerHTML = `<span style="color:var(--muted);">Aucun horaire saisi sur cette semaine.</span>`;
-      } else {
-        box.innerHTML = `<span style="color:var(--muted); font-weight:600;">Horaires saisis cette semaine :</span>` + items.join('');
-      }
-    }
-
-    /* =============== CARTES DES 3 DEMARCHEURS (SEMAINE EN COURS) =============== */
+    /* =============== CARTES DES 3 DEMARCHEURS (15 CASES LUDIQUES) =============== */
     function renderRepCards() {
       const monYmd = getActiveWeekStart();
       const sunYmd = getActiveWeekEnd();
+
+      const countsByRep = {};
+      REPS.forEach(r => {
+        countsByRep[r.id] = visitLogs.filter(v => {
+          const ymd = (v.visitedAt || '').slice(0, 10);
+          return v.rep === r.id && ymd >= monYmd && ymd <= sunYmd;
+        });
+      });
+      const maxCount = Math.max(...REPS.map(r => countsByRep[r.id].length));
+
       let teamWeekTotal = 0;
       let teamInterested = 0;
       let teamSigned = 0;
 
-      const html = REPS.map(rep => {
-        const weekLogs = visitLogs.filter(v => {
-          const ymd = (v.visitedAt || '').slice(0, 10);
-          return v.rep === rep && ymd >= monYmd && ymd <= sunYmd;
-        });
-        const totalHistCount = visitLogs.filter(v => v.rep === rep).length;
-
+      const cardsHtml = REPS.map(rep => {
+        const weekLogs = countsByRep[rep.id];
         const count = weekLogs.length;
+        const totalHist = visitLogs.filter(v => v.rep === rep.id).length;
         teamWeekTotal += count;
 
         const inter = weekLogs.filter(v => v.outcome === 'interesse').length;
@@ -1408,43 +1610,70 @@
         teamInterested += inter;
         teamSigned += sig;
 
-        const pct = Math.min(100, Math.round((count / WEEKLY_GOAL) * 100));
         const reached = count >= WEEKLY_GOAL;
-        const hStats = getRepWeekHoursStats(monYmd, rep);
-        let hourTxt = 'Aucun horaire pointé cette semaine';
-        if (hStats.loggedDays > 0) {
-          hourTxt = hStats.totalMins > 0
-            ? `Cumul semaine : ${formatMins(hStats.totalMins)} (${hStats.loggedDays} j. pointé${hStats.loggedDays > 1 ? 's' : ''})`
-            : `Pointé (${hStats.inProgressStart || hStats.loggedDays + ' j.'})`;
+        let dynTag = `Démarrage (${count}/15)`;
+        let tagCls = '';
+        if (reached) {
+          dynTag = 'OBJECTIF 15/15 VALIDÉ';
+          tagCls = 'done';
+        } else if (count > 0 && count === maxCount && REPS.filter(x => countsByRep[x.id].length === maxCount).length === 1) {
+          dynTag = `En tête de la semaine (${count}/15)`;
+          tagCls = 'lead';
+        } else if (count >= 12) {
+          dynTag = 'Dernière ligne droite';
+        } else if (count >= 7) {
+          dynTag = `Mi-parcours (${count}/15)`;
         }
 
-        const rightFooter = reached
-          ? `<span class="rep-hist-total reached">Objectif atteint · Total hist. ${totalHistCount}</span>`
-          : `<span class="rep-hist-total">Reste ${WEEKLY_GOAL - count} · Total hist. ${totalHistCount}</span>`;
+        // Grille 15 cases numérotées triées chronologiquement dans la semaine
+        const chronoLogs = [...weekLogs].sort((a, b) => (a.visitedAt || '').localeCompare(b.visitedAt || ''));
+        const cells = [];
+        for (let i = 0; i < WEEKLY_GOAL; i++) {
+          const item = chronoLogs[i];
+          if (item) {
+            const m = OUTCOME_META[item.outcome] || OUTCOME_META.interesse;
+            const popCls = (lastAnimatedRep === rep.id && i === chronoLogs.length - 1) ? 'tile-pop' : '';
+            cells.push(`<span class="tile-cell ${m.tileCls} ${popCls}" title="${esc(item.shop)} (${esc(m.label)})">${i + 1}</span>`);
+          } else {
+            cells.push(`<span class="tile-cell">${i + 1}</span>`);
+          }
+        }
+
+        const hStats = getRepWeekHoursStats(monYmd, rep.id);
+        const hrsTxt = hStats.loggedDays > 0
+          ? `Cumul : ${formatMins(hStats.totalMins)} (${hStats.loggedDays} j.)`
+          : 'Horaires non pointés';
 
         return `
-          <div class="rep-card ${activeRep === rep ? 'active' : ''}" onclick="onRepCardClick('${rep}')">
-            <div class="rep-row-top">
-              <span class="rep-name">${rep}</span>
-              <span class="rep-score ${reached ? 'reached' : ''}">${count} <small>/ ${WEEKLY_GOAL} sem.</small></span>
+          <div class="rep-card ${activeRep === rep.id ? 'active' : ''} ${reached ? 'goal-done' : ''}" style="--rep-accent:${rep.color};" onclick="onRepCardClick('${rep.id}')">
+            <div class="rep-top">
+              <div class="rep-title-wrap">
+                <div class="rep-name-row">
+                  <span class="rep-dot" style="background:${reached ? 'var(--green)' : rep.color};"></span>
+                  <span class="rep-name">${rep.id}</span>
+                </div>
+                <span class="rep-status-tag ${tagCls}">${dynTag}</span>
+              </div>
+              <div class="rep-counter">
+                <strong style="color:${reached ? 'var(--green)' : rep.color};">${count}</strong><small> / ${WEEKLY_GOAL}</small>
+              </div>
             </div>
-            <div class="rep-hours-txt">${esc(hourTxt)}</div>
-            <div class="progress-track">
-              <div class="progress-fill ${reached ? 'reached' : ''}" style="width:${pct}%;"></div>
-            </div>
-            <div class="rep-footer">
-              <span>${inter} intéressé${inter > 1 ? 's' : ''} · ${rec} à rappeler · ${sig} signé${sig > 1 ? 's' : ''}</span>
-              ${rightFooter}
+
+            <div class="tiles-15">${cells.join('')}</div>
+
+            <div class="rep-bottom-row">
+              <span class="rep-hours-pill">${esc(hrsTxt)}</span>
+              <span>${inter} int. · ${rec} rapp. · ${sig} sign. · Hist. ${totalHist}</span>
             </div>
           </div>
         `;
       }).join('');
 
+      lastAnimatedRep = '';
       document.getElementById('weekRangeLabel').textContent = formatWeekLabel(monYmd);
-      document.getElementById('repsCardsContainer').innerHTML = html;
-      document.getElementById('teamTotalGoalText').textContent = `${teamWeekTotal} / 45 démarchages`;
-      document.getElementById('teamSignedSummary').textContent = `(${teamInterested} intéressé${teamInterested > 1 ? 's' : ''} · ${teamSigned} signé${teamSigned > 1 ? 's' : ''})`;
-      document.getElementById('teamHistoryTotal').textContent = `Historique total : ${visitLogs.length}`;
+      document.getElementById('repsCardsContainer').innerHTML = cardsHtml;
+      document.getElementById('teamTotalGoalText').textContent = `${teamWeekTotal} / 45`;
+      document.getElementById('teamSignedSummary').textContent = `${teamInterested} intéressé${teamInterested > 1 ? 's' : ''} · ${teamSigned} signé${teamSigned > 1 ? 's' : ''}`;
     }
 
     function onRepCardClick(repId) {
@@ -1464,7 +1693,34 @@
       renderJournal();
     }
 
-    /* =============== SAISIE PASSAGE CLIENT =============== */
+    /* =============== MOMENT & FORMULAIRE 3 ETAPES =============== */
+    function setWhenMode(mode) {
+      whenMode = mode;
+      document.getElementById('whenNowBtn').classList.toggle('active', mode === 'now');
+      document.getElementById('whenTodayBtn').classList.toggle('active', mode === 'today');
+      document.getElementById('whenCustomBtn').classList.toggle('active', mode === 'custom');
+      document.getElementById('vTodayTimeSel').style.display = mode === 'today' ? 'block' : 'none';
+      document.getElementById('vDateTime').style.display = mode === 'custom' ? 'block' : 'none';
+      if (mode === 'custom' && !document.getElementById('vDateTime').value) {
+        document.getElementById('vDateTime').value = nowDateTimeLocal();
+      }
+    }
+
+    function resolveVisitedAtValue() {
+      if (whenMode === 'now') return nowDateTimeLocal();
+      if (whenMode === 'today') {
+        const hhmm = document.getElementById('vTodayTimeSel').value || '10:00';
+        return `${todayIso()}T${hhmm}`;
+      }
+      return document.getElementById('vDateTime').value || nowDateTimeLocal();
+    }
+
+    function setQuickRecall(daysAhead, hour) {
+      const d = new Date();
+      d.setDate(d.getDate() + daysAhead);
+      document.getElementById('vRecallAt').value = `${toYmd(d)}T${pad2(hour)}:00`;
+    }
+
     function parseContactAndPhone(rawContactPhone) {
       const str = String(rawContactPhone || '').trim();
       if (!str) return { contact: '', phone: '' };
@@ -1479,14 +1735,14 @@
 
     function pickOutcome(st) {
       selectedOutcome = st;
-      document.querySelectorAll('#outcomeBtnsGrid .seg-btn').forEach(b => {
+      document.querySelectorAll('#outcomeBtnsGrid .out-btn').forEach(b => {
         b.classList.toggle('active', b.dataset.st === st);
       });
-      const recallWrap = document.getElementById('recallFieldWrap');
-      recallWrap.style.display = (st === 'rappeler' || st === 'absent') ? 'block' : 'none';
-      if ((st === 'rappeler' || st === 'absent') && !document.getElementById('vRecallAt').value) {
-        const tomorrow = new Date(Date.now() + 24 * 3600 * 1000);
-        document.getElementById('vRecallAt').value = `${toYmd(tomorrow)}T15:00`;
+      const wrap = document.getElementById('recallFieldWrap');
+      const needsRecall = (st === 'rappeler' || st === 'absent');
+      wrap.classList.toggle('open', needsRecall);
+      if (needsRecall && !document.getElementById('vRecallAt').value) {
+        setQuickRecall(1, 15);
       }
     }
 
@@ -1499,10 +1755,10 @@
     function resetVisitForm() {
       document.getElementById('visitLogForm').reset();
       document.getElementById('editVisitId').value = '';
-      document.getElementById('vRep').value = activeRep;
+      setWhenMode('now');
       document.getElementById('vDateTime').value = nowDateTimeLocal();
-      document.getElementById('formHeading').textContent = 'Nouveau passage client';
-      document.getElementById('submitVisitBtn').textContent = 'Enregistrer le passage (+1)';
+      document.getElementById('formHeading').textContent = '+ Enregistrer un démarchage';
+      document.getElementById('submitVisitBtn').textContent = `Valider ce démarchage (+1 case pour ${activeRep})`;
       document.getElementById('cancelEditBtn').style.display = 'none';
       pickOutcome('interesse');
     }
@@ -1510,8 +1766,8 @@
     function submitVisitForm(e) {
       e.preventDefault();
       const editId = document.getElementById('editVisitId').value;
-      const rep = document.getElementById('vRep').value;
-      const visitedAt = document.getElementById('vDateTime').value || nowDateTimeLocal();
+      const rep = activeRep;
+      const visitedAt = resolveVisitedAtValue();
       const shop = document.getElementById('vShop').value.trim();
       if (!shop) return;
 
@@ -1535,15 +1791,34 @@
       if (editId) {
         const idx = visitLogs.findIndex(v => v.id === editId);
         if (idx !== -1) visitLogs[idx] = entry;
-        showToast(`Passage modifié : ${shop}`);
+        showToast(`Passage mis à jour : ${shop}`);
       } else {
         visitLogs.unshift(entry);
+        lastAnimatedRep = rep;
         document.getElementById('activeDateInp').value = visitedAt.slice(0, 10);
-        showToast(`Passage enregistré pour ${rep}`);
+
+        // Vérifier le nouveau total de la semaine pour ce démarcheur
+        const monYmd = getMondayYmd(visitedAt.slice(0, 10));
+        const sunYmd = addDaysYmd(monYmd, 6);
+        const repWeekCount = visitLogs.filter(v => {
+          const ymd = (v.visitedAt || '').slice(0, 10);
+          return v.rep === rep && ymd >= monYmd && ymd <= sunYmd;
+        }).length;
+
+        if (repWeekCount === WEEKLY_GOAL) {
+          launchConfettiBurst(40);
+          showToast(`Objectif 15/15 atteint pour ${rep} ! Bravo !`);
+        } else if (entry.outcome === 'signe') {
+          launchConfettiBurst(26);
+          showToast(`Contrat signé pour ${rep} (${repWeekCount}/15) !`);
+        } else {
+          showToast(`+1 case pour ${rep} (${repWeekCount}/15 cette semaine)`);
+        }
       }
 
       saveAllData();
       resetVisitForm();
+      switchBottomView('visits');
       renderAll();
     }
 
@@ -1551,8 +1826,8 @@
       const v = visitLogs.find(it => it.id === id);
       if (!v) return;
       document.getElementById('editVisitId').value = v.id;
-      document.getElementById('vRep').value = v.rep;
       selectActiveRep(v.rep);
+      setWhenMode('custom');
       document.getElementById('vDateTime').value = v.visitedAt || nowDateTimeLocal();
       document.getElementById('vShop').value = v.shop || '';
       document.getElementById('vSector').value = v.sector || 'restaurant';
@@ -1577,7 +1852,14 @@
       showToast('Passage supprimé');
     }
 
-    /* =============== FILTRES & LISTE =============== */
+    /* =============== VUES ONGLETS & JOURNAL =============== */
+    function switchBottomView(mode) {
+      document.getElementById('tabBtnVisits').classList.toggle('active', mode === 'visits');
+      document.getElementById('tabBtnHistory').classList.toggle('active', mode === 'history');
+      document.getElementById('paneVisits').style.display = mode === 'visits' ? 'block' : 'none';
+      document.getElementById('paneHistory').style.display = mode === 'history' ? 'block' : 'none';
+    }
+
     function setStatusFilter(st, btn) {
       statusFilter = st;
       document.querySelectorAll('#statusFilterPills .f-tab').forEach(b => b.classList.remove('active'));
@@ -1617,12 +1899,15 @@
         return true;
       }).sort((a, b) => (b.visitedAt || '').localeCompare(a.visitedAt || ''));
 
+      document.getElementById('visitsTabCount').textContent = String(list.length);
+      document.getElementById('totalHistLabel').textContent = `Historique global : ${visitLogs.length} passage${visitLogs.length > 1 ? 's' : ''}`;
+
       const box = document.getElementById('visitsListContainer');
       if (list.length === 0) {
         box.innerHTML = `
           <div class="empty-box">
-            <strong>Aucun démarchage sur cette sélection</strong>
-            <span>Enregistrez un passage ci-dessus ou basculez la période sur « Tout l'historique ».</span>
+            <strong>Aucun passage affiché pour cette sélection</strong>
+            <span>Remplis le premier commerce en 10 secondes juste au-dessus pour allumer la case n°1.</span>
           </div>
         `;
         return;
@@ -1644,19 +1929,20 @@
         ].filter(Boolean).join(' · ');
 
         return `
-          <div class="visit-row">
-            <div class="col-when">${esc(formatHumanDt(v.visitedAt))}</div>
-            <div class="col-rep">${esc(v.rep)}</div>
-            <div>
-              <div class="shop-name">${esc(v.shop)}</div>
-              ${subParts ? `<div class="shop-sub">${subParts}</div>` : ''}
+          <article class="visit-item">
+            <div class="visit-left">
+              <div class="visit-meta-top">
+                <span class="rep-badge-sm rep-badge-${esc(v.rep)}">${esc(v.rep)}</span>
+                <span class="when-txt">${esc(formatHumanDt(v.visitedAt))}</span>
+                <span class="status-pill ${st.cls}"><span class="dot ${st.dot}"></span>${st.label}</span>
+              </div>
+              <div class="shop-title">${esc(v.shop)}</div>
+              ${subParts ? `<div class="shop-contact">${subParts}</div>` : ''}
+              ${v.answer ? `<div class="quote-bubble">${esc(v.answer)}</div>` : ''}
+              ${v.recallAt ? `<div><span class="recall-pill">Relance prévue : ${esc(formatHumanDt(v.recallAt))}</span></div>` : ''}
             </div>
-            <div>
-              <span class="status-pill ${st.cls}"><span class="dot ${st.dot}"></span>${st.label}</span>
-              <div class="answer-text">${v.answer ? esc(v.answer) : '<span style="color:var(--muted);">—</span>'}</div>
-              ${v.recallAt ? `<div class="recall-note">Relance prévue : ${esc(formatHumanDt(v.recallAt))}</div>` : ''}
-            </div>
-            <div class="row-actions">
+
+            <div class="visit-actions">
               <button type="button" class="act-btn" onclick="editVisit('${v.id}')">Modifier</button>
               <a href="${maquetteUrl}" class="act-btn">Maquette</a>
               <a href="${devisUrl}" class="act-btn">Devis</a>
@@ -1664,12 +1950,12 @@
               <button type="button" class="act-btn" onclick="pushToSuiviPipeline('${v.id}')">Suivi</button>
               <button type="button" class="act-btn del" onclick="deleteVisit('${v.id}')">Suppr.</button>
             </div>
-          </div>
+          </article>
         `;
       }).join('');
     }
 
-    /* =============== HISTORIQUE PAR SEMAINE =============== */
+    /* =============== HISTORIQUE DES SEMAINES =============== */
     function renderWeeklyHistory() {
       const currentMonday = getActiveWeekStart();
       const weekKeys = new Set([currentMonday]);
@@ -1681,15 +1967,14 @@
       Object.keys(hoursMap).forEach(ymd => {
         if (/^\d{4}-\d{2}-\d{2}$/.test(ymd)) {
           const dayHrs = hoursMap[ymd] || {};
-          const hasAny = REPS.some(r => dayHrs[r] && dayHrs[r].start);
-          if (hasAny) weekKeys.add(getMondayYmd(ymd));
+          if (REPS.some(r => dayHrs[r.id] && dayHrs[r.id].start)) weekKeys.add(getMondayYmd(ymd));
         }
       });
 
       const sortedWeeks = [...weekKeys].sort((a, b) => b.localeCompare(a));
-      const tbody = document.getElementById('weeklyHistoryBody');
+      document.getElementById('historyTabCount').textContent = String(sortedWeeks.length);
 
-      tbody.innerHTML = sortedWeeks.map(monYmd => {
+      document.getElementById('weeklyHistoryBody').innerHTML = sortedWeeks.map(monYmd => {
         const sunYmd = addDaysYmd(monYmd, 6);
         const wLogs = visitLogs.filter(v => {
           const ymd = (v.visitedAt || '').slice(0, 10);
@@ -1701,7 +1986,7 @@
         const total = wLogs.length;
 
         let totalTeamMins = 0;
-        REPS.forEach(r => { totalTeamMins += getRepWeekHoursStats(monYmd, r).totalMins; });
+        REPS.forEach(r => { totalTeamMins += getRepWeekHoursStats(monYmd, r.id).totalMins; });
         const isCurrent = monYmd === currentMonday;
 
         return `
@@ -1724,9 +2009,8 @@
 
     function renderAll() {
       renderRepCards();
+      renderChronoBar();
       renderWeekDaysStrip();
-      updateHoursSummaryBar();
-      renderWeekHoursLog();
       renderJournal();
       renderWeeklyHistory();
     }
@@ -1823,7 +2107,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Travail-Historique-Semaine-${getActiveWeekStart()}.csv`;
+      a.download = `Travail-Semaine-${getActiveWeekStart()}.csv`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -1853,7 +2137,7 @@
       const sunYmd = getActiveWeekEnd();
       const days = getWeekDays(monYmd);
       const targetRep = document.getElementById('syncRepSelect').value;
-      const repsIncluded = targetRep === 'all' ? REPS : [targetRep];
+      const repsIncluded = targetRep === 'all' ? REPS.map(r => r.id) : [targetRep];
 
       const filteredLogs = visitLogs.filter(v => {
         const ymd = (v.visitedAt || '').slice(0, 10);
@@ -1872,11 +2156,9 @@
       });
 
       const payload = { weekStart: monYmd, logs: filteredLogs, hoursMap: hoursByDay };
-
       let syncUrl = '';
       try {
-        const encoded = b64EncodeUnicode(JSON.stringify(payload));
-        syncUrl = `${window.location.origin}${window.location.pathname}?sync=${encoded}`;
+        syncUrl = `${window.location.origin}${window.location.pathname}?sync=${b64EncodeUnicode(JSON.stringify(payload))}`;
       } catch (e) {}
 
       const repSummaryLines = repsIncluded.map(rId => {
@@ -1886,16 +2168,15 @@
           ? `${formatMins(hStats.totalMins)} (${hStats.loggedDays} j. pointés)`
           : 'Aucun horaire saisi';
         const lines = rLogs.map(l => `  - ${formatHumanDt(l.visitedAt)} | ${l.shop} [${OUTCOME_META[l.outcome]?.label || l.outcome}]${l.answer ? ' : ' + l.answer : ''}`).join('\n');
-        return `${rId} — ${rLogs.length}/15 semaine | Cumul horaires : ${hrTxt}\n${lines || '  (Aucun passage saisi)'}`;
+        return `${rId} — ${rLogs.length}/15 semaine | Horaires : ${hrTxt}\n${lines || '  (Aucun passage saisi)'}`;
       }).join('\n\n');
 
-      const txt = `BILAN HEBDO BOOST MY SITE — ${formatWeekLabel(monYmd)}\n\n${repSummaryLines}${syncUrl && syncUrl.length < 3500 ? `\n\nLien synchro directe (ouvrir pour importer) :\n${syncUrl}` : ''}`;
+      const txt = `BILAN HEBDO BOOST MY SITE — ${formatWeekLabel(monYmd)}\n\n${repSummaryLines}${syncUrl && syncUrl.length < 3500 ? `\n\nLien synchro directe :\n${syncUrl}` : ''}`;
       document.getElementById('syncTextPreview').value = txt;
     }
 
     function sendSyncWhatsApp() {
-      const txt = document.getElementById('syncTextPreview').value;
-      window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`, '_blank', 'noopener,noreferrer');
+      window.open(`https://wa.me/?text=${encodeURIComponent(document.getElementById('syncTextPreview').value)}`, '_blank', 'noopener,noreferrer');
     }
 
     function copySyncMessage() {
@@ -1914,12 +2195,12 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Travail-Historique-Complet-${todayIso()}.json`;
+      a.download = `Travail-Historique-${todayIso()}.json`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      showToast('Sauvegarde JSON complète téléchargée.');
+      showToast('Sauvegarde JSON téléchargée.');
     }
 
     function mergeSyncPackage(pkg) {
@@ -1936,9 +2217,7 @@
       }
       if (pkg.hours && pkg.date) {
         if (!hoursMap[pkg.date]) hoursMap[pkg.date] = {};
-        Object.entries(pkg.hours).forEach(([rId, hObj]) => {
-          hoursMap[pkg.date][rId] = hObj;
-        });
+        Object.entries(pkg.hours).forEach(([rId, hObj]) => { hoursMap[pkg.date][rId] = hObj; });
       }
       if (pkg.hoursMap) {
         Object.entries(pkg.hoursMap).forEach(([dKey, mapObj]) => {
@@ -2033,6 +2312,7 @@
 
     function bootApp() {
       loadAllData();
+      initTodayQuickTimeSelect();
       document.getElementById('activeDateInp').value = todayIso();
       document.getElementById('vDateTime').value = nowDateTimeLocal();
       checkUrlSyncParam();
