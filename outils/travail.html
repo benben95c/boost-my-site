@@ -175,8 +175,8 @@
     }
     @media (max-width: 600px) { .container { padding: 12px; } }
 
-    /* BARRE JOURNEE & OBJECTIF GLOBAL */
-    .day-bar {
+    /* BARRE NAVIGATION SEMAINE */
+    .week-bar {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -188,32 +188,33 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .day-controls {
+    .week-controls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
       min-width: 0;
     }
-    .lbl-inline {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--slate);
+    .week-range-badge {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      padding: 0 4px;
     }
     .date-inp {
-      height: 34px;
+      height: 32px;
       border: 1px solid var(--border-strong);
       border-radius: 6px;
-      padding: 0 9px;
+      padding: 0 8px;
       font-family: inherit;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--ink);
       background: #fff;
     }
     .btn-plain {
-      height: 34px;
-      padding: 0 11px;
+      height: 32px;
+      padding: 0 10px;
       border: 1px solid var(--border-strong);
       background: #fff;
       border-radius: 6px;
@@ -231,25 +232,18 @@
       border-color: var(--ink);
     }
     .team-summary {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--slate);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
     }
-    .team-summary strong {
-      color: var(--ink);
-      font-weight: 700;
-    }
-    .team-sub {
-      color: var(--muted);
-      font-weight: 500;
-      font-size: 12px;
-    }
+    .team-summary strong { color: var(--ink); font-weight: 700; }
+    .team-sub { color: var(--muted); font-weight: 500; font-size: 12px; }
 
-    /* 3 CARTES DEMARCHEURS EPUREES */
+    /* 3 CARTES DEMARCHEURS (OBJECTIF 15/SEMAINE CHACUN) */
     .reps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -265,7 +259,7 @@
       border-radius: 8px;
       padding: 12px 14px;
       cursor: pointer;
-      transition: border-color 0.15s, background-color 0.15s;
+      transition: border-color 0.15s;
     }
     .rep-card:hover { border-color: #94A3B8; }
     .rep-card.active {
@@ -277,24 +271,11 @@
       justify-content: space-between;
       align-items: baseline;
       gap: 8px;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
-    .rep-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .rep-score {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--ink);
-      white-space: nowrap;
-    }
-    .rep-score small {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
-    }
+    .rep-name { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .rep-score { font-size: 15px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+    .rep-score small { font-size: 12px; color: var(--muted); font-weight: 500; }
     .rep-score.reached { color: var(--green); }
     .rep-hours-txt {
       font-size: 12px;
@@ -327,46 +308,81 @@
       font-size: 11.5px;
       color: var(--muted);
     }
-    .rep-goal-tag {
+    .rep-hist-total {
       font-weight: 600;
       color: var(--slate);
     }
-    .rep-goal-tag.reached { color: var(--green); }
+    .rep-hist-total.reached { color: var(--green); }
 
-    /* BARRE HORAIRES COMPACTE 1 LIGNE */
-    .hours-bar {
+    /* BLOC HORAIRES SEMAINE (7 JOURS + POINTAGE + RECAP SEMAINE) */
+    .hours-panel {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 12px 14px;
       margin-bottom: 12px;
     }
+    .hours-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .hours-top-bar strong { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+    .days-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 760px) { .days-strip { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 420px) { .days-strip { grid-template-columns: repeat(2, 1fr); } }
+    .day-pill {
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--slate);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .day-pill:hover { border-color: var(--border-strong); color: var(--ink); }
+    .day-pill.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .day-pill .day-dur {
+      font-size: 10.5px;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    .day-pill.has-hours:not(.active) {
+      border-color: #86EFAC;
+      background: var(--green-soft);
+      color: #166534;
+    }
+
     .hours-bar-inner {
       display: grid;
-      grid-template-columns: auto 1fr 1fr 140px 1.2fr auto;
+      grid-template-columns: 1fr 1fr 135px 1.2fr auto;
       gap: 10px;
       align-items: end;
     }
-    @media (max-width: 980px) {
+    @media (max-width: 900px) {
       .hours-bar-inner { grid-template-columns: 1fr 1fr; }
-      .hours-bar-head { grid-column: 1 / -1; }
       .hours-net-box { grid-column: 1 / -1; text-align: left !important; }
     }
-    @media (max-width: 520px) {
+    @media (max-width: 500px) {
       .hours-bar-inner { grid-template-columns: 1fr; }
-    }
-    .hours-bar-head {
-      padding-bottom: 6px;
-    }
-    .hours-bar-head strong {
-      display: block;
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .hours-bar-head span {
-      font-size: 11.5px;
-      color: var(--muted);
     }
     .time-field-wrap { min-width: 0; }
     .field-lbl {
@@ -400,6 +416,29 @@
     }
     .hours-net-box strong { color: var(--ink); }
 
+    .week-hours-log {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .hour-log-chip {
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 11.5px;
+      color: var(--slate);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .hour-log-chip:hover { border-color: var(--ink); color: var(--ink); }
+    .hour-log-chip strong { color: var(--ink); }
+
     /* CHAMPS FORMULAIRE */
     .inp, .sel, .ta {
       width: 100%;
@@ -417,7 +456,7 @@
     .inp, .sel { height: 36px; }
     .inp:focus, .sel:focus, .ta:focus { border-color: var(--ink); }
 
-    /* BLOC SAISIE RAPIDE PASSAGE CLIENT */
+    /* BLOC SAISIE PASSAGE CLIENT */
     .entry-panel {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -432,11 +471,7 @@
       margin-bottom: 10px;
       gap: 8px;
     }
-    .entry-head h2 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink);
-    }
+    .entry-head h2 { font-size: 14px; font-weight: 700; color: var(--ink); }
     .entry-row-1 {
       display: grid;
       grid-template-columns: 120px 1.4fr 1.1fr 1fr 1fr 175px;
@@ -444,12 +479,8 @@
       margin-bottom: 10px;
     }
     .entry-row-1 > * { min-width: 0; }
-    @media (max-width: 1040px) {
-      .entry-row-1 { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 620px) {
-      .entry-row-1 { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 1040px) { .entry-row-1 { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 620px) { .entry-row-1 { grid-template-columns: 1fr; } }
 
     .entry-row-2 {
       display: grid;
@@ -460,11 +491,7 @@
     }
     @media (max-width: 820px) { .entry-row-2 { grid-template-columns: 1fr; } }
 
-    .outcome-segments {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
+    .outcome-segments { display: flex; flex-wrap: wrap; gap: 6px; }
     .seg-btn {
       padding: 7px 12px;
       border: 1px solid var(--border-strong);
@@ -481,23 +508,13 @@
       transition: all 0.12s;
     }
     .seg-btn:hover { background: var(--soft); color: var(--ink); }
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
     .dot-interesse { background: var(--amber); }
     .dot-rappeler { background: var(--blue); }
     .dot-signe { background: var(--green); }
     .dot-absent { background: var(--muted); }
     .dot-refus { background: var(--red); }
-
-    .seg-btn.active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
+    .seg-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
     .entry-row-3 {
       display: grid;
@@ -507,12 +524,7 @@
     }
     @media (max-width: 720px) { .entry-row-3 { grid-template-columns: 1fr; } }
 
-    .quick-notes-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
+    .quick-notes-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
     .q-chip {
       background: var(--soft);
       border: 1px solid var(--border);
@@ -541,12 +553,13 @@
     }
     .btn-submit:hover { background: #1E293B; }
 
-    /* FILTRES & TABLEAU JOURNAL */
+    /* JOURNAL DES PASSAGES */
     .journal-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
+      margin-bottom: 16px;
     }
     .filter-bar {
       padding: 12px 14px;
@@ -561,12 +574,8 @@
       gap: 8px;
       align-items: center;
     }
-    @media (max-width: 680px) { .filter-top { grid-template-columns: 1fr; } }
-    .filter-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
+    @media (max-width: 720px) { .filter-top { grid-template-columns: 1fr; } }
+    .filter-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
     .f-tab {
       padding: 4px 10px;
       border-radius: 5px;
@@ -583,7 +592,7 @@
 
     .visits-table-head {
       display: grid;
-      grid-template-columns: 105px 86px 1.25fr 1.6fr 235px;
+      grid-template-columns: 130px 86px 1.2fr 1.55fr 235px;
       gap: 12px;
       padding: 9px 14px;
       background: var(--bg);
@@ -598,7 +607,7 @@
 
     .visit-row {
       display: grid;
-      grid-template-columns: 105px 86px 1.25fr 1.6fr 235px;
+      grid-template-columns: 130px 86px 1.2fr 1.55fr 235px;
       gap: 12px;
       padding: 12px 14px;
       border-bottom: 1px solid var(--border);
@@ -607,30 +616,12 @@
     .visit-row:last-child { border-bottom: none; }
     .visit-row:hover { background: #FAFCFF; }
     .visit-row > * { min-width: 0; }
-    @media (max-width: 960px) {
-      .visit-row { grid-template-columns: 1fr; gap: 6px; }
-    }
+    @media (max-width: 960px) { .visit-row { grid-template-columns: 1fr; gap: 6px; } }
 
-    .col-when {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--slate);
-    }
-    .col-rep {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .shop-name {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 2px;
-    }
-    .shop-sub {
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .col-when { font-size: 12px; font-weight: 600; color: var(--slate); }
+    .col-rep { font-size: 12px; font-weight: 700; color: var(--ink); }
+    .shop-name { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .shop-sub { font-size: 12px; color: var(--muted); }
     .shop-sub a { color: var(--blue); text-decoration: none; font-weight: 600; }
 
     .status-pill {
@@ -650,17 +641,8 @@
     .st-absent    { background: var(--soft);       color: var(--slate); border-color: var(--border); }
     .st-refus     { background: var(--red-soft);   color: #991B1B; border-color: #FECACA; }
 
-    .answer-text {
-      font-size: 12.5px;
-      color: var(--ink);
-      word-break: break-word;
-    }
-    .recall-note {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--blue);
-      margin-top: 3px;
-    }
+    .answer-text { font-size: 12.5px; color: var(--ink); word-break: break-word; }
+    .recall-note { font-size: 11.5px; font-weight: 600; color: var(--blue); margin-top: 3px; }
 
     .row-actions {
       display: flex;
@@ -684,17 +666,50 @@
     .act-btn:hover { background: var(--soft); color: var(--ink); }
     .act-btn.del { color: var(--red); border-color: #FECACA; }
 
-    .empty-box {
-      text-align: center;
-      padding: 36px 16px;
+    .empty-box { text-align: center; padding: 34px 16px; color: var(--muted); }
+    .empty-box strong { display: block; color: var(--ink); font-size: 14px; margin-bottom: 4px; }
+
+    /* HISTORIQUE PAR SEMAINE */
+    .history-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .history-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .history-head h3 { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+    .history-head span { font-size: 12px; color: var(--muted); }
+    .hist-table-wrap { overflow-x: auto; }
+    .hist-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .hist-table th, .hist-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .hist-table th {
+      background: var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
       color: var(--muted);
     }
-    .empty-box strong {
-      display: block;
-      color: var(--ink);
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
+    .hist-table tr:last-child td { border-bottom: none; }
+    .hist-table tr.is-current { background: #F8FAFC; }
+    .hist-ok { color: var(--green); font-weight: 700; }
 
     /* TOAST & MODAL */
     .toast {
@@ -763,7 +778,7 @@
         <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
         <button type="button" class="pin-key" onclick="clearPin()" style="font-size:12.5px; color:#94A3B8;">Effacer</button>
         <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
-        <button type="button" class="pin-key" onclick="backspacePin()">←</button>
+        <button type="button" class="pin-key" onclick="backspacePin()">&larr;</button>
       </div>
       <a href="../index.html" style="color:#64748B; font-size:12px; text-decoration:none;">Retour au site</a>
     </div>
@@ -785,31 +800,39 @@
   </header>
 
   <div class="container">
-    <!-- BARRE DATE & RESUME EQUIPE -->
-    <div class="day-bar">
-      <div class="day-controls">
-        <span class="lbl-inline">Journée :</span>
-        <input type="date" id="activeDateInp" class="date-inp" onchange="onActiveDateChange()">
-        <button type="button" class="btn-plain" onclick="jumpToToday()">Aujourd'hui</button>
+    <!-- BARRE NAVIGATION PAR SEMAINE -->
+    <div class="week-bar">
+      <div class="week-controls">
+        <button type="button" class="btn-plain" onclick="shiftWeek(-7)">&larr; Semaine préc.</button>
+        <span class="week-range-badge" id="weekRangeLabel">Semaine du ...</span>
+        <button type="button" class="btn-plain" onclick="shiftWeek(7)">Semaine suiv. &rarr;</button>
+        <input type="date" id="activeDateInp" class="date-inp" onchange="onActiveDateChange()" title="Aller à une date / semaine">
+        <button type="button" class="btn-plain" onclick="jumpToThisWeek()">Cette semaine</button>
         <button type="button" id="allRepsBtn" class="btn-plain is-active" onclick="filterByRep('all')">Voir les 3 démarcheurs</button>
       </div>
       <div class="team-summary">
-        <span>Équipe : <strong id="teamTotalGoalText">0 / 45 démarchages</strong></span>
+        <span>Semaine : <strong id="teamTotalGoalText">0 / 45 démarchages</strong></span>
         <span class="team-sub" id="teamSignedSummary">(0 intéressé · 0 signé)</span>
+        <span class="team-sub" id="teamHistoryTotal">Historique : 0</span>
       </div>
     </div>
 
-    <!-- 3 CARTES OBJECTIFS (JALIL, MEHDI, MINO) -->
+    <!-- 3 CARTES OBJECTIFS HEBDOMADAIRES (15 / SEMAINE CHACUN) -->
     <div class="reps-grid" id="repsCardsContainer"></div>
 
-    <!-- BARRE HORAIRES COMPACTE 1 LIGNE -->
-    <section class="hours-bar">
-      <div class="hours-bar-inner">
-        <div class="hours-bar-head">
+    <!-- BLOC HORAIRES SUR LA SEMAINE -->
+    <section class="hours-panel">
+      <div class="hours-top-bar">
+        <div>
           <strong>Horaires de <span id="hoursRepTitle">Jalil</span></strong>
-          <span id="hoursDateBadge">Aujourd'hui</span>
+          <span style="color:var(--muted); font-size:12px; margin-left:8px;" id="hoursSelectedDayLabel">Samedi 21/11</span>
         </div>
+        <span style="font-size:12px; color:var(--slate);" id="repWeekHoursSummary">Cumul semaine : 0h00</span>
+      </div>
 
+      <div class="days-strip" id="weekDaysStrip"></div>
+
+      <div class="hours-bar-inner">
         <div class="time-field-wrap">
           <div class="field-lbl">
             <span>Arrivée</span>
@@ -844,9 +867,11 @@
         </div>
 
         <div class="hours-net-box" id="hoursSummaryBar">
-          Temps actif : <strong>—</strong>
+          Jour : <strong>—</strong>
         </div>
       </div>
+
+      <div class="week-hours-log" id="weekHoursLogRow"></div>
     </section>
 
     <!-- SAISIE RAPIDE PASSAGE CLIENT -->
@@ -950,9 +975,9 @@
             <option value="Mino">Mino</option>
           </select>
           <select id="periodFilter" class="sel" style="width:auto;" onchange="renderJournal()">
-            <option value="day">Journée sélectionnée</option>
-            <option value="week">7 derniers jours</option>
-            <option value="all">Tout l'historique</option>
+            <option value="week">Semaine sélectionnée (Lun – Dim)</option>
+            <option value="all">Tout l'historique (toutes les semaines)</option>
+            <option value="day">Jour sélectionné uniquement</option>
           </select>
         </div>
         <div class="filter-tabs" id="statusFilterPills">
@@ -975,17 +1000,41 @@
 
       <div id="visitsListContainer"></div>
     </section>
+
+    <!-- HISTORIQUE PAR SEMAINE -->
+    <section class="history-card">
+      <div class="history-head">
+        <h3>Historique par semaine</h3>
+        <span>Cliquez sur « Ouvrir » pour consulter une semaine passée</span>
+      </div>
+      <div class="hist-table-wrap">
+        <table class="hist-table">
+          <thead>
+            <tr>
+              <th>Semaine (Lundi – Dimanche)</th>
+              <th>Jalil (/15)</th>
+              <th>Mehdi (/15)</th>
+              <th>Mino (/15)</th>
+              <th>Équipe (/45)</th>
+              <th>Heures cumulées</th>
+              <th>Accès</th>
+            </tr>
+          </thead>
+          <tbody id="weeklyHistoryBody"></tbody>
+        </table>
+      </div>
+    </section>
   </div>
 
-  <!-- MODAL PARTAGE BILAN -->
+  <!-- MODAL PARTAGE BILAN HEBDO -->
   <div id="syncModal" class="modal-backdrop" onclick="if(event.target===this)closeShareSyncModal()">
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <h3 style="font-size:15px; font-weight:700;">Partager le bilan &amp; synchroniser</h3>
-        <button type="button" onclick="closeShareSyncModal()" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--slate);">✕</button>
+        <h3 style="font-size:15px; font-weight:700;">Partager le bilan de la semaine</h3>
+        <button type="button" onclick="closeShareSyncModal()" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--slate);">&times;</button>
       </div>
       <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">
-        Envoyez le récapitulatif du jour sur WhatsApp. Le lien inclus permet d'importer et de fusionner automatiquement ces passages et horaires sur un autre appareil.
+        Envoyez le récapitulatif de la semaine sélectionnée sur WhatsApp. Le lien inclus permet d'importer et de fusionner automatiquement les passages et horaires de la semaine sur un autre appareil.
       </p>
 
       <div style="margin-bottom:10px;">
@@ -998,7 +1047,7 @@
         </select>
       </div>
 
-      <textarea id="syncTextPreview" class="ta" rows="8" readonly style="font-size:12px; background:var(--bg); margin-bottom:10px;"></textarea>
+      <textarea id="syncTextPreview" class="ta" rows="9" readonly style="font-size:12px; background:var(--bg); margin-bottom:10px;"></textarea>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
         <button type="button" class="btn-submit" style="width:100%;" onclick="sendSyncWhatsApp()">Envoyer sur WhatsApp</button>
@@ -1006,9 +1055,9 @@
       </div>
 
       <div style="padding-top:10px; border-top:1px solid var(--border); display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-        <button type="button" class="btn-plain" onclick="downloadBackupJson()">Sauvegarde JSON</button>
+        <button type="button" class="btn-plain" onclick="downloadBackupJson()">Sauvegarde JSON complète</button>
         <label class="btn-plain" style="display:inline-flex; align-items:center; cursor:pointer;">
-          Importer un JSON
+          Importer / Fusionner JSON
           <input type="file" accept=".json" style="display:none;" onchange="importBackupJson(event)">
         </label>
       </div>
@@ -1019,7 +1068,9 @@
 
   <script>
     const REPS = ['Jalil', 'Mehdi', 'Mino'];
-    const DAILY_GOAL = 15;
+    const WEEKLY_GOAL = 15;
+    const DAY_SHORT = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+    const DAY_LONG = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
     const OUTCOME_META = {
       interesse: { label: 'Intéressé', cls: 'st-interesse', dot: 'dot-interesse' },
@@ -1039,16 +1090,61 @@
     let selectedOutcome = 'interesse';
     let statusFilter = 'all';
 
+    /* =============== UTILITAIRES DATES LOCALES (SANS DECALAGE UTC) =============== */
+    function pad2(n) { return String(n).padStart(2, '0'); }
+
+    function parseLocalYmd(ymd) {
+      const [y, m, d] = String(ymd || '').split('-').map(Number);
+      if (!y || !m || !d) return new Date();
+      return new Date(y, m - 1, d, 12, 0, 0);
+    }
+
+    function toYmd(dateObj) {
+      return `${dateObj.getFullYear()}-${pad2(dateObj.getMonth() + 1)}-${pad2(dateObj.getDate())}`;
+    }
+
     function todayIso() {
-      const d = new Date();
-      const pad = n => String(n).padStart(2, '0');
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      return toYmd(new Date());
     }
 
     function nowDateTimeLocal() {
       const d = new Date();
-      const pad = n => String(n).padStart(2, '0');
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      return `${toYmd(d)}T${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+    }
+
+    function addDaysYmd(ymd, deltaDays) {
+      const d = parseLocalYmd(ymd);
+      d.setDate(d.getDate() + deltaDays);
+      return toYmd(d);
+    }
+
+    function getMondayYmd(ymd) {
+      const d = parseLocalYmd(ymd);
+      const dayShift = (d.getDay() + 6) % 7; // Lundi = 0 ... Dimanche = 6
+      d.setDate(d.getDate() - dayShift);
+      return toYmd(d);
+    }
+
+    function getWeekDays(mondayYmd) {
+      return DAY_SHORT.map((shortName, i) => {
+        const ymd = addDaysYmd(mondayYmd, i);
+        const [, m, dd] = ymd.split('-');
+        return { ymd, idx: i, shortName, fullName: DAY_LONG[i], dm: `${dd}/${m}` };
+      });
+    }
+
+    function formatWeekLabel(mondayYmd) {
+      const sundayYmd = addDaysYmd(mondayYmd, 6);
+      const [wy, wm, wd] = mondayYmd.split('-');
+      const [sy, sm, sd] = sundayYmd.split('-');
+      return `Semaine du Lun. ${wd}/${wm} au Dim. ${sd}/${sm}/${sy}`;
+    }
+
+    function formatDayFullLabel(ymd) {
+      const d = parseLocalYmd(ymd);
+      const idx = (d.getDay() + 6) % 7;
+      const [, m, dd] = ymd.split('-');
+      return `${DAY_LONG[idx]} ${dd}/${m}`;
     }
 
     function esc(s) {
@@ -1088,20 +1184,43 @@
       } catch (e) {}
     }
 
-    function getActiveDate() {
+    function getSelectedDay() {
       return document.getElementById('activeDateInp').value || todayIso();
     }
 
-    function onActiveDateChange() {
-      const dt = getActiveDate();
-      document.getElementById('hoursDateBadge').textContent = dt === todayIso() ? "Aujourd'hui" : dt;
-      loadRepHoursUI();
-      renderAll();
+    function getActiveWeekStart() {
+      return getMondayYmd(getSelectedDay());
     }
 
-    function jumpToToday() {
+    function getActiveWeekEnd() {
+      return addDaysYmd(getActiveWeekStart(), 6);
+    }
+
+    function shiftWeek(deltaDays) {
+      const next = addDaysYmd(getActiveWeekStart(), deltaDays);
+      document.getElementById('activeDateInp').value = next;
+      onActiveDateChange();
+    }
+
+    function jumpToThisWeek() {
       document.getElementById('activeDateInp').value = todayIso();
       onActiveDateChange();
+    }
+
+    function selectDayInWeek(ymd) {
+      document.getElementById('activeDateInp').value = ymd;
+      onActiveDateChange();
+    }
+
+    function jumpToWeek(mondayYmd, scrollTop = true) {
+      document.getElementById('activeDateInp').value = mondayYmd;
+      onActiveDateChange();
+      if (scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function onActiveDateChange() {
+      loadRepHoursUI();
+      renderAll();
     }
 
     function selectActiveRep(repId) {
@@ -1112,14 +1231,15 @@
       document.getElementById('hoursRepTitle').textContent = repId;
       loadRepHoursUI();
       renderRepCards();
-      updateHoursSummaryBar(getHoursObj(getActiveDate(), activeRep));
+      renderWeekDaysStrip();
+      updateHoursSummaryBar();
     }
 
     function syncActiveRepFromSelect() {
       selectActiveRep(document.getElementById('vRep').value);
     }
 
-    /* =============== HORAIRES =============== */
+    /* =============== HORAIRES JOURNALIERS & CUMUL SEMAINE =============== */
     function getHoursObj(dateStr, repId) {
       return (hoursMap[dateStr] && hoursMap[dateStr][repId])
         ? hoursMap[dateStr][repId]
@@ -1153,95 +1273,160 @@
       if (mins === null || mins === undefined) return '—';
       const h = Math.floor(mins / 60);
       const m = mins % 60;
-      return `${h}h${String(m).padStart(2, '0')}`;
+      return `${h}h${pad2(m)}`;
+    }
+
+    function getRepWeekHoursStats(mondayYmd, repId) {
+      const days = getWeekDays(mondayYmd);
+      let totalMins = 0;
+      let loggedDays = 0;
+      let inProgressStart = '';
+      days.forEach(d => {
+        const h = getHoursObj(d.ymd, repId);
+        if (h.start) {
+          const m = calcWorkedMinutes(h);
+          if (m !== null) {
+            totalMins += m;
+            loggedDays++;
+          } else {
+            inProgressStart = `${d.shortName} ${h.start.replace(':', 'h')}`;
+            loggedDays++;
+          }
+        }
+      });
+      return { totalMins, loggedDays, inProgressStart };
     }
 
     function loadRepHoursUI() {
-      const h = getHoursObj(getActiveDate(), activeRep);
+      const selYmd = getSelectedDay();
+      document.getElementById('hoursSelectedDayLabel').textContent = formatDayFullLabel(selYmd);
+      const h = getHoursObj(selYmd, activeRep);
       document.getElementById('hrStart').value = h.start || '';
       document.getElementById('hrEnd').value = h.end || '';
       document.getElementById('hrBreakMin').value = String(getPauseMinutes(h));
       document.getElementById('hrZone').value = h.zone || '';
-      updateHoursSummaryBar(h);
+      updateHoursSummaryBar();
     }
 
     function saveRepHours() {
-      const d = getActiveDate();
+      const d = getSelectedDay();
       if (!hoursMap[d]) hoursMap[d] = {};
-      const h = {
+      hoursMap[d][activeRep] = {
         start: document.getElementById('hrStart').value,
         end: document.getElementById('hrEnd').value,
         pauseMin: parseInt(document.getElementById('hrBreakMin').value, 10) || 0,
         zone: document.getElementById('hrZone').value.trim()
       };
-      hoursMap[d][activeRep] = h;
       saveAllData();
-      updateHoursSummaryBar(h);
+      updateHoursSummaryBar();
+      renderWeekDaysStrip();
+      renderWeekHoursLog();
       renderRepCards();
+      renderWeeklyHistory();
     }
 
     function punchNow(field) {
       const d = new Date();
-      const hhmm = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+      const hhmm = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
       if (field === 'start') document.getElementById('hrStart').value = hhmm;
       if (field === 'end') document.getElementById('hrEnd').value = hhmm;
       saveRepHours();
       showToast(`${activeRep} — heure enregistrée (${hhmm})`);
     }
 
-    function updateHoursSummaryBar(h) {
-      const d = getActiveDate();
-      const count = visitLogs.filter(v => v.rep === activeRep && (v.visitedAt || '').slice(0, 10) === d).length;
-      const mins = calcWorkedMinutes(h);
-      const durText = mins !== null ? formatMins(mins) : (h && h.start ? `Dès ${h.start}` : '—');
-      let rateText = '';
-      if (mins && mins >= 30 && count > 0) {
-        rateText = ` · ${(count / (mins / 60)).toFixed(1).replace('.', ',')} visites/h`;
-      }
-      document.getElementById('hoursSummaryBar').innerHTML = `Temps actif : <strong>${esc(durText)}</strong>${esc(rateText)}`;
+    function updateHoursSummaryBar() {
+      const selYmd = getSelectedDay();
+      const monYmd = getActiveWeekStart();
+      const h = getHoursObj(selYmd, activeRep);
+      const dayMins = calcWorkedMinutes(h);
+      const dayTxt = dayMins !== null ? formatMins(dayMins) : (h.start ? `Dès ${h.start.replace(':', 'h')}` : '—');
+      const weekStats = getRepWeekHoursStats(monYmd, activeRep);
+      document.getElementById('hoursSummaryBar').innerHTML = `Jour : <strong>${esc(dayTxt)}</strong>`;
+      document.getElementById('repWeekHoursSummary').textContent = `Cumul semaine ${activeRep} : ${formatMins(weekStats.totalMins)} (${weekStats.loggedDays} j. pointé${weekStats.loggedDays > 1 ? 's' : ''})`;
     }
 
-    /* =============== CARTES DES 3 DEMARCHEURS =============== */
+    function renderWeekDaysStrip() {
+      const selYmd = getSelectedDay();
+      const days = getWeekDays(getActiveWeekStart());
+      document.getElementById('weekDaysStrip').innerHTML = days.map(d => {
+        const h = getHoursObj(d.ymd, activeRep);
+        const mins = calcWorkedMinutes(h);
+        const durLabel = mins !== null ? formatMins(mins) : (h.start ? h.start.replace(':', 'h') : '—');
+        const hasCls = h.start ? 'has-hours' : '';
+        const actCls = d.ymd === selYmd ? 'active' : '';
+        return `
+          <button type="button" class="day-pill ${actCls} ${hasCls}" onclick="selectDayInWeek('${d.ymd}')">
+            <span>${d.shortName} ${d.dm}</span>
+            <span class="day-dur">${esc(durLabel)}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderWeekHoursLog() {
+      const days = getWeekDays(getActiveWeekStart());
+      const items = [];
+      days.forEach(d => {
+        REPS.forEach(rep => {
+          const h = getHoursObj(d.ymd, rep);
+          if (h.start) {
+            const mins = calcWorkedMinutes(h);
+            const span = h.end ? `${h.start.replace(':', 'h')}-${h.end.replace(':', 'h')} (${formatMins(mins)})` : `dès ${h.start.replace(':', 'h')}`;
+            items.push(`<button type="button" class="hour-log-chip" onclick="selectActiveRep('${rep}'); selectDayInWeek('${d.ymd}');"><strong>${rep}</strong> ${d.shortName} ${d.dm} : ${esc(span)}${h.zone ? ' · ' + esc(h.zone) : ''}</button>`);
+          }
+        });
+      });
+      const box = document.getElementById('weekHoursLogRow');
+      if (!items.length) {
+        box.innerHTML = `<span style="color:var(--muted);">Aucun horaire saisi sur cette semaine.</span>`;
+      } else {
+        box.innerHTML = `<span style="color:var(--muted); font-weight:600;">Horaires saisis cette semaine :</span>` + items.join('');
+      }
+    }
+
+    /* =============== CARTES DES 3 DEMARCHEURS (SEMAINE EN COURS) =============== */
     function renderRepCards() {
-      const d = getActiveDate();
-      let teamDayTotal = 0;
+      const monYmd = getActiveWeekStart();
+      const sunYmd = getActiveWeekEnd();
+      let teamWeekTotal = 0;
       let teamInterested = 0;
       let teamSigned = 0;
 
       const html = REPS.map(rep => {
-        const dayLogs = visitLogs.filter(v => v.rep === rep && (v.visitedAt || '').slice(0, 10) === d);
-        const count = dayLogs.length;
-        teamDayTotal += count;
+        const weekLogs = visitLogs.filter(v => {
+          const ymd = (v.visitedAt || '').slice(0, 10);
+          return v.rep === rep && ymd >= monYmd && ymd <= sunYmd;
+        });
+        const totalHistCount = visitLogs.filter(v => v.rep === rep).length;
 
-        const inter = dayLogs.filter(v => v.outcome === 'interesse').length;
-        const rec = dayLogs.filter(v => v.outcome === 'rappeler').length;
-        const sig = dayLogs.filter(v => v.outcome === 'signe').length;
+        const count = weekLogs.length;
+        teamWeekTotal += count;
+
+        const inter = weekLogs.filter(v => v.outcome === 'interesse').length;
+        const rec = weekLogs.filter(v => v.outcome === 'rappeler').length;
+        const sig = weekLogs.filter(v => v.outcome === 'signe').length;
         teamInterested += inter;
         teamSigned += sig;
 
-        const pct = Math.min(100, Math.round((count / DAILY_GOAL) * 100));
-        const reached = count >= DAILY_GOAL;
-        const h = getHoursObj(d, rep);
-        const mins = calcWorkedMinutes(h);
-        let hourTxt = 'Horaires non renseignés';
-        if (h.start) {
-          hourTxt = h.end
-            ? `${h.start.replace(':', 'h')} – ${h.end.replace(':', 'h')} (${formatMins(mins)})`
-            : `Arrivé à ${h.start.replace(':', 'h')}`;
-          if (h.zone) hourTxt += ` · ${h.zone}`;
-        } else if (h.zone) {
-          hourTxt = h.zone;
+        const pct = Math.min(100, Math.round((count / WEEKLY_GOAL) * 100));
+        const reached = count >= WEEKLY_GOAL;
+        const hStats = getRepWeekHoursStats(monYmd, rep);
+        let hourTxt = 'Aucun horaire pointé cette semaine';
+        if (hStats.loggedDays > 0) {
+          hourTxt = hStats.totalMins > 0
+            ? `Cumul semaine : ${formatMins(hStats.totalMins)} (${hStats.loggedDays} j. pointé${hStats.loggedDays > 1 ? 's' : ''})`
+            : `Pointé (${hStats.inProgressStart || hStats.loggedDays + ' j.'})`;
         }
 
-        const goalTag = reached
-          ? `<span class="rep-goal-tag reached">Objectif atteint</span>`
-          : `<span class="rep-goal-tag">Reste ${DAILY_GOAL - count} avant 15</span>`;
+        const rightFooter = reached
+          ? `<span class="rep-hist-total reached">Objectif atteint · Total hist. ${totalHistCount}</span>`
+          : `<span class="rep-hist-total">Reste ${WEEKLY_GOAL - count} · Total hist. ${totalHistCount}</span>`;
 
         return `
           <div class="rep-card ${activeRep === rep ? 'active' : ''}" onclick="onRepCardClick('${rep}')">
             <div class="rep-row-top">
               <span class="rep-name">${rep}</span>
-              <span class="rep-score ${reached ? 'reached' : ''}">${count} <small>/ ${DAILY_GOAL}</small></span>
+              <span class="rep-score ${reached ? 'reached' : ''}">${count} <small>/ ${WEEKLY_GOAL} sem.</small></span>
             </div>
             <div class="rep-hours-txt">${esc(hourTxt)}</div>
             <div class="progress-track">
@@ -1249,15 +1434,17 @@
             </div>
             <div class="rep-footer">
               <span>${inter} intéressé${inter > 1 ? 's' : ''} · ${rec} à rappeler · ${sig} signé${sig > 1 ? 's' : ''}</span>
-              ${goalTag}
+              ${rightFooter}
             </div>
           </div>
         `;
       }).join('');
 
+      document.getElementById('weekRangeLabel').textContent = formatWeekLabel(monYmd);
       document.getElementById('repsCardsContainer').innerHTML = html;
-      document.getElementById('teamTotalGoalText').textContent = `${teamDayTotal} / 45 démarchages`;
+      document.getElementById('teamTotalGoalText').textContent = `${teamWeekTotal} / 45 démarchages`;
       document.getElementById('teamSignedSummary').textContent = `(${teamInterested} intéressé${teamInterested > 1 ? 's' : ''} · ${teamSigned} signé${teamSigned > 1 ? 's' : ''})`;
+      document.getElementById('teamHistoryTotal').textContent = `Historique total : ${visitLogs.length}`;
     }
 
     function onRepCardClick(repId) {
@@ -1278,9 +1465,7 @@
     }
 
     /* =============== SAISIE PASSAGE CLIENT =============== */
-    function parseContactAndPhone(rawContactPhone, separatePhone) {
-      // Compatibilité avec anciennes entrées (contact + phone séparés) ou saisie combinée
-      if (separatePhone !== undefined) return { contact: rawContactPhone || '', phone: separatePhone || '' };
+    function parseContactAndPhone(rawContactPhone) {
       const str = String(rawContactPhone || '').trim();
       if (!str) return { contact: '', phone: '' };
       const phoneMatch = str.match(/(?:\+33|0)[1-9](?:[\s.-]?\d{2}){4}/);
@@ -1301,9 +1486,7 @@
       recallWrap.style.display = (st === 'rappeler' || st === 'absent') ? 'block' : 'none';
       if ((st === 'rappeler' || st === 'absent') && !document.getElementById('vRecallAt').value) {
         const tomorrow = new Date(Date.now() + 24 * 3600 * 1000);
-        tomorrow.setHours(15, 0, 0, 0);
-        const pad = n => String(n).padStart(2, '0');
-        document.getElementById('vRecallAt').value = `${tomorrow.getFullYear()}-${pad(tomorrow.getMonth() + 1)}-${pad(tomorrow.getDate())}T15:00`;
+        document.getElementById('vRecallAt').value = `${toYmd(tomorrow)}T15:00`;
       }
     }
 
@@ -1406,21 +1589,25 @@
       if (!iso) return '';
       const d = new Date(iso);
       if (isNaN(d)) return iso;
-      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' · ' +
-        d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+      const wIdx = (d.getDay() + 6) % 7;
+      const hh = pad2(d.getHours());
+      const mm = pad2(d.getMinutes());
+      const monthDay = d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+      return `${DAY_SHORT[wIdx]}. ${monthDay} · ${hh}h${mm}`;
     }
 
     function renderJournal() {
       const q = (document.getElementById('searchJournal').value || '').trim().toLowerCase();
       const period = document.getElementById('periodFilter').value;
       const repF = document.getElementById('repFilter').value;
-      const actDate = getActiveDate();
-      const weekAgo = new Date(new Date(actDate).getTime() - 6 * 86400000).toISOString().slice(0, 10);
+      const selYmd = getSelectedDay();
+      const monYmd = getActiveWeekStart();
+      const sunYmd = getActiveWeekEnd();
 
       const list = visitLogs.filter(v => {
         const vDay = (v.visitedAt || '').slice(0, 10);
-        if (period === 'day' && vDay !== actDate) return false;
-        if (period === 'week' && (vDay < weekAgo || vDay > actDate)) return false;
+        if (period === 'week' && (vDay < monYmd || vDay > sunYmd)) return false;
+        if (period === 'day' && vDay !== selYmd) return false;
         if (repF !== 'all' && v.rep !== repF) return false;
         if (statusFilter !== 'all' && v.outcome !== statusFilter) return false;
         if (q) {
@@ -1434,8 +1621,8 @@
       if (list.length === 0) {
         box.innerHTML = `
           <div class="empty-box">
-            <strong>Aucun démarchage affiché pour cette sélection</strong>
-            <span>Enregistrez un passage ci-dessus ou changez la période sur « Tout l'historique ».</span>
+            <strong>Aucun démarchage sur cette sélection</strong>
+            <span>Enregistrez un passage ci-dessus ou basculez la période sur « Tout l'historique ».</span>
           </div>
         `;
         return;
@@ -1482,10 +1669,66 @@
       }).join('');
     }
 
+    /* =============== HISTORIQUE PAR SEMAINE =============== */
+    function renderWeeklyHistory() {
+      const currentMonday = getActiveWeekStart();
+      const weekKeys = new Set([currentMonday]);
+
+      visitLogs.forEach(v => {
+        const ymd = (v.visitedAt || '').slice(0, 10);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(ymd)) weekKeys.add(getMondayYmd(ymd));
+      });
+      Object.keys(hoursMap).forEach(ymd => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(ymd)) {
+          const dayHrs = hoursMap[ymd] || {};
+          const hasAny = REPS.some(r => dayHrs[r] && dayHrs[r].start);
+          if (hasAny) weekKeys.add(getMondayYmd(ymd));
+        }
+      });
+
+      const sortedWeeks = [...weekKeys].sort((a, b) => b.localeCompare(a));
+      const tbody = document.getElementById('weeklyHistoryBody');
+
+      tbody.innerHTML = sortedWeeks.map(monYmd => {
+        const sunYmd = addDaysYmd(monYmd, 6);
+        const wLogs = visitLogs.filter(v => {
+          const ymd = (v.visitedAt || '').slice(0, 10);
+          return ymd >= monYmd && ymd <= sunYmd;
+        });
+        const jCount = wLogs.filter(v => v.rep === 'Jalil').length;
+        const mCount = wLogs.filter(v => v.rep === 'Mehdi').length;
+        const nCount = wLogs.filter(v => v.rep === 'Mino').length;
+        const total = wLogs.length;
+
+        let totalTeamMins = 0;
+        REPS.forEach(r => { totalTeamMins += getRepWeekHoursStats(monYmd, r).totalMins; });
+        const isCurrent = monYmd === currentMonday;
+
+        return `
+          <tr class="${isCurrent ? 'is-current' : ''}">
+            <td><strong>${esc(formatWeekLabel(monYmd))}</strong>${isCurrent ? ' <span style="color:var(--blue);font-size:11px;">(Affichée)</span>' : ''}</td>
+            <td class="${jCount >= WEEKLY_GOAL ? 'hist-ok' : ''}">${jCount} / 15</td>
+            <td class="${mCount >= WEEKLY_GOAL ? 'hist-ok' : ''}">${mCount} / 15</td>
+            <td class="${nCount >= WEEKLY_GOAL ? 'hist-ok' : ''}">${nCount} / 15</td>
+            <td><strong>${total} / 45</strong></td>
+            <td>${totalTeamMins > 0 ? formatMins(totalTeamMins) : '—'}</td>
+            <td>
+              ${isCurrent
+                ? `<span style="color:var(--muted);font-size:11.5px;">Active</span>`
+                : `<button type="button" class="act-btn" onclick="jumpToWeek('${monYmd}')">Ouvrir</button>`}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
     function renderAll() {
       renderRepCards();
-      updateHoursSummaryBar(getHoursObj(getActiveDate(), activeRep));
+      renderWeekDaysStrip();
+      updateHoursSummaryBar();
+      renderWeekHoursLog();
       renderJournal();
+      renderWeeklyHistory();
     }
 
     /* =============== PONTS AVEC CARTE & SUIVI =============== */
@@ -1536,8 +1779,7 @@
         const pInfo = rawProspects.find(p => p.address === addr) || {};
         const shopName = pInfo.name || addr.split(',')[0] || addr;
         const tsIso = new Date(data.ts || Date.now());
-        const pad = n => String(n).padStart(2, '0');
-        const dtLocal = `${tsIso.getFullYear()}-${pad(tsIso.getMonth() + 1)}-${pad(tsIso.getDate())}T${pad(tsIso.getHours())}:${pad(tsIso.getMinutes())}`;
+        const dtLocal = `${toYmd(tsIso)}T${pad2(tsIso.getHours())}:${pad2(tsIso.getMinutes())}`;
 
         const exists = visitLogs.some(l => l.shop === shopName && (l.visitedAt || '').slice(0, 10) === dtLocal.slice(0, 10));
         if (!exists) {
@@ -1567,10 +1809,11 @@
       }
     }
 
-    /* =============== EXPORT CSV & SYNCHRO EQUIPE =============== */
+    /* =============== EXPORT CSV & SYNCHRO HEBDO =============== */
     function exportCsvReport() {
       const headers = ['Date_Heure', 'Demarcheur', 'Commerce', 'Secteur', 'Interlocuteur', 'Telephone', 'Ville', 'Reponse', 'Rappel', 'Notes_Reponse'];
-      const rows = visitLogs.map(v => [
+      const sorted = [...visitLogs].sort((a, b) => (b.visitedAt || '').localeCompare(a.visitedAt || ''));
+      const rows = sorted.map(v => [
         v.visitedAt, v.rep, v.shop, v.sector, v.contact, v.phone, v.city,
         (OUTCOME_META[v.outcome]?.label || v.outcome), v.recallAt || '', (v.answer || '').replace(/\n/g, ' ')
       ].map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(';'));
@@ -1580,7 +1823,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Travail-Equipe-${getActiveDate()}.csv`;
+      a.download = `Travail-Historique-Semaine-${getActiveWeekStart()}.csv`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -1606,13 +1849,29 @@
     function closeShareSyncModal() { document.getElementById('syncModal').classList.remove('open'); }
 
     function buildSyncPayloadPreview() {
-      const d = getActiveDate();
+      const monYmd = getActiveWeekStart();
+      const sunYmd = getActiveWeekEnd();
+      const days = getWeekDays(monYmd);
       const targetRep = document.getElementById('syncRepSelect').value;
-      const filteredLogs = visitLogs.filter(v => (v.visitedAt || '').slice(0, 10) === d && (targetRep === 'all' || v.rep === targetRep));
-      const payload = { date: d, logs: filteredLogs, hours: {} };
-      (targetRep === 'all' ? REPS : [targetRep]).forEach(rId => {
-        if (hoursMap[d] && hoursMap[d][rId]) payload.hours[rId] = hoursMap[d][rId];
+      const repsIncluded = targetRep === 'all' ? REPS : [targetRep];
+
+      const filteredLogs = visitLogs.filter(v => {
+        const ymd = (v.visitedAt || '').slice(0, 10);
+        return ymd >= monYmd && ymd <= sunYmd && repsIncluded.includes(v.rep);
       });
+
+      const hoursByDay = {};
+      days.forEach(d => {
+        repsIncluded.forEach(rId => {
+          const h = getHoursObj(d.ymd, rId);
+          if (h.start || h.zone) {
+            if (!hoursByDay[d.ymd]) hoursByDay[d.ymd] = {};
+            hoursByDay[d.ymd][rId] = h;
+          }
+        });
+      });
+
+      const payload = { weekStart: monYmd, logs: filteredLogs, hoursMap: hoursByDay };
 
       let syncUrl = '';
       try {
@@ -1620,16 +1879,17 @@
         syncUrl = `${window.location.origin}${window.location.pathname}?sync=${encoded}`;
       } catch (e) {}
 
-      const repSummaryLines = (targetRep === 'all' ? REPS : [targetRep]).map(rId => {
+      const repSummaryLines = repsIncluded.map(rId => {
         const rLogs = filteredLogs.filter(l => l.rep === rId);
-        const h = getHoursObj(d, rId);
-        const mins = calcWorkedMinutes(h);
-        const hrTxt = h.start ? `${h.start} -> ${h.end || '...'} (${formatMins(mins)})` : 'Horaires non renseignés';
-        const lines = rLogs.map(l => `  - ${(l.visitedAt || '').slice(11, 16)} | ${l.shop} [${OUTCOME_META[l.outcome]?.label || l.outcome}]${l.answer ? ' : ' + l.answer : ''}`).join('\n');
-        return `${rId} — ${rLogs.length}/15 démarchages | ${hrTxt}\n${lines || '  (Aucun passage saisi)'}`;
+        const hStats = getRepWeekHoursStats(monYmd, rId);
+        const hrTxt = hStats.loggedDays > 0
+          ? `${formatMins(hStats.totalMins)} (${hStats.loggedDays} j. pointés)`
+          : 'Aucun horaire saisi';
+        const lines = rLogs.map(l => `  - ${formatHumanDt(l.visitedAt)} | ${l.shop} [${OUTCOME_META[l.outcome]?.label || l.outcome}]${l.answer ? ' : ' + l.answer : ''}`).join('\n');
+        return `${rId} — ${rLogs.length}/15 semaine | Cumul horaires : ${hrTxt}\n${lines || '  (Aucun passage saisi)'}`;
       }).join('\n\n');
 
-      const txt = `BILAN TERRAIN BOOST MY SITE (${d})\n\n${repSummaryLines}${syncUrl && syncUrl.length < 3500 ? `\n\nLien synchro directe (ouvrir pour importer) :\n${syncUrl}` : ''}`;
+      const txt = `BILAN HEBDO BOOST MY SITE — ${formatWeekLabel(monYmd)}\n\n${repSummaryLines}${syncUrl && syncUrl.length < 3500 ? `\n\nLien synchro directe (ouvrir pour importer) :\n${syncUrl}` : ''}`;
       document.getElementById('syncTextPreview').value = txt;
     }
 
@@ -1654,12 +1914,12 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Travail-Sync-${todayIso()}.json`;
+      a.download = `Travail-Historique-Complet-${todayIso()}.json`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      showToast('Sauvegarde JSON téléchargée.');
+      showToast('Sauvegarde JSON complète téléchargée.');
     }
 
     function mergeSyncPackage(pkg) {
@@ -1719,7 +1979,8 @@
         if (!raw) return;
         const pkg = JSON.parse(b64DecodeUnicode(raw));
         const added = mergeSyncPackage(pkg);
-        if (pkg.date) document.getElementById('activeDateInp').value = pkg.date;
+        if (pkg.weekStart) document.getElementById('activeDateInp').value = pkg.weekStart;
+        else if (pkg.date) document.getElementById('activeDateInp').value = pkg.date;
         history.replaceState({}, '', window.location.pathname);
         showToast(`Synchro reçue : +${added} passage(s) importés.`);
       } catch (e) {}
